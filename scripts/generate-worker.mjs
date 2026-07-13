@@ -50,31 +50,73 @@ function loadEnv() {
   return { ...out, ...process.env };
 }
 const env = loadEnv();
+
+// ── provider switch: GEN_PROVIDER = codex | claude (override with --provider) ────
+const PROVIDER = String(opt('provider', env.GEN_PROVIDER || 'codex')).toLowerCase();
+
+// codex → Azure OpenAI Responses API
 const AZ_ENDPOINT = (env.AZURE_OPENAI_ENDPOINT || '').replace(/\/$/, '');
 const AZ_KEY = env.AZURE_OPENAI_API_KEY;
-const AZ_VER = env.AZURE_OPENAI_API_VERSION || '2024-08-01-preview';
 const AZ_MODEL = env.AZURE_TEXT_MODEL;
-if (!AZ_ENDPOINT || !AZ_KEY || !AZ_MODEL) {
-  console.error('Missing AZURE_OPENAI_ENDPOINT / AZURE_OPENAI_API_KEY / AZURE_TEXT_MODEL in .env');
+
+// claude → Azure AI Foundry Anthropic Messages API
+const CL_ENDPOINT = (env.AZURE_ANTHROPIC_ENDPOINT || '').replace(/\/$/, '');
+const CL_KEY = env.AZURE_ANTHROPIC_API_KEY;
+const CL_MODEL = env.AZURE_ANTHROPIC_MODEL || 'claude-opus-4-8';
+
+if (PROVIDER === 'claude') {
+  if (!CL_ENDPOINT || !CL_KEY) { console.error('claude provider needs AZURE_ANTHROPIC_ENDPOINT + AZURE_ANTHROPIC_API_KEY (+ AZURE_ANTHROPIC_MODEL) in .env'); process.exit(1); }
+} else if (!AZ_ENDPOINT || !AZ_KEY || !AZ_MODEL) {
+  console.error('codex provider needs AZURE_OPENAI_ENDPOINT / AZURE_OPENAI_API_KEY / AZURE_TEXT_MODEL in .env');
   process.exit(1);
 }
+log(`provider: ${PROVIDER} (${PROVIDER === 'claude' ? CL_MODEL : AZ_MODEL})`);
 
-// GPT-5 / codex-class deployments use the Responses API (/openai/v1/responses),
-// NOT chat/completions. System prompt -> `instructions`; vision via input_image.
-async function respond({ instructions, input, maxTokens = 16000 }) {
-  const url = `${AZ_ENDPOINT}/openai/v1/responses`;
+// One entry point; both accept Responses-style input ({role, content:[{type:'input_text'|'input_image'}]}).
+async function respond(args) { return PROVIDER === 'claude' ? respondClaude(args) : respondCodex(args); }
+
+// codex: Responses API — system prompt -> `instructions`, vision via input_image.
+async function respondCodex({ instructions, input, maxTokens = 16000 }) {
   const body = { model: AZ_MODEL, input, max_output_tokens: maxTokens };
   if (instructions) body.instructions = instructions;
-  const r = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'api-key': AZ_KEY },
-    body: JSON.stringify(body),
+  const r = await fetch(`${AZ_ENDPOINT}/openai/v1/responses`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'api-key': AZ_KEY }, body: JSON.stringify(body),
   });
   if (!r.ok) throw new Error(`azure ${r.status}: ${(await r.text()).slice(0, 300)}`);
   const j = await r.json();
-  return j.output_text
-    || (j.output || []).map((o) => (o.content || []).map((c) => c.text || '').join('')).join('')
-    || '';
+  return j.output_text || (j.output || []).map((o) => (o.content || []).map((c) => c.text || '').join('')).join('') || '';
+}
+
+// Convert Responses-style input into Anthropic Messages content blocks.
+function toAnthropic(input) {
+  const arr = Array.isArray(input) ? input : [{ role: 'user', content: input }];
+  return arr.map((m) => {
+    const raw = Array.isArray(m.content) ? m.content : [{ type: 'input_text', text: String(m.content) }];
+    const content = [];
+    for (const c of raw) {
+      if (c.type === 'input_text' || c.type === 'text') content.push({ type: 'text', text: c.text });
+      else if (c.type === 'input_image' || c.type === 'image') {
+        const u = typeof c.image_url === 'string' ? c.image_url : (c.image_url && c.image_url.url) || '';
+        const mm = /^data:(image\/[a-z]+);base64,(.*)$/i.exec(u);
+        if (mm) content.push({ type: 'image', source: { type: 'base64', media_type: mm[1], data: mm[2] } });
+      }
+    }
+    return { role: m.role || 'user', content };
+  });
+}
+
+// claude: Anthropic Messages API on Azure AI Foundry — system prompt -> `system`.
+async function respondClaude({ instructions, input, maxTokens = 16000 }) {
+  const body = { model: CL_MODEL, max_tokens: maxTokens, messages: toAnthropic(input) };
+  if (instructions) body.system = instructions;
+  const r = await fetch(`${CL_ENDPOINT}/v1/messages`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-api-key': CL_KEY, 'anthropic-version': '2023-06-01' },
+    body: JSON.stringify(body),
+  });
+  if (!r.ok) throw new Error(`claude ${r.status}: ${(await r.text()).slice(0, 300)}`);
+  const j = await r.json();
+  return (j.content || []).map((b) => b.text || '').join('') || '';
 }
 
 // ── store / queue ───────────────────────────────────────────────────────────────
@@ -150,6 +192,10 @@ async function author({ td, thumbs, useVision = true }) {
     `- Put -webkit-line-clamp on EVERY text run (headline 2-3 lines, body 3-4 lines) with line-height >= 1.14 and a few px padding-bottom.\n` +
     `- Keep copy TIGHT so it fits: cover headline <= ~32 chars, section headline <= ~40 chars, body <= ~140 chars, kicker/label <= ~24 chars. Fewer words beats clipped words.\n` +
     `- Absolutely-position each text block with a fixed max width well inside 1080; never let a block run to the slide edge.\n\n` +
+    `CRITICAL — RECOLORABILITY (scored by a brand-audit that swaps the palette and measures how many pixels change):\n` +
+    `- EVERY themeable color — page background, surfaces/cards, accent, the highlight, headline color on a dark bg, borders, the numeral/kicker color — MUST be var(--brand-<role>, <fallback-hex>). NEVER a bare hex for these.\n` +
+    `- Only pure body-copy black or white may be a literal color. Everything that gives the design its LOOK must flow from the brand tokens, exactly like the exemplar — otherwise the template fails to re-skin and scores badly.\n` +
+    `- Make the accent + backgrounds visibly brand-driven so a palette swap changes a large area of every slide.\n\n` +
     `=== GOLD-STANDARD EXEMPLAR — mirror this structure ===\n${EXEMPLAR}\n=== END EXEMPLAR ===\n\n` +
     `Return ONLY the complete HTML document.`;
   const content = [{ type: 'input_text', text: brief }];

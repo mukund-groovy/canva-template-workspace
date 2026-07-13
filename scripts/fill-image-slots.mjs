@@ -38,8 +38,11 @@ const PROBE = argv.includes('--probe');
 const DRY = argv.includes('--dry');
 const htmlPath = path.resolve(argv.find((a) => !a.startsWith('--')) || '');
 
-const repoRoot = process.cwd();
+// Standalone: workspace is the parent of this scripts/ dir; .env lives there.
+const workspaceRoot = path.resolve(path.dirname(process.argv[1] || '.'), '..');
+const repoRoot = path.resolve(workspaceRoot, '..');
 const ENV_FILES = [
+  path.join(workspaceRoot, '.env'),
   path.join(repoRoot, 'canva-template-workspace', '.env'),
   path.join(repoRoot, 'backend', 'services', 'content', '.env'),
 ];

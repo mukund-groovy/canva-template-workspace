@@ -30,3 +30,7 @@ replicas/
 # capture URL manifests contain Canva presigned S3 URLs (X-Amz-Credential) — never commit
 designs/*/extract/document-image-urls.json
 designs/*/extract/assets/download-manifest.json
+
+# generated slot photos (large, regenerable)
+output/.slot-images/
+*.imagelock

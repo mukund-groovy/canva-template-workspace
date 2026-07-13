@@ -288,19 +288,37 @@
     }
   },
   "black-purple-simple-3": {
-    "score": 6.7,
+    "score": 7.7,
+    "breakdown": {
+      "contract": 3.9,
+      "verify": 1.8,
+      "stress": 1.5,
+      "brand": 0.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 1,
+        "vFail": 0,
+        "vWarn": 4,
+        "stFail": 0,
+        "deckAvg": 1.05,
+        "brandPass": false
+      }
+    }
+  },
+  "black-purple-simple-4": {
+    "score": 8.4,
     "breakdown": {
       "contract": 4,
-      "verify": 2.1,
+      "verify": 3,
       "stress": 0,
-      "brand": 0.6,
+      "brand": 1.4,
       "raw": {
         "cViol": 0,
         "cWarn": 0,
         "vFail": 0,
-        "vWarn": 3,
-        "stFail": 21,
-        "deckAvg": 1.18,
+        "vWarn": 0,
+        "stFail": 4,
+        "deckAvg": 2.76,
         "brandPass": false
       }
     }

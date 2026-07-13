@@ -1,0 +1,159 @@
+The overflow failures are because the kicker/title text nodes are clipped by line-clamp with insufficient padding-bottom for the uppercase Oswald descenders/ascenders. The fix: increase `padding-bottom` on the clamped headings and slightly reduce line-clamp risk. Also fix C5-BODY on slide 3 by merging the three stat paragraphs into ONE `<p>` (keeping the visual look via decoration is hard — instead I'll keep the multi-item look but make only one a `<p data-message>` body, converting the others to non-`<p>` elements).
+
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap');
+
+      :root{
+        --primary:var(--brand-primary,#B98CF0);
+        --secondary:var(--brand-secondary,#8E5CD9);
+        --accent:var(--brand-accent,#B98CF0);
+        --highlight:var(--brand-accent,#B98CF0);
+        --bg:var(--brand-bg,#161618);
+        --surface:var(--brand-surface,var(--brand-bg-alt,#1F1F22));
+        --text-high:var(--brand-ink,var(--brand-text,#FFFFFF));
+        --text-low:var(--brand-text-muted,rgba(255,255,255,.66));
+        --border:var(--brand-border,rgba(255,255,255,.30));
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg,#161618);
+        font-family:'Barlow Condensed',sans-serif;
+      }
+
+      /* subtle brand radial glow — large recolorable area */
+      .slide::before{
+        content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+        background:
+          radial-gradient(120% 90% at 80% 100%, color-mix(in srgb, var(--secondary) 24%, transparent) 0%, transparent 55%),
+          radial-gradient(90% 70% at 10% 0%, color-mix(in srgb, var(--primary) 12%, transparent) 0%, transparent 50%);
+      }
+
+      /* ── top chrome: brand lockup + circular arrow ── */
+      .top{position:absolute;top:44px;left:76px;right:76px;z-index:3;display:flex;align-items:flex-start;justify-content:space-between;}
+      .lockup{display:inline-flex;align-items:center;gap:14px;}
+      .brand-mark-clip{flex:none;height:44px;display:flex;align-items:center;}
+      .brand-mark{height:44px;width:auto;max-width:56px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Oswald',sans-serif;font-weight:700;font-size:26px;line-height:1.02;color:var(--text-high,#FFFFFF);text-transform:none;}
+      .arrow-btn{width:56px;height:56px;border-radius:50%;border:2px solid var(--border,rgba(255,255,255,.3));display:flex;align-items:center;justify-content:center;}
+      .arrow-btn svg{width:26px;height:26px;color:var(--text-high,#FFFFFF);}
+
+      /* decorative purple blocks */
+      .deco-blocks{position:absolute;z-index:2;width:120px;height:52px;}
+      .deco-blocks span{position:absolute;bottom:0;width:34px;background:var(--accent,#B98CF0);}
+      .deco-blocks span:nth-child(1){left:0;height:36px;}
+      .deco-blocks span:nth-child(2){left:43px;height:52px;}
+      .deco-blocks span:nth-child(3){left:86px;height:36px;}
+
+      /* ── isolated positioned text wrappers ── */
+      .tn-kicker{position:absolute;left:76px;z-index:3;max-width:900px;}
+      .tn-kicker h2{
+        margin:0;font-family:'Oswald',sans-serif;font-weight:700;font-size:60px;line-height:1.14;
+        letter-spacing:-.005em;text-transform:uppercase;color:var(--accent,#B98CF0);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:20px;
+      }
+
+      .tn-title{position:absolute;left:76px;z-index:3;max-width:920px;}
+      .tn-title h1{
+        margin:0;font-family:'Oswald',sans-serif;font-weight:700;font-size:74px;line-height:1.14;
+        letter-spacing:-.01em;text-transform:uppercase;color:var(--text-high,#FFFFFF);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:22px;
+      }
+
+      /* ── stat list slide ── */
+      .stat-row{position:absolute;left:76px;right:76px;z-index:3;display:flex;gap:20px;align-items:flex-start;}
+      .stat-row .ast{flex:none;font-family:'Oswald',sans-serif;font-weight:700;font-size:34px;line-height:1;color:var(--accent,#B98CF0);padding-top:4px;}
+      .stat-row p,.stat-row .statline{
+        margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:30px;line-height:1.24;
+        text-align:justify;text-transform:uppercase;color:var(--text-high,#FFFFFF);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;padding-bottom:8px;
+      }
+
+      /* ── footer ── */
+      .foot{position:absolute;left:76px;right:76px;bottom:44px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+      .foot-url{font-family:'Barlow Condensed',sans-serif;font-weight:500;font-size:24px;color:var(--text-low,rgba(255,255,255,.66));}
+      .foot-cta{font-family:'Oswald',sans-serif;font-weight:600;font-size:24px;color:var(--accent,#B98CF0);}
+      .foot-cta.muted{font-family:'Barlow Condensed',sans-serif;font-weight:500;font-style:italic;color:var(--text-low,rgba(255,255,255,.66));text-transform:none;}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Cover -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="top">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="arrow-btn"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+
+        <div class="tn-kicker" style="top:400px;"><h2 data-title="true">Have You Heard</h2></div>
+        <div class="tn-title" style="top:510px;"><h1 data-message="true">The Latest Green Energy Numbers Reshaping Our Future?</h1></div>
+
+        <div class="foot">
+          <div class="foot-url" data-tagline="true">www.yourbrand.com</div>
+          <div class="foot-cta" data-cta="true">+123 456 7890</div>
+        </div>
+      </section>
+
+      <!-- Teaser -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="top">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="arrow-btn"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+
+        <div class="tn-kicker" style="top:520px;"><h2 data-title="true">Here's The Deal</h2></div>
+        <div class="tn-title" style="top:630px;"><h1 data-message="true">Keep Swiping For The Stats!</h1></div>
+        <div class="deco-blocks" style="top:770px;left:430px;"><span></span><span></span><span></span></div>
+
+        <div class="foot">
+          <div class="foot-url" data-tagline="true">www.yourbrand.com</div>
+          <div class="foot-cta" data-cta="true">+123 456 7890</div>
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="top">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="arrow-btn"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+
+        <div class="stat-row" style="top:320px;"><span class="ast">✳</span><div class="statline" data-title="true">Global solar capacity is surging fast, now powering over 1.6 billion homes worldwide.</div></div>
+        <div class="stat-row" style="top:560px;"><span class="ast">✳</span><p data-message="true">Clean energy jobs jumped 40% in the last two years across major markets.</p></div>
+        <div class="stat-row" style="top:800px;"><span class="ast">✳</span><div class="statline" data-cta="true">Wind and solar are now the cheapest new power sources in most countries, cutting costs for millions.</div></div>
+
+        <div class="foot">
+          <div class="foot-url" data-tagline="true">www.yourbrand.com</div>
+          <div class="foot-cta muted">and many more..</div>
+        </div>
+      </section>
+
+      <!-- Closer -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="top">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="arrow-btn"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+
+        <div class="tn-kicker" style="top:460px;"><h2 data-title="true">Ready To Go Green?</h2></div>
+        <div class="tn-title" style="top:650px;"><h1 data-message="true">Follow For More Energy Insights!</h1></div>
+
+        <div class="foot">
+          <div class="foot-url" data-tagline="true">www.yourbrand.com</div>
+          <div class="foot-cta" data-cta="true">+123 456 7890</div>
+        </div>
+      </section>
+
+    </div>
+  </body>
+</html>
