@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;0,800;1,400&family=Poppins:ital,wght@0,700;0,800;1,800&display=swap');
+
+      :root {
+        /* Brand role colors — applied ONLY to targeted accents (the kicker tag,
+           the highlighter-marker phrase inside the headline, the card tint, the
+           CTA button and the bookmark glyph). The brand skin contrast-guards
+           each role against the FIXED light-gray canvas below, so any brand
+           palette stays legible while this template keeps its bold, minimal,
+           highlighter-marker identity. */
+        --primary: var(--brand-primary, #5e17eb);
+        --secondary: var(--brand-secondary, #4711b5);
+        --accent: var(--brand-accent, #5e17eb);
+        --highlight: var(--brand-accent, #5e17eb);
+        --border: var(--brand-border, rgba(25, 25, 25, 0.14));
+        /* On-color for accent-FILLED elements (marker text, CTA, bookmark) — AA pair. */
+        --on-fill: var(--brand-on-accent, #ffffff);
+        /* Ecosystem tokens (declared for compatibility; canvas/body do NOT bind). */
+        --bg: var(--brand-bg, #f1f1f1);
+        --surface: var(--brand-surface, var(--brand-bg-alt, #e7e0f7));
+        --text-high: var(--brand-ink, var(--brand-text, #191919));
+        --text-low: var(--brand-text-muted, rgba(25, 25, 25, 0.6));
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      .ig-carousel {
+        display: flex;
+        width: max-content;
+        min-height: 1350px;
+      }
+
+      .slide {
+        width: 1080px;
+        height: 1350px;
+        flex: none;
+        position: relative;
+        overflow: hidden;
+        /* FIXED literal light-gray canvas + ink — a literal (not var) so the brand
+           skin detects this template as fixed-canvas and contrast-guards the
+           brand roles against THIS color. Never re-skinned. */
+        background: #f1f1f1;
+        color: #191919;
+        padding: 176px 96px 172px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      /* ── Top bar — brand lockup (left) · small kicker tag (right) ── */
+      .top-bar {
+        position: absolute;
+        left: 96px;
+        right: 96px;
+        top: 86px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 2;
+      }
+      .top-bar::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -28px;
+        height: 2px;
+        background: var(--border);
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .brand-mark-clip {
+        flex: none;
+        height: 34px;
+        display: flex;
+        align-items: center;
+      }
+      .brand-mark {
+        height: 34px;
+        width: auto;
+        max-width: 130px;
+        object-fit: contain;
+        display: block;
+      }
+      .brand-word {
+        font-family: 'Arimo', sans-serif;
+        font-weight: 700;
+        font-size: 29px;
+        letter-spacing: -0.01em;
+        color: var(--text-high);
+        white-space: nowrap;
+      }
+      .tagline {
+        font-family: 'Arimo', sans-serif;
+        font-weight: 800;
+        font-size: 28px;
+        letter-spacing: 0.01em;
+        color: var(--primary);
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+        max-width: 860px;
+      }
+
+      .title {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        font-size: 92px;
+        line-height: 1.08;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--text-high);
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        padding-bottom: 6px;
+      }
+      .slide--cover .title,
+      .slide--cta .title {
+        font-size: 98px;
+      }
+
+      /* Highlighter-marker phrase — solid brand fill behind the emphasized run.
+         display:block gives it ONE unified background rectangle (snug around a
+         short phrase, full-width if it wraps) instead of a per-line fragment
+         box, which is what real highlighter strokes look like and avoids a
+         gap of bare canvas showing between mismatched fragment widths. */
+      .accent {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        background: var(--highlight);
+        color: var(--on-fill);
+        font-weight: 800;
+        padding: 0.05em 0.16em;
+        border-radius: 10px;
+      }
+      .slide--cover .accent,
+      .slide--cta .accent {
+        font-style: italic;
+      }
+
+      .lead {
+        margin: 36px 0 0;
+        font-family: 'Arimo', sans-serif;
+        font-size: 34px;
+        line-height: 1.44;
+        font-weight: 400;
+        color: var(--text-low);
+        max-width: 760px;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        padding-bottom: 6px;
+      }
+
+      /* Rounded card — the soft brand-tinted panel holding each slide's body copy. */
+      .card {
+        margin: 40px 0 0;
+        max-width: 800px;
+        background: color-mix(in srgb, var(--accent) 15%, white);
+        border: 1px solid color-mix(in srgb, var(--secondary) 32%, white);
+        border-radius: 24px;
+        padding: 38px 44px;
+        box-shadow: 0 22px 40px color-mix(in srgb, var(--text-high) 10%, transparent);
+      }
+      .message {
+        margin: 0;
+        font-family: 'Arimo', sans-serif;
+        font-size: 29px;
+        line-height: 1.46;
+        font-weight: 400;
+        color: var(--text-high);
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        padding-bottom: 6px;
+      }
+
+      /* Real CTA button (closing slide). */
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        margin-top: 46px;
+        padding: 24px 42px;
+        border-radius: 16px;
+        font-family: 'Arimo', sans-serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--on-fill);
+        background: var(--accent);
+        box-shadow: 0 16px 36px color-mix(in srgb, var(--text-high) 18%, transparent);
+      }
+      .arrow {
+        font-size: 28px;
+        line-height: 1;
+      }
+
+      /* ── Footer bar — italic handle (left) · swipe hint or bookmark (right) ── */
+      .footer {
+        position: absolute;
+        left: 96px;
+        right: 96px;
+        bottom: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 2;
+      }
+      .handle {
+        font-family: 'Arimo', sans-serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 25px;
+        color: var(--text-low);
+      }
+      .swipe {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: 'Arimo', sans-serif;
+        font-size: 25px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--secondary);
+      }
+      .bookmark {
+        width: 32px;
+        height: 40px;
+        color: var(--accent);
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+      <!-- Cover -->
+      <section class="slide slide--cover" data-cg-slide-type="text">
+        <div class="top-bar">
+          <span class="brand"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3Ctext%20x=%2212%22%20y=%2216.5%22%20font-family=%22Arial,Helvetica,sans-serif%22%20font-size=%2213%22%20font-weight=%22700%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22%20text-anchor=%22middle%22%3EZ%3C/text%3E%3C/svg%3E"></span><span class="brand-word">YourBrand</span></span>
+          <span class="tagline" data-tagline="true">#CONFIDENCE</span>
+        </div>
+        <div class="content">
+          <h1 class="title" data-title="true">Build The Confidence That <span class="accent">Commands The Room</span></h1>
+          <p class="lead" data-message="true">Five simple daily moves that turn quiet self-doubt into calm, visible confidence.</p>
+        </div>
+        <div class="footer">
+          <span class="handle">The Confidence Series</span>
+          <span class="swipe" data-swipe="true">Swipe →</span>
+        </div>
+      </section>
+
+      <!-- Move 01 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="top-bar">
+          <span class="brand"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3Ctext%20x=%2212%22%20y=%2216.5%22%20font-family=%22Arial,Helvetica,sans-serif%22%20font-size=%2213%22%20font-weight=%22700%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22%20text-anchor=%22middle%22%3EZ%3C/text%3E%3C/svg%3E"></span><span class="brand-word">YourBrand</span></span>
+          <span class="tagline" data-tagline="true">#CONFIDENCE</span>
+        </div>
+        <div class="content">
+          <h1 class="title" data-title="true">Speak Up First <span class="accent">In Every Meeting</span></h1>
+          <div class="card"><p class="message" data-message="true">Being the first voice in the room signals ownership. Early input builds authority, calms your nerves, and turns your idea into the anchor point for the whole conversation.</p></div>
+        </div>
+        <div class="footer">
+          <span class="handle">The Confidence Series</span>
+          <span class="swipe" data-swipe="true">Swipe →</span>
+        </div>
+      </section>
+
+      <!-- Move 02 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="top-bar">
+          <span class="brand"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3Ctext%20x=%2212%22%20y=%2216.5%22%20font-family=%22Arial,Helvetica,sans-serif%22%20font-size=%2213%22%20font-weight=%22700%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22%20text-anchor=%22middle%22%3EZ%3C/text%3E%3C/svg%3E"></span><span class="brand-word">YourBrand</span></span>
+          <span class="tagline" data-tagline="true">#CONFIDENCE</span>
+        </div>
+        <div class="content">
+          <h1 class="title" data-title="true">Own Your Mistakes <span class="accent">Out Loud</span></h1>
+          <div class="card"><p class="message" data-message="true">Naming a mistake before anyone else does builds trust fast. Owning it openly shows maturity, earns respect, and stops small errors from turning into bigger problems.</p></div>
+        </div>
+        <div class="footer">
+          <span class="handle">The Confidence Series</span>
+          <span class="swipe" data-swipe="true">Swipe →</span>
+        </div>
+      </section>
+
+      <!-- Move 03 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="top-bar">
+          <span class="brand"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3Ctext%20x=%2212%22%20y=%2216.5%22%20font-family=%22Arial,Helvetica,sans-serif%22%20font-size=%2213%22%20font-weight=%22700%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22%20text-anchor=%22middle%22%3EZ%3C/text%3E%3C/svg%3E"></span><span class="brand-word">YourBrand</span></span>
+          <span class="tagline" data-tagline="true">#CONFIDENCE</span>
+        </div>
+        <div class="content">
+          <h1 class="title" data-title="true">Ask For What <span class="accent">You Deserve</span></h1>
+          <div class="card"><p class="message" data-message="true">Most people quietly undersell their own value. Asking clearly for the raise, the credit, or the opportunity shows self-respect and teaches people how to treat you.</p></div>
+        </div>
+        <div class="footer">
+          <span class="handle">The Confidence Series</span>
+          <span class="swipe" data-swipe="true">Swipe →</span>
+        </div>
+      </section>
+
+      <!-- Move 04 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="top-bar">
+          <span class="brand"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3Ctext%20x=%2212%22%20y=%2216.5%22%20font-family=%22Arial,Helvetica,sans-serif%22%20font-size=%2213%22%20font-weight=%22700%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22%20text-anchor=%22middle%22%3EZ%3C/text%3E%3C/svg%3E"></span><span class="brand-word">YourBrand</span></span>
+          <span class="tagline" data-tagline="true">#CONFIDENCE</span>
+        </div>
+        <div class="content">
+          <h1 class="title" data-title="true">Trust The Work <span class="accent">You Already Did</span></h1>
+          <div class="card"><p class="message" data-message="true">Preparation is where real confidence comes from. Trusting your practice instead of chasing certainty keeps you calm, sharpens your thinking, and holds up under real pressure.</p></div>
+        </div>
+        <div class="footer">
+          <span class="handle">The Confidence Series</span>
+          <span class="swipe" data-swipe="true">Swipe →</span>
+        </div>
+      </section>
+
+      <!-- Move 05 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="top-bar">
+          <span class="brand"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3Ctext%20x=%2212%22%20y=%2216.5%22%20font-family=%22Arial,Helvetica,sans-serif%22%20font-size=%2213%22%20font-weight=%22700%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22%20text-anchor=%22middle%22%3EZ%3C/text%3E%3C/svg%3E"></span><span class="brand-word">YourBrand</span></span>
+          <span class="tagline" data-tagline="true">#CONFIDENCE</span>
+        </div>
+        <div class="content">
+          <h1 class="title" data-title="true">Stop Over Explaining <span class="accent">Every Choice</span></h1>
+          <div class="card"><p class="message" data-message="true">Confident people give short, clear answers instead of long justifications. Saying less says more, keeps your tone steady, and removes the doubt behind every decision you make.</p></div>
+        </div>
+        <div class="footer">
+          <span class="handle">The Confidence Series</span>
+          <span class="swipe" data-swipe="true">Swipe →</span>
+        </div>
+      </section>
+
+      <!-- Closing -->
+      <section class="slide slide--cta" data-cg-slide-type="text">
+        <div class="top-bar">
+          <span class="brand"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3Ctext%20x=%2212%22%20y=%2216.5%22%20font-family=%22Arial,Helvetica,sans-serif%22%20font-size=%2213%22%20font-weight=%22700%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22%20text-anchor=%22middle%22%3EZ%3C/text%3E%3C/svg%3E"></span><span class="brand-word">YourBrand</span></span>
+          <span class="tagline" data-tagline="true">#CONFIDENCE</span>
+        </div>
+        <div class="content">
+          <h1 class="title" data-title="true">Save This Before Your Next <span class="accent">Big Moment</span></h1>
+          <p class="lead" data-message="true">Follow along for more small, confident moves you can use the very same day.</p>
+          <a class="cta" data-cta="true">Follow for more tips <span class="arrow">→</span></a>
+        </div>
+        <div class="footer">
+          <span class="handle">The Confidence Series</span>
+          <svg class="bookmark" viewBox="0 0 24 30" fill="none" aria-hidden="true"><path d="M2 1h20v28l-10-7-10 7V1z" fill="currentColor"></path></svg>
+        </div>
+      </section>
+    </div>
+
+
+</body></html>

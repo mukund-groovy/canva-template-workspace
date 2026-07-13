@@ -1,0 +1,13 @@
+{
+  "_comment": "Maps a Canva design ID to the brand archetype slug (backend/database/carousels/<slug>.html) authored from it. The comparison view and default deliverable use this.",
+  "DAHOxjfy5Mo": "daily-checklist",
+  "DAHOyNQEdgs": "smart-mindset",
+  "DAHOyRRg-yQ": "brand-trust",
+  "DAHO3nrn8r4": "scrapbook-reset",
+  "DAHO4AoXL1M": "growth-notes",
+  "DAHO4Oe5Bbw": "momentum-playbook",
+  "DAHO4NT5oWA": "growth-signal",
+  "DAHOrBKyBxs": "violet-highlighter",
+  "DAHO9lfaPdg": "editorial-aesthetic-content-2",
+  "DAHOrUQo44I": "beige-orange-and"
+}

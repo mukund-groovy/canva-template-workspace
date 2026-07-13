@@ -1,0 +1,7 @@
+{
+  "pixelClone": false,
+  "targetRmse": 0.24,
+  "dedupeMode": "continue",
+  "stopOnTarget": false,
+  "requireHighResRefs": false
+}

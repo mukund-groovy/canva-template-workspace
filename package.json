@@ -1,0 +1,21 @@
+{
+  "name": "canva-template-engine",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Standalone Canva-clone to brand-recolorable carousel template engine",
+  "scripts": {
+    "clone": "node scripts/agent-canva-clone.mjs",
+    "dashboard": "node scripts/agent-canva-clone.mjs --action refresh",
+    "gate:contract": "node scripts/check-template-contract.mjs",
+    "gate:verify": "node scripts/verify-slides.mjs",
+    "gate:stress": "node scripts/stress-slots.mjs",
+    "gate:brand": "node scripts/brand-audit.mjs",
+    "score": "node scripts/score-template.mjs",
+    "comparison": "node scripts/build-comparison.mjs"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "playwright": "^1.48.0"
+  }
+}

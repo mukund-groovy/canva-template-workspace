@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Instagram Carousel Template</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700;800&family=Caveat:wght@600&display=swap');
+:root{
+  --primary: var(--brand-primary,#b9ff2c);
+  --secondary: var(--brand-secondary,#ece9e4);
+  --accent: var(--brand-accent,#1b1b1b);
+  --bg: var(--brand-bg,#f1efe9);
+  --surface: var(--brand-surface,#ffffff);
+  --text-high: var(--brand-text-high,#151515);
+  --text-low: var(--brand-text-low,#5a5a5a);
+  --border: var(--brand-border,#d9d3c8);
+  --highlight: var(--brand-highlight,#c7ff3a);
+}
+*{box-sizing:border-box}
+body{margin:0;background:#ddd;font-family:Inter,sans-serif}
+.ig-carousel{width:1080px;margin:0 auto}
+.slide{position:relative;width:1080px;height:1350px;overflow:hidden;background:var(--bg,#f1efe9)}
+.decor{position:absolute;z-index:1;pointer-events:none}
+.photo-wrap{position:absolute;z-index:2}
+.photo-wrap img[data-image="true"]{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.05) saturate(1.05)}
+.text-wrap{position:absolute;z-index:3}
+.text-wrap > *{margin:0;display:block;line-height:1.16;padding-bottom:6px;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical}
+.brand-word{font-family:Inter,sans-serif;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--text-high,#151515)}
+.brand-mark{width:24px;height:24px;object-fit:contain;vertical-align:middle}
+.meta{font-family:Inter,sans-serif;font-size:18px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-high,#151515)}
+.big-title{font-family:Anton,sans-serif;font-size:128px;letter-spacing:.01em;text-transform:uppercase;color:var(--surface,#fff);-webkit-line-clamp:3}
+.script{font-family:Caveat,cursive;font-size:64px;color:var(--surface,#fff);-webkit-line-clamp:2}
+.kicker{font-family:Inter,sans-serif;font-size:28px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--surface,#fff);-webkit-line-clamp:1}
+.body{font-family:Inter,sans-serif;font-size:48px;font-weight:500;color:var(--text-high,#151515);-webkit-line-clamp:7}
+.title-dark{font-family:Anton,sans-serif;font-size:108px;line-height:1.04;color:var(--text-high,#151515);text-transform:uppercase;-webkit-line-clamp:3}
+.small-note{font-family:Caveat,cursive;font-size:52px;color:var(--text-high,#151515);-webkit-line-clamp:1}
+.cta{font-family:Inter,sans-serif;font-size:30px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--surface,#fff);-webkit-line-clamp:1}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <section class="slide" data-cg-slide-type="cover" style="background:var(--accent,#1b1b1b);">
+    <div class="photo-wrap" style="left:0;top:0;width:1080px;height:1350px;opacity:.58;">
+      <img data-image="true" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23747474'/><stop offset='1' stop-color='%23b0b0b0'/></linearGradient></defs><rect width='1080' height='1350' fill='url(%23g)'/><circle cx='840' cy='320' r='170' fill='%23929292'/><rect x='130' y='770' width='410' height='420' fill='%23828282'/></svg>"/>
+    </div>
+    <div class="decor" style="left:720px;top:640px;width:240px;height:80px;border:4px solid var(--highlight,#c7ff3a);border-radius:50%;transform:rotate(-8deg);"></div>
+    <div class="decor" style="left:170px;top:900px;width:260px;height:4px;background:var(--highlight,#c7ff3a);transform:rotate(2deg);"></div>
+
+    <div class="text-wrap" style="left:54px;top:48px;width:420px;"><div class="brand-word" data-tagline>YOURBRAND</div></div>
+    <div class="text-wrap" style="left:486px;top:45px;width:60px;"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><rect width='120' height='120' fill='%23bcbcbc'/><circle cx='60' cy='60' r='34' fill='%239b9b9b'/></svg>"/></div>
+    <div class="text-wrap" style="right:54px;top:54px;width:220px;text-align:right;"><div class="meta" data-tagline>By Alex</div></div>
+    <div class="text-wrap" style="left:54px;top:660px;width:970px;"><div class="kicker" data-tagline>(2030) creative recap</div></div>
+    <div class="text-wrap" style="left:54px;top:710px;width:970px;"><h1 class="big-title" data-title>Moments That Moved My Studio</h1></div>
+    <div class="text-wrap" style="left:250px;top:1008px;width:520px;"><div class="script" data-message>through lens and late nights</div></div>
+    <div class="text-wrap" style="left:54px;bottom:28px;width:300px;"><div class="meta" data-tagline>@YOURHANDLE</div></div>
+    <div class="text-wrap" style="right:54px;bottom:28px;width:120px;text-align:right;"><div class="meta" data-tagline>1/5</div></div>
+    <div class="text-wrap" style="left:54px;top:1120px;width:540px;"><p class="body" data-message>From quick reels to full campaigns, this year turned tiny ideas into work I am genuinely proud to share.</p></div>
+  </section>
+
+  <section class="slide" data-cg-slide-type="stats">
+    <div class="decor" style="left:0;top:0;width:1080px;height:1350px;background:radial-gradient(circle at 20% 20%,rgba(0,0,0,.03),transparent 45%),var(--bg,#f1efe9);"></div>
+    <div class="photo-wrap" style="left:610px;top:320px;width:420px;height:700px;background:var(--surface,#fff);padding:24px;transform:rotate(-9deg);box-shadow:0 18px 30px rgba(0,0,0,.15);">
+      <img data-image="true" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='1100'><defs><linearGradient id='g2' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23c9c9c9'/><stop offset='1' stop-color='%238f8f8f'/></linearGradient></defs><rect width='700' height='1100' fill='url(%23g2)'/><rect x='90' y='170' width='520' height='700' fill='%23a7a7a7'/></svg>"/>
+    </div>
+    <div class="text-wrap" style="left:54px;top:48px;width:420px;"><div class="brand-word" data-tagline>YOURBRAND</div></div>
+    <div class="text-wrap" style="right:54px;top:54px;width:220px;text-align:right;"><div class="meta" data-tagline>By Alex</div></div>
+    <div class="text-wrap" style="left:90px;top:220px;width:520px;"><h2 class="title-dark" data-title>This Year in Digits</h2></div>
+    <div class="text-wrap" style="left:90px;top:540px;width:430px;"><p class="body" data-message>120 uploads shipped, 34 client concepts presented, 11 campaigns launched, and 260 hours refining ideas that finally clicked.</p></div>
+    <div class="text-wrap" style="left:735px;top:1020px;width:230px;transform:rotate(-9deg);"><div class="small-note" data-cta>we made it</div></div>
+    <div class="text-wrap" style="left:54px;bottom:28px;width:300px;"><div class="meta" data-tagline>@YOURHANDLE</div></div>
+    <div class="text-wrap" style="right:54px;bottom:28px;width:120px;text-align:right;"><div class="meta" data-tagline>2/5</div></div>
+  </section>
+
+  <section class="slide" data-cg-slide-type="milestone">
+    <div class="photo-wrap" style="left:620px;top:430px;width:380px;height:300px;background:var(--surface,#fff);padding:20px;transform:rotate(-12deg);box-shadow:0 16px 26px rgba(0,0,0,.15);">
+      <img data-image="true" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='760' height='560'><defs><linearGradient id='g3' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23bebebe'/><stop offset='1' stop-color='%23909090'/></linearGradient></defs><rect width='760' height='560' fill='url(%23g3)'/><circle cx='220' cy='230' r='70' fill='%23aaaaaa'/><circle cx='480' cy='260' r='110' fill='%237b7b7b'/></svg>"/>
+    </div>
+    <div class="decor" style="left:770px;top:810px;width:120px;height:200px;border:6px solid var(--highlight,#c7ff3a);border-left:none;border-top-left-radius:0;border-radius:90px;transform:rotate(-12deg);"></div>
+    <div class="text-wrap" style="left:54px;top:48px;width:420px;"><div class="brand-word" data-tagline>YOURBRAND</div></div>
+    <div class="text-wrap" style="right:54px;top:54px;width:220px;text-align:right;"><div class="meta" data-tagline>By Alex</div></div>
+    <div class="text-wrap" style="left:90px;top:220px;width:520px;"><h2 class="title-dark" data-title>My Boldest Leap</h2></div>
+    <div class="text-wrap" style="left:90px;top:560px;width:500px;"><p class="body" data-message>I spoke on my first live panel, crossed 15K followers, and learned that consistency beats perfection every single time.</p></div>
+    <div class="text-wrap" style="left:700px;top:720px;width:240px;transform:rotate(-10deg);"><div class="small-note" data-cta>so worth it</div></div>
+    <div class="text-wrap" style="left:54px;bottom:28px;width:300px;"><div class="meta" data-tagline>@YOURHANDLE</div></div>
+    <div class="text-wrap" style="right:54px;bottom:28px;width:120px;text-align:right;"><div class="meta" data-tagline>3/5</div></div>
+  </section>
+
+  <section class="slide" data-cg-slide-type="project">
+    <div class="photo-wrap" style="left:590px;top:380px;width:430px;height:760px;background:var(--surface,#fff);padding:22px;transform:rotate(-16deg);box-shadow:0 20px 34px rgba(0,0,0,.2);">
+      <img data-image="true" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='720' height='1180'><defs><linearGradient id='g4' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23cbcbcb'/><stop offset='1' stop-color='%238c8c8c'/></linearGradient></defs><rect width='720' height='1180' fill='url(%23g4)'/><rect x='130' y='260' width='460' height='620' fill='%23a0a0a0'/></svg>"/>
+    </div>
+    <div class="decor" style="left:710px;top:250px;width:260px;height:260px;border:4px solid var(--highlight,#c7ff3a);border-bottom-color:transparent;border-left-color:transparent;border-radius:50%;"></div>
+    <div class="text-wrap" style="left:54px;top:48px;width:420px;"><div class="brand-word" data-tagline>YOURBRAND</div></div>
+    <div class="text-wrap" style="right:54px;top:54px;width:220px;text-align:right;"><div class="meta" data-tagline>By Alex</div></div>
+    <div class="text-wrap" style="left:90px;top:220px;width:520px;"><h2 class="title-dark" data-title>The Project I Could Not Drop</h2></div>
+    <div class="text-wrap" style="left:90px;top:620px;width:490px;"><p class="body" data-message>A boutique launch campaign pushed me to direct visuals, write story-first captions, and build assets that actually converted.</p></div>
+    <div class="text-wrap" style="left:730px;top:1040px;width:220px;transform:rotate(-14deg);"><div class="small-note" data-cta>nailed it</div></div>
+    <div class="text-wrap" style="left:54px;bottom:28px;width:300px;"><div class="meta" data-tagline>@YOURHANDLE</div></div>
+    <div class="text-wrap" style="right:54px;bottom:28px;width:120px;text-align:right;"><div class="meta" data-tagline>4/5</div></div>
+  </section>
+
+  <section class="slide" data-cg-slide-type="closing" style="background:var(--accent,#1b1b1b);">
+    <div class="photo-wrap" style="left:0;top:0;width:1080px;height:1350px;opacity:.62;">
+      <img data-image="true" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350'><defs><linearGradient id='g5' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%236f6f6f'/><stop offset='1' stop-color='%23b6b6b6'/></linearGradient></defs><rect width='1080' height='1350' fill='url(%23g5)'/><circle cx='260' cy='250' r='200' fill='%23868686'/><rect x='560' y='760' width='420' height='420' fill='%23999999'/></svg>"/>
+    </div>
+    <div class="decor" style="left:190px;top:430px;width:620px;height:120px;border:4px solid var(--highlight,#c7ff3a);border-radius:8px;"></div>
+    <div class="text-wrap" style="left:54px;top:48px;width:420px;"><div class="brand-word" data-tagline>YOURBRAND</div></div>
+    <div class="text-wrap" style="right:54px;top:54px;width:220px;text-align:right;"><div class="meta" data-tagline>By Alex</div></div>
+    <div class="text-wrap" style="left:340px;top:360px;width:400px;text-align:center;"><div class="cta" data-cta>follow for more ⟡</div></div>
+    <div class="text-wrap" style="left:230px;top:440px;width:640px;"><h2 class="big-title" data-title>See You in the Next Chapter</h2></div>
+    <div class="text-wrap" style="left:400px;top:760px;width:360px;text-align:center;"><div class="script" data-tagline>with thanks, alex</div></div>
+    <div class="text-wrap" style="left:260px;top:870px;width:560px;"><p class="body" data-message>If you are building quietly too, keep going; your breakthrough is usually one brave upload away.</p></div>
+    <div class="text-wrap" style="left:54px;bottom:28px;width:300px;"><div class="meta" data-tagline>@YOURHANDLE</div></div>
+    <div class="text-wrap" style="right:54px;bottom:28px;width:120px;text-align:right;"><div class="meta" data-tagline>5/5</div></div>
+  </section>
+
+</div>
+</body>
+</html>

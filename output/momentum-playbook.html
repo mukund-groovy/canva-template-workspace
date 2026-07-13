@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Momentum Playbook</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Poppins:wght@600;700&family=Arimo:wght@400;600&family=Yellowtail&display=swap');
+
+/* Brand roles — the ONLY brand-driven values. Canvas + body copy are fixed
+   literals so every palette stays AA-legible. Set at :root, never <body>. */
+:root{
+  --brand-primary:#E2603A;   /* warm coral */
+  --brand-accent:#C79A3D;    /* muted gold */
+  --brand-on-primary:#FFF9F0;
+
+  --paper:#FAF7EF;
+  --paper-line:#E9E1CF;
+  --ink:#221F1A;
+  --ink-soft:#544D42;
+  --card-bg:#FEFCF6;
+
+  /* Canvas here is always light cream, so a pale brand primary sitting
+     bare on it (e.g. a light-yellow palette) can lose contrast. Tint any
+     bare-coloured TEXT toward ink; filled chips (CTA/badges) stay on the
+     raw var since a fixed on-primary + hairline ring carries those. */
+  --accent-on-light:color-mix(in srgb, var(--brand-primary) 55%, var(--ink) 45%);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#e7e0d1;}
+.ig-carousel{display:flex;flex-direction:column;align-items:center;gap:28px;}
+
+.slide{
+  position:relative;width:1080px;height:1350px;overflow:hidden;
+  background:var(--paper);font-family:'Arimo',sans-serif;
+}
+.slide *{box-sizing:border-box;}
+
+/* ── chrome ── */
+.badge{
+  position:absolute;top:66px;left:50%;transform:translateX(-50%);
+  border:2px solid var(--ink);border-radius:999px;padding:14px 34px;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;
+  letter-spacing:.1em;color:var(--ink);background:var(--paper);z-index:6;
+}
+
+.eyebrow{
+  position:absolute;font-family:'Poppins',sans-serif;font-weight:700;
+  font-size:23px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-on-light);z-index:5;
+}
+
+.heading{
+  position:absolute;font-family:'EB Garamond',serif;font-weight:600;
+  font-size:66px;line-height:1.06;letter-spacing:.01em;color:var(--ink);
+  text-transform:uppercase;z-index:5;
+}
+
+.script{
+  position:absolute;font-family:'Yellowtail',cursive;font-weight:400;
+  color:var(--accent-on-light);z-index:5;
+}
+
+.card{
+  position:absolute;background:var(--card-bg);border-radius:26px;
+  box-shadow:0 20px 36px rgba(30,26,20,.16);z-index:2;
+  background-image:radial-gradient(var(--paper-line) 1.7px, transparent 1.7px);
+  background-size:22px 22px;
+}
+
+.body-copy{
+  position:absolute;font-family:'Arimo',sans-serif;font-size:33px;
+  line-height:1.5;color:var(--ink-soft);z-index:5;
+}
+
+.cta{
+  position:absolute;display:inline-flex;align-items:center;justify-content:center;
+  background:var(--brand-primary);color:var(--brand-on-primary);
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:29px;
+  padding:22px 46px;border-radius:999px;z-index:6;white-space:nowrap;
+  box-shadow:0 0 0 2px var(--card-bg),0 12px 22px rgba(30,26,20,.22);
+}
+
+.handle{
+  position:absolute;left:100px;bottom:70px;font-family:'Poppins',sans-serif;
+  font-weight:600;font-size:22px;color:var(--ink-soft);z-index:6;
+}
+.site{
+  position:absolute;right:100px;bottom:70px;font-family:'Poppins',sans-serif;
+  font-weight:600;font-size:22px;color:var(--ink-soft);z-index:6;
+}
+
+/* underline tick — small reliable brand rule beneath a heading */
+.tick{position:absolute;width:96px;height:11px;border-radius:999px;
+      background:var(--brand-primary);z-index:5;}
+
+/* ── decorations: creator-doodle family (play / heart / chat / growth-arrow /
+   asterisk) — line-art app-affordance marks, not Canva's tape/clip/star
+   die-cuts and not scrapbook-reset's stationery family either. ── */
+.doodle{position:absolute;display:block;z-index:4;}
+
+/* step stamp — the deck's biggest deliberate brand-fill (a numbered "step"
+   seal on step slides, a filled icon badge on cover/outro). Reliable brand
+   mass regardless of what photo lands in the slots above. Fixed hairline
+   keeps its edge visible on any palette. */
+.stamp{
+  position:absolute;width:200px;height:200px;border-radius:50%;
+  background:var(--brand-primary);z-index:4;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:88px;
+  color:var(--brand-on-primary);
+  box-shadow:0 0 0 2px var(--card-bg),0 16px 30px rgba(30,26,20,.3);
+}
+.stamp svg{width:82px;height:82px;}
+
+/* ── photo slots (never baked) ── */
+.photo{
+  position:absolute;overflow:hidden;border-radius:20px;background:#DCD4C1;
+  box-shadow:0 14px 26px rgba(30,26,20,.2);z-index:3;
+}
+.photo img{display:block;width:100%;height:100%;object-fit:cover;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- ══ 1 · cover ══ -->
+  <section class="slide s1" data-cg-slide-type="text">
+    <div class="badge">YOURBRAND</div>
+
+    <h1 class="heading" style="left:100px;top:300px;width:820px;font-size:70px;">How to build</h1>
+    <p class="script" data-title="true" style="left:96px;top:392px;font-size:118px;">Momentum</p>
+    <p class="body-copy" data-message="true" style="left:100px;top:560px;width:640px;font-size:31px;">Eight small habits that compound faster than any shortcut ever will.</p>
+    <div class="tick" style="left:100px;top:520px;"></div>
+
+    <div class="photo" style="left:700px;top:760px;width:280px;height:360px;transform:rotate(4deg);">
+      <img alt="" data-image="true" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='360'><rect width='280' height='360' fill='%23DCD4C1'/><path d='M0 260 L90 140 L150 220 L210 110 L280 260 L280 360 L0 360 Z' fill='%23CBC1A9'/></svg>"/>
+    </div>
+
+    <svg class="doodle" viewBox="0 0 56 56" style="left:130px;top:760px;width:56px;" aria-hidden="true"><circle cx="28" cy="28" r="24" fill="none" stroke="var(--brand-accent)" stroke-width="4"/><path d="M22 18 L40 28 L22 38 Z" fill="var(--brand-accent)"/></svg>
+    <svg class="doodle" viewBox="0 0 56 56" style="left:900px;top:210px;width:48px;transform:rotate(-8deg);" aria-hidden="true"><path d="M28 46 C10 33 6 20 16 13 C23 8 28 14 28 18 C28 14 33 8 40 13 C50 20 46 33 28 46 Z" fill="none" stroke="var(--brand-primary)" stroke-width="4"/></svg>
+    <svg class="doodle" viewBox="0 0 40 40" style="left:520px;top:170px;width:34px;" aria-hidden="true"><path d="M20 4 V36 M6 12 L34 28 M34 12 L6 28" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" opacity=".4"/></svg>
+
+    <div class="stamp" style="left:850px;top:700px;"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M14 8 L32 20 L14 32 Z" fill="var(--brand-on-primary)"/></svg></div>
+
+    <div class="cta" data-cta="true" style="left:100px;top:1140px;">See step one →</div>
+    <p class="handle">@yourbrand</p>
+    <p class="site">yourbrand.com</p>
+  </section>
+
+  <!-- ══ 2 · Step 1 ══ -->
+  <section class="slide s2" data-cg-slide-type="text">
+    <p class="eyebrow" data-tagline="true" style="left:100px;top:92px;">Step 1 of 8</p>
+    <h1 class="heading" data-title="true" style="left:100px;top:140px;width:780px;">Pick one lane</h1>
+    <div class="tick" style="left:100px;top:280px;"></div>
+
+    <div class="card" style="left:100px;top:370px;width:880px;height:500px;transform:rotate(-1.2deg);"></div>
+    <p class="script" style="left:140px;top:408px;font-size:60px;">Why it matters</p>
+    <p class="body-copy" data-message="true" style="left:140px;top:510px;width:560px;">Chasing every idea at once stalls you before you even start — commit to one lane for the next ninety days.</p>
+
+    <div class="photo" style="left:730px;top:500px;width:210px;height:280px;transform:rotate(3deg);">
+      <img alt="" data-image="true" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='210' height='280'><rect width='210' height='280' fill='%23DCD4C1'/><circle cx='140' cy='90' r='60' fill='%23CBC1A9'/></svg>"/>
+    </div>
+
+    <svg class="doodle" viewBox="0 0 40 40" style="left:940px;top:200px;width:40px;" aria-hidden="true"><path d="M20 4 V36 M6 12 L34 28 M34 12 L6 28" stroke="var(--brand-primary)" stroke-width="4" stroke-linecap="round"/></svg>
+    <svg class="doodle" viewBox="0 0 56 56" style="left:150px;top:930px;width:44px;transform:rotate(10deg);" aria-hidden="true"><rect x="4" y="8" width="40" height="30" rx="10" fill="none" stroke="var(--brand-accent)" stroke-width="4"/><path d="M14 38 L14 50 L26 38 Z" fill="var(--brand-accent)"/></svg>
+
+    <div class="stamp" style="left:850px;top:290px;">1</div>
+
+    <div class="cta" data-cta="true" style="left:140px;top:830px;">Next step →</div>
+    <p class="handle">@yourbrand</p>
+  </section>
+
+  <!-- ══ 3 · Step 2 ══ -->
+  <section class="slide s3" data-cg-slide-type="text">
+    <p class="eyebrow" data-tagline="true" style="left:100px;top:92px;">Step 2 of 8</p>
+    <h1 class="heading" data-title="true" style="left:100px;top:140px;width:780px;">Study who shows up</h1>
+    <div class="tick" style="left:100px;top:280px;"></div>
+
+    <div class="card" style="left:100px;top:370px;width:880px;height:500px;transform:rotate(1deg);"></div>
+    <p class="script" style="left:140px;top:408px;font-size:60px;">Why it matters</p>
+    <p class="body-copy" data-message="true" style="left:140px;top:510px;width:760px;">Notice who already engages, replies and comes back — build for that person first, not for everyone at once.</p>
+
+    <svg class="doodle" viewBox="0 0 56 56" style="left:900px;top:430px;width:52px;transform:rotate(-6deg);" aria-hidden="true"><path d="M28 46 C10 33 6 20 16 13 C23 8 28 14 28 18 C28 14 33 8 40 13 C50 20 46 33 28 46 Z" fill="none" stroke="var(--brand-primary)" stroke-width="4"/></svg>
+    <svg class="doodle" viewBox="0 0 40 40" style="left:150px;top:930px;width:36px;" aria-hidden="true"><path d="M20 4 V36 M6 12 L34 28 M34 12 L6 28" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" opacity=".4"/></svg>
+
+    <div class="stamp" style="left:850px;top:290px;">2</div>
+
+    <div class="cta" data-cta="true" style="left:140px;top:790px;">Next step →</div>
+    <p class="handle">@yourbrand</p>
+  </section>
+
+  <!-- ══ 4 · Step 3 ══ -->
+  <section class="slide s4" data-cg-slide-type="text">
+    <p class="eyebrow" data-tagline="true" style="left:100px;top:92px;">Step 3 of 8</p>
+    <h1 class="heading" data-title="true" style="left:100px;top:140px;width:780px;">Show up on fewer channels</h1>
+    <div class="tick" style="left:100px;top:280px;"></div>
+
+    <div class="card" style="left:100px;top:370px;width:880px;height:500px;transform:rotate(-0.8deg);"></div>
+    <p class="script" style="left:140px;top:408px;font-size:60px;">Why it matters</p>
+    <p class="body-copy" data-message="true" style="left:140px;top:510px;width:560px;">Master one or two places before spreading thin — depth reads stronger than a scattered presence.</p>
+
+    <div class="photo" style="left:730px;top:500px;width:210px;height:280px;transform:rotate(-3deg);">
+      <img alt="" data-image="true" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='210' height='280'><rect width='210' height='280' fill='%23DCD4C1'/><rect y='170' width='210' height='110' fill='%23CBC1A9'/></svg>"/>
+    </div>
+
+    <svg class="doodle" viewBox="0 0 56 56" style="left:150px;top:930px;width:44px;" aria-hidden="true"><circle cx="28" cy="28" r="24" fill="none" stroke="var(--brand-accent)" stroke-width="4"/><path d="M22 18 L40 28 L22 38 Z" fill="var(--brand-accent)"/></svg>
+
+    <div class="stamp" style="left:850px;top:290px;">3</div>
+
+    <div class="cta" data-cta="true" style="left:140px;top:830px;">Next step →</div>
+    <p class="handle">@yourbrand</p>
+  </section>
+
+  <!-- ══ 5 · Step 4 ══ -->
+  <section class="slide s5" data-cg-slide-type="text">
+    <p class="eyebrow" data-tagline="true" style="left:100px;top:92px;">Step 4 of 8</p>
+    <h1 class="heading" data-title="true" style="left:100px;top:140px;width:780px;">Block the week ahead</h1>
+    <div class="tick" style="left:100px;top:280px;"></div>
+
+    <div class="card" style="left:100px;top:370px;width:880px;height:500px;transform:rotate(1.4deg);"></div>
+    <p class="script" style="left:140px;top:408px;font-size:60px;">Why it matters</p>
+    <p class="body-copy" data-message="true" style="left:140px;top:510px;width:760px;">Rough out the week before it starts — mix formats, carousels, quick clips and behind-the-scenes.</p>
+
+    <svg class="doodle" viewBox="0 0 40 40" style="left:940px;top:200px;width:38px;transform:rotate(-4deg);" aria-hidden="true"><path d="M20 4 V36 M6 12 L34 28 M34 12 L6 28" stroke="var(--brand-primary)" stroke-width="4" stroke-linecap="round"/></svg>
+    <svg class="doodle" viewBox="0 0 56 56" style="left:150px;top:960px;width:46px;transform:rotate(8deg);" aria-hidden="true"><rect x="4" y="8" width="40" height="30" rx="10" fill="none" stroke="var(--ink)" stroke-width="4" opacity=".4"/><path d="M14 38 L14 50 L26 38 Z" fill="var(--ink)" opacity=".4"/></svg>
+
+    <div class="stamp" style="left:850px;top:290px;">4</div>
+
+    <div class="cta" data-cta="true" style="left:140px;top:790px;">Keep going →</div>
+    <p class="handle">@yourbrand</p>
+  </section>
+
+  <!-- ══ 6 · Step 5 ══ -->
+  <section class="slide s6" data-cg-slide-type="text">
+    <p class="eyebrow" data-tagline="true" style="left:100px;top:92px;">Step 5 of 8</p>
+    <h1 class="heading" data-title="true" style="left:100px;top:140px;width:780px;">Sweat the small details</h1>
+    <div class="tick" style="left:100px;top:280px;"></div>
+
+    <div class="card" style="left:100px;top:370px;width:880px;height:500px;transform:rotate(-1deg);"></div>
+    <p class="script" style="left:140px;top:408px;font-size:60px;">Why it matters</p>
+    <p class="body-copy" data-message="true" style="left:140px;top:510px;width:560px;">Clean audio and steady light say more than expensive gear ever will — intention beats equipment.</p>
+
+    <div class="photo" style="left:730px;top:500px;width:210px;height:280px;transform:rotate(4deg);">
+      <img alt="" data-image="true" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='210' height='280'><rect width='210' height='280' fill='%23DCD4C1'/><circle cx='60' cy='90' r='50' fill='%23CBC1A9'/></svg>"/>
+    </div>
+
+    <svg class="doodle" viewBox="0 0 40 40" style="left:150px;top:930px;width:34px;" aria-hidden="true"><path d="M20 4 V36 M6 12 L34 28 M34 12 L6 28" stroke="var(--brand-accent)" stroke-width="4" stroke-linecap="round"/></svg>
+
+    <div class="stamp" style="left:850px;top:290px;">5</div>
+
+    <div class="cta" data-cta="true" style="left:140px;top:790px;">Next step →</div>
+    <p class="handle">@yourbrand</p>
+  </section>
+
+  <!-- ══ 7 · Step 6 ══ -->
+  <section class="slide s7" data-cg-slide-type="text">
+    <p class="eyebrow" data-tagline="true" style="left:100px;top:92px;">Step 6 of 8</p>
+    <h1 class="heading" data-title="true" style="left:100px;top:140px;width:780px;">Say the true thing</h1>
+    <div class="tick" style="left:100px;top:280px;"></div>
+
+    <div class="card" style="left:100px;top:370px;width:880px;height:500px;transform:rotate(0.9deg);"></div>
+    <p class="script" style="left:140px;top:408px;font-size:60px;">Why it matters</p>
+    <p class="body-copy" data-message="true" style="left:140px;top:510px;width:760px;">The honest version of your story lands harder than the polished one — share the wins and the mess.</p>
+
+    <svg class="doodle" viewBox="0 0 56 56" style="left:900px;top:440px;width:50px;transform:rotate(-10deg);" aria-hidden="true"><path d="M28 46 C10 33 6 20 16 13 C23 8 28 14 28 18 C28 14 33 8 40 13 C50 20 46 33 28 46 Z" fill="none" stroke="var(--brand-primary)" stroke-width="4"/></svg>
+    <svg class="doodle" viewBox="0 0 56 56" style="left:150px;top:960px;width:44px;" aria-hidden="true"><circle cx="28" cy="28" r="24" fill="none" stroke="var(--ink)" stroke-width="4" opacity=".4"/><path d="M22 18 L40 28 L22 38 Z" fill="var(--ink)" opacity=".4"/></svg>
+
+    <div class="stamp" style="left:850px;top:290px;">6</div>
+
+    <div class="cta" data-cta="true" style="left:140px;top:790px;">Next step →</div>
+    <p class="handle">@yourbrand</p>
+  </section>
+
+  <!-- ══ 8 · Step 7 ══ -->
+  <section class="slide s8" data-cg-slide-type="text">
+    <p class="eyebrow" data-tagline="true" style="left:100px;top:92px;">Step 7 of 8</p>
+    <h1 class="heading" data-title="true" style="left:100px;top:140px;width:780px;">Answer before you post again</h1>
+    <div class="tick" style="left:100px;top:280px;"></div>
+
+    <div class="card" style="left:100px;top:370px;width:880px;height:500px;transform:rotate(-1.3deg);"></div>
+    <p class="script" style="left:140px;top:408px;font-size:60px;">Why it matters</p>
+    <p class="body-copy" data-message="true" style="left:140px;top:510px;width:560px;">Replies build more trust than another upload — close the loop with people before chasing new ones.</p>
+
+    <div class="photo" style="left:730px;top:500px;width:210px;height:280px;transform:rotate(-2deg);">
+      <img alt="" data-image="true" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='210' height='280'><rect width='210' height='280' fill='%23DCD4C1'/><rect y='150' width='210' height='130' fill='%23CBC1A9'/></svg>"/>
+    </div>
+
+    <svg class="doodle" viewBox="0 0 40 40" style="left:150px;top:930px;width:36px;" aria-hidden="true"><path d="M20 4 V36 M6 12 L34 28 M34 12 L6 28" stroke="var(--brand-accent)" stroke-width="4" stroke-linecap="round"/></svg>
+
+    <div class="stamp" style="left:850px;top:290px;">7</div>
+
+    <div class="cta" data-cta="true" style="left:140px;top:830px;">Next step →</div>
+    <p class="handle">@yourbrand</p>
+  </section>
+
+  <!-- ══ 9 · Step 8 ══ -->
+  <section class="slide s9" data-cg-slide-type="text">
+    <p class="eyebrow" data-tagline="true" style="left:100px;top:92px;">Step 8 of 8</p>
+    <h1 class="heading" data-title="true" style="left:100px;top:140px;width:780px;">Stay a student</h1>
+    <div class="tick" style="left:100px;top:280px;"></div>
+
+    <div class="card" style="left:100px;top:370px;width:880px;height:500px;transform:rotate(1.1deg);"></div>
+    <p class="script" style="left:140px;top:408px;font-size:60px;">Why it matters</p>
+    <p class="body-copy" data-message="true" style="left:140px;top:510px;width:760px;">What worked last quarter won't work forever — keep testing, keep adjusting, keep paying attention.</p>
+
+    <svg class="doodle" viewBox="0 0 56 56" style="left:900px;top:430px;width:52px;transform:rotate(6deg);" aria-hidden="true"><rect x="4" y="8" width="40" height="30" rx="10" fill="none" stroke="var(--brand-primary)" stroke-width="4"/><path d="M14 38 L14 50 L26 38 Z" fill="var(--brand-primary)"/></svg>
+    <svg class="doodle" viewBox="0 0 40 40" style="left:150px;top:1000px;width:34px;" aria-hidden="true"><path d="M20 4 V36 M6 12 L34 28 M34 12 L6 28" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" opacity=".4"/></svg>
+
+    <div class="stamp" style="left:850px;top:290px;">8</div>
+
+    <div class="cta" data-cta="true" style="left:140px;top:790px;">Almost there →</div>
+    <p class="handle">@yourbrand</p>
+  </section>
+
+  <!-- ══ 10 · outro ══ -->
+  <section class="slide s10" data-cg-slide-type="text">
+    <div class="badge">YOURBRAND</div>
+
+    <p class="script" data-title="true" style="left:96px;top:340px;font-size:110px;">Thanks for reading</p>
+    <p class="body-copy" data-message="true" style="left:100px;top:520px;width:660px;font-size:31px;">Save this list, pick one step, and start today — momentum is built one small rep at a time.</p>
+    <div class="tick" style="left:100px;top:480px;"></div>
+
+    <div class="photo" style="left:700px;top:700px;width:280px;height:360px;transform:rotate(-3deg);">
+      <img alt="" data-image="true" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='360'><rect width='280' height='360' fill='%23DCD4C1'/><circle cx='140' cy='140' r='90' fill='%23CBC1A9'/></svg>"/>
+    </div>
+
+    <svg class="doodle" viewBox="0 0 56 56" style="left:150px;top:800px;width:52px;" aria-hidden="true"><circle cx="28" cy="28" r="24" fill="none" stroke="var(--brand-accent)" stroke-width="4"/><path d="M22 18 L40 28 L22 38 Z" fill="var(--brand-accent)"/></svg>
+    <svg class="doodle" viewBox="0 0 56 56" style="left:880px;top:220px;width:46px;transform:rotate(-8deg);" aria-hidden="true"><path d="M28 46 C10 33 6 20 16 13 C23 8 28 14 28 18 C28 14 33 8 40 13 C50 20 46 33 28 46 Z" fill="none" stroke="var(--brand-primary)" stroke-width="4"/></svg>
+
+    <div class="stamp" style="left:850px;top:640px;"><svg viewBox="0 0 56 56" aria-hidden="true"><path d="M28 46 C10 33 6 20 16 13 C23 8 28 14 28 18 C28 14 33 8 40 13 C50 20 46 33 28 46 Z" fill="var(--brand-on-primary)"/></svg></div>
+
+    <div class="cta" data-cta="true" style="left:100px;top:1140px;">Follow us →</div>
+    <p class="handle">@yourbrand</p>
+    <p class="site">yourbrand.com</p>
+  </section>
+
+</div>
+</body>
+</html>

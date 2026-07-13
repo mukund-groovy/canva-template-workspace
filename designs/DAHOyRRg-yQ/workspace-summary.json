@@ -1,0 +1,90 @@
+{
+  "designId": "DAHOyRRg-yQ",
+  "startedAt": "2026-07-08T09:25:27.161Z",
+  "finishedAt": "2026-07-08T09:31:16.843Z",
+  "workspaceRoot": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace",
+  "clone": {
+    "designId": "DAHOyRRg-yQ",
+    "outDir": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract",
+    "duplicate": false,
+    "duplicateOf": null,
+    "outputs": {
+      "bootstrap": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\bootstrap.json",
+      "urls": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\document-image-urls.json",
+      "templateData": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\template-data.json",
+      "signature": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\template-signature.json",
+      "dedupeIndex": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\index\\template-dedupe-index.json",
+      "htmlClone": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\template-clone.html",
+      "assets": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\assets",
+      "manifest": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\assets\\download-manifest.json",
+      "fontManifest": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\assets\\fonts\\font-manifest.json"
+    },
+    "stats": {
+      "pagesDetected": 10,
+      "slidesInHtmlClone": 10,
+      "promotedActualPages": 10,
+      "fallbackPageAssets": 0,
+      "downloaded": 103,
+      "failed": 0
+    }
+  },
+  "best": {
+    "runId": "20260708-145527-227",
+    "runDir": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\runs\\20260708-145527-227",
+    "runOutput": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\runs\\20260708-145527-227\\final\\template-clone-pure-html.html",
+    "latestOutput": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\final\\template-clone-pure-html.html",
+    "latestMeta": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\runs\\latest.json",
+    "output": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\final\\template-clone-pure-html.html",
+    "report": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\runs\\20260708-145527-227\\report.json",
+    "best": {
+      "id": "box-top.default",
+      "modes": {
+        "textWidthMode": "box",
+        "textHeightMode": "box",
+        "textVAlign": "top",
+        "fontProfile": "default",
+        "fontScaleOverrides": {}
+      },
+      "avgRmse": 0.23441578999999999,
+      "avgGlobalRmse": 0.21624400000000002,
+      "avgEdgeRmse": 0.24420059999999996,
+      "outputHtml": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\runs\\20260708-145527-227\\final\\template-clone-pure-html.html"
+    },
+    "qualityGate": {
+      "targetRmse": 0.24,
+      "met": true,
+      "stopOnTarget": false,
+      "earlyStop": null
+    },
+    "comparedPages": 10,
+    "comparedKinds": [
+      "actual"
+    ],
+    "requireComparedPages": true,
+    "requireActualReferences": true
+  },
+  "quality": {
+    "targetRmse": 0.24,
+    "stopOnTarget": false,
+    "gate": {
+      "targetRmse": 0.24,
+      "met": true,
+      "stopOnTarget": false,
+      "earlyStop": null
+    }
+  },
+  "runTracking": {
+    "runId": "20260708-145527-227",
+    "runDir": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\runs\\20260708-145527-227",
+    "report": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\runs\\20260708-145527-227\\report.json",
+    "output": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\runs\\20260708-145527-227\\final\\template-clone-pure-html.html",
+    "createdAt": "2026-07-08T09:31:16.843Z",
+    "source": "generate-best-pure-clone",
+    "duplicate": false
+  },
+  "final": {
+    "duplicate": false,
+    "output": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\final\\template-clone-pure-html.html",
+    "duplicateOf": null
+  }
+}

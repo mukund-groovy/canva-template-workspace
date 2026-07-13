@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instagram Carousel Template</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;500;700&family=Caveat:wght@500&display=swap');
+
+    :root{
+      --primary: var(--brand-primary, #b6ff2e);
+      --secondary: var(--brand-secondary, #f3f0ec);
+      --accent: var(--brand-accent, #ffffff);
+      --bg: var(--brand-bg, #ebe8e2);
+      --surface: var(--brand-surface, #ffffff);
+      --text-high: var(--brand-text-high, #151515);
+      --text-low: var(--brand-text-low, #4d4d4d);
+      --border: var(--brand-border, #d6d1cb);
+      --highlight: var(--brand-highlight, #c7ff38);
+    }
+
+    *{box-sizing:border-box}
+    body{margin:0;background:#ddd;font-family:Inter,sans-serif}
+    .ig-carousel{width:100%;display:grid;gap:24px;place-items:center;padding:24px}
+    .slide{
+      width:1080px;height:1350px;position:relative;overflow:hidden;background:var(--bg,#ebe8e2);
+      color:var(--text-high,#151515);
+    }
+
+    .layer-deco{position:absolute;inset:0;z-index:1;pointer-events:none}
+    .layer-photo{position:absolute;inset:0;z-index:2}
+    .layer-text{position:absolute;inset:0;z-index:3}
+    .txt{margin:0;line-height:1.16;padding-bottom:6px;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+    .kicker{-webkit-line-clamp:2}
+    .title{-webkit-line-clamp:4}
+    .body{-webkit-line-clamp:7}
+    .cta{-webkit-line-clamp:2}
+    .tagline{-webkit-line-clamp:2}
+
+    .brand-word{font-family:Inter,sans-serif;font-size:16px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--accent,#fff)}
+    .brand-mark{width:22px;height:22px;object-fit:contain;opacity:.9}
+
+    .meta{font-family:Inter,sans-serif;font-size:16px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+    .big{font-family:Oswald,sans-serif;text-transform:uppercase;font-weight:700;line-height:.95}
+    .script{font-family:Caveat,cursive}
+    img[data-image="true"]{width:100%;height:100%;object-fit:cover;display:block}
+  </style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <section class="slide" data-cg-slide-type="cover">
+    <div class="layer-photo">
+      <img data-image="true" alt="Creator in a vintage record shop wearing headphones and taking a mirror selfie" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350'><rect width='100%25' height='100%25' fill='%23888888'/><rect x='90' y='120' width='900' height='1110' fill='%23999999'/><rect x='140' y='190' width='320' height='520' fill='%23777777'/><rect x='500' y='250' width='430' height='520' fill='%236f6f6f'/><rect x='320' y='800' width='520' height='300' fill='%23818181'/></svg>"/>
+    </div>
+    <div class="layer-deco">
+      <svg viewBox="0 0 1080 1350" width="1080" height="1350">
+        <path d="M230 430 C260 350,300 350,330 430 C300 510,260 510,230 430Z" fill="none" stroke="var(--highlight,#c7ff38)" stroke-width="5"/>
+        <ellipse cx="700" cy="710" rx="180" ry="42" fill="none" stroke="var(--highlight,#c7ff38)" stroke-width="5"/>
+        <path d="M520 930 L720 930 M720 930 L690 910 M720 930 L690 950" fill="none" stroke="var(--highlight,#c7ff38)" stroke-width="5"/>
+      </svg>
+    </div>
+    <div class="layer-text">
+      <div style="position:absolute;left:52px;top:52px;width:420px;"><div class="txt meta kicker" data-tagline><span class="brand-word">YOURBRAND</span></div></div>
+      <div style="position:absolute;left:52px;top:86px;width:30px;height:30px;"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60'><rect width='60' height='60' fill='%23bdbdbd'/><circle cx='30' cy='30' r='14' fill='%239c9c9c'/></svg>"/></div>
+      <div style="position:absolute;right:54px;top:58px;width:350px;text-align:right;"><p class="txt meta kicker" data-tagline style="color:var(--accent,#fff);">by the studio</p></div>
+      <div style="position:absolute;left:295px;top:505px;width:490px;"><p class="txt meta kicker" data-tagline style="color:var(--accent,#fff);">2026 creative recap</p></div>
+      <div style="position:absolute;left:190px;top:560px;width:700px;"><h1 class="txt big title" data-title style="font-size:112px;color:var(--accent,#fff);">best moments i built this year</h1></div>
+      <div style="position:absolute;left:360px;top:850px;width:370px;transform:rotate(-8deg);"><p class="txt script tagline" data-tagline style="font-size:70px;color:var(--accent,#fff);">from drafts to deadlines</p></div>
+      <div style="position:absolute;left:52px;bottom:58px;width:350px;"><p class="txt meta kicker" data-tagline style="color:var(--accent,#fff);">@yourhandle</p></div>
+      <div style="position:absolute;right:54px;bottom:58px;width:120px;text-align:right;"><p class="txt meta kicker" data-tagline style="color:var(--accent,#fff);">1/5</p></div>
+    </div>
+  </section>
+
+  <section class="slide" data-cg-slide-type="stats">
+    <div class="layer-deco">
+      <svg viewBox="0 0 1080 1350" width="1080" height="1350">
+        <path d="M725 250 L725 395 M650 322 L800 322 M680 270 L770 375 M770 270 L680 375" stroke="var(--highlight,#c7ff38)" stroke-width="5" fill="none"/>
+        <path d="M360 1000 L660 940" stroke="var(--highlight,#c7ff38)" stroke-width="5" fill="none"/>
+        <path d="M360 1018 L660 958" stroke="var(--highlight,#c7ff38)" stroke-width="5" fill="none"/>
+      </svg>
+      <div style="position:absolute;right:125px;top:355px;width:360px;height:560px;background:var(--surface,#fff);border:2px solid var(--border,#d6d1cb);transform:rotate(10deg);"></div>
+    </div>
+    <div class="layer-photo">
+      <div style="position:absolute;right:160px;top:405px;width:300px;height:420px;transform:rotate(10deg);border:20px solid var(--surface,#fff);background:var(--surface,#fff);">
+        <img data-image="true" alt="Laptop desk with sticky notes, coffee, and analytics chart on screen" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='700'><rect width='100%25' height='100%25' fill='%23909090'/><rect x='50' y='70' width='390' height='230' fill='%23797979'/><rect x='80' y='340' width='320' height='210' fill='%236b6b6b'/></svg>"/>
+      </div>
+    </div>
+    <div class="layer-text">
+      <div style="position:absolute;left:52px;top:52px;width:420px;"><p class="txt meta kicker" data-tagline>YOURBRAND</p></div>
+      <div style="position:absolute;right:54px;top:52px;width:320px;text-align:right;"><p class="txt meta kicker" data-tagline>by the studio</p></div>
+      <div style="position:absolute;left:92px;top:210px;width:470px;"><h2 class="txt big title" data-title style="font-size:100px;">this year in metrics</h2></div>
+      <div style="position:absolute;left:92px;top:540px;width:430px;"><p class="txt body" data-message style="font-size:45px;color:var(--text-high,#151515);">118 reels published<br>24 campaign concepts<br>9 new brand partners<br>320 creative hours shipped</p></div>
+      <div style="position:absolute;left:92px;top:820px;width:450px;"><p class="txt body" data-message style="font-size:46px;color:var(--text-low,#4d4d4d);">Each number is proof I stayed consistent when momentum felt slow.</p></div>
+      <div style="position:absolute;right:180px;top:930px;width:220px;transform:rotate(7deg);"><p class="txt script cta" data-cta style="font-size:60px;">we did it</p></div>
+      <div style="position:absolute;left:52px;bottom:58px;width:320px;"><p class="txt meta kicker" data-tagline>@yourhandle</p></div>
+      <div style="position:absolute;right:54px;bottom:58px;width:120px;text-align:right;"><p class="txt meta kicker" data-tagline>2/5</p></div>
+    </div>
+  </section>
+
+  <section class="slide" data-cg-slide-type="milestone">
+    <div class="layer-deco">
+      <svg viewBox="0 0 1080 1350" width="1080" height="1350">
+        <path d="M710 420 C850 360,930 360,1060 390" stroke="var(--highlight,#c7ff38)" stroke-width="5" fill="none"/>
+        <path d="M815 1050 C860 940,930 940,980 1060" stroke="var(--highlight,#c7ff38)" stroke-width="7" fill="none"/>
+      </svg>
+      <div style="position:absolute;right:70px;top:430px;width:380px;height:290px;background:var(--surface,#fff);border:2px solid var(--border,#d6d1cb);transform:rotate(12deg);"></div>
+      <div style="position:absolute;right:120px;top:760px;width:300px;height:250px;background:var(--surface,#fff);border:2px solid var(--border,#d6d1cb);transform:rotate(6deg);"></div>
+    </div>
+    <div class="layer-photo">
+      <div style="position:absolute;right:94px;top:462px;width:335px;height:220px;transform:rotate(12deg);border:18px solid var(--surface,#fff);">
+        <img data-image="true" alt="Audience applauding at a small creative workshop stage" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='340'><rect width='100%25' height='100%25' fill='%238d8d8d'/><circle cx='80' cy='240' r='35' fill='%23727272'/><circle cx='170' cy='250' r='35' fill='%23666666'/><circle cx='260' cy='245' r='35' fill='%23787878'/><rect x='300' y='70' width='150' height='140' fill='%236f6f6f'/></svg>"/>
+      </div>
+    </div>
+    <div class="layer-text">
+      <div style="position:absolute;left:52px;top:52px;width:420px;"><p class="txt meta kicker" data-tagline>YOURBRAND</p></div>
+      <div style="position:absolute;right:54px;top:52px;width:320px;text-align:right;"><p class="txt meta kicker" data-tagline>by the studio</p></div>
+      <div style="position:absolute;left:92px;top:210px;width:500px;"><h2 class="txt big title" data-title style="font-size:98px;">my proudest leap</h2></div>
+      <div style="position:absolute;left:92px;top:530px;width:440px;"><p class="txt body" data-message style="font-size:48px;">This year I:<br>• led my first live training<br>• crossed 15k community members<br>• launched a mini class in one weekend</p></div>
+      <div style="position:absolute;left:92px;top:865px;width:440px;"><p class="txt body" data-message style="font-size:46px;color:var(--text-low,#4d4d4d);">Small brave moves stacked up into something bigger than fear.</p></div>
+      <div style="position:absolute;left:52px;bottom:58px;width:320px;"><p class="txt meta kicker" data-tagline>@yourhandle</p></div>
+      <div style="position:absolute;right:54px;bottom:58px;width:120px;text-align:right;"><p class="txt meta kicker" data-tagline>3/5</p></div>
+    </div>
+  </section>
+
+  <section class="slide" data-cg-slide-type="project">
+    <div class="layer-deco">
+      <svg viewBox="0 0 1080 1350" width="1080" height="1350">
+        <path d="M740 230 C860 140,980 210,990 360" stroke="var(--highlight,#c7ff38)" stroke-width="5" fill="none"/>
+        <ellipse cx="845" cy="650" rx="140" ry="210" fill="none" stroke="var(--highlight,#c7ff38)" stroke-width="5"/>
+      </svg>
+      <div style="position:absolute;right:40px;top:470px;width:390px;height:620px;background:var(--surface,#fff);border:2px solid var(--border,#d6d1cb);transform:rotate(-17deg);"></div>
+    </div>
+    <div class="layer-photo">
+      <div style="position:absolute;right:76px;top:525px;width:320px;height:500px;transform:rotate(-17deg);border:20px solid var(--surface,#fff);">
+        <img data-image="true" alt="Flat lay of bold packaging mockups, color swatches, and typography notes" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='800'><rect width='100%25' height='100%25' fill='%23878787'/><rect x='60' y='90' width='170' height='230' fill='%236f6f6f'/><rect x='250' y='130' width='180' height='190' fill='%23959595'/><rect x='90' y='380' width='320' height='280' fill='%23757575'/></svg>"/>
+      </div>
+    </div>
+    <div class="layer-text">
+      <div style="position:absolute;left:52px;top:52px;width:420px;"><p class="txt meta kicker" data-tagline>YOURBRAND</p></div>
+      <div style="position:absolute;right:54px;top:52px;width:320px;text-align:right;"><p class="txt meta kicker" data-tagline>by the studio</p></div>
+      <div style="position:absolute;left:92px;top:210px;width:500px;"><h2 class="txt big title" data-title style="font-size:95px;">campaign i loved building</h2></div>
+      <div style="position:absolute;left:92px;top:560px;width:440px;"><p class="txt body" data-message style="font-size:48px;">Client: Northline Coffee<br>Project: summer launch kit</p></div>
+      <div style="position:absolute;left:92px;top:760px;width:430px;"><p class="txt body" data-message style="font-size:46px;color:var(--text-low,#4d4d4d);">The brief pushed me to merge strategy, story, and visuals into one clear message.</p></div>
+      <div style="position:absolute;right:112px;top:1060px;width:230px;transform:rotate(-13deg);"><p class="txt script cta" data-cta style="font-size:58px;">loved it</p></div>
+      <div style="position:absolute;left:52px;bottom:58px;width:320px;"><p class="txt meta kicker" data-tagline>@yourhandle</p></div>
+      <div style="position:absolute;right:54px;bottom:58px;width:120px;text-align:right;"><p class="txt meta kicker" data-tagline>4/5</p></div>
+    </div>
+  </section>
+
+  <section class="slide" data-cg-slide-type="closing">
+    <div class="layer-photo">
+      <img data-image="true" alt="Close portrait holding a stack of notebooks and peonies by a window" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350'><defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%235f5f5f'/><stop offset='1' stop-color='%23898989'/></linearGradient></defs><rect width='100%25' height='100%25' fill='url(%23g)'/><circle cx='300' cy='320' r='210' fill='%23727272'/><rect x='420' y='700' width='520' height='420' fill='%236a6a6a'/></svg>"/>
+    </div>
+    <div class="layer-deco">
+      <svg viewBox="0 0 1080 1350" width="1080" height="1350">
+        <rect x="280" y="500" width="520" height="200" rx="10" fill="none" stroke="var(--highlight,#c7ff38)" stroke-width="5"/>
+        <path d="M430 885 L670 850" stroke="var(--highlight,#c7ff38)" stroke-width="5" fill="none"/>
+        <path d="M430 905 L670 870" stroke="var(--highlight,#c7ff38)" stroke-width="5" fill="none"/>
+      </svg>
+    </div>
+    <div class="layer-text">
+      <div style="position:absolute;left:52px;bottom:58px;width:320px;"><p class="txt meta kicker" data-tagline style="color:var(--accent,#fff);">@yourhandle</p></div>
+      <div style="position:absolute;left:368px;top:420px;width:380px;"><p class="txt meta cta" data-cta style="font-size:30px;color:var(--accent,#fff);">follow for more (+)</p></div>
+      <div style="position:absolute;left:287px;top:520px;width:510px;"><h2 class="txt big title" data-title style="font-size:98px;color:var(--accent,#fff);">see you next chapter</h2></div>
+      <div style="position:absolute;left:420px;top:820px;width:260px;"><p class="txt script tagline" data-tagline style="font-size:62px;color:var(--accent,#fff);">with love, rhea</p></div>
+      <div style="position:absolute;right:54px;bottom:58px;width:120px;text-align:right;"><p class="txt meta kicker" data-tagline style="color:var(--accent,#fff);">5/5</p></div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

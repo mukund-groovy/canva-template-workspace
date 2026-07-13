@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@500;700;800&display=swap');
+
+    :root{
+      --primary:var(--brand-primary,#C77DFF);
+      --secondary:var(--brand-secondary,#9D4EDD);
+      --accent:var(--brand-accent,#E0AAFF);
+      --bg:var(--brand-bg,#0D1016);
+      --surface:var(--brand-surface,#161B24);
+      --text-high:var(--brand-text,#F8FAFC);
+      --text-low:var(--brand-text-muted,rgba(248,250,252,.72));
+      --border:var(--brand-border,rgba(248,250,252,.2));
+      --highlight:var(--brand-highlight,#C77DFF);
+    }
+
+    *{box-sizing:border-box}
+    .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#050607}
+    .slide{width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;background:#0D1016;font-family:'Inter',sans-serif}
+
+    .photo{position:absolute;inset:0;z-index:0}
+    .photo img{width:100%;height:100%;object-fit:cover;display:block;background:#707780;filter:contrast(1.12) saturate(.92)}
+    .noise{position:absolute;inset:0;z-index:1;background:radial-gradient(1200px 900px at 80% 78%,rgba(201,214,224,.22),rgba(8,10,14,0) 44%),radial-gradient(900px 700px at 14% 18%,rgba(229,237,244,.16),rgba(8,10,14,0) 46%),linear-gradient(130deg,#0A0D13 22%,#121722 56%,#0B0F15 100%);mix-blend-mode:normal}
+    .grain{position:absolute;inset:0;z-index:2;opacity:.22;background-image:radial-gradient(rgba(255,255,255,.2) .8px, transparent .8px);background-size:3px 3px;pointer-events:none}
+
+    .top-brand{position:absolute;left:62px;top:58px;z-index:3;display:flex;align-items:center;gap:14px}
+    .brand-mark{height:38px;width:auto;max-width:120px;display:block;object-fit:contain}
+    .brand-word{font-family:'Inter',sans-serif;font-weight:800;font-size:42px;line-height:1.14;color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:4px}
+
+    .top-arrow{position:absolute;right:64px;top:56px;z-index:3;width:74px;height:74px;border:3px solid #F8FAFC;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#F8FAFC}
+    .top-arrow svg{width:33px;height:33px}
+
+    .tn-title{position:absolute;left:98px;right:108px;z-index:4}
+    .tn-title h1{margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:98px;line-height:1.14;letter-spacing:.01em;text-transform:uppercase;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:8px}
+    .tn-title h1 .accent{color:var(--primary)}
+
+    .tn-message{position:absolute;left:98px;right:108px;z-index:4}
+    .tn-message p{margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:74px;line-height:1.16;letter-spacing:.01em;text-transform:uppercase;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:7;overflow:hidden;padding-bottom:8px}
+
+    .tn-cta{position:absolute;z-index:4}
+    .tn-cta div{margin:0;font-family:'Inter',sans-serif;font-weight:700;font-size:46px;line-height:1.14;color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:6px}
+
+    .footer-left{position:absolute;left:98px;bottom:100px;z-index:4}
+    .footer-left div{margin:0;font-family:'Inter',sans-serif;font-weight:500;font-size:38px;line-height:1.14;color:#F8FAFC;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:6px}
+    .footer-right{position:absolute;right:98px;bottom:100px;z-index:4;text-align:right}
+    .footer-right div{margin:0;font-family:'Inter',sans-serif;font-weight:700;font-size:42px;line-height:1.14;color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:6px}
+
+    .decor-net{position:absolute;right:-80px;bottom:-60px;width:520px;height:620px;z-index:3;opacity:.35;background:linear-gradient(transparent 0 0),repeating-linear-gradient(58deg,transparent 0 34px,rgba(226,232,240,.32) 34px 36px),repeating-linear-gradient(-22deg,transparent 0 44px,rgba(226,232,240,.26) 44px 46px);clip-path:polygon(40% 0,100% 10%,100% 100%,20% 100%)}
+  </style>
+</head>
+<body>
+  <div class="ig-carousel">
+    <section class="slide" data-cg-slide-type="text">
+      <div class="photo"><img data-image="true" data-image-size="1080x1350" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350'><rect width='100%25' height='100%25' fill='%23757d86'/></svg>"></div>
+      <div class="noise"></div>
+      <div class="grain"></div>
+      <div class="top-brand"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23808080' fill-opacity='0.35'/%3E%3C/svg%3E"><span class="brand-word">YOURBRAND</span></div>
+      <div class="top-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 12h12M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="tn-title" style="top:365px;"><h1 data-title="true"><span class="accent">Have you seen</span> this year’s biggest machine learning shifts?</h1></div>
+      <div class="footer-left"><div data-tagline="true">www.yourstudio.ai</div></div>
+      <div class="footer-right"><div data-cta="true">+01 800 4455</div></div>
+    </section>
+
+    <section class="slide" data-cg-slide-type="text">
+      <div class="photo"><img data-image="true" data-image-size="1080x1350" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350'><rect width='100%25' height='100%25' fill='%236f7780'/></svg>"></div>
+      <div class="noise"></div>
+      <div class="grain"></div>
+      <div class="top-brand"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23808080' fill-opacity='0.35'/%3E%3C/svg%3E"><span class="brand-word">YOURBRAND</span></div>
+      <div class="top-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 12h12M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="tn-title" style="top:380px;"><h1 data-title="true"><span class="accent">Quick prompt:</span> jump to the next card for the numbers.</h1></div>
+      <div class="tn-message" style="top:640px;"><p data-message="true">Swipe and steal the insights for your 2026 plan.</p></div>
+      <div class="footer-left"><div data-tagline="true">www.yourstudio.ai</div></div>
+      <div class="footer-right"><div data-cta="true">+01 800 4455</div></div>
+    </section>
+
+    <section class="slide" data-cg-slide-type="text">
+      <div class="photo"><img data-image="true" data-image-size="1080x1350" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350'><rect width='100%25' height='100%25' fill='%23747c85'/></svg>"></div>
+      <div class="noise"></div>
+      <div class="grain"></div>
+      <div class="top-brand"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23808080' fill-opacity='0.35'/%3E%3C/svg%3E"><span class="brand-word">YOURBRAND</span></div>
+      <div class="top-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 12h12M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="tn-message" style="top:285px;"><p data-message="true">✱ Generative AI software spend is projected to pass $180B by 2028. ✱ Teams using AI copilots report up to 31% faster first drafts. ✱ 62% of SMB leaders now rank automation as a top 3 growth priority.</p></div>
+      <div class="footer-left"><div data-tagline="true">www.yourstudio.ai</div></div>
+      <div class="footer-right"><div data-cta="true">more stats inside</div></div>
+    </section>
+
+    <section class="slide" data-cg-slide-type="text">
+      <div class="photo"><img data-image="true" data-image-size="1080x1350" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350'><rect width='100%25' height='100%25' fill='%23798088'/></svg>"></div>
+      <div class="noise"></div>
+      <div class="grain"></div>
+      <div class="decor-net" aria-hidden="true"></div>
+      <div class="top-brand"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23808080' fill-opacity='0.35'/%3E%3C/svg%3E"><span class="brand-word">YOURBRAND</span></div>
+      <div class="top-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 12h12M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="tn-title" style="top:350px;"><h1 data-title="true"><span class="accent">Still doing it all manually?</span></h1></div>
+      <div class="tn-message" style="top:560px;"><p data-message="true">Follow for practical AI workflows your team can launch this month.</p></div>
+      <div class="footer-left"><div data-tagline="true">www.yourstudio.ai</div></div>
+      <div class="footer-right"><div data-cta="true">+01 800 4455</div></div>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{
+  "designId": "DAHO4Oe5Bbw",
+  "startedAt": "2026-07-09T08:41:36.641Z",
+  "finishedAt": "2026-07-09T08:41:43.268Z",
+  "workspaceRoot": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace",
+  "cloneProfile": "minimal",
+  "clone": {
+    "designId": "DAHO4Oe5Bbw",
+    "outDir": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract",
+    "cloneProfile": "minimal",
+    "duplicate": false,
+    "duplicateOf": null,
+    "outputs": {
+      "templateData": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract\\template-data.json",
+      "signature": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract\\template-signature.json",
+      "dedupeIndex": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\index\\template-dedupe-index.json",
+      "assets": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract\\assets",
+      "pages": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract\\assets\\pages"
+    },
+    "stats": {
+      "pagesDetected": 10,
+      "slidesInHtmlClone": 0,
+      "promotedActualPages": 0,
+      "fallbackPageAssets": 0,
+      "downloaded": 11,
+      "failed": 0
+    }
+  },
+  "quality": {
+    "targetRmse": null,
+    "stopOnTarget": null,
+    "gate": null
+  },
+  "runTracking": {
+    "runId": null,
+    "runDir": null,
+    "report": null,
+    "output": null,
+    "createdAt": "2026-07-09T08:41:43.268Z",
+    "source": "clone-only",
+    "duplicate": false
+  },
+  "final": {
+    "duplicate": false,
+    "output": null,
+    "duplicateOf": null
+  },
+  "paths": {
+    "inputHtml": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\capture\\editor-page.reconstructed.html",
+    "extractDir": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract",
+    "pagesDir": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract\\assets\\pages"
+  }
+}

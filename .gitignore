@@ -1,0 +1,32 @@
+# secrets — NEVER commit (Azure keys live here)
+.env
+.env.local
+.env.*.local
+
+# dependencies
+node_modules/
+
+# generated / regenerable / heavy
+designs/*/comparison.html
+designs/*/.comparison-work/
+output/.verify/
+replicas/.slot-images/
+replicas/*.best.html
+
+# logs & temp
+*.log
+*.tmp
+.tmp/
+
+# tooling state
+.omc/
+.progress/
+runs/
+
+# raw Canva capture artifacts (large; may embed session tokens) — never commit
+designs/*/capture/
+# intermediate authoring scratch (output/ holds the final templates)
+replicas/
+# capture URL manifests contain Canva presigned S3 URLs (X-Amz-Credential) — never commit
+designs/*/extract/document-image-urls.json
+designs/*/extract/assets/download-manifest.json

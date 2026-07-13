@@ -1,0 +1,7 @@
+const http=require('http'),path=require('path'),{createRequire}=require('module');
+const req=createRequire(__filename);
+let WS;for(const p of ['ws','C:/Users/Groovy/Projects/content-gen/node_modules/.pnpm/ws@8.18.3/node_modules/ws','C:/Users/Groovy/Projects/content-gen/node_modules/.pnpm/ws@8.19.0/node_modules/ws']){try{WS=req(p);break}catch{}}
+if(!WS){console.error('no ws');process.exit(1);}
+const dash='file:///C:/Users/Groovy/Projects/canva-template-workspace/dashboard.html';
+const gj=u=>new Promise((r,j)=>http.get(u,x=>{let d='';x.on('data',c=>d+=c);x.on('end',()=>r(JSON.parse(d)))}).on('error',j));
+(async()=>{const l=(await gj('http://localhost:9222/json/list')).filter(t=>t.type==='page');const t=l.find(x=>(x.url||'').includes('dashboard'))||l[0];const ws=new WS(t.webSocketDebuggerUrl,{perMessageDeflate:false});let id=0,p={};const s=(m,q)=>new Promise(r=>{const i=++id;p[i]=r;ws.send(JSON.stringify({id:i,method:m,params:q||{}}))});ws.on('message',m=>{const o=JSON.parse(m);if(o.id&&p[o.id]){p[o.id](o.result);delete p[o.id]}});await new Promise(r=>ws.on('open',r));await s('Page.navigate',{url:dash});await new Promise(r=>setTimeout(r,2500));const r=await s('Runtime.evaluate',{expression:'JSON.stringify({imgs:document.querySelectorAll("img.thumb").length,loaded:[...document.querySelectorAll("img.thumb")].filter(i=>i.naturalWidth>0).length})',returnByValue:true});console.log('thumbs:',r.result.value);ws.close()})().catch(e=>console.log('ERR',e.message));

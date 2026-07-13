@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Growth Notes</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Beau+Rivage&family=Arimo:wght@400;600;700&display=swap');
+
+/* Brand roles — the ONLY brand-driven values. Canvas + body copy are fixed
+   literals so every palette stays AA-legible. Set at :root, never <body>. */
+:root{
+  --brand-primary:#C1502C;   /* terracotta */
+  --brand-accent:#748C58;    /* sage       */
+  --brand-on-primary:#FFF7EC;
+
+  --ink:#241A13;
+  --ink-soft:#2E2119;
+  --cream:#F5EFDC;
+  --paper-ink:#2A2018;
+  --cream-line:#E4D9BE;
+  --muted-cream:rgba(245,239,220,.78);
+  --muted-ink:rgba(42,32,24,.64);
+  --photo-bg:#DAD3C4;   /* neutral placeholder — never reads as "brand" by coincidence */
+
+  /* Contrast-safe accent text: the canvas alternates dark-ink / cream, so a
+     bare brand colour can go dark-on-dark (or pale-on-cream) for some brand
+     palettes. Tinting toward white on dark canvas / toward ink on light
+     canvas guarantees a legibility floor while still reading as "the brand
+     colour". Used for TEXT and thin strokes only — dots/borders that carry
+     the audit's coverage requirement stay on the raw brand var. */
+  --accent-on-dark:color-mix(in srgb, var(--brand-primary) 55%, #ffffff 45%);
+  --accent-on-light:color-mix(in srgb, var(--brand-primary) 50%, var(--paper-ink) 50%);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#15100b;}
+.ig-carousel{display:flex;flex-direction:column;align-items:center;gap:28px;}
+
+.slide{
+  position:relative;width:1080px;height:1350px;overflow:hidden;
+  font-family:'Arimo',sans-serif;
+}
+.slide *{box-sizing:border-box;}
+
+.s1{background:var(--ink);}
+.s2{background:var(--ink-soft);}
+.s3{background:var(--ink);}
+.s4{background:var(--cream);}
+.s5{background:var(--ink-soft);}
+
+/* ── chrome: kicker (top-center), dots (top-right), handle (bottom-left),
+   arrow (bottom-right) — consistent across every slide ── */
+.kicker{
+  position:absolute;top:60px;left:50%;transform:translateX(-50%);
+  font-family:'Arimo',sans-serif;font-weight:700;font-size:22px;
+  letter-spacing:.32em;text-transform:uppercase;color:var(--cream);opacity:.86;
+  z-index:6;
+}
+.s4 .kicker{color:var(--paper-ink);opacity:.72;}
+
+.dots{position:absolute;top:58px;right:92px;display:flex;gap:10px;z-index:6;}
+.dots i{display:block;width:18px;height:18px;border-radius:50%;
+        border:3px solid var(--cream);opacity:.34;}
+.dots i.on{background:var(--brand-primary);border-color:var(--brand-primary);opacity:1;
+           box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.28);}
+.s4 .dots i{border-color:var(--paper-ink);}
+
+.handle{position:absolute;left:92px;bottom:66px;font-weight:700;font-size:23px;
+        color:var(--cream);opacity:.78;z-index:6;}
+.s4 .handle{color:var(--paper-ink);}
+
+.arrow{position:absolute;right:88px;bottom:60px;width:80px;height:28px;z-index:6;}
+.arrow path{stroke:var(--accent-on-dark);}
+.s4 .arrow path{stroke:var(--accent-on-light);}
+
+/* ── typography ── */
+.title{
+  font-family:'Bodoni Moda',serif;font-weight:600;font-style:normal;
+  font-size:112px;line-height:1.02;letter-spacing:-.01em;color:var(--cream);
+  position:absolute;z-index:5;
+}
+.s4 .title{color:var(--paper-ink);}
+.title em{font-style:italic;font-weight:600;color:var(--accent-on-dark);}
+.s4 .title em{color:var(--accent-on-light);}
+
+.message{
+  font-family:'Beau Rivage',cursive;font-weight:400;font-size:46px;line-height:1.28;
+  color:var(--muted-cream);position:absolute;z-index:5;
+}
+.s4 .message{color:var(--muted-ink);}
+
+/* ── decorations: hand-marked annotation family (dot / ring / check / cross) —
+   not flowers, not Canva's die-cut shapes. Density echoes the source's scatter. */
+.mark{position:absolute;display:block;z-index:4;}
+
+/* ── photo slots (never baked) ── */
+.photo-full{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+.scrim{position:absolute;inset:0;z-index:2;pointer-events:none;}
+.s1 .scrim{background:linear-gradient(180deg,rgba(20,17,12,.62) 0%,rgba(20,17,12,.20) 40%,rgba(20,17,12,.34) 72%,rgba(20,17,12,.78) 100%);}
+.s3 .scrim{background:linear-gradient(96deg,rgba(20,17,12,.84) 0%,rgba(20,17,12,.52) 46%,rgba(20,17,12,.06) 76%);}
+
+.photo-card{
+  position:absolute;overflow:hidden;background:var(--photo-bg);
+  border:9px solid var(--brand-primary);border-radius:26px;
+  /* fixed cream hairline keeps the card edge visible even when a brand
+     palette's primary sits close in value to the dark canvas */
+  box-shadow:0 0 0 2px var(--cream), 0 22px 40px rgba(0,0,0,.4);z-index:3;
+}
+.photo-card img{display:block;width:100%;height:100%;object-fit:cover;}
+
+.photo-arch{
+  position:absolute;overflow:hidden;background:var(--photo-bg);
+  border-radius:999px 999px 24px 24px;z-index:3;
+  box-shadow:0 16px 30px rgba(0,0,0,.22);
+}
+.photo-arch img{display:block;width:100%;height:100%;object-fit:cover;}
+
+.photo-rect{
+  position:absolute;overflow:hidden;background:var(--photo-bg);
+  border-radius:20px;z-index:3;box-shadow:0 16px 30px rgba(0,0,0,.22);
+}
+.photo-rect img{display:block;width:100%;height:100%;object-fit:cover;}
+
+/* postmark stamp — the deck's biggest deliberate brand-fill: a numbered
+   "field note" seal, reliable brand mass regardless of what photo lands
+   in the slots above. Fixed hairline keeps its edge visible on any canvas. */
+.stamp{
+  position:absolute;width:230px;height:230px;border-radius:50%;
+  background:var(--brand-primary);z-index:4;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bodoni Moda',serif;font-weight:600;font-size:70px;
+  color:var(--brand-on-primary);
+  box-shadow:0 0 0 2px var(--cream),0 16px 30px rgba(0,0,0,.38);
+}
+.s4 .stamp{box-shadow:0 0 0 2px var(--paper-ink),0 16px 30px rgba(0,0,0,.16);}
+.stamp::after{
+  content:"";position:absolute;inset:16px;border-radius:50%;
+  border:2px dashed var(--brand-on-primary);opacity:.5;
+}
+.stamp span{position:relative;}
+
+/* placeholder fill used inside every image slot until the real asset lands */
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- ══ 1 · cover — full-bleed photo, stacked display title ══ -->
+  <section class="slide s1" data-cg-slide-type="text">
+    <img class="photo-full" alt="" data-image="true" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350'><defs><linearGradient id='p' x1='0' y1='0' x2='0.35' y2='1'><stop offset='0' stop-color='%23413A31'/><stop offset='0.55' stop-color='%232E2922'/><stop offset='1' stop-color='%231C1912'/></linearGradient><radialGradient id='v' cx='0.5' cy='0.42' r='0.7'><stop offset='0' stop-color='%23FFFFFF' stop-opacity='0.10'/><stop offset='1' stop-color='%23000000' stop-opacity='0'/></radialGradient></defs><rect width='1080' height='1350' fill='url(%23p)'/><rect width='1080' height='1350' fill='url(%23v)'/></svg>"/>
+    <div class="scrim"></div>
+
+    <p class="kicker" data-tagline="true">QUIET LESSONS</p>
+    <div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+
+    <h1 class="title" data-title="true" style="left:92px;top:250px;width:840px;">Field notes<br>from a <em>slower</em><br>year</h1>
+    <p class="message" data-message="true" style="left:96px;top:780px;width:700px;">Nobody warns you how loud a quiet season can be.</p>
+
+    <svg class="mark" viewBox="0 0 40 40" style="left:840px;top:150px;width:46px;" aria-hidden="true"><circle cx="20" cy="20" r="13" fill="none" stroke="var(--cream)" stroke-width="5"/></svg>
+    <svg class="mark" viewBox="0 0 40 40" style="left:150px;top:150px;width:38px;" aria-hidden="true"><path d="M8 26 L18 34 L34 10" fill="none" stroke="var(--brand-accent)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <svg class="mark" viewBox="0 0 40 40" style="left:912px;top:436px;width:40px;transform:rotate(-8deg);" aria-hidden="true"><path d="M20 6 V34 M6 20 H34" stroke="var(--cream)" stroke-width="5" stroke-linecap="round"/></svg>
+    <svg class="mark" viewBox="0 0 40 40" style="left:200px;top:690px;width:30px;" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="var(--brand-accent)"/></svg>
+
+    <div class="stamp" style="left:815px;top:865px;"><span>01</span></div>
+
+    <p class="handle">@yourbrand</p>
+    <svg class="arrow" viewBox="0 0 92 34" fill="none" aria-hidden="true"><path d="M2 17 H84 M70 5 L86 17 L70 29" stroke="var(--brand-primary)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </section>
+
+  <!-- ══ 2 · bordered photo card, heading + cursive below ══ -->
+  <section class="slide s2" data-cg-slide-type="text">
+    <p class="kicker" data-tagline="true">QUIET LESSONS</p>
+    <div class="dots"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+
+    <div class="photo-card" style="left:88px;top:132px;width:904px;height:700px;">
+      <img alt="" data-image="true" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350'><defs><linearGradient id='p' x1='0' y1='0' x2='0.35' y2='1'><stop offset='0' stop-color='%23413A31'/><stop offset='0.55' stop-color='%232E2922'/><stop offset='1' stop-color='%231C1912'/></linearGradient><radialGradient id='v' cx='0.5' cy='0.42' r='0.7'><stop offset='0' stop-color='%23FFFFFF' stop-opacity='0.10'/><stop offset='1' stop-color='%23000000' stop-opacity='0'/></radialGradient></defs><rect width='1080' height='1350' fill='url(%23p)'/><rect width='1080' height='1350' fill='url(%23v)'/></svg>"/>
+    </div>
+
+    <svg class="mark" viewBox="0 0 40 40" style="left:120px;top:170px;width:32px;" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="var(--brand-accent)"/></svg>
+
+    <div class="stamp" style="left:845px;top:590px;"><span>02</span></div>
+
+    <h1 class="title" data-title="true" style="left:92px;top:872px;width:900px;font-size:82px;">Your presence was never <em>the problem.</em></h1>
+    <p class="message" data-message="true" style="left:96px;top:1090px;width:820px;font-size:38px;">You don't owe the room a smaller version of yourself.</p>
+
+    <p class="handle">@yourbrand</p>
+    <svg class="arrow" viewBox="0 0 92 34" fill="none" aria-hidden="true"><path d="M2 17 H84 M70 5 L86 17 L70 29" stroke="var(--brand-primary)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </section>
+
+  <!-- ══ 3 · full-bleed photo, left column stacked heading ══ -->
+  <section class="slide s3" data-cg-slide-type="text">
+    <img class="photo-full" alt="" data-image="true" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350'><defs><linearGradient id='p' x1='0' y1='0' x2='0.35' y2='1'><stop offset='0' stop-color='%23413A31'/><stop offset='0.55' stop-color='%232E2922'/><stop offset='1' stop-color='%231C1912'/></linearGradient><radialGradient id='v' cx='0.5' cy='0.42' r='0.7'><stop offset='0' stop-color='%23FFFFFF' stop-opacity='0.10'/><stop offset='1' stop-color='%23000000' stop-opacity='0'/></radialGradient></defs><rect width='1080' height='1350' fill='url(%23p)'/><rect width='1080' height='1350' fill='url(%23v)'/></svg>"/>
+    <div class="scrim"></div>
+
+    <p class="kicker" data-tagline="true">QUIET LESSONS</p>
+    <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
+
+    <h1 class="title" data-title="true" style="left:96px;top:270px;width:640px;font-size:98px;">Celebrate<br>the<br>boring<br><em>Tuesdays.</em></h1>
+    <p class="message" data-message="true" style="left:100px;top:940px;width:640px;font-size:40px;">Folded laundry and a made bed are still a plot twist worth telling.</p>
+
+    <svg class="mark" viewBox="0 0 40 40" style="left:700px;top:210px;width:36px;" aria-hidden="true"><circle cx="20" cy="20" r="13" fill="none" stroke="var(--cream)" stroke-width="5"/></svg>
+    <svg class="mark" viewBox="0 0 40 40" style="left:770px;top:420px;width:30px;" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="var(--brand-accent)"/></svg>
+    <svg class="mark" viewBox="0 0 40 40" style="left:660px;top:640px;width:40px;transform:rotate(6deg);" aria-hidden="true"><path d="M20 6 V34 M6 20 H34" stroke="var(--cream)" stroke-width="5" stroke-linecap="round"/></svg>
+
+    <div class="stamp" style="left:755px;top:765px;"><span>03</span></div>
+
+    <p class="handle">@yourbrand</p>
+    <svg class="arrow" viewBox="0 0 92 34" fill="none" aria-hidden="true"><path d="M2 17 H84 M70 5 L86 17 L70 29" stroke="var(--brand-primary)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </section>
+
+  <!-- ══ 4 · cream canvas, two photo panels, dark ink text ══ -->
+  <section class="slide s4" data-cg-slide-type="text">
+    <p class="kicker" data-tagline="true">QUIET LESSONS</p>
+    <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+
+    <div class="photo-rect" style="left:76px;top:110px;width:430px;height:430px;">
+      <img alt="" data-image="true" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350'><defs><linearGradient id='p' x1='0' y1='0' x2='0.35' y2='1'><stop offset='0' stop-color='%23413A31'/><stop offset='0.55' stop-color='%232E2922'/><stop offset='1' stop-color='%231C1912'/></linearGradient><radialGradient id='v' cx='0.5' cy='0.42' r='0.7'><stop offset='0' stop-color='%23FFFFFF' stop-opacity='0.10'/><stop offset='1' stop-color='%23000000' stop-opacity='0'/></radialGradient></defs><rect width='1080' height='1350' fill='url(%23p)'/><rect width='1080' height='1350' fill='url(%23v)'/></svg>"/>
+    </div>
+    <div class="photo-arch" style="left:566px;top:110px;width:438px;height:430px;border-radius:999px 999px 24px 24px;">
+      <img alt="" data-image="true" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350'><defs><linearGradient id='p' x1='0' y1='0' x2='0.35' y2='1'><stop offset='0' stop-color='%23413A31'/><stop offset='0.55' stop-color='%232E2922'/><stop offset='1' stop-color='%231C1912'/></linearGradient><radialGradient id='v' cx='0.5' cy='0.42' r='0.7'><stop offset='0' stop-color='%23FFFFFF' stop-opacity='0.10'/><stop offset='1' stop-color='%23000000' stop-opacity='0'/></radialGradient></defs><rect width='1080' height='1350' fill='url(%23p)'/><rect width='1080' height='1350' fill='url(%23v)'/></svg>"/>
+    </div>
+
+    <svg class="mark" viewBox="0 0 40 40" style="left:500px;top:200px;width:30px;" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="var(--brand-primary)"/></svg>
+
+    <h1 class="title" data-title="true" style="left:92px;top:648px;width:900px;font-size:80px;">Growing apart isn't <em>a betrayal.</em></h1>
+    <p class="message" data-message="true" style="left:96px;top:900px;width:820px;font-size:38px;">Different roads don't erase the years you already shared.</p>
+
+    <svg class="mark" viewBox="0 0 40 40" style="left:920px;top:960px;width:34px;transform:rotate(-10deg);" aria-hidden="true"><path d="M8 26 L18 34 L34 10" fill="none" stroke="var(--brand-accent)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <svg class="mark" viewBox="0 0 40 40" style="left:120px;top:1040px;width:36px;" aria-hidden="true"><path d="M20 6 V34 M6 20 H34" stroke="var(--paper-ink)" stroke-width="5" stroke-linecap="round" opacity=".55"/></svg>
+
+    <div class="stamp" style="left:755px;top:1000px;"><span>04</span></div>
+
+    <p class="handle">@yourbrand</p>
+    <svg class="arrow" viewBox="0 0 92 34" fill="none" aria-hidden="true"><path d="M2 17 H84 M70 5 L86 17 L70 29" stroke="var(--brand-primary)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </section>
+
+  <!-- ══ 5 · outro — cursive paragraph, heading, bordered photo card ══ -->
+  <section class="slide s5" data-cg-slide-type="text">
+    <p class="kicker" data-tagline="true">QUIET LESSONS</p>
+    <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+
+    <p class="message" data-message="true" style="left:96px;top:128px;width:860px;font-size:42px;">Some weeks you'll feel unstoppable.<br>Others you'll barely make it to bedtime.<br>Both still count.</p>
+
+    <h1 class="title" data-title="true" style="left:92px;top:346px;width:900px;font-size:86px;">Progress rarely moves in a <em>straight line.</em></h1>
+
+    <svg class="mark" viewBox="0 0 40 40" style="left:140px;top:600px;width:30px;" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="var(--brand-accent)"/></svg>
+
+    <div class="photo-card" style="left:88px;top:664px;width:904px;height:552px;">
+      <img alt="" data-image="true" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1350'><defs><linearGradient id='p' x1='0' y1='0' x2='0.35' y2='1'><stop offset='0' stop-color='%23413A31'/><stop offset='0.55' stop-color='%232E2922'/><stop offset='1' stop-color='%231C1912'/></linearGradient><radialGradient id='v' cx='0.5' cy='0.42' r='0.7'><stop offset='0' stop-color='%23FFFFFF' stop-opacity='0.10'/><stop offset='1' stop-color='%23000000' stop-opacity='0'/></radialGradient></defs><rect width='1080' height='1350' fill='url(%23p)'/><rect width='1080' height='1350' fill='url(%23v)'/></svg>"/>
+    </div>
+
+    <div class="stamp" style="left:803px;top:559px;"><span>05</span></div>
+
+    <p class="handle">@yourbrand</p>
+    <svg class="arrow" viewBox="0 0 92 34" fill="none" aria-hidden="true"><path d="M2 17 H84 M70 5 L86 17 L70 29" stroke="var(--brand-primary)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </section>
+
+</div>
+</body>
+</html>
