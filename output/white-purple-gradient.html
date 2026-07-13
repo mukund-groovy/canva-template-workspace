@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&family=Dancing+Script:wght@600;700&display=swap');
+
+  :root{
+    --primary:var(--brand-primary,#5B5BE6);
+    --secondary:var(--brand-secondary,#8A6BE0);
+    --accent:var(--brand-accent,#6E6BF2);
+    --highlight:var(--brand-accent,#6E6BF2);
+    --bg:var(--brand-bg,#F7F1EC);
+    --surface:var(--brand-surface,var(--brand-bg-alt,#EFEAFB));
+    --text-high:var(--brand-ink,var(--brand-text,#161318));
+    --text-low:var(--brand-text-muted,rgba(22,19,24,.66));
+    --border:var(--brand-border,rgba(22,19,24,.14));
+  }
+
+  *{box-sizing:border-box;}
+
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg,#F7F1EC);
+    font-family:'Archivo',sans-serif;
+  }
+
+  /* gradient corners */
+  .grad{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(680px 620px at -6% -6%, color-mix(in srgb,var(--secondary) 55%, transparent) 0%, transparent 62%),
+      radial-gradient(720px 660px at 106% 8%, color-mix(in srgb,var(--accent) 48%, transparent) 0%, transparent 60%),
+      radial-gradient(760px 700px at 108% 108%, color-mix(in srgb,var(--primary) 50%, transparent) 0%, transparent 62%),
+      radial-gradient(660px 620px at -6% 106%, color-mix(in srgb,var(--secondary) 46%, transparent) 0%, transparent 60%);
+  }
+
+  /* top chrome */
+  .topbar{position:absolute;top:44px;left:64px;right:64px;z-index:5;display:flex;align-items:center;justify-content:space-between;}
+  .lockup{display:inline-flex;align-items:center;gap:12px;}
+  .brand-mark-clip{flex:none;height:26px;display:flex;align-items:center;}
+  .brand-mark{height:26px;width:auto;max-width:100px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Archivo',sans-serif;font-weight:800;font-size:22px;color:var(--text-high,#161318);white-space:nowrap;letter-spacing:.01em;}
+  .star{font-family:'Archivo',sans-serif;font-weight:900;font-size:44px;line-height:.6;color:var(--primary);}
+
+  /* bottom chrome */
+  .searchbar{position:absolute;bottom:44px;left:64px;z-index:5;display:flex;align-items:center;gap:12px;
+    background:var(--surface,#EFEAFB);border:1px solid var(--border,rgba(22,19,24,.14));border-radius:999px;
+    padding:14px 26px;}
+  .searchbar span{font-family:'Archivo',sans-serif;font-weight:500;font-size:19px;color:var(--text-low,rgba(22,19,24,.66));white-space:nowrap;}
+  .searchbar svg{width:17px;height:17px;color:var(--text-low,rgba(22,19,24,.66));flex:none;}
+  .social{position:absolute;bottom:52px;right:64px;z-index:5;display:flex;align-items:center;gap:20px;}
+  .social svg{width:26px;height:26px;color:var(--text-high,#161318);}
+
+  /* kicker with ellipse accent */
+  .tn-kick{position:absolute;z-index:3;}
+  .tn-kick .kwrap{position:relative;display:inline-block;padding:14px 26px;}
+  .tn-kick .kwrap::before{content:'';position:absolute;inset:0;border-radius:50%;
+    border:2px solid color-mix(in srgb,var(--primary) 55%, transparent);transform:rotate(-4deg);}
+  .tn-kick h2{margin:0;font-family:'Archivo',sans-serif;font-weight:800;font-size:44px;line-height:1.06;
+    letter-spacing:-.01em;color:var(--primary);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:6px;}
+
+  /* small plain kicker (label) */
+  .tn-label{position:absolute;z-index:3;}
+  .tn-label h3{margin:0;font-family:'Archivo',sans-serif;font-weight:700;font-size:22px;line-height:1.16;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--primary);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:4px;}
+
+  /* headline */
+  .tn-title{position:absolute;z-index:3;}
+  .tn-title h1{margin:0;font-family:'Archivo',sans-serif;font-weight:900;line-height:1.02;
+    letter-spacing:-.02em;color:var(--text-high,#161318);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:10px;}
+
+  /* body */
+  .tn-message{position:absolute;z-index:3;}
+  .tn-message p{margin:0;font-family:'Archivo',sans-serif;font-weight:400;line-height:1.4;
+    color:var(--text-high,#161318);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:8px;}
+
+  /* script accent */
+  .tn-script{position:absolute;z-index:3;}
+  .tn-script .swrap{position:relative;display:inline-block;padding:10px 40px;}
+  .tn-script .swrap::before{content:'';position:absolute;left:0;right:0;top:34%;height:150px;border-radius:50%;
+    border:2px solid color-mix(in srgb,var(--primary) 45%, transparent);transform:rotate(-3deg);}
+  .tn-script h2{margin:0;font-family:'Dancing Script',cursive;font-weight:700;font-size:120px;line-height:1;
+    color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:12px;white-space:nowrap;}
+
+  /* cta pill */
+  .tn-cta{position:absolute;z-index:4;}
+  .tn-cta .pill{display:inline-block;background:var(--primary);color:#fff;border-radius:999px;
+    padding:18px 40px;font-family:'Archivo',sans-serif;font-weight:800;font-size:26px;letter-spacing:.01em;
+    -webkit-line-clamp:1;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 · cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grad" aria-hidden="true"></div>
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="star">&#10033;</div>
+    </div>
+    <div class="tn-label" style="left:64px;top:150px;"><h3 data-title="true">Growth Playbook</h3></div>
+    <div class="tn-title" style="left:64px;top:230px;width:952px;"><h1 data-title="true" style="font-size:150px;-webkit-line-clamp:4;">Earn Attention, Don't Buy It</h1></div>
+    <div class="tn-script" style="left:56px;top:770px;"><h2 data-title="true">audience</h2></div>
+    <div class="tn-cta" style="left:64px;top:960px;"><span class="pill" data-cta="true">Save this</span></div>
+    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+  </section>
+
+  <!-- Slide 2 · point -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grad" aria-hidden="true"></div>
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="star">&#10033;</div>
+    </div>
+    <div class="tn-label" style="left:64px;top:170px;"><h3 data-title="true">The Problem</h3></div>
+    <div class="tn-title" style="left:64px;top:250px;width:920px;"><h1 data-title="true" style="font-size:90px;-webkit-line-clamp:4;">Followers aren't the same as fans</h1></div>
+    <div class="tn-message" style="left:64px;top:760px;width:820px;"><p data-message="true" style="font-size:34px;-webkit-line-clamp:5;">Numbers look nice, but loyalty pays. Here's how to turn passive scrollers into people who root for you.</p></div>
+    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+  </section>
+
+  <!-- Slide 3 · point -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grad" aria-hidden="true"></div>
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="star">&#10033;</div>
+    </div>
+    <div class="tn-label" style="left:64px;top:160px;"><h3 data-title="true">Move 01</h3></div>
+    <div class="tn-kick" style="left:56px;top:240px;width:520px;"><span class="kwrap"><h2 data-title="true">Lead With a Point of View</h2></span></div>
+    <div class="tn-message" style="left:64px;top:800px;width:840px;"><p data-message="true" style="font-size:34px;-webkit-line-clamp:5;">Neutral gets ignored. Say what you actually believe, and let the right people self-select into your world.</p></div>
+    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+  </section>
+
+  <!-- Slide 4 · point -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grad" aria-hidden="true"></div>
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="star">&#10033;</div>
+    </div>
+    <div class="tn-label" style="left:64px;top:160px;"><h3 data-title="true">Move 02</h3></div>
+    <div class="tn-kick" style="left:56px;top:240px;width:520px;"><span class="kwrap"><h2 data-title="true">Give Before You Ask</h2></span></div>
+    <div class="tn-message" style="left:64px;top:800px;width:840px;"><p data-message="true" style="font-size:34px;-webkit-line-clamp:5;">Teach, entertain, or solve something small every post. Generosity is the fastest route to trust and recall.</p></div>
+    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+  </section>
+
+  <!-- Slide 5 · point -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grad" aria-hidden="true"></div>
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="star">&#10033;</div>
+    </div>
+    <div class="tn-label" style="left:64px;top:190px;"><h3 data-title="true">Move 03</h3></div>
+    <div class="tn-kick" style="left:220px;top:270px;width:640px;text-align:center;"><span class="kwrap"><h2 data-title="true">One Look, Every Post</h2></span></div>
+    <div class="tn-message" style="left:120px;top:720px;width:840px;text-align:center;"><p data-message="true" style="font-size:34px;-webkit-line-clamp:5;">Consistent color, type, and rhythm make you recognizable in a half-second thumb stop. Familiarity feels safe.</p></div>
+    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+  </section>
+
+  <!-- Slide 6 · point -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grad" aria-hidden="true"></div>
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="star">&#10033;</div>
+    </div>
+    <div class="tn-label" style="left:64px;top:170px;"><h3 data-title="true">Move 04</h3></div>
+    <div class="tn-title" style="left:64px;top:250px;width:900px;"><h1 data-title="true" style="font-size:64px;-webkit-line-clamp:2;">Show Receipts</h1></div>
+    <div class="tn-message" style="left:64px;top:420px;width:840px;"><p data-message="true" style="font-size:34px;-webkit-line-clamp:5;">Real results and honest wins beat bold claims. Let outcomes, screenshots, and stories do the convincing.</p></div>
+    <div class="tn-kick" style="left:56px;top:830px;width:640px;"><span class="kwrap"><h2 data-title="true">Show Receipts</h2></span></div>
+    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+  </section>
+
+  <!-- Slide 7 · list -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grad" aria-hidden="true"></div>
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="star">&#10033;</div>
+    </div>
+    <div class="tn-label" style="left:64px;top:170px;"><h3 data-title="true">Cut These</h3></div>
+    <div class="tn-title" style="left:64px;top:250px;width:940px;"><h1 data-title="true" style="font-size:88px;-webkit-line-clamp:3;">Habits Killing Your Reach</h1></div>
+    <div class="tn-message" style="left:64px;top:640px;width:860px;"><p data-message="true" style="font-size:36px;-webkit-line-clamp:5;">Vague captions. Posting and ghosting. Copying trends late. Chasing everyone. Focus beats frequency.</p></div>
+    <div class="tn-kick" style="left:56px;top:1000px;width:640px;"><span class="kwrap"><h2 data-title="true">Focus beats frequency</h2></span></div>
+    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+  </section>
+
+  <!-- Slide 8 · point -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grad" aria-hidden="true"></div>
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="star">&#10033;</div>
+    </div>
+    <div class="tn-label" style="left:64px;top:160px;"><h3 data-title="true">Move 05</h3></div>
+    <div class="tn-kick" style="left:56px;top:240px;width:560px;"><span class="kwrap"><h2 data-title="true">Talk Like a Human</h2></span></div>
+    <div class="tn-message" style="left:64px;top:800px;width:840px;"><p data-message="true" style="font-size:34px;-webkit-line-clamp:5;">Drop the corporate voice. Answer DMs, reply in threads, name names. Presence is the new differentiator.</p></div>
+    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+  </section>
+
+  <!-- Slide 9 · point -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grad" aria-hidden="true"></div>
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="star">&#10033;</div>
+    </div>
+    <div class="tn-label" style="left:64px;top:170px;"><h3 data-title="true">The Compound</h3></div>
+    <div class="tn-kick" style="left:56px;top:250px;width:560px;"><span class="kwrap"><h2 data-title="true">Small Reps, Big Payoff</h2></span></div>
+    <div class="tn-title" style="left:64px;top:520px;width:900px;"><h1 data-title="true" style="font-size:54px;-webkit-line-clamp:2;">Consistency is a moat</h1></div>
+    <div class="tn-message" style="left:64px;top:680px;width:840px;"><p data-message="true" style="font-size:34px;-webkit-line-clamp:5;">One helpful post won't move much. A hundred, consistent and specific, builds a reputation nobody can copy.</p></div>
+    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+  </section>
+
+  <!-- Slide 10 · closer -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grad" aria-hidden="true"></div>
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="star">&#10033;</div>
+    </div>
+    <div class="tn-label" style="left:64px;top:170px;"><h3 data-title="true">Your Move</h3></div>
+    <div class="tn-title" style="left:64px;top:250px;width:900px;"><h1 data-title="true" style="font-size:118px;-webkit-line-clamp:3;">Start Building Today</h1></div>
+    <div class="tn-script" style="left:56px;top:660px;"><h2 data-title="true" style="font-size:104px;">30 days</h2></div>
+    <div class="tn-message" style="left:64px;top:860px;width:840px;"><p data-message="true" style="font-size:32px;-webkit-line-clamp:4;">Pick one habit above and run it for 30 days. Loyalty is earned in the boring, repeatable work.</p></div>
+    <div class="tn-cta" style="left:64px;top:1030px;"><span class="pill" data-cta="true">Follow for more</span></div>
+    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+  </section>
+
+</div>
+</body>
+</html>

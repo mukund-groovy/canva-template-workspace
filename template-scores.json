@@ -234,19 +234,19 @@
     }
   },
   "yellow-simple-minimalist": {
-    "score": 4.2,
+    "score": 8.5,
     "breakdown": {
       "contract": 4,
-      "verify": 0,
-      "stress": 0,
-      "brand": 0.2,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
       "raw": {
         "cViol": 0,
         "cWarn": 0,
-        "vFail": 20,
-        "vWarn": 6,
-        "stFail": 18,
-        "deckAvg": 0.35,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 0,
         "brandPass": false
       }
     }
@@ -319,6 +319,168 @@
         "vWarn": 0,
         "stFail": 4,
         "deckAvg": 2.76,
+        "brandPass": false
+      }
+    }
+  },
+  "white-and-black": {
+    "score": 8.2,
+    "breakdown": {
+      "contract": 3.7,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 2,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 0,
+        "brandPass": false
+      }
+    }
+  },
+  "white-and-black-2": {
+    "score": 8.4,
+    "breakdown": {
+      "contract": 3.9,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 1,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 0,
+        "brandPass": false
+      }
+    }
+  },
+  "white-and-black-3": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 0,
+        "brandPass": false
+      }
+    }
+  },
+  "white-and-black-4": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 0,
+        "brandPass": false
+      }
+    }
+  },
+  "white-and-black-5": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 0,
+        "brandPass": false
+      }
+    }
+  },
+  "white-and-black-6": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 0,
+        "brandPass": false
+      }
+    }
+  },
+  "white-purple-gradient": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 0,
+        "brandPass": false
+      }
+    }
+  },
+  "white-and-black-7": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 0,
+        "brandPass": false
+      }
+    }
+  },
+  "editorial-aesthetic-content-3": {
+    "score": 8.1,
+    "breakdown": {
+      "contract": 3.6,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 3,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 0,
         "brandPass": false
       }
     }

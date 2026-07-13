@@ -162,8 +162,28 @@ const stripFences = (s) => s.replace(/^[\s\S]*?```(?:html)?\s*/i, (m) => (/```/.
   .replace(/```[\s\S]*$/i, '').trim().startsWith('<') ? s.replace(/```html?\s*|\s*```/gi, '').trim()
   : s.replace(/```html?\s*|\s*```/gi, '').trim();
 
+// ── creative planning (system prompt) ────────────────────────────────────────────
+// Stage 1: study the reference purely for its STRUCTURE and THEME, then invent an
+// original, premium concept with entirely new copy. Decoupled from HTML so the model
+// designs the idea first instead of transcribing whatever text it can read off the
+// reference images (the failure mode that produced a near-verbatim clone).
+const PLANNER = `You are a senior brand designer and copywriter. You are shown the page images of a reference Instagram carousel. Study it ONLY to understand: its layout structure, how many slides, the role of each element (cover / point / list / closer), the topic space, and the visual mood.
+
+Then INVENT AN ORIGINAL, PREMIUM carousel on a topic in the same space — your own creative angle, your own words. This is inspiration, not reproduction.
+
+HARD RULES:
+- NEVER reuse the reference's words, headlines, sentences, brand names, @handles, phone numbers, or placeholder text. If you can read a phrase in the reference, you may not use it.
+- This includes CHROME the reference paints on every slide: a top-bar brand name (e.g. a made-up label like "BORCELLE"), social UI ("LIKE", "SAVE", "COMMENT"), page counters, @handles, and the words inside pills/buttons. None of those words may appear in your plan. Any button/pill you want is expressed as a slide's cta with YOUR OWN label.
+- Write real, sharp, premium editorial copy — specific and confident, never lorem, never generic filler.
+- Keep it tight so it will fit: cover headline <= ~32 chars, section headline <= ~40 chars, body <= ~140 chars, kicker/cta/label <= ~24 chars.
+- Pick a fresh angle: a distinct point of view, a memorable through-line across slides, a strong closing CTA.
+
+Return ONLY minified JSON, no prose, matching:
+{"concept":"one-line premium angle","audience":"who","tone":"e.g. bold editorial","visualDirection":"typography + color + composition mood in one sentence","slides":[{"role":"cover|point|list|closer","kicker":"","title":"","body":"","cta":""}]}
+Produce exactly one slides[] entry per reference page. Omit a field with "" when the slide's role doesn't use it.`;
+
 // ── authoring contract (system prompt) ───────────────────────────────────────────
-const SYSTEM = `You author ONE self-contained, brand-recolorable Instagram carousel HTML template that matches a reference design's LAYOUT while using entirely NEW copy and NEW photo subjects. Output ONLY the complete HTML document (no prose, no markdown fences).
+const SYSTEM = `You author ONE self-contained, brand-recolorable Instagram carousel HTML template. You are given an ORIGINAL creative plan (copy already written) and reference page images for LAYOUT/COMPOSITION inspiration ONLY. Realize the plan's copy in a premium design; never copy the reference's words. Output ONLY the complete HTML document (no prose, no markdown fences).
 
 STRUCTURE CONTRACT (a template that violates this cannot generate posts):
 - Root: a single <div class="ig-carousel"> containing one <section class="slide" data-cg-slide-type="..."> per page. Fixed canvas 1080x1350 per slide.
@@ -178,20 +198,66 @@ STRUCTURE CONTRACT (a template that violates this cannot generate posts):
 - Fonts: substitute the reference's faces with the closest Google Fonts (@import), import ONLY the weights you use.
 - Layer order: declare stacking once; decorations below text always.
 
-KEEP the reference composition and each object's role. CHANGE all copy (new headlines/body/cta — never the reference words) and every photo SUBJECT (derive from YOUR new copy). Write real, punchy copy — not lorem, not the reference's text.`;
+Draw COMPOSITION and object roles from the reference (where the headline sits, how a list is arranged, the visual rhythm), but the WORDS come only from the plan. Never reproduce the reference's text, brand names, @handles, or numbers. Elevate it: premium typography, confident spacing, intentional hierarchy.
 
-async function author({ td, thumbs, useVision = true }) {
+BRAND & CHROME — do NOT transcribe any text you can read in the reference images:
+- The brand name in a top bar is ALWAYS the lockup <span class="brand-word">YOURBRAND</span> — never a reference label like "BORCELLE".
+- Do NOT paint the reference's social UI ("LIKE"/"SAVE"/"COMMENT"), its @handle, or its page counter as literal reference words. A page counter, if you want one, uses neutral digits only.
+- Pill/button/CTA text comes ONLY from the plan's cta fields — never a phrase read off the reference (no "Content Creator", "Turn ideas into impact", etc.).`;
+
+// Stage 1 — study the reference images and return an original creative plan (JSON).
+async function plan({ td, thumbs, useVision = true }) {
   const brief =
-    `Author a NEW carousel template that MATCHES the reference design's LAYOUT (shown in the attached page images) but with entirely NEW copy and NEW photo subjects.\n` +
-    `Reference title: ${td.title || '(untitled)'}\n` +
-    `Reference fonts: ${(td.fonts || []).join(', ') || 'unknown'} (substitute closest Google Fonts)\n` +
+    `Reference title (for topic space only, do NOT reuse its words): ${td.title || '(untitled)'}\n` +
+    `Slide count: ${thumbs.length} — return exactly this many slides[].\n` +
+    `Study the attached reference page images for structure and mood, then invent an original premium carousel. Return ONLY the JSON.`;
+  const content = [{ type: 'input_text', text: brief }];
+  if (useVision) for (const p of thumbs.slice(0, 10)) content.push(imgPart(p));
+  let raw;
+  try {
+    raw = await respond({ instructions: PLANNER, input: [{ role: 'user', content }] });
+  } catch (err) {
+    if (useVision && /unsupported|image|invalid|400/i.test(err.message)) {
+      log('  plan: vision rejected — retrying text-only');
+      return plan({ td, thumbs, useVision: false });
+    }
+    throw err;
+  }
+  const m = raw.match(/\{[\s\S]*\}/);
+  if (!m) throw new Error('planner returned no JSON');
+  const p = JSON.parse(m[0]);
+  if (!Array.isArray(p.slides) || !p.slides.length) throw new Error('plan has no slides');
+  return p;
+}
+
+// Serialize the plan into a compact copy deck the author fills into the layout.
+function planDeck(p) {
+  const line = (s, i) =>
+    `Slide ${i + 1} [${s.role || 'point'}]` +
+    (s.kicker ? ` · kicker: "${s.kicker}"` : '') +
+    (s.title ? ` · title: "${s.title}"` : '') +
+    (s.body ? ` · body: "${s.body}"` : '') +
+    (s.cta ? ` · cta: "${s.cta}"` : '');
+  return `CONCEPT: ${p.concept || ''}\nAUDIENCE: ${p.audience || ''}\nTONE: ${p.tone || ''}\nVISUAL DIRECTION: ${p.visualDirection || ''}\n\nCOPY DECK (use these EXACT words — they are already original; do not swap in reference text):\n${p.slides.map(line).join('\n')}`;
+}
+
+async function author({ td, thumbs, deck, useVision = true }) {
+  const brief =
+    `Author a premium, self-contained carousel HTML template that REALIZES the creative plan below in an elevated design.\n` +
+    `Use the attached reference page images ONLY for LAYOUT/COMPOSITION inspiration (element placement, rhythm) — never for words.\n` +
+    `Reference fonts: ${(td.fonts || []).join(', ') || 'unknown'} (substitute closest premium Google Fonts; you may choose better ones).\n` +
     `Slide count: ${thumbs.length} (produce exactly this many <section class="slide">)\n\n` +
-    `MIRROR THE STRUCTURE of the gold-standard exemplar below EXACTLY: the nine :root brand tokens, the brand lockup, one <section class="slide" data-cg-slide-type> per page, EVERY text node in its own absolutely-positioned wrapper with the text in normal flow, -webkit-line-clamp on every run, single-line source text, semantic data-* slots. Your VISUAL layout differs to match the reference images; the structural scaffolding is identical to the exemplar.\n\n` +
-    `CRITICAL — EVERYTHING MUST FIT the 1080x1350 slide with comfortable margins; ZERO overflow is the #1 quality bar (overflow is the most common failure).\n` +
-    `- Reuse the exemplar's font sizes / line-heights as your ceiling; when unsure go SMALLER.\n` +
-    `- Put -webkit-line-clamp on EVERY text run (headline 2-3 lines, body 3-4 lines) with line-height >= 1.14 and a few px padding-bottom.\n` +
-    `- Keep copy TIGHT so it fits: cover headline <= ~32 chars, section headline <= ~40 chars, body <= ~140 chars, kicker/label <= ~24 chars. Fewer words beats clipped words.\n` +
-    `- Absolutely-position each text block with a fixed max width well inside 1080; never let a block run to the slide edge.\n\n` +
+    `=== ORIGINAL CREATIVE PLAN — this is your copy ===\n${deck}\n=== END PLAN ===\n\n` +
+    `MIRROR THE STRUCTURE of the gold-standard exemplar below EXACTLY: the nine :root brand tokens, the brand lockup, one <section class="slide" data-cg-slide-type> per page, EVERY text node in its own absolutely-positioned wrapper with the text in normal flow, -webkit-line-clamp on every run, single-line source text, semantic data-* slots. Your VISUAL layout takes composition cues from the reference images; the structural scaffolding is identical to the exemplar.\n\n` +
+    `CRITICAL — FILL THE FRAME. Each 1080x1350 slide must feel FULL and composed edge-to-edge, like the reference: NO large empty regions, no tiny content floating in a sea of whitespace. Big, confident display type; content occupies the whole canvas with intentional margins (~64-80px), not a small cluster in one corner.\n` +
+    `- Make the primary headline LARGE and dominant — a cover headline should fill most of the slide width and a big share of its height (think 120-220px display type), exactly like the reference's oversized headline. Section headlines are big too. Timid type is a failure.\n` +
+    `- Distribute elements across the full height: anchor a kicker/brand near the top, the headline in the upper-middle, body/cards in the lower-middle, a footer/counter at the bottom — so the eye travels the whole slide. Balance the composition; fill negative space with scale, a card/surface panel, or a decorative accent rather than leaving it blank.\n` +
+    `- BALANCE BOTH HALVES. Do NOT cluster every element on the left with a blank right side (the most common emptiness bug). The right half must carry real weight: either let the headline run nearly full-width (1080 minus margins), or place a card/surface/photo/large accent on the right. No quadrant of the slide may read as empty paper.\n` +
+    `- COVER & CLOSER slides (mostly type): the headline ALONE should fill ~55-65% of the slide — huge, multi-line, spanning most of the width — plus a supporting block (kicker, a short deck line, a CTA pill, a surface panel) so it never looks like a small title floating on blank paper.\n` +
+    `- KEEP THE REFERENCE'S SUPPORTING ELEMENTS as composition: if the reference balances a headline with floating pills, tags, badges, chips, numbers, or decorative shapes (often on the opposite side/corner), REPRODUCE those elements in roughly their positions — but RELABEL them with your own words from the plan (or leave decorative shapes text-free). Do NOT drop them and leave the headline alone on one side; those elements are what fill the frame. Every slide's supporting elements must span into the side the headline does not occupy.\n` +
+    `- Aim for the content bounding box to cover ROUGHLY 80%+ of the slide area AND for elements to be spread across it (top / middle / bottom AND left / right), not concentrated in one corner. If a slide looks sparse, scale the type up and spread the blocks out — do not shrink to be safe.\n` +
+    `- STILL ZERO overflow: fill the frame but nothing may spill or clip. Put -webkit-line-clamp on EVERY text run (headline 2-3 lines, body 3-4 lines), line-height >= 1.14, a few px padding-bottom.\n` +
+    `- Copy lengths from the plan: cover headline <= ~32 chars, section headline <= ~40 chars, body <= ~140 chars — achieve fullness with SCALE and LAYOUT, not more words.\n\n` +
     `CRITICAL — RECOLORABILITY (scored by a brand-audit that swaps the palette and measures how many pixels change):\n` +
     `- EVERY themeable color — page background, surfaces/cards, accent, the highlight, headline color on a dark bg, borders, the numeral/kicker color — MUST be var(--brand-<role>, <fallback-hex>). NEVER a bare hex for these.\n` +
     `- Only pure body-copy black or white may be a literal color. Everything that gives the design its LOOK must flow from the brand tokens, exactly like the exemplar — otherwise the template fails to re-skin and scores badly.\n` +
@@ -205,10 +271,66 @@ async function author({ td, thumbs, useVision = true }) {
   } catch (err) {
     if (useVision && /unsupported|image|invalid|400/i.test(err.message)) {
       log('  vision rejected by model — retrying text-only');
-      return author({ td, thumbs, useVision: false });
+      return author({ td, thumbs, deck, useVision: false });
     }
     throw err;
   }
+}
+
+// ── copy-originality guard ───────────────────────────────────────────────────
+// The four gates score structure/render/recolor, none checks that the copy is
+// original. Extract meaningful phrases from the reference and from the authored
+// HTML; return the fraction of authored phrases that appear verbatim in the
+// reference. High overlap == a clone, which we reject and re-author.
+function meaningfulPhrases(text) {
+  return (String(text).match(/[A-Za-z][A-Za-z'’&]+(?:\s+[A-Za-z][A-Za-z'’&]+){1,6}/g) || [])
+    .map((s) => s.trim().toLowerCase().replace(/\s+/g, ' '))
+    .filter((s) => s.length >= 8 && !/^(the|and|for|your|you|with|this|that)\b/.test(s));
+}
+function referencePhrases(td) {
+  // reference visible strings live in the extracted page tree; pull quoted strings.
+  const raw = JSON.stringify(td.pages || td);
+  const strings = (raw.match(/"[^"]{6,}"/g) || []).map((s) => s.slice(1, -1))
+    .filter((s) => /[A-Za-z]{3,}\s+[A-Za-z]{3,}/.test(s) && !/^[A-Za-z0-9+/=_-]{16,}$/.test(s));
+  return new Set(strings.flatMap(meaningfulPhrases));
+}
+function copyOverlap(html, td) {
+  const ref = referencePhrases(td);
+  if (!ref.size) return 0;
+  const body = html.replace(/<(style|script)[\s\S]*?<\/\1>/gi, '').replace(/<[^>]+>/g, ' ');
+  const auth = [...new Set(meaningfulPhrases(body))];
+  if (!auth.length) return 0;
+  const hit = auth.filter((p) => ref.has(p)).length;
+  return hit / auth.length;
+}
+// Distinctive reference tokens the phrase gate misses — invented brand names, @handles,
+// SKU-like words (BORCELLE, REALLYGREATSITE). Any of these verbatim in the output is a
+// dead giveaway of copying, so treat their presence as a hard originality failure.
+const COMMON = new Set((
+  // topical words that legitimately recur in this niche
+  'start small stay consistent grow content creator become social media minimalist instagram carousel post design template black white this that your with follow next save like comment share ' +
+  // CSS / style-attribute vocabulary that lives in the reference JSON but is NOT visible copy —
+  // blocking these would false-reject ordinary headlines/body, so they are never "brand tokens"
+  'family weight tracking kerning leading justify center normal italic bold medium regular light heavy thin ' +
+  'transform uppercase lowercase capitalize paragraph pretitle title subtitle heading spacing padding margin ' +
+  'absolute relative static fixed hidden block inline flex grid color background border radius opacity shadow ' +
+  'width height align middle right left top bottom stretch wrap nowrap ellipsis overflow position display'
+).split(/\s+/));
+function referenceBrandTokens(td) {
+  const raw = JSON.stringify(td.pages || td);
+  const words = (raw.match(/[A-Za-z][A-Za-z]{4,}/g) || []).map((w) => w.toLowerCase());
+  // keep long, non-dictionary-ish tokens that repeat (chrome painted on every slide) or look like a handle/brand
+  const freq = {};
+  for (const w of words) freq[w] = (freq[w] || 0) + 1;
+  return new Set(
+    Object.keys(freq).filter((w) => w.length >= 6 && !COMMON.has(w) && (freq[w] >= td.pageCount || /site|brand|studio|official|great/.test(w)))
+  );
+}
+function leakedBrandTokens(html, td) {
+  const tokens = referenceBrandTokens(td);
+  if (!tokens.size) return [];
+  const body = html.replace(/<(style|script)[\s\S]*?<\/\1>/gi, '').replace(/<[^>]+>/g, ' ').toLowerCase();
+  return [...tokens].filter((t) => new RegExp(`\\b${t}\\b`).test(body));
 }
 
 // Surgical repair: shows the model its OWN rendered slides + the exact gate failures,
@@ -260,8 +382,14 @@ async function processOne(entry) {
   const bestFile = path.join(REPLICAS, `${slug}.best.html`);
   let best = null; // { score }
 
+  // Stage 1: invent an original creative plan from the reference (copy is written here,
+  // decoupled from HTML, so the author realizes an original design instead of transcribing).
+  let deck = planDeck(await plan({ td, thumbs }));
+  log(`  plan ready — authoring original copy (deck ${deck.length} chars)`);
+  const MAX_OVERLAP = 0.15; // reject a candidate that reuses >15% of the reference's phrasing
+
   for (let gen = 1; gen <= GEN_ATTEMPTS; gen++) {
-    fs.writeFileSync(replica, await author({ td, thumbs }));
+    fs.writeFileSync(replica, await author({ td, thumbs, deck }));
     fillImages(replica);
 
     let cv = 99;
@@ -285,8 +413,21 @@ async function processOne(entry) {
     if (cand) { fs.writeFileSync(replica, cand.html); cv = cand.cv; }
 
     if (cv > 0) { log(`  gen ${gen}/${GEN_ATTEMPTS}: contract still ${cv} — discarding`); continue; }
+
+    // Originality gate: a structurally-perfect template that parrots the reference
+    // copy is still a clone. Reject it and re-plan with a fresh angle for the next gen.
+    const curHtml = fs.readFileSync(replica, 'utf8');
+    const overlap = copyOverlap(curHtml, td);
+    const leaks = leakedBrandTokens(curHtml, td);
+    if (overlap > MAX_OVERLAP || leaks.length) {
+      const why = leaks.length ? `leaked reference tokens [${leaks.join(', ')}]` : `copy ${Math.round(overlap * 100)}% reference-derived (> ${Math.round(MAX_OVERLAP * 100)}%)`;
+      log(`  gen ${gen}/${GEN_ATTEMPTS}: ${why} — re-planning`);
+      deck = planDeck(await plan({ td, thumbs }));
+      continue;
+    }
+
     const score = scoreReplica(replica);
-    log(`  gen ${gen}/${GEN_ATTEMPTS}: score ${score}/10${score >= MIN_SCORE ? ' ✓' : ` (< ${MIN_SCORE})`}`);
+    log(`  gen ${gen}/${GEN_ATTEMPTS}: score ${score}/10 · copy ${Math.round(overlap * 100)}% ref${score >= MIN_SCORE ? ' ✓' : ` (< ${MIN_SCORE})`}`);
     if (!best || score > best.score) { best = { score }; fs.copyFileSync(replica, bestFile); }
     if (score >= MIN_SCORE) break;
   }

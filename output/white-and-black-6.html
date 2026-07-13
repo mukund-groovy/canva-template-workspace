@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&family=Arimo:wght@400;700&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#1F51D8);
+  --secondary:var(--brand-secondary,#C24316);
+  --accent:var(--brand-accent,#4FA6E8);
+  --highlight:var(--brand-highlight,var(--brand-accent,#4FA6E8));
+  --bg:var(--brand-bg,#F7F6F2);
+  --surface:var(--brand-surface,#FFFFFF);
+  --text-high:var(--brand-ink,var(--brand-text,#161616));
+  --text-low:var(--brand-text-muted,rgba(22,22,22,.60));
+  --border:var(--brand-border,rgba(22,22,22,.16));
+}
+
+*{box-sizing:border-box;}
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+.slide{
+  width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+  background:var(--bg);font-family:'Arimo',sans-serif;
+  background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:135px 135px;
+}
+
+/* top chrome */
+.topbar{position:absolute;top:56px;left:72px;right:72px;z-index:6;display:flex;align-items:center;justify-content:space-between;}
+.lockup{display:inline-flex;align-items:center;gap:14px;}
+.brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+.brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+.brand-word{font-family:'Arimo',sans-serif;font-weight:700;font-size:26px;letter-spacing:.02em;color:var(--text-high);white-space:nowrap;}
+.tb-cta{position:absolute;top:56px;left:0;right:72px;z-index:6;text-align:right;pointer-events:none;}
+
+/* decorative node shapes */
+.node{position:absolute;z-index:1;border:3px solid var(--text-high);}
+.node.sq{width:64px;height:64px;}
+.node.dot{width:14px;height:14px;background:var(--text-high);border:none;border-radius:2px;}
+.cursor{position:absolute;z-index:5;width:44px;height:52px;color:var(--text-high);}
+
+/* kicker */
+.tn-kicker{position:absolute;z-index:4;}
+.tn-kicker span{
+  margin:0;font-family:'Arimo',sans-serif;font-weight:700;font-size:24px;letter-spacing:.16em;text-transform:uppercase;color:var(--secondary);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:4px;
+}
+
+/* headline */
+.tn-title{position:absolute;z-index:4;}
+.tn-title h1{
+  margin:0;font-family:'Playfair Display',serif;font-weight:800;line-height:1.02;letter-spacing:-.01em;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:12px;
+}
+
+/* pills */
+.pill{position:absolute;z-index:4;border-radius:40px;display:flex;align-items:center;justify-content:center;padding:0 34px;height:64px;}
+.pill span{font-family:'Playfair Display',serif;font-weight:700;font-style:italic;font-size:28px;color:#FFFFFF;white-space:nowrap;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:2px;}
+.pill.p-primary{background:var(--primary);}
+.pill.p-accent{background:var(--accent);}
+.pill.p-secondary{background:var(--secondary);}
+
+/* folder cards */
+.folder{position:absolute;z-index:3;border-radius:26px;}
+.folder .tab{position:absolute;top:-46px;left:0;height:60px;border-radius:20px 20px 0 0;padding:0 34px;display:flex;align-items:center;}
+.folder .tab span{font-family:'Playfair Display',serif;font-weight:800;font-size:30px;color:#FFFFFF;white-space:nowrap;}
+
+/* body */
+.tn-message{position:absolute;z-index:4;}
+.tn-message p{
+  margin:0;font-family:'Arimo',sans-serif;font-weight:700;line-height:1.22;letter-spacing:.01em;text-transform:uppercase;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;padding-bottom:8px;
+}
+
+/* footer */
+.foot{position:absolute;left:72px;right:72px;bottom:52px;z-index:5;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;}
+.tn-foot{position:relative;max-width:440px;}
+.tn-foot span{font-family:'Arimo',sans-serif;font-weight:700;font-size:24px;line-height:1.24;text-transform:uppercase;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:4px;}
+.tn-foot.right span{color:var(--secondary);}
+.cg-slide-counter{font-family:'Arimo',sans-serif;font-weight:700;font-size:22px;letter-spacing:.14em;color:var(--secondary);}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 · cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+
+    <div class="node sq" style="top:96px;right:120px;"></div>
+    <div class="node dot" style="top:96px;right:112px;"></div>
+    <div class="node dot" style="top:154px;right:180px;"></div>
+
+    <div class="tn-kicker" style="left:72px;top:150px;width:760px;"><span data-kicker="true">The Creator Playbook</span></div>
+
+    <div class="tn-title" style="left:72px;top:190px;width:940px;"><h1 data-title="true" style="font-size:150px;">Build a Loyal Audience</h1></div>
+
+    <div class="pill p-primary" style="left:150px;top:640px;"><span data-tagline="true">Four Habits</span></div>
+    <div class="pill p-secondary" style="left:600px;top:730px;transform:rotate(-6deg);"><span>Show Up</span></div>
+
+    <div class="node sq" style="top:640px;left:520px;"></div>
+    <div class="node dot" style="top:668px;left:512px;"></div>
+    <div class="node dot" style="top:668px;left:576px;"></div>
+    <svg class="cursor" style="top:600px;right:120px;" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 2l16 9-7 1.5L9.5 20 4 2z"/></svg>
+
+    <div class="tn-message" style="left:72px;top:900px;width:720px;"><p data-message="true" style="font-size:32px;color:var(--text-low);">Four habits that turn strangers into a community that actually shows up.</p></div>
+
+    <div class="pill p-accent" style="left:72px;top:1040px;"><span data-cta="true">Start here</span></div>
+
+    <div class="foot">
+      <div class="tn-foot"><span>Consistency compounds</span></div>
+      <div class="cg-slide-counter" data-counter="true">01 / 05</div>
+    </div>
+  </section>
+
+  <!-- Slide 2 · point -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+
+    <div class="tn-kicker" style="left:72px;top:150px;width:760px;"><span data-kicker="true">Habit 01</span></div>
+    <div class="tn-title" style="left:72px;top:196px;width:940px;"><h1 data-title="true" style="font-size:118px;">Pick One Promise</h1></div>
+
+    <div class="node sq" style="top:470px;left:40px;"></div>
+    <div class="node dot" style="top:498px;left:32px;"></div>
+
+    <div class="folder p-primary" style="left:120px;top:560px;width:840px;height:120px;background:var(--primary);border-radius:26px;">
+      <div class="tab" style="background:var(--primary);"><span>Clarity</span></div>
+    </div>
+    <div class="folder p-accent" style="left:72px;top:660px;width:936px;height:520px;background:var(--accent);border-radius:26px;">
+      <div class="tab" style="background:var(--accent);"><span>Focus</span></div>
+    </div>
+
+    <div class="pill p-secondary" style="left:640px;top:600px;"><span data-cta="true">Keep going</span></div>
+
+    <div class="tn-message" style="left:130px;top:760px;width:800px;"><p data-message="true" style="font-size:44px;color:#FFFFFF;">Audiences follow clarity, not everything. Say one thing well before you say many things loudly.</p></div>
+
+    <svg class="cursor" style="bottom:220px;right:130px;color:#FFFFFF;" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 2l16 9-7 1.5L9.5 20 4 2z"/></svg>
+
+    <div class="foot">
+      <div class="tn-foot"><span>Say less, mean more</span></div>
+      <div class="cg-slide-counter" data-counter="true">02 / 05</div>
+    </div>
+  </section>
+
+  <!-- Slide 3 · point -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+
+    <div class="tn-kicker" style="left:72px;top:150px;width:760px;"><span data-kicker="true">Habit 02</span></div>
+    <div class="tn-title" style="left:72px;top:196px;width:940px;"><h1 data-title="true" style="font-size:106px;">Serve Before You Sell</h1></div>
+
+    <div class="node sq" style="top:470px;left:10px;"></div>
+    <div class="node dot" style="top:498px;left:2px;"></div>
+    <div class="node sq" style="top:470px;right:90px;"></div>
+    <div class="node dot" style="top:498px;right:82px;"></div>
+
+    <div class="folder p-primary" style="left:120px;top:620px;width:840px;height:120px;background:var(--primary);border-radius:26px;">
+      <div class="tab" style="background:var(--primary);"><span>Give</span></div>
+    </div>
+    <div class="folder p-accent" style="left:72px;top:720px;width:936px;height:440px;background:var(--accent);border-radius:26px;">
+      <div class="tab" style="background:var(--accent);"><span>Trust</span></div>
+    </div>
+
+    <div class="pill p-secondary" style="left:600px;top:660px;"><span data-cta="true">Next lesson</span></div>
+
+    <div class="tn-message" style="left:130px;top:820px;width:800px;"><p data-message="true" style="font-size:44px;color:#FFFFFF;">Give away your best ideas freely. Trust compounds long before the transaction ever does.</p></div>
+
+    <svg class="cursor" style="bottom:210px;right:120px;color:#FFFFFF;" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 2l16 9-7 1.5L9.5 20 4 2z"/></svg>
+
+    <div class="foot">
+      <div class="tn-foot"><span>Generosity is strategy</span></div>
+      <div class="cg-slide-counter" data-counter="true">03 / 05</div>
+    </div>
+  </section>
+
+  <!-- Slide 4 · list -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+
+    <div class="tn-kicker" style="left:340px;top:150px;width:600px;text-align:center;"><span data-kicker="true">Habit 03</span></div>
+    <div class="tn-title" style="left:150px;top:196px;width:780px;text-align:center;"><h1 data-title="true" style="font-size:104px;">Repeat On Purpose</h1></div>
+
+    <div class="node sq" style="top:440px;left:40px;"></div>
+    <div class="node dot" style="top:468px;left:32px;"></div>
+    <div class="node sq" style="top:440px;right:90px;"></div>
+    <div class="node dot" style="top:468px;right:82px;"></div>
+
+    <div class="folder p-primary" style="left:72px;top:610px;width:440px;height:290px;background:var(--primary);border-radius:26px;">
+      <div class="tab" style="background:var(--primary);"><span>Themes</span></div>
+    </div>
+    <div class="folder p-accent" style="left:568px;top:610px;width:440px;height:290px;background:var(--accent);border-radius:26px;">
+      <div class="tab" style="background:var(--accent);"><span>Formats</span></div>
+    </div>
+    <div class="pill p-secondary" style="left:730px;top:820px;"><span data-cta="true">Almost there</span></div>
+
+    <div class="tn-message" style="left:72px;top:990px;width:936px;text-align:center;"><p data-message="true" style="font-size:40px;color:var(--text-high);">Themes: your niche, your voice, your rituals. Formats: recurring series people learn to expect.</p></div>
+
+    <div class="foot">
+      <div class="tn-foot"><span>Rhythm builds recall</span></div>
+      <div class="cg-slide-counter" data-counter="true">04 / 05</div>
+    </div>
+  </section>
+
+  <!-- Slide 5 · closer -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+
+    <div class="node sq" style="top:130px;right:120px;"></div>
+    <div class="node dot" style="top:158px;right:112px;"></div>
+    <div class="node dot" style="top:216px;right:180px;"></div>
+    <div class="node sq" style="top:280px;right:220px;"></div>
+
+    <div class="tn-kicker" style="left:72px;top:150px;width:760px;"><span data-kicker="true">Habit 04</span></div>
+    <div class="tn-title" style="left:72px;top:196px;width:940px;"><h1 data-title="true" style="font-size:132px;">Ship, Then Refine</h1></div>
+
+    <div class="pill p-secondary" style="left:72px;top:640px;"><span data-tagline="true">Ship today</span></div>
+    <div class="pill p-primary" style="left:560px;top:720px;"><span>Listen closely</span></div>
+    <div class="pill p-accent" style="left:520px;top:820px;"><span data-cta="true">Follow for more</span></div>
+
+    <svg class="cursor" style="top:850px;left:820px;color:var(--text-high);" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 2l16 9-7 1.5L9.5 20 4 2z"/></svg>
+
+    <div class="tn-message" style="left:72px;top:960px;width:760px;"><p data-message="true" style="font-size:34px;color:var(--text-low);text-transform:none;font-weight:400;">Perfection stalls momentum. Publish today, listen closely, and let the feedback teach you.</p></div>
+
+    <div class="foot">
+      <div class="tn-foot"><span>Momentum over perfection</span></div>
+      <div class="cg-slide-counter" data-counter="true">05 / 05</div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

@@ -300,7 +300,11 @@ const jobs = [];
   while ((m = SLOT_RE.exec(html)) !== null) {
     if (!isSlot(m[0])) continue;
     const size = m[0].match(/data-image-size="(\d+x\d+)"/i)?.[1] ?? DEFAULT_SIZE;
-    const filled = /\ssrc="data:image\//i.test(m[0]);
+    // A slot counts as filled only when it holds a REAL raster photo (png/jpeg/webp).
+    // The authored template ships every slot with a grey `data:image/svg+xml` placeholder;
+    // treating that as filled made the default (non-force) pass skip every slot, so photos
+    // never generated in the pipeline. Placeholders must read as EMPTY.
+    const filled = /\ssrc="data:image\/(?:png|jpe?g|webp);base64,/i.test(m[0]);
     jobs.push({ tag: m[0], index: m.index, size, filled });
   }
 }

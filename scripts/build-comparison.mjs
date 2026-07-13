@@ -127,7 +127,11 @@ function columnize(archetypeHtml) {
   return override + archetypeHtml;
 }
 
-function renderArchetype(chromePath, archetypeFile, workDir) {
+async function renderArchetype(archetypeFile, workDir) {
+  // Playwright chromium (a workspace dep) renders the column and clips each slide
+  // region directly — no system Chrome + ImageMagick handoff, which broke on hosts
+  // without `magick` on PATH. Same output: 1080x1350 per slide, one cover per skin.
+  const { chromium } = await import('playwright');
   const html = fs.readFileSync(archetypeFile, 'utf8');
   // Count slides by the per-slide marker `data-cg-slide-type` (exactly one per
   // slide) — robust to <section>/<div> tag choice and to child elements that also
@@ -137,30 +141,42 @@ function renderArchetype(chromePath, archetypeFile, workDir) {
     (html.match(/<section[^>]*\bclass="[^"]*\bslide\b/gi) || []).length ||
     5;
   const col = columnize(html);
-
-  // full column render → slice per slide
   const colFile = path.join(workDir, 'arch-col.html');
   fs.writeFileSync(colFile, col);
-  const fullPng = path.join(workDir, 'arch-col.png');
-  screenshot(chromePath, colFile, fullPng, 1080, 1350 * slideCount);
-  const slides = [];
-  for (let i = 0; i < slideCount; i++) {
-    const out = path.join(workDir, `arch-${i + 1}.png`);
-    magickCrop(fullPng, out, 1080, 1350, 0, i * 1350);
-    slides.push(out);
-  }
 
-  // brand variants: cover only, one per skin
-  const brands = [];
-  for (const skin of BRAND_SKINS) {
-    const doc = skin.vars ? col.replace('</head>', `<style>:root{${skin.vars}}</style></head>`) : col;
-    const f = path.join(workDir, `brand-${skin.key}.html`);
-    fs.writeFileSync(f, doc);
-    const png = path.join(workDir, `cover-${skin.key}.png`);
-    screenshot(chromePath, f, png, 1080, 1350);
-    brands.push({ label: skin.label, png });
+  // Reuse the installed system Chrome (chromeBinary) so we don't require a separate
+  // `npx playwright install` browser download on every host.
+  const browser = await chromium.launch({ executablePath: chromeBinary() });
+  const page = await browser.newPage({ viewport: { width: 1080, height: 1350 }, deviceScaleFactor: 1 });
+  try {
+    // full column render → clip per slide
+    await page.setViewportSize({ width: 1080, height: 1350 * slideCount });
+    await page.goto(pathToFileURL(colFile).toString(), { waitUntil: 'networkidle' });
+    await page.evaluate(() => (document.fonts ? document.fonts.ready : null)).catch(() => {});
+    const slides = [];
+    for (let i = 0; i < slideCount; i++) {
+      const out = path.join(workDir, `arch-${i + 1}.png`);
+      await page.screenshot({ path: out, clip: { x: 0, y: i * 1350, width: 1080, height: 1350 } });
+      slides.push(out);
+    }
+
+    // brand variants: cover only, one per skin
+    const brands = [];
+    for (const skin of BRAND_SKINS) {
+      const doc = skin.vars ? col.replace('</head>', `<style>:root{${skin.vars}}</style></head>`) : col;
+      const f = path.join(workDir, `brand-${skin.key}.html`);
+      fs.writeFileSync(f, doc);
+      await page.setViewportSize({ width: 1080, height: 1350 });
+      await page.goto(pathToFileURL(f).toString(), { waitUntil: 'networkidle' });
+      await page.evaluate(() => (document.fonts ? document.fonts.ready : null)).catch(() => {});
+      const png = path.join(workDir, `cover-${skin.key}.png`);
+      await page.screenshot({ path: png, clip: { x: 0, y: 0, width: 1080, height: 1350 } });
+      brands.push({ label: skin.label, png });
+    }
+    return { slideCount, slides, brands };
+  } finally {
+    await browser.close();
   }
-  return { slideCount, slides, brands };
 }
 
 // ── generated: clone fallback ────────────────────────────────────────────────
@@ -258,7 +274,7 @@ ${brandSection}
 </div></body></html>`;
 }
 
-function main() {
+async function main() {
   const args = parseArgs(process.argv.slice(2));
   const designId = args['design-id'];
   if (!designId) throw new Error('Missing --design-id');
@@ -297,8 +313,7 @@ function main() {
   let variant = null;
   let brands = null;
   if (archetypeFile && fs.existsSync(archetypeFile)) {
-    const chromePath = chromeBinary();
-    const r = renderArchetype(chromePath, archetypeFile, workDir);
+    const r = await renderArchetype(archetypeFile, workDir);
     variant = r.slides;
     brands = r.brands;
   }
@@ -356,9 +371,7 @@ function main() {
   );
 }
 
-try {
-  main();
-} catch (err) {
+main().catch((err) => {
   console.error(err?.stack || String(err));
   process.exit(1);
-}
+});
