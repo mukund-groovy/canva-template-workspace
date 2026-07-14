@@ -288,7 +288,7 @@ function renderDashboardHtml(store) {
       <input class="search" id="search" type="search" placeholder="Search design id or title…" />
     </div>
     <div class="tablewrap"><table>
-      <thead><tr><th>Preview</th><th>Template</th><th>Status</th><th>Details</th><th>Score</th><th>Files</th><th>Updated</th></tr></thead>
+      <thead><tr><th>Preview</th><th>Template</th><th>Status</th><th>Details</th><th>Score</th><th>Gen Time</th><th>Retries</th><th>Files</th><th>Updated</th></tr></thead>
       <tbody id="tbody"></tbody>
     </table></div>
     <div class="empty" id="empty" hidden>No templates match your filter.</div>
@@ -354,9 +354,11 @@ function renderDashboardHtml(store) {
       return '<tr data-status="'+st+'" data-search="'+esc(((e.designId||'')+' '+(m.title||'')).toLowerCase())+'">'+
         '<td>'+thumb+'</td>'+
         '<td><div class="tt">'+esc(m.title||e.designId||'Untitled')+'</div><div class="id">'+esc(e.designId||'')+'</div>'+err+'</td>'+
-        '<td><span class="pill" style="background:'+c+'" title="'+esc(st)+'">'+esc(({pending:'Queued',cloning:'Cloning…',cloned:'Cloned',generating:'Generating…',success:'Ready',failed:'✕ Failed',duplicate:'⧉ Duplicate'})[st]||st)+'</span></td>'+
+        '<td><span class="pill" style="background:'+c+'" title="'+esc(st==='failed'&&e.lastError?e.lastError:(st==='generating'&&e.genStage?e.genStage:(m.score!=null?'score '+m.score+'/10':st)))+'">'+esc(({pending:'Queued',cloning:'Cloning…',cloned:'Cloned',generating:'Generating…',success:'Ready',failed:'✕ Failed',duplicate:'⧉ Duplicate'})[st]||st)+'</span>'+((st==='generating'&&e.genStage)?'<div class="when" style="margin-top:4px;font-size:11px" title="'+esc(e.genStage)+'">'+esc(e.genStage)+'</div>':'')+((st==='failed'&&e.lastError)?'<div class="when" style="margin-top:4px;font-size:11px;color:#c0392b;max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+esc(e.lastError)+'">'+esc(e.lastError)+'</div>':'')+'</td>'+
         '<td>'+details+'</td>'+
         '<td>'+score+'</td>'+
+        '<td class="when">'+fmtMs(e.genDurationMs)+(e.genProvider?'<br><span class="p">'+esc(e.genProvider)+'</span>':'')+'</td>'+
+        '<td class="when">'+(Number.isFinite(e.genRetries)?'<b>'+e.genRetries+'</b>':'—')+'</td>'+
         '<td>'+files+'</td>'+
         '<td class="when"><b>'+fmtDate(e.updatedAt)+'</b><br>'+fmtMs(e.durationMs)+'</td>'+
       '</tr>';

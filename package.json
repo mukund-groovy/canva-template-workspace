@@ -6,6 +6,9 @@
   "description": "Standalone Canva-clone to brand-recolorable carousel template engine",
   "scripts": {
     "clone": "node scripts/agent-canva-clone.mjs",
+    "clone:browser": "node scripts/clone-from-browser.mjs",
+    "generate": "node scripts/generate-worker.mjs",
+    "generate:once": "node scripts/generate-worker.mjs --once",
     "dashboard": "node scripts/agent-canva-clone.mjs --action refresh",
     "gate:contract": "node scripts/check-template-contract.mjs",
     "gate:verify": "node scripts/verify-slides.mjs",

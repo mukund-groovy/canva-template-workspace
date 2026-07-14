@@ -66,7 +66,7 @@ function main() {
   const args = parseArgs(process.argv.slice(2));
   const workspaceRoot = args['workspace-root']
     ? path.resolve(args['workspace-root'])
-    : path.resolve(process.cwd(), 'canva-template-workspace');
+    : path.resolve(path.dirname(process.argv[1] || '.'), '..');
   const keepRuns = toInt(args['keep-runs'], 2);
 
   const reports = [];

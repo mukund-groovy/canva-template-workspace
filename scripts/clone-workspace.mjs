@@ -149,10 +149,11 @@ function main() {
     throw new Error('Missing required --input-html (captured Canva editor-page.full.html)');
   }
 
-  const repoRoot = path.resolve(process.cwd());
+  // Standalone: workspace is the parent of this scripts/ dir (cwd-independent).
   const workspaceRoot = args['workspace-root']
     ? path.resolve(args['workspace-root'])
-    : path.resolve(repoRoot, 'canva-template-workspace');
+    : path.resolve(path.dirname(process.argv[1] || '.'), '..');
+  const repoRoot = path.resolve(workspaceRoot, '..');
 
   const designRoot = path.join(workspaceRoot, 'designs', designId);
   const captureDir = path.join(designRoot, 'capture');

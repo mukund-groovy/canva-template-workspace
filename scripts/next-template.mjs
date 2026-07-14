@@ -18,9 +18,14 @@ const args = new Set(process.argv.slice(2));
 const AS_JSON = args.has('--json');
 const LIST = args.has('--list');
 
-const workspaceRoot = path.resolve(process.cwd(), 'canva-template-workspace');
+// Standalone: workspace is the parent of this scripts/ dir (cwd-independent).
+const workspaceRoot = path.resolve(path.dirname(process.argv[1] || '.'), '..');
 const designsRoot = path.join(workspaceRoot, 'designs');
-const carouselsRoot = path.resolve(process.cwd(), 'backend/database/carousels');
+// Authored templates live in the workspace's output/ (standalone); fall back to the
+// legacy content-gen carousels dir if output/ is absent.
+const carouselsRoot = fs.existsSync(path.join(workspaceRoot, 'output'))
+  ? path.join(workspaceRoot, 'output')
+  : path.resolve(workspaceRoot, '..', 'backend/database/carousels');
 const mapPath = path.join(workspaceRoot, 'archetype-map.json');
 
 const readJson = (p, fb = {}) => {

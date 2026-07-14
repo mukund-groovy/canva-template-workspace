@@ -73,7 +73,63 @@ if (PROVIDER === 'claude') {
 log(`provider: ${PROVIDER} (${PROVIDER === 'claude' ? CL_MODEL : AZ_MODEL})`);
 
 // One entry point; both accept Responses-style input ({role, content:[{type:'input_text'|'input_image'}]}).
-async function respond(args) { return PROVIDER === 'claude' ? respondClaude(args) : respondCodex(args); }
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// ── proactive rate-limit pacing ────────────────────────────────────────────────
+// Azure cap is 40k UNCACHED input tokens / 60s. Instead of only reacting to 429s, we track a
+// rolling 60s window of input tokens and wait before a call that would breach a safe budget.
+// This prevents most 429s outright (the retry below is the backstop for the rest).
+const RL_WINDOW_MS = 60000;
+const RL_MAX_TOKENS = 34000; // safety margin under the 40k cap
+let rlHistory = []; // [{ t, tokens }]
+function estimateTokens(args) {
+  let chars = String(args.instructions || '').length;
+  let imgTokens = 0;
+  const input = Array.isArray(args.input) ? args.input : [];
+  for (const m of input) {
+    for (const c of m.content || []) {
+      if (c.type === 'input_text' || c.type === 'text') chars += String(c.text || '').length;
+      else if (c.type === 'input_image' || c.type === 'image') imgTokens += 500; // ~a slide thumb
+    }
+  }
+  return Math.ceil(chars / 3.5) + imgTokens;
+}
+async function paceForRateLimit(tokens) {
+  for (let guard = 0; guard < 20; guard++) {
+    const now = Date.now();
+    rlHistory = rlHistory.filter((e) => now - e.t < RL_WINDOW_MS);
+    const used = rlHistory.reduce((s, e) => s + e.tokens, 0);
+    if (!rlHistory.length || used + tokens <= RL_MAX_TOKENS) break;
+    const waitMs = RL_WINDOW_MS - (now - rlHistory[0].t) + 500;
+    log(`  rate-limit pacing: ${used}+${tokens} tok/60s > ${RL_MAX_TOKENS} — waiting ${Math.round(waitMs / 1000)}s`);
+    await sleep(waitMs);
+  }
+  rlHistory.push({ t: Date.now(), tokens });
+}
+
+// Retry transient API failures (429 rate limits, fetch/network blips, 5xx) with backoff so a
+// recoverable error never permanently fails a design. The Azure cap is 40k input tokens / 60s,
+// so a 429 waits ~65s; network errors back off exponentially.
+async function respond(args) {
+  await paceForRateLimit(estimateTokens(args));
+  const call = () => (PROVIDER === 'claude' ? respondClaude(args) : respondCodex(args));
+  let lastErr;
+  for (let attempt = 0; attempt <= 5; attempt++) {
+    try {
+      return await call();
+    } catch (e) {
+      lastErr = e;
+      const msg = String(e.message || '');
+      const is429 = /\b429\b|ratelimit/i.test(msg);
+      const transient = is429 || /fetch failed|network|ECONNRESET|ETIMEDOUT|EAI_AGAIN|socket|\b5\d\d\b/i.test(msg);
+      if (!transient || attempt === 5) throw e;
+      const waitMs = is429 ? 65000 : Math.min(30000, 2000 * 2 ** attempt);
+      log(`  API ${is429 ? 'rate-limited' : 'error'}: ${msg.slice(0, 70)} — retry ${attempt + 1}/5 in ${Math.round(waitMs / 1000)}s`);
+      await sleep(waitMs);
+    }
+  }
+  throw lastErr;
+}
 
 // codex: Responses API — system prompt -> `instructions`, vision via input_image.
 async function respondCodex({ instructions, input, maxTokens = 16000 }) {
@@ -133,6 +189,24 @@ function setStatus(designId, status, lastError) {
   e.status = status;
   if (lastError) e.lastError = String(lastError).slice(0, 300);
   fs.writeFileSync(STORE, JSON.stringify(s, null, 2) + '\n');
+}
+function setGenMetrics(designId, patch) {
+  const s = readStore();
+  const e = s.entries.find((x) => x.designId === designId);
+  if (!e) return;
+  Object.assign(e, patch);
+  fs.writeFileSync(STORE, JSON.stringify(s, null, 2) + '\n');
+}
+// Update the live generation stage on the entry and rebuild the dashboard so the user sees
+// progress at every step (planning → authoring → repair k → scoring → finalizing).
+function setStage(designId, stage) {
+  const s = readStore();
+  const e = s.entries.find((x) => x.designId === designId);
+  if (!e) return;
+  e.genStage = stage;
+  e.updatedAt = new Date().toISOString();
+  fs.writeFileSync(STORE, JSON.stringify(s, null, 2) + '\n');
+  try { execSync(`node "${path.join(SCRIPTS, 'agent-canva-clone.mjs')}" --action refresh`, { cwd: WORKSPACE, stdio: 'ignore' }); } catch {}
 }
 function addMap(designId, slug) {
   const m = JSON.parse(fs.readFileSync(MAP, 'utf8'));
@@ -262,6 +336,14 @@ async function author({ td, thumbs, deck, useVision = true }) {
     `- EVERY themeable color — page background, surfaces/cards, accent, the highlight, headline color on a dark bg, borders, the numeral/kicker color — MUST be var(--brand-<role>, <fallback-hex>). NEVER a bare hex for these.\n` +
     `- Only pure body-copy black or white may be a literal color. Everything that gives the design its LOOK must flow from the brand tokens, exactly like the exemplar — otherwise the template fails to re-skin and scores badly.\n` +
     `- Make the accent + backgrounds visibly brand-driven so a palette swap changes a large area of every slide.\n\n` +
+    `CRITICAL — LEGIBILITY (a contrast gate measures every text run against the ACTUAL pixels behind it at WCAG AA; this is the #1 first-attempt failure):\n` +
+    `- EVERY text run must clear >= 4.5:1 contrast against the exact background behind it. Dark text on a light bg, or a light token on a dark/accent panel — NEVER a mid-tone on a mid-tone, never text a hair off its background, never --text-low on a colored surface.\n` +
+    `- If ANY text overlaps a photo, place a solid or gradient scrim (a --surface / ink panel or a rgba overlay) behind JUST that text so it clears AA — never lay raw text straight on an unpredictable photo.\n` +
+    `- For each block pick the text token whose contrast with THAT block's own background is highest: --text-high on light surfaces; a light/paper token on dark or --accent panels. Kickers, counters and CTAs count too — a low-contrast kicker fails the gate.\n\n` +
+    `CRITICAL — NO CLIPPING (an overflow gate fails any run whose glyphs exceed its box OR whose real rendered line count exceeds its -webkit-line-clamp; this is the #2 first-attempt failure):\n` +
+    `- Size every run so its text genuinely FITS its box: box height >= (clamp-lines x font-size x line-height) + padding. Do NOT use -webkit-line-clamp to hide overflow — the clamp count must equal what actually fits, and clamped-but-still-overflowing is a FAIL.\n` +
+    `- Be conservative with display type near edges: a 40-char section headline wraps to 2-3 lines, so give it a box tall enough for 3 lines OR drop the size; body 3-4 lines. Leave a few px padding-bottom for descenders.\n` +
+    `- Never give a text box a fixed height smaller than its clamped content — prefer min-height with generous room. Keep every element inside the 1080x1350 canvas with ~64-80px margins; nothing may spill a slide edge.\n\n` +
     `=== GOLD-STANDARD EXEMPLAR — mirror this structure ===\n${EXEMPLAR}\n=== END EXEMPLAR ===\n\n` +
     `Return ONLY the complete HTML document.`;
   const content = [{ type: 'input_text', text: brief }];
@@ -314,7 +396,14 @@ const COMMON = new Set((
   'family weight tracking kerning leading justify center normal italic bold medium regular light heavy thin ' +
   'transform uppercase lowercase capitalize paragraph pretitle title subtitle heading spacing padding margin ' +
   'absolute relative static fixed hidden block inline flex grid color background border radius opacity shadow ' +
-  'width height align middle right left top bottom stretch wrap nowrap ellipsis overflow position display'
+  'width height align middle right left top bottom stretch wrap nowrap ellipsis overflow position display ' +
+  // generic design/structure nouns that live in the reference JSON as element/type names, NOT
+  // as brand copy — flagging these falsely rejected clean templates (e.g. "decoration")
+  'decoration decorations gradient texture pattern patterns overlay overlays container wrapper element elements ' +
+  'foreground rectangle ellipse circle square shape shapes vector graphic graphics image images photo photos ' +
+  'frame frames layer layers group groups sticker stickers icon icons doodle doodles collage aesthetic ' +
+  'minimalist modern vintage retro simple clean bold elegant playful editorial gallery layout component ' +
+  'highlight highlighter marker underline divider accent surface primary secondary neutral texture'
 ).split(/\s+/));
 function referenceBrandTokens(td) {
   const raw = JSON.stringify(td.pages || td);
@@ -371,6 +460,8 @@ function renderImages() {
 // ── process one design ───────────────────────────────────────────────────────────
 async function processOne(entry) {
   const { designId } = entry;
+  const t0 = Date.now();
+  let genRetries = 0; // repair passes + re-plans + discarded generations
   const { td, thumbs } = loadIntake(designId);
   const slug = slugify(td.title, designId);
   const replica = path.join(REPLICAS, `${slug}.html`);
@@ -384,12 +475,15 @@ async function processOne(entry) {
 
   // Stage 1: invent an original creative plan from the reference (copy is written here,
   // decoupled from HTML, so the author realizes an original design instead of transcribing).
+  setStage(designId, 'planning');
   let deck = planDeck(await plan({ td, thumbs }));
   log(`  plan ready — authoring original copy (deck ${deck.length} chars)`);
   const MAX_OVERLAP = 0.15; // reject a candidate that reuses >15% of the reference's phrasing
 
   for (let gen = 1; gen <= GEN_ATTEMPTS; gen++) {
+    setStage(designId, `authoring (gen ${gen}/${GEN_ATTEMPTS})`);
     fs.writeFileSync(replica, await author({ td, thumbs, deck }));
+    setStage(designId, `filling images (gen ${gen}/${GEN_ATTEMPTS})`);
     fillImages(replica);
 
     let cv = 99;
@@ -400,19 +494,29 @@ async function processOne(entry) {
       cv = contractViolations(contract.out);
       const vFail = Number((verify.out.match(/(\d+)\s+fail/i) || [])[1] || 0);
       const cur = fs.readFileSync(replica, 'utf8');
-      if (!cand || cv < cand.cv || (cv === cand.cv && vFail < cand.vFail)) cand = { cv, vFail, html: cur };
+      const failures = `check-template-contract:\n${contract.out.slice(-800)}\nverify-slides:\n${verify.out.slice(-700)}`;
+      if (!cand || cv < cand.cv || (cv === cand.cv && vFail < cand.vFail)) cand = { cv, vFail, html: cur, failures };
       if (cv === 0 && vFail === 0) break;
       if (attempt === MAX_REPAIRS) break;
-      const failures = `check-template-contract:\n${contract.out.slice(-800)}\nverify-slides:\n${verify.out.slice(-700)}`;
       log(`  gen ${gen} repair ${attempt + 1}/${MAX_REPAIRS} (contract ${cv}, verify fail ${vFail})`);
-      // surgical repair: model sees its own rendered slides (output/.verify) + exact failures
-      fs.writeFileSync(replica, await repair({ currentHtml: cur, failures, renders: renderImages() }));
+      genRetries++;
+      setStage(designId, `repair ${attempt + 1}/${MAX_REPAIRS} (gen ${gen}, contract ${cv}, verify ${vFail})`);
+      // Repair from the BEST candidate so far + ITS failures — never the latest, which a prior
+      // repair may have regressed. Feeding a regressed HTML back into repair is what caused the
+      // 18 -> 279 -> 297 verify-fail cascade (each repair compounded the last one's damage).
+      if (cur !== cand.html) {
+        // A prior repair regressed: restore the best candidate and re-render it so the images
+        // repair sees match the HTML we actually hand it.
+        fs.writeFileSync(replica, cand.html);
+        runGate('verify-slides.mjs', replica);
+      }
+      fs.writeFileSync(replica, await repair({ currentHtml: cand.html, failures: cand.failures, renders: renderImages() }));
       fillImages(replica);
     }
     // restore this gen's best candidate (repair may have regressed on the last attempt)
     if (cand) { fs.writeFileSync(replica, cand.html); cv = cand.cv; }
 
-    if (cv > 0) { log(`  gen ${gen}/${GEN_ATTEMPTS}: contract still ${cv} — discarding`); continue; }
+    if (cv > 0) { log(`  gen ${gen}/${GEN_ATTEMPTS}: contract still ${cv} — discarding`); genRetries++; continue; }
 
     // Originality gate: a structurally-perfect template that parrots the reference
     // copy is still a clone. Reject it and re-plan with a fresh angle for the next gen.
@@ -422,10 +526,12 @@ async function processOne(entry) {
     if (overlap > MAX_OVERLAP || leaks.length) {
       const why = leaks.length ? `leaked reference tokens [${leaks.join(', ')}]` : `copy ${Math.round(overlap * 100)}% reference-derived (> ${Math.round(MAX_OVERLAP * 100)}%)`;
       log(`  gen ${gen}/${GEN_ATTEMPTS}: ${why} — re-planning`);
+      genRetries++;
       deck = planDeck(await plan({ td, thumbs }));
       continue;
     }
 
+    setStage(designId, `scoring (gen ${gen}/${GEN_ATTEMPTS})`);
     const score = scoreReplica(replica);
     log(`  gen ${gen}/${GEN_ATTEMPTS}: score ${score}/10 · copy ${Math.round(overlap * 100)}% ref${score >= MIN_SCORE ? ' ✓' : ` (< ${MIN_SCORE})`}`);
     if (!best || score > best.score) { best = { score }; fs.copyFileSync(replica, bestFile); }
@@ -437,24 +543,53 @@ async function processOne(entry) {
   if (belowThreshold) log(`  best ${best.score}/10 < ${MIN_SCORE} after ${GEN_ATTEMPTS} gens — shipping best`);
 
   // ship best + register + rescore into store + comparison + refresh
+  setStage(designId, 'finalizing');
   fs.copyFileSync(bestFile, path.join(OUTPUT, `${slug}.html`));
   fs.copyFileSync(bestFile, replica);
   try { fs.unlinkSync(bestFile); } catch {}
   addMap(designId, slug);
   runGate('score-template.mjs', slug);
   try { execSync(`node "${path.join(SCRIPTS, 'build-comparison.mjs')}" --design-id ${designId}`, { cwd: WORKSPACE, stdio: 'ignore' }); } catch {}
-  execSync(`node "${path.join(SCRIPTS, 'agent-canva-clone.mjs')}" --action refresh`, { cwd: WORKSPACE, stdio: 'ignore' });
+  // Record generation metrics (shown in the dashboard) before the refresh regenerates the HTML.
+  // Mark success explicitly on the entry BEFORE the refresh — the ship already happened, so
+  // status must not depend on the refresh succeeding.
+  setGenMetrics(designId, {
+    genDurationMs: Date.now() - t0, genRetries, genProvider: PROVIDER, genStage: '',
+    status: 'success', lastError: '', belowThreshold, score: best.score,
+  });
+  // NON-FATAL: a refresh hiccup must never flip an already-shipped success to failed.
+  try {
+    execSync(`node "${path.join(SCRIPTS, 'agent-canva-clone.mjs')}" --action refresh`, { cwd: WORKSPACE, stdio: 'ignore' });
+  } catch (e) {
+    log(`refresh after ship failed (non-fatal): ${String(e.message).slice(0, 120)}`);
+  }
   return { slug, score: best.score, belowThreshold };
 }
 
 // ── loop ─────────────────────────────────────────────────────────────────────
+// Self-heal: a prior worker killed mid-generation leaves rows stuck in 'generating', which the
+// cloned queue then skips forever. On startup, return any such orphans to 'cloned' so they retry.
+function healOrphans() {
+  const s = readStore();
+  let n = 0;
+  for (const e of s.entries) if (e.status === 'generating') { e.status = 'cloned'; e.genStage = ''; n++; }
+  if (n) { fs.writeFileSync(STORE, JSON.stringify(s, null, 2) + '\n'); log(`recovered ${n} stuck 'generating' row(s) -> cloned`); }
+}
+
 (async () => {
+  healOrphans();
   let done = 0;
   while (done < MAX) {
     const q = clonedQueue();
     const next = ONE_ID ? q.find((e) => e.designId === ONE_ID) : q[0];
     if (!next) { log(q.length ? 'requested design not in cloned queue' : 'queue empty — no cloned rows left. done.'); break; }
     log(`generating ${next.designId} — "${(next.meta && next.meta.title || '').slice(0, 40)}" (${q.length} in queue)`);
+    // Claim the row: flip cloned -> generating so the dashboard shows it in-flight (and, with
+    // a pool of workers, so two workers never grab the same design).
+    setStatus(next.designId, 'generating');
+    try {
+      execSync(`node "${path.join(SCRIPTS, 'agent-canva-clone.mjs')}" --action refresh`, { cwd: WORKSPACE, stdio: 'ignore' });
+    } catch {}
     try {
       const r = await processOne(next);
       log(`${r.belowThreshold ? '⚠' : '✓'} ${next.designId} -> ${r.slug} (${r.score}/10)`);

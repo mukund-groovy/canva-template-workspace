@@ -20,7 +20,8 @@ const args = new Set(process.argv.slice(2));
 const APPLY = args.has('--apply');
 const KEEP_CAPTURE = args.has('--keep-capture');
 
-const workspaceRoot = path.resolve(process.cwd(), 'canva-template-workspace');
+// Standalone: workspace is the parent of this scripts/ dir (cwd-independent).
+const workspaceRoot = path.resolve(path.dirname(process.argv[1] || '.'), '..');
 const designsRoot = path.join(workspaceRoot, 'designs');
 
 /** Paths removed from every design, relative to designs/<ID>/ */
