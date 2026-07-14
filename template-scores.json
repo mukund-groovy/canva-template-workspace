@@ -1,239 +1,5 @@
 {
-  "note-to-self": {
-    "score": 10,
-    "breakdown": {
-      "contract": 4,
-      "verify": 3,
-      "stress": 1.5,
-      "brand": 1.5,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 0,
-        "vFail": 0,
-        "vWarn": 0,
-        "stFail": 0,
-        "deckAvg": 18.23,
-        "brandPass": true
-      }
-    }
-  },
-  "daily-checklist": {
-    "score": 4.3,
-    "breakdown": {
-      "contract": 3.3,
-      "verify": 0,
-      "stress": 0,
-      "brand": 1,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 5,
-        "vFail": 4,
-        "vWarn": 0,
-        "stFail": 4,
-        "deckAvg": 2,
-        "brandPass": false
-      }
-    }
-  },
-  "smart-mindset": {
-    "score": 3.3,
-    "breakdown": {
-      "contract": 1.8,
-      "verify": 0,
-      "stress": 0,
-      "brand": 1.5,
-      "raw": {
-        "cViol": 1,
-        "cWarn": 8,
-        "vFail": 7,
-        "vWarn": 0,
-        "stFail": 36,
-        "deckAvg": 7.99,
-        "brandPass": true
-      }
-    }
-  },
-  "brand-trust": {
-    "score": 8.4,
-    "breakdown": {
-      "contract": 2.5,
-      "verify": 3,
-      "stress": 1.5,
-      "brand": 1.4,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 10,
-        "vFail": 0,
-        "vWarn": 0,
-        "stFail": 0,
-        "deckAvg": 2.79,
-        "brandPass": false
-      }
-    }
-  },
-  "scrapbook-reset": {
-    "score": 10,
-    "breakdown": {
-      "contract": 4,
-      "verify": 3,
-      "stress": 1.5,
-      "brand": 1.5,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 0,
-        "vFail": 0,
-        "vWarn": 0,
-        "stFail": 0,
-        "deckAvg": 4.35,
-        "brandPass": true
-      }
-    }
-  },
-  "growth-notes": {
-    "score": 3,
-    "breakdown": {
-      "contract": 0,
-      "verify": 1.5,
-      "stress": 0,
-      "brand": 1.5,
-      "raw": {
-        "cViol": 12,
-        "cWarn": 6,
-        "vFail": 0,
-        "vWarn": 5,
-        "stFail": 10,
-        "deckAvg": 4.53,
-        "brandPass": true
-      }
-    }
-  },
-  "momentum-playbook": {
-    "score": 2.7,
-    "breakdown": {
-      "contract": 0,
-      "verify": 1.2,
-      "stress": 0,
-      "brand": 1.5,
-      "raw": {
-        "cViol": 11,
-        "cWarn": 11,
-        "vFail": 0,
-        "vWarn": 6,
-        "stFail": 37,
-        "deckAvg": 4.54,
-        "brandPass": true
-      }
-    }
-  },
-  "growth-signal": {
-    "score": 10,
-    "breakdown": {
-      "contract": 4,
-      "verify": 3,
-      "stress": 1.5,
-      "brand": 1.5,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 0,
-        "vFail": 0,
-        "vWarn": 0,
-        "stFail": 0,
-        "deckAvg": 7.85,
-        "brandPass": true
-      }
-    }
-  },
-  "violet-highlighter": {
-    "score": 10,
-    "breakdown": {
-      "contract": 4,
-      "verify": 3,
-      "stress": 1.5,
-      "brand": 1.5,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 0,
-        "vFail": 0,
-        "vWarn": 0,
-        "stFail": 0,
-        "deckAvg": 13.76,
-        "brandPass": true
-      }
-    }
-  },
-  "pulse-noir": {
-    "score": 10,
-    "breakdown": {
-      "contract": 4,
-      "verify": 3,
-      "stress": 1.5,
-      "brand": 1.5,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 0,
-        "vFail": 0,
-        "vWarn": 0,
-        "stFail": 0,
-        "deckAvg": 4.13,
-        "brandPass": true
-      }
-    }
-  },
-  "editorial-aesthetic-content": {
-    "score": 4.7,
-    "breakdown": {
-      "contract": 3.6,
-      "verify": 0,
-      "stress": 0,
-      "brand": 1.1,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 3,
-        "vFail": 11,
-        "vWarn": 2,
-        "stFail": 3,
-        "deckAvg": 2.22,
-        "brandPass": false
-      }
-    }
-  },
-  "beige-orange-and": {
-    "score": 7.6,
-    "breakdown": {
-      "contract": 4,
-      "verify": 3,
-      "stress": 0,
-      "brand": 0.6,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 0,
-        "vFail": 0,
-        "vWarn": 0,
-        "stFail": 3,
-        "deckAvg": 1.18,
-        "brandPass": false
-      }
-    }
-  },
-  "editorial-aesthetic-content-2": {
-    "score": 5.5,
-    "breakdown": {
-      "contract": 4,
-      "verify": 0,
-      "stress": 0,
-      "brand": 1.5,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 0,
-        "vFail": 18,
-        "vWarn": 4,
-        "stFail": 33,
-        "deckAvg": 36.01,
-        "brandPass": false
-      }
-    }
-  },
-  "yellow-simple-minimalist": {
+  "cream-and-orange": {
     "score": 8.5,
     "breakdown": {
       "contract": 4,
@@ -251,88 +17,52 @@
       }
     }
   },
-  "black-purple-simple": {
-    "score": 6.5,
-    "breakdown": {
-      "contract": 4,
-      "verify": 2.4,
-      "stress": 0,
-      "brand": 0.1,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 0,
-        "vFail": 0,
-        "vWarn": 2,
-        "stFail": 15,
-        "deckAvg": 0.29,
-        "brandPass": false
-      }
-    }
-  },
-  "black-purple-simple-2": {
-    "score": 7.6,
-    "breakdown": {
-      "contract": 4,
-      "verify": 2.4,
-      "stress": 0,
-      "brand": 1.2,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 0,
-        "vFail": 0,
-        "vWarn": 2,
-        "stFail": 7,
-        "deckAvg": 2.34,
-        "brandPass": false
-      }
-    }
-  },
-  "black-purple-simple-3": {
-    "score": 7.7,
-    "breakdown": {
-      "contract": 3.9,
-      "verify": 1.8,
-      "stress": 1.5,
-      "brand": 0.5,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 1,
-        "vFail": 0,
-        "vWarn": 4,
-        "stFail": 0,
-        "deckAvg": 1.05,
-        "brandPass": false
-      }
-    }
-  },
-  "black-purple-simple-4": {
-    "score": 8.4,
+  "purple-black-modern": {
+    "score": 8.5,
     "breakdown": {
       "contract": 4,
       "verify": 3,
-      "stress": 0,
-      "brand": 1.4,
+      "stress": 1.5,
+      "brand": 0,
       "raw": {
         "cViol": 0,
         "cWarn": 0,
         "vFail": 0,
         "vWarn": 0,
-        "stFail": 4,
-        "deckAvg": 2.76,
+        "stFail": 0,
+        "deckAvg": 0,
+        "brandPass": false
+      }
+    }
+  },
+  "beige-playful-scrapbook": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 0,
         "brandPass": false
       }
     }
   },
   "white-and-black": {
-    "score": 8.2,
+    "score": 8.5,
     "breakdown": {
-      "contract": 3.7,
+      "contract": 4,
       "verify": 3,
       "stress": 1.5,
       "brand": 0,
       "raw": {
         "cViol": 0,
-        "cWarn": 2,
+        "cWarn": 0,
         "vFail": 0,
         "vWarn": 0,
         "stFail": 0,
@@ -341,146 +71,128 @@
       }
     }
   },
-  "white-and-black-2": {
-    "score": 8.4,
+  "cream-and-orange-2": {
+    "score": 8.1,
     "breakdown": {
       "contract": 3.9,
-      "verify": 3,
+      "verify": 2.7,
       "stress": 1.5,
       "brand": 0,
       "raw": {
         "cViol": 0,
         "cWarn": 1,
         "vFail": 0,
-        "vWarn": 0,
+        "vWarn": 1,
         "stFail": 0,
         "deckAvg": 0,
         "brandPass": false
       }
     }
   },
-  "white-and-black-3": {
-    "score": 8.5,
+  "purple-black-modern-2": {
+    "score": 8.2,
     "breakdown": {
       "contract": 4,
-      "verify": 3,
+      "verify": 2.7,
       "stress": 1.5,
       "brand": 0,
       "raw": {
         "cViol": 0,
         "cWarn": 0,
         "vFail": 0,
-        "vWarn": 0,
+        "vWarn": 1,
         "stFail": 0,
         "deckAvg": 0,
         "brandPass": false
       }
     }
   },
-  "white-and-black-4": {
-    "score": 8.5,
+  "purple-black-modern-2.best": {
+    "score": 7.3,
     "breakdown": {
       "contract": 4,
-      "verify": 3,
+      "verify": 1.8,
       "stress": 1.5,
       "brand": 0,
       "raw": {
         "cViol": 0,
         "cWarn": 0,
         "vFail": 0,
-        "vWarn": 0,
+        "vWarn": 4,
         "stFail": 0,
         "deckAvg": 0,
         "brandPass": false
       }
     }
   },
-  "white-and-black-5": {
-    "score": 8.5,
+  "purple-black-modern-3": {
+    "score": 9.7,
     "breakdown": {
       "contract": 4,
-      "verify": 3,
+      "verify": 2.7,
       "stress": 1.5,
-      "brand": 0,
+      "brand": 1.5,
       "raw": {
         "cViol": 0,
         "cWarn": 0,
         "vFail": 0,
-        "vWarn": 0,
+        "vWarn": 1,
         "stFail": 0,
-        "deckAvg": 0,
-        "brandPass": false
+        "deckAvg": 3.69,
+        "brandPass": true
       }
     }
   },
-  "white-and-black-6": {
-    "score": 8.5,
+  "beige-playful-scrapbook-2": {
+    "score": 9.7,
     "breakdown": {
       "contract": 4,
-      "verify": 3,
+      "verify": 2.7,
       "stress": 1.5,
-      "brand": 0,
+      "brand": 1.5,
       "raw": {
         "cViol": 0,
         "cWarn": 0,
         "vFail": 0,
-        "vWarn": 0,
+        "vWarn": 1,
         "stFail": 0,
-        "deckAvg": 0,
-        "brandPass": false
+        "deckAvg": 8.59,
+        "brandPass": true
       }
     }
   },
   "white-purple-gradient": {
-    "score": 8.5,
+    "score": 9.3,
+    "breakdown": {
+      "contract": 3.3,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 5,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 12.05,
+        "brandPass": true
+      }
+    }
+  },
+  "brown-and-cream": {
+    "score": 10,
     "breakdown": {
       "contract": 4,
       "verify": 3,
       "stress": 1.5,
-      "brand": 0,
+      "brand": 1.5,
       "raw": {
         "cViol": 0,
         "cWarn": 0,
         "vFail": 0,
         "vWarn": 0,
         "stFail": 0,
-        "deckAvg": 0,
-        "brandPass": false
-      }
-    }
-  },
-  "white-and-black-7": {
-    "score": 8.5,
-    "breakdown": {
-      "contract": 4,
-      "verify": 3,
-      "stress": 1.5,
-      "brand": 0,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 0,
-        "vFail": 0,
-        "vWarn": 0,
-        "stFail": 0,
-        "deckAvg": 0,
-        "brandPass": false
-      }
-    }
-  },
-  "editorial-aesthetic-content-3": {
-    "score": 8.1,
-    "breakdown": {
-      "contract": 3.6,
-      "verify": 3,
-      "stress": 1.5,
-      "brand": 0,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 3,
-        "vFail": 0,
-        "vWarn": 0,
-        "stFail": 0,
-        "deckAvg": 0,
+        "deckAvg": 18.33,
         "brandPass": false
       }
     }

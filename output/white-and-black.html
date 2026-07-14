@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#C0562A);
+  --secondary:var(--brand-secondary,#9A4118);
+  --accent:var(--brand-accent,#D2703A);
+  --highlight:var(--brand-accent,#D2703A);
+  --bg:var(--brand-bg,#F4EFE6);
+  --surface:var(--brand-surface,var(--brand-bg-alt,#FBF7EE));
+  --text-high:var(--brand-ink,var(--brand-text,#26201A));
+  --text-low:var(--brand-text-muted,rgba(38,32,26,.62));
+  --border:var(--brand-border,rgba(38,32,26,.16));
+}
+
+*{box-sizing:border-box;}
+
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+.slide{
+  width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+  background:var(--bg);
+  font-family:'Inter',sans-serif;
+}
+.slide::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 18% 12%, color-mix(in srgb,var(--accent) 10%,transparent) 0%, transparent 30%),
+    radial-gradient(circle at 88% 82%, color-mix(in srgb,var(--primary) 9%,transparent) 0%, transparent 34%);
+}
+
+/* decorative torn/washi elements */
+.deco{position:absolute;z-index:1;pointer-events:none;}
+.washi{position:absolute;z-index:2;width:180px;height:64px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 60%,#7a4a24) 0%, color-mix(in srgb,var(--secondary) 70%,#5f3315) 100%);opacity:.9;transform:rotate(-6deg);border-radius:3px;box-shadow:0 6px 16px rgba(20,14,8,.2);}
+.star{position:absolute;z-index:2;width:150px;height:150px;background:color-mix(in srgb,var(--primary) 82%,#8a3a18);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);opacity:.9;}
+.paperclip{position:absolute;z-index:2;width:44px;height:120px;border:8px solid var(--secondary);border-radius:24px;opacity:.55;}
+.spark{position:absolute;z-index:2;color:var(--accent);font-size:70px;line-height:1;opacity:.85;}
+
+/* the note-card reading surface (fixed light literal) */
+.note-card{
+  position:absolute;left:96px;width:888px;z-index:3;
+  background:#FBF8F0;border-radius:6px;overflow:hidden;
+  box-shadow:0 30px 60px rgba(20,14,8,.24);
+  background-image:repeating-linear-gradient(180deg,transparent 0px,transparent 63px,rgba(38,32,26,.10) 63px,rgba(38,32,26,.10) 64px);
+}
+.note-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:9px;background:var(--accent);}
+.note-card::after{content:'';position:absolute;left:437px;top:0;bottom:0;width:2px;background:repeating-linear-gradient(180deg,rgba(38,32,26,.28) 0px,rgba(38,32,26,.28) 8px,transparent 8px,transparent 20px);}
+
+/* brand lockup pill top */
+.brandbar{position:absolute;top:56px;left:0;right:0;z-index:6;display:flex;justify-content:center;}
+.brandbar .lockup{display:inline-flex;align-items:center;gap:14px;padding:14px 40px;border:2px solid var(--text-high);border-radius:40px;background:color-mix(in srgb,var(--surface) 60%,transparent);}
+.brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+.brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+.brand-word{font-family:'Playfair Display',serif;font-weight:700;font-size:28px;letter-spacing:.18em;color:var(--text-high);white-space:nowrap;}
+
+/* kicker */
+.tn-kicker{position:absolute;z-index:5;}
+.tn-kicker span{
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+  font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:46px;line-height:1.2;color:var(--primary);padding-bottom:6px;
+}
+
+/* section headline (uppercase serif) */
+.tn-head{position:absolute;z-index:5;}
+.tn-head h1{
+  margin:0;font-family:'Playfair Display',serif;font-weight:800;font-size:82px;line-height:1.06;letter-spacing:.01em;
+  text-transform:uppercase;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:12px;
+}
+
+/* cover / closer big headline */
+.tn-hero{position:absolute;z-index:5;}
+.tn-hero h1{
+  margin:0;font-family:'Playfair Display',serif;font-weight:800;font-size:150px;line-height:.98;letter-spacing:-.01em;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:18px;
+}
+
+/* body */
+.tn-body{position:absolute;z-index:5;}
+.tn-body p{
+  margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:33px;line-height:1.36;color:var(--text-low);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:8px;
+}
+
+/* CTA pill */
+.tn-cta{position:absolute;z-index:6;}
+.tn-cta span{
+  display:inline-block;background:var(--primary);color:#FBF7EE;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:30px;letter-spacing:.02em;
+  padding:22px 52px;border-radius:40px;box-shadow:0 14px 30px rgba(20,14,8,.24);
+}
+
+/* footer */
+.foot{position:absolute;left:96px;right:96px;bottom:52px;z-index:6;display:flex;align-items:center;justify-content:space-between;}
+.foot .brand-word{font-size:24px;letter-spacing:.14em;}
+.cg-slide-counter{font-family:'Inter',sans-serif;font-weight:700;font-size:22px;letter-spacing:.14em;color:var(--primary);}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 · cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="brandbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+    <div class="star" style="top:210px;left:64px;transform:rotate(-14deg);"></div>
+    <div class="washi" style="top:900px;right:120px;transform:rotate(9deg);"></div>
+    <div class="paperclip" style="top:250px;right:110px;transform:rotate(20deg);"></div>
+    <div class="spark" style="top:820px;left:110px;">&#10022;</div>
+    <div class="tn-kicker" style="top:230px;left:96px;right:96px;"><span data-title="false" data-tagline="true">THE INBOX PLAYBOOK</span></div>
+    <div class="tn-hero" style="top:330px;left:96px;width:888px;"><h1 data-title="true">Write a Newsletter</h1></div>
+    <div class="tn-body" style="top:820px;left:96px;width:720px;"><p data-message="true">Nine moves to build a list that opens, clicks, and sticks around.</p></div>
+    <div class="tn-cta" style="top:1000px;left:96px;"><span data-cta="true">Start reading</span></div>
+    <div class="foot">
+      <div class="lockup" style="display:inline-flex;align-items:center;gap:12px;"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">01 / 10</div>
+    </div>
+  </section>
+
+  <!-- Slide 2 · MOVE 01 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="brandbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+    <div class="paperclip" style="top:180px;left:70px;transform:rotate(-18deg);"></div>
+    <div class="star" style="top:760px;right:70px;transform:rotate(10deg);"></div>
+    <div class="tn-head" style="top:200px;left:96px;width:820px;"><h1 data-title="true">Pick One Promise</h1></div>
+    <div class="washi" style="top:470px;left:420px;transform:rotate(-5deg);"></div>
+    <div class="note-card" style="top:540px;height:560px;">
+      <div class="tn-kicker" style="top:56px;left:70px;right:70px;position:absolute;"><span data-tagline="true">Move 01</span></div>
+      <div class="tn-body" style="top:200px;left:70px;width:520px;position:absolute;"><p data-message="true">Decide the single thing every issue delivers. A clear promise beats a clever name every time.</p></div>
+    </div>
+    <div class="foot">
+      <div class="lockup" style="display:inline-flex;align-items:center;gap:12px;"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">02 / 10</div>
+    </div>
+  </section>
+
+  <!-- Slide 3 · MOVE 02 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="brandbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+    <div class="spark" style="top:190px;right:90px;">&#10022;</div>
+    <div class="paperclip" style="top:820px;right:80px;transform:rotate(30deg);"></div>
+    <div class="tn-head" style="top:200px;left:96px;width:840px;"><h1 data-title="true">Earn the First Yes</h1></div>
+    <div class="washi" style="top:460px;left:180px;transform:rotate(7deg);"></div>
+    <div class="note-card" style="top:540px;height:520px;">
+      <div class="tn-kicker" style="top:56px;left:70px;right:70px;position:absolute;"><span data-tagline="true">Move 02</span></div>
+      <div class="tn-body" style="top:200px;left:70px;width:520px;position:absolute;"><p data-message="true">Trade something worth an email — a checklist, a template, a shortcut. Not just "updates."</p></div>
+    </div>
+    <div class="tn-cta" style="top:1130px;left:96px;"><span data-cta="true">Keep going</span></div>
+    <div class="foot">
+      <div class="lockup" style="display:inline-flex;align-items:center;gap:12px;"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">03 / 10</div>
+    </div>
+  </section>
+
+  <!-- Slide 4 · MOVE 03 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="brandbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+    <div class="star" style="top:220px;right:64px;transform:rotate(-8deg);"></div>
+    <div class="star" style="top:900px;left:70px;transform:rotate(16deg);width:120px;height:120px;"></div>
+    <div class="tn-head" style="top:200px;left:96px;width:760px;"><h1 data-title="true">Send on a Rhythm</h1></div>
+    <div class="washi" style="top:470px;left:400px;transform:rotate(-6deg);"></div>
+    <div class="note-card" style="top:540px;height:520px;">
+      <div class="tn-kicker" style="top:56px;left:70px;right:70px;position:absolute;"><span data-tagline="true">Move 03</span></div>
+      <div class="tn-body" style="top:200px;left:70px;width:540px;position:absolute;"><p data-message="true">Weekly beats sporadic. Pick a cadence you can hold for a year and protect it.</p></div>
+    </div>
+    <div class="tn-cta" style="top:1130px;left:96px;"><span data-cta="true">Keep going</span></div>
+    <div class="foot">
+      <div class="lockup" style="display:inline-flex;align-items:center;gap:12px;"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">04 / 10</div>
+    </div>
+  </section>
+
+  <!-- Slide 5 · MOVE 04 (list) -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="brandbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+    <div class="spark" style="top:200px;left:110px;">&#10022;</div>
+    <div class="paperclip" style="top:800px;right:90px;transform:rotate(-24deg);"></div>
+    <div class="tn-head" style="top:200px;left:96px;width:840px;"><h1 data-title="true">Nail the Subject Line</h1></div>
+    <div class="washi" style="top:480px;left:200px;transform:rotate(8deg);"></div>
+    <div class="note-card" style="top:560px;height:500px;">
+      <div class="tn-kicker" style="top:56px;left:70px;right:70px;position:absolute;"><span data-tagline="true">Move 04</span></div>
+      <div class="tn-body" style="top:200px;left:70px;width:540px;position:absolute;"><p data-message="true">Specific, human, curious. Skip clickbait — write the line you'd actually tap in your own inbox.</p></div>
+    </div>
+    <div class="tn-cta" style="top:1130px;left:96px;"><span data-cta="true">Keep going</span></div>
+    <div class="foot">
+      <div class="lockup" style="display:inline-flex;align-items:center;gap:12px;"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">05 / 10</div>
+    </div>
+  </section>
+
+  <!-- Slide 6 · MOVE 05 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="brandbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+    <div class="star" style="top:200px;left:64px;transform:rotate(-12deg);"></div>
+    <div class="spark" style="top:840px;right:100px;">&#10022;</div>
+    <div class="tn-head" style="top:210px;left:340px;width:640px;"><h1 data-title="true">Open Like a Letter</h1></div>
+    <div class="washi" style="top:470px;left:410px;transform:rotate(-6deg);"></div>
+    <div class="note-card" style="top:540px;height:540px;">
+      <div class="tn-kicker" style="top:56px;left:70px;right:70px;position:absolute;"><span data-tagline="true">Move 05</span></div>
+      <div class="tn-body" style="top:200px;left:70px;width:540px;position:absolute;"><p data-message="true">Start with one honest sentence, not a menu. Talk to one reader, never a crowd.</p></div>
+    </div>
+    <div class="foot">
+      <div class="lockup" style="display:inline-flex;align-items:center;gap:12px;"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">06 / 10</div>
+    </div>
+  </section>
+
+  <!-- Slide 7 · MOVE 06 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="brandbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+    <div class="star" style="top:200px;right:70px;transform:rotate(14deg);"></div>
+    <div class="paperclip" style="top:820px;left:80px;transform:rotate(22deg);"></div>
+    <div class="tn-head" style="top:200px;left:96px;width:800px;"><h1 data-title="true">Give Before You Ask</h1></div>
+    <div class="washi" style="top:470px;left:200px;transform:rotate(9deg);"></div>
+    <div class="note-card" style="top:540px;height:540px;">
+      <div class="tn-kicker" style="top:56px;left:70px;right:70px;position:absolute;"><span data-tagline="true">Move 06</span></div>
+      <div class="tn-body" style="top:200px;left:70px;width:540px;position:absolute;"><p data-message="true">Teach, share, or entertain first. Trust is the currency that makes every pitch land later.</p></div>
+    </div>
+    <div class="foot">
+      <div class="lockup" style="display:inline-flex;align-items:center;gap:12px;"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">07 / 10</div>
+    </div>
+  </section>
+
+  <!-- Slide 8 · MOVE 07 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="brandbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+    <div class="spark" style="top:190px;left:110px;">&#10022;</div>
+    <div class="star" style="top:860px;right:64px;transform:rotate(-10deg);width:120px;height:120px;"></div>
+    <div class="tn-head" style="top:200px;left:96px;width:820px;"><h1 data-title="true">Close With One Action</h1></div>
+    <div class="washi" style="top:490px;left:400px;transform:rotate(-7deg);"></div>
+    <div class="note-card" style="top:560px;height:500px;">
+      <div class="tn-kicker" style="top:56px;left:70px;right:70px;position:absolute;"><span data-tagline="true">Move 07</span></div>
+      <div class="tn-body" style="top:200px;left:70px;width:540px;position:absolute;"><p data-message="true">Reply, click, or reflect — never five. A single clear ask outperforms a wall of links.</p></div>
+    </div>
+    <div class="tn-cta" style="top:1130px;left:96px;"><span data-cta="true">Keep going</span></div>
+    <div class="foot">
+      <div class="lockup" style="display:inline-flex;align-items:center;gap:12px;"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">08 / 10</div>
+    </div>
+  </section>
+
+  <!-- Slide 9 · MOVE 08 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="brandbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+    <div class="paperclip" style="top:190px;right:90px;transform:rotate(18deg);"></div>
+    <div class="spark" style="top:840px;left:90px;">&#10022;</div>
+    <div class="tn-head" style="top:200px;left:96px;width:780px;"><h1 data-title="true">Read Your Numbers</h1></div>
+    <div class="washi" style="top:470px;left:220px;transform:rotate(6deg);"></div>
+    <div class="note-card" style="top:540px;height:540px;">
+      <div class="tn-kicker" style="top:56px;left:70px;right:70px;position:absolute;"><span data-tagline="true">Move 08</span></div>
+      <div class="tn-body" style="top:200px;left:70px;width:540px;position:absolute;"><p data-message="true">Opens tell you the subject worked. Replies tell you the writing did. Chase the second one.</p></div>
+    </div>
+    <div class="tn-cta" style="top:1130px;left:96px;"><span data-cta="true">Keep going</span></div>
+    <div class="foot">
+      <div class="lockup" style="display:inline-flex;align-items:center;gap:12px;"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">09 / 10</div>
+    </div>
+  </section>
+
+  <!-- Slide 10 · closer -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="brandbar"><div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div></div>
+    <div class="star" style="top:230px;left:64px;transform:rotate(-16deg);"></div>
+    <div class="star" style="top:880px;right:70px;transform:rotate(12deg);"></div>
+    <div class="paperclip" style="top:250px;right:110px;transform:rotate(24deg);"></div>
+    <div class="tn-kicker" style="top:240px;left:96px;right:96px;"><span data-tagline="true">Move 09</span></div>
+    <div class="tn-hero" style="top:340px;left:96px;width:888px;"><h1 data-title="true">Hit Send Anyway</h1></div>
+    <div class="tn-body" style="top:820px;left:96px;width:700px;"><p data-message="true">Perfect issues never ship. Save this, draft yours today, and press publish.</p></div>
+    <div class="tn-cta" style="top:990px;left:96px;"><span data-cta="true">Save this guide</span></div>
+    <div class="foot">
+      <div class="lockup" style="display:inline-flex;align-items:center;gap:12px;"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">10 / 10</div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

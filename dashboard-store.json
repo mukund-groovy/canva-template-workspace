@@ -1,18 +1,14 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-13T16:38:15.215Z",
+  "generatedAt": "2026-07-14T17:40:47.636Z",
   "entries": [
     {
       "designId": "DAHOxjfy5Mo",
       "status": "success",
       "createdAt": "2026-07-08T06:42:03.068Z",
-      "updatedAt": "2026-07-13T16:38:15.209Z",
-      "attempts": 4,
+      "updatedAt": "2026-07-14T17:40:47.629Z",
+      "attempts": 0,
       "sourceUrl": "",
-      "startedAt": "2026-07-08T08:53:39.263Z",
-      "finishedAt": "2026-07-08T08:57:02.145Z",
-      "durationMs": 202882,
-      "lastError": "",
       "clone": {
         "designId": "DAHOxjfy5Mo",
         "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\extract",
@@ -43,19 +39,18 @@
       "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\extract",
       "duplicate": false,
       "duplicateOf": null,
-      "output": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\final\\template-clone-pure-html.html",
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\workspace-summary.json",
+      "genDurationMs": 325344,
+      "genRetries": 4,
+      "genProvider": "claude",
+      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\workspace-summary.json",
+      "output": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\final\\template-clone-pure-html.html",
       "qualityGate": {
         "targetRmse": 0.24,
         "met": true,
         "stopOnTarget": false,
         "earlyStop": null
       },
-      "runId": "20260708-142349-775",
-      "generatedAt": "2026-07-08T08:56:53.147Z",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\comparison.html",
-      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\daily-checklist.html",
-      "archetypeSlug": "daily-checklist",
+      "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\comparison.html",
       "meta": {
         "title": "Cream and Orange Bold Modern Professional Entrepreneurship Information Tips Instagram Carousel Post",
         "pages": 5,
@@ -69,23 +64,23 @@
           "#26201b",
           "#ff8210"
         ],
-        "rmse": 0.14850501900000002,
-        "scoredPages": 5,
-        "score": 4.3
+        "score": 8.1
       },
-      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\archetype-cover.png"
+      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\archetype-cover.png",
+      "genStage": "",
+      "lastError": "",
+      "belowThreshold": false,
+      "score": 8.1,
+      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\cream-and-orange-2.html",
+      "archetypeSlug": "cream-and-orange-2"
     },
     {
       "designId": "DAHOyNQEdgs",
       "status": "success",
       "createdAt": "2026-07-08T08:59:25.920Z",
-      "updatedAt": "2026-07-13T16:38:15.211Z",
-      "attempts": 4,
+      "updatedAt": "2026-07-14T17:40:47.631Z",
+      "attempts": 0,
       "sourceUrl": "",
-      "startedAt": "2026-07-08T10:59:07.713Z",
-      "finishedAt": "2026-07-08T11:00:14.152Z",
-      "durationMs": 66439,
-      "lastError": "",
       "clone": {
         "designId": "DAHOyNQEdgs",
         "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\extract",
@@ -116,20 +111,22 @@
       "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\extract",
       "duplicate": false,
       "duplicateOf": null,
-      "output": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\final\\template-clone-pure-html.html",
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\workspace-summary.json",
+      "genDurationMs": 639447,
+      "genRetries": 4,
+      "genProvider": "claude",
+      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOyNQEdgs\\workspace-summary.json",
+      "output": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyNQEdgs\\final\\template-clone-pure-html.html",
       "qualityGate": {
         "targetRmse": 0.24,
         "met": true,
         "stopOnTarget": false,
         "earlyStop": null
       },
-      "runId": "20260708-162911-737",
-      "generatedAt": "2026-07-08T11:00:06.087Z",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\comparison.html",
-      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\smart-mindset.html",
-      "archetypeSlug": "smart-mindset",
+      "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOyNQEdgs\\comparison.html",
+      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\purple-black-modern-3.html",
+      "archetypeSlug": "purple-black-modern-3",
       "meta": {
+        "score": 9.7,
         "title": "Purple Black Modern Carousel Instagram Post",
         "pages": 7,
         "fonts": [
@@ -141,24 +138,23 @@
           "#f1f1f1",
           "#5e17eb",
           "#191919"
-        ],
-        "rmse": 0.15501735,
-        "scoredPages": 1,
-        "score": 3.3
+        ]
       },
-      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOyNQEdgs\\archetype-cover.png"
+      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOyNQEdgs\\archetype-cover.png",
+      "genStage": "",
+      "lastError": "",
+      "belowThreshold": false,
+      "score": 8.1,
+      "detScore": 9.7,
+      "premiumScore": 7
     },
     {
       "designId": "DAHOyRRg-yQ",
       "status": "success",
       "createdAt": "2026-07-08T09:23:13.178Z",
-      "updatedAt": "2026-07-13T16:38:15.212Z",
-      "attempts": 6,
+      "updatedAt": "2026-07-14T17:40:47.633Z",
+      "attempts": 0,
       "sourceUrl": "",
-      "startedAt": "2026-07-08T10:38:05.308Z",
-      "finishedAt": "2026-07-08T10:38:17.061Z",
-      "durationMs": 11753,
-      "lastError": "",
       "clone": {
         "designId": "DAHOyRRg-yQ",
         "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract",
@@ -189,19 +185,15 @@
       "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract",
       "duplicate": false,
       "duplicateOf": null,
-      "output": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\final\\template-clone-pure-html.html",
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\workspace-summary.json",
+      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\workspace-summary.json",
+      "output": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\final\\template-clone-pure-html.html",
       "qualityGate": {
         "targetRmse": 0.24,
         "met": true,
         "stopOnTarget": false,
         "earlyStop": null
       },
-      "runId": null,
-      "generatedAt": null,
       "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\comparison.html",
-      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\white-purple-gradient.html",
-      "archetypeSlug": "white-purple-gradient",
       "meta": {
         "title": "White Purple Gradient Minimalist Social Media Branding Carousel Instagram Post",
         "pages": 10,
@@ -216,23 +208,28 @@
           "#c9c2e8",
           "#3e52ac"
         ],
-        "rmse": 0.23441578999999999,
-        "scoredPages": 10,
-        "score": 8.5
+        "score": 9.3
       },
-      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\archetype-cover.png"
+      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\archetype-cover.png",
+      "genStage": "",
+      "genDurationMs": 1401598,
+      "genRetries": 5,
+      "genProvider": "claude",
+      "lastError": "",
+      "belowThreshold": true,
+      "score": 7.3,
+      "detScore": 9.3,
+      "premiumScore": 6,
+      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\white-purple-gradient.html",
+      "archetypeSlug": "white-purple-gradient"
     },
     {
       "designId": "DAHO3nrn8r4",
       "status": "success",
       "createdAt": "2026-07-09T07:38:42.320Z",
-      "updatedAt": "2026-07-13T16:38:15.198Z",
-      "attempts": 1,
+      "updatedAt": "2026-07-14T17:40:47.618Z",
+      "attempts": 0,
       "sourceUrl": "",
-      "startedAt": "2026-07-09T07:38:42.320Z",
-      "finishedAt": "2026-07-09T07:38:45.616Z",
-      "durationMs": 3296,
-      "lastError": "",
       "clone": {
         "designId": "DAHO3nrn8r4",
         "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO3nrn8r4\\extract",
@@ -260,13 +257,15 @@
       "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO3nrn8r4\\extract",
       "duplicate": false,
       "duplicateOf": null,
-      "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO3nrn8r4\\workspace-summary.json",
-      "qualityGate": null,
-      "runId": null,
-      "generatedAt": null,
-      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO3nrn8r4\\archetype-cover.png",
+      "genDurationMs": 1319259,
+      "genRetries": 2,
+      "genProvider": "claude",
+      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO3nrn8r4\\workspace-summary.json",
+      "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO3nrn8r4\\comparison.html",
+      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\beige-playful-scrapbook-2.html",
+      "archetypeSlug": "beige-playful-scrapbook-2",
       "meta": {
+        "score": 9.7,
         "title": "Beige Playful Scrapbook Typography Quote Carousel Instagram Post",
         "pages": 5,
         "fonts": [
@@ -279,24 +278,18 @@
           "#324b3e",
           "#e65a38",
           "#d3cfff"
-        ],
-        "score": 10
+        ]
       },
-      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\scrapbook-reset.html",
-      "archetypeSlug": "scrapbook-reset",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO3nrn8r4\\comparison.html"
+      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO3nrn8r4\\archetype-cover.png",
+      "genStage": "scoring (gen 1/3)"
     },
     {
       "designId": "DAHO4Oe5Bbw",
       "status": "success",
       "createdAt": "2026-07-09T08:41:36.641Z",
-      "updatedAt": "2026-07-13T16:38:15.203Z",
-      "attempts": 1,
+      "updatedAt": "2026-07-14T17:40:47.622Z",
+      "attempts": 0,
       "sourceUrl": "",
-      "startedAt": "2026-07-09T08:41:36.641Z",
-      "finishedAt": "2026-07-09T08:41:43.277Z",
-      "durationMs": 6636,
-      "lastError": "",
       "clone": {
         "designId": "DAHO4Oe5Bbw",
         "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract",
@@ -324,13 +317,15 @@
       "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract",
       "duplicate": false,
       "duplicateOf": null,
-      "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\workspace-summary.json",
-      "qualityGate": null,
-      "runId": null,
-      "generatedAt": null,
-      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\archetype-cover.png",
+      "genDurationMs": 145453,
+      "genRetries": 0,
+      "genProvider": "claude",
+      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\workspace-summary.json",
+      "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\comparison.html",
+      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\white-and-black.html",
+      "archetypeSlug": "white-and-black",
       "meta": {
+        "score": 8.5,
         "title": "White and Black Collage How to be Content Creator Instagram Post Carousel",
         "pages": 10,
         "fonts": [
@@ -343,24 +338,17 @@
           "#ed744a",
           "#3b3b3b",
           "#000000"
-        ],
-        "score": 8.5
+        ]
       },
-      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\white-and-black-7.html",
-      "archetypeSlug": "white-and-black-7",
-      "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\comparison.html"
+      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\archetype-cover.png"
     },
     {
       "designId": "DAHO4AoXL1M",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-09T08:45:07.723Z",
-      "updatedAt": "2026-07-13T16:38:15.199Z",
-      "attempts": 1,
+      "updatedAt": "2026-07-14T17:40:47.619Z",
+      "attempts": 0,
       "sourceUrl": "",
-      "startedAt": "2026-07-09T08:45:07.723Z",
-      "finishedAt": "2026-07-09T08:45:13.080Z",
-      "durationMs": 5357,
-      "lastError": "",
       "clone": {
         "designId": "DAHO4AoXL1M",
         "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4AoXL1M\\extract",
@@ -388,14 +376,7 @@
       "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4AoXL1M\\extract",
       "duplicate": false,
       "duplicateOf": null,
-      "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4AoXL1M\\workspace-summary.json",
-      "qualityGate": null,
-      "runId": null,
-      "generatedAt": null,
-      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO4AoXL1M\\archetype-cover.png",
-      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\growth-notes.html",
-      "archetypeSlug": "growth-notes",
+      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO4AoXL1M\\workspace-summary.json",
       "meta": {
         "title": "Brown and Cream Modern Minimalist Life Lessons Collage Instagram Post",
         "pages": 5,
@@ -408,21 +389,20 @@
           "#ffffff",
           "#f2eecf",
           "#312721"
-        ],
-        "score": 3
+        ]
       },
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4AoXL1M\\comparison.html"
+      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO4AoXL1M\\archetype-cover.png",
+      "genStage": ""
     },
     {
       "designId": "DAHO4NT5oWA",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-09T10:12:20.632Z",
-      "updatedAt": "2026-07-13T16:38:15.201Z",
+      "updatedAt": "2026-07-14T17:40:47.620Z",
       "attempts": 0,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4NT5oWA\\workspace-summary.json",
       "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4NT5oWA\\extract",
-      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\growth-signal.html",
-      "archetypeSlug": "growth-signal",
+      "sourceUrl": "",
+      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO4NT5oWA\\workspace-summary.json",
       "meta": {
         "title": "Orange and Black Bold Modern Business Tips Instagram Carousel",
         "pages": 5,
@@ -434,23 +414,17 @@
         "palette": [
           "#000000",
           "#ffffff"
-        ],
-        "score": 10
+        ]
       },
-      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO4NT5oWA\\archetype-cover.png",
-      "sourceUrl": "",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4NT5oWA\\comparison.html"
+      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO4NT5oWA\\archetype-cover.png"
     },
     {
       "designId": "DAHO9gKsy-I",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-13T06:48:42.499Z",
-      "updatedAt": "2026-07-13T16:38:15.204Z",
-      "attempts": 2,
+      "updatedAt": "2026-07-14T17:40:47.624Z",
+      "attempts": 0,
       "sourceUrl": "",
-      "startedAt": "2026-07-13T06:58:36.424Z",
-      "finishedAt": "2026-07-13T06:58:40.207Z",
-      "durationMs": 3783,
       "clone": {
         "designId": "DAHO9gKsy-I",
         "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9gKsy-I\\extract",
@@ -478,11 +452,8 @@
       "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9gKsy-I\\extract",
       "duplicate": false,
       "duplicateOf": null,
-      "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9gKsy-I\\workspace-summary.json",
-      "qualityGate": null,
-      "runId": null,
-      "generatedAt": null,
+      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO9gKsy-I\\workspace-summary.json",
+      "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO9gKsy-I\\comparison.html",
       "meta": {
         "title": "Yellow Simple Minimalist Personal Notes Message Instagram Carousel",
         "pages": 6,
@@ -493,24 +464,17 @@
         "palette": [
           "#fffffa",
           "#483626"
-        ],
-        "score": 8.5
+        ]
       },
-      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO9gKsy-I\\archetype-cover.png",
-      "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO9gKsy-I\\comparison.html",
-      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\yellow-simple-minimalist.html",
-      "archetypeSlug": "yellow-simple-minimalist"
+      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO9gKsy-I\\archetype-cover.png"
     },
     {
       "designId": "DAHO9lfaPdg",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-13T06:48:52.647Z",
-      "updatedAt": "2026-07-13T16:38:15.205Z",
-      "attempts": 3,
+      "updatedAt": "2026-07-14T17:40:47.626Z",
+      "attempts": 0,
       "sourceUrl": "",
-      "startedAt": "2026-07-13T07:00:17.870Z",
-      "finishedAt": "2026-07-13T07:00:19.183Z",
-      "durationMs": 1313,
       "clone": {
         "designId": "DAHO9lfaPdg",
         "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9lfaPdg\\extract",
@@ -538,11 +502,8 @@
       "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9lfaPdg\\extract",
       "duplicate": false,
       "duplicateOf": null,
-      "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9lfaPdg\\workspace-summary.json",
-      "qualityGate": null,
-      "runId": null,
-      "generatedAt": null,
+      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO9lfaPdg\\workspace-summary.json",
+      "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO9lfaPdg\\comparison.html",
       "meta": {
         "title": "Editorial Aesthetic Content Creator Recap Carousel Instagram Post",
         "pages": 5,
@@ -555,25 +516,17 @@
           "#ebe8e7",
           "#ffffff",
           "#2b2525"
-        ],
-        "score": 8.1
+        ]
       },
-      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO9lfaPdg\\archetype-cover.png",
-      "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO9lfaPdg\\comparison.html",
-      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\editorial-aesthetic-content-3.html",
-      "archetypeSlug": "editorial-aesthetic-content-3"
+      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHO9lfaPdg\\archetype-cover.png"
     },
     {
       "designId": "DAHOrBKyBxs",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-13T06:49:06.882Z",
-      "updatedAt": "2026-07-13T16:38:15.207Z",
-      "attempts": 2,
+      "updatedAt": "2026-07-14T17:40:47.627Z",
+      "attempts": 0,
       "sourceUrl": "",
-      "startedAt": "2026-07-13T07:00:41.458Z",
-      "finishedAt": "2026-07-13T07:00:45.570Z",
-      "durationMs": 4112,
-      "lastError": "",
       "clone": {
         "designId": "DAHOrBKyBxs",
         "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrBKyBxs\\extract",
@@ -601,11 +554,7 @@
       "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrBKyBxs\\extract",
       "duplicate": false,
       "duplicateOf": null,
-      "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrBKyBxs\\workspace-summary.json",
-      "qualityGate": null,
-      "runId": null,
-      "generatedAt": null,
+      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOrBKyBxs\\workspace-summary.json",
       "meta": {
         "title": "Purple Minimalist Carousel Instagram Post",
         "pages": 7,
@@ -618,24 +567,17 @@
           "#5e17eb",
           "#191919",
           "#d2bcff"
-        ],
-        "score": 10
+        ]
       },
-      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOrBKyBxs\\archetype-cover.png",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrBKyBxs\\comparison.html",
-      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\violet-highlighter.html",
-      "archetypeSlug": "violet-highlighter"
+      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOrBKyBxs\\archetype-cover.png"
     },
     {
       "designId": "DAHOrUQo44I",
-      "status": "failed",
+      "status": "cloned",
       "createdAt": "2026-07-13T06:49:46.895Z",
-      "updatedAt": "2026-07-13T16:38:15.208Z",
-      "attempts": 2,
+      "updatedAt": "2026-07-14T17:40:47.628Z",
+      "attempts": 0,
       "sourceUrl": "",
-      "startedAt": "2026-07-13T07:01:06.585Z",
-      "finishedAt": "2026-07-13T07:01:11.226Z",
-      "durationMs": 4641,
       "clone": {
         "designId": "DAHOrUQo44I",
         "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrUQo44I\\extract",
@@ -663,11 +605,7 @@
       "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrUQo44I\\extract",
       "duplicate": false,
       "duplicateOf": null,
-      "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrUQo44I\\workspace-summary.json",
-      "qualityGate": null,
-      "runId": null,
-      "generatedAt": null,
+      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOrUQo44I\\workspace-summary.json",
       "meta": {
         "title": "Beige Orange and Black Simple Modern Minimalist Tips Informational Instagram Post Carousel",
         "pages": 7,
@@ -680,25 +618,17 @@
           "#fdfaf6",
           "#000000",
           "#c56c30"
-        ],
-        "score": 7.6
+        ]
       },
-      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOrUQo44I\\archetype-cover.png",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrUQo44I\\comparison.html",
-      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\beige-orange-and.html",
-      "archetypeSlug": "beige-orange-and",
-      "lastError": "claude 429: {\"error\":{\"code\":\"RateLimitReached\",\"message\":\"Rate limit of 8000 per 60s exceeded for UserByModelByMinuteOutputTokens. Please wait 30 seconds before retrying.\",\"details\":\"Rate limit of 8000 per 60s exceeded for UserByModelByMinuteOutputTokens. Please wait 30 seconds before retrying.\"}}"
+      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHOrUQo44I\\archetype-cover.png"
     },
     {
       "designId": "DAHPPm3V4_U",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-13T06:57:04.649Z",
-      "updatedAt": "2026-07-13T16:38:15.213Z",
-      "attempts": 1,
+      "updatedAt": "2026-07-14T17:40:47.634Z",
+      "attempts": 0,
       "sourceUrl": "https://www.canva.com/design/DAHPPm3V4_U/0JmVp6b7wY5fMVmtqiFc5g/edit",
-      "startedAt": "2026-07-13T06:57:04.649Z",
-      "finishedAt": "2026-07-13T06:57:08.158Z",
-      "durationMs": 3509,
       "clone": {
         "designId": "DAHPPm3V4_U",
         "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPPm3V4_U\\extract",
@@ -726,12 +656,7 @@
       "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPPm3V4_U\\extract",
       "duplicate": false,
       "duplicateOf": null,
-      "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPPm3V4_U\\workspace-summary.json",
-      "qualityGate": null,
-      "runId": null,
-      "generatedAt": null,
-      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPPm3V4_U\\archetype-cover.png",
+      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPPm3V4_U\\workspace-summary.json",
       "meta": {
         "title": "Black Purple Simple Tech Carousel Instagram Post",
         "pages": 4,
@@ -744,25 +669,17 @@
           "#ffffff",
           "#edadff",
           "#cb6ce6"
-        ],
-        "score": 8.4
+        ]
       },
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPPm3V4_U\\comparison.html",
-      "lastError": "claude 401: {\"error\":{\"code\":\"401\",\"message\":\"Access denied due to invalid subscription key or wrong API endpoint. Make sure to provide a valid key for an active subscription and use a correct regional API endpoint for your resource.\"}}",
-      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\black-purple-simple-4.html",
-      "archetypeSlug": "black-purple-simple-4"
+      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPPm3V4_U\\archetype-cover.png"
     },
     {
       "designId": "DAHPRMKHicM",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-13T14:12:27.053Z",
-      "updatedAt": "2026-07-13T16:38:15.215Z",
-      "attempts": 3,
+      "updatedAt": "2026-07-14T17:40:47.636Z",
+      "attempts": 0,
       "sourceUrl": "",
-      "startedAt": "2026-07-13T14:21:23.078Z",
-      "finishedAt": "2026-07-13T14:21:25.684Z",
-      "durationMs": 2606,
-      "lastError": "",
       "clone": {
         "designId": "DAHPRMKHicM",
         "outDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPRMKHicM\\extract",
@@ -790,11 +707,8 @@
       "extractDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPRMKHicM\\extract",
       "duplicate": false,
       "duplicateOf": null,
-      "output": null,
       "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPRMKHicM\\workspace-summary.json",
-      "qualityGate": null,
-      "runId": null,
-      "generatedAt": null,
+      "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPRMKHicM\\comparison.html",
       "meta": {
         "title": "White and Black Minimalist How to Become Content Creator Instagram Post Carousel",
         "pages": 5,
@@ -809,13 +723,9 @@
           "#55b2ed",
           "#265dc6",
           "#e44614"
-        ],
-        "score": 8.5
+        ]
       },
-      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPRMKHicM\\archetype-cover.png",
-      "archetype": "D:\\wamp64\\www\\canva-template-workspace\\output\\white-and-black-6.html",
-      "archetypeSlug": "white-and-black-6",
-      "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPRMKHicM\\comparison.html"
+      "thumb": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPRMKHicM\\archetype-cover.png"
     }
   ]
 }

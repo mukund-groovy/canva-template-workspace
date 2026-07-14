@@ -145,7 +145,28 @@ const photoStats = [];
 const add = (slide, check, severity, message) =>
   findings.push({ slide, check, severity, message });
 
-const browser = await chromium.launch();
+// The bundled playwright chromium is often not downloaded on these machines; the
+// system Chrome always is. Prefer it (like build-comparison.mjs), fall back to the
+// bundled browser. Launching with neither used to throw — and the caller swallowed
+// the throw and scored a full verify pass, silently disabling this entire gate.
+function chromeBinary() {
+  const candidates = [
+    process.env.CHROME_BIN,
+    'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+    'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+  ].filter(Boolean);
+  for (const p of candidates) { try { if (fs.existsSync(p)) return p; } catch {} }
+  return null;
+}
+const browser = await (async () => {
+  const bin = chromeBinary();
+  try {
+    return await chromium.launch(bin ? { executablePath: bin } : {});
+  } catch (e) {
+    if (bin) return await chromium.launch(); // last resort: bundled
+    throw e;
+  }
+})();
 const page = await browser.newPage({ viewport: { width: SLIDE_W, height: SLIDE_H } });
 await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
 await page.evaluate(() => document.fonts.ready);
@@ -252,14 +273,20 @@ for (let i = 0; i < slides.length; i++) {
         rng.selectNodeContents(el);
         const inkRects = [...rng.getClientRects()];
         rng.detach?.();
-        // A glyph is cut when its rect crosses the box edge by more than a hairline.
-        clipped = inkRects.some((q) => q.bottom > box.bottom + 1.5 || q.right > box.right + 1.5);
-        // Also catch the case where whole lines were dropped by -webkit-line-clamp.
+        // A glyph is cut only when its rect crosses the box edge by MORE than the
+        // natural per-line ink overshoot, which scales with font size. A fixed 1.5px
+        // hairline false-fired on every large display headline (a 120px face overshoots
+        // its line box by 5-10px with nothing visibly cut). Tolerance ~0.18*size still
+        // catches a genuine clip (a hidden partial line sits >0.5*line-height past the box).
+        const tol = Math.max(2, size * 0.18);
+        clipped = inkRects.some((q) => q.bottom > box.bottom + tol || q.right > box.right + tol);
+        // Also catch the case where whole lines were dropped by -webkit-line-clamp —
+        // but require a genuine extra line (> half a line past the clamp), not a 1px
+        // rounding artifact of scrollHeight/line-height.
         const lineClamp = parseInt(cs.webkitLineClamp || cs.lineClamp || '0', 10);
         if (!clipped && lineClamp > 0) {
           const lh = parseFloat(cs.lineHeight) || size * 1.2;
-          const renderedLines = Math.round(el.scrollHeight / lh);
-          if (renderedLines > lineClamp) clipped = true;
+          if (el.scrollHeight > (lineClamp + 0.55) * lh) clipped = true;
         }
       }
 
@@ -325,7 +352,29 @@ for (let i = 0; i < slides.length; i++) {
       if (r.width < 4 || r.height < 4) continue;
       objects.push({ kind: 'photo', rect: rel(r) });
     }
-    return { texts, objects, box: { w: box.width, h: box.height } };
+
+    // Painted surfaces that give a slide visual body: cards, pills, colored panels,
+    // svg shapes, bordered boxes. These are what a designer uses to FILL a frame, so
+    // the coverage check must count them — not just text and photos. Skip the slide's
+    // own full-bleed background layer (area ~= whole slide) so a solid page colour does
+    // not read as "full"; skip tiny specks.
+    const surfaces = [];
+    const slideArea = box.width * box.height;
+    for (const el of slide.querySelectorAll('*')) {
+      if (!visible(el)) continue;
+      const r = el.getBoundingClientRect();
+      const area = r.width * r.height;
+      if (area < 0.004 * slideArea || area > 0.9 * slideArea) continue;
+      const cs = getComputedStyle(el);
+      const tag = el.tagName.toLowerCase();
+      const bg = cs.backgroundColor;
+      const hasBg = bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent' && !/^rgba\([^)]*,\s*0\)$/.test(bg);
+      const hasBorder = ['Top', 'Right', 'Bottom', 'Left'].some((s) => parseFloat(cs['border' + s + 'Width']) > 0.5)
+        && cs.borderStyle !== 'none';
+      const hasImg = cs.backgroundImage && cs.backgroundImage !== 'none';
+      if (tag === 'svg' || tag === 'img' || hasBg || hasBorder || hasImg) surfaces.push(rel(r));
+    }
+    return { texts, objects, surfaces, box: { w: box.width, h: box.height } };
   }, OVERLAP_TOL);
 
   // Background plate: same slide with every glyph made invisible, so a contrast
@@ -338,10 +387,15 @@ for (let i = 0; i < slides.length; i++) {
     await tag.evaluate((el) => el.remove());
   });
 
-  // OVERFLOW
+  // OVERFLOW — measure the GLYPH ink (textRect = union of line boxes), not the element
+  // box. A large display numeral's element box includes line-height leading that routinely
+  // extends a few px past the slide edge while the visible glyph sits comfortably inside;
+  // the element-box test false-failed every oversized number/headline. Tolerance scales
+  // with type size so honest big type passes and a genuinely bled-off glyph still fails.
   for (const t of geo.texts) {
-    const { x, y, w, h } = t.rect;
-    if (x < -1 || y < -1 || x + w > geo.box.w + 1 || y + h > geo.box.h + 1) {
+    const q = t.textRect || t.rect;
+    const tol = Math.max(2, t.fontSize * 0.12);
+    if (q.x < -tol || q.y < -tol || q.x + q.w > geo.box.w + tol || q.y + q.h > geo.box.h + tol) {
       add(n, 'OVERFLOW', 'fail', `"${t.text}" spills the slide bounds`);
     } else if (t.clipped) {
       add(n, 'OVERFLOW', 'fail', `"${t.text}" is clipped by its own box`);
@@ -379,6 +433,66 @@ for (let i = 0; i < slides.length; i++) {
     if (st.stddev < PHOTO_STDDEV_MIN) {
       add(n, 'PHOTO', 'warn',
         `photo has flat tonal range (stddev ${st.stddev.toFixed(3)} < ${PHOTO_STDDEV_MIN}) — reads as a smudge`);
+    }
+  }
+
+  // COVERAGE — a slide can pass every DOM/geometry check and still look empty:
+  // a headline in the top third and a footer at the bottom, with a dead band of
+  // blank paper between. The scorer has no other signal for this, so the model
+  // has no pressure to fill the frame. Grid the slide and require content
+  // (text runs, photos, AND painted surfaces/shapes) to occupy it without a large
+  // contiguous empty band. Feeds the repair loop and lowers the verify score.
+  {
+    const W = geo.box.w, H = geo.box.h, COLS = 4, ROWS = 6;
+    const cell = Array(ROWS * COLS).fill(0);
+    const cw = W / COLS, ch = H / ROWS, cellArea = cw * ch;
+    const rects = [
+      ...geo.texts.map((t) => t.textRect || t.rect),
+      ...geo.objects.map((o) => o.rect),
+      ...geo.surfaces,
+    ];
+    for (const r of rects) {
+      const x0 = Math.max(0, r.x), y0 = Math.max(0, r.y);
+      const x1 = Math.min(W, r.x + r.w), y1 = Math.min(H, r.y + r.h);
+      if (x1 <= x0 || y1 <= y0) continue;
+      for (let cy = 0; cy < ROWS; cy++) {
+        for (let cx = 0; cx < COLS; cx++) {
+          const ox = Math.min(x1, (cx + 1) * cw) - Math.max(x0, cx * cw);
+          const oy = Math.min(y1, (cy + 1) * ch) - Math.max(y0, cy * ch);
+          if (ox > 0 && oy > 0 && (ox * oy) / cellArea > 0.12) cell[cy * COLS + cx] = 1;
+        }
+      }
+    }
+    const covered = cell.reduce((a, b) => a + b, 0);
+    const frac = covered / (ROWS * COLS);
+    let band = 0, run = 0;
+    for (let cy = 0; cy < ROWS; cy++) {
+      const empty = cell.slice(cy * COLS, (cy + 1) * COLS).every((v) => !v);
+      run = empty ? run + 1 : 0;
+      band = Math.max(band, run);
+    }
+    const bandFrac = band / ROWS;
+    const pct = (x) => `${Math.round(x * 100)}%`;
+    // Role by position: the first slide is the cover and the last is the closer —
+    // a type-forward, airier composition is a legitimate premium choice there, so
+    // only flag them when genuinely empty. The interior point/list slides carry the
+    // content and must FILL the frame — an airy middle slide reads as unfinished, so
+    // hold them to a hard fail. This is what forces the repair loop to add a
+    // surface/card or scale the type instead of leaving a dead band.
+    const isEdge = (n === 1 || n === slides.length);
+    const advice = 'enlarge the headline, add a surface/card/panel, or spread the composition so no band is empty';
+    if (isEdge) {
+      if (frac < 0.34 || bandFrac >= 0.42) {
+        add(n, 'COVERAGE', 'fail', `cover/closer only ${pct(frac)} filled${bandFrac >= 0.42 ? `, ${pct(bandFrac)} empty band` : ''} — too sparse even for a type-forward slide; ${advice}`);
+      } else if (frac < 0.5 || bandFrac >= 0.34) {
+        add(n, 'COVERAGE', 'warn', `cover/closer ${pct(frac)} filled${bandFrac >= 0.34 ? `, ${pct(bandFrac)} empty band` : ''} — could carry more weight`);
+      }
+    } else {
+      if (frac < 0.55 || bandFrac >= 0.28) {
+        add(n, 'COVERAGE', 'fail', `content slide only ${pct(frac)} filled${bandFrac >= 0.28 ? `, ${pct(bandFrac)} of its height is an empty band` : ''} — a content slide must fill the frame; ${advice}`);
+      } else if (frac < 0.68) {
+        add(n, 'COVERAGE', 'warn', `content slide ${pct(frac)} filled — could carry more visual weight`);
+      }
     }
   }
 }

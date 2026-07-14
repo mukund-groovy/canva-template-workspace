@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600;700&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#5A17E8);
+  --secondary:var(--brand-secondary,#3D0FA0);
+  --accent:var(--brand-accent,#5A17E8);
+  --highlight:var(--brand-highlight,#5A17E8);
+  --bg:var(--brand-bg,#F1F0EE);
+  --surface:var(--brand-surface,#E7E3F7);
+  --text-high:var(--brand-text-high,#1A1A1A);
+  --text-low:var(--brand-text-low,rgba(26,26,26,.62));
+  --border:var(--brand-border,rgba(26,26,26,.16));
+}
+
+*{box-sizing:border-box;}
+
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+.slide{
+  width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+  background:var(--bg);font-family:'Inter',sans-serif;
+}
+
+/* top brand line */
+.topbar{position:absolute;top:70px;left:80px;right:80px;z-index:4;display:flex;align-items:center;justify-content:space-between;}
+.lockup{display:inline-flex;align-items:center;gap:14px;}
+.brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+.brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+.brand-word{font-family:'Inter',sans-serif;font-weight:700;font-size:26px;color:var(--primary);white-space:nowrap;}
+.cg-slide-counter{font-family:'Inter',sans-serif;font-weight:700;font-size:26px;letter-spacing:.02em;color:var(--primary);}
+
+/* giant numeral bleeding left */
+.numeral{position:absolute;left:80px;top:150px;z-index:1;}
+.numeral span{
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:260px;line-height:.8;
+  letter-spacing:-.04em;color:var(--primary);display:block;
+}
+.num-clip{position:absolute;left:0;top:150px;width:230px;height:250px;z-index:0;
+  background:var(--surface);border-top-right-radius:130px;border-bottom-right-radius:130px;}
+
+/* footer divider */
+.footer{position:absolute;left:80px;right:80px;bottom:60px;z-index:4;}
+.footer-rule{position:absolute;left:80px;right:80px;bottom:118px;height:2px;background:var(--border);z-index:4;}
+.foot-row{position:absolute;left:80px;right:80px;bottom:60px;z-index:4;display:flex;align-items:center;justify-content:space-between;}
+.foot-url{font-family:'Inter',sans-serif;font-weight:400;font-size:22px;color:var(--text-low);}
+.foot-cta{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;letter-spacing:.04em;color:var(--text-high);}
+
+/* step label + tick */
+.step{position:absolute;z-index:3;}
+.step-tick{position:absolute;height:4px;width:64px;background:var(--primary);z-index:3;}
+.step span{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:24px;letter-spacing:.28em;color:var(--text-high);text-transform:uppercase;display:block;}
+
+/* headline */
+.tn-title{position:absolute;z-index:3;}
+.tn-title h1{
+  margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1.05;
+  letter-spacing:-.02em;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:10px;
+}
+.tn-title em{font-style:normal;color:var(--primary);}
+
+/* kicker */
+.tn-kicker{position:absolute;z-index:3;}
+.tn-kicker span{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:26px;letter-spacing:.26em;color:var(--primary);text-transform:uppercase;display:block;}
+
+/* body */
+.tn-message{position:absolute;z-index:3;}
+.tn-message p{
+  margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:27px;line-height:1.42;
+  color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:6px;
+}
+.tn-message b{font-weight:700;color:var(--primary);}
+
+/* panels */
+.panel{position:absolute;z-index:2;background:var(--surface);border-radius:22px;}
+.panel-bordered{position:absolute;z-index:2;background:var(--bg);border:2px solid var(--border);border-radius:22px;}
+.quote-bar{position:absolute;z-index:3;width:8px;background:var(--primary);border-radius:4px;}
+
+/* stat blocks */
+.stat{position:absolute;z-index:2;border:2px solid var(--border);border-radius:22px;background:var(--bg);}
+.stat-fig{position:absolute;z-index:3;}
+.stat-fig span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:96px;line-height:.9;letter-spacing:-.03em;color:var(--primary);display:block;}
+.stat-cap{position:absolute;z-index:3;}
+.stat-cap span{font-family:'Inter',sans-serif;font-weight:600;font-size:24px;line-height:1.3;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:4px;}
+
+/* checklist */
+.check-row{position:absolute;z-index:3;display:flex;align-items:flex-start;gap:20px;}
+.check-tick{flex:none;width:38px;height:38px;border-radius:9px;background:var(--primary);display:flex;align-items:center;justify-content:center;margin-top:2px;}
+.check-tick svg{width:22px;height:22px;color:#fff;}
+.check-txt{font-family:'Inter',sans-serif;font-weight:600;font-size:28px;line-height:1.28;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:4px;}
+.check-txt b{color:var(--primary);}
+.check-sub{font-family:'Inter',sans-serif;font-weight:400;font-size:20px;line-height:1.3;color:var(--text-low);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:3px;margin-top:4px;}
+.row-div{position:absolute;z-index:3;height:2px;background:var(--border);}
+
+/* CTA pill */
+.cta-pill{position:absolute;z-index:3;background:var(--primary);border-radius:60px;display:flex;align-items:center;justify-content:center;}
+.cta-pill span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:32px;letter-spacing:.06em;color:#fff;text-transform:uppercase;}
+.corner-accent{position:absolute;z-index:1;width:220px;height:220px;background:var(--surface);border-radius:50%;}
+
+/* cover big statement card */
+.cover-card{position:absolute;z-index:2;background:var(--surface);border-radius:28px;}
+.cover-tag{position:absolute;z-index:3;}
+.cover-tag span{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:24px;letter-spacing:.22em;color:var(--primary);text-transform:uppercase;display:block;}
+
+/* tag chips */
+.chip-row{position:absolute;z-index:3;display:flex;gap:16px;}
+.chip{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:22px;letter-spacing:.14em;color:var(--primary);text-transform:uppercase;border:2px solid var(--border);border-radius:40px;padding:12px 26px;white-space:nowrap;}
+
+/* mini icon badge */
+.icon-badge{position:absolute;z-index:3;width:96px;height:96px;border-radius:24px;background:var(--surface);display:flex;align-items:center;justify-content:center;}
+.icon-badge svg{width:52px;height:52px;color:var(--primary);}
+.pull-num{position:absolute;z-index:3;}
+.pull-num span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:120px;line-height:.85;letter-spacing:-.04em;color:var(--primary);display:block;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">#2026</div>
+    </div>
+
+    <div class="num-clip"></div>
+    <div class="numeral"><span>06</span></div>
+
+    <div class="tn-kicker" style="left:80px;top:410px;width:520px;"><span data-kicker="true">THE FOCUS SERIES</span></div>
+
+    <div class="step-tick" style="left:80px;top:508px;"></div>
+    <div class="step" style="left:170px;top:492px;width:600px;"><span>STEP TO:</span></div>
+
+    <div class="tn-title" style="left:80px;top:548px;width:960px;min-height:480px;">
+      <h1 data-title="true" style="font-size:132px;-webkit-line-clamp:4;">Reclaim Your <em>Deep Focus</em></h1>
+    </div>
+
+    <div class="chip-row" style="left:80px;top:900px;">
+      <span class="chip">Attention</span>
+      <span class="chip">Clarity</span>
+      <span class="chip">Momentum</span>
+    </div>
+
+    <div class="cover-card" style="left:80px;top:1000px;right:80px;height:160px;"></div>
+    <div class="tn-message" style="left:130px;top:1032px;width:820px;min-height:96px;">
+      <p data-message="true" style="font-size:29px;-webkit-line-clamp:2;">Five steps to protect your attention and <b>make focus your default</b> when the noise rises.</p>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-row">
+      <span class="foot-url">Attention over noise</span>
+      <span class="foot-cta" data-cta="true">SWIPE TO BEGIN</span>
+    </div>
+  </section>
+
+  <!-- Slide 2 — point (numbered-list-card) -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">#2026</div>
+    </div>
+
+    <div class="num-clip"></div>
+    <div class="numeral"><span>01</span></div>
+
+    <div class="tn-title" style="left:80px;top:470px;width:920px;min-height:220px;">
+      <h1 data-title="true" style="font-size:70px;-webkit-line-clamp:3;">Protect One Sacred Block Daily</h1>
+    </div>
+
+    <div class="icon-badge" style="left:80px;top:700px;">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="tn-kicker" style="left:200px;top:718px;width:760px;"><span>NINETY MINUTES · GUARDED</span></div>
+    <div class="row-div" style="left:200px;top:772px;width:760px;"></div>
+
+    <div class="panel" style="left:80px;top:830px;right:80px;height:330px;"></div>
+    <div class="tn-message" style="left:130px;top:880px;width:820px;min-height:240px;">
+      <p data-message="true" style="font-size:29px;-webkit-line-clamp:5;">Guard ninety uninterrupted minutes before the noise begins. <b>One deep block outperforms</b> a fractured full day of shallow busywork.</p>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-row">
+      <span class="foot-url">www.yourbrand.com</span>
+      <span class="foot-cta">SWIPE</span>
+    </div>
+  </section>
+
+  <!-- Slide 3 — pull-quote split -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">#2026</div>
+    </div>
+
+    <div class="num-clip"></div>
+    <div class="numeral"><span>02</span></div>
+
+    <div class="tn-title" style="left:80px;top:470px;width:920px;min-height:220px;">
+      <h1 data-title="true" style="font-size:70px;-webkit-line-clamp:3;">Silence Beats The Notification</h1>
+    </div>
+
+    <div class="panel" style="left:80px;top:720px;width:340px;height:440px;"></div>
+    <div class="pull-num" style="left:120px;top:760px;width:260px;"><span>0%</span></div>
+    <div class="stat-cap" style="left:120px;top:920px;width:260px;"><span>pings during a protected deep block</span></div>
+
+    <div class="panel-bordered" style="left:460px;top:720px;width:540px;height:440px;"></div>
+    <div class="quote-bar" style="left:492px;top:760px;height:360px;"></div>
+    <div class="tn-message" style="left:540px;top:770px;width:430px;min-height:340px;">
+      <p data-message="true" style="font-size:29px;-webkit-line-clamp:8;">Every ping resets your mind and costs real momentum. <b>Turn signals off</b>, batch replies, and let uninterrupted attention compound.</p>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-row">
+      <span class="foot-url">www.yourbrand.com</span>
+      <span class="foot-cta">SWIPE</span>
+    </div>
+  </section>
+
+  <!-- Slide 4 — big-stat -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">#2026</div>
+    </div>
+
+    <div class="num-clip"></div>
+    <div class="numeral"><span>03</span></div>
+
+    <div class="tn-title" style="left:80px;top:470px;width:920px;min-height:220px;">
+      <h1 data-title="true" style="font-size:64px;-webkit-line-clamp:2;">Depth Compounds Over Speed</h1>
+    </div>
+
+    <div class="tn-message" style="left:80px;top:640px;width:920px;min-height:150px;">
+      <p data-message="true" style="font-size:25px;-webkit-line-clamp:3;">Consistent focused sessions build skill faster than frantic multitasking, sharpening judgment and turning effort into visible mastery.</p>
+    </div>
+
+    <div class="stat" style="left:80px;top:790px;width:435px;height:370px;"></div>
+    <div class="stat-fig" style="left:120px;top:840px;width:360px;"><span>3x</span></div>
+    <div class="stat-cap" style="left:120px;top:990px;width:360px;"><span>Faster skill gains from deep sessions</span></div>
+
+    <div class="stat" style="left:565px;top:790px;width:435px;height:370px;"></div>
+    <div class="stat-fig" style="left:605px;top:840px;width:360px;"><span>90m</span></div>
+    <div class="stat-cap" style="left:605px;top:990px;width:360px;"><span>Daily focus that outweighs the shallow rest</span></div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-row">
+      <span class="foot-url">www.yourbrand.com</span>
+      <span class="foot-cta">SWIPE</span>
+    </div>
+  </section>
+
+  <!-- Slide 5 — two-column-split -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">#2026</div>
+    </div>
+
+    <div class="num-clip"></div>
+    <div class="numeral"><span>04</span></div>
+
+    <div class="tn-title" style="left:80px;top:470px;width:920px;min-height:220px;">
+      <h1 data-title="true" style="font-size:60px;-webkit-line-clamp:2;">Design A Ruthless Environment</h1>
+    </div>
+
+    <div class="tn-message" style="left:80px;top:650px;width:920px;min-height:120px;">
+      <p data-message="true" style="font-size:26px;-webkit-line-clamp:3;">Shape your space so focus is the default. Remove friction, hide distractions, and <b>make the right work</b> the easiest to start.</p>
+    </div>
+
+    <div class="panel-bordered" style="left:80px;top:820px;width:420px;height:340px;"></div>
+    <div class="check-row" style="left:118px;top:880px;width:350px;">
+      <span class="check-tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="check-txt">Remove friction</span>
+    </div>
+    <div class="check-row" style="left:118px;top:965px;width:350px;">
+      <span class="check-tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="check-txt">Hide distractions</span>
+    </div>
+    <div class="check-row" style="left:118px;top:1050px;width:350px;">
+      <span class="check-tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="check-txt">Default to focus</span>
+    </div>
+
+    <div class="panel-bordered" style="left:540px;top:820px;width:460px;height:340px;"></div>
+    <div class="pull-num" style="left:580px;top:865px;width:390px;"><span>3</span></div>
+    <div class="tn-kicker" style="left:582px;top:1000px;width:390px;"><span>SMALL SHIFTS</span></div>
+    <div class="stat-cap" style="left:580px;top:1040px;width:390px;"><span>Tiny changes that make focus your effortless default</span></div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-row">
+      <span class="foot-url">www.yourbrand.com</span>
+      <span class="foot-cta">SWIPE</span>
+    </div>
+  </section>
+
+  <!-- Slide 6 — checklist -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">#2026</div>
+    </div>
+
+    <div class="num-clip"></div>
+    <div class="numeral"><span>05</span></div>
+
+    <div class="tn-title" style="left:80px;top:470px;width:920px;min-height:220px;">
+      <h1 data-title="true" style="font-size:64px;-webkit-line-clamp:2;">End With A Clean Handoff</h1>
+    </div>
+
+    <div class="panel-bordered" style="left:80px;top:620px;right:80px;height:540px;"></div>
+
+    <div class="check-row" style="left:130px;top:680px;width:830px;flex-direction:column;">
+      <div style="display:flex;align-items:flex-start;gap:20px;">
+        <span class="check-tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="check-txt">Note the very next step before you stop</span>
+      </div>
+      <span class="check-sub" style="padding-left:58px;">Write one concrete action so you never restart cold.</span>
+    </div>
+    <div class="row-div" style="left:130px;top:810px;width:820px;"></div>
+
+    <div class="check-row" style="left:130px;top:850px;width:830px;flex-direction:column;">
+      <div style="display:flex;align-items:flex-start;gap:20px;">
+        <span class="check-tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="check-txt">Leave a <b>clear restart point</b> for tomorrow</span>
+      </div>
+      <span class="check-sub" style="padding-left:58px;">Mark exactly where the work picks up again.</span>
+    </div>
+    <div class="row-div" style="left:130px;top:980px;width:820px;"></div>
+
+    <div class="check-row" style="left:130px;top:1020px;width:830px;flex-direction:column;">
+      <div style="display:flex;align-items:flex-start;gap:20px;">
+        <span class="check-tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="check-txt">Open at full speed with zero hesitation</span>
+      </div>
+      <span class="check-sub" style="padding-left:58px;">Skip the warm-up and drop straight into flow.</span>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-row">
+      <span class="foot-url">www.yourbrand.com</span>
+      <span class="foot-cta">SWIPE</span>
+    </div>
+  </section>
+
+  <!-- Slide 7 — closer -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="corner-accent" style="right:-70px;top:120px;width:320px;height:320px;"></div>
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">#2026</div>
+    </div>
+
+    <div class="tn-kicker" style="left:80px;top:210px;width:600px;"><span data-kicker="true">KEEP THIS CLOSE</span></div>
+
+    <div class="tn-title" style="left:80px;top:300px;width:940px;min-height:640px;">
+      <h1 data-title="true" style="font-size:112px;-webkit-line-clamp:5;">Save This For Your <em>Next Deep</em> Session</h1>
+    </div>
+
+    <div class="panel" style="left:80px;top:960px;right:80px;height:200px;"></div>
+
+    <div class="tn-message" style="left:130px;top:990px;width:520px;min-height:120px;">
+      <p data-message="true" style="font-size:26px;-webkit-line-clamp:3;">Come back to these steps whenever the noise creeps in and <b>protect the work</b> that matters most.</p>
+    </div>
+
+    <div class="cta-pill" style="left:690px;top:1010px;width:310px;height:100px;">
+      <span data-cta="true">BOOKMARK NOW</span>
+    </div>
+
+    <div class="footer-rule"></div>
+    <div class="foot-row">
+      <span class="foot-url">www.yourbrand.com</span>
+      <span class="foot-cta">SWIPE</span>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

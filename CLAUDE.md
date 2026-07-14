@@ -5,13 +5,22 @@ templates from them. Two stages, two entry points.
 
 ## Prerequisite (both stages)
 
-A debuggable Chrome logged into Canva on port **9222**, using the EXISTING profile
-`C:\Users\Groovy\chrome-debug-p6` (Profile 6) — never Chrome's default `User Data` dir
-(Chrome 136+ blocks the debug port there). Launch:
+A debuggable Chrome logged into Canva on port **9222**, using a dedicated debug profile
+dir — never Chrome's default `User Data` dir (Chrome 136+ blocks the debug port there).
+
+The profile dir is **machine-specific** — it depends on the Windows user and where that
+box keeps its logged-in Canva profile, so it is NOT hardcoded here. Check the agent's
+memory for this machine's value (e.g. `chrome-debug-profile`) before launching. Two known
+setups:
+
+- Groovy box: `C:\Users\Groovy\chrome-debug-p6` with `--profile-directory="Profile 6"`
+- mukun box: `C:\Users\mukun\chrome-debug-p6` (fresh default profile, no `--profile-directory`)
+
+Launch (substitute this machine's dir):
 
 ```
 "C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 \
-  --user-data-dir="C:\Users\Groovy\chrome-debug-p6" --profile-directory="Profile 6" \
+  --user-data-dir="<this machine's debug profile dir>" \
   --no-first-run --no-default-browser-check --new-window "https://www.canva.com/"
 ```
 

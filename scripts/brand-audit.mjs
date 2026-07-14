@@ -71,7 +71,23 @@ const grab = async (page, el) => {
   }, buf.toString('base64'));
 };
 
-const browser = await chromium.launch();
+// Prefer system Chrome; the bundled playwright browser is often not installed on
+// these machines, in which case a bare launch() throws and the caller scored a
+// 0% recolor (a silent dead gate costing 1.5 points on every template).
+function chromeBinary() {
+  const candidates = [
+    process.env.CHROME_BIN,
+    'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+    'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+  ].filter(Boolean);
+  for (const p of candidates) { try { if (fs.existsSync(p)) return p; } catch {} }
+  return null;
+}
+const browser = await (async () => {
+  const bin = chromeBinary();
+  try { return await chromium.launch(bin ? { executablePath: bin } : {}); }
+  catch (e) { if (bin) return await chromium.launch(); throw e; }
+})();
 const page = await browser.newPage({ viewport: { width: 1080, height: 1350 } });
 await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
 await page.waitForTimeout(2400);

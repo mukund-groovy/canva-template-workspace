@@ -3,246 +3,356 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&family=Dancing+Script:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap');
 
-  :root{
-    --primary:var(--brand-primary,#5B5BE6);
-    --secondary:var(--brand-secondary,#8A6BE0);
-    --accent:var(--brand-accent,#6E6BF2);
-    --highlight:var(--brand-accent,#6E6BF2);
-    --bg:var(--brand-bg,#F7F1EC);
-    --surface:var(--brand-surface,var(--brand-bg-alt,#EFEAFB));
-    --text-high:var(--brand-ink,var(--brand-text,#161318));
-    --text-low:var(--brand-text-muted,rgba(22,19,24,.66));
-    --border:var(--brand-border,rgba(22,19,24,.14));
-  }
+:root{
+  --primary:var(--brand-primary,#3A44E8);
+  --secondary:var(--brand-secondary,#9FB6F0);
+  --accent:var(--brand-accent,#B7A7E8);
+  --highlight:var(--brand-accent,#B7A7E8);
+  --bg:var(--brand-bg,#F6EFE8);
+  --surface:var(--brand-surface,var(--brand-bg-alt,#FBF6F0));
+  --text-high:var(--brand-ink,var(--brand-text,#14110F));
+  --text-low:var(--brand-text-muted,rgba(20,17,15,.62));
+  --border:var(--brand-border,rgba(20,17,15,.18));
+}
 
-  *{box-sizing:border-box;}
+*{box-sizing:border-box;}
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+.slide{
+  width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+  background:var(--bg);font-family:'Inter',sans-serif;
+}
 
-  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+/* gradient blooms */
+.bloom{position:absolute;z-index:0;border-radius:50%;filter:blur(70px);pointer-events:none;}
+.bloom-tl{top:-160px;left:-160px;width:520px;height:520px;
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent) 88%,#fff) 0%,transparent 70%);}
+.bloom-br{bottom:-180px;right:-160px;width:560px;height:560px;
+  background:radial-gradient(circle,color-mix(in srgb,var(--secondary) 88%,#fff) 0%,transparent 70%);}
+.bloom-bl{bottom:-160px;left:-160px;width:480px;height:480px;
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent) 80%,#fff) 0%,transparent 72%);}
+.bloom-tr{top:-140px;right:-140px;width:460px;height:460px;
+  background:radial-gradient(circle,color-mix(in srgb,var(--secondary) 80%,#fff) 0%,transparent 72%);}
 
-  .slide{
-    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
-    background:var(--bg,#F7F1EC);
-    font-family:'Archivo',sans-serif;
-  }
+/* top chrome */
+.topbar{position:absolute;top:44px;left:70px;right:70px;z-index:6;display:flex;align-items:center;justify-content:space-between;}
+.lockup{display:inline-flex;align-items:center;gap:12px;}
+.brand-mark-clip{flex:none;height:26px;display:flex;align-items:center;}
+.brand-mark{height:26px;width:auto;max-width:100px;object-fit:contain;display:block;}
+.brand-word{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;color:var(--text-high);white-space:nowrap;}
+.star{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:40px;line-height:1;color:var(--primary);}
 
-  /* gradient corners */
-  .grad{position:absolute;inset:0;z-index:0;pointer-events:none;
-    background:
-      radial-gradient(680px 620px at -6% -6%, color-mix(in srgb,var(--secondary) 55%, transparent) 0%, transparent 62%),
-      radial-gradient(720px 660px at 106% 8%, color-mix(in srgb,var(--accent) 48%, transparent) 0%, transparent 60%),
-      radial-gradient(760px 700px at 108% 108%, color-mix(in srgb,var(--primary) 50%, transparent) 0%, transparent 62%),
-      radial-gradient(660px 620px at -6% 106%, color-mix(in srgb,var(--secondary) 46%, transparent) 0%, transparent 60%);
-  }
+/* scribble oval ring */
+.ring{position:absolute;z-index:2;pointer-events:none;}
+.ring svg{width:100%;height:100%;display:block;overflow:visible;}
+.ring ellipse{fill:none;stroke:var(--accent);stroke-width:3;}
 
-  /* top chrome */
-  .topbar{position:absolute;top:44px;left:64px;right:64px;z-index:5;display:flex;align-items:center;justify-content:space-between;}
-  .lockup{display:inline-flex;align-items:center;gap:12px;}
-  .brand-mark-clip{flex:none;height:26px;display:flex;align-items:center;}
-  .brand-mark{height:26px;width:auto;max-width:100px;object-fit:contain;display:block;}
-  .brand-word{font-family:'Archivo',sans-serif;font-weight:800;font-size:22px;color:var(--text-high,#161318);white-space:nowrap;letter-spacing:.01em;}
-  .star{font-family:'Archivo',sans-serif;font-weight:900;font-size:44px;line-height:.6;color:var(--primary);}
+/* footer */
+.footer{position:absolute;left:70px;right:70px;bottom:44px;z-index:6;display:flex;align-items:center;justify-content:space-between;}
+.searchpill{display:inline-flex;align-items:center;gap:12px;background:var(--surface);border:1.5px solid var(--border);
+  border-radius:999px;padding:14px 24px;}
+.searchpill span{font-family:'Inter',sans-serif;font-weight:500;font-size:19px;color:var(--text-high);}
+.searchpill svg{width:18px;height:18px;color:var(--text-high);}
+.glyphs{display:inline-flex;align-items:center;gap:20px;}
+.glyphs svg{width:26px;height:26px;color:var(--text-high);}
+.counter{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:.14em;color:var(--primary);}
 
-  /* bottom chrome */
-  .searchbar{position:absolute;bottom:44px;left:64px;z-index:5;display:flex;align-items:center;gap:12px;
-    background:var(--surface,#EFEAFB);border:1px solid var(--border,rgba(22,19,24,.14));border-radius:999px;
-    padding:14px 26px;}
-  .searchbar span{font-family:'Archivo',sans-serif;font-weight:500;font-size:19px;color:var(--text-low,rgba(22,19,24,.66));white-space:nowrap;}
-  .searchbar svg{width:17px;height:17px;color:var(--text-low,rgba(22,19,24,.66));flex:none;}
-  .social{position:absolute;bottom:52px;right:64px;z-index:5;display:flex;align-items:center;gap:20px;}
-  .social svg{width:26px;height:26px;color:var(--text-high,#161318);}
+/* type wrappers */
+.kicker{position:absolute;z-index:4;}
+.kicker span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:3px;}
 
-  /* kicker with ellipse accent */
-  .tn-kick{position:absolute;z-index:3;}
-  .tn-kick .kwrap{position:relative;display:inline-block;padding:14px 26px;}
-  .tn-kick .kwrap::before{content:'';position:absolute;inset:0;border-radius:50%;
-    border:2px solid color-mix(in srgb,var(--primary) 55%, transparent);transform:rotate(-4deg);}
-  .tn-kick h2{margin:0;font-family:'Archivo',sans-serif;font-weight:800;font-size:44px;line-height:1.06;
-    letter-spacing:-.01em;color:var(--primary);
-    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:6px;}
+.bignum{position:absolute;z-index:4;}
+.bignum span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:200px;line-height:.9;
+  color:var(--primary);display:block;padding-bottom:6px;}
 
-  /* small plain kicker (label) */
-  .tn-label{position:absolute;z-index:3;}
-  .tn-label h3{margin:0;font-family:'Archivo',sans-serif;font-weight:700;font-size:22px;line-height:1.16;
-    letter-spacing:.18em;text-transform:uppercase;color:var(--primary);
-    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:4px;}
+.head{position:absolute;z-index:4;}
+.head h1{margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.02em;
+  color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:10px;}
 
-  /* headline */
-  .tn-title{position:absolute;z-index:3;}
-  .tn-title h1{margin:0;font-family:'Archivo',sans-serif;font-weight:900;line-height:1.02;
-    letter-spacing:-.02em;color:var(--text-high,#161318);
-    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:10px;}
+.script{position:absolute;z-index:4;}
+.script span{font-family:'Dancing Script',cursive;font-weight:700;color:var(--primary);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:12px;line-height:1.1;}
 
-  /* body */
-  .tn-message{position:absolute;z-index:3;}
-  .tn-message p{margin:0;font-family:'Archivo',sans-serif;font-weight:400;line-height:1.4;
-    color:var(--text-high,#161318);
-    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:8px;}
+.body{position:absolute;z-index:4;}
+.body p{margin:0;font-family:'Inter',sans-serif;font-weight:400;line-height:1.4;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:6px;}
 
-  /* script accent */
-  .tn-script{position:absolute;z-index:3;}
-  .tn-script .swrap{position:relative;display:inline-block;padding:10px 40px;}
-  .tn-script .swrap::before{content:'';position:absolute;left:0;right:0;top:34%;height:150px;border-radius:50%;
-    border:2px solid color-mix(in srgb,var(--primary) 45%, transparent);transform:rotate(-3deg);}
-  .tn-script h2{margin:0;font-family:'Dancing Script',cursive;font-weight:700;font-size:120px;line-height:1;
-    color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:12px;white-space:nowrap;}
+.lead{position:absolute;z-index:4;}
+.lead p{margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1.24;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:6px;}
 
-  /* cta pill */
-  .tn-cta{position:absolute;z-index:4;}
-  .tn-cta .pill{display:inline-block;background:var(--primary);color:#fff;border-radius:999px;
-    padding:18px 40px;font-family:'Archivo',sans-serif;font-weight:800;font-size:26px;letter-spacing:.01em;
-    -webkit-line-clamp:1;}
+/* surfaces */
+.panel{position:absolute;z-index:2;background:var(--surface);border:1.5px solid var(--border);border-radius:26px;}
+.panel-fill{position:absolute;z-index:2;border-radius:26px;
+  background:linear-gradient(150deg,color-mix(in srgb,var(--accent) 30%,var(--surface)) 0%,var(--surface) 55%);
+  border:1.5px solid var(--border);}
+.panel-cobalt{position:absolute;z-index:2;border-radius:26px;
+  background:linear-gradient(150deg,var(--primary) 0%,color-mix(in srgb,var(--primary) 78%,#000) 100%);}
+
+.cta-pill{position:absolute;z-index:5;display:inline-flex;align-items:center;gap:10px;
+  background:var(--primary);border-radius:999px;padding:18px 34px;}
+.cta-pill span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;letter-spacing:.04em;color:#fff;}
+
+.quotemark{position:absolute;z-index:3;font-family:'Space Grotesk',sans-serif;font-weight:700;
+  font-size:200px;line-height:.7;color:var(--accent);}
+
+/* stat badge inside cards */
+.statbadge{position:absolute;z-index:3;display:inline-flex;align-items:center;gap:12px;}
+.statbadge .num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:88px;line-height:1;color:var(--primary);}
+.statbadge .lab{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-low);max-width:220px;line-height:1.2;}
+
+/* chips */
+.chiprow{position:absolute;z-index:3;display:flex;gap:18px;}
+.chip{width:100px;height:100px;border-radius:20px;border:1.5px solid var(--border);}
+.chip.c1{background:var(--primary);}
+.chip.c2{background:var(--accent);}
+.chip.c3{background:var(--secondary);}
+
+/* checklist */
+.checkrow{position:absolute;z-index:4;display:flex;align-items:flex-start;gap:18px;}
+.tick{flex:none;width:38px;height:38px;border-radius:9px;background:var(--primary);display:flex;align-items:center;justify-content:center;margin-top:2px;}
+.tick svg{width:20px;height:20px;color:#fff;}
+.checkrow p{margin:0;font-family:'Inter',sans-serif;font-weight:600;font-size:26px;line-height:1.28;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:4px;}
+
+/* testimonial cards */
+.tcard{position:absolute;z-index:3;background:var(--surface);border:1.5px solid var(--border);border-radius:22px;padding:26px 30px;display:flex;gap:20px;align-items:center;}
+.avatar{flex:none;width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;color:#fff;line-height:1;}
+.tcard p{margin:0;font-family:'Inter',sans-serif;font-weight:500;font-size:23px;line-height:1.3;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:4px;}
+.stars{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:var(--primary);margin-bottom:8px;}
+
+.astk{position:absolute;z-index:4;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:64px;color:var(--primary);line-height:1;}
 </style>
 </head>
 <body>
 <div class="ig-carousel">
 
-  <!-- Slide 1 · cover -->
-  <section class="slide" data-cg-slide-type="text">
-    <div class="grad" aria-hidden="true"></div>
-    <div class="topbar">
-      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
-      <div class="star">&#10033;</div>
+<!-- Slide 1 — cover -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-tl"></div><div class="bloom bloom-br"></div>
+  <div class="topbar">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <span class="star">&#10033;</span>
+  </div>
+  <div class="kicker" style="left:70px;top:150px;width:600px;"><span data-title="true">THE LOYALTY PLAYBOOK</span></div>
+  <div class="head" style="left:70px;top:330px;width:940px;"><h1 data-title="true" style="font-size:118px;line-height:1.02;-webkit-line-clamp:2;">Turn Followers Into</h1></div>
+  <div class="head" style="left:70px;top:558px;width:940px;"><h1 data-title="true" style="font-size:118px;line-height:1.02;-webkit-line-clamp:1;">Believers</h1></div>
+  <div class="ring" style="left:56px;top:700px;width:640px;height:190px;"><svg viewBox="0 0 640 190"><ellipse cx="320" cy="95" rx="304" ry="78" transform="rotate(-3 320 95)"/></svg></div>
+  <div class="script" style="left:96px;top:718px;width:560px;"><span data-title="true" style="font-size:130px;">Start here</span></div>
+  <div class="footer">
+    <div class="searchpill"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>www.yourbrand.com</span></div>
+    <div class="glyphs">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1.2 3.7 2.2C10.5 6.2 11.5 5 13.5 5 17 5 19 9 17.5 12.5 15 16.65 12 21 12 21z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v12H8l-4 4z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/></svg>
     </div>
-    <div class="tn-label" style="left:64px;top:150px;"><h3 data-title="true">Growth Playbook</h3></div>
-    <div class="tn-title" style="left:64px;top:230px;width:952px;"><h1 data-title="true" style="font-size:150px;-webkit-line-clamp:4;">Earn Attention, Don't Buy It</h1></div>
-    <div class="tn-script" style="left:56px;top:770px;"><h2 data-title="true">audience</h2></div>
-    <div class="tn-cta" style="left:64px;top:960px;"><span class="pill" data-cta="true">Save this</span></div>
-    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-  </section>
+  </div>
+</section>
 
-  <!-- Slide 2 · point -->
-  <section class="slide" data-cg-slide-type="text">
-    <div class="grad" aria-hidden="true"></div>
-    <div class="topbar">
-      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
-      <div class="star">&#10033;</div>
-    </div>
-    <div class="tn-label" style="left:64px;top:170px;"><h3 data-title="true">The Problem</h3></div>
-    <div class="tn-title" style="left:64px;top:250px;width:920px;"><h1 data-title="true" style="font-size:90px;-webkit-line-clamp:4;">Followers aren't the same as fans</h1></div>
-    <div class="tn-message" style="left:64px;top:760px;width:820px;"><p data-message="true" style="font-size:34px;-webkit-line-clamp:5;">Numbers look nice, but loyalty pays. Here's how to turn passive scrollers into people who root for you.</p></div>
-    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-  </section>
+<!-- Slide 2 — point -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-tr"></div><div class="bloom bloom-bl"></div>
+  <div class="topbar">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <span class="star">&#10033;</span>
+  </div>
+  <div class="head" style="left:70px;top:200px;width:930px;"><h1 data-title="true" style="font-size:66px;line-height:1.1;-webkit-line-clamp:4;">Are you posting into the void or building something people return to?</h1></div>
+  <div class="ring" style="left:56px;top:470px;width:420px;height:130px;"><svg viewBox="0 0 420 130"><ellipse cx="210" cy="65" rx="198" ry="52" transform="rotate(-2 210 65)"/></svg></div>
+  <div class="script" style="left:96px;top:488px;width:340px;text-align:center;"><span data-title="true" style="font-size:52px;">Stay awhile</span></div>
+  <div class="panel-fill" style="left:70px;top:700px;width:940px;height:510px;"></div>
+  <div class="astk" style="left:120px;top:770px;">&#10033;</div>
+  <div class="body" style="left:120px;top:880px;width:840px;"><p data-message="true" style="font-size:38px;line-height:1.46;-webkit-line-clamp:6;">Loyalty is compounded, not bought. Here are seven moves that turn passing scrolls into people who stay.</p></div>
+  <div class="footer">
+    <div class="searchpill"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>www.yourbrand.com</span></div>
+    <div class="counter" data-counter="true">02 / 10</div>
+  </div>
+</section>
 
-  <!-- Slide 3 · point -->
-  <section class="slide" data-cg-slide-type="text">
-    <div class="grad" aria-hidden="true"></div>
-    <div class="topbar">
-      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
-      <div class="star">&#10033;</div>
-    </div>
-    <div class="tn-label" style="left:64px;top:160px;"><h3 data-title="true">Move 01</h3></div>
-    <div class="tn-kick" style="left:56px;top:240px;width:520px;"><span class="kwrap"><h2 data-title="true">Lead With a Point of View</h2></span></div>
-    <div class="tn-message" style="left:64px;top:800px;width:840px;"><p data-message="true" style="font-size:34px;-webkit-line-clamp:5;">Neutral gets ignored. Say what you actually believe, and let the right people self-select into your world.</p></div>
-    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-  </section>
+<!-- Slide 3 — list -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-tl"></div><div class="bloom bloom-br"></div>
+  <div class="topbar">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <span class="star">&#10033;</span>
+  </div>
+  <div class="bignum" style="left:66px;top:320px;width:340px;"><span data-title="true">01</span></div>
+  <div class="ring" style="left:52px;top:560px;width:340px;height:120px;"><svg viewBox="0 0 340 120"><ellipse cx="170" cy="60" rx="158" ry="48" transform="rotate(-3 170 60)"/></svg></div>
+  <div class="script" style="left:80px;top:568px;width:300px;"><span data-title="true" style="font-size:56px;">Voice</span></div>
+  <div class="panel" style="left:430px;top:300px;width:580px;height:770px;"></div>
+  <div class="head" style="left:474px;top:470px;width:492px;"><h1 data-title="true" style="font-size:54px;line-height:1.08;-webkit-line-clamp:2;">Find Your Speaking Voice</h1></div>
+  <div class="body" style="left:474px;top:660px;width:492px;"><p data-message="true" style="font-size:31px;line-height:1.44;-webkit-line-clamp:6;">Pick a tone that mirrors your values and hold it everywhere. A steady voice feels like a person, not a feed.</p></div>
+  <div class="footer">
+    <div class="searchpill"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>www.yourbrand.com</span></div>
+    <div class="counter" data-counter="true">03 / 10</div>
+  </div>
+</section>
 
-  <!-- Slide 4 · point -->
-  <section class="slide" data-cg-slide-type="text">
-    <div class="grad" aria-hidden="true"></div>
-    <div class="topbar">
-      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
-      <div class="star">&#10033;</div>
-    </div>
-    <div class="tn-label" style="left:64px;top:160px;"><h3 data-title="true">Move 02</h3></div>
-    <div class="tn-kick" style="left:56px;top:240px;width:520px;"><span class="kwrap"><h2 data-title="true">Give Before You Ask</h2></span></div>
-    <div class="tn-message" style="left:64px;top:800px;width:840px;"><p data-message="true" style="font-size:34px;-webkit-line-clamp:5;">Teach, entertain, or solve something small every post. Generosity is the fastest route to trust and recall.</p></div>
-    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-  </section>
+<!-- Slide 4 — quote panel -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-tr"></div><div class="bloom bloom-bl"></div>
+  <div class="topbar">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <span class="star">&#10033;</span>
+  </div>
+  <div class="kicker" style="left:70px;top:150px;width:200px;"><span data-title="true">02</span></div>
+  <div class="ring" style="left:56px;top:200px;width:720px;height:150px;"><svg viewBox="0 0 720 150"><ellipse cx="360" cy="75" rx="348" ry="60" transform="rotate(-2 360 75)"/></svg></div>
+  <div class="script" style="left:82px;top:218px;width:660px;"><span data-title="true" style="font-size:52px;">Tell The True Story</span></div>
+  <div class="panel-fill" style="left:70px;top:470px;width:940px;height:700px;"></div>
+  <div class="quotemark" style="left:110px;top:500px;">&#8220;</div>
+  <div class="lead" style="left:130px;top:700px;width:820px;"><p data-title="true" style="font-size:52px;line-height:1.14;-webkit-line-clamp:3;">People buy the why, not the what.</p></div>
+  <div class="body" style="left:130px;top:900px;width:820px;"><p data-message="true" style="font-size:33px;line-height:1.44;-webkit-line-clamp:5;">Share the mission and the mess. Honest narrative earns emotional buy-in.</p></div>
+  <div class="footer">
+    <div class="searchpill"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>www.yourbrand.com</span></div>
+    <div class="counter" data-counter="true">04 / 10</div>
+  </div>
+</section>
 
-  <!-- Slide 5 · point -->
-  <section class="slide" data-cg-slide-type="text">
-    <div class="grad" aria-hidden="true"></div>
-    <div class="topbar">
-      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
-      <div class="star">&#10033;</div>
-    </div>
-    <div class="tn-label" style="left:64px;top:190px;"><h3 data-title="true">Move 03</h3></div>
-    <div class="tn-kick" style="left:220px;top:270px;width:640px;text-align:center;"><span class="kwrap"><h2 data-title="true">One Look, Every Post</h2></span></div>
-    <div class="tn-message" style="left:120px;top:720px;width:840px;text-align:center;"><p data-message="true" style="font-size:34px;-webkit-line-clamp:5;">Consistent color, type, and rhythm make you recognizable in a half-second thumb stop. Familiarity feels safe.</p></div>
-    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-  </section>
+<!-- Slide 5 — consistency -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-tl"></div><div class="bloom bloom-br"></div>
+  <div class="topbar">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <span class="star">&#10033;</span>
+  </div>
+  <div class="kicker" style="left:70px;top:150px;width:200px;"><span data-title="true">03</span></div>
+  <div class="ring" style="left:150px;top:210px;width:780px;height:150px;"><svg viewBox="0 0 780 150"><ellipse cx="390" cy="75" rx="378" ry="62" transform="rotate(-2 390 75)"/></svg></div>
+  <div class="script" style="left:170px;top:222px;width:740px;text-align:center;"><span data-title="true" style="font-size:54px;">Look Like Yourself Twice</span></div>
+  <div class="chiprow" style="left:0;top:470px;width:1080px;justify-content:center;">
+    <div class="chip c1"></div><div class="chip c2"></div><div class="chip c3"></div>
+  </div>
+  <div class="panel" style="left:120px;top:660px;width:840px;height:520px;"></div>
+  <div class="body" style="left:180px;top:770px;width:720px;text-align:center;"><p data-message="true" style="font-size:38px;line-height:1.42;-webkit-line-clamp:5;">One palette, one typeface, one rhythm. Repetition makes you recognizable before a single word is read.</p></div>
+  <div class="footer">
+    <div class="searchpill"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>www.yourbrand.com</span></div>
+    <div class="counter" data-counter="true">05 / 10</div>
+  </div>
+</section>
 
-  <!-- Slide 6 · point -->
-  <section class="slide" data-cg-slide-type="text">
-    <div class="grad" aria-hidden="true"></div>
-    <div class="topbar">
-      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
-      <div class="star">&#10033;</div>
-    </div>
-    <div class="tn-label" style="left:64px;top:170px;"><h3 data-title="true">Move 04</h3></div>
-    <div class="tn-title" style="left:64px;top:250px;width:900px;"><h1 data-title="true" style="font-size:64px;-webkit-line-clamp:2;">Show Receipts</h1></div>
-    <div class="tn-message" style="left:64px;top:420px;width:840px;"><p data-message="true" style="font-size:34px;-webkit-line-clamp:5;">Real results and honest wins beat bold claims. Let outcomes, screenshots, and stories do the convincing.</p></div>
-    <div class="tn-kick" style="left:56px;top:830px;width:640px;"><span class="kwrap"><h2 data-title="true">Show Receipts</h2></span></div>
-    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-  </section>
+<!-- Slide 6 — testimonial stack -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-tr"></div><div class="bloom bloom-bl"></div>
+  <div class="topbar">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <span class="star">&#10033;</span>
+  </div>
+  <div class="kicker" style="left:70px;top:150px;width:200px;"><span data-title="true">04</span></div>
+  <div class="lead" style="left:70px;top:220px;width:820px;"><p data-title="true" style="font-size:48px;line-height:1.16;-webkit-line-clamp:2;">Let Others Do The Talking</p></div>
+  <div class="body" style="left:70px;top:400px;width:900px;"><p data-message="true" style="font-size:31px;line-height:1.42;-webkit-line-clamp:3;">Reviews and reposts carry proof you cannot claim yourself. Turn happy customers into your loudest voice.</p></div>
+  <div class="tcard" style="left:70px;top:580px;width:940px;height:150px;">
+    <div class="avatar">M</div>
+    <div><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>They kept showing up in the same voice until I trusted it.</p></div>
+  </div>
+  <div class="tcard" style="left:70px;top:756px;width:940px;height:150px;">
+    <div class="avatar" style="background:var(--secondary);">J</div>
+    <div><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>I reposted them before they ever asked me to.</p></div>
+  </div>
+  <div class="ring" style="left:56px;top:960px;width:700px;height:130px;"><svg viewBox="0 0 700 130"><ellipse cx="350" cy="65" rx="338" ry="52" transform="rotate(-2 350 65)"/></svg></div>
+  <div class="script" style="left:86px;top:978px;width:640px;"><span data-title="true" style="font-size:52px;">Social Proof Matters</span></div>
+  <div class="footer">
+    <div class="searchpill"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>www.yourbrand.com</span></div>
+    <div class="counter" data-counter="true">06 / 10</div>
+  </div>
+</section>
 
-  <!-- Slide 7 · list -->
-  <section class="slide" data-cg-slide-type="text">
-    <div class="grad" aria-hidden="true"></div>
-    <div class="topbar">
-      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
-      <div class="star">&#10033;</div>
-    </div>
-    <div class="tn-label" style="left:64px;top:170px;"><h3 data-title="true">Cut These</h3></div>
-    <div class="tn-title" style="left:64px;top:250px;width:940px;"><h1 data-title="true" style="font-size:88px;-webkit-line-clamp:3;">Habits Killing Your Reach</h1></div>
-    <div class="tn-message" style="left:64px;top:640px;width:860px;"><p data-message="true" style="font-size:36px;-webkit-line-clamp:5;">Vague captions. Posting and ghosting. Copying trends late. Chasing everyone. Focus beats frequency.</p></div>
-    <div class="tn-kick" style="left:56px;top:1000px;width:640px;"><span class="kwrap"><h2 data-title="true">Focus beats frequency</h2></span></div>
-    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-  </section>
+<!-- Slide 7 — checklist -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-tl"></div><div class="bloom bloom-br"></div>
+  <div class="topbar">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <span class="star">&#10033;</span>
+  </div>
+  <div class="kicker" style="left:70px;top:150px;width:200px;"><span data-title="true">05</span></div>
+  <div class="ring" style="left:150px;top:210px;width:780px;height:140px;"><svg viewBox="0 0 780 140"><ellipse cx="390" cy="70" rx="378" ry="56" transform="rotate(-2 390 70)"/></svg></div>
+  <div class="script" style="left:170px;top:222px;width:740px;text-align:center;"><span data-title="true" style="font-size:52px;">Show The Whole Picture</span></div>
+  <div class="body" style="left:150px;top:410px;width:780px;text-align:center;"><p data-message="true" style="font-size:31px;line-height:1.42;-webkit-line-clamp:3;">Be plain about pricing, process, and the hard parts. Candor reads as reliability. Perfection reads as spin.</p></div>
+  <div class="panel" style="left:70px;top:600px;width:940px;height:600px;"></div>
+  <div class="checkrow" style="left:130px;top:680px;width:820px;">
+    <span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <p>State your pricing before anyone has to ask twice.</p>
+  </div>
+  <div class="checkrow" style="left:130px;top:850px;width:820px;">
+    <span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <p>Walk people through the process, step by step.</p>
+  </div>
+  <div class="checkrow" style="left:130px;top:1020px;width:820px;">
+    <span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <p>Name the hard parts instead of hiding them.</p>
+  </div>
+  <div class="footer">
+    <div class="searchpill"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>www.yourbrand.com</span></div>
+    <div class="counter" data-counter="true">07 / 10</div>
+  </div>
+</section>
 
-  <!-- Slide 8 · point -->
-  <section class="slide" data-cg-slide-type="text">
-    <div class="grad" aria-hidden="true"></div>
-    <div class="topbar">
-      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
-      <div class="star">&#10033;</div>
-    </div>
-    <div class="tn-label" style="left:64px;top:160px;"><h3 data-title="true">Move 05</h3></div>
-    <div class="tn-kick" style="left:56px;top:240px;width:560px;"><span class="kwrap"><h2 data-title="true">Talk Like a Human</h2></span></div>
-    <div class="tn-message" style="left:64px;top:800px;width:840px;"><p data-message="true" style="font-size:34px;-webkit-line-clamp:5;">Drop the corporate voice. Answer DMs, reply in threads, name names. Presence is the new differentiator.</p></div>
-    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-  </section>
+<!-- Slide 8 — two column values -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-tr"></div><div class="bloom bloom-bl"></div>
+  <div class="topbar">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <span class="star">&#10033;</span>
+  </div>
+  <div class="kicker" style="left:70px;top:150px;width:200px;"><span data-title="true">06</span></div>
+  <div class="ring" style="left:56px;top:200px;width:760px;height:150px;"><svg viewBox="0 0 760 150"><ellipse cx="380" cy="75" rx="368" ry="60" transform="rotate(-2 380 75)"/></svg></div>
+  <div class="script" style="left:82px;top:218px;width:700px;"><span data-title="true" style="font-size:50px;">Stand For Something Loud</span></div>
+  <span class="astk" style="left:70px;top:430px;">&#10033;</span>
+  <div class="lead" style="left:150px;top:430px;width:820px;"><p data-title="true" style="font-size:48px;line-height:1.16;-webkit-line-clamp:2;">People support brands that stand for something.</p></div>
+  <div class="panel-fill" style="left:70px;top:680px;width:940px;height:490px;"></div>
+  <div class="statbadge" style="left:130px;top:770px;">
+    <span class="num" data-title="true">3x</span>
+    <span class="lab" data-title="true">Values Drive Repeat Loyalty</span>
+  </div>
+  <div class="body" style="left:130px;top:930px;width:840px;"><p data-message="true" style="font-size:33px;line-height:1.44;-webkit-line-clamp:5;">Name what you believe and prove it in your work and partners. Shared values turn audiences into allies who choose you.</p></div>
+  <div class="footer">
+    <div class="searchpill"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>www.yourbrand.com</span></div>
+    <div class="counter" data-counter="true">08 / 10</div>
+  </div>
+</section>
 
-  <!-- Slide 9 · point -->
-  <section class="slide" data-cg-slide-type="text">
-    <div class="grad" aria-hidden="true"></div>
-    <div class="topbar">
-      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
-      <div class="star">&#10033;</div>
-    </div>
-    <div class="tn-label" style="left:64px;top:170px;"><h3 data-title="true">The Compound</h3></div>
-    <div class="tn-kick" style="left:56px;top:250px;width:560px;"><span class="kwrap"><h2 data-title="true">Small Reps, Big Payoff</h2></span></div>
-    <div class="tn-title" style="left:64px;top:520px;width:900px;"><h1 data-title="true" style="font-size:54px;-webkit-line-clamp:2;">Consistency is a moat</h1></div>
-    <div class="tn-message" style="left:64px;top:680px;width:840px;"><p data-message="true" style="font-size:34px;-webkit-line-clamp:5;">One helpful post won't move much. A hundred, consistent and specific, builds a reputation nobody can copy.</p></div>
-    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-  </section>
+<!-- Slide 9 — big stat -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-tl"></div><div class="bloom bloom-br"></div>
+  <div class="topbar">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <span class="star">&#10033;</span>
+  </div>
+  <div class="kicker" style="left:70px;top:150px;width:200px;"><span data-title="true">07</span></div>
+  <div class="ring" style="left:56px;top:200px;width:600px;height:140px;"><svg viewBox="0 0 600 140"><ellipse cx="300" cy="70" rx="288" ry="56" transform="rotate(-2 300 70)"/></svg></div>
+  <div class="script" style="left:82px;top:216px;width:540px;"><span data-title="true" style="font-size:56px;">Reply Like A Human</span></div>
+  <div class="panel-cobalt" style="left:70px;top:430px;width:940px;height:470px;"></div>
+  <div class="head" style="left:110px;top:470px;width:860px;text-align:center;"><h1 data-title="true" style="font-size:220px;line-height:.9;color:#fff;-webkit-line-clamp:1;">1:1</h1></div>
+  <div class="lead" style="left:110px;top:760px;width:860px;text-align:center;"><p data-title="true" style="font-size:32px;line-height:1.24;color:#fff;-webkit-line-clamp:2;">Real conversation is the fastest trust you will ever build.</p></div>
+  <div class="body" style="left:110px;top:960px;width:860px;text-align:center;"><p data-message="true" style="font-size:32px;line-height:1.4;-webkit-line-clamp:3;">Answer, comment, join the room. Being seen sticks.</p></div>
+  <div class="footer">
+    <div class="searchpill"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>www.yourbrand.com</span></div>
+    <div class="counter" data-counter="true">09 / 10</div>
+  </div>
+</section>
 
-  <!-- Slide 10 · closer -->
-  <section class="slide" data-cg-slide-type="text">
-    <div class="grad" aria-hidden="true"></div>
-    <div class="topbar">
-      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
-      <div class="star">&#10033;</div>
+<!-- Slide 10 — closer -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-tl"></div><div class="bloom bloom-br"></div>
+  <div class="topbar">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <span class="star">&#10033;</span>
+  </div>
+  <div class="head" style="left:70px;top:310px;width:900px;"><h1 data-title="true" style="font-size:104px;line-height:1.02;-webkit-line-clamp:2;">Every reply moves the</h1></div>
+  <div class="head" style="left:70px;top:520px;width:900px;"><h1 data-title="true" style="font-size:104px;line-height:1.02;-webkit-line-clamp:1;">needle</h1></div>
+  <div class="ring" style="left:56px;top:650px;width:640px;height:180px;"><svg viewBox="0 0 640 180"><ellipse cx="320" cy="90" rx="304" ry="74" transform="rotate(-3 320 90)"/></svg></div>
+  <div class="script" style="left:96px;top:668px;width:560px;"><span data-title="true" style="font-size:118px;">Difference.</span></div>
+  <div class="cta-pill" style="left:70px;top:980px;"><span data-cta="true">Save this playbook</span></div>
+  <div class="footer">
+    <div class="searchpill"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>www.yourbrand.com</span></div>
+    <div class="glyphs">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1.2 3.7 2.2C10.5 6.2 11.5 5 13.5 5 17 5 19 9 17.5 12.5 15 16.65 12 21 12 21z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v12H8l-4 4z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
     </div>
-    <div class="tn-label" style="left:64px;top:170px;"><h3 data-title="true">Your Move</h3></div>
-    <div class="tn-title" style="left:64px;top:250px;width:900px;"><h1 data-title="true" style="font-size:118px;-webkit-line-clamp:3;">Start Building Today</h1></div>
-    <div class="tn-script" style="left:56px;top:660px;"><h2 data-title="true" style="font-size:104px;">30 days</h2></div>
-    <div class="tn-message" style="left:64px;top:860px;width:840px;"><p data-message="true" style="font-size:32px;-webkit-line-clamp:4;">Pick one habit above and run it for 30 days. Loyalty is earned in the boring, repeatable work.</p></div>
-    <div class="tn-cta" style="left:64px;top:1030px;"><span class="pill" data-cta="true">Follow for more</span></div>
-    <div class="searchbar"><span>www.yourbrand.com</span><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <div class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.4 1.3 4.5 3.3 6-.1 1-.6 2.3-1.3 3.3 1.4-.2 2.9-.9 4-1.7 1.2.3 2.5.5 4 .5 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-  </section>
+  </div>
+</section>
 
 </div>
 </body>
