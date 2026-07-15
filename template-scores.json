@@ -394,5 +394,77 @@
         "brandPass": false
       }
     }
+  },
+  "white-purple-modern": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 14.89,
+        "brandPass": true
+      }
+    }
+  },
+  "white-black-simple": {
+    "score": 7.9,
+    "breakdown": {
+      "contract": 4,
+      "verify": 0.9,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 7,
+        "stFail": 0,
+        "deckAvg": 8.28,
+        "brandPass": true
+      }
+    }
+  },
+  "black-and-white-2": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 11.74,
+        "brandPass": true
+      }
+    }
+  },
+  "orange-white-gradient": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 95.83,
+        "brandPass": true
+      }
+    }
   }
 }

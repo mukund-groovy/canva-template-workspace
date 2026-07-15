@@ -1,0 +1,63 @@
+{
+  "designId": "DAHPeO1ArA0",
+  "startedAt": "2026-07-15T16:05:30.157Z",
+  "finishedAt": "2026-07-15T16:05:31.494Z",
+  "workspaceRoot": "D:\\wamp64\\www\\canva-template-workspace",
+  "cloneProfile": "minimal",
+  "clone": {
+    "designId": "DAHPeO1ArA0",
+    "outDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\extract",
+    "cloneProfile": "minimal",
+    "duplicate": true,
+    "duplicateOf": {
+      "designId": "DAHPbmjary8",
+      "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbmjary8\\extract",
+      "exactHash": "d59798bad104162b811be58c77f9783ee6948fcb1bd8b0fcdc2829d111627f11",
+      "layoutHash": "aa87ccbe01f660639daa4c87c7a057f0303904d128f6b313c1ae289568cefb9f"
+    },
+    "outputs": {
+      "templateData": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\extract\\template-data.json",
+      "signature": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\extract\\template-signature.json",
+      "dedupeIndex": "D:\\wamp64\\www\\canva-template-workspace\\index\\template-dedupe-index.json",
+      "assets": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\extract\\assets",
+      "pages": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\extract\\assets\\pages"
+    },
+    "stats": {
+      "pagesDetected": 6,
+      "slidesInHtmlClone": 0,
+      "promotedActualPages": 0,
+      "fallbackPageAssets": 2,
+      "downloaded": 2,
+      "failed": 0
+    }
+  },
+  "quality": {
+    "targetRmse": null,
+    "stopOnTarget": null,
+    "gate": null
+  },
+  "runTracking": {
+    "runId": null,
+    "runDir": null,
+    "report": null,
+    "output": null,
+    "createdAt": "2026-07-15T16:05:31.494Z",
+    "source": "clone-only",
+    "duplicate": true
+  },
+  "final": {
+    "duplicate": true,
+    "output": null,
+    "duplicateOf": {
+      "designId": "DAHPbmjary8",
+      "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbmjary8\\extract",
+      "exactHash": "d59798bad104162b811be58c77f9783ee6948fcb1bd8b0fcdc2829d111627f11",
+      "layoutHash": "aa87ccbe01f660639daa4c87c7a057f0303904d128f6b313c1ae289568cefb9f"
+    }
+  },
+  "paths": {
+    "inputHtml": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\capture\\editor-page.full.html",
+    "extractDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\extract",
+    "pagesDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\extract\\assets\\pages"
+  }
+}

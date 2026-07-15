@@ -1,0 +1,53 @@
+{
+  "designId": "DAHPeEgX1Og",
+  "startedAt": "2026-07-15T16:10:58.149Z",
+  "finishedAt": "2026-07-15T16:10:59.502Z",
+  "workspaceRoot": "D:\\wamp64\\www\\canva-template-workspace",
+  "cloneProfile": "minimal",
+  "clone": {
+    "designId": "DAHPeEgX1Og",
+    "outDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\extract",
+    "cloneProfile": "minimal",
+    "duplicate": false,
+    "duplicateOf": null,
+    "outputs": {
+      "templateData": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\extract\\template-data.json",
+      "signature": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\extract\\template-signature.json",
+      "dedupeIndex": "D:\\wamp64\\www\\canva-template-workspace\\index\\template-dedupe-index.json",
+      "assets": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\extract\\assets",
+      "pages": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\extract\\assets\\pages"
+    },
+    "stats": {
+      "pagesDetected": 10,
+      "slidesInHtmlClone": 0,
+      "promotedActualPages": 0,
+      "fallbackPageAssets": 2,
+      "downloaded": 2,
+      "failed": 0
+    }
+  },
+  "quality": {
+    "targetRmse": null,
+    "stopOnTarget": null,
+    "gate": null
+  },
+  "runTracking": {
+    "runId": null,
+    "runDir": null,
+    "report": null,
+    "output": null,
+    "createdAt": "2026-07-15T16:10:59.502Z",
+    "source": "clone-only",
+    "duplicate": false
+  },
+  "final": {
+    "duplicate": false,
+    "output": null,
+    "duplicateOf": null
+  },
+  "paths": {
+    "inputHtml": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\capture\\editor-page.full.html",
+    "extractDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\extract",
+    "pagesDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\extract\\assets\\pages"
+  }
+}
