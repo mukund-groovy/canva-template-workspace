@@ -244,7 +244,11 @@ async function screenshotSlides(page, id) {
     const tags = await page.evaluate(() => {
       const isMain = (e) => {
         const r = e.getBoundingClientRect();
-        return r.width > 420 && r.height > 420 && Math.abs(r.width / r.height - 0.8) < 0.06;
+        // Exact 1080x1350 slide aspect (0.800) — the tighter 0.02 tolerance rejects the editor's
+        // page wrapper (~0.764, which includes the "Add page title" header bar + toolbar icons);
+        // the text guard is a belt-and-suspenders exclusion of that chrome-bearing wrapper.
+        return r.width > 420 && r.height > 420 && Math.abs(r.width / r.height - 0.8) < 0.02 &&
+          !/Add page title|^Page \d/.test(e.textContent || '');
       };
       const scroller =
         [...document.querySelectorAll('div')].find((e) => e.scrollHeight > e.clientHeight + 200 && e.clientHeight > 400) ||

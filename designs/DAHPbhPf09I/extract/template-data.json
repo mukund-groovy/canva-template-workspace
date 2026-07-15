@@ -1,0 +1,4570 @@
+{
+  "designId": "DAHPbhPf09I",
+  "extensionId": "3DKNjnLoJDWVHYNLd8E5qA",
+  "title": "Black and Orange Modern Personal Branding Mistakes Instagram Post Carousel",
+  "docSize": {
+    "A": 1080,
+    "B": 1350,
+    "C": "D"
+  },
+  "pageCount": 6,
+  "pages": [
+    {
+      "A?": "i",
+      "a": "PBf18SxSBb7hHN78",
+      "G": {
+        "A": "EAG47WXCVrQ",
+        "B": 1,
+        "C": 1
+      },
+      "D": {
+        "C": "#ebf1f0"
+      },
+      "E": [
+        {
+          "A?": "I",
+          "A": 107.99999999999999,
+          "B": 108.00000000000001,
+          "D": 228.85675271505713,
+          "C": 131.07250382771454,
+          "_": "LBNSgsXVZ57jztXH",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAF-YcdoGQg",
+                "B": 1
+              },
+              "B": {
+                "D": 228.85675271505713,
+                "C": 131.07250382771454
+              },
+              "C": {
+                "#363336": "#171717"
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 108.00000000000011,
+          "B": 175.15201345684693,
+          "D": 1044.5300136596536,
+          "C": 997.0513766751237,
+          "_": "LBVwMWz3qfgkZGSd",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGmp9ZYiMI",
+                "B": 1
+              },
+              "B": {
+                "D": 1044.5300136596536,
+                "C": 997.0513766751237
+              },
+              "C": {
+                "#221f1f": "#ffffff"
+              }
+            }
+          }
+        },
+        {
+          "A?": "K",
+          "A": 786.2437960715072,
+          "B": 108,
+          "D": 864,
+          "C": 234.56,
+          "N": "title",
+          "_": "LBwZGBmx039VnXq1",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Personal Branding Mistakes to Avoid\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#171717"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "104.0"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 18
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "font-style": {
+                    "B": "italic"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 9
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "font-style": {}
+                }
+              },
+              {
+                "A?": "B",
+                "A": 9
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 359.8513882145222,
+          "B": 108,
+          "D": 299.56830721694996,
+          "C": 91.786634,
+          "N": "pretitle",
+          "_": "LBM4LQCGKwR6DWwX",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Your brand starts with you.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#171717"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "41.3331"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 27
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1062.333338,
+          "B": 108,
+          "D": 382.73063758969715,
+          "C": 179.666662,
+          "N": "paragraph",
+          "_": "LBDhhQ4clmcNNM0s",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Personal branding is more important than ever, but many people unintentionally hold themselves back.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#171717"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 100
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1062.333338,
+          "B": 589.2693624103028,
+          "D": 382.73063758969715,
+          "C": 179.666662,
+          "N": "paragraph",
+          "_": "LB0zgypwDB5Z2CHf",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Understanding the most common mistakes can help you build a stronger, clearer, and more authentic presence online.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#171717"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 114
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        }
+      ]
+    },
+    {
+      "A?": "i",
+      "a": "PBCYTFSsswc5kvbD",
+      "G": {
+        "A": "EAG47WXCVrQ",
+        "B": 1,
+        "C": 2
+      },
+      "D": {
+        "C": "#171717"
+      },
+      "E": [
+        {
+          "A?": "I",
+          "A": 107.99999999999999,
+          "B": 479.14276099060953,
+          "D": 121.71447801878084,
+          "C": 69.70920104711993,
+          "_": "LBN3kgQPyCRFMHkn",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAF-YcdoGQg",
+                "B": 1
+              },
+              "B": {
+                "D": 121.71447801878084,
+                "C": 69.70920104711993
+              },
+              "C": {
+                "#363336": "#e8510f"
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 250.3431241076354,
+          "B": 250.8465191742173,
+          "D": 578.3069616515654,
+          "C": 552.0202815764942,
+          "_": "LB1FrHz1WxLWhxY0",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGmp9ZYiMI",
+                "B": 1
+              },
+              "B": {
+                "D": 578.3069616515654,
+                "C": 552.0202815764942
+              },
+              "C": {
+                "#221f1f": "#ebf1f0"
+              }
+            }
+          }
+        },
+        {
+          "A?": "J",
+          "A": 594.9117192672697,
+          "B": 108.00000000000006,
+          "D": 863.9999999999999,
+          "C": 809.0882807327301,
+          "_": "LB6tpXDzY5FP2Zn4",
+          "a": {
+            "D": 64,
+            "C": 64
+          },
+          "b": [
+            {
+              "A": "M0 0H64V64H0z",
+              "B": {
+                "A": false,
+                "C": "#ffffff"
+              },
+              "C": {
+                "B": "#000000",
+                "f": true
+              },
+              "D": 51
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 64,
+              "C": 64
+            },
+            "B": 170.6666666666666,
+            "C": 159.81990730523063,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {},
+          "f": [
+            {
+              "A": {
+                "A": [
+                  {
+                    "A?": "A",
+                    "A": "\n"
+                  }
+                ],
+                "B": [
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {
+                        "B": "#000000"
+                      },
+                      "font-family": {
+                        "B": "YAFdJjTk5UU,0"
+                      },
+                      "font-kerning": {
+                        "B": "normal"
+                      },
+                      "font-size": {
+                        "B": "25.3333"
+                      },
+                      "spacing": {
+                        "B": "0.0"
+                      },
+                      "text-align": {
+                        "B": "center"
+                      }
+                    }
+                  },
+                  {
+                    "A?": "B",
+                    "A": 1
+                  },
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {},
+                      "font-family": {},
+                      "font-kerning": {},
+                      "font-size": {},
+                      "spacing": {},
+                      "text-align": {}
+                    }
+                  }
+                ]
+              },
+              "B": {},
+              "D": {
+                "D": 64,
+                "C": 64
+              },
+              "E": [
+                4
+              ],
+              "F": "B"
+            }
+          ],
+          "h": {
+            "A?": "H",
+            "A": 809.0882807327301
+          }
+        },
+        {
+          "A?": "I",
+          "A": 745.0427586206896,
+          "B": 324,
+          "D": 432,
+          "C": 141.51724137931035,
+          "_": "LBjrzHQ77FTQbHLk",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAE1SNbNvv0",
+                "B": 1
+              },
+              "B": {
+                "D": 432,
+                "C": 141.51724137931035
+              },
+              "C": {
+                "#000000": "#e8510f"
+              }
+            }
+          }
+        },
+        {
+          "A?": "K",
+          "A": 103.18793852355985,
+          "B": 108,
+          "D": 226.36780377817672,
+          "C": 74.666662,
+          "N": "heading",
+          "_": "LBHCZS5PsTRTFGNr",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Clarity beats complexity.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 25
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 107.99999999999999,
+          "B": 711.1841523643599,
+          "D": 260.81584763564,
+          "C": 74.666662,
+          "N": "heading",
+          "_": "LBmC01cHH5LhYSJW",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "#Mistake1 -/ Personal Branding\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 30
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 652,
+          "B": 203.3431913484883,
+          "D": 673.3136173030235,
+          "C": 234.56,
+          "N": "heading",
+          "_": "LBgWPYZwP2k5yXhH",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Trying to Be Everything\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#171717"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "104.0"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 13
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "font-style": {
+                    "B": "italic"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 10
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-style": {}
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 923.1733340000001,
+          "B": 172.83337011697193,
+          "D": 734.3332597660561,
+          "C": 336.826666,
+          "N": "subtitle",
+          "_": "LBZFgV85FfrVy23s",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Many people try to appeal to everyone. Effective personal branding requires focus — a clear message, a defined niche, and a consistent point of view. The more specific you are, the stronger your brand becomes.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#171717"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "41.3333"
+                  },
+                  "leading": {
+                    "B": "1180.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "uppercase"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 209
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        }
+      ]
+    },
+    {
+      "A?": "i",
+      "a": "PBsdXlMkx2WKHmdD",
+      "G": {
+        "A": "EAG47WXCVrQ",
+        "B": 1,
+        "C": 3
+      },
+      "D": {
+        "C": "#e8510f"
+      },
+      "E": [
+        {
+          "A?": "I",
+          "A": 108,
+          "B": 108,
+          "D": 197.20496170014337,
+          "C": 188.24109980468228,
+          "_": "LBGj0pS4GhflCG2y",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGmp9ZYiMI",
+                "B": 1
+              },
+              "B": {
+                "D": 197.20496170014337,
+                "C": 188.24109980468228
+              },
+              "C": {
+                "#221f1f": "#ebf1f0"
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 108,
+          "B": 757.9759074037922,
+          "D": 214.02409259620785,
+          "C": 122.5774348505554,
+          "_": "LBZjqWxljjtDS4Gk",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAF-YcdoGQg",
+                "B": 1
+              },
+              "B": {
+                "D": 214.02409259620785,
+                "C": 122.5774348505554
+              },
+              "C": {
+                "#363336": "#ebf1f0"
+              }
+            }
+          }
+        },
+        {
+          "A?": "K",
+          "A": 440.44000000000005,
+          "B": 108,
+          "D": 864.0000000000002,
+          "C": 333.3975946085197,
+          "N": "title",
+          "_": "LBFPrCkPL03XxC7r",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Inconsistent Presence\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ebf1f0"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "104.0"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-77.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 22
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "e": 607.8623339738434,
+          "f": 234.56,
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "J",
+          "A": 1170.610003400204,
+          "B": 672.1136307002239,
+          "D": 299.88636929977605,
+          "C": 18.219993199591954,
+          "_": "LBqMFvJSWC9D0Jgh",
+          "a": {
+            "D": 64,
+            "C": 64
+          },
+          "b": [
+            {
+              "A": "M0 0H64V64H0z",
+              "B": {
+                "A": false,
+                "C": "#ebf1f0"
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 64,
+              "C": 64
+            },
+            "B": 59.23681368884465,
+            "C": 3.5990110023885507,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {},
+          "f": [
+            {
+              "A": {
+                "A": [
+                  {
+                    "A?": "A",
+                    "A": "\n"
+                  }
+                ],
+                "B": [
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {
+                        "B": "#000000"
+                      },
+                      "font-family": {
+                        "B": "YAFdJs2qTWQ,0"
+                      },
+                      "font-kerning": {
+                        "B": "normal"
+                      },
+                      "font-size": {
+                        "B": "33.3333"
+                      },
+                      "font-style": {
+                        "B": "normal"
+                      },
+                      "font-weight": {
+                        "B": "light"
+                      },
+                      "leading": {
+                        "B": "1060.0"
+                      },
+                      "text-align": {
+                        "B": "center"
+                      },
+                      "text-transform": {
+                        "B": "none"
+                      },
+                      "tracking": {
+                        "B": "-51.0"
+                      }
+                    }
+                  },
+                  {
+                    "A?": "B",
+                    "A": 1
+                  },
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {},
+                      "font-family": {},
+                      "font-kerning": {},
+                      "font-size": {},
+                      "font-style": {},
+                      "font-weight": {},
+                      "leading": {},
+                      "text-align": {},
+                      "text-transform": {},
+                      "tracking": {}
+                    }
+                  }
+                ]
+              },
+              "B": {},
+              "D": {
+                "D": 64,
+                "C": 64
+              },
+              "E": [
+                4
+              ],
+              "F": "B"
+            }
+          ],
+          "h": {
+            "A?": "H",
+            "A": 18.219993199591954
+          }
+        },
+        {
+          "A?": "K",
+          "A": 803.9730090690258,
+          "B": 111.99999999999997,
+          "D": 336.65680865151177,
+          "C": 144.666662,
+          "N": "subtitle",
+          "_": "LBdlBsL4HHw9pZ9x",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Posting randomly, switching styles, or long gaps can weaken your brand.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ebf1f0"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 72
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 803.9730090690258,
+          "B": 540,
+          "D": 432.678936097872,
+          "C": 144.666662,
+          "N": "paragraph",
+          "_": "LBLFj6dqrsWLnpY1",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "A simple, steady rhythm — even once a week — keeps your audience connected and your message memorable.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ebf1f0"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 103
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1117.44,
+          "B": 107.99999999999989,
+          "D": 673.3136173030235,
+          "C": 124.56,
+          "N": "heading",
+          "_": "LBLwwZg5p3X59m1P",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Mistake #2\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ebf1f0"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "104.0"
+                  },
+                  "font-weight": {
+                    "B": "bold"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-77.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 11
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        }
+      ]
+    },
+    {
+      "A?": "i",
+      "a": "PBgy3Kd29x8QypSf",
+      "G": {
+        "A": "EAG47WXCVrQ",
+        "B": 1,
+        "C": 4
+      },
+      "D": {
+        "C": "#ebf1f0"
+      },
+      "E": [
+        {
+          "A?": "I",
+          "A": 91.07114288301648,
+          "B": -1.1368683772161603e-13,
+          "D": 1080.0000000000002,
+          "C": 1030.909090909091,
+          "_": "LBRd9XKYtdzWNXRP",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGmp9ZYiMI",
+                "B": 1
+              },
+              "B": {
+                "D": 1080.0000000000002,
+                "C": 1030.909090909091
+              },
+              "C": {
+                "#221f1f": "#ffffff"
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 1172.29079895288,
+          "B": 479.1427609906096,
+          "D": 121.71447801878084,
+          "C": 69.70920104711993,
+          "_": "LBnq3RhvTxjr651J",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAF-YcdoGQg",
+                "B": 1
+              },
+              "B": {
+                "D": 121.71447801878084,
+                "C": 69.70920104711993
+              },
+              "C": {
+                "#363336": "#171717"
+              }
+            }
+          }
+        },
+        {
+          "A?": "K",
+          "A": 397.9922201254151,
+          "B": 205.620646967396,
+          "D": 668.758706065208,
+          "C": 706.215488,
+          "N": "subtitle",
+          "_": "LBRgpB9RSnyLzq5s",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Some try too hard to sound “professional,” losing their personality in the process. Authenticity makes your brand stand out. People connect with real experiences, real lessons, and real stories.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#171717"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "55.3872"
+                  },
+                  "leading": {
+                    "B": "1160.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "uppercase"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 194
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "I",
+          "A": 188.47497874610474,
+          "B": 324,
+          "D": 432.00000000000006,
+          "C": 141.51724137931035,
+          "_": "LBzS85cbgzxz9Zmx",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAE1SNbNvv0",
+                "B": 1
+              },
+              "B": {
+                "A": -1.4210854715202004e-14,
+                "B": -2.842170943040401e-14,
+                "D": 432.0000000000001,
+                "C": 141.51724137931038
+              },
+              "C": {
+                "#000000": "#e8510f"
+              }
+            }
+          }
+        },
+        {
+          "A?": "K",
+          "A": 108,
+          "B": 203.34319134848823,
+          "D": 673.3136173030235,
+          "C": 234.56,
+          "N": "heading",
+          "_": "LB42ZTTcZXT36sSZ",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "No Authentic Voice\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#171717"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "104.0"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 18
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1167.4060377382202,
+          "B": 107.99999999999997,
+          "D": 226.36780377817672,
+          "C": 74.666662,
+          "N": "heading",
+          "_": "LBCxmpl0lVlPCdSG",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Clarity beats complexity.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#171717"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 26
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1172.2180992146602,
+          "B": 711.1841523643599,
+          "D": 260.81584763564,
+          "C": 74.666662,
+          "N": "paragraph",
+          "_": "LB7LFjhQyc1ckxQX",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "#Mistake3 -/ Personal Branding\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#171717"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 31
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        }
+      ]
+    },
+    {
+      "A?": "i",
+      "a": "PBfr36LckT6l9MCv",
+      "G": {
+        "A": "EAG47WXCVrQ",
+        "B": 1,
+        "C": 5
+      },
+      "D": {
+        "C": "#171717"
+      },
+      "E": [
+        {
+          "A?": "J",
+          "A": 352.29511553382304,
+          "B": 108.00000000000006,
+          "D": 863.9999999999999,
+          "C": 757.6241526680597,
+          "_": "LBc3kvvypsVfcfGh",
+          "a": {
+            "D": 64,
+            "C": 64
+          },
+          "b": [
+            {
+              "A": "M0 0H64V64H0z",
+              "B": {
+                "A": false,
+                "C": "#ffffff"
+              },
+              "C": {
+                "B": "#000000",
+                "f": true
+              },
+              "D": 51
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 64,
+              "C": 64
+            },
+            "B": 170.6666666666666,
+            "C": 149.65415361344387,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {},
+          "f": [
+            {
+              "A": {
+                "A": [
+                  {
+                    "A?": "A",
+                    "A": "\n"
+                  }
+                ],
+                "B": [
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {
+                        "B": "#000000"
+                      },
+                      "font-family": {
+                        "B": "YAFdJjTk5UU,0"
+                      },
+                      "font-kerning": {
+                        "B": "normal"
+                      },
+                      "font-size": {
+                        "B": "25.3333"
+                      },
+                      "spacing": {
+                        "B": "0.0"
+                      },
+                      "text-align": {
+                        "B": "center"
+                      }
+                    }
+                  },
+                  {
+                    "A?": "B",
+                    "A": 1
+                  },
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {},
+                      "font-family": {},
+                      "font-kerning": {},
+                      "font-size": {},
+                      "spacing": {},
+                      "text-align": {}
+                    }
+                  }
+                ]
+              },
+              "B": {},
+              "D": {
+                "D": 64,
+                "C": 64
+              },
+              "E": [
+                4
+              ],
+              "F": "B"
+            }
+          ],
+          "h": {
+            "A?": "H",
+            "A": 757.6241526680597
+          }
+        },
+        {
+          "A?": "I",
+          "A": 241.65173651878348,
+          "B": 424.08788865091094,
+          "D": 231.8242226981781,
+          "C": 221.28675803007908,
+          "_": "LBVQgY3N0bglS2kp",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGmp9ZYiMI",
+                "B": 1
+              },
+              "B": {
+                "D": 231.8242226981781,
+                "C": 221.28675803007908
+              },
+              "C": {
+                "#221f1f": "#e8510f"
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 1167.4060377382198,
+          "B": 479.1427609906096,
+          "D": 121.71447801878084,
+          "C": 69.70920104711993,
+          "_": "LBbmR32XqKsvMBpn",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAF-YcdoGQg",
+                "B": 1
+              },
+              "B": {
+                "D": 121.71447801878084,
+                "C": 69.70920104711993
+              },
+              "C": {
+                "#363336": "#ebf1f0"
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 112.88476121465965,
+          "B": 479.1427609906096,
+          "D": 121.71447801878084,
+          "C": 69.70920104711993,
+          "_": "LBvHdHc5FfsSfv5G",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAF-YcdoGQg",
+                "B": 1
+              },
+              "B": {
+                "D": 121.71447801878084,
+                "C": 69.70920104711993
+              },
+              "C": {
+                "#363336": "#ebf1f0"
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 589.5899504885425,
+          "B": 324,
+          "D": 432.00000000000006,
+          "C": 141.51724137931035,
+          "_": "LBmVvyMw5Js4XfYK",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAE1SNbNvv0",
+                "B": 1
+              },
+              "B": {
+                "A": -1.4210854715202004e-14,
+                "B": -2.842170943040401e-14,
+                "D": 432.0000000000001,
+                "C": 141.51724137931038
+              },
+              "C": {
+                "#000000": "#e8510f"
+              }
+            }
+          }
+        },
+        {
+          "A?": "K",
+          "A": 496.5471918678528,
+          "B": 238.04328171316274,
+          "D": 603.9134365736745,
+          "C": 234.56,
+          "N": "title",
+          "_": "LBVkbJ6F03SXl9Jb",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "No Clear Value\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#171717"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "104.0"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 14
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1162.52127652356,
+          "B": 108,
+          "D": 216,
+          "C": 74.666662,
+          "N": "heading",
+          "_": "LBywWr2B12hwTdKC",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Your value is your voice.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 25
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1167.333338,
+          "B": 711.1841523643599,
+          "D": 260.81584763564,
+          "C": 74.666662,
+          "N": "paragraph",
+          "_": "LB6XFw2blnx7JBm3",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "#Mistake4 -/ Personal Branding\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 31
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 107.92730026177956,
+          "B": 745.6321962218233,
+          "D": 226.36780377817672,
+          "C": 74.666662,
+          "N": "heading",
+          "_": "LB9LwHrcy6VHDgvK",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Your value is your voice.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 25
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 112.88476121465963,
+          "B": 108.00000000000006,
+          "D": 260.81584763564,
+          "C": 74.666662,
+          "N": "paragraph",
+          "_": "LBFydf0fX8VmSWl1",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "#Mistake4 -/ Personal Branding\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 31
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 765.1071918678529,
+          "B": 172.83337011697193,
+          "D": 734.3332597660561,
+          "C": 288.826666,
+          "N": "subtitle",
+          "_": "LBknDQwNWHhfFS4Z",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Visibility is not enough — your brand must communicate value. Whether insights, inspiration, or solutions, clarity about what you offer makes your presence meaningful and memorable.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#171717"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "41.3333"
+                  },
+                  "leading": {
+                    "B": "1180.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "uppercase"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 181
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        }
+      ]
+    },
+    {
+      "A?": "i",
+      "a": "PBkhTmKcv7pZBg1W",
+      "G": {
+        "A": "EAG47WXCVrQ",
+        "B": 1,
+        "C": 6
+      },
+      "D": {
+        "C": "#e8510f"
+      },
+      "E": [
+        {
+          "A?": "I",
+          "A": 103.25162300892401,
+          "B": 389.16650301493377,
+          "D": 597.6769123054024,
+          "C": 570.5097799278842,
+          "_": "LBmkLhpC1DqvQtfM",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGmp9ZYiMI",
+                "B": 1
+              },
+              "B": {
+                "D": 597.6769123054024,
+                "C": 570.5097799278842
+              },
+              "C": {
+                "#221f1f": "#ebf1f0"
+              }
+            }
+          }
+        },
+        {
+          "A?": "K",
+          "A": 777.495596084611,
+          "B": 108,
+          "D": 562.3330060298676,
+          "C": 367.878063453095,
+          "N": "title",
+          "_": "LBl58vV1Xs66G1qP",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Thank You!\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ebf1f0"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "104.0"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 6
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "font-style": {
+                    "B": "italic"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 4
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "font-style": {}
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "e": 358.5449718210319,
+          "f": 234.56,
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1202.333338,
+          "B": 108.00000000000011,
+          "D": 260.2021438368568,
+          "C": 39.666662,
+          "N": "paragraph",
+          "_": "LBW9MGdBXC9d9L8W",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "+123-456-789\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ebf1f0"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 12
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1202.333338,
+          "B": 702.0025950369694,
+          "D": 284.84082028336684,
+          "C": 39.666662,
+          "N": "paragraph",
+          "_": "LB3xQYzxsBlVBW6W",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "@reallygreatsite\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ebf1f0"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "end"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 16
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1202.333338,
+          "B": 478.0518334776989,
+          "D": 114.10107191842843,
+          "C": 39.666662,
+          "N": "paragraph",
+          "_": "LB8fZL4h7Hfl3yc2",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "-\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ebf1f0"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 107.99999999999999,
+          "B": 108,
+          "D": 281.1665030149338,
+          "C": 144.666662,
+          "N": "pretitle",
+          "_": "LBBWLQnf4ysTX7Nn",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Hope these insights help you elevate your personal branding journey.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ebf1f0"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 68
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 816.7679658111584,
+          "B": 680.1282671560413,
+          "D": 291.8717328439586,
+          "C": 144.666662,
+          "N": "paragraph",
+          "_": "LB8BYt2TcCcHgqXR",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "If you found this helpful, feel free to connect or follow for more insights.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ebf1f0"
+                  },
+                  "font-family": {
+                    "B": "YAFdJs2qTWQ,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "33.3333"
+                  },
+                  "font-weight": {
+                    "B": "light"
+                  },
+                  "leading": {
+                    "B": "1060.0"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-51.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 76
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "J",
+          "A": 1051.5645258894112,
+          "B": 670.3330060298676,
+          "D": 301.6669939701323,
+          "C": 21.377937510046195,
+          "_": "LB0s9wF5v0x86pFx",
+          "a": {
+            "D": 64,
+            "C": 64
+          },
+          "b": [
+            {
+              "A": "M0 0H64V64H0z",
+              "B": {
+                "A": false,
+                "C": "#ebf1f0"
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 64,
+              "C": 64
+            },
+            "B": 59.58854201879157,
+            "C": 4.222802471120261,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {},
+          "f": [
+            {
+              "A": {
+                "A": [
+                  {
+                    "A?": "A",
+                    "A": "\n"
+                  }
+                ],
+                "B": [
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {
+                        "B": "#000000"
+                      },
+                      "font-family": {
+                        "B": "YAFdJs2qTWQ,0"
+                      },
+                      "font-kerning": {
+                        "B": "normal"
+                      },
+                      "font-size": {
+                        "B": "33.3333"
+                      },
+                      "font-style": {
+                        "B": "normal"
+                      },
+                      "font-weight": {
+                        "B": "light"
+                      },
+                      "leading": {
+                        "B": "1060.0"
+                      },
+                      "text-align": {
+                        "B": "center"
+                      },
+                      "text-transform": {
+                        "B": "none"
+                      },
+                      "tracking": {
+                        "B": "-51.0"
+                      }
+                    }
+                  },
+                  {
+                    "A?": "B",
+                    "A": 1
+                  },
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {},
+                      "font-family": {},
+                      "font-kerning": {},
+                      "font-size": {},
+                      "font-style": {},
+                      "font-weight": {},
+                      "leading": {},
+                      "text-align": {},
+                      "text-transform": {},
+                      "tracking": {}
+                    }
+                  }
+                ]
+              },
+              "B": {},
+              "D": {
+                "D": 64,
+                "C": 64
+              },
+              "E": [
+                4
+              ],
+              "F": "B"
+            }
+          ],
+          "h": {
+            "A?": "H",
+            "A": 21.377937510046195
+          }
+        }
+      ]
+    }
+  ],
+  "media": [
+    {
+      "type": "VECTOR",
+      "id": "MAF-YcdoGQg",
+      "version": 1,
+      "brand": "BAE7RlobDkQ",
+      "user": "UAE7Rho_EaQ",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BRi1ZY2RvR1FnUgAAAZ9k5hvuUhHeXYhfl0YwaO_ZSTOzEtpIqLbWhnAGCXItpk_9cRA",
+        "expiry": 1784104229870
+      },
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Arrow button icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/doGQg/MAF-YcdoGQg/1/t.png",
+          "width": 200,
+          "height": 115,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/doGQg/MAF-YcdoGQg/1/s-1.svg",
+          "width": 73,
+          "height": 42,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/doGQg/MAF-YcdoGQg/1/s2-1.svg",
+          "width": 73,
+          "height": 42,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/doGQg/MAF-YcdoGQg/1/s3-1.svg",
+          "width": 73,
+          "height": 42,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/doGQg/MAF-YcdoGQg/1/ss_s.png",
+          "width": 800,
+          "height": 458,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/doGQg/MAF-YcdoGQg/1/ss_s2.png",
+          "width": 1600,
+          "height": 916,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/doGQg/MAF-YcdoGQg/1/ss_s3.png",
+          "width": 2400,
+          "height": 1374,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(54, 51, 54)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGmp9ZYiMI",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAEkkBHMRPE",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR21wOVpZaU1JUgAAAZ9k5hvvHdXbhC89tFukBbPMdDGzc0PDOov-pQADohQYYxPtUCk",
+        "expiry": 1784104229871
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Monochrome Icon Asterisk",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/ZYiMI/MAGmp9ZYiMI/1/t.png",
+          "width": 200,
+          "height": 191,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/ZYiMI/MAGmp9ZYiMI/1/s-1.svg",
+          "width": 505,
+          "height": 482,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/ZYiMI/MAGmp9ZYiMI/1/s2-1.svg",
+          "width": 505,
+          "height": 482,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/ZYiMI/MAGmp9ZYiMI/1/s3-1.svg",
+          "width": 505,
+          "height": 482,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/ZYiMI/MAGmp9ZYiMI/1/ss_s.png",
+          "width": 800,
+          "height": 764,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/ZYiMI/MAGmp9ZYiMI/1/ss_s2.png",
+          "width": 1600,
+          "height": 1527,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/ZYiMI/MAGmp9ZYiMI/1/ss_s3.png",
+          "width": 2400,
+          "height": 2291,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(34, 31, 31)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAE1SNbNvv0",
+      "version": 1,
+      "brand": "BAEDx_iFAoo",
+      "user": "UADl5nbeq90",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BRTFTTmJOdnYwUgAAAZ9k5hvvbGeAs-0t7hdiFLIrXl2OPLDY_KK3f4JcMvgneJ8PnTI",
+        "expiry": 1784104229871
+      },
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Handdrawn Doodle Circle",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/bNvv0/MAE1SNbNvv0/1/t.png",
+          "width": 200,
+          "height": 66,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/bNvv0/MAE1SNbNvv0/1/s.svg",
+          "width": 696,
+          "height": 228,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/bNvv0/MAE1SNbNvv0/1/s2-1.svg",
+          "width": 696,
+          "height": 228,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/bNvv0/MAE1SNbNvv0/1/s3-1.svg",
+          "width": 696,
+          "height": 228,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/bNvv0/MAE1SNbNvv0/1/ss_s-1.png",
+          "width": 800,
+          "height": 262,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/bNvv0/MAE1SNbNvv0/1/ss_s2.png",
+          "width": 1600,
+          "height": 524,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/bNvv0/MAE1SNbNvv0/1/ss_s3.png",
+          "width": 2400,
+          "height": 786,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 3,
+        "spritesHigh": 2,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_R"
+          },
+          {
+            "type": "BACKGROUND_G"
+          },
+          {
+            "type": "BACKGROUND_B"
+          },
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    }
+  ],
+  "fonts": [
+    {
+      "A": "YACgEZ1cb1Q",
+      "C": "Arimo",
+      "D": [
+        {
+          "style": "BOLD_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBoldItalic.08fb930e5cf38bab811efa91f368b248.ttf",
+              "format": "OTF",
+              "sizeBytes": 435028
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBoldItalic.c7a16bdf2cea8da7d5accf8369441561.woff",
+              "format": "WOFF",
+              "sizeBytes": 237660
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBoldItalic.08fb930e5cf38bab811efa91.1060345c54d396e76d73f1da7ee200bd.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 203232
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBoldItalic.08fb930e5cf38bab811efa91.adcf6c0d2912ad56524ac49fd0f4814.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 35704
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBoldItalic.08fb930e5cf38bab811efa91.3cde0ee1a0a114e576617800f5b4025f.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 44940
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBoldItalic.08fb930e5cf38bab811efa91.88fe25390ee059f620d40ee4e07eba73.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 82788
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -771,
+              "yMax": 2109
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -431,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 33
+            }
+          }
+        },
+        {
+          "style": "ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoItalic.fa87472a877e70c5bce22e42be5c25a9.ttf",
+              "format": "OTF",
+              "sizeBytes": 440740
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoItalic.bafbbb513c11845057f9358ac3efa073.woff",
+              "format": "WOFF",
+              "sizeBytes": 240632
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoItalic.fa87472a877e70c5bce22e42be5c.d257a7100844bc3f98c9021168b6249e.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 201132
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoItalic.fa87472a877e70c5bce22e42be5c.1bd55f3610e33ea0ddc29625337cfe5.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 36704
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoItalic.fa87472a877e70c5bce22e42be5c.85054e431a9f5a044d28aa5ae02096c9.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 45628
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoItalic.fa87472a877e70c5bce22e42be5c.e6711c21e2ed6fc79ec9ee042dd7636b.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 82348
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -621,
+              "yMax": 2077
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -425,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 1
+            }
+          }
+        },
+        {
+          "style": "REGULAR",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/Arimo.7ac02a544211773d9636e056e9da6c35.ttf",
+              "format": "OTF",
+              "sizeBytes": 436180
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/Arimo.1c8ab6ba5931166f629c6d814d3580b2.woff",
+              "format": "WOFF",
+              "sizeBytes": 234380
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/Arimo.7ac02a544211773d9636e056e9da6c35.7.f8f199f09526f79e87644ed227e0f651.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 194188
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/Arimo.7ac02a544211773d9636e056e9da6c35.7.3062704d78e4a6a3b3f1dbd88a190e4.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 36648
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/Arimo.7ac02a544211773d9636e056e9da6c35.7.98908797bcdc875f4306c5a4ae04708a.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 45912
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/Arimo.7ac02a544211773d9636e056e9da6c35.7.f153ae24bfeae042c40e10cc50bbf9d9.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 85712
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -621,
+              "yMax": 2007
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -431,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 64
+            }
+          }
+        },
+        {
+          "style": "BOLD",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBold.927b7dca5b947f69cb8e835f7f743d15.ttf",
+              "format": "OTF",
+              "sizeBytes": 438516
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBold.68670fffa1a87fb970dc63f26d8cc0fc.woff",
+              "format": "WOFF",
+              "sizeBytes": 234696
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBold.927b7dca5b947f69cb8e835f7f743d.98c4d2c0223fc8474641c77f923528e9.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 194064
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBold.927b7dca5b947f69cb8e835f7f743d.f033e4c1331a6e2eec13dcf8a45dbcf.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 35468
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBold.927b7dca5b947f69cb8e835f7f743d.5841aaf5f5c182d32ee229514397ec0c.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 44416
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBold.927b7dca5b947f69cb8e835f7f743d.0c7cfe36fd13e7196de3016bc8e8950b.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 83456
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -771,
+              "yMax": 2116
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -431,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 32
+            }
+          }
+        }
+      ]
+    },
+    {
+      "A": "YAFdJs2qTWQ",
+      "C": "Open Sauce",
+      "D": [
+        {
+          "style": "REGULAR",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Regular.036bb82edc07f1cfb21.114c2932af378c09314d332d5b12da51.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 38988
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Regular.036bb82edc07f1cfb21.8991ca1e41c36f0b3c097a0571f64870.woff",
+              "format": "WOFF",
+              "sizeBytes": 26052
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Regular.036bb82edc07f1cfb21.88a36cab6d7cfa75bff7e49535b9642a.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 23052
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -237,
+              "yMax": 1028
+            },
+            "hhea": {
+              "ascender": 1000,
+              "descender": -237
+            },
+            "os2": {
+              "sTypoAscender": 763,
+              "sTypoDescender": -237,
+              "usWinAscent": 1000,
+              "usWinDescent": 237,
+              "fsSelection": 64
+            }
+          }
+        },
+        {
+          "style": "ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Italic.4d6e0ae3a24eb14065ed.500fa4e6a19e45195844347a425da29b.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 41032
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Italic.4d6e0ae3a24eb14065ed.3cde021dc95ee7b60203abb9c3b10636.woff",
+              "format": "WOFF",
+              "sizeBytes": 27204
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Italic.4d6e0ae3a24eb14065ed.2939e26d0be644944cd621be7bec5f5e.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 24036
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -237,
+              "yMax": 1028
+            },
+            "hhea": {
+              "ascender": 1000,
+              "descender": -237
+            },
+            "os2": {
+              "sTypoAscender": 763,
+              "sTypoDescender": -237,
+              "usWinAscent": 1000,
+              "usWinDescent": 237,
+              "fsSelection": 1
+            }
+          }
+        },
+        {
+          "style": "BOLD_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-BoldItalic.ebd5375ddf915a85.da1469c74617c2daa2d1852eccc2a72f.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 42648
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-BoldItalic.ebd5375ddf915a85.ba092213aae060a00d738367a4dc0dd8.woff",
+              "format": "WOFF",
+              "sizeBytes": 28020
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-BoldItalic.ebd5375ddf915a85.267ca74019c66328f093f6614fe3106e.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 24912
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -237,
+              "yMax": 1029
+            },
+            "hhea": {
+              "ascender": 1000,
+              "descender": -237
+            },
+            "os2": {
+              "sTypoAscender": 763,
+              "sTypoDescender": -237,
+              "usWinAscent": 1000,
+              "usWinDescent": 237,
+              "fsSelection": 33
+            }
+          }
+        },
+        {
+          "style": "BOLD",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Bold.d6dc9a445582372bfb5063.de669392b0efa3dd9bfdbeb6f018490a.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 41880
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Bold.d6dc9a445582372bfb5063.f6d736a830913474eafbf6d0b332350c.woff",
+              "format": "WOFF",
+              "sizeBytes": 26956
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Bold.d6dc9a445582372bfb5063.c19f8e9cab364abc00a750036f731e21.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 23676
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -237,
+              "yMax": 1029
+            },
+            "hhea": {
+              "ascender": 1000,
+              "descender": -237
+            },
+            "os2": {
+              "sTypoAscender": 763,
+              "sTypoDescender": -237,
+              "usWinAscent": 1000,
+              "usWinDescent": 237,
+              "fsSelection": 32
+            }
+          }
+        },
+        {
+          "style": "LIGHT",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Light.21cf5a80fc5777c6aed04.75d3f60309d5248df1b5826ca25d1c18.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 38680
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Light.21cf5a80fc5777c6aed04.431c32190aee3c0565d73c56274fb073.woff",
+              "format": "WOFF",
+              "sizeBytes": 25756
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Light.21cf5a80fc5777c6aed04.22ff9d894b6467b3ddab0f1989a2cb4d.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 22836
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -237,
+              "yMax": 1019
+            },
+            "hhea": {
+              "ascender": 1000,
+              "descender": -237
+            },
+            "os2": {
+              "sTypoAscender": 763,
+              "sTypoDescender": -237,
+              "usWinAscent": 1000,
+              "usWinDescent": 237,
+              "fsSelection": 64
+            }
+          }
+        },
+        {
+          "style": "LIGHT_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-LightItalic.f0c09ebfcc45217.8aec54ba5ea2867decbe90b57240d652.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 40748
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-LightItalic.f0c09ebfcc45217.74e39b0f305dfd66c69d3cac9abc738c.woff",
+              "format": "WOFF",
+              "sizeBytes": 27688
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-LightItalic.f0c09ebfcc45217.aeba314cd216c72b97019a6e8c17c9a5.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 24616
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -237,
+              "yMax": 1019
+            },
+            "hhea": {
+              "ascender": 1000,
+              "descender": -237
+            },
+            "os2": {
+              "sTypoAscender": 763,
+              "sTypoDescender": -237,
+              "usWinAscent": 1000,
+              "usWinDescent": 237,
+              "fsSelection": 64
+            }
+          }
+        },
+        {
+          "style": "MEDIUM_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-MediumItalic.cb1b8ff0626a15.790c9e44e410dab0f7acb53f6c9e3aaa.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 42552
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-MediumItalic.cb1b8ff0626a15.c466833cab8e7f2121b8a0444200e38e.woff",
+              "format": "WOFF",
+              "sizeBytes": 28048
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-MediumItalic.cb1b8ff0626a15.b146a0e8f0e873592940bcc60a355c0c.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 24824
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -237,
+              "yMax": 1029
+            },
+            "hhea": {
+              "ascender": 1000,
+              "descender": -237
+            },
+            "os2": {
+              "sTypoAscender": 763,
+              "sTypoDescender": -237,
+              "usWinAscent": 1000,
+              "usWinDescent": 237,
+              "fsSelection": 64
+            }
+          }
+        },
+        {
+          "style": "MEDIUM",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Medium.f6e876da25a41eeebbb9.891b24b6e551f137fbe317fd48a02199.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 41320
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Medium.f6e876da25a41eeebbb9.052da5ec8d65933d8d2d4c66f4c915ce.woff",
+              "format": "WOFF",
+              "sizeBytes": 26696
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Medium.f6e876da25a41eeebbb9.6f953f3e7ac9d894a97d59a06afcfa7b.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 23740
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -237,
+              "yMax": 1029
+            },
+            "hhea": {
+              "ascender": 1000,
+              "descender": -237
+            },
+            "os2": {
+              "sTypoAscender": 763,
+              "sTypoDescender": -237,
+              "usWinAscent": 1000,
+              "usWinDescent": 237,
+              "fsSelection": 64
+            }
+          }
+        },
+        {
+          "style": "SEMI_BOLD",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-SemiBold.91e4cc1139c18a2221.ec433d171bcce47166677ff5f41f6988.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 41544
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-SemiBold.91e4cc1139c18a2221.76cb0df6c2493797b429c814f56c2736.woff",
+              "format": "WOFF",
+              "sizeBytes": 26676
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-SemiBold.91e4cc1139c18a2221.3dae3800fab4aad097008bba4dfa94c1.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 23576
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -237,
+              "yMax": 1029
+            },
+            "hhea": {
+              "ascender": 1000,
+              "descender": -237
+            },
+            "os2": {
+              "sTypoAscender": 763,
+              "sTypoDescender": -237,
+              "usWinAscent": 1000,
+              "usWinDescent": 237,
+              "fsSelection": 64
+            }
+          }
+        },
+        {
+          "style": "SEMI_BOLD_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-SemiBoldItalic.dc077f277f23.7ff744f7ed5a77dd297deb8da0e00aed.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 42628
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-SemiBoldItalic.dc077f277f23.dfc8f528c2eb3c6b1a94cbe4e5010ca3.woff",
+              "format": "WOFF",
+              "sizeBytes": 28208
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-SemiBoldItalic.dc077f277f23.0f51da86a058aef1bb585a64cf664ab7.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 24956
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -237,
+              "yMax": 1029
+            },
+            "hhea": {
+              "ascender": 1000,
+              "descender": -237
+            },
+            "os2": {
+              "sTypoAscender": 763,
+              "sTypoDescender": -237,
+              "usWinAscent": 1000,
+              "usWinDescent": 237,
+              "fsSelection": 64
+            }
+          }
+        },
+        {
+          "style": "HEAVY_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-BlackItalic.21433824eb02358.fb707801fe6931f344640dae93ec4691.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 42168
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-BlackItalic.21433824eb02358.71a32211e6f678976374ef70b18dd4ce.woff",
+              "format": "WOFF",
+              "sizeBytes": 27580
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-BlackItalic.21433824eb02358.1aaf8c95b881644a76961b6db0059fc0.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 24476
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -237,
+              "yMax": 1030
+            },
+            "hhea": {
+              "ascender": 1000,
+              "descender": -237
+            },
+            "os2": {
+              "sTypoAscender": 763,
+              "sTypoDescender": -237,
+              "usWinAscent": 1000,
+              "usWinDescent": 237,
+              "fsSelection": 64
+            }
+          }
+        },
+        {
+          "style": "HEAVY",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Black.accf033c403bc87868069.3e1faf1a77cc88e80a7bd3af64da431d.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 41504
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Black.accf033c403bc87868069.417a65e7bda44d5e7418c1f4d6015fe6.woff",
+              "format": "WOFF",
+              "sizeBytes": 26752
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJs2qTWQ/0/OpenSauceOne-Black.accf033c403bc87868069.71d66fa3f70c070b9427b4baf1980061.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 23612
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -237,
+              "yMax": 1030
+            },
+            "hhea": {
+              "ascender": 1000,
+              "descender": -237
+            },
+            "os2": {
+              "sTypoAscender": 763,
+              "sTypoDescender": -237,
+              "usWinAscent": 1000,
+              "usWinDescent": 237,
+              "fsSelection": 64
+            }
+          }
+        }
+      ]
+    },
+    {
+      "A": "YAFdJjTk5UU",
+      "C": "Canva Sans",
+      "D": [
+        {
+          "style": "ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-RegularItalic16711881996774813.8dbae49e1280328b442be6dfff163124.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 42500
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-RegularItalic17743241118991377.9908e382b6cacac06c41f2338221730b.woff",
+              "format": "WOFF",
+              "sizeBytes": 56120
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-RegularItalic18430763290797908.267ce2bbd62c7b3a6ed10e033935dda6.ttf",
+              "format": "OTF",
+              "sizeBytes": 124432
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -485,
+              "yMax": 1953
+            },
+            "hhea": {
+              "ascender": 2189,
+              "descender": -600
+            },
+            "os2": {
+              "sTypoAscender": 1567,
+              "sTypoDescender": -492,
+              "sTypoLineGap": 132,
+              "usWinAscent": 2189,
+              "usWinDescent": 600,
+              "fsSelection": 1
+            }
+          }
+        },
+        {
+          "style": "REGULAR",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Regular15263162195051178836.f4.f4a4890561b3fddfd1fd9a1b27b6d4a4.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 40708
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Regular13501930200023714920.52.524aad5b2fc603ca22e7683fe2bd57ad.woff",
+              "format": "WOFF",
+              "sizeBytes": 53272
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Regular9755562880743818424.2de.2de498afbe8ce167560d5df6489c2042.ttf",
+              "format": "OTF",
+              "sizeBytes": 120996
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -485,
+              "yMax": 1953
+            },
+            "hhea": {
+              "ascender": 2189,
+              "descender": -600
+            },
+            "os2": {
+              "sTypoAscender": 1567,
+              "sTypoDescender": -492,
+              "sTypoLineGap": 132,
+              "usWinAscent": 2189,
+              "usWinDescent": 600,
+              "fsSelection": 64
+            }
+          }
+        },
+        {
+          "style": "BOLD_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-BoldItalic12646845404018590449.625cf32ea46ae48b58ebd3ff993de469.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 42876
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-BoldItalic15827235955313088116.8df989c19bad0ae48899c160edc848cc.woff",
+              "format": "WOFF",
+              "sizeBytes": 56332
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-BoldItalic9422701879008791752..e4bfa1ce4b7289012a75164e31bf53cb.ttf",
+              "format": "OTF",
+              "sizeBytes": 124480
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -543,
+              "yMax": 1965
+            },
+            "hhea": {
+              "ascender": 2189,
+              "descender": -600
+            },
+            "os2": {
+              "sTypoAscender": 1567,
+              "sTypoDescender": -492,
+              "sTypoLineGap": 132,
+              "usWinAscent": 2189,
+              "usWinDescent": 600,
+              "fsSelection": 33
+            }
+          }
+        },
+        {
+          "style": "BOLD",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Bold13644182954117137290.33696.33696a29f45c1b554a4c12443b998d21.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 41456
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Bold66750305961478980.99b501a0.99b501a05417cbc1b5836408f47cbf38.woff",
+              "format": "WOFF",
+              "sizeBytes": 54600
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Bold12338993995495434039.af71a.af71aaddb4396e5f746d513b7b12c6be.ttf",
+              "format": "OTF",
+              "sizeBytes": 122344
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -543,
+              "yMax": 1965
+            },
+            "hhea": {
+              "ascender": 2189,
+              "descender": -600
+            },
+            "os2": {
+              "sTypoAscender": 1567,
+              "sTypoDescender": -492,
+              "sTypoLineGap": 132,
+              "usWinAscent": 2189,
+              "usWinDescent": 600,
+              "fsSelection": 32
+            }
+          }
+        },
+        {
+          "style": "MEDIUM_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-MediumItalic.2114be9bf82cd092e.0f2e328113d2888dabe9fb7ff4e2e5bf.ttf",
+              "format": "OTF",
+              "sizeBytes": 125252
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-MediumItalic.2114be9bf82cd092e.e5e43f51d6d7939d8911c861efa5f9b7.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 43356
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-MediumItalic.2114be9bf82cd092e.2de4b160c4d61a6fd6031079a50ec067.woff",
+              "format": "WOFF",
+              "sizeBytes": 56892
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -514,
+              "yMax": 1959
+            },
+            "hhea": {
+              "ascender": 2189,
+              "descender": -600
+            },
+            "os2": {
+              "sTypoAscender": 1567,
+              "sTypoDescender": -492,
+              "sTypoLineGap": 132,
+              "usWinAscent": 2189,
+              "usWinDescent": 600,
+              "fsSelection": 1
+            }
+          }
+        },
+        {
+          "style": "MEDIUM",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Medium.95291d1cd5c6185e00ba590.118364a24c6803ae4026cdb1539432fd.ttf",
+              "format": "OTF",
+              "sizeBytes": 122064
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Medium.95291d1cd5c6185e00ba590.c69c23593c9bd5705c7780a200f2a6db.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 41508
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Medium.95291d1cd5c6185e00ba590.8d9764193508af6a6217424b6142276e.woff",
+              "format": "WOFF",
+              "sizeBytes": 54632
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -514,
+              "yMax": 1959
+            },
+            "hhea": {
+              "ascender": 2189,
+              "descender": -600
+            },
+            "os2": {
+              "sTypoAscender": 1567,
+              "sTypoDescender": -492,
+              "sTypoLineGap": 132,
+              "usWinAscent": 2189,
+              "usWinDescent": 600,
+              "fsSelection": 64
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

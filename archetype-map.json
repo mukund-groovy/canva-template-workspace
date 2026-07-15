@@ -1,8 +1,9 @@
 {
   "_comment": "Maps a Canva design ID to the brand archetype slug (backend/database/carousels/<slug>.html) authored from it. The comparison view and default deliverable use this.",
-  "DAHOxjfy5Mo": "cream-and-orange-2",
-  "DAHOyNQEdgs": "purple-black-modern-3",
-  "DAHO3nrn8r4": "beige-playful-scrapbook-2",
-  "DAHO4Oe5Bbw": "white-and-black",
-  "DAHOyRRg-yQ": "white-purple-gradient"
+  "DAHOrBKyBxs": "purple-minimalist-2",
+  "DAHPRMKHicM": "white-and-black-2",
+  "DAHPbh2bDgU": "gray-and-black",
+  "DAHPbmjary8": "black-and-white-agent",
+  "DAHPbizwZZw": "cream-and-blue",
+  "DAHPVXvX6PM": "read-more-live"
 }

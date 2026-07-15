@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap');
+
+:root{
+  /* recolorable role tokens — a brand swap re-skins paper (surface), the desk
+     backdrop + ink (text-high/primary), and the blue accent scribbles. The
+     illustrated stickers are artwork (like photos) and keep literal fills. */
+  --primary:var(--brand-primary,#2E241D);
+  --secondary:var(--brand-secondary,#7c6a5b);
+  --accent:var(--brand-accent,#1F4FE0);
+  --highlight:var(--brand-accent,#1F4FE0);
+  --bg:var(--brand-bg,#F7F5F1);
+  --surface:var(--brand-surface,#FBFAF7);
+  --text-high:var(--brand-ink,#2E241D);
+  --text-low:var(--brand-text-muted,rgba(46,36,29,.62));
+  --border:var(--brand-border,rgba(46,36,29,.16));
+  --desk:color-mix(in srgb, var(--text-high) 86%, #000);
+}
+*{box-sizing:border-box;}
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+.slide{
+  width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+  background:var(--desk);
+  font-family:'Playfair Display',serif;
+}
+/* ── notebook paper ── */
+.paper{position:absolute;left:24px;top:40px;width:980px;height:1286px;
+  background:var(--surface);border-radius:6px;z-index:0;
+  box-shadow:0 24px 60px rgba(0,0,0,.45), 0 2px 0 rgba(0,0,0,.25);
+  background-image:linear-gradient(180deg, rgba(0,0,0,.015), rgba(0,0,0,0) 8%);}
+.paper::after{content:'';position:absolute;inset:0;border-radius:6px;
+  box-shadow:inset 0 0 60px rgba(46,36,29,.05);}
+/* ── spiral binding ── */
+.binding{position:absolute;top:26px;left:888px;z-index:6;pointer-events:none;
+  filter:drop-shadow(0 4px 4px rgba(0,0,0,.35));}
+
+/* ── generic absolutely-positioned text wrapper ── */
+.tn{position:absolute;z-index:3;}
+.tn>*{margin:0;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;}
+
+/* ── display serif title (condensed Times-style high-contrast) ── */
+.serif-title{
+  font-family:'Playfair Display','Times New Roman',serif;font-weight:900;
+  color:var(--text-high);line-height:.92;letter-spacing:-.5px;
+  -webkit-line-clamp:4;}
+.serif-title .lite{font-weight:700;}
+/* ── section heading serif ── */
+.serif-head{
+  font-family:'Playfair Display','Times New Roman',serif;font-weight:900;
+  color:var(--text-high);line-height:1;letter-spacing:-.4px;
+  display:flex;align-items:center;gap:14px;-webkit-line-clamp:2;}
+.serif-head.rtl{justify-content:flex-end;}
+/* ── handwriting script (subtitle + price tags) ── */
+.script{font-family:'Caveat',cursive;color:var(--text-high);line-height:1.06;
+  -webkit-line-clamp:5;}
+.price{font-family:'Caveat',cursive;font-weight:700;color:var(--text-high);
+  font-size:52px;line-height:1;display:-webkit-box;-webkit-box-orient:vertical;
+  -webkit-line-clamp:2;overflow:hidden;}
+
+/* ── stickers ── */
+.st{position:absolute;z-index:4;filter:drop-shadow(0 6px 7px rgba(0,0,0,.28));}
+.ico{width:1em;height:1em;vertical-align:-.12em;
+  filter:drop-shadow(0 3px 4px rgba(0,0,0,.22));}
+.swash{position:absolute;z-index:3;}
+/* ── dashed scrapbook divider ── */
+.divider{position:absolute;z-index:2;height:0;border-top:3px dashed var(--border);}
+/* ── handwritten price tag ── */
+.tag{position:absolute;z-index:4;transform:rotate(-4deg);}
+.tag .price{color:var(--accent);}
+/* ── decorative taped instant-photo card ── */
+.card{position:absolute;z-index:2;background:var(--surface);padding:16px 16px 40px;
+  border-radius:4px;box-shadow:0 16px 28px rgba(0,0,0,.26);}
+.card .fill{width:100%;height:100%;border-radius:3px;display:flex;align-items:center;justify-content:center;}
+.tape{position:absolute;z-index:5;width:120px;height:34px;left:50%;top:-14px;margin-left:-60px;
+  background:rgba(210,225,235,.55);box-shadow:0 2px 4px rgba(0,0,0,.15);}
+
+/* ── framed product photo (cutout look) ── */
+.photo{position:absolute;z-index:2;background:var(--surface);
+  padding:12px;border-radius:6px;
+  box-shadow:0 14px 26px rgba(0,0,0,.28);}
+.photo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:3px;background:#d8d4cd;}
+.polaroid{padding:14px 14px 46px;}
+
+/* ── brand lockup ── */
+.lockup{position:absolute;z-index:5;display:inline-flex;align-items:center;gap:9px;}
+.brand-mark-clip{height:26px;display:flex;align-items:center;}
+.brand-mark{height:26px;width:auto;max-width:90px;object-fit:contain;display:block;}
+.brand-word{font-family:'Playfair Display',serif;font-weight:700;font-size:22px;
+  letter-spacing:.14em;color:var(--text-low);text-transform:uppercase;white-space:nowrap;}
+</style>
+</head>
+<body>
+
+<!-- ══════════ SVG SPRITE (stickers, product illos, binding pattern) ══════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8f8f93"/>
+      <stop offset=".35" stop-color="#48484b"/>
+      <stop offset=".7" stop-color="#141416"/>
+      <stop offset="1" stop-color="#000"/>
+    </linearGradient>
+    <linearGradient id="mirrorSheen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".85"/>
+      <stop offset=".5" stop-color="#d5e0e6" stop-opacity=".4"/>
+      <stop offset="1" stop-color="#b8c6cd" stop-opacity=".7"/>
+    </linearGradient>
+    <pattern id="coil" width="150" height="72" patternUnits="userSpaceOnUse">
+      <ellipse cx="60" cy="40" rx="7" ry="11" fill="rgba(38,28,22,.5)"/>
+      <ellipse cx="97" cy="46" rx="47" ry="16" transform="rotate(-20 97 46)" fill="none" stroke="rgba(0,0,0,.3)" stroke-width="15"/>
+      <ellipse cx="95" cy="36" rx="47" ry="16" transform="rotate(-20 95 36)" fill="none" stroke="url(#metal)" stroke-width="13"/>
+      <ellipse cx="92" cy="32" rx="47" ry="16" transform="rotate(-20 92 32)" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2.5"/>
+    </pattern>
+
+    <!-- RED BOW -->
+    <symbol id="st-bow" viewBox="0 0 100 100">
+      <path d="M50 52 C31 27 7 33 12 52 C7 71 34 70 50 52Z" fill="#e23b2e" stroke="#2340c8" stroke-width="2.6"/>
+      <path d="M50 52 C69 27 93 33 88 52 C93 71 66 70 50 52Z" fill="#e23b2e" stroke="#2340c8" stroke-width="2.6"/>
+      <path d="M45 55 L31 93 L49 74Z" fill="#c8281c" stroke="#2340c8" stroke-width="2"/>
+      <path d="M55 55 L69 93 L51 74Z" fill="#c8281c" stroke="#2340c8" stroke-width="2"/>
+      <ellipse cx="50" cy="53" rx="9.5" ry="11.5" fill="#e5453a" stroke="#2340c8" stroke-width="2.6"/>
+      <path d="M20 44 C29 40 39 44 45 50" stroke="#ff938a" stroke-width="3" fill="none" stroke-linecap="round" opacity=".75"/>
+      <path d="M80 44 C71 40 61 44 55 50" stroke="#ff938a" stroke-width="3" fill="none" stroke-linecap="round" opacity=".75"/>
+    </symbol>
+
+    <!-- COOKIE -->
+    <symbol id="st-cookie" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="41" fill="#e2ac52"/>
+      <circle cx="50" cy="50" r="41" fill="none" stroke="#c9902f" stroke-width="3"/>
+      <path d="M20 38 A41 41 0 0 1 55 15" fill="none" stroke="#f0c778" stroke-width="6" stroke-linecap="round" opacity=".8"/>
+      <circle cx="36" cy="34" r="6" fill="#4a2c14"/><circle cx="62" cy="30" r="5" fill="#5a361a"/>
+      <circle cx="70" cy="52" r="6" fill="#4a2c14"/><circle cx="46" cy="52" r="5.5" fill="#5a361a"/>
+      <circle cx="34" cy="66" r="5" fill="#4a2c14"/><circle cx="58" cy="70" r="6" fill="#4a2c14"/>
+      <circle cx="50" cy="42" r="3" fill="#3a2210"/><circle cx="26" cy="52" r="3" fill="#3a2210"/>
+    </symbol>
+
+    <!-- ICE-CREAM CONE -->
+    <symbol id="st-icecream" viewBox="0 0 100 100">
+      <path d="M33 47 L67 47 L50 97Z" fill="#d69a52"/>
+      <path d="M40 47 L54 47 M45 60 L60 60 M50 74 L58 74" stroke="#b47d38" stroke-width="2.4" opacity=".7"/>
+      <circle cx="50" cy="38" r="23" fill="#f3a6c0"/>
+      <circle cx="50" cy="38" r="23" fill="none" stroke="#e389a8" stroke-width="2"/>
+      <circle cx="42" cy="30" r="7" fill="#ffd3e2" opacity=".85"/>
+      <circle cx="50" cy="16" r="6" fill="#d5202e"/><rect x="49" y="6" width="2.5" height="7" fill="#5a3a1a"/>
+    </symbol>
+
+    <!-- BALLET / POINTE SHOES -->
+    <symbol id="st-ballet" viewBox="0 0 100 100">
+      <path d="M40 8 C36 26 30 40 26 52" stroke="#d98fc9" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M60 8 C64 26 70 40 74 52" stroke="#d98fc9" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M34 14 C46 22 54 22 66 14" stroke="#c77fbd" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M14 66 C14 52 30 48 42 54 C52 59 50 74 36 78 C24 82 14 78 14 66Z" fill="#cf8fd6"/>
+      <path d="M18 62 C24 56 34 56 40 60" stroke="#efc4ef" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      <path d="M86 66 C86 52 70 48 58 54 C48 59 50 74 64 78 C76 82 86 78 86 66Z" fill="#bd7fce"/>
+      <path d="M82 62 C76 56 66 56 60 60" stroke="#e3b4ef" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".8"/>
+      <circle cx="50" cy="52" r="5" fill="#e7b6ea"/>
+    </symbol>
+
+    <!-- CHERRIES -->
+    <symbol id="st-cherries" viewBox="0 0 100 100">
+      <path d="M52 16 C42 40 33 52 30 64" stroke="#6b4a2a" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <path d="M52 16 C61 38 68 50 72 60" stroke="#6b4a2a" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <path d="M52 16 C66 5 85 9 82 22 C67 27 55 22 52 16Z" fill="#3f9e4d"/>
+      <path d="M55 18 C66 13 76 15 79 20" stroke="#2f7d3a" stroke-width="1.6" fill="none" opacity=".7"/>
+      <circle cx="30" cy="74" r="16" fill="#d5202e"/><circle cx="25" cy="68" r="4.5" fill="#ff9089"/>
+      <circle cx="72" cy="72" r="16" fill="#bd1c28"/><circle cx="67" cy="66" r="4.5" fill="#ff8079"/>
+    </symbol>
+
+    <!-- ROSE -->
+    <symbol id="st-rose" viewBox="0 0 100 100">
+      <path d="M46 62 C58 58 74 66 66 80 C58 88 44 84 44 74Z" fill="#3f9e4d"/>
+      <circle cx="50" cy="46" r="32" fill="#e5305a"/>
+      <path d="M50 46 C50 32 66 34 64 48 C63 60 46 62 40 52 C34 42 46 30 58 34" fill="none" stroke="#b3143f" stroke-width="3"/>
+      <path d="M50 46 C50 38 58 38 58 46 C58 53 46 54 42 47" fill="none" stroke="#c21d49" stroke-width="3"/>
+      <circle cx="50" cy="46" r="6" fill="#a11138"/>
+      <path d="M32 34 C40 28 52 28 60 32" stroke="#ff8aa4" stroke-width="3" fill="none" opacity=".6"/>
+    </symbol>
+
+    <!-- BLUE STAR -->
+    <symbol id="st-star" viewBox="0 0 100 100">
+      <polygon points="50,7 60,37 92,38 66,58 76,90 50,71 24,90 34,58 8,38 40,37" fill="#2f6df0"/>
+      <polygon points="50,20 57,40 78,41 61,54 68,76 50,63 32,76 39,54 22,41 43,40" fill="#4f8bff" opacity=".7"/>
+      <circle cx="50" cy="45" r="5" fill="#bcd4ff"/>
+    </symbol>
+
+    <!-- POLKA HEART -->
+    <symbol id="st-heart" viewBox="0 0 100 100">
+      <path d="M50 86 C8 56 15 20 40 23 C49 24 50 34 50 34 C50 34 51 24 60 23 C85 20 92 56 50 86Z" fill="#e23b5e" stroke="#fff" stroke-width="4"/>
+      <circle cx="38" cy="42" r="4" fill="#fff"/><circle cx="58" cy="40" r="4" fill="#fff"/>
+      <circle cx="48" cy="55" r="4" fill="#fff"/><circle cx="66" cy="55" r="3.5" fill="#fff"/>
+      <circle cx="34" cy="58" r="3.5" fill="#fff"/><circle cx="50" cy="70" r="3.5" fill="#fff"/>
+    </symbol>
+
+    <!-- HANDBAG -->
+    <symbol id="st-handbag" viewBox="0 0 100 100">
+      <path d="M34 48 C34 26 66 26 66 48" fill="none" stroke="#a86274" stroke-width="7" stroke-linecap="round"/>
+      <rect x="22" y="46" width="56" height="40" rx="9" fill="#e7b4c4"/>
+      <path d="M22 58 H78" stroke="#cf94a6" stroke-width="3"/>
+      <rect x="45" y="52" width="10" height="9" rx="2.5" fill="#b56b82"/>
+    </symbol>
+
+    <!-- POLKA DRESS -->
+    <symbol id="st-dress" viewBox="0 0 100 100">
+      <path d="M40 16 L50 24 L60 16" fill="none" stroke="#c98aa8" stroke-width="4" stroke-linecap="round"/>
+      <path d="M38 20 C40 34 34 40 28 86 C44 92 56 92 72 86 C66 40 60 34 62 20 C54 28 46 28 38 20Z" fill="#e79ab8"/>
+      <path d="M38 20 C46 28 54 28 62 20" fill="none" stroke="#cf7fa0" stroke-width="2.5"/>
+      <path d="M33 52 C46 58 54 58 67 52" fill="none" stroke="#d98cae" stroke-width="3"/>
+      <g fill="#fff" opacity=".8"><circle cx="44" cy="44" r="2.5"/><circle cx="56" cy="48" r="2.5"/><circle cx="48" cy="66" r="2.5"/><circle cx="60" cy="70" r="2.5"/><circle cx="40" cy="72" r="2.2"/></g>
+    </symbol>
+
+    <!-- BLUE SCRIBBLE BURST -->
+    <symbol id="st-scribble" viewBox="0 0 60 60">
+      <g stroke="#1f4fe0" stroke-width="6" fill="none" stroke-linecap="round">
+        <path d="M8 40 Q18 34 25 32"/>
+        <path d="M16 12 Q24 24 28 34"/>
+        <path d="M40 10 Q34 22 31 33"/>
+      </g>
+    </symbol>
+
+    <!-- BLUE UNDERLINE SWASH -->
+    <symbol id="sw-underline" viewBox="0 0 200 34">
+      <path d="M6 14 Q90 2 194 12" stroke="#1f4fe0" stroke-width="7.5" fill="none" stroke-linecap="round"/>
+      <path d="M12 27 Q96 16 188 28" stroke="#1f4fe0" stroke-width="6" fill="none" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- PRODUCT: DOG KEYCHAIN CHARM -->
+    <symbol id="pr-keychain" viewBox="0 0 100 130">
+      <circle cx="72" cy="16" r="11" fill="none" stroke="#d9a441" stroke-width="6"/>
+      <path d="M64 24 L54 40" stroke="#d9a441" stroke-width="6" stroke-linecap="round"/>
+      <rect x="44" y="38" width="16" height="10" rx="4" fill="#c9962f"/>
+      <ellipse cx="42" cy="86" rx="30" ry="34" fill="#ece1c6"/>
+      <ellipse cx="42" cy="86" rx="30" ry="34" fill="none" stroke="#d8c89f" stroke-width="2"/>
+      <path d="M18 66 C10 60 8 78 20 80Z" fill="#e6d9b4"/><path d="M66 66 C74 60 76 78 64 80Z" fill="#e6d9b4"/>
+      <path d="M24 96 C30 120 54 120 60 96 Z" fill="#f0b8cf"/>
+      <circle cx="34" cy="80" r="3.4" fill="#3a2a1a"/><circle cx="50" cy="80" r="3.4" fill="#3a2a1a"/>
+      <circle cx="42" cy="90" r="3" fill="#c98b6a"/>
+      <g fill="#fff" opacity=".9"><circle cx="30" cy="70" r="2"/><circle cx="54" cy="72" r="2"/><circle cx="42" cy="66" r="2"/><circle cx="26" cy="86" r="1.8"/><circle cx="58" cy="88" r="1.8"/><circle cx="42" cy="104" r="2"/></g>
+    </symbol>
+
+    <!-- PRODUCT: TULIPS IN VASE -->
+    <symbol id="pr-tulips" viewBox="0 0 120 150">
+      <g stroke="#3f8f45" stroke-width="5" fill="none" stroke-linecap="round">
+        <path d="M60 92 L44 54"/><path d="M60 96 L60 50"/><path d="M60 92 L78 56"/><path d="M60 94 L30 66"/><path d="M60 94 L90 66"/>
+      </g>
+      <path d="M40 40 C36 52 52 54 48 40 C46 34 42 34 40 40Z" fill="#d63a55"/>
+      <path d="M58 34 C54 48 70 50 66 34 C64 28 60 28 58 34Z" fill="#8e3fb0"/>
+      <path d="M78 40 C74 52 90 54 86 40 C84 34 80 34 78 40Z" fill="#e05a2a"/>
+      <path d="M26 56 C22 68 38 70 34 56 C32 50 28 50 26 56Z" fill="#c22d6a"/>
+      <path d="M92 56 C88 68 104 70 100 56 C98 50 94 50 92 56Z" fill="#7d3fa8"/>
+      <path d="M34 92 L86 92 L78 140 L42 140Z" fill="rgba(180,205,220,.5)" stroke="rgba(120,150,170,.7)" stroke-width="2"/>
+      <path d="M40 92 L46 130 M60 92 L60 132 M80 92 L74 130" stroke="rgba(90,130,90,.5)" stroke-width="3"/>
+      <path d="M36 104 L84 104" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+    </symbol>
+
+    <!-- PRODUCT: ROUND MIRROR -->
+    <symbol id="pr-mirror" viewBox="0 0 100 130">
+      <circle cx="50" cy="50" r="42" fill="#c8a24a"/>
+      <circle cx="50" cy="50" r="35" fill="#e7eef2"/>
+      <circle cx="50" cy="50" r="35" fill="url(#mirrorSheen)"/>
+      <rect x="46" y="88" width="8" height="34" rx="3" fill="#b8933f"/>
+    </symbol>
+
+    <!-- PRODUCT: SANDAL -->
+    <symbol id="pr-sandal" viewBox="0 0 120 90">
+      <path d="M12 66 C40 74 84 72 106 64 C112 62 112 74 104 78 C80 86 34 86 16 78 C8 74 8 66 12 66Z" fill="#c98a5a"/>
+      <path d="M100 64 C104 46 96 40 92 58" fill="none" stroke="#a86c3e" stroke-width="6" stroke-linecap="round"/>
+      <path d="M28 66 C40 44 64 44 78 62" fill="none" stroke="#e2b07e" stroke-width="7" stroke-linecap="round"/>
+      <path d="M40 64 C50 50 64 50 72 62" fill="none" stroke="#d59a63" stroke-width="6" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- PRODUCT: CAKE SLICE -->
+    <symbol id="pr-cake" viewBox="0 0 120 100">
+      <path d="M20 40 L100 40 L86 84 L34 84Z" fill="#f6e2c0"/>
+      <path d="M20 40 L100 40 L96 52 L24 52Z" fill="#f9b8c4"/>
+      <path d="M24 52 L96 52 L93 62 L27 62Z" fill="#f6e2c0"/>
+      <path d="M27 62 L93 62 L90 72 L30 72Z" fill="#e79ab0"/>
+      <path d="M40 30 C40 20 56 20 56 30" fill="#f7c9d6"/>
+      <circle cx="48" cy="24" r="6" fill="#d5202e"/>
+      <path d="M34 84 L86 84 L84 90 L36 90Z" fill="#e6cfa6"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="ig-carousel">
+
+  <!-- ══════════ SLIDE 1 — COVER ══════════ -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="paper"></div>
+    <svg class="binding" width="150" height="1300" viewBox="0 0 150 1300"><rect width="150" height="1300" fill="url(#coil)"/></svg>
+
+    <svg class="st" style="left:58px;top:80px;width:118px;height:118px;transform:rotate(-9deg)"><use href="#st-bow"/></svg>
+    <svg class="st" style="left:688px;top:96px;width:116px;height:116px;transform:rotate(7deg)"><use href="#st-cookie"/></svg>
+    <svg class="st" style="left:790px;top:252px;width:90px;height:142px;transform:rotate(6deg)"><use href="#st-icecream"/></svg>
+    <svg class="st" style="left:92px;top:1076px;width:126px;height:156px;transform:rotate(-7deg)"><use href="#st-ballet"/></svg>
+    <svg class="st" style="left:702px;top:1122px;width:132px;height:122px;transform:rotate(6deg)"><use href="#st-cherries"/></svg>
+
+    <div class="lockup" style="left:345px;top:236px;">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span>
+      <span class="brand-word">YOURBRAND</span>
+    </div>
+
+    <div class="tn" style="left:70px;top:372px;width:770px;">
+      <h1 class="serif-title" data-title="true" style="font-size:104px;text-align:center;">Everything <span class="lite">I</span><br>bought from<br>the fair</h1>
+    </div>
+    <svg class="swash" style="left:250px;top:690px;width:410px;height:44px"><use href="#sw-underline"/></svg>
+
+    <div class="tn" style="left:110px;top:788px;width:690px;">
+      <p class="script" data-message="true" style="font-size:56px;text-align:center;">Here's a peek into my impulsive (but worth it) mini haul from the fair last weekend!</p>
+    </div>
+  </section>
+
+  <!-- ══════════ SLIDE 2 — DECORS / THRIFTED FINDS ══════════ -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="paper"></div>
+    <svg class="binding" width="150" height="1300" viewBox="0 0 150 1300"><rect width="150" height="1300" fill="url(#coil)"/></svg>
+
+    <!-- ── Decors (top) ── -->
+    <div class="tn" style="left:80px;top:96px;width:660px;">
+      <h2 class="serif-head" data-title="true" style="font-size:92px;">Decors <svg class="ico" style="width:70px;height:70px"><use href="#st-bow"/></svg></h2>
+    </div>
+
+    <svg class="st" style="left:150px;top:250px;width:200px;height:250px;transform:rotate(-4deg)"><use href="#pr-tulips"/></svg>
+    <svg class="st" style="left:410px;top:296px;width:150px;height:195px;transform:rotate(6deg)"><use href="#pr-mirror"/></svg>
+    <svg class="st" style="left:660px;top:280px;width:104px;height:104px;transform:rotate(9deg)"><use href="#st-rose"/></svg>
+
+    <div class="tag" style="left:174px;top:510px;"><span class="price">₱30</span></div>
+    <div class="tn" style="left:430px;top:512px;width:260px;">
+      <p class="script" data-message="true" style="font-size:48px;">Got this for ₱250</p>
+    </div>
+
+    <div class="divider" style="left:100px;top:664px;width:680px;"></div>
+
+    <!-- ── Thrifted finds (bottom) ── -->
+    <div class="tn" style="left:80px;top:724px;width:720px;">
+      <h2 class="serif-head" data-title="true" style="font-size:88px;">Thrifted finds <svg class="ico" style="width:64px;height:64px"><use href="#st-handbag"/></svg></h2>
+    </div>
+
+    <svg class="st" style="left:190px;top:892px;width:196px;height:196px;transform:rotate(-5deg)"><use href="#st-handbag"/></svg>
+    <svg class="st" style="left:436px;top:936px;width:96px;height:96px;transform:rotate(9deg)"><use href="#st-heart"/></svg>
+    <svg class="st" style="left:606px;top:900px;width:96px;height:96px;transform:rotate(-7deg)"><use href="#st-star"/></svg>
+    <div class="tag" style="left:238px;top:1098px;"><span class="price">₱599</span></div>
+
+    <div class="lockup" style="left:70px;bottom:34px;"><span class="brand-word">YOURBRAND</span></div>
+  </section>
+
+  <!-- ══════════ SLIDE 3 — CLOTHES / SANDALS ══════════ -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="paper"></div>
+    <svg class="binding" width="150" height="1300" viewBox="0 0 150 1300"><rect width="150" height="1300" fill="url(#coil)"/></svg>
+
+    <!-- ── Clothes (top) ── -->
+    <div class="tn" style="left:80px;top:96px;width:660px;">
+      <h2 class="serif-head" data-title="true" style="font-size:92px;">Clothes <svg class="ico" style="width:68px;height:68px"><use href="#st-dress"/></svg></h2>
+    </div>
+
+    <svg class="st" style="left:170px;top:254px;width:200px;height:250px;transform:rotate(-5deg)"><use href="#st-dress"/></svg>
+    <svg class="st" style="left:660px;top:266px;width:104px;height:104px;transform:rotate(8deg)"><use href="#st-bow"/></svg>
+
+    <div class="tn" style="left:420px;top:296px;width:250px;">
+      <p class="script" data-message="true" style="font-size:48px;">This set for ₱599</p>
+    </div>
+    <div class="tag" style="left:436px;top:470px;"><span class="price">₱350</span></div>
+
+    <div class="divider" style="left:100px;top:664px;width:680px;"></div>
+
+    <!-- ── Sandals (bottom) ── -->
+    <div class="tn" style="left:80px;top:724px;width:660px;">
+      <h2 class="serif-head" data-title="true" style="font-size:92px;">Sandals <svg class="ico" style="width:66px;height:66px"><use href="#st-heart"/></svg></h2>
+    </div>
+
+    <svg class="st" style="left:180px;top:900px;width:250px;height:188px;transform:rotate(-4deg)"><use href="#pr-sandal"/></svg>
+    <svg class="st" style="left:640px;top:912px;width:120px;height:112px;transform:rotate(7deg)"><use href="#st-cherries"/></svg>
+    <div class="tag" style="left:236px;top:1098px;"><span class="price">₱779</span></div>
+
+    <div class="lockup" style="left:70px;bottom:34px;"><span class="brand-word">YOURBRAND</span></div>
+  </section>
+
+  <!-- ══════════ SLIDE 4 — FOOD / MORE FOOD ══════════ -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="paper"></div>
+    <svg class="binding" width="150" height="1300" viewBox="0 0 150 1300"><rect width="150" height="1300" fill="url(#coil)"/></svg>
+
+    <!-- ── Food (top) ── -->
+    <div class="tn" style="left:80px;top:96px;width:600px;">
+      <h2 class="serif-head" data-title="true" style="font-size:92px;">Food <svg class="ico" style="width:66px;height:66px"><use href="#st-cherries"/></svg></h2>
+    </div>
+
+    <svg class="st" style="left:150px;top:262px;width:210px;height:172px;transform:rotate(-4deg)"><use href="#pr-cake"/></svg>
+    <svg class="st" style="left:400px;top:250px;width:104px;height:104px;transform:rotate(7deg)"><use href="#st-cookie"/></svg>
+    <svg class="st" style="left:560px;top:240px;width:88px;height:138px;transform:rotate(-6deg)"><use href="#st-icecream"/></svg>
+
+    <div class="tn" style="left:170px;top:452px;width:280px;">
+      <p class="script" data-message="true" style="font-size:48px;">Yummy for ₱435</p>
+    </div>
+    <div class="tag" style="left:520px;top:456px;"><span class="price">₱250</span></div>
+
+    <div class="divider" style="left:100px;top:664px;width:680px;"></div>
+
+    <!-- ── & more food (bottom) ── -->
+    <div class="tn" style="left:80px;top:724px;width:680px;">
+      <h2 class="serif-head" data-title="true" style="font-size:88px;">&amp; more food <svg class="ico" style="width:64px;height:64px"><use href="#pr-cake"/></svg></h2>
+    </div>
+
+    <svg class="st" style="left:180px;top:900px;width:200px;height:164px;transform:rotate(-4deg)"><use href="#pr-cake"/></svg>
+    <svg class="st" style="left:430px;top:920px;width:104px;height:104px;transform:rotate(8deg)"><use href="#st-cookie"/></svg>
+    <div class="tag" style="left:600px;top:952px;"><span class="price">₱100</span></div>
+
+    <div class="lockup" style="left:70px;bottom:34px;"><span class="brand-word">YOURBRAND</span></div>
+  </section>
+
+  <!-- ══════════ SLIDE 5 — BEHIND THE SCENES ══════════ -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="paper"></div>
+    <svg class="binding" width="150" height="1300" viewBox="0 0 150 1300"><rect width="150" height="1300" fill="url(#coil)"/></svg>
+
+    <div class="tn" style="left:80px;top:110px;width:720px;">
+      <h2 class="serif-head" data-title="true" style="font-size:92px;">Behind the scenes <svg class="ico" style="width:66px;height:66px"><use href="#st-star"/></svg></h2>
+    </div>
+
+    <!-- decorative taped scrapbook cards (no photos in this deck) -->
+    <div class="card" style="left:150px;top:340px;width:330px;height:390px;transform:rotate(-3deg);">
+      <div class="tape"></div>
+      <div class="fill" style="background:#f7dbe4;">
+        <svg style="width:170px;height:140px"><use href="#pr-cake"/></svg>
+      </div>
+    </div>
+    <div class="card" style="left:520px;top:520px;width:300px;height:360px;transform:rotate(4deg);z-index:3;">
+      <div class="tape" style="background:rgba(235,220,205,.6)"></div>
+      <div class="fill" style="background:#dde7f2;">
+        <svg style="width:150px;height:180px"><use href="#pr-mirror"/></svg>
+      </div>
+    </div>
+
+    <svg class="st" style="left:502px;top:250px;width:96px;height:96px;transform:rotate(8deg)"><use href="#st-rose"/></svg>
+    <svg class="st" style="left:110px;top:800px;width:118px;height:146px;transform:rotate(-7deg)"><use href="#st-ballet"/></svg>
+    <svg class="st" style="left:766px;top:1030px;width:126px;height:116px;transform:rotate(6deg)"><use href="#st-cherries"/></svg>
+    <svg class="st" style="left:150px;top:1056px;width:108px;height:108px;transform:rotate(-6deg)"><use href="#st-cookie"/></svg>
+    <svg class="st" style="left:360px;top:1058px;width:100px;height:100px;transform:rotate(10deg)"><use href="#st-star"/></svg>
+
+    <div class="tn" style="left:150px;top:1188px;width:600px;">
+      <p class="script" data-cta="true" data-message="true" style="font-size:56px;">Follow along for more!</p>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

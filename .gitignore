@@ -34,3 +34,12 @@ designs/*/extract/assets/download-manifest.json
 # generated slot photos (large, regenerable)
 output/.slot-images/
 *.imagelock
+
+# session render artifacts + comparison boards (temp)
+output/.agent/
+output/.hand/
+output/.worker/
+output/_compare*.html
+output/_recolor*
+output/_slide-*
+output/hand-*.html

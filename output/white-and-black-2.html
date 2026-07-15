@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Oswald:wght@400;500;600&display=swap');
+
+  :root{
+    --primary:var(--brand-primary,#2E5BE6);
+    --secondary:var(--brand-secondary,#4FA8E8);
+    --accent:var(--brand-accent,#E8541E);
+    --highlight:var(--brand-highlight,#4FA8E8);
+    --bg:var(--brand-bg,#F7F7F5);
+    --surface:var(--brand-surface,#FFFFFF);
+    --text-high:var(--brand-ink,var(--brand-text,#111111));
+    --text-low:var(--brand-text-muted,rgba(17,17,17,.62));
+    --border:var(--brand-border,rgba(17,17,17,.14));
+  }
+
+  *{box-sizing:border-box;}
+
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg,#F7F7F5);
+    font-family:'Oswald',sans-serif;
+  }
+
+  /* faint graph grid */
+  .grid{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(var(--border,rgba(17,17,17,.06)) 1px,transparent 1px),
+      linear-gradient(90deg,var(--border,rgba(17,17,17,.06)) 1px,transparent 1px);
+    background-size:108px 108px;opacity:.5;}
+
+  /* top chrome */
+  .chrome{position:absolute;top:96px;left:110px;right:110px;z-index:5;display:flex;justify-content:space-between;align-items:center;}
+  .chrome .brand-word{font-family:'Oswald',sans-serif;font-weight:500;font-size:33px;letter-spacing:.06em;color:var(--text-high,#111);text-transform:uppercase;}
+  .chrome .cslot{font-family:'Oswald',sans-serif;font-weight:500;font-size:33px;letter-spacing:.06em;color:var(--text-high,#111);text-transform:uppercase;}
+  .brand-mark{height:33px;width:auto;max-width:60px;object-fit:contain;display:none;}
+
+  /* node handles */
+  .node{position:absolute;z-index:2;width:96px;height:72px;pointer-events:none;}
+  .node span{position:absolute;width:16px;height:16px;background:var(--text-high,#111);}
+  .node .l{border:2px solid var(--text-high,#111);left:0;top:0;right:0;bottom:0;width:auto;height:auto;background:transparent;}
+  .node .a{left:-8px;top:-8px;}
+  .node .b{right:-8px;top:-8px;}
+  .node .c{left:-8px;bottom:-8px;}
+  .node .d{right:-8px;bottom:-8px;}
+
+  .cursor{position:absolute;z-index:4;width:48px;height:56px;color:var(--text-high,#111);}
+
+  /* pills */
+  .pill{position:absolute;z-index:6;display:inline-flex;align-items:center;justify-content:center;
+    font-family:'Playfair Display',serif;font-weight:700;text-transform:capitalize;border-radius:40px;padding:12px 26px;white-space:nowrap;line-height:1;}
+  .pill.p-blue{background:var(--primary,#2E5BE6);color:#fff;}
+  .pill.p-light{background:var(--highlight,#4FA8E8);color:#fff;}
+  .ribbon{position:absolute;z-index:6;display:inline-flex;align-items:center;justify-content:center;
+    background:var(--accent,#E8541E);color:#fff;font-family:'Playfair Display',serif;font-weight:700;
+    padding:14px 28px;border-radius:8px;white-space:nowrap;line-height:1;}
+
+  /* headline */
+  .tn-title{position:absolute;z-index:3;}
+  .tn-title h1{margin:0;font-family:'Playfair Display',serif;font-weight:700;color:var(--text-high,#111);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:10px;}
+
+  .tn-body{position:absolute;z-index:3;}
+  .tn-body p{margin:0;font-family:'Oswald',sans-serif;font-weight:400;text-transform:uppercase;line-height:1.2;
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:6px;}
+
+  /* folder panels */
+  .folder{position:absolute;z-index:2;border-radius:24px;}
+  .tab{position:absolute;z-index:2;border-radius:18px 18px 0 0;display:flex;align-items:center;padding:0 26px;}
+  .tab span{font-family:'Playfair Display',serif;font-weight:700;color:#fff;line-height:1;}
+
+  .foot{position:absolute;left:110px;right:110px;bottom:60px;z-index:5;display:flex;justify-content:space-between;}
+  .foot p{margin:0;font-family:'Oswald',sans-serif;font-weight:500;text-transform:uppercase;color:var(--text-high,#111);line-height:1.2;}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- ===== SLIDE 1 — COVER ===== -->
+  <section class="slide" data-cg-slide-type="cover">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="chrome">
+      <span class="brand-word" data-tagline="true">YOURBRAND</span>
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/>
+      <span class="cslot" data-kicker="true">Content Creator</span>
+    </div>
+
+    <div class="node" style="right:130px;top:180px;width:120px;height:80px;"><span class="l"></span><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span></div>
+
+    <div class="tn-title" style="left:110px;top:290px;width:700px;">
+      <h1 data-title="true" style="font-size:150px;line-height:.92;-webkit-line-clamp:5;">How to <i>Become</i> a Content Creator</h1>
+    </div>
+
+    <span class="pill p-blue" style="right:130px;top:310px;font-size:26px;">Content Creator</span>
+    <span class="ribbon" style="right:130px;top:990px;font-size:26px;transform:rotate(-8deg);">Turn ideas into impact</span>
+    <span class="pill p-light" style="right:150px;top:1200px;font-size:26px;background:var(--primary,#2E5BE6);">Next Slide</span>
+
+    <svg class="cursor" style="right:180px;top:470px;" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 2l16 8-7 2 4 8-3 1-4-8-6 5z"/></svg>
+
+    <div class="tn-body" style="left:110px;bottom:150px;width:430px;">
+      <p data-message="true" style="font-size:33px;-webkit-line-clamp:2;">Start small. Stay consistent. Grow big.</p>
+    </div>
+    <div class="tn-body" style="right:110px;bottom:150px;width:290px;text-align:right;">
+      <span data-cta="true" style="display:block;font-family:'Oswald',sans-serif;font-weight:600;font-size:33px;text-transform:uppercase;color:var(--text-high,#111);line-height:1.2;">Start now, improve later.</span>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 2 — POINT ===== -->
+  <section class="slide" data-cg-slide-type="point">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="chrome">
+      <span class="brand-word">YOURBRAND</span>
+      <span class="cslot" data-kicker="true">#Content1 / #Content2</span>
+    </div>
+
+    <div class="tn-title" style="left:110px;top:250px;width:864px;">
+      <h1 data-title="true" style="font-size:130px;line-height:.95;-webkit-line-clamp:1;">Be <i>Consistent</i></h1>
+    </div>
+
+    <div class="node" style="left:40px;top:460px;"><span class="l"></span><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span></div>
+    <div class="node" style="left:40px;bottom:110px;"><span class="l"></span><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span></div>
+
+    <!-- back blue panel -->
+    <div class="tab" style="left:170px;top:490px;width:250px;height:56px;background:var(--primary,#2E5BE6);"><span style="font-size:44px;">#Content1</span></div>
+    <div class="folder" style="left:170px;top:540px;width:810px;height:110px;background:var(--primary,#2E5BE6);"></div>
+    <span class="pill p-light" style="right:130px;top:490px;background:var(--accent,#E8541E);font-size:26px;">Next Slide</span>
+
+    <!-- front light panel -->
+    <div class="tab" style="left:130px;top:600px;width:250px;height:56px;background:var(--primary,#2E5BE6);"><span style="font-size:44px;">#Content2</span></div>
+    <div class="folder" style="left:130px;top:650px;width:820px;height:540px;background:var(--primary,#2E5BE6);"></div>
+
+    <div class="tn-body" style="left:180px;top:700px;width:720px;text-align:center;">
+      <p data-message="true" style="font-size:38px;color:#fff;-webkit-line-clamp:11;">You don't need to post every day — but you must show up regularly. Create a simple schedule you can follow (3–4 times/week).</p>
+    </div>
+
+    <svg class="cursor" style="right:230px;bottom:210px;color:#fff;" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 2l16 8-7 2 4 8-3 1-4-8-6 5z"/></svg>
+  </section>
+
+  <!-- ===== SLIDE 3 — POINT ===== -->
+  <section class="slide" data-cg-slide-type="point">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="chrome">
+      <span class="brand-word">YOURBRAND</span>
+      <span class="cslot" data-kicker="true">#Content3 / #Content4</span>
+    </div>
+
+    <div class="tn-title" style="left:108px;top:180px;width:864px;text-align:center;">
+      <h1 data-title="true" style="font-size:130px;line-height:.98;-webkit-line-clamp:2;">Storytelling <i>Matters</i></h1>
+    </div>
+
+    <div class="node" style="left:40px;top:400px;"><span class="l"></span><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span></div>
+    <div class="node" style="right:40px;top:400px;"><span class="l"></span><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span></div>
+
+    <div class="tab" style="left:170px;top:590px;width:250px;height:56px;background:var(--primary,#2E5BE6);"><span style="font-size:44px;">#Content3</span></div>
+    <div class="folder" style="left:170px;top:640px;width:810px;height:110px;background:var(--primary,#2E5BE6);"></div>
+
+    <div class="tab" style="left:130px;top:700px;width:250px;height:56px;background:var(--primary,#2E5BE6);"><span style="font-size:44px;">#Content4</span></div>
+    <div class="folder" style="left:130px;top:750px;width:820px;height:490px;background:var(--primary,#2E5BE6);"></div>
+    <span class="pill p-light" style="right:200px;top:700px;background:var(--accent,#E8541E);font-size:26px;">Next Slide</span>
+
+    <div class="tn-body" style="left:190px;top:830px;width:700px;text-align:center;">
+      <p data-message="true" style="font-size:38px;color:#fff;-webkit-line-clamp:8;">People don't connect with content — they connect with stories. Share your process, failures, lessons, and behind-the-scenes moments.</p>
+    </div>
+
+    <svg class="cursor" style="right:200px;bottom:250px;color:#fff;" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 2l16 8-7 2 4 8-3 1-4-8-6 5z"/></svg>
+  </section>
+
+  <!-- ===== SLIDE 4 — TWO FOLDER COLUMNS ===== -->
+  <section class="slide" data-cg-slide-type="point">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="chrome">
+      <span class="brand-word">YOURBRAND</span>
+      <span class="cslot" data-kicker="true">#Content5 / #Content6</span>
+    </div>
+
+    <div class="tn-title" style="left:108px;top:180px;width:864px;text-align:center;">
+      <h1 data-title="true" style="font-size:130px;line-height:.98;-webkit-line-clamp:2;">Analyze &amp; <i>Improve</i></h1>
+    </div>
+
+    <div class="node" style="left:40px;top:400px;"><span class="l"></span><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span></div>
+    <div class="node" style="right:40px;top:400px;"><span class="l"></span><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span></div>
+
+    <!-- left folder -->
+    <div class="tab" style="left:110px;top:600px;width:150px;height:40px;background:var(--primary,#2E5BE6);"></div>
+    <div class="folder" style="left:110px;top:640px;width:390px;height:290px;background:var(--primary,#2E5BE6);"></div>
+    <div class="tn-body" style="left:110px;top:740px;width:390px;text-align:center;">
+      <span style="display:block;font-family:'Playfair Display',serif;font-weight:700;text-transform:none;font-size:54px;color:#fff;line-height:1.14;">#Content5</span>
+    </div>
+
+    <!-- right folder -->
+    <div class="tab" style="left:580px;top:600px;width:150px;height:40px;background:var(--primary,#2E5BE6);"></div>
+    <div class="folder" style="left:580px;top:640px;width:390px;height:290px;background:var(--primary,#2E5BE6);"></div>
+    <div class="tn-body" style="left:580px;top:740px;width:390px;text-align:center;">
+      <span style="display:block;font-family:'Playfair Display',serif;font-weight:700;text-transform:none;font-size:54px;color:#fff;line-height:1.14;">#Content6</span>
+    </div>
+    <span class="pill p-light" style="right:150px;top:870px;background:var(--accent,#E8541E);font-size:26px;">Next Slide</span>
+
+    <div class="tn-body" style="left:143px;top:990px;width:794px;text-align:center;">
+      <p data-message="true" style="font-size:33px;color:var(--text-high,#111);-webkit-line-clamp:3;">Check what performs well — keep doing more of it. Check what doesn't — adjust and improve.</p>
+    </div>
+
+    <div class="foot">
+      <p data-cta="true" style="font-size:33px;font-weight:600;">Data is your best teacher.</p>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 5 — CLOSER ===== -->
+  <section class="slide" data-cg-slide-type="closer">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="chrome">
+      <span class="brand-word">YOURBRAND</span>
+      <span class="cslot" data-kicker="true">Content Creator</span>
+    </div>
+
+    <div class="tn-title" style="left:110px;top:290px;width:626px;">
+      <h1 data-title="true" style="font-size:170px;line-height:.9;-webkit-line-clamp:1;">Thank</h1>
+    </div>
+    <div class="tn-title" style="left:110px;top:620px;width:626px;">
+      <span style="display:block;margin:0;font-family:'Playfair Display',serif;font-weight:700;color:var(--text-high,#111);font-size:170px;line-height:.9;">You</span>
+    </div>
+
+    <div class="node" style="right:130px;top:320px;"><span class="l"></span><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span></div>
+    <div class="node" style="right:120px;top:500px;width:200px;"><span class="l"></span><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span></div>
+
+    <span class="ribbon" style="left:120px;top:500px;font-size:30px;border-radius:40px;padding:16px 34px;" data-cta="true">For Your Support</span>
+    <span class="pill p-blue" style="left:490px;top:700px;font-size:26px;">Content Creator</span>
+    <span class="pill p-blue" style="left:530px;top:800px;font-size:26px;">Follow Us!</span>
+
+    <svg class="cursor" style="left:790px;top:870px;" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 2l16 8-7 2 4 8-3 1-4-8-6 5z"/></svg>
+
+    <div class="tn-body" style="left:110px;top:990px;width:626px;">
+      <p data-message="true" style="font-size:33px;color:var(--text-high,#111);-webkit-line-clamp:2;">You don't need expensive gear. You just need courage to begin.</p>
+    </div>
+
+    <div class="foot">
+      <p style="font-size:33px;font-weight:500;">Content Creator</p>
+      <p style="font-size:33px;font-weight:500;">YOURBRAND</p>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

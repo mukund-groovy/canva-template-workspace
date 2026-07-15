@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600;700&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#6A2BE0);
+  --secondary:var(--brand-secondary,#4E1CB0);
+  --accent:var(--brand-accent,#6A2BE0);
+  --highlight:var(--brand-highlight,#6A2BE0);
+  --bg:var(--brand-bg,#F1F1F1);
+  --surface:var(--brand-surface,#C9AEF5);
+  --text-high:var(--brand-ink,var(--brand-text,#1A1A1A));
+  --text-low:var(--brand-text-muted,rgba(26,26,26,.6));
+  --border:var(--brand-border,rgba(26,26,26,.14));
+}
+
+*{box-sizing:border-box;}
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+.slide{
+  width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+  background:var(--bg);font-family:'Inter',sans-serif;
+}
+
+/* top row */
+.topbar{position:absolute;top:64px;left:80px;right:80px;z-index:5;display:flex;align-items:center;justify-content:space-between;}
+.lockup{display:inline-flex;align-items:center;gap:14px;}
+.brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+.brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+.brand-word{font-family:'Inter',sans-serif;font-weight:600;font-size:24px;color:var(--text-high);white-space:nowrap;letter-spacing:.01em;}
+.idx{font-family:'Inter',sans-serif;font-weight:700;font-size:24px;color:var(--primary);letter-spacing:.02em;}
+
+/* footer divider */
+.footer{position:absolute;left:80px;right:80px;bottom:60px;z-index:5;}
+.foot-rule{position:absolute;left:0;right:0;top:-24px;height:2px;background:var(--border);}
+.foot-web{position:absolute;left:0;bottom:0;font-family:'Inter',sans-serif;font-weight:400;font-style:italic;font-size:20px;color:var(--text-low);}
+.foot-cta{position:absolute;right:0;bottom:0;font-family:'Inter',sans-serif;font-weight:700;font-size:22px;letter-spacing:.06em;color:var(--text-high);}
+
+/* kicker */
+.tn-kicker{position:absolute;left:80px;z-index:4;}
+.tn-kicker span{
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:22px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--primary);padding-bottom:3px;
+}
+
+/* headlines */
+.tn-title{position:absolute;left:80px;right:80px;z-index:4;}
+.tn-title h1{
+  margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.02em;
+  color:var(--text-high);line-height:1.02;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;padding-bottom:10px;
+}
+.hl{background:var(--highlight);color:#FFFFFF;padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+
+/* cover lead-in strip */
+.lead-strip{position:absolute;left:80px;right:80px;z-index:3;height:2px;background:var(--primary);}
+.tn-lead{position:absolute;left:80px;right:80px;z-index:4;}
+.tn-lead p{
+  margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:42px;line-height:1.4;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:6px;
+}
+
+/* cover meta card */
+.cover-card{position:absolute;left:80px;z-index:3;background:var(--surface);border-radius:26px;border:2px solid var(--primary);display:flex;align-items:center;gap:26px;padding:0 40px;}
+.cover-card svg{flex:none;width:52px;height:52px;color:var(--primary);}
+.cover-card span{font-family:'Inter',sans-serif;font-weight:700;font-size:28px;color:#1A1A1A;line-height:1.2;}
+
+/* panels */
+.panel{
+  position:absolute;left:80px;right:80px;z-index:3;background:var(--surface);
+  border-radius:26px;box-shadow:0 20px 44px rgba(26,26,26,.22);border:2px solid var(--primary);
+}
+.tn-body{position:absolute;z-index:4;}
+.tn-body p{
+  margin:0;font-family:'Inter',sans-serif;font-weight:400;color:#1A1A1A;
+  display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;
+}
+.tn-body b{font-weight:700;}
+
+/* pull-quote mark inside panel */
+.panel-quote{position:absolute;z-index:4;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:140px;line-height:.7;color:var(--primary);opacity:.3;}
+
+/* list rows */
+.lrow{position:absolute;left:0;right:0;z-index:4;}
+.lcard{position:absolute;left:44px;right:44px;z-index:4;background:rgba(255,255,255,.42);border-radius:18px;border:2px solid var(--primary);display:flex;align-items:center;gap:0;}
+.lnum{position:absolute;left:44px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:56px;color:var(--primary);line-height:1;}
+.llabel{position:absolute;left:150px;right:44px;font-family:'Inter',sans-serif;font-weight:700;font-size:30px;color:#1A1A1A;line-height:1.2;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:4px;}
+.ldiv{position:absolute;left:44px;right:44px;height:2px;background:rgba(26,26,26,.18);z-index:4;}
+
+/* stat */
+.tn-stat{position:absolute;left:80px;right:80px;z-index:4;}
+.tn-stat h2{margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:260px;line-height:.9;letter-spacing:-.04em;color:var(--text-high);}
+.tn-stat .unit{color:var(--primary);}
+
+/* checklist */
+.chk{position:absolute;left:0;right:0;z-index:4;display:flex;align-items:center;gap:26px;padding:0 44px;}
+.chk svg{flex:none;width:40px;height:40px;color:var(--primary);}
+.chk span{font-family:'Inter',sans-serif;font-weight:700;font-size:30px;color:#1A1A1A;line-height:1.2;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:3px;}
+.chk-sub{position:absolute;left:110px;right:44px;z-index:4;font-family:'Inter',sans-serif;font-weight:400;font-size:22px;color:var(--text-low);line-height:1.25;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:3px;}
+.chk-div{position:absolute;left:44px;right:44px;height:2px;background:rgba(26,26,26,.14);z-index:4;}
+
+/* two column */
+.col{position:absolute;z-index:4;}
+.col-label{font-family:'Inter',sans-serif;font-weight:700;font-size:22px;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);margin-bottom:14px;}
+.col-txt{font-family:'Inter',sans-serif;font-weight:400;font-size:26px;color:#1A1A1A;line-height:1.32;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;padding-bottom:4px;}
+.col-div{position:absolute;width:2px;background:rgba(26,26,26,.2);z-index:4;}
+.col-icon{position:absolute;z-index:4;width:56px;height:56px;color:var(--primary);}
+
+/* bookmark */
+.bookmark{position:absolute;z-index:5;width:76px;height:100px;color:var(--primary);}
+
+/* closer panel */
+.closer-panel{position:absolute;left:80px;right:80px;z-index:2;background:var(--surface);border-radius:26px;box-shadow:0 20px 44px rgba(26,26,26,.22);border:2px solid var(--primary);}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 Cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <span class="idx" data-counter="true">#01</span>
+    </div>
+    <div class="tn-kicker" style="top:180px;"><span data-title="true">THE FOCUS FIELD GUIDE</span></div>
+    <div class="tn-title" style="top:280px;"><h1 data-title="true" style="font-size:168px;-webkit-line-clamp:4;">Reclaim Your <span class="hl">Deep</span> Attention</h1></div>
+    <div class="cover-card" style="top:900px;height:130px;">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.4"/><path d="M12 7v5l3.5 2.2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span data-cta="true">SEVEN PRINCIPLES INSIDE</span>
+    </div>
+    <div class="lead-strip" style="top:1090px;"></div>
+    <div class="tn-lead" style="top:1130px;"><p data-message="true">A field guide to reclaiming deep focus in a world built to scatter it.</p></div>
+    <div class="footer">
+      <div class="foot-rule"></div>
+      <div class="foot-web" data-message="true">A field guide to deep focus</div>
+      <div class="foot-cta" data-cta="true">SWIPE &rarr;</div>
+    </div>
+  </section>
+
+  <!-- Slide 2 point + panel -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <span class="idx" data-counter="true">#02</span>
+    </div>
+    <div class="tn-kicker" style="top:170px;"><span data-title="true">PRINCIPLE 01</span></div>
+    <div class="tn-title" style="top:270px;"><h1 data-title="true" style="font-size:116px;-webkit-line-clamp:2;">Depth Beats <span class="hl">Speed Always</span></h1></div>
+    <div class="panel" style="top:600px;bottom:180px;"></div>
+    <div class="panel-quote" style="left:130px;top:660px;">&ldquo;</div>
+    <div class="tn-body" style="left:130px;right:130px;top:840px;"><p data-message="true" style="font-size:44px;line-height:1.42;-webkit-line-clamp:6;">Shallow multitasking feels productive but rarely moves the needle. <b>One protected block</b> outperforms a whole scattered day.</p></div>
+    <div class="footer">
+      <div class="foot-rule"></div>
+      <div class="foot-web" data-message="true">A field guide to deep focus</div>
+      <div class="foot-cta" data-cta="true">SWIPE &rarr;</div>
+    </div>
+  </section>
+
+  <!-- Slide 3 list -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <span class="idx" data-counter="true">#03</span>
+    </div>
+    <div class="tn-kicker" style="top:150px;"><span data-title="true">PRINCIPLE 02</span></div>
+    <div class="tn-title" style="top:250px;"><h1 data-title="true" style="font-size:78px;-webkit-line-clamp:2;">Design The <span class="hl">Distraction</span> Out</h1></div>
+    <div class="panel" style="top:500px;bottom:170px;">
+      <div class="lcard" style="top:56px;height:180px;"></div>
+      <div class="lrow" style="top:126px;"><span class="lnum">01</span><span class="llabel">Silence every alert before you start.</span></div>
+      <div class="lcard" style="top:266px;height:180px;"></div>
+      <div class="lrow" style="top:336px;"><span class="lnum">02</span><span class="llabel">Batch inputs into set windows.</span></div>
+      <div class="lcard" style="top:476px;height:180px;"></div>
+      <div class="lrow" style="top:546px;"><span class="lnum">03</span><span class="llabel">Keep one visible task, hide the rest.</span></div>
+    </div>
+    <div class="tn-body" style="left:0;top:0;width:1px;height:1px;overflow:hidden;"><p data-message="true">01 Silence every alert before you start. 02 Batch inputs into set windows. 03 Keep one visible task, hide the rest.</p></div>
+    <div class="footer">
+      <div class="foot-rule"></div>
+      <div class="foot-web" data-message="true">A field guide to deep focus</div>
+      <div class="foot-cta" data-cta="true">SWIPE &rarr;</div>
+    </div>
+  </section>
+
+  <!-- Slide 4 stat -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <span class="idx" data-counter="true">#04</span>
+    </div>
+    <div class="tn-kicker" style="top:150px;"><span data-title="true">THE COST</span></div>
+    <div class="tn-stat" style="top:250px;"><h2 data-title="true">23<span class="unit"> min</span></h2></div>
+    <div class="tn-title" style="top:520px;"><h1 data-title="true" style="font-size:60px;-webkit-line-clamp:1;"><span class="hl">Minutes Lost</span></h1></div>
+    <div class="panel" style="top:660px;bottom:170px;"></div>
+    <div class="panel-quote" style="left:130px;top:720px;">&ldquo;</div>
+    <div class="tn-body" style="left:130px;right:130px;top:890px;"><p data-message="true" style="font-size:40px;line-height:1.42;-webkit-line-clamp:6;">That is roughly how long full focus takes to rebuild after a single interruption. <b>Guard your entries</b>, not just your hours.</p></div>
+    <div class="footer">
+      <div class="foot-rule"></div>
+      <div class="foot-web" data-message="true">A field guide to deep focus</div>
+      <div class="foot-cta" data-cta="true">SWIPE &rarr;</div>
+    </div>
+  </section>
+
+  <!-- Slide 5 two-column -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <span class="idx" data-counter="true">#05</span>
+    </div>
+    <div class="tn-kicker" style="top:150px;"><span data-title="true">PRINCIPLE 03</span></div>
+    <div class="tn-title" style="top:250px;"><h1 data-title="true" style="font-size:78px;-webkit-line-clamp:2;">Build A Starting <span class="hl">Ritual</span></h1></div>
+    <div class="panel" style="top:560px;bottom:170px;">
+      <svg class="col-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="left:56px;top:70px;"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <div class="col" style="left:56px;top:150px;width:340px;">
+        <div class="col-label">Scattered</div>
+        <div class="col-txt">Random start, open tabs, notifications pulling focus in every direction.</div>
+      </div>
+      <div class="col-div" style="left:50%;top:70px;bottom:70px;"></div>
+      <svg class="col-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="right:56px;top:70px;left:auto;"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.2"/><path d="M8 12l2.5 2.5L16 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="col" style="right:56px;top:150px;width:340px;">
+        <div class="col-label">Intentional</div>
+        <div class="col-txt">Same desk, same cue, same first task, dropping into flow on command.</div>
+      </div>
+    </div>
+    <div class="tn-body" style="left:0;top:0;width:1px;height:1px;overflow:hidden;"><p data-message="true">Same desk, same cue, same first task. A repeatable opening move trains your brain to drop into flow on command.</p></div>
+    <div class="footer">
+      <div class="foot-rule"></div>
+      <div class="foot-web" data-message="true">A field guide to deep focus</div>
+      <div class="foot-cta" data-cta="true">SWIPE &rarr;</div>
+    </div>
+  </section>
+
+  <!-- Slide 6 checklist -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <span class="idx" data-counter="true">#06</span>
+    </div>
+    <div class="tn-kicker" style="top:150px;"><span data-title="true">THE DAILY RESET</span></div>
+    <div class="tn-title" style="top:250px;"><h1 data-title="true" style="font-size:76px;-webkit-line-clamp:2;">End The Day With <span class="hl">Clarity</span></h1></div>
+    <div class="panel" style="top:500px;bottom:170px;">
+      <div class="chk" style="top:60px;"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l4 4L19 6" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Close open loops.</span></div>
+      <div class="chk-sub" style="top:108px;">Finish or park what you left hanging.</div>
+      <div class="chk-div" style="top:172px;"></div>
+      <div class="chk" style="top:212px;"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l4 4L19 6" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Note tomorrow's first block.</span></div>
+      <div class="chk-sub" style="top:260px;">Decide the one task before you close.</div>
+      <div class="chk-div" style="top:324px;"></div>
+      <div class="chk" style="top:364px;"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l4 4L19 6" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Clear the desk.</span></div>
+      <div class="chk-sub" style="top:412px;">Reset the space for a clean start.</div>
+      <div class="chk-div" style="top:476px;"></div>
+      <div class="chk" style="top:516px;"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l4 4L19 6" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Step away fully to recover.</span></div>
+      <div class="chk-sub" style="top:564px;">Let the mind rest and reload.</div>
+    </div>
+    <div class="tn-body" style="left:0;top:0;width:1px;height:1px;overflow:hidden;"><p data-message="true">Close open loops. Note tomorrows first block. Clear the desk. Step away fully so the mind can recover.</p></div>
+    <div class="footer">
+      <div class="foot-rule"></div>
+      <div class="foot-web" data-message="true">A field guide to deep focus</div>
+      <div class="foot-cta" data-cta="true">SWIPE &rarr;</div>
+    </div>
+  </section>
+
+  <!-- Slide 7 closer -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="topbar">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      <span class="idx" data-counter="true">#07</span>
+    </div>
+    <div class="tn-kicker" style="top:150px;"><span data-title="true">KEEP THIS CLOSE</span></div>
+    <div class="tn-title" style="top:300px;"><h1 data-title="true" style="font-size:150px;-webkit-line-clamp:3;">Return When <span class="hl">Focus Slips</span></h1></div>
+    <div class="closer-panel" style="top:800px;bottom:180px;"></div>
+    <div class="tn-body" style="left:130px;right:130px;top:870px;"><p data-message="true" style="font-size:38px;line-height:1.42;-webkit-line-clamp:4;">Save this guide and open it the moment your attention starts to scatter. <b>One reset</b> is all it takes to begin again.</p></div>
+    <svg class="bookmark" viewBox="0 0 24 32" fill="currentColor" aria-hidden="true" style="right:150px;bottom:280px;"><path d="M2 0h20v32l-10-8-10 8z"/></svg>
+    <div class="footer">
+      <div class="foot-rule"></div>
+      <div class="foot-web" data-message="true">A field guide to deep focus</div>
+      <div class="foot-cta" data-cta="true">SAVE THE GUIDE</div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

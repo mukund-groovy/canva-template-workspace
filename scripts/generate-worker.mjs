@@ -17,6 +17,7 @@
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
+import { decodeGeometry, formatGeometry } from './decode-geometry.mjs';
 
 const WORKSPACE = path.resolve(path.dirname(process.argv[1] || '.'), '..');
 const SCRIPTS = path.join(WORKSPACE, 'scripts');
@@ -32,10 +33,13 @@ const opt = (n, d) => { const i = argv.indexOf(`--${n}`); return i >= 0 && argv[
 const ONCE = flag('once');
 const MAX = Number(opt('max', 0)) || Infinity;
 const ONE_ID = opt('design-id', null);
+const SLIDE_NUM = Number(opt('slide', 0)); // >0 = author ONLY this reference page, render a preview, and stop (fast per-slide quality iteration)
 const MAX_REPAIRS = Number(opt('repairs', 3));
 const MIN_SCORE = Number(opt('min-score', 8));   // regenerate until COMBINED score >= this (out of 10)
-const GEN_ATTEMPTS = Number(opt('gens', 3));      // max full regenerations before shipping best
-const PREMIUM_MIN = Number(opt('premium-min', 8)); // below this, run a judge-guided aesthetic repair
+const GEN_ATTEMPTS = Number(opt('gens', 2));      // fresh-author fallbacks; premium now climbs via feedback, not blind re-authoring
+const PREMIUM_MIN = Number(opt('premium-min', 8)); // below this, run judge-guided aesthetic repairs
+const PREMIUM_ITERS = Number(opt('premium-iters', 3)); // max iterative judge-guided premium repairs per gen (feedback-driven climb)
+const FAITH_ITERS = Number(opt('faith-iters', 3)); // max faithfulness vision-review + repair rounds on the best deck before ship
 // Combined quality = deterministic gates (contract/legibility/recolor — the floor) blended with
 // the vision art-director's premium score (depth/variety/hierarchy/polish — what the user judges).
 const combine = (det, prem) => Math.round((det * 0.4 + prem * 0.6) * 10) / 10;
@@ -227,6 +231,17 @@ function loadIntake(designId) {
     .map((f) => path.join(pagesDir, f));
   return { td, thumbs };
 }
+// Visible reference copy per slide, pulled from the extracted page tree — the exact words to
+// reproduce faithfully. Strips nav/social chrome and long token blobs; keeps headlines/body/labels.
+function slideTexts(td) {
+  const CHROME = /^(next slide|swipe|tap|like|save|comment|share|follow)\b|^@|^\d{1,2}\s*\/\s*\d{1,2}$/i;
+  return (td.pages || []).map((p) => {
+    const strings = (JSON.stringify(p).match(/"[^"]{2,}"/g) || [])
+      .map((s) => s.slice(1, -1).replace(/\\n/g, ' ').replace(/\s+/g, ' ').trim())
+      .filter((s) => /[A-Za-z]{3,}\s+[A-Za-z]{2,}/.test(s) && !/^[A-Za-z0-9+/=_-]{20,}$/.test(s) && !CHROME.test(s));
+    return [...new Set(strings)].join(' | ');
+  });
+}
 function slugify(title, designId) {
   let base = String(title || designId).toLowerCase()
     .replace(/instagram|carousel|post|template|design/g, '')
@@ -252,41 +267,52 @@ const extractDoc = (s) => {
   return (end >= 0 ? sliced.slice(0, end + '</html>'.length) : sliced).trim();
 };
 
-// ── creative planning (system prompt) ────────────────────────────────────────────
-// Stage 1: study the reference purely for its STRUCTURE and THEME, then invent an
-// original, premium concept with entirely new copy. Decoupled from HTML so the model
-// designs the idea first instead of transcribing whatever text it can read off the
-// reference images (the failure mode that produced a near-verbatim clone).
-const PLANNER = `You are a senior brand designer and art director. You are shown the page images of a reference Instagram carousel, in order. Do TWO things, in order.
+// Occlusion guard (DETERMINISTIC). The author gives filled surfaces (cards/panels/shapes) a
+// z-index but leaves text wrappers at the default 0, so a card paints OVER its own body text and
+// the block renders empty — a faithful-repro failure the gates don't catch (contrast is measured
+// against the text's assigned bg, not the surface covering it). This forces every semantic text
+// slot above any surface, regardless of the classes the author chose. .tn text wrappers carry
+// z-index:auto so they do NOT form a stacking context — a z-index on the text node competes
+// globally and wins over the surfaces (which top out around z-index 6).
+const ensureTextAboveSurfaces = (html) => {
+  if (!html || html.includes('occlusion-guard')) return html;
+  const rule = `\n/* occlusion-guard: semantic text slots always render above filled surfaces */\n` +
+    `[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}\n`;
+  const i = html.lastIndexOf('</style>');
+  return i < 0 ? html : html.slice(0, i) + rule + html.slice(i);
+};
 
-STEP 1 — ANALYZE THE REFERENCE'S DESIGN SYSTEM (from what you SEE, never its words):
+// ── faithful transcription (system prompt) ───────────────────────────────────────
+// Stage 1: study the reference and TRANSCRIBE it faithfully — its exact copy (split into
+// roles) and its per-slide layout — so the author can rebuild the SAME template as clean,
+// recolorable HTML. We reproduce the reference, we do not reinvent it (inventing an original
+// premium design scored badly and inconsistently; faithful reproduction of a proven design
+// is what works). Copy is placeholder scaffolding swapped per brand at use time.
+const PLANNER = `You are a meticulous production designer. You are shown the page images of a reference Instagram carousel, in order, plus the exact text extracted from each page. TRANSCRIBE the reference faithfully so it can be rebuilt as a clean, recolorable template — do NOT redesign it.
+
+STEP 1 — ANALYZE THE DESIGN SYSTEM (from what you SEE):
 - palette: the actual colours and their roles — background, primary, accent, text — as approximate hexes or precise names.
-- type: the display-headline character (serif / grotesque / geometric / condensed / handwritten) and the body face; the type SCALE (how dominant the headline is relative to body).
+- type: the display-headline character (serif / grotesque / geometric / condensed / handwritten) and the body face; the type SCALE (how dominant the headline is).
 - grid: margins, alignment (centered vs left), and overall DENSITY (airy vs dense/layered).
-- devices: the concrete furniture it composes slides with — brush strokes, arrows, outline shapes, tabs, chips, pills, dividers, oversized numerals, bordered cards/panels, photo frames, checklists.
-- per slide, its LAYOUT ARCHETYPE (e.g. cover-oversized-headline, numbered-list-card, big-stat, quote-panel, two-column, checklist, photo-with-caption, index/agenda).
+- devices: the concrete furniture each slide composes with — brush strokes, arrows, outline shapes, tabs, chips, pills, dividers, oversized numerals, bordered cards/panels, photo frames, checklists.
 
-STEP 2 — INVENT AN ORIGINAL, PREMIUM carousel on a topic in the same space — your own angle, your own words. Inspiration, not reproduction. Then, for EACH slide, DESIGN AN ELEVATED COMPOSITION and describe it concretely:
-- Keep the reference slide's structural INTENT (its archetype and the surfaces/devices that fill it) but make it FULLER and more premium than the reference.
-- VARY the layouts across slides — do NOT repeat the identical skeleton (number+headline+one line) on every content slide. Alternate: a numbered card stack, a two-column split, a big-stat block, a quote panel, a checklist, an index.
-- Every CONTENT slide must anchor its body inside a real SURFACE (bordered card / filled panel / list block / stat block) that reaches into the lower third — NO dead band between the body and the footer.
-- Cover and closer may be more type-forward, but still layered (a colour surface, an accent shape, a CTA pill), never a lone title on blank paper.
+STEP 2 — TRANSCRIBE EACH SLIDE FAITHFULLY. For every reference page, capture:
+- its EXACT copy, split into roles (kicker / title / body / cta): use the reference's real words verbatim (the provided extracted text is authoritative; fix obvious OCR gaps from the image). Reproduce — do NOT invent, rephrase, or "improve" the copy.
+- its LAYOUT ARCHETYPE (e.g. cover-oversized-headline, numbered-list-card, big-stat, quote-panel, two-column, checklist, photo-with-caption, index) and a concrete description of how the slide is composed: where the headline / number / surface / photo sit, the alignment, and how the elements fill the frame — matching the reference as closely as you can.
 
-HARD RULES:
-- NEVER reuse the reference's words, headlines, sentences, brand names, @handles, phone numbers, or placeholder text. If you can read a phrase in the reference, you may not use it.
-- This includes CHROME the reference paints on every slide: a top-bar brand name (e.g. a made-up label like "BORCELLE"), social UI ("LIKE", "SAVE", "COMMENT"), page counters, @handles, and the words inside pills/buttons. None of those words may appear in your plan. Any button/pill you want is expressed as a slide's cta with YOUR OWN label.
-- Write real, sharp, premium editorial copy — specific and confident, never lorem, never generic filler.
-- Keep it tight so it will fit: cover headline <= ~32 chars, section headline <= ~40 chars, body <= ~140 chars, kicker/cta/label <= ~24 chars. Achieve fullness with LAYOUT and SCALE, not more words.
-- Pick a fresh angle: a distinct point of view, a memorable through-line across slides, a strong closing CTA.
+RULES:
+- Reproduce the reference's copy and composition. This is a faithful rebuild, not a reinterpretation. Match the reference's density: if a slide is minimal, keep it minimal; if dense, keep it dense.
+- EXCLUDE only non-content chrome: the source's brand name/logo (becomes a neutral lockup), social UI ("LIKE"/"SAVE"/"COMMENT"), @handles, swipe/next prompts, and page counters. Everything else — headlines, body, labels, CTAs — is reproduced verbatim.
+- Keep each field to what actually fits the slide; do not pad.
 
 Return ONLY minified JSON, no prose, matching:
-{"concept":"one-line premium angle","audience":"who","tone":"e.g. bold editorial","designSystem":{"palette":"colours + roles","displayType":"headline face character","bodyType":"body face","grid":"margins + alignment","density":"airy|balanced|dense and how it layers","devices":"the composing furniture, comma-separated"},"slides":[{"role":"cover|point|list|closer","archetype":"this slide's layout archetype","layout":"concrete elevated composition for THIS slide — where the headline/number/surface sit and how they fill the frame","visual":"the surface/card/graphic/numeral/decoration that anchors and fills this slide","kicker":"","title":"","body":"","cta":""}]}
-Produce exactly one slides[] entry per reference page. Omit a copy field with "" when the slide's role doesn't use it, but always fill archetype/layout/visual.
+{"designSystem":{"palette":"colours + roles","displayType":"headline face character","bodyType":"body face","grid":"margins + alignment","density":"airy|balanced|dense","devices":"the composing furniture, comma-separated"},"slides":[{"role":"cover|point|list|closer","archetype":"this slide's layout archetype","layout":"how this slide is composed, matching the reference — where the headline/number/surface sit","kicker":"","title":"","body":"","cta":""}]}
+Produce exactly one slides[] entry per reference page. Omit a copy field with "" when the slide doesn't use it, but always fill archetype/layout.
 
-OUTPUT MUST BE STRICTLY VALID JSON: minified, double-quoted keys and values, and NO raw double-quote, newline, or backslash INSIDE any string value — describe layouts in plain prose without quoting words (write it commands the frame, not it "commands" the frame). If unsure, keep the value short. A single invalid character makes the whole plan unusable.`;
+OUTPUT MUST BE STRICTLY VALID JSON: minified, double-quoted keys and values, and NO raw double-quote, newline, or backslash INSIDE any string value. If unsure, keep the value short. A single invalid character makes the whole plan unusable.`;
 
 // ── authoring contract (system prompt) ───────────────────────────────────────────
-const SYSTEM = `You author ONE self-contained, brand-recolorable Instagram carousel HTML template. You are given an ORIGINAL creative plan (copy already written) and reference page images for LAYOUT/COMPOSITION inspiration ONLY. Realize the plan's copy in a premium design; never copy the reference's words. Output ONLY the complete HTML document (no prose, no markdown fences).
+const SYSTEM = `You rebuild ONE self-contained, brand-recolorable Instagram carousel HTML template that FAITHFULLY REPRODUCES a reference carousel. You are given the reference's transcribed copy + per-slide layout and its page images. Reproduce the reference's layout, composition, and copy as closely as you can, as clean recolorable HTML. Do NOT redesign, elevate, or invent — match the reference. Output ONLY the complete HTML document (no prose, no markdown fences).
 
 STRUCTURE CONTRACT (a template that violates this cannot generate posts):
 - Root: a single <div class="ig-carousel"> containing one <section class="slide" data-cg-slide-type="..."> per page. Fixed canvas 1080x1350 per slide.
@@ -301,12 +327,12 @@ STRUCTURE CONTRACT (a template that violates this cannot generate posts):
 - Fonts: substitute the reference's faces with the closest Google Fonts (@import), import ONLY the weights you use.
 - Layer order: declare stacking once; decorations below text always.
 
-Draw COMPOSITION and object roles from the reference (where the headline sits, how a list is arranged, the visual rhythm), but the WORDS come only from the plan. Never reproduce the reference's text, brand names, @handles, or numbers. Elevate it: premium typography, confident spacing, intentional hierarchy.
+Reproduce the reference's composition per slide: the same layout, the same copy in the same roles, the same decorative devices in roughly their positions and sizes. Map the reference's actual colours onto the brand tokens so a palette swap re-skins it. The result should read as the SAME template, cleanly rebuilt and recolorable — not a new design, not "elevated", not flatter or busier than the reference.
 
-BRAND & CHROME — do NOT transcribe any text you can read in the reference images:
-- The brand name in a top bar is ALWAYS the lockup <span class="brand-word">YOURBRAND</span> — never a reference label like "BORCELLE".
-- Do NOT paint the reference's social UI ("LIKE"/"SAVE"/"COMMENT"), its @handle, or its page counter as literal reference words. A page counter, if you want one, uses neutral digits only.
-- Pill/button/CTA text comes ONLY from the plan's cta fields — never a phrase read off the reference (no "Content Creator", "Turn ideas into impact", etc.).`;
+CHROME — reproduce the content, neutralize only the source's identity:
+- The reference's brand name in a top bar becomes the lockup <span class="brand-word">YOURBRAND</span> — never the source label (e.g. "BORCELLE").
+- Drop the reference's social UI ("LIKE"/"SAVE"/"COMMENT"), its @handle, and its swipe/next prompt. A page counter, if the reference has one, uses neutral digits.
+- Reproduce every OTHER text run — headlines, body, kickers, CTAs, labels — verbatim from the transcription.`;
 
 // Best-effort recovery for a plan JSON the model slightly malformed (an unescaped quote
 // inside a descriptive string is the common case now that layout/visual carry prose).
@@ -323,11 +349,14 @@ function tryParsePlan(raw) {
 // The richer plan (design system + per-slide layout prose) occasionally comes back as
 // invalid JSON; re-request a few times before failing the design.
 async function plan({ td, thumbs, useVision = true, attempt = 1 }) {
+  const texts = slideTexts(td);
   const brief =
-    `Reference title (for topic space only, do NOT reuse its words): ${td.title || '(untitled)'}\n` +
+    `Reference title: ${td.title || '(untitled)'}\n` +
     `Slide count: ${thumbs.length} — return exactly this many slides[].\n` +
     (attempt > 1 ? `Your previous reply was not valid JSON. Return STRICTLY valid minified JSON this time — no raw quotes/newlines inside string values.\n` : '') +
-    `Study the attached reference page images for structure and mood, then invent an original premium carousel. Return ONLY the JSON.`;
+    `Extracted text per page (authoritative copy to reproduce verbatim; fix only obvious gaps from the image):\n` +
+    texts.map((t, i) => `  page ${i + 1}: ${t || '(no text — decorative slide)'}`).join('\n') + `\n` +
+    `Study the attached reference page images and TRANSCRIBE each slide faithfully (exact copy in roles + its layout). Return ONLY the JSON.`;
   const content = [{ type: 'input_text', text: brief }];
   if (useVision) for (const p of thumbs.slice(0, 10)) content.push(imgPart(p));
   let raw;
@@ -377,37 +406,36 @@ function planDeck(p) {
     return `Slide ${i + 1} [${s.role || 'point'}]\n   copy: ${copy || '(decorative)'}` +
       (design ? `\n   design: ${design}` : '');
   };
-  return `CONCEPT: ${p.concept || ''}\nAUDIENCE: ${p.audience || ''}\nTONE: ${p.tone || ''}\n` +
-    (dsBlock ? `\nREFERENCE DESIGN SYSTEM (analyzed — match its spirit, elevated):\n${dsBlock}\n` : '') +
-    `\nSLIDE PLAN — the copy is FINAL and original (use these EXACT words, never reference text); ` +
-    `the design line is your composition brief for that slide — realize it, vary the layouts, fill every frame:\n${p.slides.map(line).join('\n\n')}`;
+  return (dsBlock ? `REFERENCE DESIGN SYSTEM (analyzed — reproduce it):\n${dsBlock}\n` : '') +
+    `\nSLIDE PLAN — the copy is transcribed from the reference; reproduce these EXACT words in the given roles, ` +
+    `and build each slide's described layout to MATCH the reference (do not vary, elevate, or pad):\n${p.slides.map(line).join('\n\n')}`;
 }
 
-async function author({ td, thumbs, deck, useVision = true }) {
+async function author({ td, thumbs, deck, useVision = true, sight = null }) {
+  // sight = { renders:[per-slide PNGs of the model's OWN previous attempt], defects:"<review text>" }.
+  // When present, this is a RE-AUTHOR FROM SIGHT: the model sees its last render beside the reference
+  // and redoes the whole deck coherently — a holistic redo, not a local patch. This is what closes
+  // most of the gap to hand-authoring (a human re-composes from what they see; it doesn't dab).
+  // Exact per-element type sizes decoded from the source (font-size + box w/h + verbatim text).
+  // These are authoritative and stop the author oversizing type it would otherwise eyeball off a
+  // flat screenshot — the #1 faithful-repro defect (clipping + overlapping headlines).
+  let geom = '';
+  try { geom = formatGeometry(decodeGeometry(td)); } catch { geom = ''; }
   const brief =
-    `Author a premium, self-contained carousel HTML template that REALIZES the creative plan below in an elevated design.\n` +
-    `Use the attached reference page images ONLY for LAYOUT/COMPOSITION inspiration (element placement, rhythm) — never for words.\n` +
-    `Reference fonts: ${(td.fonts || []).join(', ') || 'unknown'} (substitute closest premium Google Fonts; you may choose better ones).\n` +
+    `Rebuild the reference carousel below as a faithful, recolorable HTML template. Reproduce its layout, composition, and copy — MATCH the reference; do NOT redesign, elevate, or invent.\n` +
+    `The attached reference page images are the LAYOUT ground truth (element placement, sizes, alignment, rhythm); the transcription below is the exact COPY.\n` +
+    `Reference fonts: ${(td.fonts || []).join(', ') || 'unknown'} (substitute the closest Google Fonts).\n` +
     `Slide count: ${thumbs.length} (produce exactly this many <section class="slide">)\n\n` +
-    `=== ORIGINAL CREATIVE PLAN — copy + per-slide composition brief ===\n${deck}\n=== END PLAN ===\n` +
-    `The copy is final and original — use it verbatim. Each slide's "design" line (archetype/layout/anchor) is its composition brief: build THAT layout, honor the analyzed design system, vary the slides, and fill every frame per the rules below.\n\n` +
-    `MIRROR THE STRUCTURE of the gold-standard exemplar below EXACTLY: the nine :root brand tokens, the brand lockup, one <section class="slide" data-cg-slide-type> per page, EVERY text node in its own absolutely-positioned wrapper with the text in normal flow, -webkit-line-clamp on every run, single-line source text, semantic data-* slots. Your VISUAL layout takes composition cues from the reference images; the structural scaffolding is identical to the exemplar.\n\n` +
-    `CRITICAL — FILL THE FRAME. Each 1080x1350 slide must feel FULL and composed edge-to-edge, like the reference: NO large empty regions, no tiny content floating in a sea of whitespace. Big, confident display type; content occupies the whole canvas with intentional margins (~64-80px), not a small cluster in one corner.\n` +
-    `- Make the primary headline LARGE and dominant — a cover headline should fill most of the slide width and a big share of its height (think 120-220px display type), exactly like the reference's oversized headline. Section headlines are big too. Timid type is a failure.\n` +
-    `- Distribute elements across the full height: anchor a kicker/brand near the top, the headline in the upper-middle, body/cards in the lower-middle, a footer/counter at the bottom — so the eye travels the whole slide. Balance the composition; fill negative space with scale, a card/surface panel, or a decorative accent rather than leaving it blank.\n` +
-    `- BALANCE BOTH HALVES. Do NOT cluster every element on the left with a blank right side (the most common emptiness bug). The right half must carry real weight: either let the headline run nearly full-width (1080 minus margins), or place a card/surface/photo/large accent on the right. No quadrant of the slide may read as empty paper.\n` +
-    `- COVER & CLOSER slides (mostly type): the headline ALONE should fill ~55-65% of the slide — huge, multi-line, spanning most of the width — plus a supporting block (kicker, a short deck line, a CTA pill, a surface panel) so it never looks like a small title floating on blank paper.\n` +
-    `- KEEP THE REFERENCE'S SUPPORTING ELEMENTS as composition: if the reference balances a headline with floating pills, tags, badges, chips, numbers, or decorative shapes (often on the opposite side/corner), REPRODUCE those elements in roughly their positions — but RELABEL them with your own words from the plan (or leave decorative shapes text-free). Do NOT drop them and leave the headline alone on one side; those elements are what fill the frame. Every slide's supporting elements must span into the side the headline does not occupy.\n` +
-    `- Aim for the content bounding box to cover ROUGHLY 80%+ of the slide area AND for elements to be spread across it (top / middle / bottom AND left / right), not concentrated in one corner. If a slide looks sparse, scale the type up and spread the blocks out — do not shrink to be safe.\n` +
-    `- STILL ZERO overflow: fill the frame but nothing may spill or clip. Put -webkit-line-clamp on EVERY text run (headline 2-3 lines, body 3-4 lines), line-height >= 1.14, a few px padding-bottom.\n` +
-    `- Copy lengths from the plan: cover headline <= ~32 chars, section headline <= ~40 chars, body <= ~140 chars — achieve fullness with SCALE and LAYOUT, not more words.\n\n` +
-    `CRITICAL — ANALYZE THE REFERENCE, THEN ELEVATE IT (a flat, safe, under-designed template is a FAILURE just as much as a gate failure). First READ the attached reference images and name, to yourself, its design language: the headline type character (serif/grotesque/geometric — match its spirit), its color story, its decorative devices (brush strokes, arrows, outline shapes, tabs, chips, dots, rules), its density and alignment. Then produce a version that keeps THAT language but is MORE designed, fuller and more premium than the reference — never a plain copy, never flatter than the reference:\n` +
-    `- If the reference is minimal/airy (a common Canva style), do NOT mirror its emptiness. ELEVATE it: scale the headline up, add depth (a colored surface behind the headline, a layered card/tab, a bordered panel), and turn its light decorative devices into confident composition. A minimal reference is an invitation to design, not a licence to leave blank paper.\n` +
-    `- Give EVERY slide real depth and a focal anchor — layered surfaces (a labelled tab peeking from behind a card, a chip floating over a panel edge), a brand-colored surface, an accent pill/CTA, or a headline so large it commands the slide. No slide may read as plain dark text on blank paper.\n` +
-    `- INTERIOR CONTENT SLIDES are where plainness creeps in: a number + headline + one body line stacked in the top two-thirds with a lone footer at the bottom leaves a dead lower band. Do NOT do this. Anchor the body inside a real surface — a bordered card, a filled panel, a numbered list block, a stat/quote block — that reaches into the lower third, so there is NO empty gap between the body and the footer. Vary the content-slide layouts (alternate the card side, mix a list slide with a two-column slide with a big-stat slide); do not repeat the identical skeleton on every slide.\n` +
-    `- The headline is the hero: size it boldly and NEVER shrink the type to play safe — if it risks overflow, grow the BOX and/or shorten the copy. Match the reference's type personality but push the scale further.\n` +
-    `- Reproduce the reference's decorative furniture (its brush strokes, arrows, outline shapes, dots, tabs, brackets, counters) as intentional composition, RELABELED with your own words — and if the reference puts text inside a shape (e.g. a labelled circle), your version keeps that text, never an empty shape. This designed density separates premium from a plain document.\n` +
-    `- The legibility and no-clipping gates below are CONSTRAINTS you satisfy WHILE staying bold, layered and full — they are NOT licence to flatten, shrink, or over-pad. Achieve BOTH: premium + legible.\n\n` +
+    `=== REFERENCE TRANSCRIPTION — copy + per-slide layout ===\n${deck}\n=== END ===\n` +
+    `Reproduce each slide's copy VERBATIM in the roles given, positioned and sized to match the reference image. Keep the reference's decorative devices (numerals, cards, pills, shapes, rules, dividers) in their positions.\n\n` +
+    (geom ? `=== EXACT TYPE SIZES (authoritative — decoded from the source document; USE THESE, do not guess sizes) ===\n${geom}\n=== END ===\n` +
+      `Set each text run's font-size and box width/height to these decoded values — they are the REAL source sizes, and using them is how you avoid oversizing type that clips the canvas edge or overlaps another element. Each listed element is ONE box (e.g. a two-word headline is a single box, not two overlapping ones). The absolute x/y POSITION of each element comes from the reference IMAGE (the decoded positions are approximate); the font-size and box width/height here are EXACT.\n\n` : '') +
+    `MIRROR THE STRUCTURE of the gold-standard exemplar below EXACTLY: the nine :root brand tokens, the brand lockup, one <section class="slide" data-cg-slide-type> per page, EVERY text node in its own absolutely-positioned wrapper with the text in normal flow, -webkit-line-clamp on every run, single-line source text, semantic data-* slots. The exemplar governs the STRUCTURAL scaffolding; the reference images govern the VISUAL layout.\n\n` +
+    `CRITICAL — FIDELITY (match the reference, do not deviate):\n` +
+    `- Reproduce each slide's composition as the reference has it: the same headline size and placement, the same body position, the same devices in the same spots. Do NOT enlarge, shrink, add, remove, or rearrange elements relative to the reference.\n` +
+    `- Match the reference's DENSITY exactly: if a slide is minimal/airy, KEEP that whitespace — do NOT fill it with invented surfaces, panels, or decoration; if it is dense/layered, reproduce that density. The reference is the target, not a floor to beat.\n` +
+    `- Keep the reference's alignment and margins (roughly 64-80px unless the reference is tighter/looser). Use the reference's real colours, mapped onto the brand tokens.\n` +
+    `- Follow the transcription's copy exactly — do not pad, trim, or rephrase the reference's words.\n\n` +
     `CRITICAL — RECOLORABILITY (scored by a brand-audit that swaps the palette and measures how many pixels change):\n` +
     `- EVERY themeable color — page background, surfaces/cards, accent, the highlight, headline color on a dark bg, borders, the numeral/kicker color — MUST be var(--brand-<role>, <fallback-hex>). NEVER a bare hex for these.\n` +
     `- Only pure body-copy black or white may be a literal color. Everything that gives the design its LOOK must flow from the brand tokens, exactly like the exemplar — otherwise the template fails to re-skin and scores badly.\n` +
@@ -416,16 +444,33 @@ async function author({ td, thumbs, deck, useVision = true }) {
     `- EVERY text run must clear >= 4.5:1 contrast against the exact background behind it. Dark text on a light bg, or a light token on a dark/accent panel — NEVER a mid-tone on a mid-tone, never text a hair off its background, never --text-low on a colored surface.\n` +
     `- If ANY text overlaps a photo, place a solid or gradient scrim (a --surface / ink panel or a rgba overlay) behind JUST that text so it clears AA — never lay raw text straight on an unpredictable photo.\n` +
     `- For each block pick the text token whose contrast with THAT block's own background is highest: --text-high on light surfaces; a light/paper token on dark or --accent panels. Kickers, counters and CTAs count too — a low-contrast kicker fails the gate.\n\n` +
-    `CRITICAL — NO CLIPPING (an overflow gate fails any run whose glyphs exceed its box OR whose real rendered line count exceeds its -webkit-line-clamp; this is the #2 first-attempt failure):\n` +
-    `- Size every run so its text genuinely FITS its box: box height >= (clamp-lines x font-size x line-height) + padding. Do NOT use -webkit-line-clamp to hide overflow — the clamp count must equal what actually fits, and clamped-but-still-overflowing is a FAIL.\n` +
-    `- Fit bold type by sizing the BOX to it, NOT by shrinking the type: a 40-char section headline wraps to 2-3 lines, so give it a box tall enough for 3 lines at the large size; body 3-4 lines. Leave a few px padding-bottom for descenders. Keep headlines big — grow the box, never drop the size to feel safe.\n` +
-    `- Never give a text box a fixed height smaller than its clamped content — use min-height sized to the content (not empty padding — extra blank space inside a box reads as the emptiness bug). Keep every element inside the 1080x1350 canvas with ~64-80px margins; nothing may spill a slide edge.\n\n` +
+    `CRITICAL — NO CLIPPING / NO COLLISION (an overflow gate fails any run whose glyphs exceed its box, spill the 1080x1350 canvas, OR whose real rendered line count exceeds its -webkit-line-clamp; a collision gate fails overlapping blocks — these were the top failures):\n` +
+    `- Text must FIT. Match the reference's type size, but if a run would clip its box, run past the canvas edge, or overlap another block, SHRINK the font-size until it fits — FITTING BEATS BIG. A clipped, off-canvas, or colliding headline is a hard FAIL. Never oversize type to "fill" the slide.\n` +
+    `- Horizontal fit especially: the LONGEST word must fit within the slide width at its font-size — a long headline like "Storytelling" must not run off the right edge. Reduce the size or let it wrap; never let glyphs spill the 1080px width.\n` +
+    `- Size each box to its text: box height >= (clamp-lines x font-size x line-height) + padding; a few px padding-bottom for descenders. Keep every element inside the 1080x1350 canvas with ~64-80px margins; nothing may spill a slide edge or overlap the footer, a card, a pill, or another headline.\n\n` +
     `=== GOLD-STANDARD EXEMPLAR — mirror this structure ===\n${EXEMPLAR}\n=== END EXEMPLAR ===\n\n` +
+    (sight && sight.defects
+      ? `\n=== RE-AUTHOR FROM SIGHT ===\nBelow, after each REFERENCE image, is YOUR OWN previous attempt's RENDER of that slide. It has these defects:\n${sight.defects}\nAuthor a COMPLETE NEW document that reproduces the reference faithfully and fixes every defect. RE-COMPOSE freely — do not merely nudge the old version; author each slide cleanly as a whole so nothing collides, nothing is hidden behind a surface, no text clips or runs off-canvas, and no fake social chrome (LIKE/SAVE/SHARE/HASHTAGS) appears. Keep what already matched the reference.\n`
+      : '') +
     `Return ONLY the complete HTML document.`;
   const content = [{ type: 'input_text', text: brief }];
-  if (useVision) for (const p of thumbs.slice(0, 10)) content.push(imgPart(p));
+  if (useVision) {
+    if (sight && Array.isArray(sight.renders) && sight.renders.length) {
+      const n = Math.min(thumbs.length, 10);
+      for (let i = 0; i < n; i++) {
+        content.push({ type: 'input_text', text: `Slide ${i + 1} — REFERENCE:` });
+        content.push(imgPart(thumbs[i]));
+        if (sight.renders[i]) {
+          content.push({ type: 'input_text', text: `Slide ${i + 1} — YOUR PREVIOUS RENDER:` });
+          content.push(imgPart(sight.renders[i]));
+        }
+      }
+    } else {
+      for (const p of thumbs.slice(0, 10)) content.push(imgPart(p));
+    }
+  }
   try {
-    return extractDoc(await respond({ instructions: SYSTEM, input: [{ role: 'user', content }] }));
+    return ensureTextAboveSurfaces(extractDoc(await respond({ instructions: SYSTEM, input: [{ role: 'user', content }] })));
   } catch (err) {
     if (useVision && /unsupported|image|invalid|400/i.test(err.message)) {
       log('  vision rejected by model — retrying text-only');
@@ -519,7 +564,7 @@ async function repair({ currentHtml, failures, renders, slideCount }) {
     `FAILURES:\n${failures}\n\n` +
     `CURRENT HTML (photos shown as placeholders — keep the data-image slots as-is):\n${stripBase64(currentHtml).slice(0, 90000)}` }];
   for (const r of renders.slice(0, 8)) parts.push(imgPart(r));
-  return extractDoc(await respond({ instructions: SYSTEM, input: [{ role: 'user', content: parts }] }));
+  return ensureTextAboveSurfaces(extractDoc(await respond({ instructions: SYSTEM, input: [{ role: 'user', content: parts }] })));
 }
 const slideCount = (html) => (html.match(/class="slide"/g) || []).length;
 
@@ -540,39 +585,45 @@ function scoreReplica(file) { const m = runGate('score-template.mjs', file).out.
 // see "premium": layered depth, layout variety, hierarchy, polish. This vision pass
 // looks at the rendered slides like a harsh art director, returns a premium score that
 // steers best-of-N selection, and per-slide fixes that feed an aesthetic repair pass.
-const JUDGE = `You are a meticulous art director reviewing a finished Instagram carousel template against a PREMIUM, magazine-grade bar. You are shown its rendered slides in order. Judge the DESIGN, not the copy.
+const REVIEW = `You are checking a REPRODUCTION of a reference Instagram carousel for faithfulness and visual correctness. For each slide you are shown the REFERENCE image, then the REPRODUCTION image. Report concrete DEFECTS where the reproduction is visually broken or fails to match the reference:
+- COLLISION: elements overlap wrongly — a pill/shape/badge sits on top of the headline, or text overlaps text. (In the reference these sit in clear space; if the reproduction stacks them onto the type, that is a defect.)
+- CLIPPING: text runs off the slide edge or is cut by its own box.
+- OCCLUDED: an element (usually body text) is hidden behind a card/panel, so the block looks empty though it should hold copy.
+- MISSING: an element clearly present in the reference is absent in the reproduction.
+- CHROME: fake editor/social UI that must NOT appear in a template — LIKE / SAVE / SHARE / COMMENT / HASHTAGS labels, @handles, page counters, swipe/next prompts. The neutral brand lockup (YOURBRAND) is fine; the source's social bar is not.
+- SIZE: an element is much larger or smaller than in the reference (e.g. an oversized headline that dominates wrongly).
+Report ONLY real, visible defects. If a slide faithfully matches the reference and is clean, report nothing for it.
+Return ONLY minified JSON: {"defects":[{"slide":<n>,"type":"COLLISION|CLIPPING|OCCLUDED|MISSING|CHROME|SIZE","problem":"what is wrong","fix":"specific change to make it match the reference"}],"clean":<true only if zero defects across all slides>}`;
 
-Score on:
-- FULLNESS: each slide fills its frame — no dead space, no empty band between the content and the footer.
-- DEPTH & LAYERING: real surfaces (bordered cards, filled panels, tabs, layered shapes) vs flat text on a background.
-- VARIETY: content slides use DIFFERENT layouts, not the same number+headline+line skeleton repeated.
-- HIERARCHY & TYPE: a dominant confident headline, clear levels, premium type pairing.
-- COHESION & COLOR: one consistent system, confident use of the accent/brand colour across slides.
-- POLISH: alignment, spacing, no awkward gaps, nothing unfinished (e.g. an empty outlined shape, a clipped word, a lonely title on blank paper).
-
-Be harsh but fair: 8-10 only for genuinely premium work a brand would ship; 5-6 for flat / repetitive / airy; below 5 for broken or amateur. Most first drafts are 5-7.
-
-Return ONLY minified JSON: {"premium":<0-10>,"strengths":["..."],"issues":[{"slide":<n>,"problem":"...","fix":"specific actionable change"}],"verdict":"one line"}`;
-
-async function judge(renders) {
-  if (!renders || !renders.length) return null;
-  const content = [{ type: 'input_text', text: 'Review these rendered carousel slides, in order, against the premium bar. Return ONLY the JSON.' }];
-  for (const p of renders.slice(0, 10)) content.push(imgPart(p));
+// Faithfulness review (vision): the deterministic gates catch overflow/contrast but are blind to a
+// pill colliding with the headline, body text hidden behind a card, a missing element, or fake
+// social chrome. This shows the model each REFERENCE page beside the REPRODUCTION and asks for
+// concrete faithfulness defects — the same look-and-fix a human does by eye, which is what makes
+// the pipeline converge to hand-authored quality instead of shipping a blind one-shot.
+async function faithReview(renders, refs) {
+  if (!renders || !renders.length || !refs || !refs.length) return null;
+  const content = [{ type: 'input_text', text: 'For each slide: REFERENCE first, then REPRODUCTION. Report faithfulness defects only. Return ONLY the JSON.' }];
+  const n = Math.min(renders.length, refs.length, 10);
+  for (let i = 0; i < n; i++) {
+    content.push({ type: 'input_text', text: `Slide ${i + 1} — REFERENCE:` });
+    content.push(imgPart(refs[i]));
+    content.push({ type: 'input_text', text: `Slide ${i + 1} — REPRODUCTION:` });
+    content.push(imgPart(renders[i]));
+  }
   try {
-    const raw = await respond({ instructions: JUDGE, input: [{ role: 'user', content }] });
+    const raw = await respond({ instructions: REVIEW, input: [{ role: 'user', content }] });
     const m = raw.match(/\{[\s\S]*\}/);
     if (!m) return null;
     const j = JSON.parse(m[0]);
-    if (typeof j.premium !== 'number') return null;
-    j.premium = Math.max(0, Math.min(10, j.premium));
+    if (!Array.isArray(j.defects)) j.defects = [];
     return j;
   } catch { return null; }
 }
-// Turn the judge's per-slide issues into a repair instruction block.
-function judgeFailures(j) {
-  if (!j || !Array.isArray(j.issues) || !j.issues.length) return '';
-  return `art-director review (premium ${j.premium}/10 — raise it):\n` +
-    j.issues.map((x) => `  slide ${x.slide}: ${x.problem} -> ${x.fix}`).join('\n');
+// Turn the review's per-slide defects into a repair instruction block.
+function reviewFailures(j) {
+  if (!j || !Array.isArray(j.defects) || !j.defects.length) return '';
+  return `faithfulness review — fix these visual defects so the reproduction matches the reference:\n` +
+    j.defects.map((x) => `  slide ${x.slide} [${x.type}]: ${x.problem} -> ${x.fix}`).join('\n');
 }
 
 // Gold-standard structural exemplar (a real 10/10 template, base64 stripped).
@@ -609,7 +660,7 @@ async function processOne(entry) {
   // decoupled from HTML, so the author realizes an original design instead of transcribing).
   setStage(designId, 'planning');
   let deck = planDeck(await plan({ td, thumbs }));
-  log(`  plan ready — authoring original copy (deck ${deck.length} chars)`);
+  log(`  transcription ready — authoring faithful reproduction (deck ${deck.length} chars)`);
   const MAX_OVERLAP = 0.15; // reject a candidate that reuses >15% of the reference's phrasing
   const EXPECT = td.pageCount || thumbs.length; // slide count is locked to the reference
 
@@ -636,6 +687,10 @@ async function processOne(entry) {
       if (!cand || cvEff < cand.cv || (cvEff === cand.cv && vFail < cand.vFail)) cand = { cv: cvEff, vFail, html: cur, failures };
       if (cv === 0 && vFail === 0 && badCount === 0) break;
       if (attempt === MAX_REPAIRS) break;
+      // Blown-up draft guard: a fresh author that renders with a huge verify-fail count is garbage;
+      // repairing it just feeds a giant failures blob back in (the 7->193 cascade + 13-min calls).
+      // Abandon this draft and let the next gen re-author from scratch instead.
+      if (vFail > 60) { log(`  gen ${gen}: ${vFail} verify fails — abandoning blown-up draft`); genRetries++; break; }
       log(`  gen ${gen} repair ${attempt + 1}/${MAX_REPAIRS} (contract ${cv}, verify fail ${vFail})`);
       genRetries++;
       setStage(designId, `repair ${attempt + 1}/${MAX_REPAIRS} (gen ${gen}, contract ${cv}, verify ${vFail})`);
@@ -656,51 +711,63 @@ async function processOne(entry) {
 
     if (cv > 0) { log(`  gen ${gen}/${GEN_ATTEMPTS}: contract still ${cv} — discarding`); genRetries++; continue; }
 
-    // Originality gate: a structurally-perfect template that parrots the reference
-    // copy is still a clone. Reject it and re-plan with a fresh angle for the next gen.
-    const curHtml = fs.readFileSync(replica, 'utf8');
-    const overlap = copyOverlap(curHtml, td);
-    const leaks = leakedBrandTokens(curHtml, td);
-    if (overlap > MAX_OVERLAP || leaks.length) {
-      const why = leaks.length ? `leaked reference tokens [${leaks.join(', ')}]` : `copy ${Math.round(overlap * 100)}% reference-derived (> ${Math.round(MAX_OVERLAP * 100)}%)`;
-      log(`  gen ${gen}/${GEN_ATTEMPTS}: ${why} — re-planning`);
-      genRetries++;
-      deck = planDeck(await plan({ td, thumbs }));
-      continue;
-    }
-
+    // Faithful reproduction ships on the DETERMINISTIC gates (contract clean + legibility/
+    // overflow/recolor). No originality gate — matching the reference IS the goal now — and no
+    // premium-invention judge (which is what made this slow and inconsistent). Rank candidates by
+    // the deterministic score, tie-break on fewest verify fails; keep the best across gens.
     setStage(designId, `scoring (gen ${gen}/${GEN_ATTEMPTS})`);
-    let score = scoreReplica(replica);
-    // Vision art-director pass — the premium signal (depth/variety/hierarchy/polish) the
-    // deterministic gates are blind to. Steers selection and drives an aesthetic repair.
-    setStage(designId, `art-director review (gen ${gen}/${GEN_ATTEMPTS})`);
-    let j = await judge(renderImages());
-    if (j && j.premium < PREMIUM_MIN) {
-      log(`  gen ${gen}: premium ${j.premium}/10 — judge-guided repair`);
-      genRetries++;
-      const cur = fs.readFileSync(replica, 'utf8');
-      fs.writeFileSync(replica, await repair({ currentHtml: cur, failures: judgeFailures(j), renders: renderImages(), slideCount: EXPECT }));
-      fillImages(replica);
-      const c2 = contractViolations(runGate('check-template-contract.mjs', replica).out);
-      runGate('verify-slides.mjs', replica); // refresh renders for re-judge
-      const rep = fs.readFileSync(replica, 'utf8');
-      if (c2 === 0 && slideCount(rep) === EXPECT && !leakedBrandTokens(rep, td).length) {
-        const j2 = await judge(renderImages());
-        const s2 = scoreReplica(replica);
-        if (j2 && combine(s2, j2.premium) > combine(score, j.premium)) { j = j2; score = s2; }
-        else { fs.writeFileSync(replica, cur); fillImages(replica); }        // no gain — revert
-      } else { fs.writeFileSync(replica, cur); fillImages(replica); }         // repair broke contract/count/leaked — revert
+    const score = scoreReplica(replica);
+    const vFail = cand ? cand.vFail : 0;
+    log(`  gen ${gen}/${GEN_ATTEMPTS}: score ${score}/10 · verify fail ${vFail}${score >= MIN_SCORE && vFail === 0 ? ' ✓' : ` (< ${MIN_SCORE})`}`);
+    if (!best || score > best.combined || (score === best.combined && vFail < best.vFail)) {
+      best = { score, combined: score, premium: 0, vFail };
+      fs.copyFileSync(replica, bestFile);
     }
-    const premium = j ? j.premium : 0;
-    const combined = combine(score, premium);
-    log(`  gen ${gen}/${GEN_ATTEMPTS}: score ${score}/10 · premium ${premium}/10 · combined ${combined}/10 · copy ${Math.round(overlap * 100)}% ref${combined >= MIN_SCORE ? ' ✓' : ` (< ${MIN_SCORE})`}`);
-    if (!best || combined > best.combined) { best = { score, premium, combined }; fs.copyFileSync(replica, bestFile); }
-    if (combined >= MIN_SCORE) break;
+    if (score >= MIN_SCORE && vFail === 0) break;
   }
 
   if (!best) throw new Error(`no contract-clean candidate after ${GEN_ATTEMPTS} generations`);
+
+  // Faithfulness vision polish (look-and-fix). The deterministic gates are blind to pills colliding
+  // with the headline, body text hidden behind a card, a missing element, or fake social chrome —
+  // exactly the defects a blind one-shot author leaves. Show the model each rendered slide beside
+  // its reference, collect concrete faithfulness defects, and repair until the deck is clean (or the
+  // round budget runs out). This is the single biggest lever for matching hand-authored quality.
+  fs.writeFileSync(replica, fs.readFileSync(bestFile, 'utf8'));
+  fillImages(replica);
+  const gatesOk = (f) => contractViolations(runGate('check-template-contract.mjs', f).out) === 0 && slideCount(fs.readFileSync(f, 'utf8')) === EXPECT && !leakedBrandTokens(fs.readFileSync(f, 'utf8'), td).length;
+  let bestDefects = Infinity;
+  for (let fr = 1; fr <= FAITH_ITERS; fr++) {
+    setStage(designId, `faithfulness review ${fr}/${FAITH_ITERS}`);
+    runGate('verify-slides.mjs', replica); // fresh renders for the review
+    const review = await faithReview(renderImages(), thumbs);
+    const dc = review ? (review.defects || []).length : 0;
+    if (review && dc < bestDefects) { bestDefects = dc; fs.copyFileSync(replica, bestFile); } // keep the version the reviewer likes most
+    if (!review || review.clean || dc === 0) { log(`  faithfulness review ${fr}: clean`); break; }
+    log(`  faithfulness review ${fr}/${FAITH_ITERS}: ${dc} defect(s) — ${[...new Set(review.defects.map((d) => `s${d.slide}:${d.type}`))].join(', ')}`);
+    if (fr === FAITH_ITERS) break;
+    genRetries++;
+    const prev = fs.readFileSync(replica, 'utf8');
+    const renders = renderImages().slice();
+    // RE-AUTHOR FROM SIGHT: hand the model its own render beside the reference and let it redo the deck
+    // coherently (a holistic redo, closer to how a person re-composes) instead of dabbing at violations.
+    setStage(designId, `re-author from sight ${fr}/${FAITH_ITERS}`);
+    fs.writeFileSync(replica, await author({ td, thumbs, deck, sight: { renders, defects: reviewFailures(review) } }));
+    fillImages(replica);
+    if (!gatesOk(replica)) {
+      // The holistic redo broke the deterministic floor — fall back to a safe LOCAL repair from prev.
+      log(`  re-author ${fr}: broke gates — falling back to local repair`);
+      fs.writeFileSync(replica, prev); fillImages(replica);
+      fs.writeFileSync(replica, await repair({ currentHtml: prev, failures: reviewFailures(review), renders, slideCount: EXPECT }));
+      fillImages(replica);
+      if (!gatesOk(replica)) { fs.writeFileSync(replica, prev); fillImages(replica); } // repair also broke it → revert
+    }
+  }
+  // rescore the (possibly improved) best for the dashboard
+  fs.writeFileSync(replica, fs.readFileSync(bestFile, 'utf8'));
+  best.score = scoreReplica(replica); best.combined = best.score;
   const belowThreshold = best.combined < MIN_SCORE;
-  if (belowThreshold) log(`  best combined ${best.combined}/10 (score ${best.score}, premium ${best.premium}) < ${MIN_SCORE} — shipping best`);
+  if (belowThreshold) log(`  best ${best.combined}/10 (verify fail ${best.vFail}) < ${MIN_SCORE} — shipping best`);
 
   // ship best + register + rescore into store + comparison + refresh
   setStage(designId, 'finalizing');
@@ -737,7 +804,57 @@ function healOrphans() {
   if (n) { fs.writeFileSync(STORE, JSON.stringify(s, null, 2) + '\n'); log(`recovered ${n} stuck 'generating' row(s) -> cloned`); }
 }
 
+// Author ONE reference page in isolation, repair to clean, render a preview, and stop. Fast
+// per-slide quality iteration: confirm a single slide is faithful before committing the whole
+// deck, so a bad slide never forces a full-deck rework. Preview lands in output/_slide-<slug>-N.html.
+async function genOneSlide(designId, slideNum) {
+  const { td, thumbs } = loadIntake(designId);
+  const N = Math.max(1, Math.min(slideNum, thumbs.length));
+  const slug = slugify(td.title, designId);
+  const tdOne = { ...td, pages: [td.pages[N - 1]], pageCount: 1 }; // single-page doc → geometry + author focus on this page only
+  const thumbsOne = [thumbs[N - 1]];
+  fs.mkdirSync(REPLICAS, { recursive: true });
+  fs.mkdirSync(OUTPUT, { recursive: true });
+  const replica = path.join(REPLICAS, `_slide-${slug}-${N}.html`);
+  const preview = path.join(OUTPUT, `_slide-${slug}-${N}.html`);
+
+  log(`single-slide: ${designId} page ${N}/${thumbs.length} — "${(td.title || '').slice(0, 46)}"`);
+  const deck = planDeck(await plan({ td: tdOne, thumbs: thumbsOne }));
+  fs.writeFileSync(replica, await author({ td: tdOne, thumbs: thumbsOne, deck }));
+  fillImages(replica);
+
+  let cand = null;
+  for (let a = 0; a <= MAX_REPAIRS; a++) {
+    const contract = runGate('check-template-contract.mjs', replica);
+    const verify = runGate('verify-slides.mjs', replica);
+    const cv = contractViolations(contract.out);
+    const vFail = Number((verify.out.match(/(\d+)\s+fail/i) || [])[1] || 0);
+    const cur = fs.readFileSync(replica, 'utf8');
+    if (!cand || cv < cand.cv || (cv === cand.cv && vFail < cand.vFail)) {
+      cand = { cv, vFail, html: cur, failures: `check-template-contract:\n${contract.out.slice(-800)}\nverify-slides:\n${verify.out.slice(-700)}` };
+    }
+    if (cv === 0 && vFail === 0) break;
+    if (a === MAX_REPAIRS) break;
+    if (vFail > 60) { log(`  page ${N}: ${vFail} verify fails — abandoning blown-up draft`); break; }
+    log(`  page ${N} repair ${a + 1}/${MAX_REPAIRS} (contract ${cv}, verify fail ${vFail})`);
+    fs.writeFileSync(replica, await repair({ currentHtml: cand.html, failures: cand.failures, renders: renderImages(), slideCount: 1 }));
+    fillImages(replica);
+  }
+  if (cand) fs.writeFileSync(replica, cand.html);
+  const score = scoreReplica(replica);
+  fs.copyFileSync(replica, preview);
+  runGate('verify-slides.mjs', preview); // render the preview's slide PNG for inspection
+  log(`page ${N}: score ${score}/10 · verify fail ${cand ? cand.vFail : '?'} · preview ${preview}`);
+  return { preview, score, vFail: cand ? cand.vFail : null };
+}
+
 (async () => {
+  if (SLIDE_NUM > 0) {
+    if (!ONE_ID) { log('single-slide mode needs --design-id <ID> --slide <N>'); process.exit(1); }
+    await genOneSlide(ONE_ID, SLIDE_NUM);
+    log('worker exit.');
+    return;
+  }
   healOrphans();
   let done = 0;
   while (done < MAX) {

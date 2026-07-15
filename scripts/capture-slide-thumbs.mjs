@@ -59,7 +59,10 @@ async function main() {
       const tags = await page.evaluate(() => {
         const isMain = (e) => {
           const r = e.getBoundingClientRect();
-          return r.width > 420 && r.height > 420 && Math.abs(r.width / r.height - 0.8) < 0.06;
+          // Exact 1080x1350 slide aspect (0.800); the 0.02 tolerance rejects the editor page
+          // wrapper (~0.764 — includes the "Add page title" header + toolbar), plus a text guard.
+          return r.width > 420 && r.height > 420 && Math.abs(r.width / r.height - 0.8) < 0.02 &&
+            !/Add page title|^Page \d/.test(e.textContent || '');
         };
         // Nearest scrollable ancestor gives a stable frame of reference.
         const scroller =

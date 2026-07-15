@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&family=Caveat:wght@600&display=swap');
+
+    :root{
+      --primary:var(--brand-primary,#9B6A3E);
+      --secondary:var(--brand-secondary,#7E5230);
+      --accent:var(--brand-accent,#C8A375);
+      --bg:var(--brand-bg,#EFE6DA);
+      --surface:var(--brand-surface,#F7F0E7);
+      --text-high:var(--brand-text-high,#2C2218);
+      --text-low:var(--brand-text-low,rgba(44,34,24,.64));
+      --border:var(--brand-border,rgba(44,34,24,.16));
+      --highlight:var(--brand-highlight,#D8BC8D);
+    }
+
+    *{box-sizing:border-box}
+    body{margin:0;background:#111}
+    .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#111}
+    .slide{width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;background:var(--bg,#EFE6DA);font-family:'Inter',sans-serif}
+
+    .paper{position:absolute;inset:0;z-index:0;background:
+      radial-gradient(1200px 500px at 50% -80px,color-mix(in srgb,var(--highlight) 45%, transparent) 0%,transparent 70%),
+      linear-gradient(180deg,color-mix(in srgb,var(--bg) 90%, #ffffff 10%) 0%,var(--bg) 100%)}
+    .paper:before{content:"";position:absolute;inset:0;z-index:0;opacity:.2;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");}
+    .sheet{position:absolute;left:68px;right:68px;top:92px;bottom:126px;z-index:1;background:var(--surface,#F7F0E7);border:1.5px solid var(--border,#00000022);border-radius:8px;box-shadow:0 22px 50px color-mix(in srgb,var(--primary) 20%, transparent)}
+    .sheet:before,.sheet:after{content:"";position:absolute;left:34px;right:34px;height:2px;background:repeating-linear-gradient(90deg,var(--accent) 0 6px,transparent 6px 20px);opacity:.8}
+    .sheet:before{top:30px}.sheet:after{bottom:30px}
+
+    .orb{position:absolute;right:-90px;top:390px;width:380px;height:220px;border:4px solid var(--accent);border-radius:50%;z-index:2;opacity:.8;transform:rotate(-9deg)}
+
+    .brand-wrap{position:absolute;top:134px;left:116px;z-index:4;display:flex;align-items:center;gap:12px}
+    .brand-mark{width:34px;height:34px;object-fit:contain;display:block}
+    .brand-word{font-family:'Inter',sans-serif;font-size:25px;font-weight:600;letter-spacing:.08em;color:var(--secondary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;line-height:1.14;padding-bottom:4px}
+
+    .tn-kicker{position:absolute;top:226px;left:140px;right:140px;z-index:4;text-align:center}
+    .tn-kicker div{margin:0;font-family:'Inter',sans-serif;font-size:30px;letter-spacing:.18em;text-transform:lowercase;color:var(--secondary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;line-height:1.18;padding-bottom:5px}
+
+    .tn-title{position:absolute;top:390px;left:124px;right:124px;z-index:4;text-align:center}
+    .tn-title h1{margin:0;font-family:'Cormorant Garamond',serif;font-size:165px;font-weight:600;letter-spacing:-.01em;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;line-height:1.08;padding-bottom:16px}
+
+    .tn-message{position:absolute;left:132px;right:132px;bottom:330px;z-index:4;text-align:center}
+    .tn-message p{margin:0;font-family:'Caveat',cursive;font-size:69px;font-weight:600;color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;line-height:1.14;padding-bottom:8px}
+
+    .tn-cta{position:absolute;left:50%;transform:translateX(-50%);bottom:190px;z-index:4}
+    .tn-cta span{display:inline-flex;align-items:center;justify-content:center;min-width:320px;padding:18px 34px;border-radius:999px;background:color-mix(in srgb,var(--primary) 20%, var(--surface) 80%);border:1.5px solid var(--border);font-family:'Inter',sans-serif;font-size:31px;font-weight:500;color:var(--text-high);letter-spacing:.02em;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:visible;line-height:1.2;padding-bottom:12px}
+  </style>
+</head>
+<body>
+  <div class="ig-carousel">
+    <section class="slide" data-cg-slide-type="cover">
+      <div class="paper" aria-hidden="true"></div>
+      <div class="sheet" aria-hidden="true"></div>
+      <div class="orb" aria-hidden="true"></div>
+
+      <div class="brand-wrap"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='6'%20fill='%23808080'%20fill-opacity='0.35'/%3E%3C/svg%3E"/><span class="brand-word">YOURBRAND</span></div>
+      <div class="tn-kicker"><div data-tagline="true">quiet note to self</div></div>
+      <div class="tn-title"><h1 data-title="true">Slow is a power move.</h1></div>
+      <div class="tn-message"><p data-message="true">Build with patience. Depth compounds, rush decays. Your best work arrives when your pace matches your standards.</p></div>
+      <div class="tn-cta"><span data-cta="true">Keep this close</span></div>
+    </section>
+  </div>
+</body>
+</html>

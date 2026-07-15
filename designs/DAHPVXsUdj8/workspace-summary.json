@@ -1,0 +1,63 @@
+{
+  "designId": "DAHPVXsUdj8",
+  "startedAt": "2026-07-14T05:29:10.455Z",
+  "finishedAt": "2026-07-14T05:29:33.691Z",
+  "workspaceRoot": "C:\\Users\\Groovy\\Projects\\canva-template-workspace",
+  "cloneProfile": "minimal",
+  "clone": {
+    "designId": "DAHPVXsUdj8",
+    "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXsUdj8\\extract",
+    "cloneProfile": "minimal",
+    "duplicate": true,
+    "duplicateOf": {
+      "designId": "DAHPVfvXB5k",
+      "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVfvXB5k\\extract",
+      "exactHash": "446dd768f5f6bebbd275650d391e50e099cd95c4ed3b26bff8694e0e8d13b258",
+      "layoutHash": "a5d699107112dd8bd9d2f94707051fea057d7fe71df36e7d56fd5ca028b68317"
+    },
+    "outputs": {
+      "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXsUdj8\\extract\\template-data.json",
+      "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXsUdj8\\extract\\template-signature.json",
+      "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
+      "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXsUdj8\\extract\\assets",
+      "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXsUdj8\\extract\\assets\\pages"
+    },
+    "stats": {
+      "pagesDetected": 5,
+      "slidesInHtmlClone": 0,
+      "promotedActualPages": 0,
+      "fallbackPageAssets": 2,
+      "downloaded": 2,
+      "failed": 0
+    }
+  },
+  "quality": {
+    "targetRmse": null,
+    "stopOnTarget": null,
+    "gate": null
+  },
+  "runTracking": {
+    "runId": null,
+    "runDir": null,
+    "report": null,
+    "output": null,
+    "createdAt": "2026-07-14T05:29:33.691Z",
+    "source": "clone-only",
+    "duplicate": true
+  },
+  "final": {
+    "duplicate": true,
+    "output": null,
+    "duplicateOf": {
+      "designId": "DAHPVfvXB5k",
+      "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVfvXB5k\\extract",
+      "exactHash": "446dd768f5f6bebbd275650d391e50e099cd95c4ed3b26bff8694e0e8d13b258",
+      "layoutHash": "a5d699107112dd8bd9d2f94707051fea057d7fe71df36e7d56fd5ca028b68317"
+    }
+  },
+  "paths": {
+    "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXsUdj8\\capture\\editor-page.full.html",
+    "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXsUdj8\\extract",
+    "pagesDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXsUdj8\\extract\\assets\\pages"
+  }
+}

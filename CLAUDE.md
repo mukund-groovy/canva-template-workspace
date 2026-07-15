@@ -50,27 +50,42 @@ collage, slow image-gen + text-on-photo contrast fails). Single-slide/photo-heav
 cloned then rolled back (counts are only known post-extract). Pass `--max-images 999` to disable
 the photo cap. Done = `status: cloned` + a `comparison` preview + `page-NN-thumbnail.png` == pageCount.
 
-## Stage 2 — Generate (batch command, NO agent)
+## Stage 2 — Generate
 
-`generate-worker.mjs` walks the `cloned` queue and authors an original, brand-recolorable
-carousel template for each (vision model plans + writes copy, fills photos, runs the contract +
-verify gates with a bounded repair loop, best-of-N by score, ships to `output/<slug>.html`,
-maps the archetype, rebuilds the comparison, and flips status **cloned → success**). Just run:
+The GOAL is **faithful reproduction + recolor**: rebuild the reference's layout/copy/devices closely as
+a brand-recolorable, editor-injectable template (NOT "invent an original design" — that pivot hurt
+quality and was reverted; see agent memory `faithful-repro-pivot`). Two ways to run it:
+
+### A) Batch command (`generate-worker.mjs`) — self-driving, uses the Azure model
+
+Walks the `cloned` queue and, per design: transcribes the reference faithfully, feeds the author EXACT
+geometry (`decode-geometry.mjs` → real font-sizes/box-sizes so it stops eyeballing), runs the contract +
+verify gates with a bounded repair loop, injects a deterministic occlusion guard (text always above
+surfaces), then a **faithfulness vision loop** — renders the deck, shows the model each slide beside its
+reference, and RE-AUTHORS from sight until collisions/occlusion/missing/chrome defects clear. Ships to
+`output/<slug>.html`, maps the archetype, rebuilds the comparison, flips **cloned → success**.
 
 ```bash
-node scripts/generate-worker.mjs                 # generate EVERY cloned design, one by one, until none left
+node scripts/generate-worker.mjs                 # every cloned design, one by one
 node scripts/generate-worker.mjs --once          # just the next one
 node scripts/generate-worker.mjs --design-id <ID># a specific design
-node scripts/generate-worker.mjs --max 5         # cap the batch
+node scripts/generate-worker.mjs --slide <N>     # author ONLY reference page N → output/_slide-*.html preview (fast per-slide quality probe; needs --design-id)
 node scripts/generate-worker.mjs --provider claude   # override GEN_PROVIDER (codex|claude)
 ```
 
-It is a self-driving batch — do not build an agent around it; just start it and let it drain the
-queue. Output templates land in `output/`; the dashboard (`dashboard.html`) shows before/after.
+Self-driving batch — start it and let it drain the queue. Output in `output/`; dashboard shows before/after.
+
+### B) CLI agent (`template-author-agent`) — higher fidelity, the model authors by hand
+
+Same deliverable, but the model authors holistically, RENDERS, LOOKS at the pixels, and iterates — which
+beats the pipeline (same model, no blind one-shot). Use when the user says "generate the template for
+<design-id>" and wants top quality. Runbook: `.claude/agents/template-author-agent.md` (in THIS repo).
+New agent files need a Claude Code restart to be spawnable by type; until then run it via a
+`general-purpose` (opus) agent told to Read and follow that runbook.
 
 ## Notes
 
 - Repo is standalone (root IS the workspace); scripts self-resolve their root — plain `scripts/…`.
-- The Stage-2 authoring rules live in `.claude/agents/template-author-agent.md` in the separate
-  `content-gen` repo (it ships to `content-gen/backend/`); this repo ships to `output/` instead.
+- The Stage-2 CLI authoring rules live in `.claude/agents/template-author-agent.md` in THIS repo
+  (ships to `output/`). A separate older copy exists in the `content-gen` repo (ships to `backend/`).
 - Dedupe is by fingerprint, not URL — a recolor of a base template is a real `duplicate`.
