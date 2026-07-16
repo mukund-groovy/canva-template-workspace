@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-16T17:23:05.430Z",
+  "generatedAt": "2026-07-16T17:52:55.780Z",
   "entries": [
     {
       "designId": "DAHOxjfy5Mo",
       "status": "cloned",
       "createdAt": "2026-07-08T06:42:03.068Z",
-      "updatedAt": "2026-07-16T16:45:05.144Z",
+      "updatedAt": "2026-07-16T17:52:55.620Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -70,7 +70,15 @@
         "designs/DAHOxjfy5Mo/extract/assets/pages/page-03-thumbnail.png",
         "designs/DAHOxjfy5Mo/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHOxjfy5Mo/extract/assets/pages/page-05-thumbnail.png"
-      ]
+      ],
+      "genStage": "",
+      "genDurationMs": 417156,
+      "genRetries": 3,
+      "lastError": "",
+      "belowThreshold": true,
+      "score": 4,
+      "detScore": 4,
+      "premiumScore": 0
     },
     {
       "designId": "DAHOyNQEdgs",

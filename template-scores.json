@@ -1,19 +1,20 @@
 {
   "cream-and-orange": {
-    "score": 8.5,
+    "score": 4,
     "breakdown": {
       "contract": 4,
-      "verify": 3,
-      "stress": 1.5,
+      "verify": 0,
+      "stress": 0,
       "brand": 0,
       "raw": {
         "cViol": 0,
         "cWarn": 0,
-        "vFail": 0,
-        "vWarn": 0,
-        "stFail": 0,
-        "deckAvg": 0,
-        "brandPass": false
+        "vFail": 4,
+        "vWarn": 2,
+        "stFail": 3,
+        "deckAvg": 1.01,
+        "brandPass": false,
+        "brandFail": 8
       }
     }
   },

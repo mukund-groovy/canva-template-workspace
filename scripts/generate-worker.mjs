@@ -26,6 +26,7 @@ const REPLICAS = path.join(WORKSPACE, 'replicas');
 const DESIGNS = path.join(WORKSPACE, 'designs');
 const STORE = path.join(WORKSPACE, 'dashboard-store.json');
 const MAP = path.join(WORKSPACE, 'archetype-map.json');
+const REMIX_MAP = path.join(WORKSPACE, 'remix-map.json');
 
 const argv = process.argv.slice(2);
 const flag = (n) => argv.includes(`--${n}`);
@@ -40,6 +41,12 @@ const GEN_ATTEMPTS = Number(opt('gens', 2));      // fresh-author fallbacks; pre
 const PREMIUM_MIN = Number(opt('premium-min', 8)); // below this, run judge-guided aesthetic repairs
 const PREMIUM_ITERS = Number(opt('premium-iters', 3)); // max iterative judge-guided premium repairs per gen (feedback-driven climb)
 const FAITH_ITERS = Number(opt('faith-iters', 3)); // max faithfulness vision-review + repair rounds on the best deck before ship
+// --remix: study the reference, keep its design language, INVENT the content (new topic, fresh
+// copy, own composition) — the same deliverable as template-remix-agent, and the default meaning
+// of "generate" since 2026-07-16. WITHOUT the flag this file behaves exactly as before: faithful
+// reproduction, archetype-map ship, cloned -> success. The faithful path must not regress, so the
+// flag only ever SELECTS a prompt or a ship branch — it never edits the shared machinery.
+const REMIX = flag('remix');
 // Combined quality = deterministic gates (contract/legibility/recolor — the floor) blended with
 // the vision art-director's premium score (depth/variety/hierarchy/polish — what the user judges).
 const combine = (det, prem) => Math.round((det * 0.4 + prem * 0.6) * 10) / 10;
@@ -221,6 +228,17 @@ function addMap(designId, slug) {
   m[designId] = slug;
   fs.writeFileSync(MAP, JSON.stringify(m, null, 2) + '\n');
 }
+// A remix ships standalone: it never claims the design's archetype-map entry (that belongs to a
+// faithful version, if one is ever authored), so the map is keyed slug -> designId and a design
+// can carry several. reconcile in agent-canva-clone.mjs derives the dashboard row from this and
+// flips the design to success once at least one remix exists.
+function addRemixMap(designId, slug) {
+  let m = {};
+  try { m = JSON.parse(fs.readFileSync(REMIX_MAP, 'utf8')); } catch {}
+  m[slug] = designId;
+  const sorted = Object.fromEntries(Object.entries(m).sort(([a], [b]) => a.localeCompare(b)));
+  fs.writeFileSync(REMIX_MAP, JSON.stringify(sorted, null, 2) + '\n');
+}
 
 // ── intake / slug ────────────────────────────────────────────────────────────────
 function loadIntake(designId) {
@@ -311,6 +329,39 @@ Produce exactly one slides[] entry per reference page. Omit a copy field with ""
 
 OUTPUT MUST BE STRICTLY VALID JSON: minified, double-quoted keys and values, and NO raw double-quote, newline, or backslash INSIDE any string value. If unsure, keep the value short. A single invalid character makes the whole plan unusable.`;
 
+// ── remix planner (--remix) ──────────────────────────────────────────────────────
+// Same JSON shape as PLANNER (planDeck consumes it unchanged) plus topic/slug, since a remix
+// names itself off the topic it invents rather than the reference's title. STEP 1 is identical
+// in spirit — read the design system — but STEP 2 inverts: invent the content instead of
+// transcribing it. Copying the reference's words is the failure mode this whole mode exists to
+// avoid (a run that shipped "BORCELLE"/"@REALLYGREATSITE" scored 8.2 and was still a clone).
+const PLANNER_REMIX = `You are an art director. You are shown the page images of a reference Instagram carousel, in order, plus the text extracted from each page. Work out WHY the reference works, then design a NEW carousel in the same design family — your own topic, your own words.
+
+STEP 1 — ANALYZE THE DESIGN SYSTEM (from what you SEE):
+- palette: the actual colours and their roles — background, primary, accent, text — as approximate hexes.
+- displayType / bodyType: the character of the type (e.g. tall condensed serif, geometric sans), and the scale contrast between headline and body.
+- grid: margins, alignment, where things sit.
+- density: airy | balanced | dense — match the reference's.
+- devices: the composing furniture that gives it its look — highlight bars, tinted cards, hard offset shadows, rules, chips, tabs, oversized numerals, line-art marks. THESE are the design language: keep them.
+
+STEP 2 — INVENT THE CONTENT. Choose ONE topic that suits this design's audience and tone but is NOT the reference's topic. Then write every slide yourself:
+- Real copy with a point of view — specific, concrete, worth reading. Not lorem, not generic filler ("Lorem ipsum", "Tips for success", "Boost your productivity").
+- Give each slide its own composition, following the reference's archetype for that position (cover / point / list / closer) and its density.
+- topic: one line naming what this deck is about. slug: a 3-word kebab-case name derived from the topic (e.g. write-better-emails, the-drawn-line).
+
+RULES:
+- NEVER reuse the reference's words, headlines, brand names, @handles, phone numbers or placeholder text. If a sentence could be lifted from the reference, rewrite it.
+- Recognisably the same design family, but its own piece — keep the craft and devices, replace the content.
+- Match the reference's slide count and per-slide density. If a slide is minimal, keep it minimal; if dense, keep it dense.
+- No social UI ("LIKE"/"SAVE"/"COMMENT"), no @handles, no swipe prompts, no page counters in the copy.
+- Keep each field to what actually fits the slide; do not pad.
+
+Return ONLY minified JSON, no prose, matching:
+{"topic":"what this deck is about","slug":"three-word-kebab","designSystem":{"palette":"colours + roles","displayType":"headline face character","bodyType":"body face","grid":"margins + alignment","density":"airy|balanced|dense","devices":"the composing furniture, comma-separated"},"slides":[{"role":"cover|point|list|closer","archetype":"this slide's layout archetype","layout":"how this slide is composed — where the headline/number/surface sit","kicker":"","title":"","body":"","cta":""}]}
+Produce exactly one slides[] entry per reference page. Omit a copy field with "" when the slide doesn't use it, but always fill archetype/layout.
+
+OUTPUT MUST BE STRICTLY VALID JSON: minified, double-quoted keys and values, and NO raw double-quote, newline, or backslash INSIDE any string value. If unsure, keep the value short.`;
+
 // ── authoring contract (system prompt) ───────────────────────────────────────────
 const SYSTEM = `You rebuild ONE self-contained, brand-recolorable Instagram carousel HTML template that FAITHFULLY REPRODUCES a reference carousel. You are given the reference's transcribed copy + per-slide layout and its page images. Reproduce the reference's layout, composition, and copy as closely as you can, as clean recolorable HTML. Do NOT redesign, elevate, or invent — match the reference. Output ONLY the complete HTML document (no prose, no markdown fences).
 
@@ -333,6 +384,38 @@ CHROME — reproduce the content, neutralize only the source's identity:
 - The reference's brand name in a top bar becomes the lockup <span class="brand-word">YOURBRAND</span> — never the source label (e.g. "BORCELLE").
 - Drop the reference's social UI ("LIKE"/"SAVE"/"COMMENT"), its @handle, and its swipe/next prompt. A page counter, if the reference has one, uses neutral digits.
 - Reproduce every OTHER text run — headlines, body, kickers, CTAs, labels — verbatim from the transcription.`;
+
+// ── remix authoring contract (--remix) ───────────────────────────────────────────
+// DERIVED from SYSTEM, not copied: only the four faithful instructions are swapped, so the
+// structure contract (brand tokens, lockup, data-* slots, fixed canvas) stays shared and cannot
+// drift between the two modes. A missed replacement throws at startup rather than silently
+// shipping a faithful prompt under --remix.
+const SYSTEM_REMIX = (() => {
+  const swaps = [
+    [
+      'You rebuild ONE self-contained, brand-recolorable Instagram carousel HTML template that FAITHFULLY REPRODUCES a reference carousel. You are given the reference\'s transcribed copy + per-slide layout and its page images. Reproduce the reference\'s layout, composition, and copy as closely as you can, as clean recolorable HTML. Do NOT redesign, elevate, or invent — match the reference. Output ONLY the complete HTML document (no prose, no markdown fences).',
+      'You author ONE self-contained, brand-recolorable Instagram carousel HTML template INSPIRED BY a reference carousel. You are given a plan (its invented topic + per-slide copy and composition) and the reference\'s page images. Build the plan as premium, recolorable HTML in the reference\'s design family: keep its craft — type character, scale contrast, grid, density and composing devices — while realizing the plan\'s own content. Recognisably the same family, but its own piece. Output ONLY the complete HTML document (no prose, no markdown fences).',
+    ],
+    [
+      'Reproduce the reference\'s composition per slide: the same layout, the same copy in the same roles, the same decorative devices in roughly their positions and sizes. Map the reference\'s actual colours onto the brand tokens so a palette swap re-skins it. The result should read as the SAME template, cleanly rebuilt and recolorable — not a new design, not "elevated", not flatter or busier than the reference.',
+      'Compose each slide per the plan, in the reference\'s design language: its type character and scale contrast, its grid and margins, its density, and its composing devices (highlight bars, tinted cards, offset shadows, rules, chips, oversized numerals). Map the reference\'s actual colours onto the brand tokens so a palette swap re-skins it. The result should read as a sibling of the reference — same craft, its own content and composition. Never flatter or plainer than the reference.',
+    ],
+    [
+      'CHROME — reproduce the content, neutralize only the source\'s identity:',
+      'CHROME — the copy is the plan\'s, and the source\'s identity never appears:',
+    ],
+    [
+      '- Reproduce every OTHER text run — headlines, body, kickers, CTAs, labels — verbatim from the transcription.',
+      '- Use the plan\'s copy for every text run — headlines, body, kickers, CTAs, labels. NEVER the reference\'s words, brand names, @handles or placeholder text ("BORCELLE", "@REALLYGREATSITE", "reallygreatsite.com"): a deck that reuses them is a clone and fails, however good it scores.',
+    ],
+  ];
+  let s = SYSTEM;
+  for (const [from, to] of swaps) {
+    if (!s.includes(from)) throw new Error(`--remix: SYSTEM changed, cannot derive SYSTEM_REMIX (missing: ${from.slice(0, 60)}…)`);
+    s = s.replace(from, to);
+  }
+  return s;
+})();
 
 // Best-effort recovery for a plan JSON the model slightly malformed (an unescaped quote
 // inside a descriptive string is the common case now that layout/visual carry prose).
@@ -361,7 +444,7 @@ async function plan({ td, thumbs, useVision = true, attempt = 1 }) {
   if (useVision) for (const p of thumbs.slice(0, 10)) content.push(imgPart(p));
   let raw;
   try {
-    raw = await respond({ instructions: PLANNER, input: [{ role: 'user', content }] });
+    raw = await respond({ instructions: REMIX ? PLANNER_REMIX : PLANNER, input: [{ role: 'user', content }] });
   } catch (err) {
     if (useVision && /unsupported|image|invalid|400/i.test(err.message)) {
       log('  plan: vision rejected — retrying text-only');
@@ -470,7 +553,7 @@ async function author({ td, thumbs, deck, useVision = true, sight = null }) {
     }
   }
   try {
-    return ensureTextAboveSurfaces(extractDoc(await respond({ instructions: SYSTEM, input: [{ role: 'user', content }] })));
+    return ensureTextAboveSurfaces(extractDoc(await respond({ instructions: REMIX ? SYSTEM_REMIX : SYSTEM, input: [{ role: 'user', content }] })));
   } catch (err) {
     if (useVision && /unsupported|image|invalid|400/i.test(err.message)) {
       log('  vision rejected by model — retrying text-only');
@@ -564,7 +647,7 @@ async function repair({ currentHtml, failures, renders, slideCount }) {
     `FAILURES:\n${failures}\n\n` +
     `CURRENT HTML (photos shown as placeholders — keep the data-image slots as-is):\n${stripBase64(currentHtml).slice(0, 90000)}` }];
   for (const r of renders.slice(0, 8)) parts.push(imgPart(r));
-  return ensureTextAboveSurfaces(extractDoc(await respond({ instructions: SYSTEM, input: [{ role: 'user', content: parts }] })));
+  return ensureTextAboveSurfaces(extractDoc(await respond({ instructions: REMIX ? SYSTEM_REMIX : SYSTEM, input: [{ role: 'user', content: parts }] })));
 }
 const slideCount = (html) => (html.match(/class="slide"/g) || []).length;
 
@@ -595,6 +678,44 @@ const REVIEW = `You are checking a REPRODUCTION of a reference Instagram carouse
 Report ONLY real, visible defects. If a slide faithfully matches the reference and is clean, report nothing for it.
 Return ONLY minified JSON: {"defects":[{"slide":<n>,"type":"COLLISION|CLIPPING|OCCLUDED|MISSING|CHROME|SIZE","problem":"what is wrong","fix":"specific change to make it match the reference"}],"clean":<true only if zero defects across all slides>}`;
 
+// ── remix design review (--remix) ────────────────────────────────────────────────
+// DERIVED from REVIEW. The structural defects (collision/clipping/occlusion/chrome) are exactly
+// the same failures and stay word-for-word — they are what the gates cannot see, and they are
+// what shipped the-drawn-line at 10/10 with colliding tabs. Only the fidelity framing changes:
+// grading a remix on "does it match the reference" would punish it for doing its job. MISSING/SIZE
+// are re-aimed at the design language, and PLAGIARISM is added — the one defect unique to remix.
+const REVIEW_REMIX = (() => {
+  const swaps = [
+    [
+      'You are checking a REPRODUCTION of a reference Instagram carousel for faithfulness and visual correctness. For each slide you are shown the REFERENCE image, then the REPRODUCTION image. Report concrete DEFECTS where the reproduction is visually broken or fails to match the reference:',
+      'You are checking a REMIX of a reference Instagram carousel. The remix deliberately has its OWN topic, copy and composition — it must only share the reference\'s design language (type character, scale contrast, grid, density, composing devices). Different words and a different layout are CORRECT, never defects. For each slide you are shown the REFERENCE image, then the REMIX image. Report concrete DEFECTS where the remix is visually broken or has lost the reference\'s craft:',
+    ],
+    [
+      '- MISSING: an element clearly present in the reference is absent in the reproduction.',
+      '- MISSING: the slide is missing something it needs to work — a headline with no support, a device the design language depends on, an empty region with no job.\n- PLAGIARISM: the remix reuses the reference\'s actual words, headline, brand name, @handle or placeholder text ("BORCELLE", "@REALLYGREATSITE", "reallygreatsite.com"). This is the worst defect: the copy must be the remix\'s own.\n- FLAT: the slide reads plainer or cheaper than the reference — the craft is gone (no scale contrast, no devices, weak hierarchy), or the body is shouty all-caps where the reference was restrained.',
+    ],
+    [
+      '- SIZE: an element is much larger or smaller than in the reference (e.g. an oversized headline that dominates wrongly).',
+      '- SIZE: an element is mis-scaled for its role — an oversized headline that dominates wrongly, or body type too small to read.',
+    ],
+    [
+      'Report ONLY real, visible defects. If a slide faithfully matches the reference and is clean, report nothing for it.',
+      'Report ONLY real, visible defects. If a slide is clean and carries the reference\'s craft, report nothing for it — do NOT report it for differing from the reference in words, topic or composition. That is the point.',
+    ],
+    [
+      '"fix":"specific change to make it match the reference"',
+      '"fix":"specific change to fix the defect, keeping the remix\'s own content"',
+    ],
+    ['COLLISION|CLIPPING|OCCLUDED|MISSING|CHROME|SIZE', 'COLLISION|CLIPPING|OCCLUDED|MISSING|PLAGIARISM|FLAT|CHROME|SIZE'],
+  ];
+  let s = REVIEW;
+  for (const [from, to] of swaps) {
+    if (!s.includes(from)) throw new Error(`--remix: REVIEW changed, cannot derive REVIEW_REMIX (missing: ${from.slice(0, 60)}…)`);
+    s = s.replace(from, to);
+  }
+  return s;
+})();
+
 // Faithfulness review (vision): the deterministic gates catch overflow/contrast but are blind to a
 // pill colliding with the headline, body text hidden behind a card, a missing element, or fake
 // social chrome. This shows the model each REFERENCE page beside the REPRODUCTION and asks for
@@ -602,7 +723,9 @@ Return ONLY minified JSON: {"defects":[{"slide":<n>,"type":"COLLISION|CLIPPING|O
 // the pipeline converge to hand-authored quality instead of shipping a blind one-shot.
 async function faithReview(renders, refs) {
   if (!renders || !renders.length || !refs || !refs.length) return null;
-  const content = [{ type: 'input_text', text: 'For each slide: REFERENCE first, then REPRODUCTION. Report faithfulness defects only. Return ONLY the JSON.' }];
+  const content = [{ type: 'input_text', text: REMIX
+    ? 'For each slide: REFERENCE first, then REMIX. The remix has its own topic, copy and composition by design — report only broken craft or reused reference copy, never differences from the reference. Return ONLY the JSON.'
+    : 'For each slide: REFERENCE first, then REPRODUCTION. Report faithfulness defects only. Return ONLY the JSON.' }];
   const n = Math.min(renders.length, refs.length, 10);
   for (let i = 0; i < n; i++) {
     content.push({ type: 'input_text', text: `Slide ${i + 1} — REFERENCE:` });
@@ -611,7 +734,7 @@ async function faithReview(renders, refs) {
     content.push(imgPart(renders[i]));
   }
   try {
-    const raw = await respond({ instructions: REVIEW, input: [{ role: 'user', content }] });
+    const raw = await respond({ instructions: REMIX ? REVIEW_REMIX : REVIEW, input: [{ role: 'user', content }] });
     const m = raw.match(/\{[\s\S]*\}/);
     if (!m) return null;
     const j = JSON.parse(m[0]);
@@ -622,7 +745,9 @@ async function faithReview(renders, refs) {
 // Turn the review's per-slide defects into a repair instruction block.
 function reviewFailures(j) {
   if (!j || !Array.isArray(j.defects) || !j.defects.length) return '';
-  return `faithfulness review — fix these visual defects so the reproduction matches the reference:\n` +
+  return (REMIX
+    ? `design review — fix these visual defects, keeping this deck's own topic and copy:\n`
+    : `faithfulness review — fix these visual defects so the reproduction matches the reference:\n`) +
     j.defects.map((x) => `  slide ${x.slide} [${x.type}]: ${x.problem} -> ${x.fix}`).join('\n');
 }
 
@@ -662,8 +787,16 @@ async function processOne(entry) {
   // Stage 1: invent an original creative plan from the reference (copy is written here,
   // decoupled from HTML, so the author realizes an original design instead of transcribing).
   setStage(designId, 'planning');
-  let deck = planDeck(await plan({ td, thumbs }));
-  log(`  transcription ready — authoring faithful reproduction (deck ${deck.length} chars)`);
+  const planObj = await plan({ td, thumbs });
+  let deck = planDeck(planObj);
+  // A remix names itself off the topic it invented; the reference's title describes content this
+  // deck deliberately does not have. Falls back to the reference-derived slug if the model
+  // omitted one. (Scratch files keep the original slug — they're internal and short-lived.)
+  const shipSlug = REMIX ? slugify(planObj?.slug || planObj?.topic || td.title, designId) : slug;
+  if (REMIX) log(`  remix topic: ${String(planObj?.topic || '(unnamed)').slice(0, 70)} -> ${shipSlug}`);
+  log(REMIX
+    ? `  plan ready — authoring remix in the reference's design family (deck ${deck.length} chars)`
+    : `  transcription ready — authoring faithful reproduction (deck ${deck.length} chars)`);
   const MAX_OVERLAP = 0.15; // reject a candidate that reuses >15% of the reference's phrasing
   const EXPECT = td.pageCount || thumbs.length; // slide count is locked to the reference
 
@@ -774,12 +907,17 @@ async function processOne(entry) {
 
   // ship best + register + rescore into store + comparison + refresh
   setStage(designId, 'finalizing');
-  fs.copyFileSync(bestFile, path.join(OUTPUT, `${slug}.html`));
+  fs.copyFileSync(bestFile, path.join(OUTPUT, `${shipSlug}.html`));
   fs.copyFileSync(bestFile, replica);
   try { fs.unlinkSync(bestFile); } catch {}
-  addMap(designId, slug);
-  runGate('score-template.mjs', slug);
-  try { execSync(`node "${path.join(SCRIPTS, 'build-comparison.mjs')}" --design-id ${designId}`, { cwd: WORKSPACE, stdio: 'ignore' }); } catch {}
+  if (REMIX) addRemixMap(designId, shipSlug); else addMap(designId, shipSlug);
+  runGate('score-template.mjs', shipSlug);
+  // build-comparison renders the design's archetype beside its reference — a remix has no
+  // archetype (it ships standalone), so there is nothing for it to build. The dashboard shows
+  // a remix through its own render gallery instead.
+  if (!REMIX) {
+    try { execSync(`node "${path.join(SCRIPTS, 'build-comparison.mjs')}" --design-id ${designId}`, { cwd: WORKSPACE, stdio: 'ignore' }); } catch {}
+  }
   // Record generation metrics (shown in the dashboard) before the refresh regenerates the HTML.
   // Mark success explicitly on the entry BEFORE the refresh — the ship already happened, so
   // status must not depend on the refresh succeeding.
@@ -794,7 +932,7 @@ async function processOne(entry) {
   } catch (e) {
     log(`refresh after ship failed (non-fatal): ${String(e.message).slice(0, 120)}`);
   }
-  return { slug, score: best.combined, premium: best.premium, belowThreshold };
+  return { slug: shipSlug, score: best.combined, premium: best.premium, belowThreshold };
 }
 
 // ── loop ─────────────────────────────────────────────────────────────────────
