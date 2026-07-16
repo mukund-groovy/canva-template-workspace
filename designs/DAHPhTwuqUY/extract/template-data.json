@@ -1,0 +1,6953 @@
+{
+  "designId": "DAHPhTwuqUY",
+  "extensionId": "jjDkfn4EzWCiCe9j_ovRtw",
+  "title": "Black and White Minimalist Illustrated Motivation Instagram Carousel",
+  "docSize": {
+    "A": 1080,
+    "B": 1350,
+    "C": "D"
+  },
+  "pageCount": 5,
+  "pages": [
+    {
+      "A?": "i",
+      "Z": {
+        "A?": "A",
+        "A": "TAEby5mLXEk",
+        "B": 1
+      },
+      "a": "PBm8vRmQqmsDh60S",
+      "C": {
+        "A": 1080,
+        "B": 1350,
+        "C": "D"
+      },
+      "G": {
+        "A": "EAHJRRlwwp4",
+        "B": 1,
+        "C": 1
+      },
+      "D": {
+        "C": "#ffffff"
+      },
+      "E": [
+        {
+          "A?": "H",
+          "A": -22.86890669803688,
+          "B": -157.86890669803688,
+          "D": 1395.7378133960738,
+          "C": 1395.7378133960738,
+          "F": 0.9,
+          "_": "LBG73ZkBlWmB77vR",
+          "b": 1395.7378133960738,
+          "a": 1395.7378133960738,
+          "c": [
+            {
+              "A?": "I",
+              "A": 5.684341886080802e-14,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LB7XpFDBNf4Zw4mD",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": -5.684341886080802e-14,
+              "B": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LBqJr5k1kLRcfVM9",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LB5fZSycTryqrn4v",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": 697.8689066980369,
+              "B": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LB0r9qj67jnxKV9y",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "A?": "K",
+          "A": 291.3257450251876,
+          "B": 95.36650334630457,
+          "D": 839.6546702057564,
+          "C": 644.3267304307441,
+          "N": "title",
+          "_": "LBTHShJDFWnNTxkh",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Your daily dose of Motivation\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "181.557"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 29
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "head-indent": {},
+                  "list-level": {},
+                  "list-marker": {}
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "e": 713.6723390358457,
+          "f": 547.65153,
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "J",
+          "A": 1195.8474031834648,
+          "B": 279.12376000205865,
+          "D": 132.0684206438256,
+          "C": 52.545369914059435,
+          "_": "LBKFDft989ZxByPM",
+          "a": {
+            "D": 64,
+            "C": 64
+          },
+          "b": [
+            {
+              "A": "M0 0H64V64H0z",
+              "B": {},
+              "C": {
+                "A": 5,
+                "B": "#000000",
+                "f": true
+              },
+              "D": 50
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 64,
+              "C": 64
+            },
+            "B": 45.66829111674892,
+            "C": 18.169803488027952,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {},
+          "f": [
+            {
+              "A": {
+                "A": [
+                  {
+                    "A?": "A",
+                    "A": "\n"
+                  }
+                ],
+                "B": [
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {
+                        "B": "#ffffff"
+                      },
+                      "font-family": {
+                        "B": "YAFcfq7XuZE,0"
+                      },
+                      "font-kerning": {
+                        "B": "normal"
+                      },
+                      "font-size": {
+                        "B": "28.0"
+                      },
+                      "font-style": {
+                        "B": "normal"
+                      },
+                      "font-weight": {
+                        "B": "normal"
+                      },
+                      "leading": {
+                        "B": "910.0"
+                      },
+                      "text-align": {
+                        "B": "center"
+                      },
+                      "text-transform": {
+                        "B": "none"
+                      },
+                      "tracking": {
+                        "B": "-44.0"
+                      }
+                    }
+                  },
+                  {
+                    "A?": "B",
+                    "A": 1
+                  },
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {},
+                      "font-family": {},
+                      "font-kerning": {},
+                      "font-size": {},
+                      "font-style": {},
+                      "font-weight": {},
+                      "leading": {},
+                      "text-align": {},
+                      "text-transform": {},
+                      "tracking": {}
+                    }
+                  }
+                ]
+              },
+              "B": {},
+              "D": {
+                "D": 64,
+                "C": 64
+              },
+              "E": [
+                4
+              ],
+              "F": "B"
+            }
+          ],
+          "h": {
+            "A?": "H",
+            "A": 52.545369914059435
+          }
+        },
+        {
+          "A?": "I",
+          "A": 465.42927034286487,
+          "B": 790.7746328101132,
+          "D": 251.2952241313756,
+          "C": 260.2869553149841,
+          "_": "LB15YvjjMNt8XGFL",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHj4P_ww",
+                "B": 1
+              },
+              "B": {
+                "D": 251.2952241313756,
+                "C": 260.2869553149841
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 216.04657913621924,
+          "B": 874.5171269009775,
+          "D": 156.83159560201733,
+          "C": 150.5583317779366,
+          "E": -9.616007330799622,
+          "_": "LBshBMB3HBK964R6",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHlvCMNc",
+                "B": 1
+              },
+              "B": {
+                "D": 156.83159560201733,
+                "C": 150.5583317779366
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 866.193098501153,
+          "B": 842.6936246011271,
+          "D": 188.65509790186766,
+          "C": 138.9187539095571,
+          "_": "LBF1snYKp1fwwCVx",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHotdonI",
+                "B": 1
+              },
+              "B": {
+                "B": -2.842170943040401e-14,
+                "D": 188.65509790186772,
+                "C": 138.9187539095571
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 1052.4179556363417,
+          "B": 691.1340468828134,
+          "D": 199.28117185459956,
+          "C": 205.63723174489638,
+          "E": -6.874472789732679,
+          "_": "LBYzmLvdqzJnNQQ5",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHqDjCCY",
+                "B": 1
+              },
+              "B": {
+                "D": 199.28117185459956,
+                "C": 205.63723174489638
+              }
+            },
+            "G": true
+          }
+        },
+        {
+          "A?": "I",
+          "A": 46.951622201092505,
+          "B": 611.341069295104,
+          "D": 179.43356351500918,
+          "C": 188.336755597815,
+          "_": "LBTpcTvBYRgyphM3",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHgpw3YA",
+                "B": 1
+              },
+              "B": {
+                "D": 179.43356351500918,
+                "C": 188.336755597815
+              }
+            }
+          }
+        },
+        {
+          "A?": "K",
+          "A": 921.82902916376,
+          "B": 95.36650334630457,
+          "D": 839.6546702057564,
+          "C": 66.24,
+          "N": "subtitle",
+          "_": "LBgKRv4LF5zzDzqd",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Small steps every day lead to big results!\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "56.0"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 42
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "head-indent": {},
+                  "list-level": {},
+                  "list-marker": {}
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 108,
+          "B": 95.36650334630471,
+          "D": 333.51789601220804,
+          "C": 66.24,
+          "N": "pretitle",
+          "_": "LBchyr4NTq9KV0hY",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "@reallygreatsite\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "decoration": {
+                    "B": "none"
+                  },
+                  "direction": {
+                    "B": "ltr"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-feature-calt": {
+                    "B": "off"
+                  },
+                  "font-feature-clig": {
+                    "B": "off"
+                  },
+                  "font-feature-liga": {
+                    "B": "off"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "56.0"
+                  },
+                  "font-size-modifier": {
+                    "B": "1"
+                  },
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "kerning": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "link": {
+                    "B": ""
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "list-number-set": {
+                    "B": "none"
+                  },
+                  "semantics": {
+                    "B": "p"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "start-us": {
+                    "B": "0"
+                  },
+                  "strikethrough": {
+                    "B": "none"
+                  },
+                  "style": {
+                    "B": "body"
+                  },
+                  "text-align": {
+                    "B": "start"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  },
+                  "vertical-align": {
+                    "B": "0%"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 17
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "decoration": {},
+                  "direction": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-feature-calt": {},
+                  "font-feature-clig": {},
+                  "font-feature-liga": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-size-modifier": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "head-indent": {},
+                  "kerning": {},
+                  "leading": {},
+                  "link": {},
+                  "list-level": {},
+                  "list-marker": {},
+                  "list-number-set": {},
+                  "semantics": {},
+                  "spacing": {},
+                  "start-us": {},
+                  "strikethrough": {},
+                  "style": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {},
+                  "vertical-align": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1190.9895837051668,
+          "B": 95.36650334630453,
+          "D": 241.16373661133795,
+          "C": 67.0656036760712,
+          "N": "heading",
+          "_": "LBFTqrCzSJV1PZyq",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "next slide\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "72.7193"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "decoration": {
+                    "B": "none"
+                  },
+                  "direction": {
+                    "B": "ltr"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-feature-calt": {
+                    "B": "off"
+                  },
+                  "font-feature-clig": {
+                    "B": "off"
+                  },
+                  "font-feature-liga": {
+                    "B": "off"
+                  },
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "kerning": {
+                    "B": "0.0"
+                  },
+                  "link": {
+                    "B": ""
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "list-number-set": {
+                    "B": "none"
+                  },
+                  "semantics": {
+                    "B": "p"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "start-us": {
+                    "B": "0"
+                  },
+                  "strikethrough": {
+                    "B": "none"
+                  },
+                  "style": {
+                    "B": "body"
+                  },
+                  "text-align": {
+                    "B": "start"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 4
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "font-size-modifier": {
+                    "B": "1"
+                  },
+                  "vertical-align": {
+                    "B": "0%"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "font-size-modifier": {},
+                  "vertical-align": {}
+                }
+              },
+              {
+                "A?": "B",
+                "A": 4
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "font-size-modifier": {
+                    "B": "1"
+                  },
+                  "vertical-align": {
+                    "B": "0%"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "decoration": {},
+                  "direction": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-feature-calt": {},
+                  "font-feature-clig": {},
+                  "font-feature-liga": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-size-modifier": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "head-indent": {},
+                  "kerning": {},
+                  "leading": {},
+                  "link": {},
+                  "list-level": {},
+                  "list-marker": {},
+                  "list-number-set": {},
+                  "semantics": {},
+                  "spacing": {},
+                  "start-us": {},
+                  "strikethrough": {},
+                  "style": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {},
+                  "vertical-align": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "e": 313.1651743597534,
+          "f": 87.088597,
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "I",
+          "A": 1207.511868091824,
+          "B": 314.25596637486075,
+          "D": 61.80400789822141,
+          "C": 29.216440097341025,
+          "_": "LB91gYBp22VLbt0k",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MADgjVqX00o",
+                "B": 2
+              },
+              "B": {
+                "A": -1.7763568394002505e-15,
+                "B": -7.105427357601002e-15,
+                "D": 61.80400789822142,
+                "C": 29.216440097341028
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "A?": "i",
+      "Z": {
+        "A?": "A",
+        "A": "TAEby5mLXEk",
+        "B": 1
+      },
+      "a": "PBCtYcLqjNnSmn1y",
+      "C": {
+        "A": 1080,
+        "B": 1350,
+        "C": "D"
+      },
+      "G": {
+        "A": "EAHJRRlwwp4",
+        "B": 1,
+        "C": 2
+      },
+      "D": {
+        "C": "#ffffff"
+      },
+      "E": [
+        {
+          "A?": "H",
+          "A": -22.86890669803688,
+          "B": -157.86890669803688,
+          "D": 1395.7378133960738,
+          "C": 1395.7378133960738,
+          "F": 0.9,
+          "_": "LBqVSm3Dm9GDMnNL",
+          "b": 1395.7378133960738,
+          "a": 1395.7378133960738,
+          "c": [
+            {
+              "A?": "I",
+              "A": 5.684341886080802e-14,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LBrMw5nQJkvdF32q",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": -5.684341886080802e-14,
+              "B": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LBVhtNXLYVTqKHdX",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LBr5Rs6m2SQpVwh7",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": 697.8689066980369,
+              "B": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LBMCj8jg4kX2dyFJ",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "A?": "K",
+          "A": 108,
+          "B": 735.7711955829942,
+          "D": 217.3626301169968,
+          "C": 56.92,
+          "N": "pretitle",
+          "_": "LBz8BBjwVwQnHFGj",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "next slide\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "48.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "decoration": {
+                    "B": "none"
+                  },
+                  "direction": {
+                    "B": "ltr"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-feature-calt": {
+                    "B": "off"
+                  },
+                  "font-feature-clig": {
+                    "B": "off"
+                  },
+                  "font-feature-liga": {
+                    "B": "off"
+                  },
+                  "font-size-modifier": {
+                    "B": "1"
+                  },
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "kerning": {
+                    "B": "0.0"
+                  },
+                  "link": {
+                    "B": ""
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "list-number-set": {
+                    "B": "none"
+                  },
+                  "semantics": {
+                    "B": "p"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "start-us": {
+                    "B": "0"
+                  },
+                  "strikethrough": {
+                    "B": "none"
+                  },
+                  "style": {
+                    "B": "body"
+                  },
+                  "text-align": {
+                    "B": "start"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "vertical-align": {
+                    "B": "0%"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 10
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "decoration": {},
+                  "direction": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-feature-calt": {},
+                  "font-feature-clig": {},
+                  "font-feature-liga": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-size-modifier": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "head-indent": {},
+                  "kerning": {},
+                  "leading": {},
+                  "link": {},
+                  "list-level": {},
+                  "list-marker": {},
+                  "list-number-set": {},
+                  "semantics": {},
+                  "spacing": {},
+                  "start-us": {},
+                  "strikethrough": {},
+                  "style": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {},
+                  "vertical-align": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "J",
+          "A": 113.04999094741332,
+          "B": 892.3888037342875,
+          "D": 118.49812739918667,
+          "C": 47.14622850761489,
+          "_": "LBmCyz43FfRkCfbl",
+          "a": {
+            "D": 64,
+            "C": 64
+          },
+          "b": [
+            {
+              "A": "M0 0H64V64H0z",
+              "B": {},
+              "C": {
+                "A": 5,
+                "B": "#000000",
+                "f": true
+              },
+              "D": 50
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 64,
+              "C": 64
+            },
+            "B": 45.66829111674892,
+            "C": 18.169803488027952,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {},
+          "f": [
+            {
+              "A": {
+                "A": [
+                  {
+                    "A?": "A",
+                    "A": "\n"
+                  }
+                ],
+                "B": [
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {
+                        "B": "#ffffff"
+                      },
+                      "font-family": {
+                        "B": "YAFcfq7XuZE,0"
+                      },
+                      "font-kerning": {
+                        "B": "normal"
+                      },
+                      "font-size": {
+                        "B": "28.0"
+                      },
+                      "font-style": {
+                        "B": "normal"
+                      },
+                      "font-weight": {
+                        "B": "normal"
+                      },
+                      "leading": {
+                        "B": "910.0"
+                      },
+                      "text-align": {
+                        "B": "center"
+                      },
+                      "text-transform": {
+                        "B": "none"
+                      },
+                      "tracking": {
+                        "B": "-44.0"
+                      }
+                    }
+                  },
+                  {
+                    "A?": "B",
+                    "A": 1
+                  },
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {},
+                      "font-family": {},
+                      "font-kerning": {},
+                      "font-size": {},
+                      "font-style": {},
+                      "font-weight": {},
+                      "leading": {},
+                      "text-align": {},
+                      "text-transform": {},
+                      "tracking": {}
+                    }
+                  }
+                ]
+              },
+              "B": {
+                "A": [
+                  0
+                ]
+              },
+              "D": {
+                "D": 64,
+                "C": 64
+              },
+              "E": [
+                4
+              ],
+              "F": "B"
+            }
+          ],
+          "h": {
+            "A?": "H",
+            "A": 47.14622850761489
+          }
+        },
+        {
+          "A?": "I",
+          "A": 123.51590885584189,
+          "B": 923.9111059340408,
+          "D": 55.45352299967988,
+          "C": 26.21439269075776,
+          "_": "LBKMDL9mTv1dHvjk",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MADgjVqX00o",
+                "B": 2
+              },
+              "B": {
+                "A": -1.7763568394002505e-15,
+                "B": -3.552713678800501e-15,
+                "D": 55.45352299967989,
+                "C": 26.214392690757762
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 1143.5349771218957,
+          "B": 818.3244014249216,
+          "D": 216.00000000000014,
+          "C": 215.2145454545456,
+          "E": -9.27618036574615,
+          "_": "LBjNtprmcqcsbxyj",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHm5pm4Y",
+                "B": 1
+              },
+              "B": {
+                "B": -1.4210854715202004e-14,
+                "D": 216.00000000000017,
+                "C": 215.2145454545456
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 909.6407286660921,
+          "B": 53.34527130493123,
+          "D": 138.48137816614283,
+          "C": 228.72299697110677,
+          "E": 9.180721311887005,
+          "_": "LBqzS3SjWbxw174H",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHl6iHUg",
+                "B": 1
+              },
+              "B": {
+                "D": 138.48137816614283,
+                "C": 228.72299697110677
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 1055.8750119776,
+          "B": 191.82664947107403,
+          "D": 281.90573772885017,
+          "C": 283.451838667034,
+          "_": "LB64TjDg9g7WvR7Z",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHtZHWOs",
+                "B": 1
+              },
+              "B": {
+                "D": 281.90573772885017,
+                "C": 283.451838667034
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 941.5135134920469,
+          "B": 513.8023423754476,
+          "D": 264.4521038739507,
+          "C": 238.0068934865556,
+          "E": -6.731601874785435,
+          "_": "LB2vW5pyqKb9rjS5",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHi3_SgQ",
+                "B": 1
+              },
+              "B": {
+                "D": 264.4521038739507,
+                "C": 238.0068934865556
+              }
+            }
+          }
+        },
+        {
+          "A?": "K",
+          "A": 108,
+          "B": 72.66774140088415,
+          "D": 299.1480308882538,
+          "C": 56.92,
+          "N": "pretitle",
+          "_": "LBhkdZJgGckMyrW5",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "@reallygreatsite\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "decoration": {
+                    "B": "none"
+                  },
+                  "direction": {
+                    "B": "ltr"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-feature-calt": {
+                    "B": "off"
+                  },
+                  "font-feature-clig": {
+                    "B": "off"
+                  },
+                  "font-feature-liga": {
+                    "B": "off"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "48.0"
+                  },
+                  "font-size-modifier": {
+                    "B": "1"
+                  },
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "kerning": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "link": {
+                    "B": ""
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "list-number-set": {
+                    "B": "none"
+                  },
+                  "semantics": {
+                    "B": "p"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "start-us": {
+                    "B": "0"
+                  },
+                  "strikethrough": {
+                    "B": "none"
+                  },
+                  "style": {
+                    "B": "body"
+                  },
+                  "text-align": {
+                    "B": "start"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  },
+                  "vertical-align": {
+                    "B": "0%"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 17
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "decoration": {},
+                  "direction": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-feature-calt": {},
+                  "font-feature-clig": {},
+                  "font-feature-liga": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-size-modifier": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "head-indent": {},
+                  "kerning": {},
+                  "leading": {},
+                  "link": {},
+                  "list-level": {},
+                  "list-marker": {},
+                  "list-number-set": {},
+                  "semantics": {},
+                  "spacing": {},
+                  "start-us": {},
+                  "strikethrough": {},
+                  "style": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {},
+                  "vertical-align": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 225.05397000000005,
+          "B": 120.17266489712188,
+          "D": 839.6546702057562,
+          "C": 449.94603,
+          "N": "title",
+          "_": "LB58HdH6stcHZDKr",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Quote of the Day\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "213.607"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 16
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "head-indent": {},
+                  "list-level": {},
+                  "list-marker": {}
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 699.591744028276,
+          "B": 206.25912146308906,
+          "D": 667.4817570738221,
+          "C": 171.46667,
+          "N": "subtitle",
+          "_": "LBwd1Cbm5pHjpG0L",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "“If you work with heart, you don't need to work hard.”\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "74.6667"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "1100.0"
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 54
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "head-indent": {},
+                  "list-level": {},
+                  "list-marker": {}
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "I",
+          "A": 837.9102249891057,
+          "B": 895.0896381870758,
+          "D": 129.4753938316049,
+          "C": 124.29637807834064,
+          "E": -12.536856759110556,
+          "_": "LB5sL6q2VlggsWK5",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHlvCMNc",
+                "B": 1
+              },
+              "B": {
+                "D": 129.4753938316049,
+                "C": 124.29637807834064
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 652.8607846013263,
+          "B": -29.27016465756128,
+          "D": 129.4753938316049,
+          "C": 124.29637807834064,
+          "E": 7.755800911493097,
+          "_": "LBqzwD0TG4HblKlr",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHlvCMNc",
+                "B": 1
+              },
+              "B": {
+                "D": 129.4753938316049,
+                "C": 124.29637807834064
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 1252.6586217868096,
+          "B": 573.3240667525248,
+          "D": 129.4753938316049,
+          "C": 124.29637807834064,
+          "E": 10.392607468429796,
+          "_": "LBQynDgz3VXV39kG",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHlvCMNc",
+                "B": 1
+              },
+              "B": {
+                "D": 129.4753938316049,
+                "C": 124.29637807834064
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "A?": "i",
+      "Z": {
+        "A?": "A",
+        "A": "TAEby5mLXEk",
+        "B": 1
+      },
+      "a": "PBsRk0xDwyBH371x",
+      "C": {
+        "A": 1080,
+        "B": 1350,
+        "C": "D"
+      },
+      "G": {
+        "A": "EAHJRRlwwp4",
+        "B": 1,
+        "C": 3
+      },
+      "D": {
+        "C": "#ffffff"
+      },
+      "E": [
+        {
+          "A?": "H",
+          "A": -22.86890669803688,
+          "B": -157.86890669803688,
+          "D": 1395.7378133960738,
+          "C": 1395.7378133960738,
+          "F": 0.9,
+          "_": "LB3DX9Xwn2TkvjpY",
+          "b": 1395.7378133960738,
+          "a": 1395.7378133960738,
+          "c": [
+            {
+              "A?": "I",
+              "A": 5.684341886080802e-14,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LBMz8gG79rQF0PRx",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": -5.684341886080802e-14,
+              "B": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LBCszlhtlF2MC72K",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LB7fdDwg1YBYBGJF",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": 697.8689066980369,
+              "B": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LBT9Tjd7QnwTNkv5",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "A?": "K",
+          "A": 1185.08,
+          "B": 733.993859315815,
+          "D": 217.3626301169968,
+          "C": 56.92,
+          "N": "heading",
+          "_": "LBjwDc8hXg3spgmp",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "next slide\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "48.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "decoration": {
+                    "B": "none"
+                  },
+                  "direction": {
+                    "B": "ltr"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-feature-calt": {
+                    "B": "off"
+                  },
+                  "font-feature-clig": {
+                    "B": "off"
+                  },
+                  "font-feature-liga": {
+                    "B": "off"
+                  },
+                  "font-size-modifier": {
+                    "B": "1"
+                  },
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "kerning": {
+                    "B": "0.0"
+                  },
+                  "link": {
+                    "B": ""
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "list-number-set": {
+                    "B": "none"
+                  },
+                  "semantics": {
+                    "B": "p"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "start-us": {
+                    "B": "0"
+                  },
+                  "strikethrough": {
+                    "B": "none"
+                  },
+                  "style": {
+                    "B": "body"
+                  },
+                  "text-align": {
+                    "B": "start"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "vertical-align": {
+                    "B": "0%"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 10
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "decoration": {},
+                  "direction": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-feature-calt": {},
+                  "font-feature-clig": {},
+                  "font-feature-liga": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-size-modifier": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "head-indent": {},
+                  "kerning": {},
+                  "leading": {},
+                  "link": {},
+                  "list-level": {},
+                  "list-marker": {},
+                  "list-number-set": {},
+                  "semantics": {},
+                  "spacing": {},
+                  "start-us": {},
+                  "strikethrough": {},
+                  "style": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {},
+                  "vertical-align": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "J",
+          "A": 1190.1299909474133,
+          "B": 890.6114674671084,
+          "D": 118.49812739918667,
+          "C": 47.14622850761489,
+          "_": "LBhhFpsBGg14Sxx9",
+          "a": {
+            "D": 64,
+            "C": 64
+          },
+          "b": [
+            {
+              "A": "M0 0H64V64H0z",
+              "B": {},
+              "C": {
+                "A": 5,
+                "B": "#000000",
+                "f": true
+              },
+              "D": 50
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 64,
+              "C": 64
+            },
+            "B": 45.66829111674892,
+            "C": 18.169803488027952,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {},
+          "f": [
+            {
+              "A": {
+                "A": [
+                  {
+                    "A?": "A",
+                    "A": "\n"
+                  }
+                ],
+                "B": [
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {
+                        "B": "#ffffff"
+                      },
+                      "font-family": {
+                        "B": "YAFcfq7XuZE,0"
+                      },
+                      "font-kerning": {
+                        "B": "normal"
+                      },
+                      "font-size": {
+                        "B": "28.0"
+                      },
+                      "font-style": {
+                        "B": "normal"
+                      },
+                      "font-weight": {
+                        "B": "normal"
+                      },
+                      "leading": {
+                        "B": "910.0"
+                      },
+                      "text-align": {
+                        "B": "center"
+                      },
+                      "text-transform": {
+                        "B": "none"
+                      },
+                      "tracking": {
+                        "B": "-44.0"
+                      }
+                    }
+                  },
+                  {
+                    "A?": "B",
+                    "A": 1
+                  },
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {},
+                      "font-family": {},
+                      "font-kerning": {},
+                      "font-size": {},
+                      "font-style": {},
+                      "font-weight": {},
+                      "leading": {},
+                      "text-align": {},
+                      "text-transform": {},
+                      "tracking": {}
+                    }
+                  }
+                ]
+              },
+              "B": {
+                "A": [
+                  0
+                ]
+              },
+              "D": {
+                "D": 64,
+                "C": 64
+              },
+              "E": [
+                4
+              ],
+              "F": "B"
+            }
+          ],
+          "h": {
+            "A?": "H",
+            "A": 47.14622850761489
+          }
+        },
+        {
+          "A?": "I",
+          "A": 1200.5959088558418,
+          "B": 922.1337696668617,
+          "D": 55.45352299967988,
+          "C": 26.21439269075776,
+          "_": "LBYqyCG1PH0PRlS0",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MADgjVqX00o",
+                "B": 2
+              },
+              "B": {
+                "A": -1.7763568394002505e-15,
+                "B": -3.552713678800501e-15,
+                "D": 55.45352299967989,
+                "C": 26.214392690757762
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 631.1868984140826,
+          "B": -22.849355667184966,
+          "D": 261.6987113343699,
+          "C": 269.5398712245383,
+          "E": 7.753206710715659,
+          "_": "LBrDqwzjDPTB6lh5",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHncg58M",
+                "B": 1
+              },
+              "B": {
+                "D": 261.6987113343699,
+                "C": 269.5398712245383
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 348.972234469332,
+          "B": 111.9353112941732,
+          "D": 193.3822210488517,
+          "C": 138.53199107863193,
+          "E": 12.714870130618996,
+          "_": "LBw9cXjKKGS5B7Hx",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHlCfpwk",
+                "B": 1
+              },
+              "B": {
+                "D": 193.3822210488517,
+                "C": 138.53199107863193
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 940.5171450217238,
+          "B": 219.29380485486405,
+          "D": 221.78211424827398,
+          "C": 179.44189243723986,
+          "E": -7.213765343350671,
+          "_": "LBbYqLrkGkNjpLYl",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHlgTDJY",
+                "B": 1
+              },
+              "B": {
+                "A": -2.842170943040401e-14,
+                "B": -1.4210854715202004e-14,
+                "D": 221.782114248274,
+                "C": 179.44189243723991
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 32.83244420298365,
+          "B": 73.36454100053636,
+          "D": 216.7981964104562,
+          "C": 227.55535882776888,
+          "E": 7.751522970337164,
+          "_": "LBl1YXTTd89FdTXg",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHgpw3YA",
+                "B": 1
+              },
+              "B": {
+                "D": 216.7981964104562,
+                "C": 227.55535882776888
+              }
+            }
+          }
+        },
+        {
+          "A?": "K",
+          "A": 1185.08,
+          "B": 70.89040513370497,
+          "D": 299.1480308882538,
+          "C": 56.92,
+          "N": "heading",
+          "_": "LB7DmL7nY03sqSt7",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "@reallygreatsite\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "decoration": {
+                    "B": "none"
+                  },
+                  "direction": {
+                    "B": "ltr"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-feature-calt": {
+                    "B": "off"
+                  },
+                  "font-feature-clig": {
+                    "B": "off"
+                  },
+                  "font-feature-liga": {
+                    "B": "off"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "48.0"
+                  },
+                  "font-size-modifier": {
+                    "B": "1"
+                  },
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "kerning": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "link": {
+                    "B": ""
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "list-number-set": {
+                    "B": "none"
+                  },
+                  "semantics": {
+                    "B": "p"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "start-us": {
+                    "B": "0"
+                  },
+                  "strikethrough": {
+                    "B": "none"
+                  },
+                  "style": {
+                    "B": "body"
+                  },
+                  "text-align": {
+                    "B": "start"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  },
+                  "vertical-align": {
+                    "B": "0%"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 17
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "decoration": {},
+                  "direction": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-feature-calt": {},
+                  "font-feature-clig": {},
+                  "font-feature-liga": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-size-modifier": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "head-indent": {},
+                  "kerning": {},
+                  "leading": {},
+                  "link": {},
+                  "list-level": {},
+                  "list-marker": {},
+                  "list-number-set": {},
+                  "semantics": {},
+                  "spacing": {},
+                  "start-us": {},
+                  "strikethrough": {},
+                  "style": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {},
+                  "vertical-align": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 129.61012361686812,
+          "B": 304.51824292617806,
+          "D": 667.481757073822,
+          "C": 449.94603,
+          "N": "title",
+          "_": "LBRrTYJ9dmCTfCdm",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Today's Action\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "213.607"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "text-align": {
+                    "B": "end"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 14
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "head-indent": {},
+                  "list-level": {},
+                  "list-marker": {}
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 601.4633680695445,
+          "B": 304.5182429261779,
+          "D": 667.4817570738221,
+          "C": 335.46667,
+          "N": "subtitle",
+          "_": "LBRnZL86DQcJRshQ",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Break your big goal into one small, manageable step and do it today. Progress starts with action!\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "74.6667"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "1100.0"
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "text-align": {
+                    "B": "end"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 97
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "head-indent": {},
+                  "list-level": {},
+                  "list-marker": {}
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "I",
+          "A": 998.2186228672228,
+          "B": 530.5951116843123,
+          "D": 129.4753938316049,
+          "C": 124.29637807834064,
+          "E": 10.392607468429796,
+          "_": "LBrlmFwp2d3mjcDd",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHlvCMNc",
+                "B": 1
+              },
+              "B": {
+                "D": 129.4753938316049,
+                "C": 124.29637807834064
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 252.78605126654023,
+          "B": -64.7376969158023,
+          "D": 129.4753938316049,
+          "C": 124.29637807834064,
+          "E": -21.28835531867967,
+          "_": "LBWmVhYtLPvfTnPB",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHlvCMNc",
+                "B": 1
+              },
+              "B": {
+                "D": 129.4753938316049,
+                "C": 124.29637807834064
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "A?": "i",
+      "Z": {
+        "A?": "A",
+        "A": "TAEby5mLXEk",
+        "B": 1
+      },
+      "a": "PBBrW0Cwxjd6FcgL",
+      "C": {
+        "A": 1080,
+        "B": 1350,
+        "C": "D"
+      },
+      "G": {
+        "A": "EAHJRRlwwp4",
+        "B": 1,
+        "C": 4
+      },
+      "D": {
+        "C": "#ffffff"
+      },
+      "E": [
+        {
+          "A?": "H",
+          "A": -22.86890669803688,
+          "B": -157.86890669803688,
+          "D": 1395.7378133960738,
+          "C": 1395.7378133960738,
+          "F": 0.9,
+          "_": "LBZjTBQ58Q2nssDy",
+          "b": 1395.7378133960738,
+          "a": 1395.7378133960738,
+          "c": [
+            {
+              "A?": "I",
+              "A": 5.684341886080802e-14,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LBJcRbSR4LgTM3wY",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": -5.684341886080802e-14,
+              "B": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LBLcrQCNdPTZ3Bq6",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LBM3PPyT2sPPCHlp",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": 697.8689066980369,
+              "B": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LB5VW76Hmp8JzwJc",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "A?": "K",
+          "A": 108,
+          "B": 735.7711955829942,
+          "D": 217.3626301169968,
+          "C": 56.92,
+          "N": "pretitle",
+          "_": "LBJK1zNQzP704lWp",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "next slide\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "48.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "decoration": {
+                    "B": "none"
+                  },
+                  "direction": {
+                    "B": "ltr"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-feature-calt": {
+                    "B": "off"
+                  },
+                  "font-feature-clig": {
+                    "B": "off"
+                  },
+                  "font-feature-liga": {
+                    "B": "off"
+                  },
+                  "font-size-modifier": {
+                    "B": "1"
+                  },
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "kerning": {
+                    "B": "0.0"
+                  },
+                  "link": {
+                    "B": ""
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "list-number-set": {
+                    "B": "none"
+                  },
+                  "semantics": {
+                    "B": "p"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "start-us": {
+                    "B": "0"
+                  },
+                  "strikethrough": {
+                    "B": "none"
+                  },
+                  "style": {
+                    "B": "body"
+                  },
+                  "text-align": {
+                    "B": "start"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "vertical-align": {
+                    "B": "0%"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 10
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "decoration": {},
+                  "direction": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-feature-calt": {},
+                  "font-feature-clig": {},
+                  "font-feature-liga": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-size-modifier": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "head-indent": {},
+                  "kerning": {},
+                  "leading": {},
+                  "link": {},
+                  "list-level": {},
+                  "list-marker": {},
+                  "list-number-set": {},
+                  "semantics": {},
+                  "spacing": {},
+                  "start-us": {},
+                  "strikethrough": {},
+                  "style": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {},
+                  "vertical-align": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "J",
+          "A": 113.04999094741332,
+          "B": 892.3888037342875,
+          "D": 118.49812739918667,
+          "C": 47.14622850761489,
+          "_": "LB0Q6xYJGWz2fl98",
+          "a": {
+            "D": 64,
+            "C": 64
+          },
+          "b": [
+            {
+              "A": "M0 0H64V64H0z",
+              "B": {},
+              "C": {
+                "A": 5,
+                "B": "#000000",
+                "f": true
+              },
+              "D": 50
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 64,
+              "C": 64
+            },
+            "B": 45.66829111674892,
+            "C": 18.169803488027952,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {},
+          "f": [
+            {
+              "A": {
+                "A": [
+                  {
+                    "A?": "A",
+                    "A": "\n"
+                  }
+                ],
+                "B": [
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {
+                        "B": "#ffffff"
+                      },
+                      "font-family": {
+                        "B": "YAFcfq7XuZE,0"
+                      },
+                      "font-kerning": {
+                        "B": "normal"
+                      },
+                      "font-size": {
+                        "B": "28.0"
+                      },
+                      "font-style": {
+                        "B": "normal"
+                      },
+                      "font-weight": {
+                        "B": "normal"
+                      },
+                      "leading": {
+                        "B": "910.0"
+                      },
+                      "text-align": {
+                        "B": "center"
+                      },
+                      "text-transform": {
+                        "B": "none"
+                      },
+                      "tracking": {
+                        "B": "-44.0"
+                      }
+                    }
+                  },
+                  {
+                    "A?": "B",
+                    "A": 1
+                  },
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {},
+                      "font-family": {},
+                      "font-kerning": {},
+                      "font-size": {},
+                      "font-style": {},
+                      "font-weight": {},
+                      "leading": {},
+                      "text-align": {},
+                      "text-transform": {},
+                      "tracking": {}
+                    }
+                  }
+                ]
+              },
+              "B": {
+                "A": [
+                  0
+                ]
+              },
+              "D": {
+                "D": 64,
+                "C": 64
+              },
+              "E": [
+                4
+              ],
+              "F": "B"
+            }
+          ],
+          "h": {
+            "A?": "H",
+            "A": 47.14622850761489
+          }
+        },
+        {
+          "A?": "I",
+          "A": 123.51590885584189,
+          "B": 923.9111059340408,
+          "D": 55.45352299967988,
+          "C": 26.21439269075776,
+          "_": "LBpHDlc6HzGYHQrX",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MADgjVqX00o",
+                "B": 2
+              },
+              "B": {
+                "A": -1.7763568394002505e-15,
+                "B": -3.552713678800501e-15,
+                "D": 55.45352299967989,
+                "C": 26.214392690757762
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 497.46535950022553,
+          "B": 691.7269170688294,
+          "D": 305.3595816596121,
+          "C": 355.0692809995489,
+          "E": 9.433168588073624,
+          "_": "LBR27rQfBL6Q5145",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHrAbmfk",
+                "B": 1
+              },
+              "B": {
+                "D": 305.3595816596121,
+                "C": 355.0692809995489
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 1142.980166494073,
+          "B": 498.4784866491555,
+          "D": 191.01664413311173,
+          "C": 229.88874020396378,
+          "E": -11.804913447716036,
+          "_": "LBFvCncvV9M9C901",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHj9coJE",
+                "B": 1
+              },
+              "B": {
+                "D": 191.01664413311173,
+                "C": 229.88874020396378
+              }
+            }
+          }
+        },
+        {
+          "A?": "K",
+          "A": 323.9665336595631,
+          "B": 72.66774140088427,
+          "D": 667.481757073822,
+          "C": 449.94603,
+          "N": "title",
+          "_": "LBn8sJhvWVq5YJXg",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Keep Going!\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "213.607"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "text-align": {
+                    "B": "justify"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 11
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "head-indent": {},
+                  "list-level": {},
+                  "list-marker": {}
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "I",
+          "A": 903.2908238205092,
+          "B": 728.9811934046243,
+          "D": 281.90573772885017,
+          "C": 283.451838667034,
+          "E": -5.633787108940664,
+          "_": "LBSW2HwTW0y1D1Y2",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHtZHWOs",
+                "B": 1
+              },
+              "B": {
+                "D": 281.90573772885017,
+                "C": 283.451838667034
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 323.5406485052675,
+          "B": 548.7030308471756,
+          "D": 188.65509790186766,
+          "C": 138.9187539095571,
+          "E": -7.952827693022321,
+          "_": "LBcd2YPpZClL14yv",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHotdonI",
+                "B": 1
+              },
+              "B": {
+                "B": -1.4210854715202004e-14,
+                "D": 188.65509790186766,
+                "C": 138.9187539095571
+              }
+            }
+          }
+        },
+        {
+          "A?": "K",
+          "A": 108,
+          "B": 72.66774140088415,
+          "D": 299.1480308882538,
+          "C": 56.92,
+          "N": "pretitle",
+          "_": "LBF6n87zZVpsDhyy",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "@reallygreatsite\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "decoration": {
+                    "B": "none"
+                  },
+                  "direction": {
+                    "B": "ltr"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-feature-calt": {
+                    "B": "off"
+                  },
+                  "font-feature-clig": {
+                    "B": "off"
+                  },
+                  "font-feature-liga": {
+                    "B": "off"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "48.0"
+                  },
+                  "font-size-modifier": {
+                    "B": "1"
+                  },
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "kerning": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "link": {
+                    "B": ""
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "list-number-set": {
+                    "B": "none"
+                  },
+                  "semantics": {
+                    "B": "p"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "start-us": {
+                    "B": "0"
+                  },
+                  "strikethrough": {
+                    "B": "none"
+                  },
+                  "style": {
+                    "B": "body"
+                  },
+                  "text-align": {
+                    "B": "start"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  },
+                  "vertical-align": {
+                    "B": "0%"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 17
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "decoration": {},
+                  "direction": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-feature-calt": {},
+                  "font-feature-clig": {},
+                  "font-feature-liga": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-size-modifier": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "head-indent": {},
+                  "kerning": {},
+                  "leading": {},
+                  "link": {},
+                  "list-level": {},
+                  "list-marker": {},
+                  "list-number-set": {},
+                  "semantics": {},
+                  "spacing": {},
+                  "start-us": {},
+                  "strikethrough": {},
+                  "style": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {},
+                  "vertical-align": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 842.436268820318,
+          "B": 72.66774140088415,
+          "D": 667.4817570738221,
+          "C": 253.46667,
+          "N": "subtitle",
+          "_": "LB0qyY15GJh7p110",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Even slow progress is still progress. Stay consistent, and results will follow!\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "74.6667"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "1100.0"
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 79
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "head-indent": {},
+                  "list-level": {},
+                  "list-marker": {}
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "I",
+          "A": 284.88800561309745,
+          "B": 888.3961287841887,
+          "D": 129.4753938316049,
+          "C": 124.29637807834064,
+          "E": -21.28835531867967,
+          "_": "LB3hSJc4ft9jgVVl",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHlvCMNc",
+                "B": 1
+              },
+              "B": {
+                "D": 129.4753938316049,
+                "C": 124.29637807834064
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 1229.3094189708822,
+          "B": 800.7881697199766,
+          "D": 129.4753938316049,
+          "C": 124.29637807834064,
+          "E": 27.006655217522727,
+          "_": "LB5vTvxcysS5QqNM",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHlvCMNc",
+                "B": 1
+              },
+              "B": {
+                "D": 129.4753938316049,
+                "C": 124.29637807834064
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "A?": "i",
+      "Z": {
+        "A?": "A",
+        "A": "TAEby5mLXEk",
+        "B": 1
+      },
+      "a": "PBwX1DmxkG2Pcv13",
+      "C": {
+        "A": 1080,
+        "B": 1350,
+        "C": "D"
+      },
+      "G": {
+        "A": "EAHJRRlwwp4",
+        "B": 1,
+        "C": 5
+      },
+      "D": {
+        "C": "#ffffff"
+      },
+      "E": [
+        {
+          "A?": "H",
+          "A": -22.86890669803688,
+          "B": -157.86890669803688,
+          "D": 1395.7378133960738,
+          "C": 1395.7378133960738,
+          "F": 0.9,
+          "_": "LBZ3RgJR7XJHxg25",
+          "b": 1395.7378133960738,
+          "a": 1395.7378133960738,
+          "c": [
+            {
+              "A?": "I",
+              "A": 5.684341886080802e-14,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LB7N93SCGJP2Lkg7",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": -5.684341886080802e-14,
+              "B": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LBs3NS01lkr9qfl5",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LBDktJ47drxYBZqN",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": 697.8689066980369,
+              "B": 697.8689066980369,
+              "D": 697.8689066980369,
+              "C": 697.8689066980369,
+              "_": "LBCH40wZWl2bPGMT",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEEvboWVqQ",
+                    "B": 2
+                  },
+                  "B": {
+                    "D": 697.8689066980369,
+                    "C": 697.8689066980369
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "A?": "K",
+          "A": 1185.08,
+          "B": 733.993859315815,
+          "D": 217.3626301169968,
+          "C": 56.92,
+          "N": "heading",
+          "_": "LBF3KZjC9k3714SN",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "next slide\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "48.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "decoration": {
+                    "B": "none"
+                  },
+                  "direction": {
+                    "B": "ltr"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-feature-calt": {
+                    "B": "off"
+                  },
+                  "font-feature-clig": {
+                    "B": "off"
+                  },
+                  "font-feature-liga": {
+                    "B": "off"
+                  },
+                  "font-size-modifier": {
+                    "B": "1"
+                  },
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "kerning": {
+                    "B": "0.0"
+                  },
+                  "link": {
+                    "B": ""
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "list-number-set": {
+                    "B": "none"
+                  },
+                  "semantics": {
+                    "B": "p"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "start-us": {
+                    "B": "0"
+                  },
+                  "strikethrough": {
+                    "B": "none"
+                  },
+                  "style": {
+                    "B": "body"
+                  },
+                  "text-align": {
+                    "B": "start"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "vertical-align": {
+                    "B": "0%"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 10
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "decoration": {},
+                  "direction": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-feature-calt": {},
+                  "font-feature-clig": {},
+                  "font-feature-liga": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-size-modifier": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "head-indent": {},
+                  "kerning": {},
+                  "leading": {},
+                  "link": {},
+                  "list-level": {},
+                  "list-marker": {},
+                  "list-number-set": {},
+                  "semantics": {},
+                  "spacing": {},
+                  "start-us": {},
+                  "strikethrough": {},
+                  "style": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {},
+                  "vertical-align": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "J",
+          "A": 1190.1299909474133,
+          "B": 890.6114674671084,
+          "D": 118.49812739918667,
+          "C": 47.14622850761489,
+          "_": "LBg8vy0xVrl5TT1Y",
+          "a": {
+            "D": 64,
+            "C": 64
+          },
+          "b": [
+            {
+              "A": "M0 0H64V64H0z",
+              "B": {},
+              "C": {
+                "A": 5,
+                "B": "#000000",
+                "f": true
+              },
+              "D": 50
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 64,
+              "C": 64
+            },
+            "B": 45.66829111674892,
+            "C": 18.169803488027952,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {},
+          "f": [
+            {
+              "A": {
+                "A": [
+                  {
+                    "A?": "A",
+                    "A": "\n"
+                  }
+                ],
+                "B": [
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {
+                        "B": "#ffffff"
+                      },
+                      "font-family": {
+                        "B": "YAFcfq7XuZE,0"
+                      },
+                      "font-kerning": {
+                        "B": "normal"
+                      },
+                      "font-size": {
+                        "B": "28.0"
+                      },
+                      "font-style": {
+                        "B": "normal"
+                      },
+                      "font-weight": {
+                        "B": "normal"
+                      },
+                      "leading": {
+                        "B": "910.0"
+                      },
+                      "text-align": {
+                        "B": "center"
+                      },
+                      "text-transform": {
+                        "B": "none"
+                      },
+                      "tracking": {
+                        "B": "-44.0"
+                      }
+                    }
+                  },
+                  {
+                    "A?": "B",
+                    "A": 1
+                  },
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {},
+                      "font-family": {},
+                      "font-kerning": {},
+                      "font-size": {},
+                      "font-style": {},
+                      "font-weight": {},
+                      "leading": {},
+                      "text-align": {},
+                      "text-transform": {},
+                      "tracking": {}
+                    }
+                  }
+                ]
+              },
+              "B": {
+                "A": [
+                  0
+                ]
+              },
+              "D": {
+                "D": 64,
+                "C": 64
+              },
+              "E": [
+                4
+              ],
+              "F": "B"
+            }
+          ],
+          "h": {
+            "A?": "H",
+            "A": 47.14622850761489
+          }
+        },
+        {
+          "A?": "I",
+          "A": 1200.5959088558418,
+          "B": 922.1337696668617,
+          "D": 55.45352299967988,
+          "C": 26.21439269075776,
+          "_": "LBdzbWG4gq85QJFX",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MADgjVqX00o",
+                "B": 2
+              },
+              "B": {
+                "A": -1.7763568394002505e-15,
+                "B": -3.552713678800501e-15,
+                "D": 55.45352299967989,
+                "C": 26.214392690757762
+              }
+            }
+          }
+        },
+        {
+          "A?": "K",
+          "A": 1185.08,
+          "B": 70.89040513370497,
+          "D": 299.1480308882538,
+          "C": 56.92,
+          "N": "heading",
+          "_": "LBBNZJq21fgqsbDb",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "@reallygreatsite\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "decoration": {
+                    "B": "none"
+                  },
+                  "direction": {
+                    "B": "ltr"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-feature-calt": {
+                    "B": "off"
+                  },
+                  "font-feature-clig": {
+                    "B": "off"
+                  },
+                  "font-feature-liga": {
+                    "B": "off"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "48.0"
+                  },
+                  "font-size-modifier": {
+                    "B": "1"
+                  },
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "kerning": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "link": {
+                    "B": ""
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "list-number-set": {
+                    "B": "none"
+                  },
+                  "semantics": {
+                    "B": "p"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "start-us": {
+                    "B": "0"
+                  },
+                  "strikethrough": {
+                    "B": "none"
+                  },
+                  "style": {
+                    "B": "body"
+                  },
+                  "text-align": {
+                    "B": "start"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  },
+                  "vertical-align": {
+                    "B": "0%"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 17
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "decoration": {},
+                  "direction": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-feature-calt": {},
+                  "font-feature-clig": {},
+                  "font-feature-liga": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "font-size-modifier": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "head-indent": {},
+                  "kerning": {},
+                  "leading": {},
+                  "link": {},
+                  "list-level": {},
+                  "list-marker": {},
+                  "list-number-set": {},
+                  "semantics": {},
+                  "spacing": {},
+                  "start-us": {},
+                  "strikethrough": {},
+                  "style": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {},
+                  "vertical-align": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 319.8035788122891,
+          "B": 89.36113121812235,
+          "D": 901.2777375637553,
+          "C": 643.94603,
+          "N": "title",
+          "_": "LBF0BXhWc5FHztz8",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "What's one step you're taking today?\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "213.607"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "910.0"
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 36
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "head-indent": {},
+                  "list-level": {},
+                  "list-marker": {}
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 988.071463688422,
+          "B": 206.2591214630889,
+          "D": 667.4817570738221,
+          "C": 89.46667,
+          "N": "subtitle",
+          "_": "LB2x0m2sL1nCk14D",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Share in the comments!\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFcfq7XuZE,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "74.6667"
+                  },
+                  "head-indent": {
+                    "B": "0.0"
+                  },
+                  "leading": {
+                    "B": "1100.0"
+                  },
+                  "list-level": {
+                    "B": "0.0"
+                  },
+                  "list-marker": {
+                    "B": "none"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "tracking": {
+                    "B": "-44.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 22
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "fill-id": {
+                    "B": "none"
+                  },
+                  "head-indent": {},
+                  "list-level": {},
+                  "list-marker": {}
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "fill-id": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-align": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "j": {
+            "A": [
+              {
+                "A": "background",
+                "B": {
+                  "color": "#000000",
+                  "roundness": "0",
+                  "spread": "0",
+                  "transparency": "1"
+                }
+              }
+            ]
+          },
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "I",
+          "A": 66.5586601897374,
+          "B": 486.70831984885893,
+          "D": 199.28117185459956,
+          "C": 205.63723174489638,
+          "E": -6.874472789732679,
+          "_": "LBd2VxjxBM3bTSB3",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHqDjCCY",
+                "B": 1
+              },
+              "B": {
+                "D": 199.28117185459956,
+                "C": 205.63723174489638
+              }
+            },
+            "G": true
+          }
+        },
+        {
+          "A?": "I",
+          "A": 64.95372957126403,
+          "B": -7.725625931413077,
+          "D": 138.48137816614283,
+          "C": 228.72299697110677,
+          "E": 9.180721311887005,
+          "_": "LBv0TnmsmqSMCVHx",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHl6iHUg",
+                "B": 1
+              },
+              "B": {
+                "D": 138.48137816614283,
+                "C": 228.72299697110677
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": 7.452900528607984,
+          "B": 826.8521375807279,
+          "D": 261.6987113343699,
+          "C": 269.5398712245383,
+          "E": 7.753206710715659,
+          "_": "LBcj9FQTs8Q03gHr",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHncg58M",
+                "B": 1
+              },
+              "B": {
+                "D": 261.6987113343699,
+                "C": 269.5398712245383
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": -84.80098865633522,
+          "B": 190.3473986490661,
+          "D": 281.90573772885017,
+          "C": 283.451838667034,
+          "E": -5.633787108940664,
+          "_": "LB0pC5GnHQ6pnFSY",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHtZHWOs",
+                "B": 1
+              },
+              "B": {
+                "D": 281.90573772885017,
+                "C": 283.451838667034
+              }
+            }
+          }
+        },
+        {
+          "A?": "I",
+          "A": -38.91635249806956,
+          "B": 723.1037662878852,
+          "D": 129.4753938316049,
+          "C": 124.29637807834064,
+          "E": 27.006655217522727,
+          "_": "LBy13dRJq720Y7ZS",
+          "a": {
+            "A": false,
+            "B": {
+              "A": {
+                "A?": "d",
+                "A": "MAGzHlvCMNc",
+                "B": 1
+              },
+              "B": {
+                "D": 129.4753938316049,
+                "C": 124.29637807834064
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "media": [
+    {
+      "type": "VECTOR",
+      "id": "MAEEvboWVqQ",
+      "version": 2,
+      "brand": "BADeGVMPgRk",
+      "user": "UADl5nbeq90",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BRUV2Ym9XVnFRUgAAAZ9pyhN3yz5F2hU6jmyG_l7G7f5qpAaRWnShgqhC4VWbFimOIVE",
+        "expiry": 1784186278775
+      },
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Computer Window Frames",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/oWVqQ/MAEEvboWVqQ/2/t.png",
+          "width": 200,
+          "height": 200,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/oWVqQ/MAEEvboWVqQ/2/s2-1.svg",
+          "width": 300,
+          "height": 300,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/oWVqQ/MAEEvboWVqQ/2/s3-1.svg",
+          "width": 300,
+          "height": 300,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/oWVqQ/MAEEvboWVqQ/2/s.png",
+          "width": 800,
+          "height": 800,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/oWVqQ/MAEEvboWVqQ/2/ss_s2.png",
+          "width": 1600,
+          "height": 1600,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/oWVqQ/MAEEvboWVqQ/2/ss_s3.png",
+          "width": 2400,
+          "height": 2400,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 3,
+        "spritesHigh": 2,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_R"
+          },
+          {
+            "type": "BACKGROUND_G"
+          },
+          {
+            "type": "BACKGROUND_B"
+          },
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGzHj4P_ww",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAE1DfM3ii4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR3pIajRQX3d3UgAAAZ9pyhN3Ipr13FlXiOC-m3MO9H2GoB2hnd_A6dzoNBAJkgE6NmE",
+        "expiry": 1784186278775
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hand Drawn Megaphone Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/4P_ww/MAGzHj4P_ww/1/t.png",
+          "width": 193,
+          "height": 200,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/4P_ww/MAGzHj4P_ww/1/s-1.svg",
+          "width": 488,
+          "height": 505,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/4P_ww/MAGzHj4P_ww/1/s2-1.svg",
+          "width": 488,
+          "height": 505,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/4P_ww/MAGzHj4P_ww/1/s3-1.svg",
+          "width": 488,
+          "height": 505,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/4P_ww/MAGzHj4P_ww/1/ss_s.png",
+          "width": 773,
+          "height": 800,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/4P_ww/MAGzHj4P_ww/1/ss_s2.png",
+          "width": 1546,
+          "height": 1600,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/4P_ww/MAGzHj4P_ww/1/ss_s3.png",
+          "width": 2319,
+          "height": 2400,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGzHlvCMNc",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAE1DfM3ii4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR3pIbHZDTU5jUgAAAZ9pyhN3iqSLeW1EmFwnC9SV_BlLju7qO05_-CGJLOcnK3oBCYI",
+        "expiry": 1784186278775
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hand Drawn Star Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/vCMNc/MAGzHlvCMNc/1/t.png",
+          "width": 200,
+          "height": 192,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/vCMNc/MAGzHlvCMNc/1/s-1.svg",
+          "width": 504,
+          "height": 484,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/vCMNc/MAGzHlvCMNc/1/s2-1.svg",
+          "width": 504,
+          "height": 484,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/vCMNc/MAGzHlvCMNc/1/s3-1.svg",
+          "width": 504,
+          "height": 484,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/vCMNc/MAGzHlvCMNc/1/ss_s.png",
+          "width": 800,
+          "height": 768,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/vCMNc/MAGzHlvCMNc/1/ss_s2.png",
+          "width": 1600,
+          "height": 1537,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/vCMNc/MAGzHlvCMNc/1/ss_s3.png",
+          "width": 2400,
+          "height": 2305,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGzHotdonI",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAE1DfM3ii4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR3pIb3Rkb25JUgAAAZ9pyhN3IMALcGofloiMT_43b-x9RgzsO21z0SkNMbIv7Hs6-9U",
+        "expiry": 1784186278775
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hand Drawn Check Mark Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/tdonI/MAGzHotdonI/1/t.png",
+          "width": 200,
+          "height": 147,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/tdonI/MAGzHotdonI/1/s-1.svg",
+          "width": 506,
+          "height": 373,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/tdonI/MAGzHotdonI/1/s2-1.svg",
+          "width": 506,
+          "height": 373,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/tdonI/MAGzHotdonI/1/s3-1.svg",
+          "width": 506,
+          "height": 373,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/tdonI/MAGzHotdonI/1/ss_s.png",
+          "width": 800,
+          "height": 590,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/tdonI/MAGzHotdonI/1/ss_s2.png",
+          "width": 1600,
+          "height": 1179,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/tdonI/MAGzHotdonI/1/ss_s3.png",
+          "width": 2400,
+          "height": 1769,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGzHqDjCCY",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAE1DfM3ii4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR3pIcURqQ0NZUgAAAZ9pyhN35jsyQNMPs5nY3C6Fd9CTS9bTMDI3IYQGRO-2Kibj0FM",
+        "expiry": 1784186278775
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hand Drawn Chat Bubble Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/DjCCY/MAGzHqDjCCY/1/t.png",
+          "width": 194,
+          "height": 200,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/DjCCY/MAGzHqDjCCY/1/s-1.svg",
+          "width": 492,
+          "height": 508,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/DjCCY/MAGzHqDjCCY/1/s2-1.svg",
+          "width": 492,
+          "height": 508,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/DjCCY/MAGzHqDjCCY/1/s3-1.svg",
+          "width": 492,
+          "height": 508,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/DjCCY/MAGzHqDjCCY/1/ss_s.png",
+          "width": 775,
+          "height": 800,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/DjCCY/MAGzHqDjCCY/1/ss_s2.png",
+          "width": 1550,
+          "height": 1600,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/DjCCY/MAGzHqDjCCY/1/ss_s3.png",
+          "width": 2324,
+          "height": 2400,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGzHgpw3YA",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAE1DfM3ii4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR3pIZ3B3M1lBUgAAAZ9pyhN3YLrRk-j58wAKRNz3Z5vj2EgZGZSa652_jvk4GvDttrQ",
+        "expiry": 1784186278775
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hand Drawn Clock Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/pw3YA/MAGzHgpw3YA/1/t.png",
+          "width": 191,
+          "height": 200,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/pw3YA/MAGzHgpw3YA/1/s-1.svg",
+          "width": 505,
+          "height": 530,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/pw3YA/MAGzHgpw3YA/1/s2-1.svg",
+          "width": 505,
+          "height": 530,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/pw3YA/MAGzHgpw3YA/1/s3-1.svg",
+          "width": 505,
+          "height": 530,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/pw3YA/MAGzHgpw3YA/1/ss_s.png",
+          "width": 762,
+          "height": 800,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/pw3YA/MAGzHgpw3YA/1/ss_s2.png",
+          "width": 1525,
+          "height": 1600,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/pw3YA/MAGzHgpw3YA/1/ss_s3.png",
+          "width": 2287,
+          "height": 2400,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MADgjVqX00o",
+      "version": 2,
+      "brand": "BADeGVMPgRk",
+      "user": "UAB4q0r8yQQ",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BRGdqVnFYMDBvUgAAAZ9pyhN3-1k3JAH-2lutaq70UF-5IL72GeBCmB-ruQs3jZ_FAjo",
+        "expiry": 1784186278775
+      },
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Black Basic Arrow Right",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/qX00o/MADgjVqX00o/2/t.png",
+          "width": 200,
+          "height": 94,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/qX00o/MADgjVqX00o/2/s.svg",
+          "width": 226,
+          "height": 107,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/qX00o/MADgjVqX00o/2/s2-1.svg",
+          "width": 226,
+          "height": 107,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/qX00o/MADgjVqX00o/2/s3-1.svg",
+          "width": 226,
+          "height": 107,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/qX00o/MADgjVqX00o/2/ss_s-1.png",
+          "width": 800,
+          "height": 379,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/qX00o/MADgjVqX00o/2/ss_s2.png",
+          "width": 1600,
+          "height": 758,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/qX00o/MADgjVqX00o/2/ss_s3.png",
+          "width": 2400,
+          "height": 1136,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 3,
+        "spritesHigh": 2,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_R"
+          },
+          {
+            "type": "BACKGROUND_G"
+          },
+          {
+            "type": "BACKGROUND_B"
+          },
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGzHm5pm4Y",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAE1DfM3ii4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR3pIbTVwbTRZUgAAAZ9pyhN3-m4eT2A2brzuwKZMEV8oGIuTHWnJcv8vQKbo8miH5hw",
+        "expiry": 1784186278775
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hand Drawn Calendar Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/5pm4Y/MAGzHm5pm4Y/1/t.png",
+          "width": 200,
+          "height": 199,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/5pm4Y/MAGzHm5pm4Y/1/s-1.svg",
+          "width": 511,
+          "height": 509,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/5pm4Y/MAGzHm5pm4Y/1/s2-1.svg",
+          "width": 511,
+          "height": 509,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/5pm4Y/MAGzHm5pm4Y/1/s3-1.svg",
+          "width": 511,
+          "height": 509,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/5pm4Y/MAGzHm5pm4Y/1/ss_s.png",
+          "width": 800,
+          "height": 797,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/5pm4Y/MAGzHm5pm4Y/1/ss_s2.png",
+          "width": 1600,
+          "height": 1594,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/5pm4Y/MAGzHm5pm4Y/1/ss_s3.png",
+          "width": 2400,
+          "height": 2391,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGzHl6iHUg",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAE1DfM3ii4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR3pIbDZpSFVnUgAAAZ9pyhN3S9un7VCK6hzHH_-KuX49i_mngOKdX7el-48cdrf2Qf8",
+        "expiry": 1784186278775
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hand Drawn Smartphone Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/6iHUg/MAGzHl6iHUg/1/t.png",
+          "width": 121,
+          "height": 200,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/6iHUg/MAGzHl6iHUg/1/s-1.svg",
+          "width": 311,
+          "height": 514,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/6iHUg/MAGzHl6iHUg/1/s2-1.svg",
+          "width": 311,
+          "height": 514,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/6iHUg/MAGzHl6iHUg/1/s3-1.svg",
+          "width": 311,
+          "height": 514,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/6iHUg/MAGzHl6iHUg/1/ss_s.png",
+          "width": 484,
+          "height": 800,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/6iHUg/MAGzHl6iHUg/1/ss_s2.png",
+          "width": 968,
+          "height": 1600,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/6iHUg/MAGzHl6iHUg/1/ss_s3.png",
+          "width": 1452,
+          "height": 2400,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGzHtZHWOs",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAE1DfM3ii4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR3pIdFpIV09zUgAAAZ9pyhN3VfpAyk_cwIIpU9C966t8csOSuXgQF0RhORSCqZ_Va_4",
+        "expiry": 1784186278775
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hand Drawn Target Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/ZHWOs/MAGzHtZHWOs/1/t.png",
+          "width": 199,
+          "height": 200,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/ZHWOs/MAGzHtZHWOs/1/s-1.svg",
+          "width": 507,
+          "height": 510,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/ZHWOs/MAGzHtZHWOs/1/s2-1.svg",
+          "width": 507,
+          "height": 510,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/ZHWOs/MAGzHtZHWOs/1/s3-1.svg",
+          "width": 507,
+          "height": 510,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/ZHWOs/MAGzHtZHWOs/1/ss_s.png",
+          "width": 795,
+          "height": 800,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/ZHWOs/MAGzHtZHWOs/1/ss_s2.png",
+          "width": 1591,
+          "height": 1600,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/ZHWOs/MAGzHtZHWOs/1/ss_s3.png",
+          "width": 2386,
+          "height": 2400,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGzHi3_SgQ",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAE1DfM3ii4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR3pIaTNfU2dRUgAAAZ9pyhN3gikQipBmUrFfYVcmIl9SHClxmf4GC96SrGUY2XVMzIE",
+        "expiry": 1784186278775
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hand Drawn Team Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/3_SgQ/MAGzHi3_SgQ/1/t.png",
+          "width": 200,
+          "height": 180,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/3_SgQ/MAGzHi3_SgQ/1/s-1.svg",
+          "width": 504,
+          "height": 454,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/3_SgQ/MAGzHi3_SgQ/1/s2-1.svg",
+          "width": 504,
+          "height": 454,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/3_SgQ/MAGzHi3_SgQ/1/s3-1.svg",
+          "width": 504,
+          "height": 454,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/3_SgQ/MAGzHi3_SgQ/1/ss_s.png",
+          "width": 800,
+          "height": 721,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/3_SgQ/MAGzHi3_SgQ/1/ss_s2.png",
+          "width": 1600,
+          "height": 1441,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/3_SgQ/MAGzHi3_SgQ/1/ss_s3.png",
+          "width": 2400,
+          "height": 2162,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGzHncg58M",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAE1DfM3ii4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR3pIbmNnNThNUgAAAZ9pyhN3czKnp3HfwPSXjfo1tY7dOmDrRzFUxBmx5Sfbjr3fEFA",
+        "expiry": 1784186278775
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hand Drawn Chart Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/cg58M/MAGzHncg58M/1/t.png",
+          "width": 194,
+          "height": 200,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/cg58M/MAGzHncg58M/1/s-1.svg",
+          "width": 487,
+          "height": 502,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/cg58M/MAGzHncg58M/1/s2-1.svg",
+          "width": 487,
+          "height": 502,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/cg58M/MAGzHncg58M/1/s3-1.svg",
+          "width": 487,
+          "height": 502,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/cg58M/MAGzHncg58M/1/ss_s.png",
+          "width": 776,
+          "height": 800,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/cg58M/MAGzHncg58M/1/ss_s2.png",
+          "width": 1552,
+          "height": 1600,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/cg58M/MAGzHncg58M/1/ss_s3.png",
+          "width": 2328,
+          "height": 2400,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGzHlCfpwk",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAE1DfM3ii4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR3pIbENmcHdrUgAAAZ9pyhN3PRKp3UMwQgfyqmBNxqmid6og0fXYkMwjda8zWYfZN18",
+        "expiry": 1784186278775
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hand Drawn Email Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/Cfpwk/MAGzHlCfpwk/1/t.png",
+          "width": 200,
+          "height": 143,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/Cfpwk/MAGzHlCfpwk/1/s-1.svg",
+          "width": 503,
+          "height": 360,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/Cfpwk/MAGzHlCfpwk/1/s2-1.svg",
+          "width": 503,
+          "height": 360,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/Cfpwk/MAGzHlCfpwk/1/s3-1.svg",
+          "width": 503,
+          "height": 360,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/Cfpwk/MAGzHlCfpwk/1/ss_s.png",
+          "width": 800,
+          "height": 573,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/Cfpwk/MAGzHlCfpwk/1/ss_s2.png",
+          "width": 1600,
+          "height": 1145,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/Cfpwk/MAGzHlCfpwk/1/ss_s3.png",
+          "width": 2400,
+          "height": 1718,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGzHlgTDJY",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAE1DfM3ii4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR3pIbGdUREpZUgAAAZ9pyhN3i-37E51WlAviOAuhrsZMJRKlArV2oRrYL0mTEHZiQtE",
+        "expiry": 1784186278775
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hand Drawn Credit Card Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/gTDJY/MAGzHlgTDJY/1/t.png",
+          "width": 200,
+          "height": 162,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/gTDJY/MAGzHlgTDJY/1/s-1.svg",
+          "width": 505,
+          "height": 409,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/gTDJY/MAGzHlgTDJY/1/s2-1.svg",
+          "width": 505,
+          "height": 409,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/gTDJY/MAGzHlgTDJY/1/s3-1.svg",
+          "width": 505,
+          "height": 409,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/gTDJY/MAGzHlgTDJY/1/ss_s.png",
+          "width": 800,
+          "height": 648,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/gTDJY/MAGzHlgTDJY/1/ss_s2.png",
+          "width": 1600,
+          "height": 1296,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/gTDJY/MAGzHlgTDJY/1/ss_s3.png",
+          "width": 2400,
+          "height": 1944,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGzHrAbmfk",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAE1DfM3ii4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR3pIckFibWZrUgAAAZ9pyhN3AK7dYIppwgpIRRakxJe3EVjLZycmxRVlSMRSlfLsiqA",
+        "expiry": 1784186278775
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hand Drawn Trophy Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/Abmfk/MAGzHrAbmfk/1/t.png",
+          "width": 172,
+          "height": 200,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/Abmfk/MAGzHrAbmfk/1/s-1.svg",
+          "width": 437,
+          "height": 508,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/Abmfk/MAGzHrAbmfk/1/s2-1.svg",
+          "width": 437,
+          "height": 508,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/Abmfk/MAGzHrAbmfk/1/s3-1.svg",
+          "width": 437,
+          "height": 508,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/Abmfk/MAGzHrAbmfk/1/ss_s.png",
+          "width": 688,
+          "height": 800,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/Abmfk/MAGzHrAbmfk/1/ss_s2.png",
+          "width": 1376,
+          "height": 1600,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/Abmfk/MAGzHrAbmfk/1/ss_s3.png",
+          "width": 2065,
+          "height": 2400,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAGzHj9coJE",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UAE1DfM3ii4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BR3pIajljb0pFUgAAAZ9pyhN3n4_wMPZfu9FFTGRTOK35rgvENgdMRbBEWQJwIhKZ_fc",
+        "expiry": 1784186278775
+      },
+      "aiGenerated": false,
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hand Drawn Shield Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/9coJE/MAGzHj9coJE/1/t.png",
+          "width": 166,
+          "height": 200,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/9coJE/MAGzHj9coJE/1/s-1.svg",
+          "width": 420,
+          "height": 505,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/9coJE/MAGzHj9coJE/1/s2-1.svg",
+          "width": 420,
+          "height": 505,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/9coJE/MAGzHj9coJE/1/s3-1.svg",
+          "width": 420,
+          "height": 505,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/9coJE/MAGzHj9coJE/1/ss_s.png",
+          "width": 665,
+          "height": 800,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/9coJE/MAGzHj9coJE/1/ss_s2.png",
+          "width": 1331,
+          "height": 1600,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/9coJE/MAGzHj9coJE/1/ss_s3.png",
+          "width": 1996,
+          "height": 2400,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 2,
+        "spritesHigh": 1,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    }
+  ],
+  "fonts": [
+    {
+      "A": "YACgEZ1cb1Q",
+      "C": "Arimo",
+      "D": [
+        {
+          "style": "BOLD_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBoldItalic.08fb930e5cf38bab811efa91f368b248.ttf",
+              "format": "OTF",
+              "sizeBytes": 435028
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBoldItalic.c7a16bdf2cea8da7d5accf8369441561.woff",
+              "format": "WOFF",
+              "sizeBytes": 237660
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBoldItalic.08fb930e5cf38bab811efa91.1060345c54d396e76d73f1da7ee200bd.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 203232
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBoldItalic.08fb930e5cf38bab811efa91.adcf6c0d2912ad56524ac49fd0f4814.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 35704
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBoldItalic.08fb930e5cf38bab811efa91.3cde0ee1a0a114e576617800f5b4025f.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 44940
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBoldItalic.08fb930e5cf38bab811efa91.88fe25390ee059f620d40ee4e07eba73.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 82788
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -771,
+              "yMax": 2109
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -431,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 33
+            }
+          }
+        },
+        {
+          "style": "ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoItalic.fa87472a877e70c5bce22e42be5c25a9.ttf",
+              "format": "OTF",
+              "sizeBytes": 440740
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoItalic.bafbbb513c11845057f9358ac3efa073.woff",
+              "format": "WOFF",
+              "sizeBytes": 240632
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoItalic.fa87472a877e70c5bce22e42be5c.d257a7100844bc3f98c9021168b6249e.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 201132
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoItalic.fa87472a877e70c5bce22e42be5c.1bd55f3610e33ea0ddc29625337cfe5.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 36704
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoItalic.fa87472a877e70c5bce22e42be5c.85054e431a9f5a044d28aa5ae02096c9.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 45628
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoItalic.fa87472a877e70c5bce22e42be5c.e6711c21e2ed6fc79ec9ee042dd7636b.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 82348
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -621,
+              "yMax": 2077
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -425,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 1
+            }
+          }
+        },
+        {
+          "style": "REGULAR",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/Arimo.7ac02a544211773d9636e056e9da6c35.ttf",
+              "format": "OTF",
+              "sizeBytes": 436180
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/Arimo.1c8ab6ba5931166f629c6d814d3580b2.woff",
+              "format": "WOFF",
+              "sizeBytes": 234380
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/Arimo.7ac02a544211773d9636e056e9da6c35.7.f8f199f09526f79e87644ed227e0f651.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 194188
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/Arimo.7ac02a544211773d9636e056e9da6c35.7.3062704d78e4a6a3b3f1dbd88a190e4.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 36648
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/Arimo.7ac02a544211773d9636e056e9da6c35.7.98908797bcdc875f4306c5a4ae04708a.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 45912
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/Arimo.7ac02a544211773d9636e056e9da6c35.7.f153ae24bfeae042c40e10cc50bbf9d9.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 85712
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -621,
+              "yMax": 2007
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -431,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 64
+            }
+          }
+        },
+        {
+          "style": "BOLD",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBold.927b7dca5b947f69cb8e835f7f743d15.ttf",
+              "format": "OTF",
+              "sizeBytes": 438516
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBold.68670fffa1a87fb970dc63f26d8cc0fc.woff",
+              "format": "WOFF",
+              "sizeBytes": 234696
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBold.927b7dca5b947f69cb8e835f7f743d.98c4d2c0223fc8474641c77f923528e9.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 194064
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBold.927b7dca5b947f69cb8e835f7f743d.f033e4c1331a6e2eec13dcf8a45dbcf.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 35468
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBold.927b7dca5b947f69cb8e835f7f743d.5841aaf5f5c182d32ee229514397ec0c.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 44416
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBold.927b7dca5b947f69cb8e835f7f743d.0c7cfe36fd13e7196de3016bc8e8950b.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 83456
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -771,
+              "yMax": 2116
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -431,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 32
+            }
+          }
+        }
+      ]
+    },
+    {
+      "A": "YAFcfq7XuZE",
+      "C": "Times New Roman MT Condensed",
+      "D": [
+        {
+          "style": "ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/TimesNRMTPro-CondItalic.d965ef675f0082d3.16f001558b6c3bbe2da851965675047c.ttf",
+              "format": "OTF",
+              "sizeBytes": 83836
+            },
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/TimesNRMTPro-CondItalic.d965ef675f0082d3.e52fbd2f60968a8a6d941f4e787bc9f1.woff",
+              "format": "WOFF",
+              "sizeBytes": 37780
+            },
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/TimesNRMTPro-CondItalic.d965ef675f0082d3.ce718c6b59c4e2fb0a6664a1c461f6d2.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 32700
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/subsets/TimesNRMTPro-CondItalic.d965ef675f0082d3.37bbbf76da810a9e2ff8595ff62461c.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 27032
+            },
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/subsets/TimesNRMTPro-CondItalic.d965ef675f0082d3.b7ee6ac94c1cc2c47906ed57a7d7416b.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 29944
+            },
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/subsets/TimesNRMTPro-CondItalic.d965ef675f0082d3.23b97e838d6fe030ed70156a5ab2bdeb.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 54332
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -250,
+              "yMax": 919
+            },
+            "hhea": {
+              "ascender": 717,
+              "descender": -283,
+              "lineGap": 200
+            },
+            "os2": {
+              "sTypoAscender": 717,
+              "sTypoDescender": -283,
+              "sTypoLineGap": 200,
+              "usWinAscent": 919,
+              "usWinDescent": 250,
+              "fsSelection": 385
+            }
+          }
+        },
+        {
+          "style": "REGULAR",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/TimesNRMTPro-Cond.7619686ad0313fbbb1b83c.b04d89cf036696a8276349e3f33fa668.ttf",
+              "format": "OTF",
+              "sizeBytes": 84164
+            },
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/TimesNRMTPro-Cond.7619686ad0313fbbb1b83c.bddb99c52f0c8ff6dcd5de83b4d3542b.woff",
+              "format": "WOFF",
+              "sizeBytes": 36860
+            },
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/TimesNRMTPro-Cond.7619686ad0313fbbb1b83c.e6eb20692d82ca434d5caaca0f9feffc.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 32240
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/subsets/TimesNRMTPro-Cond.7619686ad0313fbbb1b83c.68ba480b2f60b2d50ad0d7175c798f48.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 29068
+            },
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/subsets/TimesNRMTPro-Cond.7619686ad0313fbbb1b83c.2717d4dc6a13c5ce2ba3d25bf89cda3.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 26076
+            },
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/subsets/TimesNRMTPro-Cond.7619686ad0313fbbb1b83c.ecd26c186709c702edf9472b2d6f7dc2.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 54640
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -250,
+              "yMax": 924
+            },
+            "hhea": {
+              "ascender": 717,
+              "descender": -283,
+              "lineGap": 200
+            },
+            "os2": {
+              "sTypoAscender": 717,
+              "sTypoDescender": -283,
+              "sTypoLineGap": 200,
+              "usWinAscent": 924,
+              "usWinDescent": 250,
+              "fsSelection": 448
+            }
+          }
+        },
+        {
+          "style": "BOLD",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/TimesNRMTPro-BoldCond.ec1b18ff07dd689638.1965223c7c89692adc22c455c6062249.ttf",
+              "format": "OTF",
+              "sizeBytes": 82992
+            },
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/TimesNRMTPro-BoldCond.ec1b18ff07dd689638.2850d8e81a4302ea388d74fa4aa652f9.woff",
+              "format": "WOFF",
+              "sizeBytes": 35984
+            },
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/TimesNRMTPro-BoldCond.ec1b18ff07dd689638.59b20822bbd815b4976774a12393cdda.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 31404
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/subsets/TimesNRMTPro-BoldCond.ec1b18ff07dd689638.8c6fc40ef26990427cc560ebc94847ee.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 53288
+            },
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/subsets/TimesNRMTPro-BoldCond.ec1b18ff07dd689638.970f75839e3851eb91de29af8121407.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 25256
+            },
+            {
+              "url": "https://font-public.canva.com/YAFcfq7XuZE/0/subsets/TimesNRMTPro-BoldCond.ec1b18ff07dd689638.40d2df10dc848c9dbac11b4ded74ffd5.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 28120
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -251,
+              "yMax": 918
+            },
+            "hhea": {
+              "ascender": 717,
+              "descender": -283,
+              "lineGap": 200
+            },
+            "os2": {
+              "sTypoAscender": 717,
+              "sTypoDescender": -283,
+              "sTypoLineGap": 200,
+              "usWinAscent": 918,
+              "usWinDescent": 251,
+              "fsSelection": 416
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

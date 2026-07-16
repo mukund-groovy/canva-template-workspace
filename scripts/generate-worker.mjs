@@ -631,12 +631,15 @@ const EXEMPLAR = (() => { try { return fs.readFileSync(path.join(SCRIPTS, 'exemp
 const PLACEHOLDER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='5'><rect width='100%25' height='100%25' fill='%23c9c4bb'/></svg>";
 const stripBase64 = (html) => html.replace(/data:image\/(?:png|jpe?g);base64,[A-Za-z0-9+/=]+/g, PLACEHOLDER);
 const imgPart = (p) => ({ type: 'input_image', image_url: 'data:image/png;base64,' + fs.readFileSync(p).toString('base64') });
-// Fresh per-slide renders written by the last verify-slides run on the replica. verify
-// writes to <dirname(html)>/.verify, i.e. REPLICAS/.verify during the gen loop — NOT
-// OUTPUT/.verify (which only exists post-ship and was stale here, starving repair of the
-// renders it is supposed to SEE).
-function renderImages() {
-  const dir = path.join(REPLICAS, '.verify');
+// Fresh per-slide renders written by the last verify-slides run on THIS replica. verify
+// writes to <dirname(html)>/.verify/<template-name>/ — a per-template dir, so concurrent
+// runs (other designs, other chats, the single-slide mode) never clobber these renders.
+// Must be derived from the replica path, never a shared dir, or repair/review would be fed
+// another template's slides.
+function renderImages(htmlFile) {
+  const stem = path.basename(htmlFile).replace(/\.html?$/i, '');
+  const src = path.basename(path.dirname(htmlFile));
+  const dir = path.join(WORKSPACE, '.renders', src, stem); // must mirror verify-slides.mjs
   try { return fs.readdirSync(dir).filter((f) => /^slide-\d+\.png$/.test(f)).sort().map((f) => path.join(dir, f)); } catch { return []; }
 }
 
@@ -703,7 +706,7 @@ async function processOne(entry) {
         fs.writeFileSync(replica, cand.html);
         runGate('verify-slides.mjs', replica);
       }
-      fs.writeFileSync(replica, await repair({ currentHtml: cand.html, failures: cand.failures, renders: renderImages(), slideCount: EXPECT }));
+      fs.writeFileSync(replica, await repair({ currentHtml: cand.html, failures: cand.failures, renders: renderImages(replica), slideCount: EXPECT }));
       fillImages(replica);
     }
     // restore this gen's best candidate (repair may have regressed on the last attempt)
@@ -740,7 +743,7 @@ async function processOne(entry) {
   for (let fr = 1; fr <= FAITH_ITERS; fr++) {
     setStage(designId, `faithfulness review ${fr}/${FAITH_ITERS}`);
     runGate('verify-slides.mjs', replica); // fresh renders for the review
-    const review = await faithReview(renderImages(), thumbs);
+    const review = await faithReview(renderImages(replica), thumbs);
     const dc = review ? (review.defects || []).length : 0;
     if (review && dc < bestDefects) { bestDefects = dc; fs.copyFileSync(replica, bestFile); } // keep the version the reviewer likes most
     if (!review || review.clean || dc === 0) { log(`  faithfulness review ${fr}: clean`); break; }
@@ -748,7 +751,7 @@ async function processOne(entry) {
     if (fr === FAITH_ITERS) break;
     genRetries++;
     const prev = fs.readFileSync(replica, 'utf8');
-    const renders = renderImages().slice();
+    const renders = renderImages(replica).slice();
     // RE-AUTHOR FROM SIGHT: hand the model its own render beside the reference and let it redo the deck
     // coherently (a holistic redo, closer to how a person re-composes) instead of dabbing at violations.
     setStage(designId, `re-author from sight ${fr}/${FAITH_ITERS}`);
@@ -837,7 +840,7 @@ async function genOneSlide(designId, slideNum) {
     if (a === MAX_REPAIRS) break;
     if (vFail > 60) { log(`  page ${N}: ${vFail} verify fails — abandoning blown-up draft`); break; }
     log(`  page ${N} repair ${a + 1}/${MAX_REPAIRS} (contract ${cv}, verify fail ${vFail})`);
-    fs.writeFileSync(replica, await repair({ currentHtml: cand.html, failures: cand.failures, renders: renderImages(), slideCount: 1 }));
+    fs.writeFileSync(replica, await repair({ currentHtml: cand.html, failures: cand.failures, renders: renderImages(replica), slideCount: 1 }));
     fillImages(replica);
   }
   if (cand) fs.writeFileSync(replica, cand.html);

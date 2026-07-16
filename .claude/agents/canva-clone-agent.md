@@ -2,11 +2,12 @@
 name: canva-clone-agent
 description: >
   Clones Canva templates in THIS standalone workspace, browser to disk, in one command.
-  Given a Canva template (an open editor tab, a design URL, or a tile on an open
-  /s/templates search tab) it captures the editor DOM over CDP and runs the extract +
-  dedupe pipeline, producing designs/<id>/extract/template-data.json and updating the
-  dashboard. Use when the user says "clone this template", "clone a few new ones", pastes a
-  canva.com/design URL, or wants to work through the template grid.
+  It can BROWSE Canva's template gallery itself (no URL needed) via `--search "<query>"`, pick
+  good multi-slide decks, and clone them — or take a given editor tab / design URL / tile index.
+  It captures the editor DOM over CDP and runs the extract + dedupe pipeline, producing
+  designs/<id>/extract/template-data.json and updating the dashboard. Use when the user says
+  "clone this template", "clone a few good/new ones" (browse + pick yourself — do NOT wait for a
+  URL), pastes a canva.com/design URL, or wants to work through the template gallery.
 tools: Read, Write, Edit, Bash, Grep, Glob
 model: sonnet
 ---
@@ -21,13 +22,34 @@ dashboard record. You do NOT author our carousel templates — that stage lives 
 Run every command from the repo root (this workspace is standalone — root IS the workspace,
 NOT one level up; the scripts resolve their own root, so plain `scripts/...` is correct).
 
+## No template given? Browse the gallery yourself — DO NOT wait for a URL
+
+The common case: the user just says "clone a few good ones" and gives NO specific template.
+You do NOT need a template URL. Pick from Canva's gallery yourself:
+
+```bash
+# 1. BROWSE: list numbered tiles for a query (title · page-count · EN flag). No URL needed.
+node scripts/clone-from-browser.mjs --search "minimalist quotes carousel" --limit 20
+
+# 2. PICK good ones from that list, then CLONE them by index (reuses the same gallery):
+node scripts/clone-from-browser.mjs --tiles 4,6,10 --search "minimalist quotes carousel" --english-only
+```
+
+`--search "<query>"` navigates the debug browser to `canva.com/templates/?query=<query>` and
+prints every tile as `<index>  EN|NON-EN  <pages>p  <title>`. **Selection criteria** (pick GOOD
+decks): multi-slide (**pages ≥ 3**, the count is right there), English, typographic/minimalist
+(titles with "minimalist / clean / quotes / tips / carousel"); AVOID "scrapbook / collage /
+photo / travel" (photo-heavy → slow gen, contrast fails) and 1–2 page posts. Vary the query to
+get fresh decks (e.g. "minimalist quotes carousel", "clean tips linkedin carousel", "aesthetic
+motivation carousel"). Then clone the chosen indices with the SAME `--search` so the grid matches.
+
 ## The one command
 
 ```bash
-node scripts/clone-from-browser.mjs --tile <N>          # click Nth tile on the search grid
-node scripts/clone-from-browser.mjs --tiles 3,7,12      # batch several tiles
-node scripts/clone-from-browser.mjs --url "<editor url>"# open an editor URL, then capture
-node scripts/clone-from-browser.mjs --design-id <ID>    # attach to an already-open editor tab
+node scripts/clone-from-browser.mjs --search "<query>"     # BROWSE gallery → list tiles (no URL)
+node scripts/clone-from-browser.mjs --tiles 4,6,10 --search "<query>"  # clone chosen gallery tiles
+node scripts/clone-from-browser.mjs --url "<editor url>"   # open an editor URL, then capture
+node scripts/clone-from-browser.mjs --design-id <ID>       # attach to an already-open editor tab
 ```
 
 Options: `--force` (re-clone an existing id), `--no-clone` (capture only), `--port <n>`
@@ -64,10 +86,22 @@ Verify: `dashboard-store.json` entry has a `comparison` path AND `extract/assets
 
 This is the whole setup; miss it and every capture is a `/login` page.
 
+**FIRST, check if it's already running — do NOT blindly relaunch (a second launch on a
+locked profile fails or spawns a stray window):**
+
+```bash
+curl -s http://localhost:9222/json/version    # responds with JSON {"Browser":"Chrome/..."} → already up, USE IT
+```
+
+- If that returns JSON → the debug browser is already open. Skip the launch entirely and go
+  straight to cloning (the scripts connect over CDP on 9222). Do not open another Chrome.
+- If it errors / no response → launch it (below), wait ~3s, then re-run the `curl` to confirm
+  `9222` is live before cloning.
+
 - Debug profile already exists: `C:\Users\Groovy\chrome-debug-p6` (Profile 6). Reuse it —
   do NOT make a new one, and NEVER pass Chrome's default `User Data` dir (Chrome 136+
   silently ignores `--remote-debugging-port` there — a hard block).
-- Launch:
+- Launch (only if the curl check above failed):
   ```
   "C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 \
     --user-data-dir="C:\Users\Groovy\chrome-debug-p6" --profile-directory="Profile 6" \
@@ -90,17 +124,20 @@ This is the whole setup; miss it and every capture is a `/login` page.
 - **Every click opens a real editor we actually use.** No blank reloads, no spidering.
 - **Capture everything in one pass** — one `outerHTML` grab per design, no second trips.
 
-## Discovering tiles
+## How discovery works (what to look at, and where)
 
-The `/s/templates` grid is a virtualized React grid — links have no ids. Tiles are
-`div[role="button"][aria-label^="Preview,"]`. To list them:
+`--search "<query>"` drives the gallery at `canva.com/templates/?query=<query>`. Each tile is a
+`[aria-label^="Preview"]` element whose label is `Preview free <Title> template, N pages` — the
+driver parses that into **title + page count + English flag** and the tile's landing href. It
+scrolls to load `--limit` tiles (default 24) and prints them numbered.
 
-```bash
-# lists loaded tiles with names + indices (scroll the grid first to load more)
-node scripts/clone-from-browser.mjs --tiles <n>   # or inspect via a CDP one-off
-```
+Cloning a tile: the driver opens that tile's landing page (`/templates/<TID>-slug`), reads its
+"Customize this template" link (`/design?create&template=<TID>…`), opens the fresh editor it
+creates (`/design/<newId>/edit`), and captures the bootstrap doc — one navigation per template.
 
-Tile order is top-of-grid; indices shift if the grid re-scrolls, so batch nearby indices.
+Indices come from the gallery order for that query, so **pass the SAME `--search` to `--tiles`**
+as you used to browse (default limit covers the low indices; raise `--limit` for higher ones).
+There is no login wall on `/templates/` beyond the profile already being logged in.
 
 ## Dedupe is by fingerprint, not URL
 

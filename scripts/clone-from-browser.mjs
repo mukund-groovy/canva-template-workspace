@@ -5,11 +5,16 @@
  * Prereq: a debuggable Chrome logged into Canva on port 9222 (see README / clone agent).
  *
  * Modes (pick one):
+ *   --search "<query>"   navigate the debug browser to Canva's template gallery for <query>
+ *                        and LIST numbered tiles (with an EN/NON-EN flag) — pick good ones,
+ *                        then clone them with --tiles. No template URL needed.
+ *   --list               list tiles on the currently open /s/templates search tab
  *   --design-id <ID>     attach to an already-open /design/<ID>/edit tab
  *   --url <editorUrl>    open that editor URL in the debug browser, then capture
  *   --tile <N>           on an open /s/templates search tab, click the Nth "Preview," tile,
  *                        press "Customize this template", capture the editor it opens
  *   --tiles <A,B,C>      batch: several tile indices in one run
+ *   --limit <n>          discovery: how many tiles to list (default 24)
  *
  * Options:
  *   --port <n>           CDP port (default 9222)
@@ -131,50 +136,31 @@ async function dismissModals(page) {
   }
 }
 
-async function openFromTile(ctx, n) {
-  const search = ctx.pages().find((p) => /\/s\/templates|\/templates\//.test(p.url()));
-  if (!search) throw new Error('No /s/templates search tab open in the debug browser.');
-  await search.bringToFront();
-  await dismissModals(search); // clear leftover lightboxes from a prior tile
-  await search.waitForTimeout(500);
-  const tiles = search.locator('div[role="button"][aria-label^="Preview,"]');
-  const count = await tiles.count();
-  if (n >= count) throw new Error(`tile ${n} out of range (grid has ${count})`);
-  const name = (await tiles.nth(n).getAttribute('aria-label')) || '';
-  log(`tile ${n}: ${name.replace('Preview, ', '').slice(0, 60)}`);
-  if (ENGLISH_ONLY && !isEnglishTitle(name)) {
-    const err = new Error(`non-English title, skipped: ${name.replace('Preview, ', '').slice(0, 50)}`);
+// Open the editor for a gallery tile. A gallery tile links to a template landing page
+// (/templates/<TID>-slug), which carries the "Customize this template" create link
+// (/design?create&template=<TID>...) → a fresh editor at /design/<newId>/edit. `tile` is a
+// discovered {index,title,pages,english,href} record.
+async function openFromTile(ctx, tile) {
+  const n = tile.index;
+  log(`tile ${n}: ${tile.title.slice(0, 60)}${tile.pages ? ` (${tile.pages}p)` : ''}`);
+  if (ENGLISH_ONLY && !tile.english) {
+    const err = new Error(`non-English title, skipped: ${tile.title.slice(0, 50)}`);
     err.softSkip = true;
     throw err;
   }
-  const tile = tiles.nth(n);
-  // A preview dialog opens with a "Customise this template" link. Its href is a
-  // create-from-template URL (/design?create&template=<TID>...), which opens a fresh editor
-  // at /design/<newId>/edit. Two attempts: the overlay/dialog occasionally misses the click.
-  const extractCreateUrl = () =>
-    search.evaluate(() => {
-      const dlg = [...document.querySelectorAll('[role="dialog"]')].pop() || document;
-      const a =
-        [...dlg.querySelectorAll('a[href]')].find((x) => /customi[sz]e this template/i.test(x.textContent || '')) ||
-        [...dlg.querySelectorAll('a[href*="template="]')][0] ||
-        [...dlg.querySelectorAll('a[href*="/design?create"]')][0];
-      return a ? new URL(a.getAttribute('href'), location.origin).href : null;
+  if (!tile.href) throw new Error(`tile ${n} has no template link`);
+  const landing = new URL(tile.href, 'https://www.canva.com').href;
+  const search = ctx.pages().find((p) => /canva\.com\/templates\//.test(p.url())) || (await ctx.newPage());
+  await search.goto(landing, { waitUntil: 'domcontentloaded', timeout: 90000 });
+  await search.waitForTimeout(2000);
+  const createUrl = await search.evaluate(() => {
+    const a = [...document.querySelectorAll('a[href]')].find((x) => {
+      const h = x.getAttribute('href') || '';
+      return /\/design\?create/.test(h) && /template=/.test(h);
     });
-  let createUrl = null;
-  for (let attempt = 0; attempt < 2 && !createUrl; attempt++) {
-    if (attempt) await dismissModals(search);
-    await tile.scrollIntoViewIfNeeded().catch(() => {});
-    try {
-      await tile.click({ timeout: 10000 });
-    } catch {
-      await tile.click({ force: true, timeout: 8000 }).catch(() => {});
-    }
-    await search.waitForSelector('[role="dialog"]', { timeout: 9000 }).catch(() => {});
-    await search.waitForTimeout(1200);
-    createUrl = await extractCreateUrl();
-  }
-  await dismissModals(search); // close the preview so the grid is clean for the next tile
-  if (!createUrl) throw new Error('No "Customise this template" link in the preview dialog.');
+    return a ? new URL(a.getAttribute('href'), location.origin).href : null;
+  });
+  if (!createUrl) throw new Error(`tile ${n}: no "Customize this template" link on the landing page.`);
   const page = await ctx.newPage();
   await page.goto(createUrl, { waitUntil: 'domcontentloaded', timeout: 90000 });
   // Creating from a template redirects to /design/<newId>/edit — wait for that id.
@@ -182,7 +168,6 @@ async function openFromTile(ctx, n) {
   await page.waitForTimeout(2500);
   const id = (page.url().match(DID_RE) || [])[1];
   if (!id) throw new Error('Create-from-template did not land on /design/<id>/edit.');
-  await search.bringToFront();
   return { page, id, _closeAfter: true };
 }
 
@@ -229,9 +214,14 @@ const pad2 = (n) => String(n).padStart(2, '0');
  */
 async function screenshotSlides(page, id) {
   let pageCount = 0;
+  // Derive the expected page aspect ratio from the design's own docSize instead of assuming
+  // portrait 1080x1350 (0.8) — square posts (1080x1080, ratio 1.0) and other formats need
+  // their own ratio, or the main-page detector below matches nothing.
+  let targetRatio = 0.8;
   try {
     const j = JSON.parse(fs.readFileSync(path.join(WS, 'designs', id, 'extract', 'template-data.json'), 'utf8'));
     pageCount = j.pageCount || (j.pages || []).length || 0;
+    if (j.docSize && j.docSize.A && j.docSize.B) targetRatio = j.docSize.A / j.docSize.B;
   } catch {}
   const outDir = path.join(WS, 'designs', id, 'extract', 'assets', 'pages');
   fs.mkdirSync(outDir, { recursive: true });
@@ -241,13 +231,13 @@ async function screenshotSlides(page, id) {
   await page.waitForTimeout(500);
   const maxPass = (pageCount || 10) + 12;
   for (let pass = 0; pass < maxPass && (!pageCount || shots.size < pageCount); pass++) {
-    const tags = await page.evaluate(() => {
+    const tags = await page.evaluate((targetRatio) => {
       const isMain = (e) => {
         const r = e.getBoundingClientRect();
-        // Exact 1080x1350 slide aspect (0.800) — the tighter 0.02 tolerance rejects the editor's
-        // page wrapper (~0.764, which includes the "Add page title" header bar + toolbar icons);
-        // the text guard is a belt-and-suspenders exclusion of that chrome-bearing wrapper.
-        return r.width > 420 && r.height > 420 && Math.abs(r.width / r.height - 0.8) < 0.02 &&
+        // Slide aspect derived from the design's own docSize — the tighter 0.02 tolerance rejects
+        // the editor's page wrapper (which includes the "Add page title" header bar + toolbar
+        // icons); the text guard is a belt-and-suspenders exclusion of that chrome-bearing wrapper.
+        return r.width > 420 && r.height > 420 && Math.abs(r.width / r.height - targetRatio) < 0.02 &&
           !/Add page title|^Page \d/.test(e.textContent || '');
       };
       const scroller =
@@ -263,7 +253,7 @@ async function screenshotSlides(page, id) {
         out.push({ key: e.dataset.pgKey, abs: Math.round(r.top - sTop + (scroller.scrollTop || 0)) });
       }
       return out;
-    });
+    }, targetRatio);
     for (const t of tags.sort((a, b) => a.abs - b.abs)) {
       if (shots.has(t.key)) continue;
       const loc = page.locator(`[data-pg-key="${t.key}"]`).first();
@@ -350,13 +340,66 @@ async function processEditor(ctx, ed) {
   return result;
 }
 
+// Find (or open) the Canva template gallery tab for a query.
+async function galleryTab(ctx, query) {
+  let search = ctx.pages().find((p) => /canva\.com\/templates\//.test(p.url()));
+  const want = `https://www.canva.com/templates/?query=${encodeURIComponent(query || 'instagram carousel')}`;
+  if (!search) search = await ctx.newPage();
+  const cur = search.url();
+  const curQ = (cur.match(/[?&]query=([^&]*)/) || [])[1] || '';
+  if (query && decodeURIComponent(curQ) !== query) {
+    await search.goto(want, { waitUntil: 'domcontentloaded', timeout: 90000 });
+  } else if (!/canva\.com\/templates\//.test(cur)) {
+    await search.goto(want, { waitUntil: 'domcontentloaded', timeout: 90000 });
+  }
+  await search.bringToFront();
+  await dismissModals(search);
+  await search.waitForTimeout(2500);
+  return search;
+}
+
+// Discovery: browse Canva's template gallery for a query, scroll to load tiles, and return
+// them numbered (title, page count, English flag, template landing href) so the caller can
+// pick good ones and clone via --tiles. The gallery reliably loads and the aria-labels carry
+// the page count ("... template, N pages"), so multi-slide decks are visible up front.
+async function discoverTiles(ctx, { query, limit }) {
+  const search = await galleryTab(ctx, query);
+  const want = Math.max(Number(limit) || 24, 12);
+  let raw = [];
+  for (let pass = 0; pass < 10; pass++) {
+    raw = await search.locator('[aria-label^="Preview"]').evaluateAll((els) =>
+      els.map((e) => {
+        const a = e.closest('a[href]') || e.querySelector('a[href]');
+        return { label: e.getAttribute('aria-label') || '', href: a ? a.getAttribute('href') : null };
+      })
+    );
+    if (raw.length >= want) break;
+    await search.mouse.wheel(0, 4000);
+    await search.waitForTimeout(1200);
+  }
+  return raw.slice(0, want).map((t, i) => {
+    const pages = (t.label.match(/,\s*(\d+)\s+pages?\b/i) || [])[1];
+    const title = t.label
+      .replace(/^Preview\s+(free\s+)?/i, '')
+      .replace(/\s+template,\s*\d+\s+pages?\s*$/i, '')
+      .replace(/\s+template\s*$/i, '')
+      .trim();
+    return { index: i, title, pages: pages ? Number(pages) : null, english: isEnglishTitle(title), href: t.href };
+  });
+}
+
 async function main() {
   const b = await chromium.connectOverCDP(CDP);
   const ctx = b.contexts()[0];
   // Clean slate: close dead error tabs and any leftover editor tabs from prior runs, and
-  // dismiss stale preview dialogs — these are what wedge the grid.
+  // dismiss stale preview dialogs — these are what wedge the grid. Exception: in
+  // --design-id mode we're attaching to a specific already-open editor tab, so never
+  // close a tab that matches the requested id (or we'd close the very tab we need).
+  const keepId = args['design-id'] ? String(args['design-id']) : null;
   for (const p of ctx.pages()) {
     const u = p.url();
+    const m = u.match(DID_RE);
+    if (keepId && m && m[1] === keepId) continue;
     if (/^chrome-error:/.test(u) || DID_RE.test(u)) await p.close().catch(() => {});
   }
   const searchTab = ctx.pages().find((p) => /\/s\/templates|\/templates\//.test(p.url()));
@@ -376,9 +419,13 @@ async function main() {
       results.push(await processEditor(ctx, { page, id }));
     } else if (args.tile || args.tiles) {
       const idxs = String(args.tiles || args.tile).split(',').map((s) => Number(s.trim())).filter((n) => Number.isInteger(n));
+      const query = args.search && args.search !== 'true' ? String(args.search) : '';
+      const tiles = await discoverTiles(ctx, { query, limit: Math.max(Number(args.limit) || 24, Math.max(...idxs) + 1) });
       for (const n of idxs) {
         try {
-          const ed = await openFromTile(ctx, n);
+          const t = tiles.find((x) => x.index === n);
+          if (!t) throw new Error(`tile ${n} out of range (grid has ${tiles.length})`);
+          const ed = await openFromTile(ctx, t);
           results.push(await processEditor(ctx, ed));
         } catch (e) {
           if (e.softSkip) {
@@ -393,8 +440,18 @@ async function main() {
           }
         }
       }
+    } else if (args.search || args.list) {
+      const query = args.search && args.search !== 'true' ? String(args.search) : '';
+      const tiles = await discoverTiles(ctx, { query, limit: args.limit });
+      log(`\nGALLERY${query ? ` "${query}"` : ''} — ${tiles.length} tiles (pick indices → clone with --tiles):`);
+      for (const t of tiles) {
+        const pg = t.pages ? `${String(t.pages).padStart(2)}p` : ' ?p';
+        log(`  ${String(t.index).padStart(2)}  ${t.english ? '  EN  ' : 'NON-EN'}  ${pg}  ${t.title.slice(0, 68)}`);
+      }
+      log(`\nNext: node scripts/clone-from-browser.mjs --tiles <a,b,c>${query ? ` --search "${query}"` : ''} --english-only`);
+      results.push({ status: 'listed', count: tiles.length });
     } else {
-      throw new Error('Pick a mode: --design-id | --url | --tile <n> | --tiles a,b,c');
+      throw new Error('Pick a mode: --search "<query>" | --list | --design-id | --url | --tile <n> | --tiles a,b,c');
     }
   } finally {
     await b.close();

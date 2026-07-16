@@ -142,7 +142,16 @@ if (!fs.existsSync(htmlPath)) { console.error(`no such template: ${htmlPath}`); 
  * .slot-images/ and to the HTML, so slots end up holding images generated from a previous
  * run's prompts — and neither run notices.
  */
-const lockPath = path.join(path.dirname(htmlPath), `.${path.basename(htmlPath)}.imagelock`);
+// Lives under <root>/.locks/, never beside the HTML: output/ holds ONLY final template
+// HTML so the folder can be lifted elsewhere as-is. Keyed by source dir + filename so two
+// templates (or a replica and a shipped deck sharing a slug) get separate locks.
+const WS_ROOT = path.resolve(path.dirname(process.argv[1] || '.'), '..');
+const LOCK_DIR = path.join(WS_ROOT, '.locks');
+fs.mkdirSync(LOCK_DIR, { recursive: true });
+const lockPath = path.join(
+  LOCK_DIR,
+  `${path.basename(path.dirname(htmlPath))}--${path.basename(htmlPath)}.imagelock`
+);
 if (fs.existsSync(lockPath)) {
   const held = fs.readFileSync(lockPath, 'utf8').trim();
   console.error(`Another fill-image-slots run holds the lock (${held}).`);
@@ -361,11 +370,18 @@ console.log(`\n${todo} slot(s) to generate, ${jobs.length - todo} kept as-is.`);
 if (!todo) { console.log('nothing to do (use --force or --only N to regenerate).'); process.exit(0); }
 if (DRY) { console.log('\n--dry: nothing generated.'); process.exit(0); }
 
-// Per-template subdir so parallel fills of DIFFERENT templates never share a
-// slot-N.png path. (Inlining uses the freshly generated buffer directly, so the
-// output was already safe — but keeping the on-disk archive per-template makes
-// per-template regeneration and debugging correct under concurrency too.)
-const outDir = path.join(path.dirname(htmlPath), '.slot-images', path.basename(htmlPath, '.html'));
+// Generated slot images are BUILD ARTEFACTS, not deliverables: they live under
+// <root>/.slot-images/<source-dir>/<template>/, never beside the HTML. output/ must hold
+// ONLY final template HTML so the whole folder can be lifted elsewhere as-is.
+// Per-template subdir so parallel fills of DIFFERENT templates never share a slot-N.png
+// path. (Inlining uses the freshly generated buffer directly, so the HTML was already
+// safe — the per-template archive keeps regeneration/debugging correct under concurrency.)
+const outDir = path.join(
+  WS_ROOT, // declared with the lock dir above
+  '.slot-images',
+  path.basename(path.dirname(htmlPath)),
+  path.basename(htmlPath, '.html')
+);
 fs.mkdirSync(outDir, { recursive: true });
 
 console.log('');

@@ -43,3 +43,9 @@ output/_compare*.html
 output/_recolor*
 output/_slide-*
 output/hand-*.html
+
+# build artefacts — never deliverables; output/ holds ONLY final template HTML
+.renders/
+.slot-images/
+.dashboard.lock
+.locks/

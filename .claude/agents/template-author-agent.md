@@ -22,6 +22,11 @@ Run everything from the repo root (this workspace is standalone; scripts self-re
 plain `scripts/...` is correct). You need the debuggable Chrome on port 9222 only if you must render
 via the browser — the render step below uses `verify-slides.mjs`, which launches its own Chromium.
 
+**Other agents may be running in other chats right now.** Touch only YOUR OWN files: `output/<slug>.html`
+and `.renders/output/<slug>/`. NEVER `rm -rf` a shared dir (`output/`, `.renders/`, `replicas/`,
+`designs/`) — you will destroy another agent's in-progress work. Never edit or delete a template you
+did not create.
+
 ## Inputs — gather these first (per design-id)
 
 1. **Reference slide images** (the layout ground truth — VIEW them with Read):
@@ -55,8 +60,31 @@ of the title (e.g. `white-and-black-2`; append `-N` if the file already exists).
   colour the reference uses as its ACCENT (a coloured headline, a filled pill/box/tab, a highlight, an
   accent rule/number) MUST be `var(--accent)` / `var(--primary)` — NEVER a literal hex — so a brand palette
   tints it. Body text and page background use `--text-*` / `--bg` (their fixed fallbacks are fine). A literal
-  accent like `#e8b400` on the headline is the bug to avoid — it won't recolour. NOTE: a genuinely
-  monochrome deck (pure black/white, no accent) has nothing to re-skin — that is expected, not a defect.
+  accent like `#e8b400` on the headline is the bug to avoid — it won't recolour.
+- **EVERY slide must carry at least one VISIBLE brand-bound device — fidelity does NOT excuse a
+  brand-dead slide.** This is the product: a slide a brand cannot tint is not a template, it's a stock
+  post. Your prime directive is faithful reproduction, and on a photo-canvas reference those two goals
+  collide — resolve it by tinting furniture the reference ALREADY has, which costs almost no fidelity:
+  the lockup chip, a page numeral, a rule, a caption panel, the scrim behind text.
+  - **Photo slides especially.** Text over photography needs a scrim/caption panel for legibility
+    anyway — that panel IS your brand surface. Tint it `var(--accent)`. Production's own photo
+    templates (`photo-quote`, `si-photo-hero`) all carry `var(--accent)`/`var(--primary)` fills over
+    their photography; none go brand-dead.
+  - **Never park an accent fill BEHIND a full-bleed photo.** It is then declared, correctly routed, and
+    completely invisible. A real deck failed exactly this way: `background:var(--accent)` on the slide,
+    photo painted over it, 0.00% of pixels moved under a brand palette on 3 of 5 slides.
+  - "The reference is monochrome / has no accent" is NOT an excuse — a pure black-and-white deck still
+    re-skins fine when its bars/pills are `var(--accent)`. If the reference truly has no coloured
+    device, nominate one from its existing furniture.
+  - Verify per slide: `node scripts/brand-audit.mjs output/<slug>.html` must be **RESULT: PASS** with
+    **no starved slides**. It gates each slide, not the average.
+- **Text ON a brand-filled surface MUST use the on-colour, never a literal.** Declare
+  `--on-accent: var(--brand-on-accent, #ffffff)` (and `--on-primary: var(--brand-on-primary, #ffffff)`)
+  in `:root`, and colour any text sitting on an accent/primary fill with `var(--on-accent)` /
+  `var(--on-primary)`. Hardcoding `color:#fff` on a filled bar/pill/chip/lockup looks fine in the
+  default palette but goes **unreadable** the instant a brand's accent is light (yellow, amber, lime) —
+  the skinner supplies an AA-safe on-colour precisely so you don't have to guess. Verify with the brand
+  pass below.
   `<span class="brand-word">YOURBRAND</span>` + `<img class="brand-mark" data-brand-logo="" src="<grey svg data-uri>">`;
   semantic slots `data-title` / `data-message` / `data-cta` (and `data-tagline` where it fits), exactly
   ONE body `<p>` per slide; every text node in its OWN absolutely-positioned wrapper with the text in
@@ -70,6 +98,13 @@ of the title (e.g. `white-and-black-2`; append `-N` if the file already exists).
 - **Fit + no collision + no occlusion**: text must FIT its box and the 1080x1350 canvas (shrink font
   before you clip); nothing overlaps the headline / footer / another block; body text renders ABOVE its
   card/panel (give text wrappers a higher z-index than filled surfaces — a card must never cover its own copy).
+- **Never clip descenders.** The line-clamp contract forces `overflow:hidden` on every text run, so any
+  run with `line-height` under ~1.0 gets the tails of **g y p q j** sliced off — the single most common
+  defect in these templates. Matching the reference's tight display type is fine, but pay for it: keep
+  `line-height` at **1.0+**, or if you go tighter add `padding-bottom` (~`.15`–`.25em`) to the clamped box
+  so the ink has room. Same for inline highlight bars — the bar must cover the descender, not cut it.
+  `verify-slides` reports a **DESCENDER** fail with the exact overflow in px; treat it as a real defect,
+  never ship over it.
 
 ## Reproduce decoration properly — do NOT phone it in
 
@@ -87,6 +122,19 @@ This is the #1 way a reproduction fails while still "having the right words".
   them with real CSS/SVG so they read like the reference — a spiral binding is a column of metal rings
   (SVG ellipses with a metallic gradient + shadow + a punched hole), NOT a plain line; paper gets a
   subtle texture / inner-shadow, not flat white.
+- **The SIGNATURE BACKDROP must be reproduced at the reference's STRENGTH — never "faint".** The most
+  eye-catching element is often the background (a graph-paper grid, ruled lines, kraft paper, halftone,
+  colour field). Sample how DARK and how DENSE it is in the reference and match it: a visible grid is
+  usually ~10–14% ink at ~18–22 cells across a 1080px canvas, NOT ~5% ink with huge cells (that reads
+  near-white and drains the design). Squint at your render beside the reference: same backdrop presence,
+  same fullness?
+- **Match the reference's element COUNT and SCALE — never pad to fill space.** If a slide feels empty,
+  the cause is almost always type/decoration that is too SMALL, not too few elements. References tend to
+  be sparse and BOLD — a few large, confident elements and big type. Fix emptiness in this order:
+  (1) scale the headline up to the reference's, (2) make the decorations bigger, (3) strengthen the
+  backdrop — never by inventing extra elements. You are reproducing, so the count is whatever the
+  reference actually has: count it and match it. Many small icons where the reference has a few big ones
+  is a FAIL, even though nothing looks "empty".
 - **Type**: match the reference's face character (serif / script / grotesque), the EXACT multi-line break
   layout, and the geometry's font-sizes. Reproduce accents (a scribble mark, an underline swash) as SVG.
 - **Photo slots — ONLY where the reference actually has a photo.** Add an `<img data-image="true">` slot
@@ -106,8 +154,31 @@ textures, colour, and composition, not just the copy.
 
 1. **Author** the full document from the reference images + geometry + exemplar structure.
 2. **Render** every slide to PNG: `node scripts/verify-slides.mjs output/<slug>.html`
-   → writes `output/.verify/slide-NN.png` and prints a gate report (font/overflow/contrast/collision).
-3. **LOOK**: Read each `output/.verify/slide-NN.png` and compare it, slide by slide, to its
+   → writes `.renders/output/<slug>/slide-NN.png` and prints a gate report (font/overflow/contrast/
+   collision). Renders go to a per-template dir keyed by YOUR slug, so only ever read
+   `.renders/output/<slug>/` — another template's renders live in their own folder and are not yours.
+   (The command prints the exact dir it wrote to.)
+
+   Then run the **brand pass** — the deck ships to brands, not just to the default palette:
+   ```bash
+   node scripts/verify-slides.mjs output/<slug>.html --brand "#C1502C,#FFE14D"   # light accent
+   node scripts/verify-slides.mjs output/<slug>.html --brand "#0B3D2E,#1B2A4A"   # dark accent
+   ```
+   `--brand` skins the deck the way the production skinner does before checking. **Both must be 0
+   fails.** A CONTRAST fail here means text is hardcoded over a brand fill — route it through
+   `var(--on-accent)`. Passing the default palette alone proves nothing about a real brand.
+
+   Then the **stress pass** — you are authoring a TEMPLATE, not a one-off poster:
+   ```bash
+   node scripts/stress-slots.mjs output/<slug>.html    # must be 0 failures
+   ```
+   It refills every slot with typical/long/worst-case copy. The reference's copy you transcribed is a
+   PLACEHOLDER — in production this deck gets text of unknown length, so a layout that only fits the
+   reference's exact sentence is broken by design. The usual failure is `TEXT-UNDER-OBJECT`: longer
+   copy grows into a decoration and disappears behind it. Fix by keeping decoration OUT of the text's
+   growth zone — give every text block a clear lane the art never enters. Do NOT stack text over the
+   art instead, and do NOT shrink the type below the reference's scale.
+3. **LOOK**: Read each `.renders/output/<slug>/slide-NN.png` and compare it, slide by slide, to its
    `page-NN-thumbnail.png` reference. For every slide name the defects: COLLISION (pill/shape over the
    headline or text-over-text), CLIPPING (text off-canvas/box), OCCLUDED (body hidden behind a card),
    MISSING (a reference element absent), CHROME (LIKE/SAVE/etc still present), SIZE (type too big/small),
@@ -156,7 +227,12 @@ archetype-map entry + the on-disk `output/<slug>.html`.)
 ## Verify before reporting (honesty rules)
 
 Done only when, with evidence:
-- `output/<slug>.html` exists and `verify-slides` reports **0 fails**.
+- `output/<slug>.html` exists and `verify-slides` reports **0 fails** on the default palette.
+- **0 fails** on BOTH brand passes (`--brand` light and dark) — the deck ships to brands, not to your palette.
+- `brand-audit.mjs` reports **RESULT: PASS with no starved slides** — every slide visibly re-skins under
+  a brand palette. A brand-dead slide is a product failure, not a fidelity win.
+- **0 failures** from `stress-slots.mjs` — the deck survives copy it wasn't authored around. A deck that
+  only fits the reference's exact sentence is a poster, not a template.
 - You have LOOKED at all rendered slides and each faithfully matches its reference (state this per slide).
 - `dashboard-store.json` shows the design as `success` with the slug, and `designs/<id>/comparison.html` exists.
 

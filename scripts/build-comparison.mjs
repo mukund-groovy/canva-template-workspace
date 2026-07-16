@@ -197,16 +197,25 @@ function collectCloneShots(designRoot, extractDir, pageCount) {
 }
 
 // ── HTML assembly ────────────────────────────────────────────────────────────
-function buildHtml({ designId, title, originals, replica, variant, brands, archetypeSlug }) {
+function buildHtml({ designId, title, originals, replica, variant, brands, archetypeSlug, liveSrc }) {
   const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-  // Columns present, in order: Original → Exact replica (clone) → Variant (archetype).
+  // Columns present, in order: Original → Exact replica (clone) → Generated (archetype).
   const cols = [{ key: 'original', label: 'Original', sub: 'Canva design', imgs: originals }];
   if (replica && replica.some(Boolean)) {
     cols.push({ key: 'replica', label: 'Exact replica', sub: 'our HTML clone', imgs: replica });
   }
   if (variant && variant.length) {
-    cols.push({ key: 'variant', label: 'Variant', sub: 'brand archetype', imgs: variant });
+    // LIVE, not a screenshot: point an iframe at the real output/<slug>.html and crop it to
+    // this slide. You then compare the original against the ACTUAL template — always current,
+    // selectable, inspectable — instead of a stale render baked in at build time.
+    cols.push({
+      key: 'variant',
+      label: 'Generated',
+      sub: liveSrc ? 'our live HTML' : 'brand archetype',
+      imgs: variant,
+      live: liveSrc || null,
+    });
   }
 
   const n = Math.max(...cols.map((c) => c.imgs.length));
@@ -215,7 +224,18 @@ function buildHtml({ designId, title, originals, replica, variant, brands, arche
     const cells = cols
       .map((c) => {
         const f = c.imgs[i];
-        const inner = f ? `<img src="${dataUri(f)}"/>` : '<div class="miss">—</div>';
+        let inner;
+        if (c.live) {
+          // One iframe on the real file, cropped to slide i. The deck is a horizontal strip of
+          // 1080px slides, so the wrapper clips and JS shifts/scales it — no CSS injection, no
+          // duplicated markup, and the file stays the single source of truth.
+          inner =
+            `<div class="liveWrap" data-i="${i}">` +
+            `<iframe class="live" src="${esc(c.live)}" scrolling="no" loading="lazy" tabindex="-1"></iframe>` +
+            `</div>`;
+        } else {
+          inner = f ? `<img src="${dataUri(f)}"/>` : '<div class="miss">—</div>';
+        }
         return `<figure>${inner}<figcaption>${esc(c.label)}<span>${esc(c.sub)}</span></figcaption></figure>`;
       })
       .join('');
@@ -252,12 +272,15 @@ h2{font-size:19px;margin:44px 0 6px;padding-top:22px;border-top:1px solid #302b2
 .pair.cols-2{grid-template-columns:1fr 1fr}
 .pair.cols-3{grid-template-columns:1fr 1fr 1fr}
 figure{margin:0}
-figure img,.miss{width:100%;display:block;border-radius:10px;border:1px solid #3a3428;background:#fff;aspect-ratio:4/5;object-fit:cover}
+figure img,.miss{width:100%;display:block;border-radius:10px;border:1px solid #3a3428;background:#fff;aspect-ratio:4/5;object-fit:contain}
+/* live template view: clip the 1080x1350 slide out of the deck strip and scale it to the column */
+.liveWrap{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;border-radius:10px;border:1px solid #3a3428;background:#fff}
+.liveWrap iframe.live{position:absolute;top:0;left:0;border:0;width:100000px;height:1350px;transform-origin:top left;pointer-events:none}
 .miss{display:flex;align-items:center;justify-content:center;background:#201c15;color:#7c7568;font-size:14px}
 figcaption{margin-top:8px;font-size:12.5px;color:#e7dfd3;text-align:center;letter-spacing:.04em;text-transform:uppercase;font-weight:700}
 figcaption span{display:block;font-weight:400;letter-spacing:.02em;text-transform:none;color:#9b9488;margin-top:2px}
 .brands{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}
-.bc img{aspect-ratio:4/5;object-fit:cover}
+.bc img{aspect-ratio:4/5;object-fit:contain}
 .roles{margin:12px 0 0;padding:14px 16px;background:#201c15;border:1px solid #342f25;border-radius:10px;font-size:13.5px;color:#cfc7ba}
 code{color:#ff8210;background:#2c261d;padding:2px 7px;border-radius:5px;margin-right:6px}
 @media(max-width:820px){.pair.cols-3,.pair.cols-2{grid-template-columns:1fr}.brands{grid-template-columns:repeat(2,1fr)}}
@@ -271,7 +294,24 @@ code{color:#ff8210;background:#2c261d;padding:2px 7px;border-radius:5px;margin-r
 <h2>1 · Original &rarr; Exact replica &rarr; Variant</h2>
 ${rows}
 ${brandSection}
-</div></body></html>`;
+</div>
+<script>
+  // Scale each live iframe so slide i fills its column. transform-origin is top-left, so the
+  // horizontal shift must be scaled too. Re-run on resize; the columns are fluid.
+  function fitLive(){
+    document.querySelectorAll('.liveWrap').forEach(function(w){
+      var f = w.querySelector('iframe.live'); if(!f) return;
+      var s = w.clientWidth / 1080;
+      var i = Number(w.dataset.i || 0);
+      f.style.transform = 'scale(' + s + ')';
+      f.style.left = (-i * 1080 * s) + 'px';
+    });
+  }
+  addEventListener('resize', fitLive);
+  addEventListener('load', fitLive);
+  fitLive();
+</script>
+</body></html>`;
 }
 
 async function main() {
@@ -329,6 +369,12 @@ async function main() {
   const mode = variant && replica ? 'full' : variant ? 'archetype' : replica ? 'clone' : 'original';
 
   const outPath = path.join(designRoot, 'comparison.html');
+  // Relative so the comparison keeps working if the workspace moves. Forward slashes: this is a
+  // URL in an iframe src, not a filesystem path (Windows backslashes would break it).
+  const liveSrc =
+    archetypeFile && fs.existsSync(archetypeFile)
+      ? path.relative(path.dirname(outPath), archetypeFile).split(path.sep).join('/')
+      : null;
   const html = buildHtml({
     designId,
     title: templateData.title || '',
@@ -336,6 +382,7 @@ async function main() {
     replica,
     variant,
     brands,
+    liveSrc,
     archetypeSlug,
   });
   fs.writeFileSync(outPath, html);

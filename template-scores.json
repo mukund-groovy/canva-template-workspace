@@ -180,20 +180,21 @@
     }
   },
   "brown-and-cream": {
-    "score": 10,
+    "score": 9.7,
     "breakdown": {
       "contract": 4,
-      "verify": 3,
+      "verify": 2.7,
       "stress": 1.5,
       "brand": 1.5,
       "raw": {
         "cViol": 0,
         "cWarn": 0,
         "vFail": 0,
-        "vWarn": 0,
+        "vWarn": 1,
         "stFail": 0,
-        "deckAvg": 18.33,
-        "brandPass": false
+        "deckAvg": 27.41,
+        "brandPass": true,
+        "brandFail": 0
       }
     }
   },
@@ -464,6 +465,155 @@
         "stFail": 0,
         "deckAvg": 95.83,
         "brandPass": true
+      }
+    }
+  },
+  "black-and-white-3": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 9.73,
+        "brandPass": true,
+        "brandFail": 13
+      }
+    }
+  },
+  "daily-dose-focus": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 11.5,
+        "brandPass": true
+      }
+    }
+  },
+  "sharpen-your-focus": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 4.68,
+        "brandPass": true
+      }
+    }
+  },
+  "wind-down-tonight": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 0,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 4,
+        "deckAvg": 6.95,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "reclaim-my-evenings": {
+    "score": 4.2,
+    "breakdown": {
+      "contract": 3.1,
+      "verify": 0,
+      "stress": 0,
+      "brand": 1.1,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 6,
+        "vFail": 0,
+        "vWarn": 248,
+        "stFail": 7,
+        "deckAvg": 2.26,
+        "brandPass": false
+      }
+    }
+  },
+  "quiet-reminders-nights": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 66.32,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "read-forty-books": {
+    "score": 7.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.1,
+      "stress": 1.5,
+      "brand": 0.1,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 3,
+        "stFail": 0,
+        "deckAvg": 0.24,
+        "brandPass": false,
+        "brandFail": 0
+      }
+    }
+  },
+  "how-to-become": {
+    "score": 8.7,
+    "breakdown": {
+      "contract": 3.3,
+      "verify": 2.4,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 5,
+        "vFail": 0,
+        "vWarn": 2,
+        "stFail": 0,
+        "deckAvg": 19,
+        "brandPass": true,
+        "brandFail": 0
       }
     }
   }

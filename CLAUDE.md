@@ -83,6 +83,28 @@ beats the pipeline (same model, no blind one-shot). Use when the user says "gene
 New agent files need a Claude Code restart to be spawnable by type; until then run it via a
 `general-purpose` (opus) agent told to Read and follow that runbook.
 
+## Concurrency — other chats/agents may be working RIGHT NOW
+
+This workspace is routinely driven from **several chats at once** (a clone agent here, a remix/author
+agent there). Treat every shared path as live, not yours.
+
+- **NEVER `rm -rf` a shared dir** — `output/`, `output/.verify/`, `replicas/`, `designs/`. Another
+  chat's agent may be mid-run and you will destroy its in-progress work. (This has happened: wiping
+  `output/.verify/` to "clean up" deleted a live agent's renders.)
+- **Scope every delete to your own artifact**: only `output/.verify/<your-slug>/`, and only for a
+  template this session created. If you did not create it, do not delete it — ask.
+- **Need a clean render dir to test?** Use `verify-slides.mjs <html> --out <scratch-dir>` — never wipe
+  the real one.
+- **Renders are per-template**: `verify-slides.mjs` writes `<dir-of-html>/.verify/<template-name>/`,
+  so parallel runs never collide. Read only `output/.verify/<slug>/slide-NN.png` (the command prints
+  the dir it wrote). Never point a compare board at bare `.verify/` — it will show whichever deck
+  rendered last.
+- **Before touching a file you didn't create**, check it's not live: `ls -l --time-style=+%H:%M:%S`
+  — a recent mtime means an agent is working on it. Leave it alone.
+- **Changing a shared script** (e.g. `verify-slides.mjs` paths) while agents run will break them
+  mid-flight: they loaded their runbook at spawn and follow the OLD contract. Prefer backwards-
+  compatible changes, or wait until nothing is running.
+
 ## Notes
 
 - Repo is standalone (root IS the workspace); scripts self-resolve their root — plain `scripts/…`.

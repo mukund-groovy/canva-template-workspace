@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&family=Arimo:wght@400;700&display=swap');
+
+    :root{
+      /* Brand role tokens — the ACCENT devices (pills, folder cards, tabs) route
+         here so a brand palette re-skins them. Canvas (white grid) + ink (black
+         display type) are FIXED literals so the editorial reading stays legible. */
+      --primary:var(--brand-primary,#2f54d8);      /* royal blue — pills, folder cards */
+      --secondary:var(--brand-secondary,#4aa0e8);  /* decorative sky (non-text) */
+      --accent:var(--brand-accent,#e34f22);        /* orange — accent pills */
+      --highlight:var(--brand-accent,#e34f22);
+      --bg:var(--brand-bg,#ffffff);
+      --surface:var(--brand-surface,#f3f6fc);
+      --text-high:var(--brand-ink,#111318);
+      --text-low:var(--brand-text-muted,rgba(17,19,24,.55));
+      --border:var(--brand-border,rgba(22,44,92,.11));
+      /* on-colours: the skinner supplies AA-safe values; fallbacks are safe on the
+         dark default fills. */
+      --on-primary:var(--brand-on-primary,#ffffff);
+      --on-accent:var(--brand-on-accent,#ffffff);
+      /* darker shade of primary for the peeking back-folder / second card — always
+         darker than primary so white labels stay AA under any brand. */
+      --primary-dark:color-mix(in srgb, var(--primary) 70%, #05060a);
+    }
+
+    *{box-sizing:border-box;}
+
+    .ig-carousel{display:flex;width:max-content;background:#0c0c0c;}
+
+    .slide{
+      width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+      background:var(--bg);
+      font-family:'Arimo',sans-serif;color:var(--text-high);
+    }
+
+    /* ── signature backdrop: faint blue-grey graph-paper grid ── */
+    .grid{position:absolute;inset:0;z-index:0;pointer-events:none;
+      background-image:
+        linear-gradient(to right, var(--border) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+      background-size:135px 135px;background-position:-2px -2px;}
+
+    /* ── header lockup (neutralised brand identity; social chrome dropped) ── */
+    .head{position:absolute;top:64px;left:82px;right:82px;z-index:6;display:flex;align-items:center;}
+    .lockup{display:inline-flex;align-items:center;gap:14px;}
+    .brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+    .brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+    .brand-word{font-family:'Arimo',sans-serif;font-weight:700;font-size:30px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--text-high);white-space:nowrap;}
+
+    /* ── display serif (Times-condensed feel via Tinos + tight tracking) ── */
+    .disp{margin:0;font-family:'Tinos',serif;font-weight:400;color:var(--text-high);
+      letter-spacing:-.012em;line-height:.96;transform:scaleX(.9);transform-origin:left top;
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.14em;}
+    .disp.center{transform-origin:center top;}
+    .disp em{font-style:italic;}
+
+    /* ── body copy ── */
+    .body{margin:0;font-family:'Arimo',sans-serif;font-weight:400;text-transform:uppercase;
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;}
+    .foot-txt{margin:0;font-family:'Arimo',sans-serif;text-transform:uppercase;letter-spacing:.01em;
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;}
+
+    /* ── pills (rounded tags) ── */
+    .pill{position:absolute;z-index:5;display:inline-flex;align-items:center;justify-content:center;
+      border-radius:999px;padding:16px 34px;font-family:'Tinos',serif;font-weight:700;font-size:30px;
+      white-space:nowrap;box-shadow:0 10px 26px rgba(15,25,60,.18);}
+    .pill span{display:block;overflow:hidden;-webkit-line-clamp:1;-webkit-box-orient:vertical;display:-webkit-box;}
+    .pill--blue{background:var(--primary);color:var(--on-primary);}
+    .pill--orange{background:var(--accent);color:var(--on-accent);}
+
+    /* ── folder cards ── */
+    .fld{position:absolute;z-index:4;}
+    .fld-layer{position:absolute;border-radius:28px;}
+    .fld-tab{position:absolute;top:-52px;height:58px;border-radius:18px 18px 0 0;
+      display:flex;align-items:center;padding:0 30px;}
+    .fld-label{margin:0;font-family:'Tinos',serif;font-weight:700;color:var(--on-primary);
+      white-space:nowrap;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
+    .fld-body-wrap{position:absolute;z-index:1;}
+
+    /* ── Canva-editor node-handle selection boxes (decorative, fixed ink) ── */
+    .nh{position:absolute;z-index:3;}
+    .nh svg{display:block;width:100%;height:100%;}
+    /* ── pixel cursor ── */
+    .cur{position:absolute;z-index:6;}
+    .cur svg{display:block;width:100%;height:100%;}
+
+    /* per-node absolute wrappers */
+    .tn{position:absolute;z-index:5;}
+  </style>
+</head>
+<body>
+  <div class="ig-carousel">
+
+    <!-- ══════════ SLIDE 1 — COVER ══════════ -->
+    <section class="slide" data-cg-slide-type="cover">
+      <div class="grid"></div>
+      <div class="head">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      </div>
+
+      <!-- headline -->
+      <div class="tn" style="left:80px;top:300px;width:600px;">
+        <h1 class="disp" data-title="true" style="font-size:166px;-webkit-line-clamp:5;">How to <em>Become</em> a Content Creator</h1>
+      </div>
+
+      <!-- right-column devices (clear of the headline lane) -->
+      <div class="nh" style="left:800px;top:150px;width:170px;height:110px;">
+        <svg viewBox="0 0 170 110"><rect x="6" y="6" width="158" height="98" fill="none" stroke="#14171d" stroke-width="2.5"/><g fill="#14171d"><rect x="0" y="0" width="16" height="16"/><rect x="154" y="0" width="16" height="16"/><rect x="0" y="94" width="16" height="16"/><rect x="154" y="94" width="16" height="16"/></g></svg>
+      </div>
+      <div class="pill pill--blue" style="left:665px;top:330px;transform:rotate(-4deg);"><span data-cta="true">Content Creator</span></div>
+      <div class="nh" style="left:665px;top:470px;width:118px;height:118px;">
+        <svg viewBox="0 0 118 118"><rect x="10" y="10" width="98" height="98" fill="none" stroke="#14171d" stroke-width="2.5"/><g fill="#14171d"><rect x="49" y="0" width="18" height="18"/><rect x="0" y="49" width="18" height="18"/><rect x="100" y="49" width="18" height="18"/><rect x="49" y="100" width="18" height="18"/></g></svg>
+      </div>
+      <div class="cur" style="left:892px;top:470px;width:56px;height:72px;">
+        <svg viewBox="0 0 32 42"><path d="M3 2 L3 33 L11 25 L16 38 L22 35 L17 23 L28 23 Z" fill="#14171d" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="pill pill--orange" style="left:640px;top:720px;transform:rotate(-7deg);"><span>Turn ideas into impact</span></div>
+
+      <!-- footers -->
+      <div class="tn" style="left:82px;bottom:120px;width:470px;">
+        <p class="foot-txt" data-tagline="true" style="font-size:34px;line-height:1.18;color:var(--text-low);-webkit-line-clamp:2;">Start small. Stay consistent. Grow big.</p>
+      </div>
+      <div class="tn" style="left:600px;bottom:120px;width:400px;">
+        <p class="foot-txt" data-message="true" style="font-size:34px;line-height:1.18;font-weight:700;color:var(--text-high);-webkit-line-clamp:2;">Start now, improve later.</p>
+      </div>
+    </section>
+
+    <!-- ══════════ SLIDE 2 — BE CONSISTENT ══════════ -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="grid"></div>
+      <div class="head">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      </div>
+
+      <div class="tn" style="left:82px;top:150px;width:900px;">
+        <h1 class="disp" data-title="true" style="font-size:150px;-webkit-line-clamp:1;">Be <em>Consistent</em></h1>
+      </div>
+
+      <!-- left-margin node handles -->
+      <div class="nh" style="left:-30px;top:330px;width:110px;height:110px;">
+        <svg viewBox="0 0 118 118"><rect x="10" y="10" width="98" height="98" fill="none" stroke="#14171d" stroke-width="2.5"/><g fill="#14171d"><rect x="49" y="0" width="18" height="18"/><rect x="0" y="49" width="18" height="18"/><rect x="100" y="49" width="18" height="18"/><rect x="49" y="100" width="18" height="18"/></g></svg>
+      </div>
+      <div class="nh" style="left:-30px;top:1080px;width:150px;height:100px;">
+        <svg viewBox="0 0 170 110"><rect x="6" y="6" width="158" height="98" fill="none" stroke="#14171d" stroke-width="2.5"/><g fill="#14171d"><rect x="0" y="0" width="16" height="16"/><rect x="154" y="0" width="16" height="16"/><rect x="0" y="94" width="16" height="16"/><rect x="154" y="94" width="16" height="16"/></g></svg>
+      </div>
+
+      <!-- folder card -->
+      <div class="fld" style="left:120px;top:400px;width:770px;height:620px;">
+        <div class="fld-layer" style="left:150px;top:0;width:600px;height:120px;background:var(--primary-dark);">
+          <div class="fld-tab" style="left:0;background:var(--primary-dark);"><p class="fld-label" style="font-size:48px;">#Content1</p></div>
+        </div>
+        <div class="fld-layer" style="left:0;top:76px;width:770px;height:544px;background:var(--primary);">
+          <div class="fld-tab" style="left:0;width:340px;background:var(--primary);"><p class="fld-label" style="font-size:48px;">#Content2</p></div>
+        </div>
+        <div class="fld-body-wrap" style="left:44px;top:150px;width:680px;">
+          <p class="body" data-message="true" style="font-size:44px;line-height:1.18;color:var(--on-primary);-webkit-line-clamp:9;">You don&rsquo;t need to post every day &mdash; but you must show up regularly. Create a simple schedule you can follow (3&ndash;4 times/week).</p>
+        </div>
+      </div>
+
+      <div class="cur" style="left:640px;top:900px;width:56px;height:72px;">
+        <svg viewBox="0 0 32 42"><path d="M3 2 L3 33 L11 25 L16 38 L22 35 L17 23 L28 23 Z" fill="#14171d" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </div>
+    </section>
+
+    <!-- ══════════ SLIDE 3 — STORYTELLING MATTERS ══════════ -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="grid"></div>
+      <div class="head">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      </div>
+
+      <div class="tn" style="left:90px;top:140px;width:900px;text-align:center;">
+        <h1 class="disp center" data-title="true" style="font-size:150px;-webkit-line-clamp:2;text-align:center;">Storytelling <em>Matters</em></h1>
+      </div>
+
+      <div class="nh" style="left:-40px;top:400px;width:150px;height:100px;">
+        <svg viewBox="0 0 170 110"><rect x="6" y="6" width="158" height="98" fill="none" stroke="#14171d" stroke-width="2.5"/><g fill="#14171d"><rect x="0" y="0" width="16" height="16"/><rect x="154" y="0" width="16" height="16"/><rect x="0" y="94" width="16" height="16"/><rect x="154" y="94" width="16" height="16"/></g></svg>
+      </div>
+      <div class="nh" style="left:970px;top:400px;width:150px;height:100px;">
+        <svg viewBox="0 0 170 110"><rect x="6" y="6" width="158" height="98" fill="none" stroke="#14171d" stroke-width="2.5"/><g fill="#14171d"><rect x="0" y="0" width="16" height="16"/><rect x="154" y="0" width="16" height="16"/><rect x="0" y="94" width="16" height="16"/><rect x="154" y="94" width="16" height="16"/></g></svg>
+      </div>
+
+      <!-- folder card centred -->
+      <div class="fld" style="left:90px;top:560px;width:900px;height:680px;">
+        <div class="fld-layer" style="left:150px;top:0;width:640px;height:120px;background:var(--primary-dark);">
+          <div class="fld-tab" style="left:0;background:var(--primary-dark);"><p class="fld-label" style="font-size:48px;">#Content3</p></div>
+        </div>
+        <div class="fld-layer" style="left:0;top:76px;width:900px;height:604px;background:var(--primary);">
+          <div class="fld-tab" style="left:0;width:340px;background:var(--primary);"><p class="fld-label" style="font-size:48px;">#Content4</p></div>
+        </div>
+        <div class="fld-body-wrap" style="left:70px;top:180px;width:760px;text-align:center;">
+          <p class="body" data-message="true" style="font-size:46px;line-height:1.2;color:var(--on-primary);text-align:center;-webkit-line-clamp:8;">People don&rsquo;t connect with content &mdash; they connect with stories. Share your process, failures, lessons, and behind-the-scenes moments.</p>
+        </div>
+      </div>
+
+      <div class="cur" style="left:790px;top:1120px;width:56px;height:72px;">
+        <svg viewBox="0 0 32 42"><path d="M3 2 L3 33 L11 25 L16 38 L22 35 L17 23 L28 23 Z" fill="#14171d" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </div>
+    </section>
+
+    <!-- ══════════ SLIDE 4 — ANALYZE & IMPROVE ══════════ -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="grid"></div>
+      <div class="head">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      </div>
+
+      <div class="tn" style="left:90px;top:150px;width:900px;text-align:center;">
+        <h1 class="disp center" data-title="true" style="font-size:150px;-webkit-line-clamp:2;text-align:center;">Analyze &amp; Improve</h1>
+      </div>
+
+      <div class="nh" style="left:-30px;top:520px;width:118px;height:118px;">
+        <svg viewBox="0 0 118 118"><rect x="10" y="10" width="98" height="98" fill="none" stroke="#14171d" stroke-width="2.5"/><g fill="#14171d"><rect x="49" y="0" width="18" height="18"/><rect x="0" y="49" width="18" height="18"/><rect x="100" y="49" width="18" height="18"/><rect x="49" y="100" width="18" height="18"/></g></svg>
+      </div>
+      <div class="nh" style="left:960px;top:520px;width:118px;height:118px;">
+        <svg viewBox="0 0 118 118"><rect x="10" y="10" width="98" height="98" fill="none" stroke="#14171d" stroke-width="2.5"/><g fill="#14171d"><rect x="49" y="0" width="18" height="18"/><rect x="0" y="49" width="18" height="18"/><rect x="100" y="49" width="18" height="18"/><rect x="49" y="100" width="18" height="18"/></g></svg>
+      </div>
+
+      <!-- two folders side by side (left darker, right lighter — matches reference) -->
+      <div class="fld" style="left:120px;top:640px;width:360px;height:250px;">
+        <div class="fld-layer" style="left:0;top:0;width:360px;height:250px;background:var(--primary-dark);"></div>
+        <div class="fld-tab" style="left:0;top:-46px;width:190px;height:52px;background:var(--primary-dark);border-radius:16px 16px 0 0;"></div>
+        <div class="fld-body-wrap" style="left:0;top:0;width:360px;height:250px;display:flex;align-items:center;justify-content:center;">
+          <p class="fld-label" style="font-size:56px;">#Content5</p>
+        </div>
+      </div>
+      <div class="fld" style="left:590px;top:610px;width:380px;height:280px;">
+        <div class="fld-layer" style="left:0;top:0;width:380px;height:280px;background:var(--primary);"></div>
+        <div class="fld-tab" style="left:0;top:-46px;width:200px;height:52px;background:var(--primary);border-radius:16px 16px 0 0;"></div>
+        <div class="fld-body-wrap" style="left:0;top:0;width:380px;height:280px;display:flex;align-items:center;justify-content:center;">
+          <p class="fld-label" style="font-size:56px;">#Content6</p>
+        </div>
+      </div>
+
+      <!-- body paragraph -->
+      <div class="tn" style="left:143px;top:960px;width:794px;text-align:center;">
+        <p class="body" data-message="true" style="font-size:36px;line-height:1.24;color:var(--text-high);text-align:center;-webkit-line-clamp:4;">Check what performs well &mdash; keep doing more of it. Check what doesn&rsquo;t &mdash; adjust and improve.</p>
+      </div>
+
+      <!-- footers -->
+      <div class="tn" style="left:82px;bottom:110px;width:400px;">
+        <p class="foot-txt" data-tagline="true" style="font-size:34px;line-height:1.15;font-weight:700;color:var(--text-high);-webkit-line-clamp:1;">Data is your</p>
+      </div>
+      <div class="tn" style="left:640px;bottom:110px;width:360px;text-align:right;">
+        <p class="foot-txt" data-cta="true" style="font-size:34px;line-height:1.15;font-weight:700;color:var(--text-high);text-align:right;-webkit-line-clamp:1;">Best teacher.</p>
+      </div>
+    </section>
+
+    <!-- ══════════ SLIDE 5 — THANK YOU ══════════ -->
+    <section class="slide" data-cg-slide-type="outro">
+      <div class="grid"></div>
+      <div class="head">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+      </div>
+
+      <div class="tn" style="left:82px;top:210px;width:480px;">
+        <h1 class="disp" data-title="true" style="font-size:190px;-webkit-line-clamp:2;line-height:.98;">Thank You</h1>
+      </div>
+
+      <!-- right-column pills + devices (clear of the headline lane) -->
+      <div class="nh" style="left:800px;top:150px;width:150px;height:100px;">
+        <svg viewBox="0 0 170 110"><rect x="6" y="6" width="158" height="98" fill="none" stroke="#14171d" stroke-width="2.5"/><g fill="#14171d"><rect x="0" y="0" width="16" height="16"/><rect x="154" y="0" width="16" height="16"/><rect x="0" y="94" width="16" height="16"/><rect x="154" y="94" width="16" height="16"/></g></svg>
+      </div>
+      <div class="pill pill--orange" style="left:540px;top:300px;transform:rotate(-3deg);"><span data-cta="true">For Your Support</span></div>
+      <div class="pill pill--blue" style="left:560px;top:520px;"><span>Content Creator</span></div>
+
+      <!-- subtitle -->
+      <div class="tn" style="left:82px;top:640px;width:470px;">
+        <p class="foot-txt" data-message="true" style="font-size:40px;line-height:1.22;color:var(--text-low);-webkit-line-clamp:4;">You don&rsquo;t need expensive gear. You just need courage to begin.</p>
+      </div>
+
+      <div class="pill pill--blue" style="left:600px;top:920px;transform:rotate(-4deg);"><span>Follow Us!</span></div>
+      <div class="cur" style="left:840px;top:960px;width:56px;height:72px;">
+        <svg viewBox="0 0 32 42"><path d="M3 2 L3 33 L11 25 L16 38 L22 35 L17 23 L28 23 Z" fill="#14171d" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </div>
+
+      <!-- footer -->
+      <div class="tn" style="left:82px;bottom:90px;width:400px;">
+        <p class="foot-txt" data-tagline="true" style="font-size:34px;line-height:1.1;font-weight:700;color:var(--text-high);-webkit-line-clamp:1;">123-456-789</p>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

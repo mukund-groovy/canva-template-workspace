@@ -62,6 +62,44 @@ function writeJson(filePath, value) {
   fs.writeFileSync(filePath, JSON.stringify(value, null, 2), 'utf8');
 }
 
+/**
+ * Cross-process mutex. Several agents run this workspace at once (different designs, different
+ * chats), and the dashboard store is a read-modify-write file: without this, two concurrent
+ * saves both read, both write, and one silently loses its entries.
+ * O_EXCL create is the lock; a lock older than STALE_MS is stolen so a crashed run can't wedge
+ * the workspace forever.
+ */
+function withLock(lockPath, fn) {
+  const STALE_MS = 20000;
+  const WAIT_MS = 15000;
+  const started = Date.now();
+  let fd = null;
+  for (;;) {
+    try {
+      fd = fs.openSync(lockPath, 'wx');
+      break;
+    } catch (err) {
+      if (err.code !== 'EEXIST') throw err;
+      try {
+        if (Date.now() - fs.statSync(lockPath).mtimeMs > STALE_MS) {
+          fs.unlinkSync(lockPath); // stale holder (crashed) — take it
+          continue;
+        }
+      } catch {
+        continue; // holder released between stat and unlink
+      }
+      if (Date.now() - started > WAIT_MS) throw new Error(`timed out waiting for lock: ${lockPath}`);
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 40); // real sleep, sync
+    }
+  }
+  try {
+    return fn();
+  } finally {
+    try { fs.closeSync(fd); } catch {}
+    try { fs.unlinkSync(lockPath); } catch {}
+  }
+}
+
 function runNode(scriptPath, args, cwd) {
   const res = spawnSync(process.execPath, [scriptPath, ...args], {
     cwd,
@@ -182,10 +220,16 @@ function statusCounts(entries) {
   return base;
 }
 
-function renderDashboardHtml(store) {
-  const safeJson = JSON.stringify(store).replace(/</g, '\\u003c');
+const DASHBOARD_SHELL_VERSION = 3;
+
+// Static shell — the data lives in dashboard-data.js (window.__DASH__), which is
+// loaded + polled client-side. A change patches only the modified <tr> (keyed by
+// designId + updatedAt); the page never full-reloads and the shell HTML is only
+// rewritten when DASHBOARD_SHELL_VERSION changes.
+function renderDashboardShell() {
   return `<!doctype html>
 <html lang="en">
+<!--dash-shell-v${DASHBOARD_SHELL_VERSION}-->
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -300,18 +344,20 @@ function renderDashboardHtml(store) {
       <iframe class="mframe" id="mframe" src="about:blank"></iframe>
     </div>
   </div>
+  <script src="dashboard-data.js"></script>
   <script>
-    const STORE = ${safeJson};
+    let STORE = window.__DASH__ || {entries:[]};
     const VALID = new Set(${JSON.stringify([...VALID_STATUSES])});
-    const counts = ${JSON.stringify(statusCounts(store?.entries))};
+    function countsOf(list){const c={};for(const e of (Array.isArray(list)?list:[])){const k=normalizeStatus(e.status);c[k]=(c[k]||0)+1;}return c;}
+    let counts = countsOf(STORE.entries);
     const SC = {pending:'#8a94a3',cloning:'#5b9bff',cloned:'#3fb6d8',generating:'#37b877',success:'#43c47a',failed:'#ff6b6b',duplicate:'#e0a53a'};
     function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
     function normalizeStatus(s){const k=String(s||'').toLowerCase(); if(k==='queued') return 'pending'; if(k==='running') return 'generating'; return VALID.has(k)?k:'pending';}
     function fmtDate(s){if(!s) return '-'; const d=new Date(s); if(Number.isNaN(d.getTime())) return esc(s); return d.toLocaleString();}
     function fmtMs(ms){if(!(Number.isFinite(ms)&&ms>=0)) return '-'; if(ms<1000) return ms+' ms'; const sec=Math.round(ms/1000); if(sec<60) return sec+' s'; const m=Math.floor(sec/60); return m+'m '+(sec%60)+'s';}
     function fileHref(p){if(!p) return ''; return 'file:///'+String(p).replace(/\\\\/g,'/');}
-    const entries = (Array.isArray(STORE.entries)?STORE.entries.slice():[]).sort((a,b)=>String(b.createdAt||b.updatedAt||'').localeCompare(String(a.createdAt||a.updatedAt||'')));
-    document.getElementById('upd').innerHTML='<b>'+entries.length+'</b> template'+(entries.length===1?'':'s')+'<br>Updated '+(STORE.generatedAt?new Date(STORE.generatedAt).toLocaleString():'-');
+    function sortedEntries(){return (Array.isArray(STORE.entries)?STORE.entries.slice():[]).sort((a,b)=>String(b.createdAt||b.updatedAt||'').localeCompare(String(a.createdAt||a.updatedAt||'')));}
+    let entries = sortedEntries();
 
     // ---- modal (in-page iframe preview; no new tabs) ----
     const modal=document.getElementById('modal'),mframe=document.getElementById('mframe'),mtitle=document.getElementById('mtitle');
@@ -325,11 +371,18 @@ function renderDashboardHtml(store) {
     // ---- filters (status chips + search) ----
     let activeFilter='all', term='';
     const order=[['all','All'],['success','Success'],['generating','Generating'],['cloned','Cloned'],['cloning','Cloning'],['pending','Pending'],['failed','Failed'],['duplicate','Duplicate']];
-    document.getElementById('filters').innerHTML=order.map(([k,l])=>{
-      const n=k==='all'?entries.length:(counts[k]||0);
-      const dot=k==='all'?'':'<span class="dot" style="background:'+(SC[k]||'#888')+'"></span>';
-      return '<button class="fchip'+(k==='all'?' active':'')+'" data-f="'+k+'">'+dot+esc(l)+' <span class="c">'+n+'</span></button>';
-    }).join('');
+    let _hdrKey='';
+    function renderHeader(){
+      counts=countsOf(STORE.entries);
+      const key=JSON.stringify([entries.length,counts,STORE.generatedAt,activeFilter]);
+      if(key===_hdrKey) return; _hdrKey=key;
+      document.getElementById('upd').innerHTML='<b>'+entries.length+'</b> template'+(entries.length===1?'':'s')+'<br>Updated '+(STORE.generatedAt?new Date(STORE.generatedAt).toLocaleString():'-');
+      document.getElementById('filters').innerHTML=order.map(([k,l])=>{
+        const n=k==='all'?entries.length:(counts[k]||0);
+        const dot=k==='all'?'':'<span class="dot" style="background:'+(SC[k]||'#888')+'"></span>';
+        return '<button class="fchip'+(k===activeFilter?' active':'')+'" data-f="'+k+'">'+dot+esc(l)+' <span class="c">'+n+'</span></button>';
+      }).join('');
+    }
     document.getElementById('filters').addEventListener('click',e=>{ const b=e.target.closest('[data-f]'); if(!b) return; activeFilter=b.getAttribute('data-f'); [...document.querySelectorAll('.fchip')].forEach(x=>x.classList.toggle('active',x===b)); apply(); });
     document.getElementById('search').addEventListener('input',e=>{ term=e.target.value.toLowerCase().trim(); apply(); });
 
@@ -351,7 +404,7 @@ function renderDashboardHtml(store) {
         (e.sourceUrl?'<a class="btn ghost" href="'+esc(e.sourceUrl)+'" target="_blank" rel="noreferrer" title="'+esc(e.sourceUrl)+'">Source ↗</a>':'')+
       '</div>';
       const err=e.lastError?'<span class="chip bad" title="'+esc(e.lastError)+'" style="margin-top:5px;display:inline-block">error</span>':'';
-      return '<tr data-status="'+st+'" data-search="'+esc(((e.designId||'')+' '+(m.title||'')).toLowerCase())+'">'+
+      return '<tr data-uid="'+esc(e.designId||'')+'" data-updated="'+esc(String(e.updatedAt||''))+'" data-status="'+st+'" data-search="'+esc(((e.designId||'')+' '+(m.title||'')).toLowerCase())+'">'+
         '<td>'+thumb+'</td>'+
         '<td><div class="tt">'+esc(m.title||e.designId||'Untitled')+'</div><div class="id">'+esc(e.designId||'')+'</div>'+err+'</td>'+
         '<td><span class="pill" style="background:'+c+'" title="'+esc(st==='failed'&&e.lastError?e.lastError:(st==='generating'&&e.genStage?e.genStage:(m.score!=null?'score '+m.score+'/10':st)))+'">'+esc(({pending:'Queued',cloning:'Cloning…',cloned:'Cloned',generating:'Generating…',success:'Ready',failed:'✕ Failed',duplicate:'⧉ Duplicate'})[st]||st)+'</span>'+((st==='generating'&&e.genStage)?'<div class="when" style="margin-top:4px;font-size:11px" title="'+esc(e.genStage)+'">'+esc(e.genStage)+'</div>':'')+((st==='failed'&&e.lastError)?'<div class="when" style="margin-top:4px;font-size:11px;color:#c0392b;max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+esc(e.lastError)+'">'+esc(e.lastError)+'</div>':'')+'</td>'+
@@ -363,18 +416,48 @@ function renderDashboardHtml(store) {
         '<td class="when"><b>'+fmtDate(e.updatedAt)+'</b><br>'+fmtMs(e.durationMs)+'</td>'+
       '</tr>';
     }
-    document.getElementById('tbody').innerHTML = entries.length?entries.map(row).join(''):'';
+    function makeTr(e){const t=document.createElement('template');t.innerHTML=row(e).trim();return t.content.firstElementChild;}
+    function renderRows(){
+      const tbody=document.getElementById('tbody');
+      const existing=new Map();[...tbody.children].forEach(tr=>existing.set(tr.getAttribute('data-uid'),tr));
+      const seen=new Set(); let anchor=null;
+      for(const e of entries){
+        const id=String(e.designId||''); seen.add(id);
+        let tr=existing.get(id);
+        if(!tr){ tr=makeTr(e); }                                               // new record
+        else if(tr.getAttribute('data-updated')!==String(e.updatedAt||'')){    // changed record
+          const fresh=makeTr(e); tr.replaceWith(fresh); tr=fresh;
+        }                                                                       // else: unchanged, reuse as-is
+        if(anchor){ if(anchor.nextSibling!==tr) anchor.after(tr); }
+        else { if(tbody.firstChild!==tr) tbody.prepend(tr); }
+        anchor=tr;
+      }
+      for(const [id,tr] of existing){ if(!seen.has(id)) tr.remove(); }          // removed record
+    }
     function apply(){
+      const rows=[...document.querySelectorAll('#tbody tr')];
       let shown=0;
-      [...document.querySelectorAll('#tbody tr')].forEach(tr=>{
+      rows.forEach(tr=>{
         const okS=activeFilter==='all'||tr.getAttribute('data-status')===activeFilter;
         const okT=!term||(tr.getAttribute('data-search')||'').includes(term);
         const vis=okS&&okT; tr.style.display=vis?'':'none'; if(vis) shown++;
       });
-      document.getElementById('empty').hidden = shown>0 && entries.length>0;
-      if(!entries.length){ document.getElementById('empty').hidden=false; document.getElementById('empty').textContent='No templates yet. Run a design to see it here.'; }
+      const empty=document.getElementById('empty');
+      if(!rows.length){ empty.hidden=false; empty.textContent='No templates yet. Run a design to see it here.'; }
+      else { empty.hidden=shown>0; if(shown===0) empty.textContent='No templates match your filter.'; }
     }
-    apply();
+    function renderAll(){ entries=sortedEntries(); renderRows(); renderHeader(); apply(); }
+
+    // ---- live update: reload the data file + patch only changed rows (no page reload) ----
+    function pollData(){
+      const s=document.createElement('script');
+      s.src='dashboard-data.js?v='+Date.now();
+      s.onload=()=>{ s.remove(); if(window.__DASH__){ STORE=window.__DASH__; renderAll(); } };
+      s.onerror=()=>{ s.remove(); };
+      document.body.appendChild(s);
+    }
+    renderAll();
+    setInterval(pollData, 3000);
   </script>
 </body>
 </html>`;
@@ -383,7 +466,7 @@ function renderDashboardHtml(store) {
 // Enrich a dashboard entry with lightweight display metadata (title, slide count,
 // fonts, palette, best RMSE) read from the extracted template + autotune report,
 // plus a thumbnail path (archetype cover when available, else the original page-1
-// reference). Cheap JSON reads; keeps renderDashboardHtml a pure function.
+// reference). Cheap JSON reads; keeps renderDashboardShell a pure function.
 function enrichEntryMeta(workspaceRoot, entry) {
   if (!entry?.designId) return false;
   const designRoot = path.join(workspaceRoot, 'designs', String(entry.designId));
@@ -450,19 +533,51 @@ function enrichEntryMeta(workspaceRoot, entry) {
 }
 
 function saveDashboard(workspaceRoot, store) {
+  const storePath = path.join(workspaceRoot, 'dashboard-store.json');
+  const htmlPath = path.join(workspaceRoot, 'dashboard.html');
+  const dataPath = path.join(workspaceRoot, 'dashboard-data.js');
+  const lockPath = path.join(workspaceRoot, '.dashboard.lock');
+  return withLock(lockPath, () => saveDashboardLocked(workspaceRoot, store, { storePath, htmlPath, dataPath }));
+}
+
+function saveDashboardLocked(workspaceRoot, store, { storePath, htmlPath, dataPath }) {
+  // MERGE, never blind-overwrite. Our in-memory copy was read when this process started; by
+  // now a parallel agent may have added or updated OTHER designs. Union by designId and let
+  // the later updatedAt win — updatedAt only moves when a row actually changed, so an
+  // untouched row we happen to hold can never stomp a fresh one from another agent.
+  const disk = readJsonSafe(storePath, { entries: [] });
+  const byId = new Map();
+  for (const e of Array.isArray(disk?.entries) ? disk.entries : []) {
+    if (e?.designId) byId.set(String(e.designId), e);
+  }
+  for (const e of Array.isArray(store?.entries) ? store.entries : []) {
+    if (!e?.designId) continue;
+    const id = String(e.designId);
+    const prev = byId.get(id);
+    if (!prev || String(e.updatedAt || '') >= String(prev.updatedAt || '')) byId.set(id, e);
+  }
   const normalized = {
     version: 1,
     generatedAt: toIsoNow(),
-    entries: Array.isArray(store?.entries) ? store.entries : [],
+    entries: [...byId.values()],
   };
   for (const e of normalized.entries) {
     e.status = normalizeStatus(e.status);
   }
-  const storePath = path.join(workspaceRoot, 'dashboard-store.json');
-  const htmlPath = path.join(workspaceRoot, 'dashboard.html');
   writeJson(storePath, normalized);
-  fs.writeFileSync(htmlPath, renderDashboardHtml(normalized), 'utf8');
-  return { storePath, htmlPath, store: normalized };
+  // Data lives in its own file; the open dashboard polls it and patches only the
+  // modified rows — the shell HTML is never rewritten just because data changed.
+  fs.writeFileSync(
+    dataPath,
+    'window.__DASH__=' + JSON.stringify(normalized).replace(/</g, '\\u003c') + ';\n',
+    'utf8'
+  );
+  // The shell is static — rewrite only when it's missing or its version changed.
+  const marker = '<!--dash-shell-v' + DASHBOARD_SHELL_VERSION + '-->';
+  let hasCurrentShell = false;
+  try { hasCurrentShell = fs.readFileSync(htmlPath, 'utf8').includes(marker); } catch {}
+  if (!hasCurrentShell) fs.writeFileSync(htmlPath, renderDashboardShell(), 'utf8');
+  return { storePath, htmlPath, dataPath, store: normalized };
 }
 
 function upsertEntry(entries, designId) {
@@ -558,6 +673,20 @@ function reconcileEntryFromWorkspace(workspaceRoot, entry) {
     if (fs.existsSync(mapPath)) {
       const map = JSON.parse(fs.readFileSync(mapPath, 'utf8'));
       const slug = map && typeof map === 'object' ? map[entry.designId] : null;
+      // Un-map must be honoured, not just map. The archetype fields are DERIVED from
+      // archetype-map + disk; if the mapping is gone (or its HTML was moved/deleted),
+      // clearing them here is what lets the self-heal below drop the row back to
+      // 'cloned'. Without this they linger and the design reads 'success' forever —
+      // which is exactly how a cleared dashboard kept showing generated templates.
+      const stillOnDisk =
+        slug &&
+        (fs.existsSync(path.join(workspaceRoot, 'output', `${slug}.html`)) ||
+          fs.existsSync(path.resolve(workspaceRoot, '..', 'backend', 'database', 'carousels', `${slug}.html`)));
+      if (!stillOnDisk && (entry.archetype || entry.archetypeSlug)) {
+        delete entry.archetype;
+        delete entry.archetypeSlug;
+        changed = true;
+      }
       if (slug) {
         const tdir = fs.existsSync(path.join(workspaceRoot, 'output'))
           ? path.join(workspaceRoot, 'output')
@@ -901,13 +1030,16 @@ function main() {
         const before = store.entries.length;
         const { list: l2, entry: e2 } = upsertEntry(store.entries, d.name);
         store.entries = l2;
-        if (store.entries.length > before) {
+        const isNew = store.entries.length > before;
+        if (isNew) {
           adopted++;
           e2.createdAt = e2.createdAt || toIsoNow();
         }
-        reconcileEntryFromWorkspace(workspaceRoot, e2);
-        enrichEntryMeta(workspaceRoot, e2);
-        e2.updatedAt = toIsoNow();
+        // Only touch updatedAt when this row actually changed — a refresh must
+        // not re-stamp every untouched entry to "now".
+        const changed = reconcileEntryFromWorkspace(workspaceRoot, e2);
+        const enriched = enrichEntryMeta(workspaceRoot, e2);
+        if (isNew || changed || enriched) e2.updatedAt = toIsoNow();
       }
     }
     const saved = saveDashboard(workspaceRoot, store);

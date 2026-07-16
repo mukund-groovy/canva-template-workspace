@@ -1,0 +1,53 @@
+{
+  "designId": "DAHPhaXds1M",
+  "startedAt": "2026-07-16T05:12:22.260Z",
+  "finishedAt": "2026-07-16T05:12:23.378Z",
+  "workspaceRoot": "C:\\Users\\Groovy\\Projects\\canva-template-workspace",
+  "cloneProfile": "minimal",
+  "clone": {
+    "designId": "DAHPhaXds1M",
+    "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\extract",
+    "cloneProfile": "minimal",
+    "duplicate": false,
+    "duplicateOf": null,
+    "outputs": {
+      "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\extract\\template-data.json",
+      "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\extract\\template-signature.json",
+      "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
+      "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\extract\\assets",
+      "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\extract\\assets\\pages"
+    },
+    "stats": {
+      "pagesDetected": 7,
+      "slidesInHtmlClone": 0,
+      "promotedActualPages": 0,
+      "fallbackPageAssets": 2,
+      "downloaded": 2,
+      "failed": 0
+    }
+  },
+  "quality": {
+    "targetRmse": null,
+    "stopOnTarget": null,
+    "gate": null
+  },
+  "runTracking": {
+    "runId": null,
+    "runDir": null,
+    "report": null,
+    "output": null,
+    "createdAt": "2026-07-16T05:12:23.378Z",
+    "source": "clone-only",
+    "duplicate": false
+  },
+  "final": {
+    "duplicate": false,
+    "output": null,
+    "duplicateOf": null
+  },
+  "paths": {
+    "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\capture\\editor-page.full.html",
+    "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\extract",
+    "pagesDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\extract\\assets\\pages"
+  }
+}

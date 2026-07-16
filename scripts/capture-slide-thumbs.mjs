@@ -27,9 +27,14 @@ if (!ID) throw new Error('--design-id required');
 const pad = (n) => String(n).padStart(2, '0');
 
 async function main() {
+  // Derive the expected page aspect ratio from the design's own docSize instead of assuming
+  // portrait 1080x1350 (0.8) — square posts (1080x1080, ratio 1.0) and other formats need
+  // their own ratio, or the main-page detector below matches nothing.
+  let targetRatio = 0.8;
   const pageCount = (() => {
     try {
       const j = JSON.parse(fs.readFileSync(path.join(WS, 'designs', ID, 'extract', 'template-data.json'), 'utf8'));
+      if (j.docSize && j.docSize.A && j.docSize.B) targetRatio = j.docSize.A / j.docSize.B;
       return j.pageCount || (j.pages || []).length || 0;
     } catch {
       return 0;
@@ -56,12 +61,13 @@ async function main() {
     await page.waitForTimeout(500);
     const maxPass = (pageCount || 10) + 12;
     for (let pass = 0; pass < maxPass && (!pageCount || shots.size < pageCount); pass++) {
-      const tags = await page.evaluate(() => {
+      const tags = await page.evaluate((targetRatio) => {
         const isMain = (e) => {
           const r = e.getBoundingClientRect();
-          // Exact 1080x1350 slide aspect (0.800); the 0.02 tolerance rejects the editor page
-          // wrapper (~0.764 — includes the "Add page title" header + toolbar), plus a text guard.
-          return r.width > 420 && r.height > 420 && Math.abs(r.width / r.height - 0.8) < 0.02 &&
+          // Slide aspect derived from the design's own docSize; the 0.02 tolerance rejects the
+          // editor page wrapper (which includes the "Add page title" header + toolbar), plus a
+          // text guard.
+          return r.width > 420 && r.height > 420 && Math.abs(r.width / r.height - targetRatio) < 0.02 &&
             !/Add page title|^Page \d/.test(e.textContent || '');
         };
         // Nearest scrollable ancestor gives a stable frame of reference.
@@ -79,7 +85,7 @@ async function main() {
           out.push({ key: e.dataset.pgKey, abs });
         }
         return out;
-      });
+      }, targetRatio);
       for (const t of tags.sort((a, b) => a.abs - b.abs)) {
         if (shots.has(t.key)) continue;
         const loc = page.locator(`[data-pg-key="${t.key}"]`).first();

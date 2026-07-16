@@ -45,9 +45,18 @@ const chromium = await (async () => {
 
 const argv = process.argv.slice(2);
 const htmlPath = path.resolve(argv.find((a) => !a.startsWith('--')) || '');
+// Renders live OUTSIDE the template folder, under <root>/.renders/<source-dir>/<template>/.
+// Two reasons: output/ must contain ONLY final template HTML (nothing else), and a
+// per-template dir means parallel runs — agents in different chats, on different designs —
+// can never overwrite each other's slide-NN.png. Keyed by source dir too, so a replica and
+// a shipped template with the same slug stay separate.
+const WS = path.resolve(path.dirname(process.argv[1] || '.'), '..');
 const outDir = (() => {
   const i = argv.indexOf('--out');
-  return i >= 0 ? path.resolve(argv[i + 1]) : path.join(path.dirname(htmlPath), '.verify');
+  if (i >= 0) return path.resolve(argv[i + 1]);
+  const stem = path.basename(htmlPath).replace(/\.html?$/i, '');
+  const src = path.basename(path.dirname(htmlPath));
+  return path.join(WS, '.renders', src, stem);
 })();
 const asJson = argv.includes('--json');
 
@@ -89,6 +98,29 @@ const parseRgb = (s) => {
   if (p.length > 3 && p[3] === 0) return null; // fully transparent
   return [p[0], p[1], p[2]];
 };
+const hexRgb = (h) => {
+  let x = String(h || '').trim().replace('#', '');
+  if (x.length === 3) x = x.split('').map((c) => c + c).join('');
+  if (!/^[0-9a-fA-F]{6}$/.test(x)) return null;
+  return [0, 2, 4].map((i) => parseInt(x.slice(i, i + 2), 16));
+};
+
+// `--brand "<primary>,<accent>"` — skin the deck with a brand palette before checking.
+// on-accent is derived the way the production skinner does it: whichever of black/white
+// actually clears AA on that accent, so a template that ASKS for --brand-on-accent stays
+// legible and one that hardcodes #fff does not.
+const BRAND = (() => {
+  const i = argv.indexOf('--brand');
+  if (i < 0) return null;
+  const [p, a] = String(argv[i + 1] || '').split(',').map((s) => s && s.trim());
+  const aRgb = hexRgb(a);
+  const on = aRgb
+    ? contrastRatio(aRgb, [0, 0, 0]) >= contrastRatio(aRgb, [255, 255, 255])
+      ? '#0a0a0a'
+      : '#ffffff'
+    : null;
+  return { p: p || null, a: a || null, on };
+})();
 
 /** Mean + stddev of a crop, in grey, normalised 0..1. Uses ImageMagick. */
 function cropStats(png, x, y, w, h) {
@@ -172,6 +204,23 @@ await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
 await page.evaluate(() => document.fonts.ready);
 await page.waitForTimeout(1500);
 
+// ---------- BRAND PASS ----------
+// `--brand "<primary>,<accent>"` skins the deck with a brand palette before any check
+// runs, exactly like the production skinner (which sets --brand-* on the root). The
+// existing CONTRAST check then does the work: a template that hardcodes #fff on an
+// accent-filled surface fails the moment the brand accent is light. Pair it with
+// --brand-on-accent so text CAN resolve an AA-safe on-colour if it asks for one.
+if (BRAND) {
+  await page.evaluate(({ p, a, on }) => {
+    const r = document.documentElement.style;
+    if (p) r.setProperty('--brand-primary', p);
+    if (a) r.setProperty('--brand-accent', a);
+    if (on) r.setProperty('--brand-on-accent', on);
+    if (p) r.setProperty('--brand-on-primary', '#ffffff');
+  }, BRAND);
+  await page.waitForTimeout(400);
+}
+
 // ---------- FONT: is every family that TEXT ACTUALLY USES loaded, at the
 // weight and style it is used at? ----------
 // Probing a family at a default weight/style is meaningless: a Google @import
@@ -233,6 +282,58 @@ for (let i = 0; i < slides.length; i++) {
   await slides[i].screenshot({ path: png });
 
   await slides[i].scrollIntoViewIfNeeded();
+
+  // ── descenders: g/y/p/q/j ink sliced off by the text's own clip box ────────────
+  // The line-clamp contract forces display:-webkit-box + overflow:hidden. When an author
+  // also sets line-height below ~1.0 (common for tight display type), the line box is
+  // shorter than the font's ascent+descent, so descender ink falls outside it and is cut.
+  // Measure the real ink (canvas TextMetrics) against the clip box rather than guessing.
+  const clipped = await slides[i].evaluate((slide) => {
+    const ctx = document.createElement('canvas').getContext('2d');
+    const DESC = /[gjpqy]/;
+    const clips = (h) => {
+      const s = getComputedStyle(h);
+      return s.overflow === 'hidden' || s.overflowY === 'hidden' || s.webkitLineClamp !== 'none';
+    };
+    const out = [];
+    for (const el of slide.querySelectorAll('*')) {
+      if (el.children.length) continue;
+      if (el.closest('svg')) continue;
+      const cs = getComputedStyle(el);
+      if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+      let text = (el.textContent || '').trim();
+      if (!text) continue;
+      // uppercase-transformed text has no descenders even if the source string does
+      if (cs.textTransform === 'uppercase') text = text.toUpperCase();
+      if (!DESC.test(text)) continue;
+      // nearest clipping box (self or a close ancestor)
+      let host = null;
+      for (let h = el, d = 0; h && d < 4; h = h.parentElement, d++) if (clips(h)) { host = h; break; }
+      if (!host) continue;
+      const F = parseFloat(cs.fontSize);
+      if (!F) continue;
+      ctx.font = `${cs.fontStyle} ${cs.fontWeight} ${F}px ${cs.fontFamily}`;
+      const m = ctx.measureText(text);
+      const asc = m.actualBoundingBoxAscent, desc = m.actualBoundingBoxDescent;
+      if (!isFinite(asc) || !isFinite(desc)) continue;
+      let L = cs.lineHeight === 'normal' ? F * 1.2 : parseFloat(cs.lineHeight);
+      if (!isFinite(L) || L <= 0) L = F * 1.2;
+      const hs = getComputedStyle(host);
+      const pt = parseFloat(hs.paddingTop) || 0, pb = parseFloat(hs.paddingBottom) || 0;
+      const lines = Math.max(1, Math.round((host.clientHeight - pt - pb) / L));
+      const halfLeading = (L - (asc + desc)) / 2;
+      const inkBottom = pt + (lines - 1) * L + halfLeading + asc + desc;
+      const over = inkBottom - host.clientHeight; // overflow:hidden clips at the padding box
+      if (over > 1) {
+        out.push({ over: Math.round(over * 10) / 10, lh: Math.round((L / F) * 100) / 100, text: text.slice(0, 40) });
+      }
+    }
+    return out;
+  });
+  for (const c of clipped) {
+    add(n, 'DESCENDER', 'fail',
+      `descender clipped ~${c.over}px (line-height ${c.lh}) — "${c.text}" — the tail of g/y/p/q/j is cut off; raise line-height toward 1.0+ or add padding-bottom to the clipping box`);
+  }
 
   const geo = await slides[i].evaluate((slide, tol) => {
     const box = slide.getBoundingClientRect();
