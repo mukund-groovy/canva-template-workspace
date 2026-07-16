@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Libre+Franklin:wght@400;500;600;700&display=swap');
+
+      :root{
+        /* The orange gradient IS the reference's accent field — every themeable
+           colour routes through the brand accent roles so a palette swap re-skins
+           the whole deck. Ink is fixed white (reads on any accent surface). */
+        --primary:var(--brand-primary,#F26E28);
+        --secondary:var(--brand-secondary,#EC531B);
+        --accent:var(--brand-accent,#F9AE3E);
+        --highlight:var(--brand-accent,#F9AE3E);
+        --bg:var(--brand-bg,#FFFFFF);
+        --surface:var(--brand-surface,var(--brand-bg-alt,#FDE7C6));
+        --text-high:var(--brand-ink,var(--brand-text,#FFFFFF));
+        --text-low:var(--brand-text-muted,rgba(255,255,255,.82));
+        --border:var(--brand-border,rgba(255,255,255,.55));
+      }
+
+      *{box-sizing:border-box;}
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--accent);
+        font-family:'Libre Franklin',sans-serif;
+      }
+
+      /* ── recolorable gradient field ── */
+      .bg{position:absolute;inset:0;z-index:0;
+        background:linear-gradient(142deg,
+          color-mix(in srgb, var(--accent) 74%, #ffffff 26%) 0%,
+          var(--accent) 30%,
+          var(--primary) 66%,
+          var(--secondary) 100%);}
+
+      /* ── decoration layer ── */
+      .deco{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
+      .dots{position:absolute;background-repeat:repeat;}
+      .dots-tl{top:64px;left:56px;width:150px;height:190px;
+        background-image:radial-gradient(circle, color-mix(in srgb, var(--secondary) 70%, #7a2c00 30%) 42%, transparent 46%);
+        background-size:18px 18px;opacity:.55;}
+      .dots-br{right:70px;bottom:190px;width:150px;height:150px;
+        background-image:radial-gradient(circle, rgba(255,255,255,.55) 42%, transparent 46%);
+        background-size:18px 18px;opacity:.7;}
+      .wave{position:absolute;}
+      .wave-tr{top:-10px;right:-20px;width:640px;height:470px;color:rgba(255,255,255,.5);}
+      .wave-bl{left:0;bottom:0;width:560px;height:380px;color:rgba(255,255,255,.32);}
+      .chev{position:absolute;width:96px;height:40px;}
+      .chev-a{top:200px;left:170px;color:color-mix(in srgb, var(--secondary) 80%, #8a2f00 20%);}
+      .chev-b{top:430px;right:120px;width:78px;color:rgba(255,255,255,.5);}
+      .chev-c{bottom:250px;left:250px;width:78px;color:rgba(255,255,255,.42);}
+      .chev-d{bottom:210px;right:150px;width:70px;color:color-mix(in srgb, var(--secondary) 70%, #8a2f00 30%);opacity:.75;}
+
+      /* ── isolated positioned wrapper PER text node ── */
+      .tn-title{position:absolute;left:96px;right:96px;z-index:3;}
+      .tn-message{position:absolute;left:96px;right:120px;z-index:3;}
+      .tn-tagline{position:absolute;z-index:3;}
+      .tn-quote{position:absolute;z-index:3;}
+
+      h1{margin:0;}
+      p{margin:0;}
+
+      /* ── cover ── */
+      .cover-num{position:absolute;left:52px;top:432px;z-index:2;
+        font-family:'Poppins',sans-serif;font-weight:700;font-size:470px;line-height:.82;
+        color:transparent;-webkit-text-stroke:9px #ffffff;letter-spacing:-.02em;}
+      .tn-tagline{left:362px;top:452px;right:70px;}
+      .tagline{font-family:'Poppins',sans-serif;font-weight:700;font-size:56px;line-height:1.12;
+        text-transform:uppercase;letter-spacing:.01em;color:#ffffff;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;}
+      .cover-title{left:362px;top:520px;right:56px;}
+      .cover-title h1{font-family:'Poppins',sans-serif;font-weight:800;font-size:92px;line-height:1.12;
+        text-transform:uppercase;letter-spacing:-.01em;color:#ffffff;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+        text-shadow:0 4px 30px rgba(120,45,0,.18);}
+
+      /* ── tip slides ── */
+      .step-num{position:absolute;left:96px;top:262px;z-index:3;
+        font-family:'Poppins',sans-serif;font-weight:700;font-size:116px;line-height:1;
+        color:#ffffff;letter-spacing:.01em;}
+      .slide-tip .tn-title{top:430px;}
+      .slide-tip .tn-title h1{font-family:'Poppins',sans-serif;font-weight:800;font-size:88px;line-height:1.14;
+        text-transform:uppercase;letter-spacing:-.01em;color:#ffffff;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+        text-shadow:0 4px 26px rgba(120,45,0,.16);}
+      .tn-rule{position:absolute;left:96px;width:620px;height:4px;z-index:3;top:672px;
+        background:rgba(255,255,255,.85);border-radius:2px;}
+      .slide-tip .tn-message{top:716px;}
+      .slide-tip .tn-message p{font-family:'Libre Franklin',sans-serif;font-weight:500;font-size:49px;line-height:1.34;
+        color:#ffffff;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;}
+
+      /* ── closing ── */
+      .tn-quote{left:96px;right:150px;top:462px;}
+      .tn-quote p{font-family:'Libre Franklin',sans-serif;font-weight:600;font-size:76px;line-height:1.22;
+        color:#ffffff;letter-spacing:-.01em;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;overflow:hidden;
+        text-shadow:0 4px 30px rgba(120,45,0,.16);}
+
+      /* ── footer ── */
+      .foot{position:absolute;left:96px;right:96px;bottom:70px;z-index:4;
+        display:flex;align-items:center;justify-content:space-between;}
+      .lockup{display:inline-flex;align-items:center;gap:16px;}
+      .brand-mark-clip{flex:none;height:40px;display:flex;align-items:center;}
+      .brand-mark{height:40px;width:auto;max-width:130px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Poppins',sans-serif;font-weight:700;font-size:36px;color:#ffffff;white-space:nowrap;letter-spacing:.005em;}
+      .cg-slide-counter{font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;letter-spacing:.14em;color:#ffffff;opacity:.9;}
+    </style>
+  </head>
+  <body>
+    <div class="ig-carousel">
+    <section class="slide slide-cover" data-cg-slide-type="cover">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="deco" aria-hidden="true">
+        <div class="dots dots-tl"></div>
+        <div class="dots dots-br"></div>
+        <svg class="wave wave-tr" viewBox="0 0 620 460" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M120 460 C 240 300, 430 250, 620 120" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.55"/>
+  <path d="M133 460 C 253 292.2, 435.2 243.5, 620 110.9" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.52"/>
+  <path d="M146 460 C 266 284.4, 440.4 237, 620 101.8" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.49"/>
+  <path d="M159 460 C 279 276.6, 445.6 230.5, 620 92.7" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.46"/>
+  <path d="M172 460 C 292 268.8, 450.8 224, 620 83.6" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.43"/>
+  <path d="M185 460 C 305 261, 456 217.5, 620 74.5" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.40"/>
+  <path d="M198 460 C 318 253.2, 461.2 211, 620 65.4" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.37"/>
+  <path d="M211 460 C 331 245.4, 466.4 204.5, 620 56.300000000000004" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.34"/>
+  <path d="M224 460 C 344 237.6, 471.6 198, 620 47.2" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.31"/>
+  <path d="M237 460 C 357 229.8, 476.8 191.5, 620 38.10000000000001" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.28"/>
+  <path d="M250 460 C 370 222, 482 185, 620 29" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.25"/>
+</svg>
+        <svg class="wave wave-bl" viewBox="0 0 560 380" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M-40 140 C 140 210, 330 300, 520 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.40"/>
+  <path d="M-40 155 C 135.5 217.5, 327 306, 518.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.37"/>
+  <path d="M-40 170 C 131 225, 324 312, 517 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.34"/>
+  <path d="M-40 185 C 126.5 232.5, 321 318, 515.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.31"/>
+  <path d="M-40 200 C 122 240, 318 324, 514 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.28"/>
+  <path d="M-40 215 C 117.5 247.5, 315 330, 512.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.25"/>
+  <path d="M-40 230 C 113 255, 312 336, 511 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.22"/>
+  <path d="M-40 245 C 108.5 262.5, 309 342, 509.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.19"/>
+  <path d="M-40 260 C 104 270, 306 348, 508 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.16"/>
+</svg>
+        <svg class="chev chev-a" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-b" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-c" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-d" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+      </div>
+      <div class="cover-num" aria-hidden="true">8</div>
+      <div class="tn-tagline"><p class="tagline" data-message="true">ways to start a</p></div>
+      <div class="tn-title cover-title"><h1 data-title="true">Productive Day</h1></div>
+      
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="cg-slide-counter" data-counter="true">01 / 10</div>
+      </div>
+    </section>
+    <section class="slide slide-tip" data-cg-slide-type="list">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="deco" aria-hidden="true">
+        <div class="dots dots-tl"></div>
+        <div class="dots dots-br"></div>
+        <svg class="wave wave-tr" viewBox="0 0 620 460" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M120 460 C 240 300, 430 250, 620 120" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.55"/>
+  <path d="M133 460 C 253 292.2, 435.2 243.5, 620 110.9" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.52"/>
+  <path d="M146 460 C 266 284.4, 440.4 237, 620 101.8" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.49"/>
+  <path d="M159 460 C 279 276.6, 445.6 230.5, 620 92.7" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.46"/>
+  <path d="M172 460 C 292 268.8, 450.8 224, 620 83.6" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.43"/>
+  <path d="M185 460 C 305 261, 456 217.5, 620 74.5" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.40"/>
+  <path d="M198 460 C 318 253.2, 461.2 211, 620 65.4" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.37"/>
+  <path d="M211 460 C 331 245.4, 466.4 204.5, 620 56.300000000000004" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.34"/>
+  <path d="M224 460 C 344 237.6, 471.6 198, 620 47.2" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.31"/>
+  <path d="M237 460 C 357 229.8, 476.8 191.5, 620 38.10000000000001" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.28"/>
+  <path d="M250 460 C 370 222, 482 185, 620 29" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.25"/>
+</svg>
+        <svg class="wave wave-bl" viewBox="0 0 560 380" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M-40 140 C 140 210, 330 300, 520 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.40"/>
+  <path d="M-40 155 C 135.5 217.5, 327 306, 518.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.37"/>
+  <path d="M-40 170 C 131 225, 324 312, 517 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.34"/>
+  <path d="M-40 185 C 126.5 232.5, 321 318, 515.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.31"/>
+  <path d="M-40 200 C 122 240, 318 324, 514 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.28"/>
+  <path d="M-40 215 C 117.5 247.5, 315 330, 512.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.25"/>
+  <path d="M-40 230 C 113 255, 312 336, 511 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.22"/>
+  <path d="M-40 245 C 108.5 262.5, 309 342, 509.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.19"/>
+  <path d="M-40 260 C 104 270, 306 348, 508 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.16"/>
+</svg>
+        <svg class="chev chev-a" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-b" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-c" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-d" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+      </div>
+      <div class="step-num" aria-hidden="true">01</div>
+      <div class="tn-title"><h1 data-title="true">Plan the night before</h1></div>
+      <div class="tn-rule" aria-hidden="true"></div>
+      <div class="tn-message"><p data-message="true">When you have fewer decisions to make your saving mental space and will have better productivity throughout the day.</p></div>
+      
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="cg-slide-counter" data-counter="true">02 / 10</div>
+      </div>
+    </section>
+    <section class="slide slide-tip" data-cg-slide-type="list">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="deco" aria-hidden="true">
+        <div class="dots dots-tl"></div>
+        <div class="dots dots-br"></div>
+        <svg class="wave wave-tr" viewBox="0 0 620 460" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M120 460 C 240 300, 430 250, 620 120" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.55"/>
+  <path d="M133 460 C 253 292.2, 435.2 243.5, 620 110.9" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.52"/>
+  <path d="M146 460 C 266 284.4, 440.4 237, 620 101.8" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.49"/>
+  <path d="M159 460 C 279 276.6, 445.6 230.5, 620 92.7" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.46"/>
+  <path d="M172 460 C 292 268.8, 450.8 224, 620 83.6" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.43"/>
+  <path d="M185 460 C 305 261, 456 217.5, 620 74.5" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.40"/>
+  <path d="M198 460 C 318 253.2, 461.2 211, 620 65.4" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.37"/>
+  <path d="M211 460 C 331 245.4, 466.4 204.5, 620 56.300000000000004" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.34"/>
+  <path d="M224 460 C 344 237.6, 471.6 198, 620 47.2" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.31"/>
+  <path d="M237 460 C 357 229.8, 476.8 191.5, 620 38.10000000000001" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.28"/>
+  <path d="M250 460 C 370 222, 482 185, 620 29" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.25"/>
+</svg>
+        <svg class="wave wave-bl" viewBox="0 0 560 380" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M-40 140 C 140 210, 330 300, 520 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.40"/>
+  <path d="M-40 155 C 135.5 217.5, 327 306, 518.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.37"/>
+  <path d="M-40 170 C 131 225, 324 312, 517 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.34"/>
+  <path d="M-40 185 C 126.5 232.5, 321 318, 515.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.31"/>
+  <path d="M-40 200 C 122 240, 318 324, 514 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.28"/>
+  <path d="M-40 215 C 117.5 247.5, 315 330, 512.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.25"/>
+  <path d="M-40 230 C 113 255, 312 336, 511 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.22"/>
+  <path d="M-40 245 C 108.5 262.5, 309 342, 509.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.19"/>
+  <path d="M-40 260 C 104 270, 306 348, 508 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.16"/>
+</svg>
+        <svg class="chev chev-a" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-b" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-c" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-d" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+      </div>
+      <div class="step-num" aria-hidden="true">02</div>
+      <div class="tn-title"><h1 data-title="true">Wake up refreshed</h1></div>
+      <div class="tn-rule" aria-hidden="true"></div>
+      <div class="tn-message"><p data-message="true">Have a quiet and relaxing evening by meditating or reading. Don’t forget to go to bed at the same time every night.</p></div>
+      
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="cg-slide-counter" data-counter="true">03 / 10</div>
+      </div>
+    </section>
+    <section class="slide slide-tip" data-cg-slide-type="list">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="deco" aria-hidden="true">
+        <div class="dots dots-tl"></div>
+        <div class="dots dots-br"></div>
+        <svg class="wave wave-tr" viewBox="0 0 620 460" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M120 460 C 240 300, 430 250, 620 120" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.55"/>
+  <path d="M133 460 C 253 292.2, 435.2 243.5, 620 110.9" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.52"/>
+  <path d="M146 460 C 266 284.4, 440.4 237, 620 101.8" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.49"/>
+  <path d="M159 460 C 279 276.6, 445.6 230.5, 620 92.7" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.46"/>
+  <path d="M172 460 C 292 268.8, 450.8 224, 620 83.6" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.43"/>
+  <path d="M185 460 C 305 261, 456 217.5, 620 74.5" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.40"/>
+  <path d="M198 460 C 318 253.2, 461.2 211, 620 65.4" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.37"/>
+  <path d="M211 460 C 331 245.4, 466.4 204.5, 620 56.300000000000004" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.34"/>
+  <path d="M224 460 C 344 237.6, 471.6 198, 620 47.2" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.31"/>
+  <path d="M237 460 C 357 229.8, 476.8 191.5, 620 38.10000000000001" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.28"/>
+  <path d="M250 460 C 370 222, 482 185, 620 29" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.25"/>
+</svg>
+        <svg class="wave wave-bl" viewBox="0 0 560 380" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M-40 140 C 140 210, 330 300, 520 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.40"/>
+  <path d="M-40 155 C 135.5 217.5, 327 306, 518.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.37"/>
+  <path d="M-40 170 C 131 225, 324 312, 517 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.34"/>
+  <path d="M-40 185 C 126.5 232.5, 321 318, 515.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.31"/>
+  <path d="M-40 200 C 122 240, 318 324, 514 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.28"/>
+  <path d="M-40 215 C 117.5 247.5, 315 330, 512.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.25"/>
+  <path d="M-40 230 C 113 255, 312 336, 511 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.22"/>
+  <path d="M-40 245 C 108.5 262.5, 309 342, 509.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.19"/>
+  <path d="M-40 260 C 104 270, 306 348, 508 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.16"/>
+</svg>
+        <svg class="chev chev-a" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-b" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-c" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-d" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+      </div>
+      <div class="step-num" aria-hidden="true">03</div>
+      <div class="tn-title"><h1 data-title="true">Review your to-do list</h1></div>
+      <div class="tn-rule" aria-hidden="true"></div>
+      <div class="tn-message"><p data-message="true">Instead of starting to work on the first task that comes to your mind, develop an organized mindset.</p></div>
+      
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="cg-slide-counter" data-counter="true">04 / 10</div>
+      </div>
+    </section>
+    <section class="slide slide-tip" data-cg-slide-type="list">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="deco" aria-hidden="true">
+        <div class="dots dots-tl"></div>
+        <div class="dots dots-br"></div>
+        <svg class="wave wave-tr" viewBox="0 0 620 460" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M120 460 C 240 300, 430 250, 620 120" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.55"/>
+  <path d="M133 460 C 253 292.2, 435.2 243.5, 620 110.9" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.52"/>
+  <path d="M146 460 C 266 284.4, 440.4 237, 620 101.8" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.49"/>
+  <path d="M159 460 C 279 276.6, 445.6 230.5, 620 92.7" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.46"/>
+  <path d="M172 460 C 292 268.8, 450.8 224, 620 83.6" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.43"/>
+  <path d="M185 460 C 305 261, 456 217.5, 620 74.5" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.40"/>
+  <path d="M198 460 C 318 253.2, 461.2 211, 620 65.4" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.37"/>
+  <path d="M211 460 C 331 245.4, 466.4 204.5, 620 56.300000000000004" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.34"/>
+  <path d="M224 460 C 344 237.6, 471.6 198, 620 47.2" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.31"/>
+  <path d="M237 460 C 357 229.8, 476.8 191.5, 620 38.10000000000001" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.28"/>
+  <path d="M250 460 C 370 222, 482 185, 620 29" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.25"/>
+</svg>
+        <svg class="wave wave-bl" viewBox="0 0 560 380" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M-40 140 C 140 210, 330 300, 520 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.40"/>
+  <path d="M-40 155 C 135.5 217.5, 327 306, 518.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.37"/>
+  <path d="M-40 170 C 131 225, 324 312, 517 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.34"/>
+  <path d="M-40 185 C 126.5 232.5, 321 318, 515.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.31"/>
+  <path d="M-40 200 C 122 240, 318 324, 514 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.28"/>
+  <path d="M-40 215 C 117.5 247.5, 315 330, 512.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.25"/>
+  <path d="M-40 230 C 113 255, 312 336, 511 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.22"/>
+  <path d="M-40 245 C 108.5 262.5, 309 342, 509.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.19"/>
+  <path d="M-40 260 C 104 270, 306 348, 508 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.16"/>
+</svg>
+        <svg class="chev chev-a" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-b" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-c" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-d" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+      </div>
+      <div class="step-num" aria-hidden="true">04</div>
+      <div class="tn-title"><h1 data-title="true">Visualize a successful day</h1></div>
+      <div class="tn-rule" aria-hidden="true"></div>
+      <div class="tn-message"><p data-message="true">By envisioning the outcome of the day’s tasks and projects, you can work backward to determine the necessary steps that lead to your desired results.</p></div>
+      
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="cg-slide-counter" data-counter="true">05 / 10</div>
+      </div>
+    </section>
+    <section class="slide slide-tip" data-cg-slide-type="list">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="deco" aria-hidden="true">
+        <div class="dots dots-tl"></div>
+        <div class="dots dots-br"></div>
+        <svg class="wave wave-tr" viewBox="0 0 620 460" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M120 460 C 240 300, 430 250, 620 120" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.55"/>
+  <path d="M133 460 C 253 292.2, 435.2 243.5, 620 110.9" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.52"/>
+  <path d="M146 460 C 266 284.4, 440.4 237, 620 101.8" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.49"/>
+  <path d="M159 460 C 279 276.6, 445.6 230.5, 620 92.7" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.46"/>
+  <path d="M172 460 C 292 268.8, 450.8 224, 620 83.6" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.43"/>
+  <path d="M185 460 C 305 261, 456 217.5, 620 74.5" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.40"/>
+  <path d="M198 460 C 318 253.2, 461.2 211, 620 65.4" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.37"/>
+  <path d="M211 460 C 331 245.4, 466.4 204.5, 620 56.300000000000004" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.34"/>
+  <path d="M224 460 C 344 237.6, 471.6 198, 620 47.2" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.31"/>
+  <path d="M237 460 C 357 229.8, 476.8 191.5, 620 38.10000000000001" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.28"/>
+  <path d="M250 460 C 370 222, 482 185, 620 29" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.25"/>
+</svg>
+        <svg class="wave wave-bl" viewBox="0 0 560 380" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M-40 140 C 140 210, 330 300, 520 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.40"/>
+  <path d="M-40 155 C 135.5 217.5, 327 306, 518.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.37"/>
+  <path d="M-40 170 C 131 225, 324 312, 517 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.34"/>
+  <path d="M-40 185 C 126.5 232.5, 321 318, 515.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.31"/>
+  <path d="M-40 200 C 122 240, 318 324, 514 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.28"/>
+  <path d="M-40 215 C 117.5 247.5, 315 330, 512.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.25"/>
+  <path d="M-40 230 C 113 255, 312 336, 511 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.22"/>
+  <path d="M-40 245 C 108.5 262.5, 309 342, 509.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.19"/>
+  <path d="M-40 260 C 104 270, 306 348, 508 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.16"/>
+</svg>
+        <svg class="chev chev-a" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-b" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-c" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-d" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+      </div>
+      <div class="step-num" aria-hidden="true">05</div>
+      <div class="tn-title"><h1 data-title="true">Choose your working pace</h1></div>
+      <div class="tn-rule" aria-hidden="true"></div>
+      <div class="tn-message"><p data-message="true">Working in intervals helps you to stay focused and alert throughout the day, increases your productivity levels, and leads to higher achievements.</p></div>
+      
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="cg-slide-counter" data-counter="true">06 / 10</div>
+      </div>
+    </section>
+    <section class="slide slide-tip" data-cg-slide-type="list">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="deco" aria-hidden="true">
+        <div class="dots dots-tl"></div>
+        <div class="dots dots-br"></div>
+        <svg class="wave wave-tr" viewBox="0 0 620 460" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M120 460 C 240 300, 430 250, 620 120" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.55"/>
+  <path d="M133 460 C 253 292.2, 435.2 243.5, 620 110.9" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.52"/>
+  <path d="M146 460 C 266 284.4, 440.4 237, 620 101.8" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.49"/>
+  <path d="M159 460 C 279 276.6, 445.6 230.5, 620 92.7" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.46"/>
+  <path d="M172 460 C 292 268.8, 450.8 224, 620 83.6" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.43"/>
+  <path d="M185 460 C 305 261, 456 217.5, 620 74.5" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.40"/>
+  <path d="M198 460 C 318 253.2, 461.2 211, 620 65.4" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.37"/>
+  <path d="M211 460 C 331 245.4, 466.4 204.5, 620 56.300000000000004" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.34"/>
+  <path d="M224 460 C 344 237.6, 471.6 198, 620 47.2" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.31"/>
+  <path d="M237 460 C 357 229.8, 476.8 191.5, 620 38.10000000000001" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.28"/>
+  <path d="M250 460 C 370 222, 482 185, 620 29" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.25"/>
+</svg>
+        <svg class="wave wave-bl" viewBox="0 0 560 380" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M-40 140 C 140 210, 330 300, 520 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.40"/>
+  <path d="M-40 155 C 135.5 217.5, 327 306, 518.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.37"/>
+  <path d="M-40 170 C 131 225, 324 312, 517 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.34"/>
+  <path d="M-40 185 C 126.5 232.5, 321 318, 515.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.31"/>
+  <path d="M-40 200 C 122 240, 318 324, 514 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.28"/>
+  <path d="M-40 215 C 117.5 247.5, 315 330, 512.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.25"/>
+  <path d="M-40 230 C 113 255, 312 336, 511 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.22"/>
+  <path d="M-40 245 C 108.5 262.5, 309 342, 509.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.19"/>
+  <path d="M-40 260 C 104 270, 306 348, 508 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.16"/>
+</svg>
+        <svg class="chev chev-a" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-b" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-c" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-d" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+      </div>
+      <div class="step-num" aria-hidden="true">06</div>
+      <div class="tn-title"><h1 data-title="true">Organize your workspace</h1></div>
+      <div class="tn-rule" aria-hidden="true"></div>
+      <div class="tn-message"><p data-message="true">A simple morning productivity hack is to clean up your desk and organize your papers, files, as well as desktop.</p></div>
+      
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="cg-slide-counter" data-counter="true">07 / 10</div>
+      </div>
+    </section>
+    <section class="slide slide-tip" data-cg-slide-type="list">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="deco" aria-hidden="true">
+        <div class="dots dots-tl"></div>
+        <div class="dots dots-br"></div>
+        <svg class="wave wave-tr" viewBox="0 0 620 460" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M120 460 C 240 300, 430 250, 620 120" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.55"/>
+  <path d="M133 460 C 253 292.2, 435.2 243.5, 620 110.9" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.52"/>
+  <path d="M146 460 C 266 284.4, 440.4 237, 620 101.8" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.49"/>
+  <path d="M159 460 C 279 276.6, 445.6 230.5, 620 92.7" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.46"/>
+  <path d="M172 460 C 292 268.8, 450.8 224, 620 83.6" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.43"/>
+  <path d="M185 460 C 305 261, 456 217.5, 620 74.5" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.40"/>
+  <path d="M198 460 C 318 253.2, 461.2 211, 620 65.4" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.37"/>
+  <path d="M211 460 C 331 245.4, 466.4 204.5, 620 56.300000000000004" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.34"/>
+  <path d="M224 460 C 344 237.6, 471.6 198, 620 47.2" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.31"/>
+  <path d="M237 460 C 357 229.8, 476.8 191.5, 620 38.10000000000001" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.28"/>
+  <path d="M250 460 C 370 222, 482 185, 620 29" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.25"/>
+</svg>
+        <svg class="wave wave-bl" viewBox="0 0 560 380" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M-40 140 C 140 210, 330 300, 520 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.40"/>
+  <path d="M-40 155 C 135.5 217.5, 327 306, 518.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.37"/>
+  <path d="M-40 170 C 131 225, 324 312, 517 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.34"/>
+  <path d="M-40 185 C 126.5 232.5, 321 318, 515.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.31"/>
+  <path d="M-40 200 C 122 240, 318 324, 514 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.28"/>
+  <path d="M-40 215 C 117.5 247.5, 315 330, 512.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.25"/>
+  <path d="M-40 230 C 113 255, 312 336, 511 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.22"/>
+  <path d="M-40 245 C 108.5 262.5, 309 342, 509.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.19"/>
+  <path d="M-40 260 C 104 270, 306 348, 508 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.16"/>
+</svg>
+        <svg class="chev chev-a" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-b" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-c" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-d" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+      </div>
+      <div class="step-num" aria-hidden="true">07</div>
+      <div class="tn-title"><h1 data-title="true">Cut the distractions</h1></div>
+      <div class="tn-rule" aria-hidden="true"></div>
+      <div class="tn-message"><p data-message="true">Try to avoid low-priority calls, unnecessary and irrelevant meetings, chatty coworkers, social media, too much coffee, and other distractions.</p></div>
+      
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="cg-slide-counter" data-counter="true">08 / 10</div>
+      </div>
+    </section>
+    <section class="slide slide-tip" data-cg-slide-type="list">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="deco" aria-hidden="true">
+        <div class="dots dots-tl"></div>
+        <div class="dots dots-br"></div>
+        <svg class="wave wave-tr" viewBox="0 0 620 460" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M120 460 C 240 300, 430 250, 620 120" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.55"/>
+  <path d="M133 460 C 253 292.2, 435.2 243.5, 620 110.9" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.52"/>
+  <path d="M146 460 C 266 284.4, 440.4 237, 620 101.8" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.49"/>
+  <path d="M159 460 C 279 276.6, 445.6 230.5, 620 92.7" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.46"/>
+  <path d="M172 460 C 292 268.8, 450.8 224, 620 83.6" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.43"/>
+  <path d="M185 460 C 305 261, 456 217.5, 620 74.5" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.40"/>
+  <path d="M198 460 C 318 253.2, 461.2 211, 620 65.4" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.37"/>
+  <path d="M211 460 C 331 245.4, 466.4 204.5, 620 56.300000000000004" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.34"/>
+  <path d="M224 460 C 344 237.6, 471.6 198, 620 47.2" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.31"/>
+  <path d="M237 460 C 357 229.8, 476.8 191.5, 620 38.10000000000001" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.28"/>
+  <path d="M250 460 C 370 222, 482 185, 620 29" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.25"/>
+</svg>
+        <svg class="wave wave-bl" viewBox="0 0 560 380" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M-40 140 C 140 210, 330 300, 520 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.40"/>
+  <path d="M-40 155 C 135.5 217.5, 327 306, 518.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.37"/>
+  <path d="M-40 170 C 131 225, 324 312, 517 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.34"/>
+  <path d="M-40 185 C 126.5 232.5, 321 318, 515.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.31"/>
+  <path d="M-40 200 C 122 240, 318 324, 514 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.28"/>
+  <path d="M-40 215 C 117.5 247.5, 315 330, 512.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.25"/>
+  <path d="M-40 230 C 113 255, 312 336, 511 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.22"/>
+  <path d="M-40 245 C 108.5 262.5, 309 342, 509.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.19"/>
+  <path d="M-40 260 C 104 270, 306 348, 508 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.16"/>
+</svg>
+        <svg class="chev chev-a" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-b" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-c" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-d" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+      </div>
+      <div class="step-num" aria-hidden="true">08</div>
+      <div class="tn-title"><h1 data-title="true">Put away negative mind</h1></div>
+      <div class="tn-rule" aria-hidden="true"></div>
+      <div class="tn-message"><p data-message="true">You can’t change what’s already happened, so stop it from bringing you down. Instead, make way for new plans and productive workday.</p></div>
+      
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="cg-slide-counter" data-counter="true">09 / 10</div>
+      </div>
+    </section>
+    <section class="slide slide-closing" data-cg-slide-type="cta">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="deco" aria-hidden="true">
+        <div class="dots dots-tl"></div>
+        <div class="dots dots-br"></div>
+        <svg class="wave wave-tr" viewBox="0 0 620 460" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M120 460 C 240 300, 430 250, 620 120" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.55"/>
+  <path d="M133 460 C 253 292.2, 435.2 243.5, 620 110.9" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.52"/>
+  <path d="M146 460 C 266 284.4, 440.4 237, 620 101.8" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.49"/>
+  <path d="M159 460 C 279 276.6, 445.6 230.5, 620 92.7" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.46"/>
+  <path d="M172 460 C 292 268.8, 450.8 224, 620 83.6" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.43"/>
+  <path d="M185 460 C 305 261, 456 217.5, 620 74.5" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.40"/>
+  <path d="M198 460 C 318 253.2, 461.2 211, 620 65.4" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.37"/>
+  <path d="M211 460 C 331 245.4, 466.4 204.5, 620 56.300000000000004" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.34"/>
+  <path d="M224 460 C 344 237.6, 471.6 198, 620 47.2" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.31"/>
+  <path d="M237 460 C 357 229.8, 476.8 191.5, 620 38.10000000000001" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.28"/>
+  <path d="M250 460 C 370 222, 482 185, 620 29" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.25"/>
+</svg>
+        <svg class="wave wave-bl" viewBox="0 0 560 380" fill="none" aria-hidden="true" preserveAspectRatio="none">
+  <path d="M-40 140 C 140 210, 330 300, 520 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.40"/>
+  <path d="M-40 155 C 135.5 217.5, 327 306, 518.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.37"/>
+  <path d="M-40 170 C 131 225, 324 312, 517 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.34"/>
+  <path d="M-40 185 C 126.5 232.5, 321 318, 515.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.31"/>
+  <path d="M-40 200 C 122 240, 318 324, 514 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.28"/>
+  <path d="M-40 215 C 117.5 247.5, 315 330, 512.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.25"/>
+  <path d="M-40 230 C 113 255, 312 336, 511 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.22"/>
+  <path d="M-40 245 C 108.5 262.5, 309 342, 509.5 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.19"/>
+  <path d="M-40 260 C 104 270, 306 348, 508 380" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.16"/>
+</svg>
+        <svg class="chev chev-a" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-b" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-c" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <svg class="chev chev-d" viewBox="0 0 96 40" fill="none" aria-hidden="true">
+  <path d="M6 6 L26 20 L6 34 M34 6 L54 20 L34 34 M62 6 L82 20 L62 34" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+      </div>
+      <div class="tn-quote"><p data-message="true">The way you begin your day has a major impact on how the rest of your day unfolds.</p></div>
+      
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.85%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="cg-slide-counter" data-counter="true">10 / 10</div>
+      </div>
+    </section>
+    </div>
+  </body>
+</html>

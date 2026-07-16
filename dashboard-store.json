@@ -1,29 +1,29 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-16T12:21:12.651Z",
+  "generatedAt": "2026-07-16T17:23:05.430Z",
   "entries": [
     {
       "designId": "DAHOxjfy5Mo",
       "status": "cloned",
       "createdAt": "2026-07-08T06:42:03.068Z",
-      "updatedAt": "2026-07-16T04:28:15.299Z",
+      "updatedAt": "2026-07-16T16:45:05.144Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
         "designId": "DAHOxjfy5Mo",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\extract",
+        "outDir": "designs/DAHOxjfy5Mo/extract",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "bootstrap": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\extract\\bootstrap.json",
-          "urls": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\extract\\document-image-urls.json",
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "htmlClone": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\extract\\template-clone.html",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\extract\\assets",
-          "manifest": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\extract\\assets\\download-manifest.json",
-          "fontManifest": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\extract\\assets\\fonts\\font-manifest.json"
+          "bootstrap": "designs/DAHOxjfy5Mo/extract/bootstrap.json",
+          "urls": "designs/DAHOxjfy5Mo/extract/document-image-urls.json",
+          "templateData": "designs/DAHOxjfy5Mo/extract/template-data.json",
+          "signature": "designs/DAHOxjfy5Mo/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "htmlClone": "designs/DAHOxjfy5Mo/extract/template-clone.html",
+          "assets": "designs/DAHOxjfy5Mo/extract/assets",
+          "manifest": "designs/DAHOxjfy5Mo/extract/assets/download-manifest.json",
+          "fontManifest": "designs/DAHOxjfy5Mo/extract/assets/fonts/font-manifest.json"
         },
         "stats": {
           "pagesDetected": 5,
@@ -35,12 +35,12 @@
         }
       },
       "clonedAt": "2026-07-08T08:53:49.710Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\capture\\editor-page.reconstructed.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\extract",
+      "inputHtml": "designs/DAHOxjfy5Mo/capture/editor-page.reconstructed.html",
+      "extractDir": "designs/DAHOxjfy5Mo/extract",
       "duplicate": false,
       "duplicateOf": null,
       "genProvider": "claude",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\comparison.html",
+      "comparison": "designs/DAHOxjfy5Mo/comparison.html",
       "meta": {
         "title": "Cream and Orange Bold Modern Professional Entrepreneurship Information Tips Instagram Carousel Post",
         "pages": 5,
@@ -55,38 +55,45 @@
           "#ff8210"
         ]
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\workspace-summary.json",
-      "output": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\final\\template-clone-pure-html.html",
+      "summary": "designs/DAHOxjfy5Mo/workspace-summary.json",
+      "output": "designs/DAHOxjfy5Mo/final/template-clone-pure-html.html",
       "qualityGate": {
         "targetRmse": 0.24,
         "met": true,
         "stopOnTarget": false,
         "earlyStop": null
       },
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOxjfy5Mo\\archetype-cover.png"
+      "thumb": "designs/DAHOxjfy5Mo/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHOxjfy5Mo/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHOxjfy5Mo/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHOxjfy5Mo/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHOxjfy5Mo/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHOxjfy5Mo/extract/assets/pages/page-05-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHOyNQEdgs",
       "status": "cloned",
       "createdAt": "2026-07-08T08:59:25.920Z",
-      "updatedAt": "2026-07-16T04:28:15.302Z",
+      "updatedAt": "2026-07-16T16:45:05.149Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
         "designId": "DAHOyNQEdgs",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\extract",
+        "outDir": "designs/DAHOyNQEdgs/extract",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "bootstrap": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\extract\\bootstrap.json",
-          "urls": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\extract\\document-image-urls.json",
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "htmlClone": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\extract\\template-clone.html",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\extract\\assets",
-          "manifest": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\extract\\assets\\download-manifest.json",
-          "fontManifest": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\extract\\assets\\fonts\\font-manifest.json"
+          "bootstrap": "designs/DAHOyNQEdgs/extract/bootstrap.json",
+          "urls": "designs/DAHOyNQEdgs/extract/document-image-urls.json",
+          "templateData": "designs/DAHOyNQEdgs/extract/template-data.json",
+          "signature": "designs/DAHOyNQEdgs/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "htmlClone": "designs/DAHOyNQEdgs/extract/template-clone.html",
+          "assets": "designs/DAHOyNQEdgs/extract/assets",
+          "manifest": "designs/DAHOyNQEdgs/extract/assets/download-manifest.json",
+          "fontManifest": "designs/DAHOyNQEdgs/extract/assets/fonts/font-manifest.json"
         },
         "stats": {
           "pagesDetected": 7,
@@ -98,12 +105,12 @@
         }
       },
       "clonedAt": "2026-07-08T10:59:11.677Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\capture\\editor-page.reconstructed.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\extract",
+      "inputHtml": "designs/DAHOyNQEdgs/capture/editor-page.reconstructed.html",
+      "extractDir": "designs/DAHOyNQEdgs/extract",
       "duplicate": false,
       "duplicateOf": null,
       "genProvider": "claude",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\comparison.html",
+      "comparison": "designs/DAHOyNQEdgs/comparison.html",
       "meta": {
         "title": "Purple Black Modern Carousel Instagram Post",
         "pages": 7,
@@ -120,38 +127,47 @@
       },
       "detScore": 9.7,
       "premiumScore": 7,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\workspace-summary.json",
-      "output": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyNQEdgs\\final\\template-clone-pure-html.html",
+      "summary": "designs/DAHOyNQEdgs/workspace-summary.json",
+      "output": "designs/DAHOyNQEdgs/final/template-clone-pure-html.html",
       "qualityGate": {
         "targetRmse": 0.24,
         "met": true,
         "stopOnTarget": false,
         "earlyStop": null
       },
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyNQEdgs\\archetype-cover.png"
+      "thumb": "designs/DAHOyNQEdgs/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHOyNQEdgs/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHOyNQEdgs/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHOyNQEdgs/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHOyNQEdgs/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHOyNQEdgs/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHOyNQEdgs/extract/assets/pages/page-06-thumbnail.png",
+        "designs/DAHOyNQEdgs/extract/assets/pages/page-07-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHOyRRg-yQ",
       "status": "cloned",
       "createdAt": "2026-07-08T09:23:13.178Z",
-      "updatedAt": "2026-07-16T04:28:15.306Z",
+      "updatedAt": "2026-07-16T16:45:05.154Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
         "designId": "DAHOyRRg-yQ",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract",
+        "outDir": "designs/DAHOyRRg-yQ/extract",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "bootstrap": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\bootstrap.json",
-          "urls": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\document-image-urls.json",
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "htmlClone": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\template-clone.html",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\assets",
-          "manifest": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\assets\\download-manifest.json",
-          "fontManifest": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract\\assets\\fonts\\font-manifest.json"
+          "bootstrap": "designs/DAHOyRRg-yQ/extract/bootstrap.json",
+          "urls": "designs/DAHOyRRg-yQ/extract/document-image-urls.json",
+          "templateData": "designs/DAHOyRRg-yQ/extract/template-data.json",
+          "signature": "designs/DAHOyRRg-yQ/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "htmlClone": "designs/DAHOyRRg-yQ/extract/template-clone.html",
+          "assets": "designs/DAHOyRRg-yQ/extract/assets",
+          "manifest": "designs/DAHOyRRg-yQ/extract/assets/download-manifest.json",
+          "fontManifest": "designs/DAHOyRRg-yQ/extract/assets/fonts/font-manifest.json"
         },
         "stats": {
           "pagesDetected": 10,
@@ -163,11 +179,11 @@
         }
       },
       "clonedAt": "2026-07-08T10:38:17.059Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\capture\\editor-page.reconstructed.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\extract",
+      "inputHtml": "designs/DAHOyRRg-yQ/capture/editor-page.reconstructed.html",
+      "extractDir": "designs/DAHOyRRg-yQ/extract",
       "duplicate": false,
       "duplicateOf": null,
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\comparison.html",
+      "comparison": "designs/DAHOyRRg-yQ/comparison.html",
       "meta": {
         "title": "White Purple Gradient Minimalist Social Media Branding Carousel Instagram Post",
         "pages": 10,
@@ -186,35 +202,47 @@
       "genProvider": "claude",
       "detScore": 9.3,
       "premiumScore": 6,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\workspace-summary.json",
-      "output": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\final\\template-clone-pure-html.html",
+      "summary": "designs/DAHOyRRg-yQ/workspace-summary.json",
+      "output": "designs/DAHOyRRg-yQ/final/template-clone-pure-html.html",
       "qualityGate": {
         "targetRmse": 0.24,
         "met": true,
         "stopOnTarget": false,
         "earlyStop": null
       },
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOyRRg-yQ\\archetype-cover.png"
+      "thumb": "designs/DAHOyRRg-yQ/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHOyRRg-yQ/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHOyRRg-yQ/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHOyRRg-yQ/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHOyRRg-yQ/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHOyRRg-yQ/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHOyRRg-yQ/extract/assets/pages/page-06-thumbnail.png",
+        "designs/DAHOyRRg-yQ/extract/assets/pages/page-07-thumbnail.png",
+        "designs/DAHOyRRg-yQ/extract/assets/pages/page-08-thumbnail.png",
+        "designs/DAHOyRRg-yQ/extract/assets/pages/page-09-thumbnail.png",
+        "designs/DAHOyRRg-yQ/extract/assets/pages/page-10-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHO3nrn8r4",
       "status": "cloned",
       "createdAt": "2026-07-09T07:38:42.320Z",
-      "updatedAt": "2026-07-16T04:28:15.279Z",
+      "updatedAt": "2026-07-16T16:45:05.158Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
         "designId": "DAHO3nrn8r4",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO3nrn8r4\\extract",
+        "outDir": "designs/DAHO3nrn8r4/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO3nrn8r4\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO3nrn8r4\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO3nrn8r4\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO3nrn8r4\\extract\\assets\\pages"
+          "templateData": "designs/DAHO3nrn8r4/extract/template-data.json",
+          "signature": "designs/DAHO3nrn8r4/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHO3nrn8r4/extract/assets",
+          "pages": "designs/DAHO3nrn8r4/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 5,
@@ -226,12 +254,12 @@
         }
       },
       "clonedAt": "2026-07-09T07:38:45.612Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO3nrn8r4\\capture\\editor-page.reconstructed.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO3nrn8r4\\extract",
+      "inputHtml": "designs/DAHO3nrn8r4/capture/editor-page.reconstructed.html",
+      "extractDir": "designs/DAHO3nrn8r4/extract",
       "duplicate": false,
       "duplicateOf": null,
       "genProvider": "claude",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO3nrn8r4\\comparison.html",
+      "comparison": "designs/DAHO3nrn8r4/comparison.html",
       "meta": {
         "title": "Beige Playful Scrapbook Typography Quote Carousel Instagram Post",
         "pages": 5,
@@ -247,28 +275,35 @@
           "#d3cfff"
         ]
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO3nrn8r4\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO3nrn8r4\\archetype-cover.png"
+      "summary": "designs/DAHO3nrn8r4/workspace-summary.json",
+      "thumb": "designs/DAHO3nrn8r4/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHO3nrn8r4/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHO3nrn8r4/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHO3nrn8r4/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHO3nrn8r4/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHO3nrn8r4/extract/assets/pages/page-05-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHO4Oe5Bbw",
       "status": "cloned",
       "createdAt": "2026-07-09T08:41:36.641Z",
-      "updatedAt": "2026-07-16T04:28:15.287Z",
+      "updatedAt": "2026-07-16T16:45:05.161Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
         "designId": "DAHO4Oe5Bbw",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract",
+        "outDir": "designs/DAHO4Oe5Bbw/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract\\assets\\pages"
+          "templateData": "designs/DAHO4Oe5Bbw/extract/template-data.json",
+          "signature": "designs/DAHO4Oe5Bbw/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHO4Oe5Bbw/extract/assets",
+          "pages": "designs/DAHO4Oe5Bbw/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 10,
@@ -280,12 +315,12 @@
         }
       },
       "clonedAt": "2026-07-09T08:41:43.267Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\capture\\editor-page.reconstructed.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\extract",
+      "inputHtml": "designs/DAHO4Oe5Bbw/capture/editor-page.reconstructed.html",
+      "extractDir": "designs/DAHO4Oe5Bbw/extract",
       "duplicate": false,
       "duplicateOf": null,
       "genProvider": "claude",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\comparison.html",
+      "comparison": "designs/DAHO4Oe5Bbw/comparison.html",
       "meta": {
         "title": "White and Black Collage How to be Content Creator Instagram Post Carousel",
         "pages": 10,
@@ -301,28 +336,40 @@
           "#000000"
         ]
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4Oe5Bbw\\archetype-cover.png"
+      "summary": "designs/DAHO4Oe5Bbw/workspace-summary.json",
+      "thumb": "designs/DAHO4Oe5Bbw/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHO4Oe5Bbw/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHO4Oe5Bbw/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHO4Oe5Bbw/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHO4Oe5Bbw/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHO4Oe5Bbw/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHO4Oe5Bbw/extract/assets/pages/page-06-thumbnail.png",
+        "designs/DAHO4Oe5Bbw/extract/assets/pages/page-07-thumbnail.png",
+        "designs/DAHO4Oe5Bbw/extract/assets/pages/page-08-thumbnail.png",
+        "designs/DAHO4Oe5Bbw/extract/assets/pages/page-09-thumbnail.png",
+        "designs/DAHO4Oe5Bbw/extract/assets/pages/page-10-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHO4AoXL1M",
       "status": "cloned",
       "createdAt": "2026-07-09T08:45:07.723Z",
-      "updatedAt": "2026-07-16T04:28:15.281Z",
+      "updatedAt": "2026-07-16T16:45:05.166Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
         "designId": "DAHO4AoXL1M",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4AoXL1M\\extract",
+        "outDir": "designs/DAHO4AoXL1M/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4AoXL1M\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4AoXL1M\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4AoXL1M\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4AoXL1M\\extract\\assets\\pages"
+          "templateData": "designs/DAHO4AoXL1M/extract/template-data.json",
+          "signature": "designs/DAHO4AoXL1M/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHO4AoXL1M/extract/assets",
+          "pages": "designs/DAHO4AoXL1M/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 5,
@@ -334,8 +381,8 @@
         }
       },
       "clonedAt": "2026-07-09T08:45:13.076Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4AoXL1M\\capture\\editor-page.reconstructed.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4AoXL1M\\extract",
+      "inputHtml": "designs/DAHO4AoXL1M/capture/editor-page.reconstructed.html",
+      "extractDir": "designs/DAHO4AoXL1M/extract",
       "duplicate": false,
       "duplicateOf": null,
       "meta": {
@@ -352,17 +399,23 @@
           "#312721"
         ]
       },
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4AoXL1M\\comparison.html",
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4AoXL1M\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4AoXL1M\\archetype-cover.png"
+      "summary": "designs/DAHO4AoXL1M/workspace-summary.json",
+      "thumb": "designs/DAHO4AoXL1M/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHO4AoXL1M/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHO4AoXL1M/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHO4AoXL1M/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHO4AoXL1M/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHO4AoXL1M/extract/assets/pages/page-05-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHO4NT5oWA",
       "status": "cloned",
       "createdAt": "2026-07-09T10:12:20.632Z",
-      "updatedAt": "2026-07-16T04:28:15.283Z",
+      "updatedAt": "2026-07-16T16:45:05.168Z",
       "attempts": 0,
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4NT5oWA\\extract",
+      "extractDir": "designs/DAHO4NT5oWA/extract",
       "sourceUrl": "",
       "meta": {
         "title": "Orange and Black Bold Modern Business Tips Instagram Carousel",
@@ -377,30 +430,36 @@
           "#ffffff"
         ]
       },
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4NT5oWA\\comparison.html",
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4NT5oWA\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO4NT5oWA\\archetype-cover.png",
-      "genStage": ""
+      "summary": "designs/DAHO4NT5oWA/workspace-summary.json",
+      "thumb": "designs/DAHO4NT5oWA/archetype-cover.png",
+      "genStage": "",
+      "pageThumbs": [
+        "designs/DAHO4NT5oWA/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHO4NT5oWA/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHO4NT5oWA/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHO4NT5oWA/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHO4NT5oWA/extract/assets/pages/page-05-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHO9gKsy-I",
       "status": "cloned",
       "createdAt": "2026-07-13T06:48:42.499Z",
-      "updatedAt": "2026-07-16T04:28:15.289Z",
+      "updatedAt": "2026-07-16T16:45:05.173Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
         "designId": "DAHO9gKsy-I",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9gKsy-I\\extract",
+        "outDir": "designs/DAHO9gKsy-I/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9gKsy-I\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9gKsy-I\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9gKsy-I\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9gKsy-I\\extract\\assets\\pages"
+          "templateData": "designs/DAHO9gKsy-I/extract/template-data.json",
+          "signature": "designs/DAHO9gKsy-I/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHO9gKsy-I/extract/assets",
+          "pages": "designs/DAHO9gKsy-I/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 6,
@@ -412,11 +471,11 @@
         }
       },
       "clonedAt": "2026-07-13T06:58:40.104Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9gKsy-I\\capture\\editor-page.reconstructed.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9gKsy-I\\extract",
+      "inputHtml": "designs/DAHO9gKsy-I/capture/editor-page.reconstructed.html",
+      "extractDir": "designs/DAHO9gKsy-I/extract",
       "duplicate": false,
       "duplicateOf": null,
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9gKsy-I\\comparison.html",
+      "comparison": "designs/DAHO9gKsy-I/comparison.html",
       "meta": {
         "title": "Yellow Simple Minimalist Personal Notes Message Instagram Carousel",
         "pages": 6,
@@ -429,28 +488,36 @@
           "#483626"
         ]
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9gKsy-I\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9gKsy-I\\archetype-cover.png"
+      "summary": "designs/DAHO9gKsy-I/workspace-summary.json",
+      "thumb": "designs/DAHO9gKsy-I/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHO9gKsy-I/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHO9gKsy-I/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHO9gKsy-I/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHO9gKsy-I/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHO9gKsy-I/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHO9gKsy-I/extract/assets/pages/page-06-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHO9lfaPdg",
       "status": "cloned",
       "createdAt": "2026-07-13T06:48:52.647Z",
-      "updatedAt": "2026-07-16T04:28:15.292Z",
+      "updatedAt": "2026-07-16T16:45:05.175Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
         "designId": "DAHO9lfaPdg",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9lfaPdg\\extract",
+        "outDir": "designs/DAHO9lfaPdg/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9lfaPdg\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9lfaPdg\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9lfaPdg\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9lfaPdg\\extract\\assets\\pages"
+          "templateData": "designs/DAHO9lfaPdg/extract/template-data.json",
+          "signature": "designs/DAHO9lfaPdg/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHO9lfaPdg/extract/assets",
+          "pages": "designs/DAHO9lfaPdg/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 5,
@@ -462,11 +529,11 @@
         }
       },
       "clonedAt": "2026-07-13T07:00:19.107Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9lfaPdg\\capture\\editor-page.reconstructed.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9lfaPdg\\extract",
+      "inputHtml": "designs/DAHO9lfaPdg/capture/editor-page.reconstructed.html",
+      "extractDir": "designs/DAHO9lfaPdg/extract",
       "duplicate": false,
       "duplicateOf": null,
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9lfaPdg\\comparison.html",
+      "comparison": "designs/DAHO9lfaPdg/comparison.html",
       "meta": {
         "title": "Editorial Aesthetic Content Creator Recap Carousel Instagram Post",
         "pages": 5,
@@ -481,28 +548,35 @@
           "#2b2525"
         ]
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9lfaPdg\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHO9lfaPdg\\archetype-cover.png"
+      "summary": "designs/DAHO9lfaPdg/workspace-summary.json",
+      "thumb": "designs/DAHO9lfaPdg/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHO9lfaPdg/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHO9lfaPdg/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHO9lfaPdg/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHO9lfaPdg/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHO9lfaPdg/extract/assets/pages/page-05-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHOrBKyBxs",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-13T06:49:06.882Z",
-      "updatedAt": "2026-07-16T09:55:42.993Z",
+      "updatedAt": "2026-07-16T17:23:05.297Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
         "designId": "DAHOrBKyBxs",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrBKyBxs\\extract",
+        "outDir": "designs/DAHOrBKyBxs/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrBKyBxs\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrBKyBxs\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrBKyBxs\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrBKyBxs\\extract\\assets\\pages"
+          "templateData": "designs/DAHOrBKyBxs/extract/template-data.json",
+          "signature": "designs/DAHOrBKyBxs/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHOrBKyBxs/extract/assets",
+          "pages": "designs/DAHOrBKyBxs/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 7,
@@ -514,8 +588,8 @@
         }
       },
       "clonedAt": "2026-07-13T07:00:45.487Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrBKyBxs\\capture\\editor-page.reconstructed.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrBKyBxs\\extract",
+      "inputHtml": "designs/DAHOrBKyBxs/capture/editor-page.reconstructed.html",
+      "extractDir": "designs/DAHOrBKyBxs/extract",
       "duplicate": false,
       "duplicateOf": null,
       "meta": {
@@ -530,36 +604,61 @@
           "#5e17eb",
           "#191919",
           "#d2bcff"
-        ]
+        ],
+        "score": 8.2
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrBKyBxs\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrBKyBxs\\archetype-cover.png",
+      "summary": "designs/DAHOrBKyBxs/workspace-summary.json",
+      "thumb": "designs/DAHOrBKyBxs/archetype-cover.png",
       "lastError": "",
       "belowThreshold": false,
       "score": 8,
       "detScore": 9.4,
       "premiumScore": 7,
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrBKyBxs\\comparison.html"
+      "comparison": "designs/DAHOrBKyBxs/comparison.html",
+      "remixes": [
+        {
+          "slug": "write-better-emails",
+          "output": "output/write-better-emails.html",
+          "slides": [
+            ".renders/output/write-better-emails/slide-01.png",
+            ".renders/output/write-better-emails/slide-02.png",
+            ".renders/output/write-better-emails/slide-03.png",
+            ".renders/output/write-better-emails/slide-04.png",
+            ".renders/output/write-better-emails/slide-05.png",
+            ".renders/output/write-better-emails/slide-06.png",
+            ".renders/output/write-better-emails/slide-07.png"
+          ]
+        }
+      ],
+      "pageThumbs": [
+        "designs/DAHOrBKyBxs/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHOrBKyBxs/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHOrBKyBxs/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHOrBKyBxs/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHOrBKyBxs/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHOrBKyBxs/extract/assets/pages/page-06-thumbnail.png",
+        "designs/DAHOrBKyBxs/extract/assets/pages/page-07-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHOrUQo44I",
       "status": "cloned",
       "createdAt": "2026-07-13T06:49:46.895Z",
-      "updatedAt": "2026-07-16T04:28:15.297Z",
+      "updatedAt": "2026-07-16T16:45:05.183Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
         "designId": "DAHOrUQo44I",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrUQo44I\\extract",
+        "outDir": "designs/DAHOrUQo44I/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrUQo44I\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrUQo44I\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrUQo44I\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrUQo44I\\extract\\assets\\pages"
+          "templateData": "designs/DAHOrUQo44I/extract/template-data.json",
+          "signature": "designs/DAHOrUQo44I/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHOrUQo44I/extract/assets",
+          "pages": "designs/DAHOrUQo44I/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 7,
@@ -571,8 +670,8 @@
         }
       },
       "clonedAt": "2026-07-13T07:01:11.051Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrUQo44I\\capture\\editor-page.reconstructed.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrUQo44I\\extract",
+      "inputHtml": "designs/DAHOrUQo44I/capture/editor-page.reconstructed.html",
+      "extractDir": "designs/DAHOrUQo44I/extract",
       "duplicate": false,
       "duplicateOf": null,
       "meta": {
@@ -589,29 +688,37 @@
           "#c56c30"
         ]
       },
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrUQo44I\\comparison.html",
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrUQo44I\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHOrUQo44I\\archetype-cover.png"
+      "summary": "designs/DAHOrUQo44I/workspace-summary.json",
+      "thumb": "designs/DAHOrUQo44I/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHOrUQo44I/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHOrUQo44I/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHOrUQo44I/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHOrUQo44I/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHOrUQo44I/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHOrUQo44I/extract/assets/pages/page-06-thumbnail.png",
+        "designs/DAHOrUQo44I/extract/assets/pages/page-07-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPPm3V4_U",
       "status": "cloned",
       "createdAt": "2026-07-13T06:57:04.649Z",
-      "updatedAt": "2026-07-16T04:28:15.348Z",
+      "updatedAt": "2026-07-16T16:45:05.186Z",
       "attempts": 0,
       "sourceUrl": "https://www.canva.com/design/DAHPPm3V4_U/0JmVp6b7wY5fMVmtqiFc5g/edit",
       "clone": {
         "designId": "DAHPPm3V4_U",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPPm3V4_U\\extract",
+        "outDir": "designs/DAHPPm3V4_U/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPPm3V4_U\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPPm3V4_U\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPPm3V4_U\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPPm3V4_U\\extract\\assets\\pages"
+          "templateData": "designs/DAHPPm3V4_U/extract/template-data.json",
+          "signature": "designs/DAHPPm3V4_U/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPPm3V4_U/extract/assets",
+          "pages": "designs/DAHPPm3V4_U/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 4,
@@ -623,8 +730,8 @@
         }
       },
       "clonedAt": "2026-07-13T06:57:08.076Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPPm3V4_U\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPPm3V4_U\\extract",
+      "inputHtml": "designs/DAHPPm3V4_U/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPPm3V4_U/extract",
       "duplicate": false,
       "duplicateOf": null,
       "meta": {
@@ -641,29 +748,34 @@
           "#cb6ce6"
         ]
       },
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPPm3V4_U\\comparison.html",
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPPm3V4_U\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPPm3V4_U\\archetype-cover.png"
+      "summary": "designs/DAHPPm3V4_U/workspace-summary.json",
+      "thumb": "designs/DAHPPm3V4_U/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHPPm3V4_U/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPPm3V4_U/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPPm3V4_U/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPPm3V4_U/extract/assets/pages/page-04-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPRMKHicM",
       "status": "success",
       "createdAt": "2026-07-13T14:12:27.053Z",
-      "updatedAt": "2026-07-16T12:04:22.633Z",
+      "updatedAt": "2026-07-16T17:23:05.302Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
         "designId": "DAHPRMKHicM",
-        "outDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPRMKHicM\\extract",
+        "outDir": "designs/DAHPRMKHicM/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPRMKHicM\\extract\\template-data.json",
-          "signature": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPRMKHicM\\extract\\template-signature.json",
-          "dedupeIndex": "D:\\wamp64\\www\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPRMKHicM\\extract\\assets",
-          "pages": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPRMKHicM\\extract\\assets\\pages"
+          "templateData": "designs/DAHPRMKHicM/extract/template-data.json",
+          "signature": "designs/DAHPRMKHicM/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPRMKHicM/extract/assets",
+          "pages": "designs/DAHPRMKHicM/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 5,
@@ -675,8 +787,8 @@
         }
       },
       "clonedAt": "2026-07-13T14:21:25.681Z",
-      "inputHtml": "D:\\wamp64\\www\\canva-template-workspace\\.tmp\\canva-template-json\\DAHPRMKHicM\\editor-page.full.html",
-      "extractDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPRMKHicM\\extract",
+      "inputHtml": ".tmp/canva-template-json/DAHPRMKHicM/editor-page.full.html",
+      "extractDir": "designs/DAHPRMKHicM/extract",
       "duplicate": false,
       "duplicateOf": null,
       "meta": {
@@ -698,23 +810,40 @@
       },
       "detScore": 8.2,
       "premiumScore": 0,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPRMKHicM\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPRMKHicM\\archetype-cover.png",
+      "summary": "designs/DAHPRMKHicM/workspace-summary.json",
+      "thumb": "designs/DAHPRMKHicM/archetype-cover.png",
       "lastError": "",
       "belowThreshold": false,
       "score": 8.2,
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPRMKHicM\\comparison.html",
-      "archetype": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\output\\how-to-become.html",
-      "archetypeSlug": "how-to-become"
+      "comparison": "designs/DAHPRMKHicM/comparison.html",
+      "remixes": [
+        {
+          "slug": "the-drawn-line",
+          "output": "output/the-drawn-line.html",
+          "slides": [
+            ".renders/output/the-drawn-line/slide-01.png",
+            ".renders/output/the-drawn-line/slide-02.png",
+            ".renders/output/the-drawn-line/slide-03.png",
+            ".renders/output/the-drawn-line/slide-04.png",
+            ".renders/output/the-drawn-line/slide-05.png"
+          ]
+        }
+      ],
+      "pageThumbs": [
+        "designs/DAHPRMKHicM/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPRMKHicM/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPRMKHicM/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPRMKHicM/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPRMKHicM/extract/assets/pages/page-05-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPVaxNBps",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.542Z",
-      "updatedAt": "2026-07-16T04:28:15.355Z",
+      "updatedAt": "2026-07-16T16:45:05.193Z",
       "attempts": 0,
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVaxNBps\\extract",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVaxNBps\\comparison.html",
+      "extractDir": "designs/DAHPVaxNBps/extract",
       "meta": {
         "title": "White and Black Cute Playful Fair Influencer Haul Instagram Post",
         "pages": 5,
@@ -728,18 +857,24 @@
           "#1054ab"
         ]
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVaxNBps\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVaxNBps\\archetype-cover.png",
-      "genStage": ""
+      "summary": "designs/DAHPVaxNBps/workspace-summary.json",
+      "thumb": "designs/DAHPVaxNBps/archetype-cover.png",
+      "genStage": "",
+      "pageThumbs": [
+        "designs/DAHPVaxNBps/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPVaxNBps/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPVaxNBps/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPVaxNBps/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPVaxNBps/extract/assets/pages/page-05-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPVbBq5wg",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.546Z",
-      "updatedAt": "2026-07-16T04:28:15.357Z",
+      "updatedAt": "2026-07-16T16:45:05.196Z",
       "attempts": 0,
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVbBq5wg\\extract",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVbBq5wg\\comparison.html",
+      "extractDir": "designs/DAHPVbBq5wg/extract",
       "meta": {
         "title": "Brown and Yellow Simple Personal Branding Tips Carousel Instagram Post",
         "pages": 6,
@@ -752,16 +887,24 @@
           "#fff8bd"
         ]
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVbBq5wg\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVbBq5wg\\extract\\assets\\pages\\page-01-preview.png"
+      "summary": "designs/DAHPVbBq5wg/workspace-summary.json",
+      "thumb": "designs/DAHPVbBq5wg/extract/assets/pages/page-01-preview.png",
+      "pageThumbs": [
+        "designs/DAHPVbBq5wg/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPVbBq5wg/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPVbBq5wg/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPVbBq5wg/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPVbBq5wg/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPVbBq5wg/extract/assets/pages/page-06-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPVeGs3T8",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.549Z",
-      "updatedAt": "2026-07-16T04:28:15.359Z",
+      "updatedAt": "2026-07-16T16:45:05.198Z",
       "attempts": 0,
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVeGs3T8\\extract",
+      "extractDir": "designs/DAHPVeGs3T8/extract",
       "meta": {
         "title": "Brown and Cream Modern Minimalist Life Lessons Collage Instagram Post",
         "pages": 5,
@@ -776,16 +919,23 @@
           "#312721"
         ]
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVeGs3T8\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVeGs3T8\\archetype-cover.png"
+      "summary": "designs/DAHPVeGs3T8/workspace-summary.json",
+      "thumb": "designs/DAHPVeGs3T8/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHPVeGs3T8/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPVeGs3T8/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPVeGs3T8/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPVeGs3T8/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPVeGs3T8/extract/assets/pages/page-05-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPVfvXB5k",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.551Z",
-      "updatedAt": "2026-07-16T12:21:12.452Z",
+      "updatedAt": "2026-07-16T17:22:20.277Z",
       "attempts": 0,
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVfvXB5k\\extract",
+      "extractDir": "designs/DAHPVfvXB5k/extract",
       "meta": {
         "title": "Brown and Cream Modern Minimalist Life Lessons Collage Instagram Post",
         "pages": 5,
@@ -801,20 +951,25 @@
         ],
         "score": 9.7
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVfvXB5k\\workspace-summary.json",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVfvXB5k\\comparison.html",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVfvXB5k\\archetype-cover.png",
-      "archetype": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\output\\brown-and-cream.html",
-      "archetypeSlug": "brown-and-cream"
+      "summary": "designs/DAHPVfvXB5k/workspace-summary.json",
+      "thumb": "designs/DAHPVfvXB5k/archetype-cover.png",
+      "sourceUrl": "",
+      "comparison": "designs/DAHPVfvXB5k/comparison.html",
+      "pageThumbs": [
+        "designs/DAHPVfvXB5k/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPVfvXB5k/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPVfvXB5k/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPVfvXB5k/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPVfvXB5k/extract/assets/pages/page-05-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPVlMJjyY",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.553Z",
-      "updatedAt": "2026-07-16T04:28:15.363Z",
+      "updatedAt": "2026-07-16T16:45:05.203Z",
       "attempts": 0,
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVlMJjyY\\extract",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVlMJjyY\\comparison.html",
+      "extractDir": "designs/DAHPVlMJjyY/extract",
       "meta": {
         "title": "White Modern Interface Services Carousel Instagram Post",
         "pages": 4,
@@ -828,17 +983,22 @@
           "#000000"
         ]
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVlMJjyY\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVlMJjyY\\extract\\assets\\pages\\page-01-preview.png"
+      "summary": "designs/DAHPVlMJjyY/workspace-summary.json",
+      "thumb": "designs/DAHPVlMJjyY/extract/assets/pages/page-01-preview.png",
+      "pageThumbs": [
+        "designs/DAHPVlMJjyY/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPVlMJjyY/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPVlMJjyY/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPVlMJjyY/extract/assets/pages/page-04-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPVWp9uGY",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.555Z",
-      "updatedAt": "2026-07-16T04:28:15.365Z",
+      "updatedAt": "2026-07-16T16:45:05.206Z",
       "attempts": 0,
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVWp9uGY\\extract",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVWp9uGY\\comparison.html",
+      "extractDir": "designs/DAHPVWp9uGY/extract",
       "meta": {
         "title": "Pink Modern Photo Diary Instagram Post",
         "pages": 5,
@@ -852,17 +1012,23 @@
           "#544546"
         ]
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVWp9uGY\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVWp9uGY\\archetype-cover.png"
+      "summary": "designs/DAHPVWp9uGY/workspace-summary.json",
+      "thumb": "designs/DAHPVWp9uGY/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHPVWp9uGY/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPVWp9uGY/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPVWp9uGY/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPVWp9uGY/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPVWp9uGY/extract/assets/pages/page-05-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPVXi2XbY",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.557Z",
-      "updatedAt": "2026-07-16T04:28:15.366Z",
+      "updatedAt": "2026-07-16T16:45:05.208Z",
       "attempts": 0,
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXi2XbY\\extract",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXi2XbY\\comparison.html",
+      "extractDir": "designs/DAHPVXi2XbY/extract",
       "meta": {
         "title": "Beige Photocentric Handwritten Affirmation Quote Instagram Post",
         "pages": 1,
@@ -876,16 +1042,19 @@
           "#52290e"
         ]
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXi2XbY\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXi2XbY\\archetype-cover.png"
+      "summary": "designs/DAHPVXi2XbY/workspace-summary.json",
+      "thumb": "designs/DAHPVXi2XbY/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHPVXi2XbY/extract/assets/pages/page-01-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPVXsUdj8",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.558Z",
-      "updatedAt": "2026-07-16T10:13:52.467Z",
+      "updatedAt": "2026-07-16T16:45:05.210Z",
       "attempts": 0,
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXsUdj8\\extract",
+      "extractDir": "designs/DAHPVXsUdj8/extract",
       "meta": {
         "title": "Brown and Cream Modern Minimalist Life Lessons Collage Instagram Post",
         "pages": 5,
@@ -900,17 +1069,23 @@
           "#312721"
         ]
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXsUdj8\\workspace-summary.json",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXsUdj8\\comparison.html",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXsUdj8\\extract\\assets\\pages\\page-01-preview.png"
+      "summary": "designs/DAHPVXsUdj8/workspace-summary.json",
+      "thumb": "designs/DAHPVXsUdj8/extract/assets/pages/page-01-preview.png",
+      "pageThumbs": [
+        "designs/DAHPVXsUdj8/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPVXsUdj8/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPVXsUdj8/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPVXsUdj8/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPVXsUdj8/extract/assets/pages/page-05-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPVXvX6PM",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.560Z",
-      "updatedAt": "2026-07-16T09:55:43.021Z",
+      "updatedAt": "2026-07-16T16:45:05.212Z",
       "attempts": 0,
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXvX6PM\\extract",
+      "extractDir": "designs/DAHPVXvX6PM/extract",
       "meta": {
         "title": "Yellow and Brown Modern Reading Habit Tips Carousel Instagram Post",
         "pages": 5,
@@ -925,15 +1100,21 @@
           "#fff846"
         ]
       },
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXvX6PM\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXvX6PM\\archetype-cover.png",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPVXvX6PM\\comparison.html"
+      "summary": "designs/DAHPVXvX6PM/workspace-summary.json",
+      "thumb": "designs/DAHPVXvX6PM/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHPVXvX6PM/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPVXvX6PM/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPVXvX6PM/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPVXvX6PM/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPVXvX6PM/extract/assets/pages/page-05-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPbmjary8",
       "status": "cloned",
       "createdAt": "2026-07-15T06:29:53.030Z",
-      "updatedAt": "2026-07-16T09:55:43.023Z",
+      "updatedAt": "2026-07-16T16:45:05.216Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T06:29:53.030Z",
@@ -942,16 +1123,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPbmjary8",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbmjary8\\extract",
+        "outDir": "designs/DAHPbmjary8/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbmjary8\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbmjary8\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbmjary8\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbmjary8\\extract\\assets\\pages"
+          "templateData": "designs/DAHPbmjary8/extract/template-data.json",
+          "signature": "designs/DAHPbmjary8/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPbmjary8/extract/assets",
+          "pages": "designs/DAHPbmjary8/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 6,
@@ -963,12 +1144,12 @@
         }
       },
       "clonedAt": "2026-07-15T06:29:59.918Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbmjary8\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbmjary8\\extract",
+      "inputHtml": "designs/DAHPbmjary8/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPbmjary8/extract",
       "duplicate": false,
       "duplicateOf": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbmjary8\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbmjary8\\archetype-cover.png",
+      "summary": "designs/DAHPbmjary8/workspace-summary.json",
+      "thumb": "designs/DAHPbmjary8/archetype-cover.png",
       "meta": {
         "title": "Black and White Simple Geometric Productivity Carousel  Instagram Post",
         "pages": 6,
@@ -987,13 +1168,20 @@
       "score": 6.4,
       "detScore": 6.4,
       "premiumScore": 0,
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbmjary8\\comparison.html"
+      "pageThumbs": [
+        "designs/DAHPbmjary8/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPbmjary8/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPbmjary8/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPbmjary8/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPbmjary8/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPbmjary8/extract/assets/pages/page-06-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPbizwZZw",
       "status": "cloned",
       "createdAt": "2026-07-15T06:30:16.666Z",
-      "updatedAt": "2026-07-16T09:55:43.027Z",
+      "updatedAt": "2026-07-16T16:45:05.220Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T06:30:16.666Z",
@@ -1002,16 +1190,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPbizwZZw",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbizwZZw\\extract",
+        "outDir": "designs/DAHPbizwZZw/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbizwZZw\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbizwZZw\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbizwZZw\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbizwZZw\\extract\\assets\\pages"
+          "templateData": "designs/DAHPbizwZZw/extract/template-data.json",
+          "signature": "designs/DAHPbizwZZw/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPbizwZZw/extract/assets",
+          "pages": "designs/DAHPbizwZZw/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 6,
@@ -1023,12 +1211,12 @@
         }
       },
       "clonedAt": "2026-07-15T06:30:20.955Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbizwZZw\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbizwZZw\\extract",
+      "inputHtml": "designs/DAHPbizwZZw/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPbizwZZw/extract",
       "duplicate": false,
       "duplicateOf": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbizwZZw\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbizwZZw\\archetype-cover.png",
+      "summary": "designs/DAHPbizwZZw/workspace-summary.json",
+      "thumb": "designs/DAHPbizwZZw/archetype-cover.png",
       "meta": {
         "title": "Cream and Blue Simple Minimalist Typography Informational Motivational Life Reminder Instagram Post Carousel",
         "pages": 6,
@@ -1044,13 +1232,20 @@
           "#000000"
         ]
       },
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbizwZZw\\comparison.html"
+      "pageThumbs": [
+        "designs/DAHPbizwZZw/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPbizwZZw/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPbizwZZw/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPbizwZZw/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPbizwZZw/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPbizwZZw/extract/assets/pages/page-06-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPbhPf09I",
       "status": "cloned",
       "createdAt": "2026-07-15T06:30:36.703Z",
-      "updatedAt": "2026-07-16T04:28:15.310Z",
+      "updatedAt": "2026-07-16T16:45:05.223Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T06:30:36.703Z",
@@ -1059,16 +1254,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPbhPf09I",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbhPf09I\\extract",
+        "outDir": "designs/DAHPbhPf09I/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbhPf09I\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbhPf09I\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbhPf09I\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbhPf09I\\extract\\assets\\pages"
+          "templateData": "designs/DAHPbhPf09I/extract/template-data.json",
+          "signature": "designs/DAHPbhPf09I/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPbhPf09I/extract/assets",
+          "pages": "designs/DAHPbhPf09I/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 6,
@@ -1080,17 +1275,16 @@
         }
       },
       "clonedAt": "2026-07-15T06:30:40.236Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbhPf09I\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbhPf09I\\extract",
+      "inputHtml": "designs/DAHPbhPf09I/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPbhPf09I/extract",
       "duplicate": false,
       "duplicateOf": null,
       "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbhPf09I\\workspace-summary.json",
+      "summary": "designs/DAHPbhPf09I/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbhPf09I\\archetype-cover.png",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbhPf09I\\comparison.html",
+      "thumb": "designs/DAHPbhPf09I/archetype-cover.png",
       "meta": {
         "title": "Black and Orange Modern Personal Branding Mistakes Instagram Post Carousel",
         "pages": 6,
@@ -1104,13 +1298,21 @@
           "#171717",
           "#ffffff"
         ]
-      }
+      },
+      "pageThumbs": [
+        "designs/DAHPbhPf09I/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPbhPf09I/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPbhPf09I/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPbhPf09I/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPbhPf09I/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPbhPf09I/extract/assets/pages/page-06-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPbh2bDgU",
       "status": "cloned",
       "createdAt": "2026-07-15T06:30:58.915Z",
-      "updatedAt": "2026-07-16T09:55:43.032Z",
+      "updatedAt": "2026-07-16T16:45:05.225Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T06:30:58.915Z",
@@ -1119,16 +1321,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPbh2bDgU",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbh2bDgU\\extract",
+        "outDir": "designs/DAHPbh2bDgU/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbh2bDgU\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbh2bDgU\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbh2bDgU\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbh2bDgU\\extract\\assets\\pages"
+          "templateData": "designs/DAHPbh2bDgU/extract/template-data.json",
+          "signature": "designs/DAHPbh2bDgU/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPbh2bDgU/extract/assets",
+          "pages": "designs/DAHPbh2bDgU/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 6,
@@ -1140,12 +1342,12 @@
         }
       },
       "clonedAt": "2026-07-15T06:31:03.973Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbh2bDgU\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbh2bDgU\\extract",
+      "inputHtml": "designs/DAHPbh2bDgU/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPbh2bDgU/extract",
       "duplicate": false,
       "duplicateOf": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbh2bDgU\\workspace-summary.json",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbh2bDgU\\archetype-cover.png",
+      "summary": "designs/DAHPbh2bDgU/workspace-summary.json",
+      "thumb": "designs/DAHPbh2bDgU/archetype-cover.png",
       "meta": {
         "title": "Gray and Black Bold Minimalist Carousel Instagram Post",
         "pages": 6,
@@ -1160,13 +1362,20 @@
           "#b2b3b3"
         ]
       },
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbh2bDgU\\comparison.html"
+      "pageThumbs": [
+        "designs/DAHPbh2bDgU/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPbh2bDgU/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPbh2bDgU/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPbh2bDgU/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPbh2bDgU/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPbh2bDgU/extract/assets/pages/page-06-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPeDvPxI4",
       "status": "cloned",
       "createdAt": "2026-07-15T16:04:45.526Z",
-      "updatedAt": "2026-07-16T04:28:15.326Z",
+      "updatedAt": "2026-07-16T16:45:05.229Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T16:04:45.526Z",
@@ -1175,16 +1384,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPeDvPxI4",
-        "outDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeDvPxI4\\extract",
+        "outDir": "designs/DAHPeDvPxI4/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeDvPxI4\\extract\\template-data.json",
-          "signature": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeDvPxI4\\extract\\template-signature.json",
-          "dedupeIndex": "D:\\wamp64\\www\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeDvPxI4\\extract\\assets",
-          "pages": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeDvPxI4\\extract\\assets\\pages"
+          "templateData": "designs/DAHPeDvPxI4/extract/template-data.json",
+          "signature": "designs/DAHPeDvPxI4/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPeDvPxI4/extract/assets",
+          "pages": "designs/DAHPeDvPxI4/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 7,
@@ -1196,12 +1405,12 @@
         }
       },
       "clonedAt": "2026-07-15T16:04:47.288Z",
-      "inputHtml": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeDvPxI4\\capture\\editor-page.full.html",
-      "extractDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeDvPxI4\\extract",
+      "inputHtml": "designs/DAHPeDvPxI4/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPeDvPxI4/extract",
       "duplicate": false,
       "duplicateOf": null,
       "output": null,
-      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeDvPxI4\\workspace-summary.json",
+      "summary": "designs/DAHPeDvPxI4/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
@@ -1221,8 +1430,17 @@
           "#af993f"
         ]
       },
-      "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeDvPxI4\\comparison.html",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPeDvPxI4\\extract\\assets\\pages\\page-01-preview.png"
+      "comparison": "designs/DAHPeDvPxI4/comparison.html",
+      "thumb": "designs/DAHPeDvPxI4/extract/assets/pages/page-01-preview.png",
+      "pageThumbs": [
+        "designs/DAHPeDvPxI4/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPeDvPxI4/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPeDvPxI4/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPeDvPxI4/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPeDvPxI4/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPeDvPxI4/extract/assets/pages/page-06-thumbnail.png",
+        "designs/DAHPeDvPxI4/extract/assets/pages/page-07-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPeO1ArA0",
@@ -1237,21 +1455,21 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPeO1ArA0",
-        "outDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\extract",
+        "outDir": "designs/DAHPeO1ArA0/extract",
         "cloneProfile": "minimal",
         "duplicate": true,
         "duplicateOf": {
           "designId": "DAHPbmjary8",
-          "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbmjary8\\extract",
+          "outDir": "designs/DAHPbmjary8/extract",
           "exactHash": "d59798bad104162b811be58c77f9783ee6948fcb1bd8b0fcdc2829d111627f11",
           "layoutHash": "aa87ccbe01f660639daa4c87c7a057f0303904d128f6b313c1ae289568cefb9f"
         },
         "outputs": {
-          "templateData": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\extract\\template-data.json",
-          "signature": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\extract\\template-signature.json",
-          "dedupeIndex": "D:\\wamp64\\www\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\extract\\assets",
-          "pages": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\extract\\assets\\pages"
+          "templateData": "designs/DAHPeO1ArA0/extract/template-data.json",
+          "signature": "designs/DAHPeO1ArA0/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPeO1ArA0/extract/assets",
+          "pages": "designs/DAHPeO1ArA0/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 6,
@@ -1263,17 +1481,17 @@
         }
       },
       "clonedAt": "2026-07-15T16:05:31.494Z",
-      "inputHtml": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\capture\\editor-page.full.html",
-      "extractDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\extract",
+      "inputHtml": "designs/DAHPeO1ArA0/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPeO1ArA0/extract",
       "duplicate": true,
       "duplicateOf": {
         "designId": "DAHPbmjary8",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPbmjary8\\extract",
+        "outDir": "designs/DAHPbmjary8/extract",
         "exactHash": "d59798bad104162b811be58c77f9783ee6948fcb1bd8b0fcdc2829d111627f11",
         "layoutHash": "aa87ccbe01f660639daa4c87c7a057f0303904d128f6b313c1ae289568cefb9f"
       },
       "output": null,
-      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeO1ArA0\\workspace-summary.json",
+      "summary": "designs/DAHPeO1ArA0/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
@@ -1296,7 +1514,7 @@
       "designId": "DAHPeNVWHgI",
       "status": "cloned",
       "createdAt": "2026-07-15T16:10:13.773Z",
-      "updatedAt": "2026-07-16T04:28:15.338Z",
+      "updatedAt": "2026-07-16T16:45:05.236Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T16:10:13.773Z",
@@ -1305,16 +1523,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPeNVWHgI",
-        "outDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeNVWHgI\\extract",
+        "outDir": "designs/DAHPeNVWHgI/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeNVWHgI\\extract\\template-data.json",
-          "signature": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeNVWHgI\\extract\\template-signature.json",
-          "dedupeIndex": "D:\\wamp64\\www\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeNVWHgI\\extract\\assets",
-          "pages": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeNVWHgI\\extract\\assets\\pages"
+          "templateData": "designs/DAHPeNVWHgI/extract/template-data.json",
+          "signature": "designs/DAHPeNVWHgI/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPeNVWHgI/extract/assets",
+          "pages": "designs/DAHPeNVWHgI/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 7,
@@ -1326,12 +1544,12 @@
         }
       },
       "clonedAt": "2026-07-15T16:10:15.421Z",
-      "inputHtml": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeNVWHgI\\capture\\editor-page.full.html",
-      "extractDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeNVWHgI\\extract",
+      "inputHtml": "designs/DAHPeNVWHgI/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPeNVWHgI/extract",
       "duplicate": false,
       "duplicateOf": null,
       "output": null,
-      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeNVWHgI\\workspace-summary.json",
+      "summary": "designs/DAHPeNVWHgI/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
@@ -1348,14 +1566,23 @@
           "#ffffff"
         ]
       },
-      "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeNVWHgI\\comparison.html",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPeNVWHgI\\extract\\assets\\pages\\page-01-preview.png"
+      "comparison": "designs/DAHPeNVWHgI/comparison.html",
+      "thumb": "designs/DAHPeNVWHgI/extract/assets/pages/page-01-preview.png",
+      "pageThumbs": [
+        "designs/DAHPeNVWHgI/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPeNVWHgI/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPeNVWHgI/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPeNVWHgI/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPeNVWHgI/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPeNVWHgI/extract/assets/pages/page-06-thumbnail.png",
+        "designs/DAHPeNVWHgI/extract/assets/pages/page-07-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPeEgX1Og",
       "status": "cloned",
       "createdAt": "2026-07-15T16:10:58.149Z",
-      "updatedAt": "2026-07-16T04:28:15.329Z",
+      "updatedAt": "2026-07-16T16:45:05.240Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T16:10:58.149Z",
@@ -1364,16 +1591,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPeEgX1Og",
-        "outDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\extract",
+        "outDir": "designs/DAHPeEgX1Og/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\extract\\template-data.json",
-          "signature": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\extract\\template-signature.json",
-          "dedupeIndex": "D:\\wamp64\\www\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\extract\\assets",
-          "pages": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\extract\\assets\\pages"
+          "templateData": "designs/DAHPeEgX1Og/extract/template-data.json",
+          "signature": "designs/DAHPeEgX1Og/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPeEgX1Og/extract/assets",
+          "pages": "designs/DAHPeEgX1Og/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 10,
@@ -1385,12 +1612,12 @@
         }
       },
       "clonedAt": "2026-07-15T16:10:59.502Z",
-      "inputHtml": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\capture\\editor-page.full.html",
-      "extractDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\extract",
+      "inputHtml": "designs/DAHPeEgX1Og/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPeEgX1Og/extract",
       "duplicate": false,
       "duplicateOf": null,
       "output": null,
-      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\workspace-summary.json",
+      "summary": "designs/DAHPeEgX1Og/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
@@ -1406,14 +1633,26 @@
           "#ffffff"
         ]
       },
-      "comparison": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeEgX1Og\\comparison.html",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPeEgX1Og\\extract\\assets\\pages\\page-01-preview.png"
+      "comparison": "designs/DAHPeEgX1Og/comparison.html",
+      "thumb": "designs/DAHPeEgX1Og/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHPeEgX1Og/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPeEgX1Og/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPeEgX1Og/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPeEgX1Og/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPeEgX1Og/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPeEgX1Og/extract/assets/pages/page-06-thumbnail.png",
+        "designs/DAHPeEgX1Og/extract/assets/pages/page-07-thumbnail.png",
+        "designs/DAHPeEgX1Og/extract/assets/pages/page-08-thumbnail.png",
+        "designs/DAHPeEgX1Og/extract/assets/pages/page-09-thumbnail.png",
+        "designs/DAHPeEgX1Og/extract/assets/pages/page-10-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPeA8eqz4",
       "status": "cloned",
       "createdAt": "2026-07-15T16:12:45.540Z",
-      "updatedAt": "2026-07-16T04:28:15.320Z",
+      "updatedAt": "2026-07-16T16:45:05.244Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T16:12:45.540Z",
@@ -1422,16 +1661,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPeA8eqz4",
-        "outDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeA8eqz4\\extract",
+        "outDir": "designs/DAHPeA8eqz4/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeA8eqz4\\extract\\template-data.json",
-          "signature": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeA8eqz4\\extract\\template-signature.json",
-          "dedupeIndex": "D:\\wamp64\\www\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeA8eqz4\\extract\\assets",
-          "pages": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeA8eqz4\\extract\\assets\\pages"
+          "templateData": "designs/DAHPeA8eqz4/extract/template-data.json",
+          "signature": "designs/DAHPeA8eqz4/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPeA8eqz4/extract/assets",
+          "pages": "designs/DAHPeA8eqz4/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 5,
@@ -1443,11 +1682,11 @@
         }
       },
       "clonedAt": "2026-07-15T16:12:46.923Z",
-      "inputHtml": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeA8eqz4\\capture\\editor-page.full.html",
-      "extractDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeA8eqz4\\extract",
+      "inputHtml": "designs/DAHPeA8eqz4/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPeA8eqz4/extract",
       "duplicate": false,
       "duplicateOf": null,
-      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeA8eqz4\\workspace-summary.json",
+      "summary": "designs/DAHPeA8eqz4/workspace-summary.json",
       "meta": {
         "title": "Black and White Minimalist Microblog Carousel Content Instagram Post",
         "pages": 5,
@@ -1463,13 +1702,21 @@
           "#dbe1ee"
         ]
       },
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPeA8eqz4\\archetype-cover.png"
+      "thumb": "designs/DAHPeA8eqz4/archetype-cover.png",
+      "comparison": "designs/DAHPeA8eqz4/comparison.html",
+      "pageThumbs": [
+        "designs/DAHPeA8eqz4/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPeA8eqz4/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPeA8eqz4/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPeA8eqz4/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPeA8eqz4/extract/assets/pages/page-05-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPeD1kppo",
       "status": "cloned",
       "createdAt": "2026-07-15T16:13:13.194Z",
-      "updatedAt": "2026-07-16T04:28:15.323Z",
+      "updatedAt": "2026-07-16T16:45:05.246Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T16:13:13.194Z",
@@ -1478,16 +1725,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPeD1kppo",
-        "outDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeD1kppo\\extract",
+        "outDir": "designs/DAHPeD1kppo/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeD1kppo\\extract\\template-data.json",
-          "signature": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeD1kppo\\extract\\template-signature.json",
-          "dedupeIndex": "D:\\wamp64\\www\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeD1kppo\\extract\\assets",
-          "pages": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeD1kppo\\extract\\assets\\pages"
+          "templateData": "designs/DAHPeD1kppo/extract/template-data.json",
+          "signature": "designs/DAHPeD1kppo/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPeD1kppo/extract/assets",
+          "pages": "designs/DAHPeD1kppo/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 7,
@@ -1499,11 +1746,11 @@
         }
       },
       "clonedAt": "2026-07-15T16:13:14.658Z",
-      "inputHtml": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeD1kppo\\capture\\editor-page.full.html",
-      "extractDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeD1kppo\\extract",
+      "inputHtml": "designs/DAHPeD1kppo/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPeD1kppo/extract",
       "duplicate": false,
       "duplicateOf": null,
-      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeD1kppo\\workspace-summary.json",
+      "summary": "designs/DAHPeD1kppo/workspace-summary.json",
       "meta": {
         "title": "White & Black Simple Carousel Instagram Post",
         "pages": 7,
@@ -1517,13 +1764,23 @@
           "#000000"
         ]
       },
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPeD1kppo\\archetype-cover.png"
+      "thumb": "designs/DAHPeD1kppo/archetype-cover.png",
+      "comparison": "designs/DAHPeD1kppo/comparison.html",
+      "pageThumbs": [
+        "designs/DAHPeD1kppo/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPeD1kppo/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPeD1kppo/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPeD1kppo/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPeD1kppo/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPeD1kppo/extract/assets/pages/page-06-thumbnail.png",
+        "designs/DAHPeD1kppo/extract/assets/pages/page-07-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPeIV3RuA",
       "status": "cloned",
       "createdAt": "2026-07-15T16:13:51.365Z",
-      "updatedAt": "2026-07-16T04:28:15.334Z",
+      "updatedAt": "2026-07-16T16:45:05.250Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T16:13:51.365Z",
@@ -1532,16 +1789,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPeIV3RuA",
-        "outDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeIV3RuA\\extract",
+        "outDir": "designs/DAHPeIV3RuA/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeIV3RuA\\extract\\template-data.json",
-          "signature": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeIV3RuA\\extract\\template-signature.json",
-          "dedupeIndex": "D:\\wamp64\\www\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeIV3RuA\\extract\\assets",
-          "pages": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeIV3RuA\\extract\\assets\\pages"
+          "templateData": "designs/DAHPeIV3RuA/extract/template-data.json",
+          "signature": "designs/DAHPeIV3RuA/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPeIV3RuA/extract/assets",
+          "pages": "designs/DAHPeIV3RuA/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 7,
@@ -1553,11 +1810,11 @@
         }
       },
       "clonedAt": "2026-07-15T16:13:53.303Z",
-      "inputHtml": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeIV3RuA\\capture\\editor-page.full.html",
-      "extractDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeIV3RuA\\extract",
+      "inputHtml": "designs/DAHPeIV3RuA/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPeIV3RuA/extract",
       "duplicate": false,
       "duplicateOf": null,
-      "summary": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeIV3RuA\\workspace-summary.json",
+      "summary": "designs/DAHPeIV3RuA/workspace-summary.json",
       "meta": {
         "title": "White Purple Modern Carousel Instagram Post",
         "pages": 7,
@@ -1572,13 +1829,23 @@
           "#000000"
         ]
       },
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPeIV3RuA\\archetype-cover.png"
+      "thumb": "designs/DAHPeIV3RuA/archetype-cover.png",
+      "comparison": "designs/DAHPeIV3RuA/comparison.html",
+      "pageThumbs": [
+        "designs/DAHPeIV3RuA/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPeIV3RuA/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPeIV3RuA/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPeIV3RuA/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPeIV3RuA/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPeIV3RuA/extract/assets/pages/page-06-thumbnail.png",
+        "designs/DAHPeIV3RuA/extract/assets/pages/page-07-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPhJJGLyM",
       "status": "cloned",
       "createdAt": "2026-07-16T04:21:08.902Z",
-      "updatedAt": "2026-07-16T04:28:15.346Z",
+      "updatedAt": "2026-07-16T16:45:05.255Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T04:21:08.902Z",
@@ -1587,16 +1854,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPhJJGLyM",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhJJGLyM\\extract",
+        "outDir": "designs/DAHPhJJGLyM/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhJJGLyM\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhJJGLyM\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhJJGLyM\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhJJGLyM\\extract\\assets\\pages"
+          "templateData": "designs/DAHPhJJGLyM/extract/template-data.json",
+          "signature": "designs/DAHPhJJGLyM/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPhJJGLyM/extract/assets",
+          "pages": "designs/DAHPhJJGLyM/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 2,
@@ -1608,16 +1875,15 @@
         }
       },
       "clonedAt": "2026-07-16T04:21:11.096Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhJJGLyM\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhJJGLyM\\extract",
+      "inputHtml": "designs/DAHPhJJGLyM/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPhJJGLyM/extract",
       "duplicate": false,
       "duplicateOf": null,
       "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhJJGLyM\\workspace-summary.json",
+      "summary": "designs/DAHPhJJGLyM/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhJJGLyM\\comparison.html",
       "meta": {
         "title": "Black White and Yellow Minimalist Motivation Quotes Carousel Instagram Post",
         "pages": 2,
@@ -1632,13 +1898,17 @@
           "#202020"
         ]
       },
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhJJGLyM\\extract\\assets\\pages\\page-01-preview.png"
+      "thumb": "designs/DAHPhJJGLyM/extract/assets/pages/page-01-preview.png",
+      "pageThumbs": [
+        "designs/DAHPhJJGLyM/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPhJJGLyM/extract/assets/pages/page-02-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPhC76mo0",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-16T04:21:35.097Z",
-      "updatedAt": "2026-07-16T10:30:35.538Z",
+      "updatedAt": "2026-07-16T17:22:20.326Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T04:21:35.097Z",
@@ -1647,16 +1917,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPhC76mo0",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhC76mo0\\extract",
+        "outDir": "designs/DAHPhC76mo0/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhC76mo0\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhC76mo0\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhC76mo0\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhC76mo0\\extract\\assets\\pages"
+          "templateData": "designs/DAHPhC76mo0/extract/template-data.json",
+          "signature": "designs/DAHPhC76mo0/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPhC76mo0/extract/assets",
+          "pages": "designs/DAHPhC76mo0/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 7,
@@ -1668,12 +1938,12 @@
         }
       },
       "clonedAt": "2026-07-16T04:21:36.552Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhC76mo0\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhC76mo0\\extract",
+      "inputHtml": "designs/DAHPhC76mo0/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPhC76mo0/extract",
       "duplicate": false,
       "duplicateOf": null,
       "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhC76mo0\\workspace-summary.json",
+      "summary": "designs/DAHPhC76mo0/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
@@ -1693,10 +1963,17 @@
         ],
         "score": 10
       },
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhC76mo0\\comparison.html",
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhC76mo0\\archetype-cover.png",
-      "archetype": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\output\\quiet-reminders-nights.html",
-      "archetypeSlug": "quiet-reminders-nights"
+      "thumb": "designs/DAHPhC76mo0/archetype-cover.png",
+      "comparison": "designs/DAHPhC76mo0/comparison.html",
+      "pageThumbs": [
+        "designs/DAHPhC76mo0/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPhC76mo0/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPhC76mo0/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPhC76mo0/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPhC76mo0/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPhC76mo0/extract/assets/pages/page-06-thumbnail.png",
+        "designs/DAHPhC76mo0/extract/assets/pages/page-07-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPhHueV_U",
@@ -1711,21 +1988,21 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPhHueV_U",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhHueV_U\\extract",
+        "outDir": "designs/DAHPhHueV_U/extract",
         "cloneProfile": "minimal",
         "duplicate": true,
         "duplicateOf": {
           "designId": "DAHPhC76mo0",
-          "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhC76mo0\\extract",
+          "outDir": "designs/DAHPhC76mo0/extract",
           "exactHash": "7131f864c8b0800a48a9d67f2aa8f596b0d7e485e1c73e7c2de70efa2c0aa09d",
           "layoutHash": "aa96fda791832dce1feadc596429a1ba5eb4fe9798b3bccf9979b0b6a30d07a6"
         },
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhHueV_U\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhHueV_U\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhHueV_U\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhHueV_U\\extract\\assets\\pages"
+          "templateData": "designs/DAHPhHueV_U/extract/template-data.json",
+          "signature": "designs/DAHPhHueV_U/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPhHueV_U/extract/assets",
+          "pages": "designs/DAHPhHueV_U/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 7,
@@ -1737,17 +2014,17 @@
         }
       },
       "clonedAt": "2026-07-16T04:43:46.970Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhHueV_U\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhHueV_U\\extract",
+      "inputHtml": "designs/DAHPhHueV_U/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPhHueV_U/extract",
       "duplicate": true,
       "duplicateOf": {
         "designId": "DAHPhC76mo0",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhC76mo0\\extract",
+        "outDir": "designs/DAHPhC76mo0/extract",
         "exactHash": "7131f864c8b0800a48a9d67f2aa8f596b0d7e485e1c73e7c2de70efa2c0aa09d",
         "layoutHash": "aa96fda791832dce1feadc596429a1ba5eb4fe9798b3bccf9979b0b6a30d07a6"
       },
       "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhHueV_U\\workspace-summary.json",
+      "summary": "designs/DAHPhHueV_U/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
@@ -1780,21 +2057,21 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPhIyiZEA",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhIyiZEA\\extract",
+        "outDir": "designs/DAHPhIyiZEA/extract",
         "cloneProfile": "minimal",
         "duplicate": true,
         "duplicateOf": {
           "designId": "DAHPhHueV_U",
-          "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhHueV_U\\extract",
+          "outDir": "designs/DAHPhHueV_U/extract",
           "exactHash": "7131f864c8b0800a48a9d67f2aa8f596b0d7e485e1c73e7c2de70efa2c0aa09d",
           "layoutHash": "aa96fda791832dce1feadc596429a1ba5eb4fe9798b3bccf9979b0b6a30d07a6"
         },
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhIyiZEA\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhIyiZEA\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhIyiZEA\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhIyiZEA\\extract\\assets\\pages"
+          "templateData": "designs/DAHPhIyiZEA/extract/template-data.json",
+          "signature": "designs/DAHPhIyiZEA/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPhIyiZEA/extract/assets",
+          "pages": "designs/DAHPhIyiZEA/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 7,
@@ -1806,17 +2083,17 @@
         }
       },
       "clonedAt": "2026-07-16T04:51:17.000Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhIyiZEA\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhIyiZEA\\extract",
+      "inputHtml": "designs/DAHPhIyiZEA/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPhIyiZEA/extract",
       "duplicate": true,
       "duplicateOf": {
         "designId": "DAHPhHueV_U",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhHueV_U\\extract",
+        "outDir": "designs/DAHPhHueV_U/extract",
         "exactHash": "7131f864c8b0800a48a9d67f2aa8f596b0d7e485e1c73e7c2de70efa2c0aa09d",
         "layoutHash": "aa96fda791832dce1feadc596429a1ba5eb4fe9798b3bccf9979b0b6a30d07a6"
       },
       "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhIyiZEA\\workspace-summary.json",
+      "summary": "designs/DAHPhIyiZEA/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
@@ -1838,9 +2115,9 @@
     },
     {
       "designId": "DAHPhRtnWw4",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-16T05:07:27.407Z",
-      "updatedAt": "2026-07-16T10:44:29.717Z",
+      "updatedAt": "2026-07-16T17:22:20.334Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T05:07:27.407Z",
@@ -1849,16 +2126,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPhRtnWw4",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhRtnWw4\\extract",
+        "outDir": "designs/DAHPhRtnWw4/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhRtnWw4\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhRtnWw4\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhRtnWw4\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhRtnWw4\\extract\\assets\\pages"
+          "templateData": "designs/DAHPhRtnWw4/extract/template-data.json",
+          "signature": "designs/DAHPhRtnWw4/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPhRtnWw4/extract/assets",
+          "pages": "designs/DAHPhRtnWw4/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 6,
@@ -1870,16 +2147,15 @@
         }
       },
       "clonedAt": "2026-07-16T05:07:29.021Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhRtnWw4\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhRtnWw4\\extract",
+      "inputHtml": "designs/DAHPhRtnWw4/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPhRtnWw4/extract",
       "duplicate": false,
       "duplicateOf": null,
       "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhRtnWw4\\workspace-summary.json",
+      "summary": "designs/DAHPhRtnWw4/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhRtnWw4\\comparison.html",
       "meta": {
         "title": "Black and White Professional Minimalist Informational Tips Carousel Instagram Post",
         "pages": 6,
@@ -1894,9 +2170,16 @@
         ],
         "score": 7.7
       },
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhRtnWw4\\archetype-cover.png",
-      "archetype": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\output\\read-forty-books.html",
-      "archetypeSlug": "read-forty-books"
+      "thumb": "designs/DAHPhRtnWw4/archetype-cover.png",
+      "comparison": "designs/DAHPhRtnWw4/comparison.html",
+      "pageThumbs": [
+        "designs/DAHPhRtnWw4/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPhRtnWw4/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPhRtnWw4/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPhRtnWw4/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPhRtnWw4/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPhRtnWw4/extract/assets/pages/page-06-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPhTNionw",
@@ -1911,21 +2194,21 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPhTNionw",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTNionw\\extract",
+        "outDir": "designs/DAHPhTNionw/extract",
         "cloneProfile": "minimal",
         "duplicate": true,
         "duplicateOf": {
           "designId": "DAHPhRtnWw4",
-          "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhRtnWw4\\extract",
+          "outDir": "designs/DAHPhRtnWw4/extract",
           "exactHash": "8072b707f367df9e84e09e3b7e3979bc894facaa429399433123aaeefc3af4c7",
           "layoutHash": "6a9be41d288385411b91cbfc195289acb05c0d278a060e19c6af95603073f852"
         },
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTNionw\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTNionw\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTNionw\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTNionw\\extract\\assets\\pages"
+          "templateData": "designs/DAHPhTNionw/extract/template-data.json",
+          "signature": "designs/DAHPhTNionw/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPhTNionw/extract/assets",
+          "pages": "designs/DAHPhTNionw/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 6,
@@ -1937,17 +2220,17 @@
         }
       },
       "clonedAt": "2026-07-16T05:11:58.545Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTNionw\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTNionw\\extract",
+      "inputHtml": "designs/DAHPhTNionw/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPhTNionw/extract",
       "duplicate": true,
       "duplicateOf": {
         "designId": "DAHPhRtnWw4",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhRtnWw4\\extract",
+        "outDir": "designs/DAHPhRtnWw4/extract",
         "exactHash": "8072b707f367df9e84e09e3b7e3979bc894facaa429399433123aaeefc3af4c7",
         "layoutHash": "6a9be41d288385411b91cbfc195289acb05c0d278a060e19c6af95603073f852"
       },
       "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTNionw\\workspace-summary.json",
+      "summary": "designs/DAHPhTNionw/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
@@ -1969,7 +2252,7 @@
       "designId": "DAHPheuRB9M",
       "status": "cloned",
       "createdAt": "2026-07-16T05:12:07.435Z",
-      "updatedAt": "2026-07-16T05:12:22.258Z",
+      "updatedAt": "2026-07-16T16:45:05.271Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T05:12:07.435Z",
@@ -1978,16 +2261,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPheuRB9M",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheuRB9M\\extract",
+        "outDir": "designs/DAHPheuRB9M/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheuRB9M\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheuRB9M\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheuRB9M\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheuRB9M\\extract\\assets\\pages"
+          "templateData": "designs/DAHPheuRB9M/extract/template-data.json",
+          "signature": "designs/DAHPheuRB9M/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPheuRB9M/extract/assets",
+          "pages": "designs/DAHPheuRB9M/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 6,
@@ -1999,16 +2282,15 @@
         }
       },
       "clonedAt": "2026-07-16T05:12:09.053Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheuRB9M\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheuRB9M\\extract",
+      "inputHtml": "designs/DAHPheuRB9M/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPheuRB9M/extract",
       "duplicate": false,
       "duplicateOf": null,
       "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheuRB9M\\workspace-summary.json",
+      "summary": "designs/DAHPheuRB9M/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheuRB9M\\comparison.html",
       "meta": {
         "title": "Green Minimalist Carousel Tips LinkedIn Carousel ",
         "pages": 6,
@@ -2023,13 +2305,21 @@
           "#2c4d53"
         ]
       },
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheuRB9M\\extract\\assets\\pages\\page-01-preview.png"
+      "thumb": "designs/DAHPheuRB9M/extract/assets/pages/page-01-preview.png",
+      "pageThumbs": [
+        "designs/DAHPheuRB9M/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPheuRB9M/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPheuRB9M/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPheuRB9M/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPheuRB9M/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPheuRB9M/extract/assets/pages/page-06-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPhaXds1M",
       "status": "cloned",
       "createdAt": "2026-07-16T05:12:22.260Z",
-      "updatedAt": "2026-07-16T05:12:34.996Z",
+      "updatedAt": "2026-07-16T16:45:05.274Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T05:12:22.260Z",
@@ -2038,16 +2328,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPhaXds1M",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\extract",
+        "outDir": "designs/DAHPhaXds1M/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\extract\\assets\\pages"
+          "templateData": "designs/DAHPhaXds1M/extract/template-data.json",
+          "signature": "designs/DAHPhaXds1M/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPhaXds1M/extract/assets",
+          "pages": "designs/DAHPhaXds1M/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 7,
@@ -2059,16 +2349,15 @@
         }
       },
       "clonedAt": "2026-07-16T05:12:23.378Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\extract",
+      "inputHtml": "designs/DAHPhaXds1M/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPhaXds1M/extract",
       "duplicate": false,
       "duplicateOf": null,
       "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\workspace-summary.json",
+      "summary": "designs/DAHPhaXds1M/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\comparison.html",
       "meta": {
         "title": "White Minimal Time Management Tips LinkedIn Carousel Ad",
         "pages": 7,
@@ -2085,13 +2374,22 @@
           "#ffffff"
         ]
       },
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhaXds1M\\extract\\assets\\pages\\page-01-preview.png"
+      "thumb": "designs/DAHPhaXds1M/extract/assets/pages/page-01-preview.png",
+      "pageThumbs": [
+        "designs/DAHPhaXds1M/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPhaXds1M/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPhaXds1M/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPhaXds1M/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPhaXds1M/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPhaXds1M/extract/assets/pages/page-06-thumbnail.png",
+        "designs/DAHPhaXds1M/extract/assets/pages/page-07-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPhQ4CKmo",
       "status": "cloned",
       "createdAt": "2026-07-16T05:12:34.998Z",
-      "updatedAt": "2026-07-16T05:12:39.094Z",
+      "updatedAt": "2026-07-16T16:45:05.277Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T05:12:34.998Z",
@@ -2100,16 +2398,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPhQ4CKmo",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhQ4CKmo\\extract",
+        "outDir": "designs/DAHPhQ4CKmo/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhQ4CKmo\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhQ4CKmo\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhQ4CKmo\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhQ4CKmo\\extract\\assets\\pages"
+          "templateData": "designs/DAHPhQ4CKmo/extract/template-data.json",
+          "signature": "designs/DAHPhQ4CKmo/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPhQ4CKmo/extract/assets",
+          "pages": "designs/DAHPhQ4CKmo/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 6,
@@ -2121,16 +2419,15 @@
         }
       },
       "clonedAt": "2026-07-16T05:12:36.148Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhQ4CKmo\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhQ4CKmo\\extract",
+      "inputHtml": "designs/DAHPhQ4CKmo/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPhQ4CKmo/extract",
       "duplicate": false,
       "duplicateOf": null,
       "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhQ4CKmo\\workspace-summary.json",
+      "summary": "designs/DAHPhQ4CKmo/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhQ4CKmo\\comparison.html",
       "meta": {
         "title": "Beige Simple Minimalist Focus Tips Carousel Instagram Post",
         "pages": 6,
@@ -2146,7 +2443,15 @@
           "#ffffff"
         ]
       },
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhQ4CKmo\\extract\\assets\\pages\\page-01-preview.png"
+      "thumb": "designs/DAHPhQ4CKmo/extract/assets/pages/page-01-preview.png",
+      "pageThumbs": [
+        "designs/DAHPhQ4CKmo/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPhQ4CKmo/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPhQ4CKmo/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPhQ4CKmo/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPhQ4CKmo/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPhQ4CKmo/extract/assets/pages/page-06-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPhXt_7uU",
@@ -2161,21 +2466,21 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPhXt_7uU",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhXt_7uU\\extract",
+        "outDir": "designs/DAHPhXt_7uU/extract",
         "cloneProfile": "minimal",
         "duplicate": true,
         "duplicateOf": {
           "designId": "DAHPeDvPxI4",
-          "outDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeDvPxI4\\extract",
+          "outDir": "designs/DAHPeDvPxI4/extract",
           "exactHash": "ef08773c666869d2ab8bb875642cd5d18867c66411313f89da22867c6f89ad74",
           "layoutHash": "5ba2d47461d1bc766ec3c770c467a826a062d5e3147a0fc96d0d602cc6c060a0"
         },
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhXt_7uU\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhXt_7uU\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhXt_7uU\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhXt_7uU\\extract\\assets\\pages"
+          "templateData": "designs/DAHPhXt_7uU/extract/template-data.json",
+          "signature": "designs/DAHPhXt_7uU/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPhXt_7uU/extract/assets",
+          "pages": "designs/DAHPhXt_7uU/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 7,
@@ -2187,17 +2492,17 @@
         }
       },
       "clonedAt": "2026-07-16T05:17:20.130Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhXt_7uU\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhXt_7uU\\extract",
+      "inputHtml": "designs/DAHPhXt_7uU/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPhXt_7uU/extract",
       "duplicate": true,
       "duplicateOf": {
         "designId": "DAHPeDvPxI4",
-        "outDir": "D:\\wamp64\\www\\canva-template-workspace\\designs\\DAHPeDvPxI4\\extract",
+        "outDir": "designs/DAHPeDvPxI4/extract",
         "exactHash": "ef08773c666869d2ab8bb875642cd5d18867c66411313f89da22867c6f89ad74",
         "layoutHash": "5ba2d47461d1bc766ec3c770c467a826a062d5e3147a0fc96d0d602cc6c060a0"
       },
       "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhXt_7uU\\workspace-summary.json",
+      "summary": "designs/DAHPhXt_7uU/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
@@ -2220,9 +2525,9 @@
     },
     {
       "designId": "DAHPhTwuqUY",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-16T05:18:06.061Z",
-      "updatedAt": "2026-07-16T10:15:25.205Z",
+      "updatedAt": "2026-07-16T17:23:05.353Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T05:18:06.061Z",
@@ -2231,16 +2536,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPhTwuqUY",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTwuqUY\\extract",
+        "outDir": "designs/DAHPhTwuqUY/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTwuqUY\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTwuqUY\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTwuqUY\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTwuqUY\\extract\\assets\\pages"
+          "templateData": "designs/DAHPhTwuqUY/extract/template-data.json",
+          "signature": "designs/DAHPhTwuqUY/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPhTwuqUY/extract/assets",
+          "pages": "designs/DAHPhTwuqUY/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 5,
@@ -2252,11 +2557,11 @@
         }
       },
       "clonedAt": "2026-07-16T05:18:07.875Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTwuqUY\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTwuqUY\\extract",
+      "inputHtml": "designs/DAHPhTwuqUY/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPhTwuqUY/extract",
       "duplicate": false,
       "duplicateOf": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTwuqUY\\workspace-summary.json",
+      "summary": "designs/DAHPhTwuqUY/workspace-summary.json",
       "meta": {
         "title": "Black and White Minimalist Illustrated Motivation Instagram Carousel",
         "pages": 5,
@@ -2270,14 +2575,33 @@
         ],
         "score": 8.5
       },
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTwuqUY\\archetype-cover.png",
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhTwuqUY\\comparison.html"
+      "thumb": "designs/DAHPhTwuqUY/archetype-cover.png",
+      "remixes": [
+        {
+          "slug": "read-more-books",
+          "output": "output/read-more-books.html",
+          "slides": [
+            ".renders/output/read-more-books/slide-01.png",
+            ".renders/output/read-more-books/slide-02.png",
+            ".renders/output/read-more-books/slide-03.png",
+            ".renders/output/read-more-books/slide-04.png",
+            ".renders/output/read-more-books/slide-05.png"
+          ]
+        }
+      ],
+      "pageThumbs": [
+        "designs/DAHPhTwuqUY/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPhTwuqUY/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPhTwuqUY/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPhTwuqUY/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPhTwuqUY/extract/assets/pages/page-05-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPhbFYgDA",
       "status": "cloned",
       "createdAt": "2026-07-16T05:18:27.887Z",
-      "updatedAt": "2026-07-16T05:18:42.099Z",
+      "updatedAt": "2026-07-16T16:45:05.286Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T05:18:27.887Z",
@@ -2286,16 +2610,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPhbFYgDA",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhbFYgDA\\extract",
+        "outDir": "designs/DAHPhbFYgDA/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhbFYgDA\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhbFYgDA\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhbFYgDA\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhbFYgDA\\extract\\assets\\pages"
+          "templateData": "designs/DAHPhbFYgDA/extract/template-data.json",
+          "signature": "designs/DAHPhbFYgDA/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPhbFYgDA/extract/assets",
+          "pages": "designs/DAHPhbFYgDA/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 6,
@@ -2307,16 +2631,15 @@
         }
       },
       "clonedAt": "2026-07-16T05:18:29.518Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhbFYgDA\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhbFYgDA\\extract",
+      "inputHtml": "designs/DAHPhbFYgDA/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPhbFYgDA/extract",
       "duplicate": false,
       "duplicateOf": null,
       "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhbFYgDA\\workspace-summary.json",
+      "summary": "designs/DAHPhbFYgDA/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhbFYgDA\\comparison.html",
       "meta": {
         "title": "Beige Aesthetic Industry Leader How To Carousel Instagram Post",
         "pages": 6,
@@ -2331,13 +2654,21 @@
           "#b1a7a3"
         ]
       },
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPhbFYgDA\\extract\\assets\\pages\\page-01-preview.png"
+      "thumb": "designs/DAHPhbFYgDA/extract/assets/pages/page-01-preview.png",
+      "pageThumbs": [
+        "designs/DAHPhbFYgDA/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPhbFYgDA/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPhbFYgDA/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPhbFYgDA/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPhbFYgDA/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPhbFYgDA/extract/assets/pages/page-06-thumbnail.png"
+      ]
     },
     {
       "designId": "DAHPheh9ggM",
       "status": "cloned",
       "createdAt": "2026-07-16T05:18:42.101Z",
-      "updatedAt": "2026-07-16T05:18:47.245Z",
+      "updatedAt": "2026-07-16T16:45:05.288Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T05:18:42.101Z",
@@ -2346,16 +2677,16 @@
       "lastError": "",
       "clone": {
         "designId": "DAHPheh9ggM",
-        "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheh9ggM\\extract",
+        "outDir": "designs/DAHPheh9ggM/extract",
         "cloneProfile": "minimal",
         "duplicate": false,
         "duplicateOf": null,
         "outputs": {
-          "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheh9ggM\\extract\\template-data.json",
-          "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheh9ggM\\extract\\template-signature.json",
-          "dedupeIndex": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\index\\template-dedupe-index.json",
-          "assets": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheh9ggM\\extract\\assets",
-          "pages": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheh9ggM\\extract\\assets\\pages"
+          "templateData": "designs/DAHPheh9ggM/extract/template-data.json",
+          "signature": "designs/DAHPheh9ggM/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPheh9ggM/extract/assets",
+          "pages": "designs/DAHPheh9ggM/extract/assets/pages"
         },
         "stats": {
           "pagesDetected": 6,
@@ -2367,16 +2698,15 @@
         }
       },
       "clonedAt": "2026-07-16T05:18:43.508Z",
-      "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheh9ggM\\capture\\editor-page.full.html",
-      "extractDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheh9ggM\\extract",
+      "inputHtml": "designs/DAHPheh9ggM/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPheh9ggM/extract",
       "duplicate": false,
       "duplicateOf": null,
       "output": null,
-      "summary": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheh9ggM\\workspace-summary.json",
+      "summary": "designs/DAHPheh9ggM/workspace-summary.json",
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
-      "comparison": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheh9ggM\\comparison.html",
       "meta": {
         "title": "Beige and Yellow Simple Paper Textured Typewriting Information Tips Instagram Post Carousel",
         "pages": 6,
@@ -2389,7 +2719,15 @@
           "#424241"
         ]
       },
-      "thumb": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPheh9ggM\\extract\\assets\\pages\\page-01-preview.png"
+      "thumb": "designs/DAHPheh9ggM/extract/assets/pages/page-01-preview.png",
+      "pageThumbs": [
+        "designs/DAHPheh9ggM/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPheh9ggM/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPheh9ggM/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPheh9ggM/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPheh9ggM/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPheh9ggM/extract/assets/pages/page-06-thumbnail.png"
+      ]
     }
   ]
 }

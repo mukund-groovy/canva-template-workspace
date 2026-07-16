@@ -52,11 +52,39 @@ the photo cap. Done = `status: cloned` + a `comparison` preview + `page-NN-thumb
 
 ## Stage 2 — Generate
 
-The GOAL is **faithful reproduction + recolor**: rebuild the reference's layout/copy/devices closely as
-a brand-recolorable, editor-injectable template (NOT "invent an original design" — that pivot hurt
-quality and was reverted; see agent memory `faithful-repro-pivot`). Two ways to run it:
+**"generate the template for <design-id>" means REMIX by default** — use the `template-remix-agent`.
+The reference is inspiration: keep its craft and design language, invent the content (new topic, fresh
+copy, own composition). The output must never reuse the reference's words, headlines, brand names or
+`@handles`. Ship a faithful reproduction ONLY when asked for one explicitly ("clone it exactly",
+"faithful repro") — that's `template-author-agent`.
 
-### A) Batch command (`generate-worker.mjs`) — self-driving, uses the Azure model
+History, so this doesn't flip again: an earlier "invent an original design" pivot was reverted for
+hurting quality (memory `faithful-repro-pivot`), and Stage 2 became faithful-repro. That is now
+superseded — the reverted pivot was the *batch worker* free-styling without a runbook, which is a
+different thing from the remix agent, which studies the reference first and passes the same gates.
+Evidence (2026-07-16): remix scored 8.8 (`write-better-emails`) and 10 (`the-drawn-line`) vs 8.2 for
+the faithful repro of the same reference, and a faithful repro is a near-verbatim copy of someone
+else's Canva template — see memory `template-authoring-intent`.
+
+Three ways to run it:
+
+### A) CLI agent (`template-remix-agent`) — THE DEFAULT for "generate the template for <id>"
+
+The model studies the reference to work out WHY it works, keeps its craft and design language, then
+invents the content — its own topic, fresh copy, its own composition. Recognisably the same design
+family, but its own piece. It authors, RENDERS, LOOKS at the pixels and iterates, then runs the full
+gate set. Runbook: `.claude/agents/template-remix-agent.md`.
+
+Ships standalone: `output/<3-word-kebab-slug>.html`, its own renders in `.renders/output/<slug>/`, NO
+`archetype-map.json` entry and no dashboard row (the map + row belong to a design's faithful version,
+if one exists). Two remixes of the same reference are fine — give each a distinct slug.
+
+**The gate score is NOT a quality signal on its own.** It measures structure, not composition:
+`the-drawn-line` scored a perfect 10/10 while shipping colliding tabs, shouty all-caps body copy and
+arrows clipped off the canvas. ALWAYS look at `.renders/output/<slug>/slide-NN.png` before calling a
+deck done, and send the agent back with a specific defect list if it's wrong.
+
+### B) Batch command (`generate-worker.mjs`) — self-driving, uses the Azure model
 
 Walks the `cloned` queue and, per design: transcribes the reference faithfully, feeds the author EXACT
 geometry (`decode-geometry.mjs` → real font-sizes/box-sizes so it stops eyeballing), runs the contract +
@@ -75,13 +103,15 @@ node scripts/generate-worker.mjs --provider claude   # override GEN_PROVIDER (co
 
 Self-driving batch — start it and let it drain the queue. Output in `output/`; dashboard shows before/after.
 
-### B) CLI agent (`template-author-agent`) — higher fidelity, the model authors by hand
+### C) CLI agent (`template-author-agent`) — faithful reproduction, ONLY when asked for one
 
-Same deliverable, but the model authors holistically, RENDERS, LOOKS at the pixels, and iterates — which
-beats the pipeline (same model, no blind one-shot). Use when the user says "generate the template for
-<design-id>" and wants top quality. Runbook: `.claude/agents/template-author-agent.md` (in THIS repo).
-New agent files need a Claude Code restart to be spawnable by type; until then run it via a
-`general-purpose` (opus) agent told to Read and follow that runbook.
+Same hand-authoring loop as the remix agent (author → render → LOOK → iterate), but it reproduces the
+reference's layout/copy/devices closely instead of inventing content. Use ONLY on an explicit ask
+("clone it exactly", "faithful repro") — the output is a near-verbatim copy of someone else's Canva
+template, placeholder text and all, which is why it is no longer the default. Runbook:
+`.claude/agents/template-author-agent.md`. It DOES own the design's `archetype-map.json` entry and
+dashboard row (cloned → success). New agent files need a Claude Code restart to be spawnable by type;
+until then run it via a `general-purpose` (opus) agent told to Read and follow that runbook.
 
 ## Concurrency — other chats/agents may be working RIGHT NOW
 
@@ -108,6 +138,13 @@ agent there). Treat every shared path as live, not yours.
 ## Notes
 
 - Repo is standalone (root IS the workspace); scripts self-resolve their root — plain `scripts/…`.
+- **Paths in `dashboard-store.json` are workspace-RELATIVE** (`designs/<id>/…`), never absolute. The
+  store is checked in and this repo is worked on from several machines (`C:\Users\<x>\Projects\…`,
+  `D:\wamp64\www\…`); an absolute root bakes one box's layout into shared data and every thumbnail
+  breaks on the other. `agent-canva-clone.mjs` relativizes on save (`toRel`/`relativizeDeep`) and
+  `dashboard.html` sits at the root so the browser resolves the relative srcs as-is. Resolve with
+  `toAbs(root, p)` before any `fs` call. Repair a store written by an older/other box with
+  `node scripts/fix-moved-paths.cjs` (idempotent; `--dry` to preview).
 - The Stage-2 CLI authoring rules live in `.claude/agents/template-author-agent.md` in THIS repo
   (ships to `output/`). A separate older copy exists in the `content-gen` repo (ships to `backend/`).
 - Dedupe is by fingerprint, not URL — a recolor of a base template is a real `duplicate`.

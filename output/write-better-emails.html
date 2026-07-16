@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;0,800;1,700;1,800&family=Arimo:wght@400;700&display=swap');
+
+  :root{
+    /* Role tokens. The brand preview re-skins ONLY --primary/--secondary/--accent;
+       canvas + ink stay fixed so the paper-grey/black reading surface holds. Every
+       purple in this deck (the highlight bar, the counter pill, the tip card tint +
+       its border + hard offset shadow, the footer tick, the outro mark) is bound to
+       --accent, so a brand owns the whole personality of the design. */
+    --primary:var(--brand-primary,#4A0DD0);
+    --secondary:var(--brand-secondary,#7A3FF7);
+    --accent:var(--brand-accent,#5B12F5);
+    --highlight:var(--brand-accent,#5B12F5);
+    --bg:var(--brand-bg,#F1F1F1);
+    --surface:var(--brand-surface,#FFFFFF);
+    --text-high:var(--brand-ink,var(--brand-text,#1A1A1A));
+    --text-low:var(--brand-text-muted,rgba(26,26,26,.56));
+    --border:var(--brand-border,rgba(26,26,26,.18));
+    --on-accent:var(--brand-on-accent,#FFFFFF);
+    --on-primary:var(--brand-on-primary,#FFFFFF);
+  }
+
+  *{box-sizing:border-box;}
+
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);font-family:'Poppins',sans-serif;
+  }
+
+  /* ── top row: label left, brand-filled counter pill right ── */
+  .eyebrow{position:absolute;left:100px;top:116px;width:520px;}
+  .eyebrow span{
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+    font-family:'Arimo',sans-serif;font-weight:700;font-size:25px;line-height:1.3;
+    letter-spacing:.17em;text-transform:uppercase;color:var(--text-high);padding-bottom:4px;
+  }
+
+  .pill{
+    position:absolute;right:100px;top:104px;background:var(--accent);border-radius:999px;
+    padding:11px 26px 13px;
+  }
+  .pill span{
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+    font-family:'Arimo',sans-serif;font-weight:700;font-size:25px;line-height:1.3;
+    letter-spacing:.1em;color:var(--on-accent);white-space:nowrap;
+  }
+
+  /* ── the headline stack: heavy ink block + the brand-filled bar line ── */
+  /* The ink stack always LANDS on the brand bar. The lane is a fixed 2 (or 3) line
+     box and the headline is bottom-anchored inside it, so a short generated title
+     sits tight against the bar instead of floating away from it, and a long one
+     fills the lane downward without ever reaching the bar. */
+  .tn-title{position:absolute;left:100px;right:118px;display:flex;align-items:flex-end;}
+  .tn-title h1{width:100%;
+    margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:100px;line-height:1.06;
+    letter-spacing:-.035em;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.1em;
+  }
+
+  .tn-bar{position:absolute;left:100px;right:118px;}
+  .tn-bar h2{
+    margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:100px;line-height:1.06;
+    letter-spacing:-.035em;color:var(--on-accent);background:var(--highlight);
+    width:fit-content;max-width:100%;padding:.04em .14em .16em;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+  }
+
+  .slide--cover .tn-title h1,.slide--outro .tn-title h1{font-size:128px;}
+  .slide--cover .tn-bar h2,.slide--outro .tn-bar h2{font-size:124px;font-style:italic;font-weight:700;}
+  .slide--tip .tn-bar h2{font-size:96px;}
+
+  /* the cover + closer carry the deck on type mass alone: a 3-line ink stack
+     landing on the brand bar, the way the reference fills its canvas. */
+  .slide--cover .tn-title h1,.slide--outro .tn-title h1{-webkit-line-clamp:3;}
+  .slide--cover .tn-title{top:262px;height:424px;}
+  .slide--cover .tn-bar{top:696px;}
+  .slide--outro .tn-title{top:286px;height:424px;}
+  .slide--outro .tn-bar{top:720px;}
+  .slide--tip .tn-title{top:292px;height:224px;}
+  .slide--tip .tn-bar{top:526px;}
+
+  /* ── the tip card: accent tint, accent rule, hard accent offset shadow ── */
+  .card{
+    position:absolute;left:100px;top:722px;width:862px;height:308px;
+    background:color-mix(in srgb, var(--accent) 20%, var(--surface));
+    border:3px solid var(--accent);border-radius:16px;
+    box-shadow:9px 9px 0 var(--accent);
+  }
+
+  .tn-message{position:absolute;left:148px;right:148px;top:766px;}
+  .tn-message p{
+    margin:0;font-family:'Poppins',sans-serif;font-weight:400;font-size:30px;line-height:1.45;
+    letter-spacing:-.005em;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;padding-bottom:6px;
+  }
+  .tn-message b{font-weight:700;color:var(--text-high);}
+
+  /* cover + outro carry the deck copy on the open canvas, no card */
+  .slide--cover .tn-message,.slide--outro .tn-message{left:100px;right:230px;top:906px;}
+  .slide--cover .tn-message p,.slide--outro .tn-message p{font-size:34px;line-height:1.5;color:var(--text-low);-webkit-line-clamp:2;}
+  .slide--outro .tn-message{top:930px;}
+
+  /* ── footer: hairline rule with a brand tick, lockup below ── */
+  .rule{position:absolute;left:100px;right:100px;top:1178px;height:2px;background:var(--border);}
+  .rule::before{content:'';position:absolute;left:0;top:-2px;width:132px;height:6px;background:var(--accent);}
+  /* The accent segment sits on a full-width track beside the NN/07 badge, so it reads
+     as progress — it has to advance with the slide, not hold at 132px on all seven. */
+  .slide:nth-of-type(1) .rule::before{width:calc(100% / 7);}
+  .slide:nth-of-type(2) .rule::before{width:calc(100% * 2 / 7);}
+  .slide:nth-of-type(3) .rule::before{width:calc(100% * 3 / 7);}
+  .slide:nth-of-type(4) .rule::before{width:calc(100% * 4 / 7);}
+  .slide:nth-of-type(5) .rule::before{width:calc(100% * 5 / 7);}
+  .slide:nth-of-type(6) .rule::before{width:calc(100% * 6 / 7);}
+  .slide:nth-of-type(7) .rule::before{width:100%;}
+
+  .foot{position:absolute;left:100px;top:1210px;}
+  .lockup{display:inline-flex;align-items:center;gap:13px;}
+  .brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+  .brand-word{
+    font-family:'Arimo',sans-serif;font-weight:700;font-size:26px;line-height:1.3;
+    letter-spacing:.05em;color:var(--text-low);white-space:nowrap;
+  }
+
+  .mark{position:absolute;right:100px;top:1204px;width:52px;height:52px;color:var(--accent);}
+  .mark svg{width:100%;height:100%;display:block;}
+</style>
+</head>
+
+<body>
+<div class="ig-carousel">
+
+  <!-- Cover -->
+  <section class="slide slide--cover" data-cg-slide-type="text">
+    <div class="eyebrow"><span>Inbox Craft</span></div>
+    <div class="pill"><span>01 / 07</span></div>
+    <div class="tn-title"><h1 data-title="true">Nobody Ever Finishes Reading</h1></div>
+    <div class="tn-bar"><h2 data-tagline="true">Your Email</h2></div>
+    <div class="tn-message"><p data-message="true">Five edits that get you an answer before lunch instead of a read receipt.</p></div>
+    <div class="rule"></div>
+    <div class="foot"><span class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">YOURBRAND</span></span></div>
+  </section>
+
+  <!-- Tip 1 -->
+  <section class="slide slide--tip" data-cg-slide-type="text">
+    <div class="eyebrow"><span>Inbox Craft</span></div>
+    <div class="pill"><span>02 / 07</span></div>
+    <div class="tn-title"><h1 data-title="true">Delete The Line That Says</h1></div>
+    <div class="tn-bar"><h2 data-tagline="true">Hope You're Well</h2></div>
+    <div class="card"></div>
+    <div class="tn-message"><p data-message="true">Your opening line is throat-clearing. <b>Just circling back, quick question, per my last email</b> — none of it earns the read. Start on the sentence you were building up to. Pleasantries belong at the bottom, where nobody has to wade through them.</p></div>
+    <div class="rule"></div>
+    <div class="foot"><span class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">YOURBRAND</span></span></div>
+  </section>
+
+  <!-- Tip 2 -->
+  <section class="slide slide--tip" data-cg-slide-type="text">
+    <div class="eyebrow"><span>Inbox Craft</span></div>
+    <div class="pill"><span>03 / 07</span></div>
+    <div class="tn-title"><h1 data-title="true">One Email Should Carry</h1></div>
+    <div class="tn-bar"><h2 data-tagline="true">Exactly One Ask</h2></div>
+    <div class="card"></div>
+    <div class="tn-message"><p data-message="true">Three requests in one message reliably return zero answers. People reply to the ask they can finish in a minute, then quietly park the rest forever. <b>Pick the one that actually matters</b>, give it its own line, and send the others tomorrow.</p></div>
+    <div class="rule"></div>
+    <div class="foot"><span class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">YOURBRAND</span></span></div>
+  </section>
+
+  <!-- Tip 3 -->
+  <section class="slide slide--tip" data-cg-slide-type="text">
+    <div class="eyebrow"><span>Inbox Craft</span></div>
+    <div class="pill"><span>04 / 07</span></div>
+    <div class="tn-title"><h1 data-title="true">The Subject Line Is A</h1></div>
+    <div class="tn-bar"><h2 data-tagline="true">Filing Decision</h2></div>
+    <div class="card"></div>
+    <div class="tn-message"><p data-message="true">It is not a title, it is a triage label. <b>Budget sign-off, needs you Thursday</b> tells a busy reader what it is, what it wants and when it expires — all from the notification. Vague subjects get opened last, which is the slow way of saying never.</p></div>
+    <div class="rule"></div>
+    <div class="foot"><span class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">YOURBRAND</span></span></div>
+  </section>
+
+  <!-- Tip 4 -->
+  <section class="slide slide--tip" data-cg-slide-type="text">
+    <div class="eyebrow"><span>Inbox Craft</span></div>
+    <div class="pill"><span>05 / 07</span></div>
+    <div class="tn-title"><h1 data-title="true">Say It The Way You</h1></div>
+    <div class="tn-bar"><h2 data-tagline="true">Would Out Loud</h2></div>
+    <div class="card"></div>
+    <div class="tn-message"><p data-message="true">Nobody has ever said <b>please find attached herewith</b> to another human being. Office language is a costume we put on to sound careful, and it lands as distance. Write it the way you would say it across a desk: plain words, short sentences, your own voice.</p></div>
+    <div class="rule"></div>
+    <div class="foot"><span class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">YOURBRAND</span></span></div>
+  </section>
+
+  <!-- Tip 5 -->
+  <section class="slide slide--tip" data-cg-slide-type="text">
+    <div class="eyebrow"><span>Inbox Craft</span></div>
+    <div class="pill"><span>06 / 07</span></div>
+    <div class="tn-title"><h1 data-title="true">A Long Email Is Not The</h1></div>
+    <div class="tn-bar"><h2 data-tagline="true">Same As Respect</h2></div>
+    <div class="card"></div>
+    <div class="tn-message"><p data-message="true">Every extra paragraph you add to sound courteous is work you are quietly handing to somebody else, and they feel the weight of it. <b>Four lines, one ask, done.</b> Brevity is the kindest thing you can send a person whose day is already full.</p></div>
+    <div class="rule"></div>
+    <div class="foot"><span class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">YOURBRAND</span></span></div>
+  </section>
+
+  <!-- Outro -->
+  <section class="slide slide--outro" data-cg-slide-type="text">
+    <div class="eyebrow"><span>Inbox Craft</span></div>
+    <div class="pill"><span>07 / 07</span></div>
+    <div class="tn-title"><h1 data-title="true">Now Go Back And Delete Your</h1></div>
+    <div class="tn-bar"><h2 data-tagline="true">First Draft</h2></div>
+    <div class="tn-message"><p data-cta="true">Five edits, one inbox. Keep them handy for the reply you have been dreading.</p></div>
+    <div class="rule"></div>
+    <div class="foot"><span class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">YOURBRAND</span></span></div>
+    <div class="mark" aria-hidden="true"><svg viewBox="0 0 58 58" fill="none"><path d="M2 14h54v34H2V14z" fill="currentColor"/><path d="M2 14l27 21 27-21" stroke="var(--bg)" stroke-width="5" stroke-linejoin="round" fill="none"/></svg></div>
+  </section>
+
+</div>
+</body>
+</html>

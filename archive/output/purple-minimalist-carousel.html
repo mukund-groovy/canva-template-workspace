@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600;1,700&family=Arimo:wght@400;700&display=swap');
+
+      :root{
+        /* The reference is a purple-on-light-grey editorial deck. Its ONE colour idea is the
+           purple (#5E17EB): the highlight bar behind a headline line, the #2026 tag, the copy
+           card's fill/border/shadow, the bookmark. Every one of those routes to --accent so a
+           brand palette re-skins the whole identity. Canvas + ink stay fixed (readable anywhere). */
+        --primary:var(--brand-primary,#4A0FBF);
+        --secondary:var(--brand-secondary,#7C4DEE);
+        --accent:var(--brand-accent,#5E17EB);
+        --highlight:var(--brand-accent,#5E17EB);
+        --bg:var(--brand-bg,#F1F1F1);
+        --surface:var(--brand-surface,var(--brand-bg-alt,#E7E7E7));
+        --text-high:var(--brand-ink,var(--brand-text,#191919));
+        --text-low:var(--brand-text-muted,rgba(25,25,25,.52));
+        --border:var(--brand-border,rgba(25,25,25,.16));
+
+        /* on-colours: text that sits ON an accent/primary fill. The skinner supplies an
+           AA-safe value; never hardcode #fff here or a light brand accent goes unreadable. */
+        --on-accent:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+
+        /* the reference card fill #D2BCFF is exactly a 28% tint of the accent on white —
+           so expressing it as a mix keeps the reference colour AND makes the card re-skin. */
+        --card-fill:color-mix(in srgb, var(--accent) 28%, #ffffff);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);
+        font-family:'Poppins','Arimo',sans-serif;
+      }
+
+      /* ── header row: brand lockup (was the source byline) + the accent year tag ── */
+      .head{position:absolute;left:108px;right:108px;top:104px;height:44px;z-index:4;display:flex;align-items:center;justify-content:space-between;}
+      .lockup{display:inline-flex;align-items:center;gap:12px;}
+      .brand-mark-clip{flex:none;height:34px;display:flex;align-items:center;}
+      .brand-mark{height:34px;width:auto;max-width:110px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Poppins',sans-serif;font-weight:500;font-size:34px;letter-spacing:-.01em;color:var(--text-high);white-space:nowrap;}
+      /* The reference sets #2026 as plain purple TEXT on the light canvas. Reproduced literally
+         that is brand-fragile: --bg is fixed light, so a light brand accent (yellow/lime) drops
+         it to ~1.2:1 and it vanishes. Rendered instead as a filled accent chip with --on-accent
+         text — same device family as the headline bar (this deck's signature), legible on every
+         palette, and it keeps the cover/closer off the brand-starved floor. */
+      .tag{
+        font-family:'Poppins',sans-serif;font-weight:700;font-size:27px;letter-spacing:-.01em;
+        color:var(--on-accent);background:var(--accent);white-space:nowrap;
+        line-height:1;padding:8px 14px 9px;border-radius:9px;
+      }
+
+      /* ── headline ── */
+      .tn-title{position:absolute;left:108px;z-index:3;}
+      .tn-title h1{
+        margin:0;font-family:'Poppins',sans-serif;font-weight:700;color:var(--text-high);
+        letter-spacing:-.028em;
+        display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;
+      }
+      /* cover + cta headline: 129px / 5 lines / box 820x730 (from decoded geometry) */
+      .slide--big .tn-title{top:312px;width:880px;}
+      .slide--big .tn-title h1{font-size:129px;line-height:1.13;-webkit-line-clamp:5;padding-bottom:.1em;}
+      /* body-slide headline: 102px / 3 lines / box ~880x350 */
+      .slide--std .tn-title{top:332px;width:892px;}
+      .slide--std .tn-title h1{font-size:102px;line-height:1.14;-webkit-line-clamp:3;padding-bottom:.1em;}
+
+      .w5{font-weight:500;}
+      .w7{font-weight:700;}
+
+      /* the signature device: a solid accent bar behind one headline line, with the line's
+         text in the on-accent colour. inline-block + tuned padding so the bar clears the
+         descenders of "Quickly" / "Every" / "for" instead of slicing their tails.
+         Geometry: with line-height .86 the inline-block's baseline sits ~.78em below its top,
+         and padding-bottom .16em carries the box past Poppins' descender, so "Quickly"/"Every"/
+         "for" keep their tails INSIDE the bar (the DESCENDER gate measures this to the px).
+         Total height ~1.02em stays under the 1.14em line-height, so the bar never eats the
+         descender of the line ABOVE it — which is what "forget to" hit at .12em padding. */
+      .hl{
+        display:inline-block;background:var(--accent);color:var(--on-accent);
+        line-height:.86;padding:0 .06em .16em;
+      }
+
+      /* ── copy card (slides 2–6) ── */
+      .card{
+        position:absolute;left:108px;top:716px;width:850px;height:320px;z-index:1;
+        background:var(--card-fill);border:4px solid var(--accent);border-radius:20px;
+        box-shadow:10px 10px 0 var(--accent);
+      }
+      /* text sits ABOVE the card surface, never under it */
+      .tn-message{position:absolute;left:158px;top:756px;width:750px;z-index:3;}
+      .tn-message p{
+        margin:0;font-family:'Poppins',sans-serif;font-weight:400;font-size:30px;line-height:1.32;
+        letter-spacing:-.005em;color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;overflow:hidden;padding-bottom:.12em;
+      }
+      .tn-message strong{font-weight:700;}
+
+      /* ── footer: hairline rule, neutral site line, folio counter ── */
+      .foot-rule{position:absolute;left:108px;right:108px;top:1156px;height:1px;background:var(--border);z-index:2;}
+      .foot{position:absolute;left:108px;right:108px;top:1198px;height:44px;z-index:4;display:flex;align-items:center;justify-content:space-between;}
+      /* the site line is a SPAN, not a <p>: as a second body paragraph the slide merge would
+         fill the card copy and BLANK this line on every content slide. */
+      .tn-cta{flex:none;max-width:520px;}
+      .tn-cta .site{
+        margin:0;font-family:'Poppins',sans-serif;font-weight:400;font-style:italic;font-size:29px;
+        color:var(--text-low);white-space:nowrap;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.1em;
+      }
+      .cg-slide-counter{flex:none;font-family:'Poppins',sans-serif;font-weight:700;font-size:29px;letter-spacing:.02em;color:var(--text-high);}
+
+      /* slide 7's bookmark glyph — the reference's save-for-later mark, accent filled */
+      .bookmark{flex:none;width:50px;height:64px;display:block;color:var(--accent);}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- 01 — cover -->
+      <section class="slide slide--big" data-cg-slide-type="cover">
+        <div class="head">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+          <span class="tag">#2026</span>
+        </div>
+        <div class="tn-title"><h1 data-title="true"><span class="w5">Level Up</span><br><span class="w7">Your Smart</span><br><span class="hl"><em>Mindset</em></span><br><span class="w7">With Clear</span><br><span class="w5">Focus</span></h1></div>
+        <div class="foot-rule" aria-hidden="true"></div>
+        <div class="foot">
+          <div class="tn-cta"><span class="site" data-cta="true">www.yourbrandsite.com</span></div>
+          <span class="cg-slide-counter" data-counter="true">01 / 07</span>
+        </div>
+      </section>
+
+      <!-- 02 -->
+      <section class="slide slide--std" data-cg-slide-type="text">
+        <div class="head">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+          <span class="tag">#2026</span>
+        </div>
+        <div class="tn-title"><h1 data-title="true"><span class="w7">Think Smart</span><br><span class="hl w5">Always For Better</span><br><span class="w7">Decisions</span></h1></div>
+        <div class="card" aria-hidden="true"></div>
+        <div class="tn-message"><p data-message="true">Make thoughtful decisions instead of reacting quickly. <strong>Smart thinking</strong> leads to better outcomes and success in life. Taking time to understand situations helps <strong>avoid mistakes</strong>, reduce stress, improve communication, and allows you to respond wisely <strong>every day</strong>.</p></div>
+        <div class="foot-rule" aria-hidden="true"></div>
+        <div class="foot">
+          <div class="tn-cta"><span class="site" data-cta="true">www.yourbrandsite.com</span></div>
+          <span class="cg-slide-counter" data-counter="true">02 / 07</span>
+        </div>
+      </section>
+
+      <!-- 03 -->
+      <section class="slide slide--std" data-cg-slide-type="text">
+        <div class="head">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+          <span class="tag">#2026</span>
+        </div>
+        <div class="tn-title"><h1 data-title="true"><span class="w7">Stay Fully</span><br><span class="hl w5">Focused Without</span><br><span class="w7">Any Distractions</span></h1></div>
+        <div class="card" aria-hidden="true"></div>
+        <div class="tn-message"><p data-message="true">Avoid unnecessary distractions and give your full energy to what truly matters. <strong>Focus helps</strong> you grow faster, improve your mindset, build better habits, <strong>increase productivity</strong>, and achieve long-term success with greater confidence and consistency <strong>every day</strong>.</p></div>
+        <div class="foot-rule" aria-hidden="true"></div>
+        <div class="foot">
+          <div class="tn-cta"><span class="site" data-cta="true">www.yourbrandsite.com</span></div>
+          <span class="cg-slide-counter" data-counter="true">03 / 07</span>
+        </div>
+      </section>
+
+      <!-- 04 -->
+      <section class="slide slide--std" data-cg-slide-type="text">
+        <div class="head">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+          <span class="tag">#2026</span>
+        </div>
+        <div class="tn-title"><h1 data-title="true"><span class="w7">Build Strong</span><br><span class="hl w5">Thinking Skills for</span><br><span class="w7">Daily Growth</span></h1></div>
+        <div class="card" aria-hidden="true"></div>
+        <div class="tn-message"><p data-message="true">Develop the ability to think clearly and logically. Strong thinking helps you make <strong>better decisions</strong> in every situation, improves problem-solving skills, <strong>builds confidence</strong>, increases self-awareness, and allows you to handle challenges with a calm and focused mindset <strong>every day</strong>.</p></div>
+        <div class="foot-rule" aria-hidden="true"></div>
+        <div class="foot">
+          <div class="tn-cta"><span class="site" data-cta="true">www.yourbrandsite.com</span></div>
+          <span class="cg-slide-counter" data-counter="true">04 / 07</span>
+        </div>
+      </section>
+
+      <!-- 05 -->
+      <section class="slide slide--std" data-cg-slide-type="text">
+        <div class="head">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+          <span class="tag">#2026</span>
+        </div>
+        <div class="tn-title"><h1 data-title="true"><span class="w7">Adapt To</span><br><span class="hl w5">Change Quickly</span><br><span class="w7">Always Evolving</span></h1></div>
+        <div class="card" aria-hidden="true"></div>
+        <div class="tn-message"><p data-message="true">Stay open to new ideas and situations. <strong>Being adaptable</strong> helps you handle challenges with ease, improve confidence, <strong>learn valuable skills</strong>, adjust to <strong>changes quickly</strong>, and continue growing with a positive and flexible mindset <strong>every day</strong> through patience, resilience, and consistency.</p></div>
+        <div class="foot-rule" aria-hidden="true"></div>
+        <div class="foot">
+          <div class="tn-cta"><span class="site" data-cta="true">www.yourbrandsite.com</span></div>
+          <span class="cg-slide-counter" data-counter="true">05 / 07</span>
+        </div>
+      </section>
+
+      <!-- 06 -->
+      <section class="slide slide--std" data-cg-slide-type="text">
+        <div class="head">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+          <span class="tag">#2026</span>
+        </div>
+        <div class="tn-title"><h1 data-title="true"><span class="w7">Make Smart</span><br><span class="hl w5">Decisions Every</span><br><span class="w7">Time Clearly</span></h1></div>
+        <div class="card" aria-hidden="true"></div>
+        <div class="tn-message"><p data-message="true">Choose wisely by thinking and using the information to make the best decisions. <strong>Smart decision-making</strong> helps reduce mistakes, improves <strong>problem-solving</strong> abilities, <strong>builds confidence</strong>, and allows you to handle situations with clarity and <strong>understanding</strong>.</p></div>
+        <div class="foot-rule" aria-hidden="true"></div>
+        <div class="foot">
+          <div class="tn-cta"><span class="site" data-cta="true">www.yourbrandsite.com</span></div>
+          <span class="cg-slide-counter" data-counter="true">06 / 07</span>
+        </div>
+      </section>
+
+      <!-- 07 — cta -->
+      <section class="slide slide--big" data-cg-slide-type="cta">
+        <div class="head">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+          <span class="tag">#2026</span>
+        </div>
+        <div class="tn-title"><h1 data-title="true"><span class="w5">Don&rsquo;t</span><br><span class="w7">forget to</span><br><span class="hl"><em>save this</em></span><br><span class="w7">post for</span><br><span class="w5">later</span></h1></div>
+        <div class="foot-rule" aria-hidden="true"></div>
+        <div class="foot">
+          <div class="tn-cta"><span class="site" data-cta="true">www.yourbrandsite.com</span></div>
+          <svg class="bookmark" viewBox="0 0 44 56" fill="none" aria-hidden="true"><path d="M2 2H42V54L22 38L2 54V2Z" fill="currentColor"/></svg>
+        </div>
+      </section>
+
+    </div>
+  </body>
+</html>

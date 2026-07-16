@@ -29,6 +29,37 @@ function toIsoNow() {
   return new Date().toISOString();
 }
 
+// ── portable paths ───────────────────────────────────────────────────────────
+// The store is shared across machines (and checked in), so it must never record
+// where THIS box keeps the workspace. Anything under the workspace root is stored
+// workspace-relative with '/' separators; paths outside it (e.g. content-gen's
+// backend) stay absolute. Resolve with toAbs() before touching the filesystem.
+function toRel(workspaceRoot, p) {
+  if (!p || typeof p !== 'string') return p;
+  if (!path.isAbsolute(p)) return p.replace(/\\/g, '/');
+  const rel = path.relative(workspaceRoot, p);
+  if (!rel || rel.startsWith('..') || path.isAbsolute(rel)) return p; // outside the workspace
+  return rel.replace(/\\/g, '/');
+}
+
+function toAbs(workspaceRoot, p) {
+  if (!p || typeof p !== 'string') return p;
+  return path.isAbsolute(p) ? p : path.resolve(workspaceRoot, p);
+}
+
+// Deep-relativize every path string in an entry. Catch-all for nested payloads
+// (clone.outputs.*) that arrive absolute from the sub-scripts' JSON.
+function relativizeDeep(workspaceRoot, node) {
+  if (typeof node === 'string') return toRel(workspaceRoot, node);
+  if (Array.isArray(node)) return node.map((v) => relativizeDeep(workspaceRoot, v));
+  if (node && typeof node === 'object') {
+    const out = {};
+    for (const [k, v] of Object.entries(node)) out[k] = relativizeDeep(workspaceRoot, v);
+    return out;
+  }
+  return node;
+}
+
 function durationMs(startedAt, finishedAt) {
   const s = Date.parse(String(startedAt || ''));
   const f = Date.parse(String(finishedAt || ''));
@@ -220,7 +251,7 @@ function statusCounts(entries) {
   return base;
 }
 
-const DASHBOARD_SHELL_VERSION = 3;
+const DASHBOARD_SHELL_VERSION = 10;
 
 // Static shell — the data lives in dashboard-data.js (window.__DASH__), which is
 // loaded + polled client-side. A change patches only the modified <tr> (keyed by
@@ -294,6 +325,9 @@ function renderDashboardShell() {
     .btn{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;text-decoration:none;padding:6px 11px;border-radius:8px;border:1px solid var(--brd);color:var(--ink);background:rgba(255,255,255,.04);cursor:pointer;white-space:nowrap;transition:.12s}
     .btn:hover{background:rgba(124,156,255,.16);border-color:rgba(124,156,255,.5)}
     .btn.primary{background:linear-gradient(92deg,#5b78ff,#7c9cff);border-color:transparent;color:#0b0e14;font-weight:700}
+    .btn.remix{border-color:#5a4326;background:rgba(240,168,104,.12);color:#f0a868}
+    .btn.remix:hover{border-color:#f0a868}
+    .chip.rx{color:#f0a868;border-color:#5a4326;background:rgba(240,168,104,.1)}
     .btn.ghost{color:var(--muted)}
     .when{color:var(--faint);font-size:12px;white-space:nowrap}.when b{color:var(--ink);font-weight:600}
     .empty{padding:56px;text-align:center;color:var(--muted)}
@@ -301,12 +335,41 @@ function renderDashboardShell() {
     .modal[hidden]{display:none}
     .mbg{position:absolute;inset:0;background:rgba(6,8,12,.72);backdrop-filter:blur(4px)}
     .mbox{position:relative;width:min(1180px,94vw);height:min(90vh,1000px);background:#0e121a;border:1px solid var(--brd);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+    /* Gallery mode hugs its content — the fixed height is for the iframe (which would
+       collapse in an auto-height flex box) and left a short deck sitting on black. */
+    .modal.gal .mbox{height:auto;max-height:min(90vh,1000px)}
+    .modal.gal .mgal{flex:0 1 auto}
     .mhead{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;border-bottom:1px solid var(--brd);background:#12151d}
     .mtitle{font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .mtitle span{color:var(--faint);font-weight:400;font-size:12px;margin-left:8px}
     .mclose{border:1px solid var(--brd);background:rgba(255,255,255,.05);color:var(--ink);border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:15px;flex:none}
     .mclose:hover{background:rgba(255,107,107,.18);border-color:rgba(255,107,107,.5)}
     .mframe{flex:1;border:0;width:100%;background:#0b0e14}
+    .mgal{flex:1;overflow:auto;background:#0b0e14;padding:18px 20px 28px}
+    /* One line per slide: reference first, each generated deck to its right. */
+    .cmp{display:flex;flex-direction:column;gap:14px;min-width:min-content}
+    /* Cap the column so a single-set row (just the reference) doesn't blow one slide up
+       to the full modal width — a portrait slide then runs ~1450px tall. */
+    .crow{display:grid;grid-template-columns:34px repeat(var(--cols),minmax(190px,360px));gap:14px;align-items:start;justify-content:start}
+    .chead{position:sticky;top:-18px;background:#0b0e14;padding:6px 0 8px;z-index:2;margin-bottom:-4px}
+    .chd{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+         padding:5px 9px;border:1px solid var(--brd);border-radius:7px;text-align:center;
+         overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .chd.orig{color:#6ea8fe;border-color:#2b3f63;background:rgba(110,168,254,.1)}
+    .chd.auth{color:#7ee0a8;border-color:#2a4d39;background:rgba(126,224,168,.1)}
+    .chd.rx{color:#f0a868;border-color:#5a4326;background:rgba(240,168,104,.1)}
+    .cn{color:var(--muted);font-size:11px;text-align:right;padding-top:7px;font-variant-numeric:tabular-nums}
+    .cmp figure{margin:0}
+    .cmp img{width:100%;display:block;border:1px solid var(--brd);border-radius:8px;background:#fff}
+    .cmiss{border:1px dashed var(--brd);border-radius:8px;color:var(--muted);font-size:12px;
+           display:flex;align-items:center;justify-content:center;aspect-ratio:4/5}
+    /* Reference-only: wrap across the width rather than leaving the modal mostly black. */
+    .cmp1 .chd{display:inline-block;margin-bottom:14px}
+    .cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;align-content:start}
+    .cgrid figure{margin:0;position:relative}
+    .cgrid img{width:100%;display:block;border:1px solid var(--brd);border-radius:8px;background:#fff}
+    .cgrid figcaption{position:absolute;top:8px;left:8px;font-size:10px;font-weight:700;color:#fff;
+                      background:rgba(8,10,16,.72);border-radius:5px;padding:2px 6px;font-variant-numeric:tabular-nums}
   </style>
 </head>
 <body>
@@ -342,6 +405,7 @@ function renderDashboardShell() {
     <div class="mbox">
       <div class="mhead"><div class="mtitle" id="mtitle"></div><button class="mclose" id="mclose" title="Close (Esc)">✕</button></div>
       <iframe class="mframe" id="mframe" src="about:blank"></iframe>
+      <div class="mgal" id="mgal" hidden></div>
     </div>
   </div>
   <script src="dashboard-data.js"></script>
@@ -355,18 +419,79 @@ function renderDashboardShell() {
     function normalizeStatus(s){const k=String(s||'').toLowerCase(); if(k==='queued') return 'pending'; if(k==='running') return 'generating'; return VALID.has(k)?k:'pending';}
     function fmtDate(s){if(!s) return '-'; const d=new Date(s); if(Number.isNaN(d.getTime())) return esc(s); return d.toLocaleString();}
     function fmtMs(ms){if(!(Number.isFinite(ms)&&ms>=0)) return '-'; if(ms<1000) return ms+' ms'; const sec=Math.round(ms/1000); if(sec<60) return sec+' s'; const m=Math.floor(sec/60); return m+'m '+(sec%60)+'s';}
-    function fileHref(p){if(!p) return ''; return 'file:///'+String(p).replace(/\\\\/g,'/');}
+    // Store paths are workspace-relative; this shell lives at the workspace root, so
+    // the browser resolves them as-is. Only a path outside the workspace is absolute.
+    function fileHref(p){if(!p) return ''; var s=String(p).replace(/\\\\/g,'/');
+      return /^([A-Za-z]:\\/|\\/)/.test(s) ? 'file:///'+s.replace(/^\\//,'') : s;}
     function sortedEntries(){return (Array.isArray(STORE.entries)?STORE.entries.slice():[]).sort((a,b)=>String(b.createdAt||b.updatedAt||'').localeCompare(String(a.createdAt||a.updatedAt||'')));}
     let entries = sortedEntries();
 
     // ---- modal (in-page iframe preview; no new tabs) ----
-    const modal=document.getElementById('modal'),mframe=document.getElementById('mframe'),mtitle=document.getElementById('mtitle');
-    function openModal(href,title,sub){ if(!href) return; mframe.src=href; mtitle.innerHTML=esc(title)+(sub?'<span>'+esc(sub)+'</span>':''); modal.hidden=false; document.body.style.overflow='hidden'; }
-    function closeModal(){ modal.hidden=true; mframe.src='about:blank'; document.body.style.overflow=''; }
+    const modal=document.getElementById('modal'),mframe=document.getElementById('mframe'),mtitle=document.getElementById('mtitle'),mgal=document.getElementById('mgal');
+    // Two modes.
+    // COMPARE — one LINE PER SLIDE: the Canva reference on the left, each generated deck
+    //   (faithful template, then any remixes) to its right. Neither source can be opened
+    //   as a file and read: the deck HTML is a horizontal 1080px-per-slide strip (you'd
+    //   see slide 1 only) and a thumbnail is a single page. So preview from the renders.
+    // IFRAME — an actual page (comparison.html, summary), opened as-is.
+    function openCompare(e){
+      const m=e.meta||{};
+      const sets=[];
+      if(Array.isArray(e.pageThumbs)&&e.pageThumbs.length) sets.push({label:'Original',cls:'orig',imgs:e.pageThumbs});
+      if(Array.isArray(e.archetypeSlides)&&e.archetypeSlides.length) sets.push({label:e.archetypeSlug||'Template',cls:'auth',imgs:e.archetypeSlides});
+      for(const r of (Array.isArray(e.remixes)?e.remixes:[])) if(Array.isArray(r.slides)&&r.slides.length) sets.push({label:r.slug,cls:'rx',imgs:r.slides});
+      if(!sets.length) return false;
+      // Nothing generated yet — one column would leave most of the modal black, so wrap
+      // the reference slides across the full width instead.
+      if(sets.length===1){
+        const s=sets[0];
+        mgal.innerHTML='<div class="cmp1"><div class="chd '+s.cls+'">'+esc(s.label)+' · '+s.imgs.length+' slides</div>'+
+          '<div class="cgrid">'+s.imgs.map((p,i)=>'<figure><img loading="lazy" src="'+esc(fileHref(p))+'" alt="slide '+(i+1)+'"/><figcaption>'+String(i+1).padStart(2,'0')+'</figcaption></figure>').join('')+'</div></div>';
+        mgal.hidden=false; mframe.hidden=true; mframe.src='about:blank'; mgal.scrollTop=0; modal.classList.add('gal');
+        mtitle.innerHTML=esc(m.title||e.designId||'Preview')+'<span>'+esc(s.label)+' — not generated yet</span>';
+        modal.hidden=false; document.body.style.overflow='hidden';
+        return true;
+      }
+      const rows=Math.max.apply(null,sets.map(s=>s.imgs.length));
+      let h='<div class="cmp" style="--cols:'+sets.length+'">';
+      h+='<div class="crow chead"><div class="cn"></div>'+sets.map(s=>'<div class="chd '+s.cls+'">'+esc(s.label)+'</div>').join('')+'</div>';
+      for(let i=0;i<rows;i++){
+        h+='<div class="crow"><div class="cn">'+String(i+1).padStart(2,'0')+'</div>';
+        for(const s of sets){
+          const p=s.imgs[i];
+          h+=p?'<figure><img loading="lazy" src="'+esc(fileHref(p))+'" alt="'+esc(s.label)+' slide '+(i+1)+'"/></figure>'
+             :'<div class="cmiss">—</div>';
+        }
+        h+='</div>';
+      }
+      h+='</div>';
+      mgal.innerHTML=h; mgal.hidden=false; mframe.hidden=true; mframe.src='about:blank'; mgal.scrollTop=0; modal.classList.add('gal');
+      const sub=sets.map(s=>s.label).join('  →  ');
+      mtitle.innerHTML=esc(m.title||e.designId||'Preview')+'<span>'+esc(sub)+'</span>';
+      modal.hidden=false; document.body.style.overflow='hidden';
+      return true;
+    }
+    function openModal(href,title,sub){
+      if(!href) return;
+      mframe.src=href; mframe.hidden=false; mgal.hidden=true; mgal.innerHTML=''; modal.classList.remove('gal');
+      mtitle.innerHTML=esc(title)+(sub?'<span>'+esc(sub)+'</span>':'');
+      modal.hidden=false; document.body.style.overflow='hidden';
+    }
+    function closeModal(){ modal.hidden=true; mframe.src='about:blank'; mgal.innerHTML=''; document.body.style.overflow=''; }
     document.getElementById('mclose').onclick=closeModal;
     modal.querySelector('[data-close]').onclick=closeModal;
     document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
-    document.addEventListener('click',e=>{ const t=e.target.closest('[data-modal]'); if(t){ e.preventDefault(); openModal(t.getAttribute('data-href'),t.getAttribute('data-title'),t.getAttribute('data-sub')||''); }});
+    document.addEventListener('click',e=>{
+      const t=e.target.closest('[data-modal]'); if(!t) return; e.preventDefault();
+      // data-compare rows build their view from the entry (reference + every generated
+      // deck, one line per slide); everything else is a real page for the iframe.
+      const id=t.getAttribute('data-compare');
+      if(id){
+        const en=(Array.isArray(STORE.entries)?STORE.entries:[]).find(x=>String(x.designId)===id);
+        if(en&&openCompare(en)) return;
+      }
+      openModal(t.getAttribute('data-href'),t.getAttribute('data-title'),t.getAttribute('data-sub')||'');
+    });
 
     // ---- filters (status chips + search) ----
     let activeFilter='all', term='';
@@ -391,15 +516,33 @@ function renderDashboardShell() {
     function row(e){
       const st=normalizeStatus(e.status),c=SC[st]||'#8a94a3',m=e.meta||{},gate=e.qualityGate||{};
       const rmse=(m.rmse!=null)?Number(m.rmse).toFixed(3):null,met=gate.met;
+      // Preview = reference beside every generated deck, one line per slide (built from
+      // the entry at click time). Falls back to the comparison page, then the thumbnail,
+      // for rows with no renders on this box.
+      const canCmp=(Array.isArray(e.pageThumbs)&&e.pageThumbs.length)?' data-compare="'+esc(e.designId||'')+'"':'';
       const preview=e.comparison||e.thumb;
-      const thumb=e.thumb?'<img class="thumb" src="'+esc(fileHref(e.thumb))+'" data-modal data-href="'+esc(fileHref(preview))+'" data-title="'+esc(m.title||e.designId||'Preview')+'" data-sub="Original → replica → variant" title="Open preview" alt=""/>':'';
+      const nSets=1+(Array.isArray(e.archetypeSlides)&&e.archetypeSlides.length?1:0)+(Array.isArray(e.remixes)?e.remixes.filter(r=>Array.isArray(r.slides)&&r.slides.length).length:0);
+      const psub=canCmp?(nSets>1?'original + '+(nSets-1)+' generated':(Array.isArray(e.pageThumbs)?e.pageThumbs.length:0)+' reference slides'):'Original → replica → variant';
+      const thumb=e.thumb?'<img class="thumb" src="'+esc(fileHref(e.thumb))+'"'+canCmp+' data-modal data-href="'+esc(fileHref(preview))+'" data-title="'+esc(m.title||e.designId||'Preview')+'" data-sub="'+esc(psub)+'" title="Open preview" alt=""/>':'';
       const pal=(Array.isArray(m.palette)?m.palette:[]).slice(0,5).map(x=>'<span class="sw" style="background:'+esc(x)+'"></span>').join('');
-      const details='<div class="meta"><div class="mrow">'+(m.pages?'<span class="chip"><b>'+m.pages+'</b> slides</span>':'')+(Array.isArray(m.fonts)&&m.fonts.length?'<span class="chip">'+m.fonts.slice(0,2).map(esc).join(' · ')+'</span>':'')+'</div>'+(pal?'<div class="mrow">'+pal+'</div>':'')+'</div>';
+      const nRemix=Array.isArray(e.remixes)?e.remixes.length:0;
+      const details='<div class="meta"><div class="mrow">'+(m.pages?'<span class="chip"><b>'+m.pages+'</b> slides</span>':'')+(Array.isArray(m.fonts)&&m.fonts.length?'<span class="chip">'+m.fonts.slice(0,2).map(esc).join(' · ')+'</span>':'')+(nRemix?'<span class="chip rx" title="remix templates generated from this reference"><b>'+nRemix+'</b> remix</span>':'')+'</div>'+(pal?'<div class="mrow">'+pal+'</div>':'')+'</div>';
       const sc=(m.score!=null)?Number(m.score):null;
       const score=sc!=null?'<span class="score '+(sc>=8?'ok':sc>=5?'mid':'bad')+'" title="gate-derived quality score">'+sc+'<span class="p">/10</span></span>':'<span class="when">—</span>';
+      // Remixes are the DEFAULT output of "generate" and ship standalone (own slug, no
+      // archetype-map entry, design stays 'cloned') — so they only reach the user here.
+      const remixes=Array.isArray(e.remixes)?e.remixes:[];
+      const remixBtns=remixes.map(r=>{
+        // With renders, show it beside the reference in the compare view; without (deck
+        // generated on another box), open the deck HTML — a strip, but it's all there is.
+        return (Array.isArray(r.slides)&&r.slides.length)
+          ? '<button class="btn remix" data-modal data-compare="'+esc(e.designId||'')+'" title="Remix — same design language, its own content · '+esc(r.output)+'">'+esc(r.slug)+' ↗</button>'
+          : '<a class="btn remix" href="'+esc(fileHref(r.output))+'" target="_blank" rel="noreferrer" title="Remix — same design language, its own content: '+esc(r.output)+'">'+esc(r.slug)+' ↗</a>';
+      }).join('');
       const files='<div class="files">'+
         (e.comparison?'<button class="btn primary" data-modal data-href="'+esc(fileHref(e.comparison))+'" data-title="Comparison" data-sub="'+esc(e.designId)+'">Preview ↗</button>':'')+
         (e.archetype?'<a class="btn" href="'+esc(fileHref(e.archetype))+'" target="_blank" rel="noreferrer" title="Open the generated template HTML: '+esc(e.archetype)+'">Template ↗</a>':'')+
+        remixBtns+
         fileBtn('ghost','Summary', e.summary)+
         (e.sourceUrl?'<a class="btn ghost" href="'+esc(e.sourceUrl)+'" target="_blank" rel="noreferrer" title="'+esc(e.sourceUrl)+'">Source ↗</a>':'')+
       '</div>';
@@ -525,8 +668,9 @@ function enrichEntryMeta(workspaceRoot, entry) {
   const archCover = path.join(designRoot, 'archetype-cover.png');
   const origThumb = path.join(designRoot, 'extract', 'assets', 'pages', 'page-01-preview.png');
   const thumb = fs.existsSync(archCover) ? archCover : fs.existsSync(origThumb) ? origThumb : null;
-  if (thumb && entry.thumb !== thumb) {
-    entry.thumb = thumb;
+  const thumbRel = toRel(workspaceRoot, thumb);
+  if (thumbRel && entry.thumb !== thumbRel) {
+    entry.thumb = thumbRel;
     changed = true;
   }
   return changed;
@@ -559,7 +703,9 @@ function saveDashboardLocked(workspaceRoot, store, { storePath, htmlPath, dataPa
   const normalized = {
     version: 1,
     generatedAt: toIsoNow(),
-    entries: [...byId.values()],
+    // Store workspace-relative paths — an absolute root here would make the store
+    // (and the dashboard built from it) valid on exactly one machine.
+    entries: [...byId.values()].map((e) => relativizeDeep(workspaceRoot, e)),
   };
   for (const e of normalized.entries) {
     e.status = normalizeStatus(e.status);
@@ -654,15 +800,85 @@ function reconcileEntryFromWorkspace(workspaceRoot, entry) {
   }
 
   if (fs.existsSync(extractDir) && !entry.extractDir) {
-    entry.extractDir = extractDir;
+    entry.extractDir = toRel(workspaceRoot, extractDir);
     changed = true;
   }
+  // Every reference page, for the preview gallery. The modal used to open a single
+  // file, so a row without a comparison fell back to entry.thumb and showed ONLY page
+  // 1 — on 23 of 46 rows. The per-page thumbnails are always on disk after a clone;
+  // derive the whole list so the preview can show the real deck.
+  const pagesDir = path.join(designRoot, 'extract', 'assets', 'pages');
+  let pageThumbs = [];
+  try {
+    pageThumbs = fs
+      .readdirSync(pagesDir)
+      .filter((f) => /^page-\d+-thumbnail\.png$/i.test(f))
+      .sort()
+      .map((f) => toRel(workspaceRoot, path.join(pagesDir, f)));
+  } catch {
+    // No pages dir yet (design not cloned) — leave the list empty.
+  }
+  if (JSON.stringify(entry.pageThumbs || []) !== JSON.stringify(pageThumbs)) {
+    if (pageThumbs.length) entry.pageThumbs = pageThumbs;
+    else delete entry.pageThumbs;
+    changed = true;
+  }
+
+  // Remixes derived from remix-map.json (slug -> designId). A remix ships standalone —
+  // it never owns the design's archetype-map entry or its cloned->success flip — but it
+  // IS the default output of "generate", so the dashboard has to surface it or every
+  // generation looks like it did nothing. Many remixes per design are expected.
+  const remixMapPath = path.join(workspaceRoot, 'remix-map.json');
+  const outDirName = fs.existsSync(path.join(workspaceRoot, 'output'))
+    ? path.join(workspaceRoot, 'output')
+    : path.resolve(workspaceRoot, '..', 'backend', 'database', 'carousels');
+  let remixes = [];
+  try {
+    const rmap = fs.existsSync(remixMapPath) ? JSON.parse(fs.readFileSync(remixMapPath, 'utf8')) : {};
+    remixes = Object.entries(rmap && typeof rmap === 'object' ? rmap : {})
+      .filter(([, id]) => String(id) === String(entry.designId))
+      .map(([slug]) => ({ slug, html: path.join(outDirName, `${slug}.html`) }))
+      .filter((r) => fs.existsSync(r.html)) // derived: a deleted template drops off the row
+      .map((r) => {
+        // The deck HTML is a horizontal 1080px-per-slide strip, so opening it shows only
+        // slide 1 — preview from the renders instead when they exist on this box.
+        const rdir = path.join(workspaceRoot, '.renders', 'output', r.slug);
+        let slides = [];
+        try {
+          slides = fs
+            .readdirSync(rdir)
+            .filter((f) => /^slide-\d+\.png$/i.test(f))
+            .sort()
+            .map((f) => toRel(workspaceRoot, path.join(rdir, f)));
+        } catch {}
+        const out = { slug: r.slug, output: toRel(workspaceRoot, r.html) };
+        if (slides.length) out.slides = slides;
+        return out;
+      })
+      .sort((a, b) => a.slug.localeCompare(b.slug));
+  } catch {
+    // A malformed remix-map must not break the dashboard build.
+  }
+  if (JSON.stringify(entry.remixes || []) !== JSON.stringify(remixes)) {
+    if (remixes.length) entry.remixes = remixes;
+    else delete entry.remixes;
+    changed = true;
+  }
+
+  // Comparison is DERIVED from disk, so absence must be honoured, not just presence.
+  // comparison.html is gitignored and built per-machine: a row cloned on another box
+  // arrives pointing at a file that was never checked in, and the dashboard then
+  // renders a Preview button that opens an empty modal. Clear it when it's not there.
   const comparisonPath = path.join(designRoot, 'comparison.html');
   if (fs.existsSync(comparisonPath)) {
-    if (entry.comparison !== comparisonPath) {
-      entry.comparison = comparisonPath;
+    const comparisonRel = toRel(workspaceRoot, comparisonPath);
+    if (entry.comparison !== comparisonRel) {
+      entry.comparison = comparisonRel;
       changed = true;
     }
+  } else if (entry.comparison) {
+    delete entry.comparison;
+    changed = true;
   }
   // Archetype (the actual deliverable) — resolved from archetype-map.json. The
   // pixel clone in entry.output is only the internal reference; when a design has
@@ -682,9 +898,10 @@ function reconcileEntryFromWorkspace(workspaceRoot, entry) {
         slug &&
         (fs.existsSync(path.join(workspaceRoot, 'output', `${slug}.html`)) ||
           fs.existsSync(path.resolve(workspaceRoot, '..', 'backend', 'database', 'carousels', `${slug}.html`)));
-      if (!stillOnDisk && (entry.archetype || entry.archetypeSlug)) {
+      if (!stillOnDisk && (entry.archetype || entry.archetypeSlug || entry.archetypeSlides)) {
         delete entry.archetype;
         delete entry.archetypeSlug;
+        delete entry.archetypeSlides; // derived from the archetype — must not outlive it
         changed = true;
       }
       if (slug) {
@@ -693,8 +910,25 @@ function reconcileEntryFromWorkspace(workspaceRoot, entry) {
           : path.resolve(workspaceRoot, '..', 'backend', 'database', 'carousels');
         const archPath = path.join(tdir, `${slug}.html`);
         if (fs.existsSync(archPath)) {
-          if (entry.archetype !== archPath) {
-            entry.archetype = archPath;
+          const archRel = toRel(workspaceRoot, archPath);
+          if (entry.archetype !== archRel) {
+            entry.archetype = archRel;
+            changed = true;
+          }
+          // Rendered slides of the generated deck, so the preview can put them beside
+          // the reference page-for-page. The deck HTML itself is a horizontal strip.
+          let archSlides = [];
+          try {
+            const adir = path.join(workspaceRoot, '.renders', 'output', slug);
+            archSlides = fs
+              .readdirSync(adir)
+              .filter((f) => /^slide-\d+\.png$/i.test(f))
+              .sort()
+              .map((f) => toRel(workspaceRoot, path.join(adir, f)));
+          } catch {}
+          if (JSON.stringify(entry.archetypeSlides || []) !== JSON.stringify(archSlides)) {
+            if (archSlides.length) entry.archetypeSlides = archSlides;
+            else delete entry.archetypeSlides;
             changed = true;
           }
           if (entry.archetypeSlug !== slug) {
@@ -708,19 +942,23 @@ function reconcileEntryFromWorkspace(workspaceRoot, entry) {
     // archetype-map optional / malformed — ignore, fall back to clone output.
   }
 
-  // The archetype IS the deliverable. Success used to be gated on `hasOutput` (the
-  // pixel clone), which is retired and pruned — so authored designs stayed stuck at
-  // 'cloned' forever and the dashboard never moved. A mapped, on-disk archetype is
-  // the completion signal now.
-  if (entry.archetype && mutableStatuses.has(normalizeStatus(entry.status))) {
+  // A generated template IS the deliverable. Success used to be gated on `hasOutput`
+  // (the pixel clone), which is retired and pruned — so authored designs stayed stuck
+  // at 'cloned' forever and the dashboard never moved.
+  // Since 2026-07-16 "generate" means REMIX by default, and a remix ships standalone
+  // (no archetype-map entry) — so gating success on the archetype alone left every
+  // remixed design reading 'cloned' and the board showing 0 done. Either deliverable
+  // counts: a mapped on-disk archetype, or at least one remix.
+  const hasDeliverable = !!entry.archetype || (Array.isArray(entry.remixes) && entry.remixes.length > 0);
+  if (hasDeliverable && mutableStatuses.has(normalizeStatus(entry.status))) {
     entry.status = 'success';
     changed = true;
   }
 
-  // Self-heal the inverse: a 'success' with neither an authored archetype nor a
-  // pixel-clone output is really just Stage-1 intake — it must read 'cloned', not
-  // 'success'. (Older runs marked every completed `run` as success regardless.)
-  if (normalizeStatus(entry.status) === 'success' && !entry.archetype && !hasOutput) {
+  // Self-heal the inverse: a 'success' with no deliverable at all is really just
+  // Stage-1 intake — it must read 'cloned'. (Older runs marked every completed `run`
+  // as success regardless.)
+  if (normalizeStatus(entry.status) === 'success' && !hasDeliverable && !hasOutput) {
     entry.status = 'cloned';
     changed = true;
   }
@@ -851,7 +1089,7 @@ function runCloneOnly({ workspaceRoot, repoRoot, designId, inputHtml, dedupeMode
   entry.runId = null;
   entry.generatedAt = null;
   const coverPath = writeCloneCover(workspaceRoot, designId);
-  if (coverPath) entry.thumb = coverPath;
+  if (coverPath) entry.thumb = toRel(workspaceRoot, coverPath);
 
   return cloneJson;
 }
@@ -1107,7 +1345,7 @@ function main() {
       if (cmpRes.status !== 0 || !cmpJson) {
         throw new Error(`Comparison build failed.\nSTDOUT:\n${cmpRes.stdout}\nSTDERR:\n${cmpRes.stderr}`);
       }
-      entry.comparison = cmpJson.output;
+      entry.comparison = toRel(workspaceRoot, cmpJson.output);
       entry.updatedAt = toIsoNow();
       enrichEntryMeta(workspaceRoot, entry); // pick up the just-written archetype cover thumbnail
       save();
@@ -1204,7 +1442,7 @@ function main() {
         const cmpRes = runNode(buildScript, cmpArgs, repoRoot);
         const cmpJson = parseJsonOutput(cmpRes.stdout);
         if (cmpRes.status === 0 && cmpJson?.output) {
-          entry.comparison = cmpJson.output;
+          entry.comparison = toRel(workspaceRoot, cmpJson.output);
           enrichEntryMeta(workspaceRoot, entry); // pick up the just-written archetype cover thumbnail
           save();
         } else {

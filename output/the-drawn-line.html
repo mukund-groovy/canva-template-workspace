@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&family=Arimo:wght@400;700&display=swap');
+
+    :root{
+      /* Brand role tokens. The ACCENT devices — the pills, the drawing-sheet
+         panels, their tabs and the plate counter — route through these, so a
+         brand palette re-skins every slide. The canvas (drafting-paper grid),
+         the black display serif and the line-art drafting marks are FIXED
+         literals: this is an editorial black-and-white deck and its ink must
+         stay ink. */
+      --primary:var(--brand-primary,#1e3fa8);      /* blueprint blue — sheet panels, pills */
+      --secondary:var(--brand-secondary,#63a7dd);  /* drafting sky — decorative pills */
+      --accent:var(--brand-accent,#d6421f);        /* drafting red — plate counter, rule pills */
+      --highlight:var(--brand-accent,#d6421f);
+      --bg:var(--brand-bg,#ffffff);
+      --surface:var(--brand-surface,#f4f7fc);
+      --text-high:var(--brand-ink,#12151b);
+      --text-low:var(--brand-text-muted,rgba(18,21,27,.55));
+      --border:var(--brand-border,rgba(28,44,86,.13));
+      /* on-colours: the skinner supplies AA-safe values per brand; the fallbacks
+         are safe against the dark default fills. */
+      --on-primary:var(--brand-on-primary,#ffffff);
+      --on-accent:var(--brand-on-accent,#ffffff);
+      /* guaranteed-darker shade of primary for the peeking back sheet, so the
+         on-primary label stays AA no matter how light a brand's primary is. */
+      --primary-deep:color-mix(in srgb, var(--primary) 68%, #04050a);
+      /* fine drafting sub-grid — a paler tint of the same border ink */
+      --border-fine:color-mix(in srgb, var(--border) 42%, transparent);
+    }
+
+    *{box-sizing:border-box;}
+
+    .ig-carousel{display:flex;width:max-content;background:#0c0c0c;}
+
+    .slide{
+      width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+      background:var(--bg);
+      font-family:'Arimo',sans-serif;color:var(--text-high);
+    }
+
+    /* ── signature backdrop: drafting paper. A fine 36px sub-grid under a
+         confident 180px major grid — the reference's graph field, read as the
+         drawing board it always wanted to be. ── */
+    .grid{position:absolute;inset:0;z-index:0;pointer-events:none;
+      background-image:
+        linear-gradient(to right, var(--border) 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, var(--border) 1.5px, transparent 1.5px),
+        linear-gradient(to right, var(--border-fine) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--border-fine) 1px, transparent 1px);
+      background-size:180px 180px, 180px 180px, 36px 36px, 36px 36px;
+      background-position:-2px -2px;}
+
+    /* ── header: neutral lockup + the plate counter (an accent chip, present on
+         every slide — the deck's guaranteed brand device) ── */
+    .head{position:absolute;top:62px;left:82px;right:82px;z-index:7;display:flex;align-items:center;justify-content:space-between;}
+    .lockup{display:inline-flex;align-items:center;gap:14px;}
+    .brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+    .brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+    .brand-word{font-family:'Arimo',sans-serif;font-weight:700;font-size:30px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--text-high);white-space:nowrap;}
+    .plate{display:inline-flex;align-items:center;border-radius:999px;background:var(--accent);
+      padding:11px 26px;box-shadow:0 8px 20px rgba(15,25,60,.16);}
+    .plate span{font-family:'Arimo',sans-serif;font-weight:700;font-size:23px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--on-accent);white-space:nowrap;
+      display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
+
+    /* ── display serif: Times-condensed character via Tinos + optical squeeze ── */
+    .disp{margin:0;font-family:'Tinos',serif;font-weight:400;color:var(--text-high);
+      letter-spacing:-.014em;line-height:1.0;transform:scaleX(.9);transform-origin:left top;
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.17em;}
+    .disp.mid{transform-origin:center top;}
+    .disp em{font-style:italic;}
+
+    /* ── body copy: sentence-case sans set against the display serif — the
+         scale contrast IS the reference's editorial voice. All-caps at reading
+         size shouts and flattens that contrast, so the caps stay in the
+         furniture (footers, tabs, plate chip) where they belong. ── */
+    .body{margin:0;font-family:'Arimo',sans-serif;font-weight:400;letter-spacing:.004em;
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.12em;}
+    .foot-txt{margin:0;font-family:'Arimo',sans-serif;text-transform:uppercase;letter-spacing:.012em;
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.1em;}
+
+    /* ── pills: the rounded tags that interrupt the black type ── */
+    .pill{position:absolute;z-index:6;display:inline-flex;align-items:center;justify-content:center;
+      border-radius:999px;padding:16px 34px;box-shadow:0 10px 26px rgba(15,25,60,.18);}
+    .pill span{font-family:'Tinos',serif;font-weight:700;font-size:30px;white-space:nowrap;
+      display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.1em;}
+    .pill--blue{background:var(--primary);}
+    .pill--blue span{color:var(--on-primary);}
+    .pill--red{background:var(--accent);}
+    .pill--red span{color:var(--on-accent);}
+    .pill--sky{background:var(--secondary);}
+    .pill--sky span{color:var(--text-high);}
+
+    /* ── drawing sheets: the reference's folder card, re-cut as a title-block
+         sheet. ONE tab per sheet, sitting FLUSH on the card (tab bottom == card
+         top, card's top-left corner squared) so tab + card read as one folder
+         silhouette. A second sheet peeks up-and-right as a plain offset rect —
+         a stack of paper on the board. No detached tabs, no orphan shapes. ── */
+    .sheet{position:absolute;z-index:4;}
+    .sheet-back{position:absolute;z-index:1;border-radius:26px;background:var(--primary-deep);}
+    .sheet-card{position:absolute;z-index:2;border-radius:0 26px 26px 26px;background:var(--primary);}
+    .sheet-tab{position:absolute;z-index:2;top:0;left:0;height:66px;border-radius:16px 16px 0 0;
+      background:var(--primary);display:flex;align-items:center;padding:0 30px;}
+    .sheet-label{font-family:'Tinos',serif;font-weight:700;color:var(--on-primary);white-space:nowrap;
+      letter-spacing:.03em;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.1em;}
+    .sheet-label--onaccent{color:var(--on-accent);}
+    .sheet-body{position:absolute;z-index:3;}
+    .sheet-big{font-family:'Tinos',serif;font-weight:700;letter-spacing:.01em;
+      display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.12em;}
+    /* title block: the drafting furniture that closes the foot of the sheet —
+       a rule with end ticks over a mini scale bar. Gives the sheet's lower
+       margin a job instead of leaving it dead. */
+    .sheet-block{position:absolute;z-index:3;color:var(--on-primary);opacity:.62;}
+    .sheet-block svg{display:block;width:100%;height:100%;}
+
+    /* ── drafting marks: black line-art, fixed ink (dimension lines, north
+         arrow, section markers, scale bar, set square) — the reference's
+         selection-handle marks, re-themed to this trade's own tools ── */
+    .mk{position:absolute;z-index:3;color:var(--text-high);}
+    .mk svg{display:block;width:100%;height:100%;}
+    .mk--solid{z-index:6;}
+
+    /* per-node absolute wrapper */
+    .tn{position:absolute;z-index:5;}
+  </style>
+</head>
+<body>
+  <div class="ig-carousel">
+
+    <!-- ══════════ SLIDE 1 — COVER ══════════ -->
+    <section class="slide" data-cg-slide-type="cover">
+      <div class="grid"></div>
+      <div class="head">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="plate"><span data-counter="true">Plate 01 / 05</span></div>
+      </div>
+
+      <!-- headline: a stacked serif column, its own clear lane (82 → 680) -->
+      <div class="tn" style="left:82px;top:286px;width:598px;">
+        <h1 class="disp" data-title="true" style="font-size:164px;-webkit-line-clamp:4;">Draw <em>Before</em> You Build</h1>
+      </div>
+
+      <!-- right column: drafting marks + pills, clear of the headline lane -->
+      <div class="mk" style="left:700px;top:178px;width:290px;height:62px;">
+        <svg viewBox="0 0 280 60"><g stroke="currentColor" stroke-width="2.5" fill="none"><path d="M8 6 V54 M272 6 V54 M8 30 H272"/></g><g fill="currentColor"><path d="M8 30 L32 22 L32 38 Z"/><path d="M272 30 L248 22 L248 38 Z"/></g></svg>
+      </div>
+      <div class="pill pill--blue" style="left:696px;top:300px;transform:rotate(-4deg);"><span data-cta="true">Hand Drafting</span></div>
+      <div class="mk" style="left:712px;top:452px;width:96px;height:118px;">
+        <svg viewBox="0 0 90 110"><circle cx="45" cy="58" r="36" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M45 10 L60 100 L45 80 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M45 10 L30 100 L45 80 Z" fill="currentColor" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="mk" style="left:862px;top:456px;width:112px;height:112px;">
+        <svg viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><path d="M10 110 V10 L110 110 Z"/><path d="M28 92 V40 L80 92 Z"/></g></svg>
+      </div>
+      <div class="pill pill--red" style="left:678px;top:640px;transform:rotate(-7deg);"><span>Think in section</span></div>
+      <div class="pill pill--sky" style="left:712px;top:790px;transform:rotate(2deg);"><span>Scale it first</span></div>
+
+      <!-- footer: the reference's split all-caps sans line -->
+      <div class="tn" style="left:82px;bottom:118px;width:460px;">
+        <span class="foot-txt" data-tagline="true" style="font-size:34px;line-height:1.2;color:var(--text-low);display:-webkit-box;-webkit-line-clamp:2;">Measure twice. Draw once. Build last.</span>
+      </div>
+      <div class="tn" style="left:600px;bottom:118px;width:400px;">
+        <p class="foot-txt" data-message="true" style="font-size:34px;line-height:1.2;font-weight:700;color:var(--text-high);-webkit-line-clamp:2;">Paper is cheaper than concrete.</p>
+      </div>
+    </section>
+
+    <!-- ══════════ SLIDE 2 — SET THE SCALE ══════════ -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="grid"></div>
+      <div class="head">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="plate"><span data-counter="true">Plate 02 / 05</span></div>
+      </div>
+
+      <div class="tn" style="left:82px;top:152px;width:880px;">
+        <h1 class="disp" data-title="true" style="font-size:132px;-webkit-line-clamp:2;">Set the <em>Scale</em></h1>
+      </div>
+
+      <!-- marks: the scale bar sits bottom-left where a real sheet carries it -->
+      <div class="mk" style="left:66px;top:1212px;width:250px;height:42px;">
+        <svg viewBox="0 0 240 40"><rect x="2" y="10" width="236" height="22" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="2" y="10" width="59" height="22" fill="currentColor"/><rect x="120" y="10" width="59" height="22" fill="currentColor"/></svg>
+      </div>
+      <div class="mk" style="left:920px;top:1128px;width:120px;height:120px;">
+        <svg viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><path d="M10 110 V10 L110 110 Z"/><path d="M28 92 V40 L80 92 Z"/></g></svg>
+      </div>
+
+      <!-- drawing sheet: back sheet peeks up-and-right, one flush tab -->
+      <div class="sheet" style="left:130px;top:474px;width:824px;height:602px;">
+        <div class="sheet-back" style="left:34px;top:32px;width:790px;height:536px;"></div>
+        <div class="sheet-card" style="left:0;top:66px;width:790px;height:536px;"></div>
+        <div class="sheet-tab" style="width:380px;"><span class="sheet-label" style="font-size:44px;">01 &mdash; Scale</span></div>
+        <div class="sheet-body" style="left:56px;top:122px;width:678px;">
+          <p class="body" data-message="true" style="font-size:40px;line-height:1.45;color:var(--on-primary);-webkit-line-clamp:5;">Nothing is real until you decide what an inch is worth. Choose the scale before the first line &mdash; every dimension after it inherits that one decision.</p>
+        </div>
+        <div class="sheet-block" style="left:56px;top:452px;width:678px;height:106px;">
+          <svg viewBox="0 0 678 106"><g stroke="currentColor" stroke-width="2" fill="none"><path d="M0 1 H678"/><path d="M1 1 V14 M677 1 V14"/><rect x="1" y="40" width="140" height="18"/><rect x="398" y="20" width="279" height="84"/><path d="M398 48 H677 M398 76 H677 M538 76 V104"/></g><g fill="currentColor"><rect x="1" y="40" width="35" height="18"/><rect x="71" y="40" width="35" height="18"/></g></svg>
+        </div>
+      </div>
+
+      <div class="pill pill--red" style="left:640px;top:466px;transform:rotate(-3deg);"><span data-cta="true">Rule one</span></div>
+    </section>
+
+    <!-- ══════════ SLIDE 3 — THINK IN SECTION ══════════ -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="grid"></div>
+      <div class="head">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="plate"><span data-counter="true">Plate 03 / 05</span></div>
+      </div>
+
+      <div class="tn" style="left:140px;top:146px;width:800px;text-align:center;">
+        <h1 class="disp mid" data-title="true" style="font-size:132px;-webkit-line-clamp:2;text-align:center;">Think in <em>Section</em></h1>
+      </div>
+
+      <!-- section markers: the pair reads as one cut line across the plate, but
+           both now sit INSIDE the 82px margin — nothing bleeds off the canvas -->
+      <div class="mk" style="left:82px;top:450px;width:170px;height:90px;">
+        <svg viewBox="0 0 170 90"><circle cx="34" cy="45" r="29" fill="none" stroke="currentColor" stroke-width="2.5"/><g stroke="currentColor" stroke-width="2.5" fill="none"><path d="M34 16 V74"/><path d="M63 45 H150"/></g><path d="M150 45 L126 34 L126 56 Z" fill="currentColor"/></svg>
+      </div>
+      <div class="mk" style="left:828px;top:450px;width:170px;height:90px;">
+        <svg viewBox="0 0 170 90"><circle cx="136" cy="45" r="29" fill="none" stroke="currentColor" stroke-width="2.5"/><g stroke="currentColor" stroke-width="2.5" fill="none"><path d="M136 16 V74"/><path d="M107 45 H20"/></g><path d="M20 45 L44 34 L44 56 Z" fill="currentColor"/></svg>
+      </div>
+
+      <div class="sheet" style="left:130px;top:560px;width:824px;height:602px;">
+        <div class="sheet-back" style="left:34px;top:32px;width:790px;height:536px;"></div>
+        <div class="sheet-card" style="left:0;top:66px;width:790px;height:536px;"></div>
+        <div class="sheet-tab" style="width:420px;"><span class="sheet-label" style="font-size:44px;">02 &mdash; Section</span></div>
+        <div class="sheet-body" style="left:56px;top:122px;width:678px;">
+          <p class="body" data-message="true" style="font-size:40px;line-height:1.45;color:var(--on-primary);-webkit-line-clamp:5;">A plan is a horizontal cut. A section is a vertical one. Draw both. The building you cannot slice open is the building you do not understand yet.</p>
+        </div>
+        <div class="sheet-block" style="left:56px;top:452px;width:678px;height:106px;">
+          <svg viewBox="0 0 678 106"><g stroke="currentColor" stroke-width="2" fill="none"><path d="M0 1 H678"/><path d="M1 1 V14 M677 1 V14"/><rect x="1" y="40" width="140" height="18"/><rect x="398" y="20" width="279" height="84"/><path d="M398 48 H677 M398 76 H677 M538 76 V104"/></g><g fill="currentColor"><rect x="1" y="40" width="35" height="18"/><rect x="71" y="40" width="35" height="18"/></g></svg>
+        </div>
+      </div>
+
+      <div class="pill pill--red" style="left:660px;top:552px;transform:rotate(-4deg);"><span data-cta="true">Cut it open</span></div>
+    </section>
+
+    <!-- ══════════ SLIDE 4 — LINE WEIGHT SPEAKS ══════════ -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="grid"></div>
+      <div class="head">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="plate"><span data-counter="true">Plate 04 / 05</span></div>
+      </div>
+
+      <div class="tn" style="left:90px;top:148px;width:900px;text-align:center;">
+        <h1 class="disp mid" data-title="true" style="font-size:138px;-webkit-line-clamp:2;text-align:center;">Line Weight <em>Speaks</em></h1>
+      </div>
+
+      <div class="mk" style="left:82px;top:474px;width:290px;height:62px;">
+        <svg viewBox="0 0 280 60"><g stroke="currentColor" stroke-width="2.5" fill="none"><path d="M8 6 V54 M272 6 V54 M8 30 H272"/></g><g fill="currentColor"><path d="M8 30 L32 22 L32 38 Z"/><path d="M272 30 L248 22 L248 38 Z"/></g></svg>
+      </div>
+      <div class="mk" style="left:930px;top:452px;width:112px;height:112px;">
+        <svg viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><path d="M10 110 V10 L110 110 Z"/><path d="M28 92 V40 L80 92 Z"/></g></svg>
+      </div>
+
+      <!-- two sheets, side by side: the reference's paired-folder beat -->
+      <div class="sheet" style="left:90px;top:596px;width:420px;height:404px;">
+        <div class="sheet-card" style="left:0;top:62px;width:420px;height:342px;background:var(--primary);"></div>
+        <div class="sheet-tab" style="width:230px;height:62px;"><span class="sheet-label" style="font-size:38px;">Cut</span></div>
+        <div class="sheet-body" style="left:0;top:170px;width:420px;text-align:center;">
+          <span class="sheet-big" style="font-size:86px;color:var(--on-primary);">Heavy</span>
+        </div>
+      </div>
+      <div class="sheet" style="left:570px;top:596px;width:420px;height:404px;">
+        <div class="sheet-card" style="left:0;top:62px;width:420px;height:342px;background:var(--accent);"></div>
+        <div class="sheet-tab" style="width:230px;height:62px;background:var(--accent);"><span class="sheet-label sheet-label--onaccent" style="font-size:38px;">Beyond</span></div>
+        <div class="sheet-body" style="left:0;top:170px;width:420px;text-align:center;">
+          <span class="sheet-big" style="font-size:86px;color:var(--on-accent);">Light</span>
+        </div>
+      </div>
+
+      <div class="tn" style="left:110px;top:1032px;width:860px;">
+        <p class="body" data-message="true" style="font-size:35px;line-height:1.4;color:var(--text-high);-webkit-line-clamp:3;">Heavy lines for what you cut through. Light lines for what lies beyond. Weight is not decoration &mdash; it is how a drawing is read.</p>
+      </div>
+
+      <div class="tn" style="left:82px;bottom:104px;width:420px;">
+        <span class="foot-txt" data-tagline="true" style="font-size:32px;line-height:1.2;font-weight:700;display:-webkit-box;-webkit-line-clamp:1;">The pencil does</span>
+      </div>
+      <div class="tn" style="left:640px;bottom:104px;width:360px;text-align:right;">
+        <span class="foot-txt" data-cta="true" style="font-size:32px;line-height:1.2;font-weight:700;text-align:right;display:-webkit-box;-webkit-line-clamp:1;">the thinking.</span>
+      </div>
+    </section>
+
+    <!-- ══════════ SLIDE 5 — CLOSING ══════════ -->
+    <section class="slide" data-cg-slide-type="outro">
+      <div class="grid"></div>
+      <div class="head">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="plate"><span data-counter="true">Plate 05 / 05</span></div>
+      </div>
+
+      <div class="tn" style="left:82px;top:262px;width:598px;">
+        <h1 class="disp" data-title="true" style="font-size:172px;-webkit-line-clamp:3;">Keep <em>Drawing</em></h1>
+      </div>
+
+      <div class="mk" style="left:698px;top:196px;width:290px;height:62px;">
+        <svg viewBox="0 0 280 60"><g stroke="currentColor" stroke-width="2.5" fill="none"><path d="M8 6 V54 M272 6 V54 M8 30 H272"/></g><g fill="currentColor"><path d="M8 30 L32 22 L32 38 Z"/><path d="M272 30 L248 22 L248 38 Z"/></g></svg>
+      </div>
+      <div class="pill pill--red" style="left:684px;top:312px;transform:rotate(-5deg);"><span data-cta="true">Sharpen it</span></div>
+      <div class="mk" style="left:706px;top:452px;width:96px;height:118px;">
+        <svg viewBox="0 0 90 110"><circle cx="45" cy="58" r="36" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M45 10 L60 100 L45 80 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M45 10 L30 100 L45 80 Z" fill="currentColor" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="mk" style="left:858px;top:456px;width:112px;height:112px;">
+        <svg viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><path d="M10 110 V10 L110 110 Z"/><path d="M28 92 V40 L80 92 Z"/></g></svg>
+      </div>
+      <div class="pill pill--blue" style="left:700px;top:640px;transform:rotate(3deg);"><span>Hand Drafting</span></div>
+      <div class="pill pill--sky" style="left:722px;top:772px;transform:rotate(-3deg);"><span>Plate 05</span></div>
+
+      <div class="tn" style="left:82px;top:872px;width:568px;">
+        <p class="foot-txt" data-message="true" style="font-size:38px;line-height:1.24;color:var(--text-high);-webkit-line-clamp:3;">You do not need a better pencil. You need a hundred more drawings.</p>
+      </div>
+      <div class="tn" style="left:82px;bottom:112px;width:620px;">
+        <span class="foot-txt" data-tagline="true" style="font-size:32px;line-height:1.2;color:var(--text-low);display:-webkit-box;-webkit-line-clamp:2;">Draw the thing before you build the thing.</span>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

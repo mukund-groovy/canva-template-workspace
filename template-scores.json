@@ -616,5 +616,62 @@
         "brandFail": 0
       }
     }
+  },
+  "purple-minimalist-carousel": {
+    "score": 8.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.2,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 6,
+        "stFail": 0,
+        "deckAvg": 17.66,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "write-better-emails": {
+    "score": 8.8,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.8,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 4,
+        "stFail": 0,
+        "deckAvg": 17.95,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "the-drawn-line": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 19.45,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
   }
 }
