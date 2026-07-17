@@ -70,6 +70,11 @@ if (!htmlPath || !fs.existsSync(htmlPath)) {
 const OVERLAP_TOL = 0.04; // >4% of a text box covered by an object = collision
 const CONTRAST_MIN = 4.5; // WCAG AA, normal text
 const CONTRAST_MIN_LARGE = 3.0; // AA, >=24px or >=19px bold
+// A text run whose modal background passes but >= this fraction of its ACTUAL background
+// is below AA is illegible over a photo/gradient. 0.5 = most of the run sits on failing
+// ground; conservative enough that a scrimmed run (mostly dark) or a small bright highlight
+// behind one corner does not trip it.
+const CONTRAST_BAD_AREA = 0.5;
 // Grey stddev below which a photo has too little tonal range to survive being
 // scaled to a feed thumbnail. Calibrated against one 8-photo deck: the two
 // visibly-flat photos measured 0.144, every other photo fell in 0.193-0.295.
@@ -122,54 +127,94 @@ const BRAND = (() => {
   return { p: p || null, a: a || null, on };
 })();
 
-/** Mean + stddev of a crop, in grey, normalised 0..1. Uses ImageMagick. */
-function cropStats(png, x, y, w, h) {
-  x = Math.max(0, Math.round(x));
-  y = Math.max(0, Math.round(y));
-  w = Math.max(1, Math.min(Math.round(w), SLIDE_W - x));
-  h = Math.max(1, Math.min(Math.round(h), SLIDE_H - y));
-  try {
-    const out = execFileSync(
-      'magick',
-      [png, '-crop', `${w}x${h}+${x}+${y}`, '+repage', '-colorspace', 'gray',
-        '-format', '%[fx:mean] %[fx:standard_deviation]', 'info:'],
-      { encoding: 'utf8' }
-    ).trim().split(/\s+/).map(Number);
-    return { mean: out[0], stddev: out[1] };
-  } catch {
-    return null;
+// Pixels come from the BROWSER, not ImageMagick. These crops used to shell to `magick`,
+// which is not installed on every machine (this one included) — the call threw ENOENT,
+// the functions returned null, and every caller did `if (!x) continue`, silently
+// disabling CONTRAST and PHOTO on every run. That dead gate is why a deck failing 18
+// contrast checks in production scored a clean `verify` here. `decodeSampled` (below)
+// renders the PNG to a canvas and hands back a downsampled RGB buffer; sampling is pure JS.
+
+/** Decode a PNG to a downsampled RGB buffer via the open page (no external binary). */
+async function decodeSampled(page, pngPath, step = 3) {
+  const b64 = fs.readFileSync(pngPath).toString('base64');
+  const r = await page.evaluate(async ({ b64, step }) => {
+    const img = new Image();
+    img.src = 'data:image/png;base64,' + b64;
+    await img.decode();
+    const w = Math.max(1, Math.floor(img.width / step));
+    const h = Math.max(1, Math.floor(img.height / step));
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    const ctx = c.getContext('2d');
+    ctx.imageSmoothingEnabled = false; // nearest-neighbour: keep true pixel colours, don't blend
+    ctx.drawImage(img, 0, 0, w, h);
+    const d = ctx.getImageData(0, 0, w, h).data;
+    let s = '';
+    for (let i = 0; i < d.length; i += 4) s += String.fromCharCode(d[i], d[i + 1], d[i + 2]);
+    return { w, h, b64: btoa(s) };
+  }, { b64, step });
+  return { w: r.w, h: r.h, step, rgb: Buffer.from(r.b64, 'base64') };
+}
+
+/** Iterate the RGB pixels of a CSS-px rect within a downsampled buffer. */
+function* cropPixels(buf, x, y, w, h) {
+  const s = buf.step;
+  const x0 = Math.max(0, Math.floor(x / s)), y0 = Math.max(0, Math.floor(y / s));
+  const x1 = Math.min(buf.w, Math.ceil((x + w) / s)), y1 = Math.min(buf.h, Math.ceil((y + h) / s));
+  for (let py = y0; py < y1; py++) {
+    for (let px = x0; px < x1; px++) {
+      const i = (py * buf.w + px) * 3;
+      yield [buf.rgb[i], buf.rgb[i + 1], buf.rgb[i + 2]];
+    }
   }
 }
 
-/**
- * Modal sRGB of a crop — the colour a text run actually sits on.
- * Not the mean: averaging drags antialiased glyph edges and any rounded-corner
- * spill of the surrounding paper into the sample, which shifts the ratio enough
- * to flip a genuine AA pass into a reported failure.
- */
-function cropModeRgb(png, x, y, w, h) {
-  x = Math.max(0, Math.round(x));
-  y = Math.max(0, Math.round(y));
-  w = Math.max(1, Math.min(Math.round(w), SLIDE_W - x));
-  h = Math.max(1, Math.min(Math.round(h), SLIDE_H - y));
-  try {
-    const out = execFileSync(
-      'magick',
-      [png, '-crop', `${w}x${h}+${x}+${y}`, '+repage', '-depth', '8',
-        '-format', '%c', 'histogram:info:'],
-      { encoding: 'utf8', maxBuffer: 32 * 1024 * 1024 }
-    );
-    let best = null, bestN = -1;
-    for (const line of out.split('\n')) {
-      const m = line.match(/^\s*(\d+):\s*\(\s*(\d+),\s*(\d+),\s*(\d+)/);
-      if (!m) continue;
-      const cnt = +m[1];
-      if (cnt > bestN) { bestN = cnt; best = [+m[2], +m[3], +m[4]]; }
-    }
-    return best;
-  } catch {
-    return null;
+/** Mean + stddev of a crop, in grey, normalised 0..1. */
+function cropStats(buf, x, y, w, h) {
+  if (!buf) return null;
+  let n = 0, sum = 0, sumsq = 0;
+  for (const [r, g, b] of cropPixels(buf, x, y, w, h)) {
+    const gr = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    n++; sum += gr; sumsq += gr * gr;
   }
+  if (!n) return null;
+  const mean = sum / n;
+  return { mean, stddev: Math.sqrt(Math.max(0, sumsq / n - mean * mean)) };
+}
+
+/**
+ * Modal sRGB of a crop — the colour a text run actually sits on. Quantised to 4-bit bins
+ * so antialiased glyph edges and any rounded-corner paper spill collapse into the true
+ * surface colour instead of shifting the sample.
+ */
+function cropModeRgb(buf, x, y, w, h) {
+  if (!buf) return null;
+  const bins = new Map();
+  let best = null, bestN = -1;
+  for (const [r, g, b] of cropPixels(buf, x, y, w, h)) {
+    const key = ((r >> 4) << 8) | ((g >> 4) << 4) | (b >> 4);
+    const c = (bins.get(key) || 0) + 1; bins.set(key, c);
+    if (c > bestN) { bestN = c; best = [r, g, b]; }
+  }
+  return best;
+}
+
+/**
+ * Fraction of a crop's pixels that fail AA against `fg` (0..1). The modal colour is
+ * blind over a PHOTO or GRADIENT: a headline over a sunset sky has no single dominant
+ * colour, so the mode returns some mid pixel that passes while most of the run sits on
+ * bright, illegible ground (the 2.21:1 cover the production gate caught and this one
+ * missed). This measures the whole distribution: text is legible only if most of what
+ * is actually behind it clears AA.
+ */
+function cropFractionBelowAA(buf, x, y, w, h, fg, min) {
+  if (!buf) return null;
+  let total = 0, below = 0;
+  for (const px of cropPixels(buf, x, y, w, h)) {
+    total++;
+    if (contrastRatio(fg, px) < min) below++;
+  }
+  return total ? below / total : null;
 }
 
 const findings = [];
@@ -488,6 +533,17 @@ for (let i = 0; i < slides.length; i++) {
     await tag.evaluate((el) => el.remove());
   });
 
+  // Decode both plates to RGB buffers here, once, for the CONTRAST + PHOTO checks. If
+  // this fails, say so loudly — a null buffer would otherwise skip both checks silently,
+  // which is exactly the dead gate this replaced.
+  let bgBuf = null, mainBuf = null;
+  try {
+    bgBuf = await decodeSampled(page, bgPng);
+    mainBuf = await decodeSampled(page, png);
+  } catch (e) {
+    add(n, 'CONTRAST', 'warn', `could not decode slide pixels — contrast/photo unchecked (${String(e.message).slice(0, 80)})`);
+  }
+
   // OVERFLOW — measure the GLYPH ink (textRect = union of line boxes), not the element
   // box. A large display numeral's element box includes line-height leading that routinely
   // extends a few px past the slide edge while the visible glyph sits comfortably inside;
@@ -516,19 +572,28 @@ for (let i = 0; i < slides.length; i++) {
     const fg = parseRgb(t.color);
     if (!fg) continue;
     const q = t.textRect || t.rect;
-    const bg = cropModeRgb(bgPng, q.x, q.y, q.w, q.h);
+    const bg = cropModeRgb(bgBuf, q.x, q.y, q.w, q.h);
     if (!bg) continue;
     const ratio = contrastRatio(fg, bg);
     const min = t.isLarge ? CONTRAST_MIN_LARGE : CONTRAST_MIN;
     if (ratio < min) {
       add(n, 'CONTRAST', 'fail',
         `"${t.text}" ${ratio.toFixed(2)}:1 against its background (AA needs ${min}:1)`);
+      continue;
+    }
+    // The modal colour passed, but over a photo/gradient the mode is one pixel among
+    // many — check the whole distribution. If most of what is actually behind the run
+    // is below AA, the run is illegible even though its dominant colour cleared.
+    const frac = cropFractionBelowAA(bgBuf, q.x, q.y, q.w, q.h, fg, min);
+    if (frac !== null && frac >= CONTRAST_BAD_AREA) {
+      add(n, 'CONTRAST', 'fail',
+        `"${t.text}" sits on a varied background — ${(frac * 100).toFixed(0)}% of it is below AA (${min}:1); the run is illegible over that area`);
     }
   }
 
   // PHOTO — flat photos read as smudges once scaled to a feed thumbnail.
   for (const o of geo.objects.filter((o) => o.kind === 'photo')) {
-    const st = cropStats(png, o.rect.x, o.rect.y, o.rect.w, o.rect.h);
+    const st = cropStats(mainBuf, o.rect.x, o.rect.y, o.rect.w, o.rect.h);
     if (!st) continue;
     photoStats.push({ slide: n, mean: st.mean, stddev: st.stddev });
     if (st.stddev < PHOTO_STDDEV_MIN) {
