@@ -195,6 +195,36 @@ async function respondClaude({ instructions, input, maxTokens = 16000 }) {
 }
 
 // ── store / queue ───────────────────────────────────────────────────────────────
+// Cross-process mutex, same pattern (and same lock FILE) as agent-canva-clone.mjs's
+// saveDashboard — dashboard-store.json is written by clone agents, remix/author subagents,
+// and this worker, often concurrently. Every one of the functions below used to read-modify-
+// write with NO lock at all: a status/stage update here could silently clobber whatever another
+// process wrote to a DIFFERENT entry in the tiny window between this read and this write (or
+// vice versa). Locking + re-reading fresh inside the lock closes that for good.
+function withStoreLock(fn) {
+  const lockPath = path.join(WORKSPACE, '.dashboard.lock');
+  const STALE_MS = 20000;
+  const WAIT_MS = 15000;
+  const started = Date.now();
+  let fd = null;
+  for (;;) {
+    try {
+      fd = fs.openSync(lockPath, 'wx');
+      break;
+    } catch (err) {
+      if (err.code !== 'EEXIST') throw err;
+      try {
+        if (Date.now() - fs.statSync(lockPath).mtimeMs > STALE_MS) { fs.unlinkSync(lockPath); continue; }
+      } catch { continue; }
+      if (Date.now() - started > WAIT_MS) throw new Error(`timed out waiting for lock: ${lockPath}`);
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 40);
+    }
+  }
+  try { return fn(); } finally {
+    try { fs.closeSync(fd); } catch {}
+    try { fs.unlinkSync(lockPath); } catch {}
+  }
+}
 const readStore = () => JSON.parse(fs.readFileSync(STORE, 'utf8'));
 function clonedQueue() {
   return readStore().entries
@@ -202,29 +232,35 @@ function clonedQueue() {
     .sort((a, b) => String(a.createdAt || '').localeCompare(String(b.createdAt || '')));
 }
 function setStatus(designId, status, lastError) {
-  const s = readStore();
-  const e = s.entries.find((x) => x.designId === designId);
-  if (!e) return;
-  e.status = status;
-  if (lastError) e.lastError = String(lastError).slice(0, 300);
-  fs.writeFileSync(STORE, JSON.stringify(s, null, 2) + '\n');
+  withStoreLock(() => {
+    const s = readStore();
+    const e = s.entries.find((x) => x.designId === designId);
+    if (!e) return;
+    e.status = status;
+    if (lastError) e.lastError = String(lastError).slice(0, 300);
+    fs.writeFileSync(STORE, JSON.stringify(s, null, 2) + '\n');
+  });
 }
 function setGenMetrics(designId, patch) {
-  const s = readStore();
-  const e = s.entries.find((x) => x.designId === designId);
-  if (!e) return;
-  Object.assign(e, patch);
-  fs.writeFileSync(STORE, JSON.stringify(s, null, 2) + '\n');
+  withStoreLock(() => {
+    const s = readStore();
+    const e = s.entries.find((x) => x.designId === designId);
+    if (!e) return;
+    Object.assign(e, patch);
+    fs.writeFileSync(STORE, JSON.stringify(s, null, 2) + '\n');
+  });
 }
 // Update the live generation stage on the entry and rebuild the dashboard so the user sees
 // progress at every step (planning → authoring → repair k → scoring → finalizing).
 function setStage(designId, stage) {
-  const s = readStore();
-  const e = s.entries.find((x) => x.designId === designId);
-  if (!e) return;
-  e.genStage = stage;
-  e.updatedAt = new Date().toISOString();
-  fs.writeFileSync(STORE, JSON.stringify(s, null, 2) + '\n');
+  withStoreLock(() => {
+    const s = readStore();
+    const e = s.entries.find((x) => x.designId === designId);
+    if (!e) return;
+    e.genStage = stage;
+    e.updatedAt = new Date().toISOString();
+    fs.writeFileSync(STORE, JSON.stringify(s, null, 2) + '\n');
+  });
   try { execSync(`node "${path.join(SCRIPTS, 'agent-canva-clone.mjs')}" --action refresh`, { cwd: WORKSPACE, stdio: 'ignore' }); } catch {}
 }
 function addMap(designId, slug) {
@@ -1006,13 +1042,28 @@ async function processOne(entry) {
 }
 
 // ── loop ─────────────────────────────────────────────────────────────────────
-// Self-heal: a prior worker killed mid-generation leaves rows stuck in 'generating', which the
+// Self-heal: a prior WORKER killed mid-generation leaves rows stuck in 'generating', which the
 // cloned queue then skips forever. On startup, return any such orphans to 'cloned' so they retry.
+// This used to fire unconditionally the instant the worker started — fine when only this worker
+// ever set 'generating', but template-remix-agent/template-author-agent now legitimately hold that
+// status for real, multi-minute hand-authoring runs (via `agent-canva-clone.mjs --action mark`).
+// Without a staleness check, just starting the worker to look at ONE design stomped every OTHER
+// design's live agent back to 'cloned' mid-run. A real crashed worker row is stale for MINUTES,
+// not seconds, so only recover rows whose updatedAt is old enough to be a genuine orphan.
+const ORPHAN_STALE_MS = 20 * 60 * 1000; // 20 min — comfortably longer than any real authoring run
 function healOrphans() {
-  const s = readStore();
-  let n = 0;
-  for (const e of s.entries) if (e.status === 'generating') { e.status = 'cloned'; e.genStage = ''; n++; }
-  if (n) { fs.writeFileSync(STORE, JSON.stringify(s, null, 2) + '\n'); log(`recovered ${n} stuck 'generating' row(s) -> cloned`); }
+  withStoreLock(() => {
+    const s = readStore();
+    let n = 0;
+    const now = Date.now();
+    for (const e of s.entries) {
+      if (e.status !== 'generating') continue;
+      const age = now - (Date.parse(e.updatedAt || '') || 0);
+      if (!(age > ORPHAN_STALE_MS)) continue; // NaN (bad/missing updatedAt) also skips — never guess
+      e.status = 'cloned'; e.genStage = ''; n++;
+    }
+    if (n) { fs.writeFileSync(STORE, JSON.stringify(s, null, 2) + '\n'); log(`recovered ${n} stuck 'generating' row(s) -> cloned`); }
+  });
 }
 
 // Author ONE reference page in isolation, repair to clean, render a preview, and stop. Fast

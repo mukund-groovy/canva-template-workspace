@@ -860,6 +860,17 @@ function reconcileEntryFromWorkspace(workspaceRoot, entry) {
     // A malformed remix-map must not break the dashboard build.
   }
   if (JSON.stringify(entry.remixes || []) !== JSON.stringify(remixes)) {
+    // Close out the GEN TIME clock a `mark --status generating` opened (see the mark
+    // action above): a brand-new slug landing on disk is the actual finish line for a
+    // remix run, since the agent never calls setStatus itself. Reset startedAt after so
+    // the NEXT remix on the same design gets its own clock instead of inheriting this one.
+    const oldSlugs = new Set((Array.isArray(entry.remixes) ? entry.remixes : []).map((r) => r.slug));
+    const isNewRemix = remixes.some((r) => !oldSlugs.has(r.slug));
+    if (isNewRemix && entry.startedAt && !entry.finishedAt) {
+      entry.finishedAt = toIsoNow();
+      entry.durationMs = durationMs(entry.startedAt, entry.finishedAt);
+      entry.startedAt = null;
+    }
     if (remixes.length) entry.remixes = remixes;
     else delete entry.remixes;
     changed = true;
@@ -965,14 +976,26 @@ function reconcileEntryFromWorkspace(workspaceRoot, entry) {
 
   // Attach the gate-derived /10 quality score (score-template.mjs writes
   // template-scores.json, keyed by authored slug) so the dashboard can show it.
+  // A remix never sets archetypeSlug (only remixes[].slug — see the block above), so this
+  // used to silently skip every remixed design: score-template.mjs could run clean and the
+  // dashboard would still show a dash. Fall back to the best-scoring remix slug when there
+  // is no archetype.
   try {
     const scoresPath = path.join(workspaceRoot, 'template-scores.json');
-    if (entry.archetypeSlug && fs.existsSync(scoresPath)) {
+    if (fs.existsSync(scoresPath)) {
       const scores = JSON.parse(fs.readFileSync(scoresPath, 'utf8'));
-      const s = scores[entry.archetypeSlug];
-      if (s && typeof s.score === 'number') {
+      let best = null;
+      if (entry.archetypeSlug && scores[entry.archetypeSlug] && typeof scores[entry.archetypeSlug].score === 'number') {
+        best = scores[entry.archetypeSlug].score;
+      } else if (Array.isArray(entry.remixes)) {
+        for (const r of entry.remixes) {
+          const s = r?.slug && scores[r.slug];
+          if (s && typeof s.score === 'number' && (best == null || s.score > best)) best = s.score;
+        }
+      }
+      if (best != null) {
         entry.meta = entry.meta || {};
-        if (entry.meta.score !== s.score) { entry.meta.score = s.score; changed = true; }
+        if (entry.meta.score !== best) { entry.meta.score = best; changed = true; }
       }
     }
   } catch {
@@ -1187,8 +1210,8 @@ function runGenerateOnly({ workspaceRoot, designId, targetRmse, stopOnTarget, re
 function main() {
   const args = parseArgs(process.argv.slice(2));
   const action = String(args.action || 'run').toLowerCase();
-  if (!['add', 'clone', 'generate', 'run', 'comparison', 'refresh'].includes(action)) {
-    throw new Error('Invalid --action. Use: add | clone | generate | run | comparison | refresh');
+  if (!['add', 'clone', 'generate', 'run', 'comparison', 'refresh', 'mark', 'claim'].includes(action)) {
+    throw new Error('Invalid --action. Use: add | clone | generate | run | comparison | refresh | mark | claim');
   }
 
   const sourceUrl = String(args.url || args['design-url'] || '').trim();
@@ -1316,6 +1339,70 @@ function main() {
   };
 
   try {
+    // `mark`: a hand-authoring agent (template-remix-agent, template-author-agent) has no
+    // status signal of its own — it never runs the legacy generate/clone pipeline that sets
+    // 'generating', so a design being actively remixed looked identical to an untouched
+    // 'cloned' row for the whole duration of a run. Cheap, safe (same locked merge-save as
+    // everything else) status/stage toggle with none of the heavy pipeline attached.
+    if (action === 'mark') {
+      const status = String(args.status || '').trim();
+      if (!status) throw new Error('mark requires --status (e.g. generating | cloned)');
+      entry.genStage = String(args.stage || '').trim() || undefined;
+      if (!entry.genStage) delete entry.genStage;
+      // Same GEN TIME fields the legacy pipeline stamps (line ~1396) — start the clock on
+      // the first 'generating' mark so a hand-authored deck gets a duration too, not just
+      // pipeline-generated ones.
+      if (normalizeStatus(status) === 'generating' && !entry.startedAt) {
+        entry.startedAt = toIsoNow();
+        entry.finishedAt = null;
+        entry.durationMs = null;
+      }
+      if (normalizeStatus(status) === 'failed') {
+        entry.lastError = String(args.error || '').trim() || entry.lastError || 'remix agent gave up';
+        entry.startedAt = null; // so a retry gets its own clock instead of a stale one
+      }
+      setStatus(status);
+      console.log(JSON.stringify({ ok: true, action, designId, status: entry.status, genStage: entry.genStage || null }, null, 2));
+      return;
+    }
+    // `claim`: atomic check-and-set version of `mark --status generating`. `mark` reads the
+    // store once at process start and only locks at save time, so two processes deciding to
+    // work the same design near-simultaneously can both see it as free BEFORE either writes —
+    // confirmed happening in practice (two chats both started DAHO9lfaPdg, 2026-07-17). `claim`
+    // closes that gap by doing the read-check-write as ONE operation inside a single lock
+    // acquisition: it re-reads the store fresh FROM DISK only after the lock is held, so the
+    // second caller always sees the first caller's write and correctly backs off instead of
+    // racing on stale in-memory state.
+    if (action === 'claim') {
+      const lockPath = path.join(workspaceRoot, '.dashboard.lock');
+      const storePath = path.join(workspaceRoot, 'dashboard-store.json');
+      const result = withLock(lockPath, () => {
+        const disk = readJsonSafe(storePath, { entries: [] });
+        const list = Array.isArray(disk.entries) ? disk.entries : [];
+        let e = list.find((x) => x.designId === designId);
+        if (!e) {
+          e = { designId, status: 'pending', createdAt: toIsoNow(), attempts: 0 };
+          list.push(e);
+        }
+        if (normalizeStatus(e.status) === 'generating') {
+          return { claimed: false, status: e.status, genStage: e.genStage || null, updatedAt: e.updatedAt };
+        }
+        e.status = 'generating';
+        const stage = String(args.stage || '').trim();
+        if (stage) e.genStage = stage; else delete e.genStage;
+        if (!e.startedAt) { e.startedAt = toIsoNow(); e.finishedAt = null; e.durationMs = null; }
+        e.updatedAt = toIsoNow();
+        disk.entries = list;
+        saveDashboardLocked(workspaceRoot, disk, {
+          storePath,
+          htmlPath: path.join(workspaceRoot, 'dashboard.html'),
+          dataPath: path.join(workspaceRoot, 'dashboard-data.js'),
+        });
+        return { claimed: true, status: 'generating', genStage: e.genStage || null };
+      });
+      console.log(JSON.stringify({ ok: true, action, designId, ...result }, null, 2));
+      return;
+    }
     if (action === 'add') {
       entry.status = 'pending';
       entry.lastError = '';

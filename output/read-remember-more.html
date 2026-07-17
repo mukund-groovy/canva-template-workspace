@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600;700&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#5B1FE0);
+  --secondary:var(--brand-secondary,#4416B0);
+  --accent:var(--brand-accent,#5B1FE0);
+  --highlight:var(--brand-highlight,#5B1FE0);
+  --bg:var(--brand-bg,#F1F1F1);
+  --surface:var(--brand-surface,#FFFFFF);
+  --text-high:var(--brand-ink,var(--brand-text,#1A1A1A));
+  --text-low:var(--brand-text-muted,#9A9A9A);
+  --border:var(--brand-border,rgba(26,26,26,.14));
+}
+
+*{box-sizing:border-box;}
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+.slide{width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;background:var(--bg);font-family:'Poppins',sans-serif;}
+
+/* top chrome */
+.tn-handle{position:absolute;left:80px;top:96px;}
+.tn-handle p{margin:0;font-family:'Poppins',sans-serif;font-weight:500;font-size:29px;line-height:1.18;color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:4px;}
+.tn-issue{position:absolute;right:80px;top:92px;width:160px;text-align:right;}
+.tn-issue p{margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;line-height:1.18;color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:4px;}
+
+/* giant numeral */
+.big-num{position:absolute;left:70px;top:210px;z-index:1;pointer-events:none;height:340px;overflow:hidden;}
+.big-num span{font-family:'Anton',sans-serif;font-weight:400;font-size:360px;line-height:.78;color:var(--accent);letter-spacing:-.02em;display:block;}
+
+/* kicker + rule (cover) */
+.tn-rule{position:absolute;left:118px;top:452px;width:52px;height:4px;background:var(--primary);z-index:2;}
+.tn-kicker{position:absolute;left:118px;top:470px;z-index:2;}
+.tn-kicker p{margin:0;font-family:'Poppins',sans-serif;font-weight:600;font-size:38px;line-height:1.16;letter-spacing:.04em;text-transform:uppercase;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:6px;}
+
+/* cover headline */
+.tn-cover-title{position:absolute;left:118px;right:70px;top:530px;z-index:2;}
+.tn-cover-title h1{margin:0;font-family:'Poppins',sans-serif;font-weight:600;font-size:110px;line-height:1.02;letter-spacing:-.01em;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;padding-bottom:12px;}
+.tn-cover-title h1 em{font-style:normal;color:var(--primary);}
+
+/* point headline + body */
+.tn-title{position:absolute;left:118px;right:70px;top:640px;z-index:2;}
+.tn-title h1{margin:0;font-family:'Poppins',sans-serif;font-weight:600;font-size:84px;line-height:1.04;letter-spacing:-.01em;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:10px;}
+.tn-title h1 em{font-style:normal;color:var(--primary);}
+
+/* body card panel */
+.tn-body{position:absolute;left:80px;right:80px;top:920px;bottom:170px;z-index:2;background:var(--surface);border-left:14px solid var(--primary);border-radius:8px;padding:52px 60px 52px 54px;}
+.tn-body p{margin:0;font-family:'Poppins',sans-serif;font-weight:400;font-size:31px;line-height:1.44;text-align:justify;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;overflow:hidden;padding-bottom:6px;}
+.tn-body p b{font-weight:700;color:var(--primary);}
+
+/* closer */
+.tn-closer{position:absolute;left:80px;right:80px;top:400px;z-index:2;}
+.tn-closer h1{margin:0;font-family:'Poppins',sans-serif;font-weight:600;font-size:104px;line-height:1.05;letter-spacing:-.01em;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:12px;}
+.tn-closer h1 em{font-style:normal;color:var(--primary);}
+.tn-closer-band{position:absolute;left:0;right:0;top:290px;height:70px;background:var(--primary);z-index:1;}
+.tn-closer-panel{position:absolute;left:80px;right:80px;top:860px;bottom:170px;z-index:1;background:var(--surface);border-left:14px solid var(--primary);border-radius:8px;}
+.tn-closer-tag{position:absolute;left:134px;right:120px;top:900px;z-index:2;}
+.tn-closer-tag p{margin:0;font-family:'Poppins',sans-serif;font-weight:500;font-size:34px;line-height:1.4;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:6px;}
+
+/* footer */
+.foot-rule{position:absolute;left:80px;right:80px;bottom:118px;height:1px;background:var(--border);z-index:2;}
+.tn-url{position:absolute;left:80px;bottom:68px;z-index:3;display:inline-flex;align-items:center;gap:12px;}
+.tn-url .brand-mark-clip{flex:none;height:26px;display:flex;align-items:center;}
+.brand-mark{height:26px;width:auto;max-width:90px;object-fit:contain;display:block;}
+.brand-word{font-family:'Poppins',sans-serif;font-weight:600;font-size:29px;color:var(--text-high);white-space:nowrap;}
+.tn-swipe{position:absolute;right:80px;bottom:66px;z-index:3;}
+.tn-swipe p{margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-style:italic;font-size:29px;letter-spacing:.02em;color:var(--text-high);}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="tn-handle"><p data-tagline="true">Harper Russo</p></div>
+    <div class="tn-issue"><p data-tagline="true">#2026</p></div>
+    <div class="big-num" aria-hidden="true" style="left:118px;top:150px;"><span>05</span></div>
+    <div class="tn-rule" aria-hidden="true" style="top:560px;"></div>
+    <div class="tn-kicker" style="top:578px;"><p data-kicker="true">Step to:</p></div>
+    <div class="tn-cover-title" style="top:638px;"><h1 data-title="true">Actually Remember Every <em>Book</em> You Read</h1></div>
+    <div class="foot-rule" aria-hidden="true"></div>
+    <div class="tn-url"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <div class="tn-swipe"><p data-cta="true">SWIPE</p></div>
+  </section>
+
+  <!-- Slide 2 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="tn-handle"><p data-tagline="true">Harper Russo</p></div>
+    <div class="tn-issue"><p data-tagline="true">#2026</p></div>
+    <div class="big-num" aria-hidden="true"><span>01</span></div>
+    <div class="tn-title"><h1 data-title="true">Read Slower Not Faster <em>For Real</em> Retention</h1></div>
+    <div class="tn-body"><p data-message="true">Speed feels productive but memory hates it. Slowing down lets ideas settle in your mind, so you connect new points to what you already know, question the author, and finish with something you can <b>actually use</b> every day.</p></div>
+    <div class="foot-rule" aria-hidden="true"></div>
+    <div class="tn-url"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <div class="tn-swipe"><p data-cta="true">SWIPE</p></div>
+  </section>
+
+  <!-- Slide 3 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="tn-handle"><p data-tagline="true">Harper Russo</p></div>
+    <div class="tn-issue"><p data-tagline="true">#2026</p></div>
+    <div class="big-num" aria-hidden="true"><span>02</span></div>
+    <div class="tn-title"><h1 data-title="true">Write In The Margins <em>Without</em> Apology</h1></div>
+    <div class="tn-body"><p data-message="true">A clean book is a forgotten book. Marking pages helps you argue with the text, capture reactions, flag key passages, and turn passive reading into <b>a conversation</b> that stays with you long after you close the cover.</p></div>
+    <div class="foot-rule" aria-hidden="true"></div>
+    <div class="tn-url"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <div class="tn-swipe"><p data-cta="true">SWIPE</p></div>
+  </section>
+
+  <!-- Slide 4 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="tn-handle"><p data-tagline="true">Harper Russo</p></div>
+    <div class="tn-issue"><p data-tagline="true">#2026</p></div>
+    <div class="big-num" aria-hidden="true"><span>03</span></div>
+    <div class="tn-title"><h1 data-title="true">Summarise Each Chapter <em>In One</em> Sentence</h1></div>
+    <div class="tn-body"><p data-message="true">After every chapter, close the book and say the core idea aloud. Forcing yourself to compress it reveals gaps, strengthens recall, builds understanding, and proves whether you truly <b>grasped the point</b> or just moved your eyes across words.</p></div>
+    <div class="foot-rule" aria-hidden="true"></div>
+    <div class="tn-url"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <div class="tn-swipe"><p data-cta="true">SWIPE</p></div>
+  </section>
+
+  <!-- Slide 5 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="tn-handle"><p data-tagline="true">Harper Russo</p></div>
+    <div class="tn-issue"><p data-tagline="true">#2026</p></div>
+    <div class="big-num" aria-hidden="true"><span>04</span></div>
+    <div class="tn-title"><h1 data-title="true">Teach The Idea To <em>Someone</em> Else</h1></div>
+    <div class="tn-body"><p data-message="true">Explaining a concept out loud is the fastest test of memory. Teaching forces clarity, exposes confusion, deepens your own learning, and locks the material into place <b>far better</b> than rereading the same highlighted pages twice.</p></div>
+    <div class="foot-rule" aria-hidden="true"></div>
+    <div class="tn-url"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <div class="tn-swipe"><p data-cta="true">SWIPE</p></div>
+  </section>
+
+  <!-- Slide 6 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="tn-handle"><p data-tagline="true">Harper Russo</p></div>
+    <div class="tn-issue"><p data-tagline="true">#2026</p></div>
+    <div class="big-num" aria-hidden="true"><span>05</span></div>
+    <div class="tn-title"><h1 data-title="true">Revisit Your Notes <em>Every Few</em> Weeks</h1></div>
+    <div class="tn-body"><p data-message="true">Reading once builds a fragile memory. Coming back to your notes reactivates the ideas, strengthens connections, spots what you forgot, and turns a single read into <b>knowledge you can carry</b> and apply with real confidence.</p></div>
+    <div class="foot-rule" aria-hidden="true"></div>
+    <div class="tn-url"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <div class="tn-swipe"><p data-cta="true">SWIPE</p></div>
+  </section>
+
+  <!-- Slide 7 closer -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="tn-handle"><p data-tagline="true">Harper Russo</p></div>
+    <div class="tn-issue"><p data-tagline="true">#2026</p></div>
+    <div class="tn-closer-band" aria-hidden="true"></div>
+    <div class="tn-closer"><h1 data-title="true">Save this so your <em>next read</em> really sticks</h1></div>
+    <div class="tn-closer-panel" aria-hidden="true"></div>
+    <div class="tn-closer-tag"><p data-message="true">Keep this checklist close and turn every book into knowledge that stays with you for good.</p></div>
+    <div class="foot-rule" aria-hidden="true"></div>
+    <div class="tn-url"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+    <div class="tn-swipe"><p data-cta="true">SWIPE</p></div>
+  </section>
+
+</div>
+</body>
+</html>

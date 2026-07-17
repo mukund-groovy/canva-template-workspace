@@ -92,19 +92,53 @@ function imageCountOf(id) {
   }
 }
 
+// Cross-process mutex on the SAME lock file agent-canva-clone.mjs's saveDashboard uses, so this
+// truly excludes every writer of dashboard-store.json, not just other rollback() calls.
+function withStoreLock(fn) {
+  const lockPath = path.join(WS, '.dashboard.lock');
+  const STALE_MS = 20000;
+  const WAIT_MS = 15000;
+  const started = Date.now();
+  let fd = null;
+  for (;;) {
+    try {
+      fd = fs.openSync(lockPath, 'wx');
+      break;
+    } catch (err) {
+      if (err.code !== 'EEXIST') throw err;
+      try {
+        if (Date.now() - fs.statSync(lockPath).mtimeMs > STALE_MS) { fs.unlinkSync(lockPath); continue; }
+      } catch { continue; }
+      if (Date.now() - started > WAIT_MS) throw new Error(`timed out waiting for lock: ${lockPath}`);
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 40);
+    }
+  }
+  try { return fn(); } finally {
+    try { fs.closeSync(fd); } catch {}
+    try { fs.unlinkSync(lockPath); } catch {}
+  }
+}
+
 // Discard a clone we don't want to keep (e.g. single-slide): remove its design folder and its
 // dashboard-store entry. The dedupe-index hash is left in place so the same template isn't
 // re-cloned on a later run.
+//
+// This used to read the whole store, filter out one entry, and blind-overwrite the whole file —
+// no lock, no merge against disk. Any other process (a remix agent finishing, another clone run)
+// writing to the store in that window had its changes silently erased when this wrote back a
+// stale snapshot. Now locked + re-read fresh under the lock, same as every other writer.
 function rollback(id) {
   fs.rmSync(path.join(WS, 'designs', id), { recursive: true, force: true });
   const storePath = path.join(WS, 'dashboard-store.json');
-  try {
-    const store = JSON.parse(fs.readFileSync(storePath, 'utf8'));
-    if (Array.isArray(store.entries)) {
-      store.entries = store.entries.filter((e) => e.designId !== id);
-      fs.writeFileSync(storePath, JSON.stringify(store, null, 2) + '\n');
-    }
-  } catch {}
+  withStoreLock(() => {
+    try {
+      const store = JSON.parse(fs.readFileSync(storePath, 'utf8'));
+      if (Array.isArray(store.entries)) {
+        store.entries = store.entries.filter((e) => e.designId !== id);
+        fs.writeFileSync(storePath, JSON.stringify(store, null, 2) + '\n');
+      }
+    } catch {}
+  });
 }
 
 async function findEditor(ctx, id) {

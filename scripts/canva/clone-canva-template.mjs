@@ -24,6 +24,42 @@ function writeJson(file, value) {
   fs.writeFileSync(file, JSON.stringify(value, null, 2), 'utf8');
 }
 
+// Cross-process mutex, same pattern as agent-canva-clone.mjs's withLock — the shared dedupe
+// index is a read-modify-write file, and several clone agents run this script concurrently
+// (different chats cloning different designs at once). Without a lock, two processes reading
+// the index before either writes silently lose one's entry (last writer wins) — the dedupe
+// index then forgets a design existed, and a real future duplicate can slip past findDuplicates.
+function withFileLock(lockPath, fn) {
+  const STALE_MS = 20000;
+  const WAIT_MS = 15000;
+  const started = Date.now();
+  let fd = null;
+  for (;;) {
+    try {
+      fd = fs.openSync(lockPath, 'wx');
+      break;
+    } catch (err) {
+      if (err.code !== 'EEXIST') throw err;
+      try {
+        if (Date.now() - fs.statSync(lockPath).mtimeMs > STALE_MS) {
+          fs.unlinkSync(lockPath);
+          continue;
+        }
+      } catch {
+        continue;
+      }
+      if (Date.now() - started > WAIT_MS) throw new Error(`timed out waiting for lock: ${lockPath}`);
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 40);
+    }
+  }
+  try {
+    return fn();
+  } finally {
+    try { fs.closeSync(fd); } catch {}
+    try { fs.unlinkSync(lockPath); } catch {}
+  }
+}
+
 function readJson(file, fallback = null) {
   if (!fs.existsSync(file)) return fallback;
   try {
@@ -175,21 +211,26 @@ function buildTemplateSignature(templateData) {
 }
 
 function updateDedupeIndex(indexPath, entry) {
-  const current = readJson(indexPath, { entries: [] }) || { entries: [] };
-  const entries = Array.isArray(current.entries) ? current.entries : [];
-  const withoutCurrentDesign = entries.filter((e) => String(e?.designId || '') !== String(entry.designId || ''));
-  const nextEntry = {
-    ...entry,
-    updatedAt: new Date().toISOString(),
-  };
-  const merged = [nextEntry, ...withoutCurrentDesign].slice(0, 1000);
-  const payload = {
-    updatedAt: new Date().toISOString(),
-    entries: merged,
-  };
-  ensureDir(path.dirname(indexPath));
-  writeJson(indexPath, payload);
-  return payload;
+  const lockPath = `${indexPath}.lock`;
+  return withFileLock(lockPath, () => {
+    // Re-read FRESH under the lock — the caller's `currentIndex` (read earlier, before cloning
+    // ran) may already be stale if another process updated the index in the meantime.
+    const current = readJson(indexPath, { entries: [] }) || { entries: [] };
+    const entries = Array.isArray(current.entries) ? current.entries : [];
+    const withoutCurrentDesign = entries.filter((e) => String(e?.designId || '') !== String(entry.designId || ''));
+    const nextEntry = {
+      ...entry,
+      updatedAt: new Date().toISOString(),
+    };
+    const merged = [nextEntry, ...withoutCurrentDesign].slice(0, 1000);
+    const payload = {
+      updatedAt: new Date().toISOString(),
+      entries: merged,
+    };
+    ensureDir(path.dirname(indexPath));
+    writeJson(indexPath, payload);
+    return payload;
+  });
 }
 
 function findDuplicates(index, signature, designId) {

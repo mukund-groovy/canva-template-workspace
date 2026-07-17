@@ -19,38 +19,40 @@
     }
   },
   "purple-black-modern": {
-    "score": 8.5,
+    "score": 5.7,
     "breakdown": {
-      "contract": 4,
-      "verify": 3,
+      "contract": 3,
+      "verify": 1.2,
       "stress": 1.5,
       "brand": 0,
       "raw": {
         "cViol": 0,
-        "cWarn": 0,
+        "cWarn": 7,
         "vFail": 0,
-        "vWarn": 0,
+        "vWarn": 6,
         "stFail": 0,
-        "deckAvg": 0,
-        "brandPass": false
+        "deckAvg": 6.81,
+        "brandPass": true,
+        "brandFail": 6
       }
     }
   },
   "beige-playful-scrapbook": {
-    "score": 8.5,
+    "score": 4.5,
     "breakdown": {
       "contract": 4,
-      "verify": 3,
-      "stress": 1.5,
+      "verify": 0,
+      "stress": 0.5,
       "brand": 0,
       "raw": {
         "cViol": 0,
         "cWarn": 0,
-        "vFail": 0,
-        "vWarn": 0,
-        "stFail": 0,
-        "deckAvg": 0,
-        "brandPass": false
+        "vFail": 4,
+        "vWarn": 1,
+        "stFail": 2,
+        "deckAvg": 8.25,
+        "brandPass": true,
+        "brandFail": 8
       }
     }
   },
@@ -163,20 +165,21 @@
     }
   },
   "white-purple-gradient": {
-    "score": 9.3,
+    "score": 4.3,
     "breakdown": {
       "contract": 3.3,
-      "verify": 3,
-      "stress": 1.5,
-      "brand": 1.5,
+      "verify": 0,
+      "stress": 1,
+      "brand": 0,
       "raw": {
         "cViol": 0,
         "cWarn": 5,
-        "vFail": 0,
-        "vWarn": 0,
-        "stFail": 0,
-        "deckAvg": 12.05,
-        "brandPass": true
+        "vFail": 11,
+        "vWarn": 3,
+        "stFail": 1,
+        "deckAvg": 23.21,
+        "brandPass": true,
+        "brandFail": 22
       }
     }
   },
@@ -689,6 +692,177 @@
         "vWarn": 0,
         "stFail": 13,
         "deckAvg": 18.69,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "quiet-money-habits": {
+    "score": 8.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.2,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 6,
+        "stFail": 0,
+        "deckAvg": 8.97,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "newsletters-worth-opening": {
+    "score": 8.4,
+    "breakdown": {
+      "contract": 3.3,
+      "verify": 2.1,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 5,
+        "vFail": 0,
+        "vWarn": 3,
+        "stFail": 0,
+        "deckAvg": 23.2,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "start-your-journal": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 3.3,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "quiet-garden-lessons": {
+    "score": 8.8,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.8,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 4,
+        "stFail": 0,
+        "deckAvg": 39.3,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "read-remember-more": {
+    "score": 5.7,
+    "breakdown": {
+      "contract": 3,
+      "verify": 1.2,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 7,
+        "vFail": 0,
+        "vWarn": 6,
+        "stFail": 0,
+        "deckAvg": 6.81,
+        "brandPass": true,
+        "brandFail": 6
+      }
+    }
+  },
+  "brew-better-coffee": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 9.24,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "permission-slips-daily": {
+    "score": 9.1,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.1,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 3,
+        "stFail": 0,
+        "deckAvg": 3.62,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "slow-morning-rituals": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 18.22,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "clay-year-recap": {
+    "score": 9.1,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.1,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 3,
+        "stFail": 0,
+        "deckAvg": 3.23,
         "brandPass": true,
         "brandFail": 0
       }

@@ -9,7 +9,7 @@ description: >
   "adapt <design-id> for <topic>", or wants an on-style-but-original template.
   (For an EXACT reproduction of the reference, use template-author-agent instead.)
 tools: Read, Write, Edit, Bash, Grep, Glob
-model: opus
+model: sonnet
 ---
 
 # Template Remix Agent (creative sibling of the author agent)
@@ -30,6 +30,27 @@ Chromium — no debug browser needed.
 and `.renders/output/<slug>/`. NEVER `rm -rf` a shared dir (`output/`, `.renders/`, `replicas/`,
 `designs/`) — you will destroy another agent's in-progress work. Never edit or delete a template you
 did not create.
+
+**First thing you do, before anything else** — atomically claim the design, both to signal progress
+on the dashboard AND to stop two agents (yours and another chat's) working the same design at once
+(confirmed happening in practice, 2026-07-17 — two sessions both started the same design):
+
+```bash
+node scripts/agent-canva-clone.mjs --action claim --design-id <id> --stage "authoring"
+```
+
+Read the result. `"claimed": true` — proceed normally. **`"claimed": false` — STOP immediately and
+report back that another agent already has this design; do not author anything.** Do not use `mark
+--status generating` for this step — it is NOT atomic (two agents can both see the design as free
+before either writes) where `claim` is (check-and-set inside one lock, tested race-safe).
+
+This claim is also the ONLY status/timing signal the dashboard gets for a hand-authored remix (unlike
+the batch worker, nothing else stamps it) — skipping it means the row shows no progress and no gen
+time for the entire run, even though you're actively working. If you give up entirely without
+shipping anything, mark it failed so the row doesn't stay stuck on "Generating…" forever:
+`node scripts/agent-canva-clone.mjs --action mark --design-id <id> --status failed --error "<why>"`.
+On a normal ship, you do NOT need to mark success — Step 6 below already flips the row via
+`--action refresh`, which detects the new remix-map.json entry.
 
 ## 1. Understand the reference before you design
 
@@ -193,11 +214,14 @@ node scripts/build-comparison.mjs   --design-id <id>  # before/after preview
 node scripts/agent-canva-clone.mjs  --action refresh  # sync dashboard
 ```
 
-Add `"<id>": "<slug>"` to `archetype-map.json` (keep the `_comment` key) so the dashboard marks it
-success. Two notes: the comparison view is "Original → replica → variant" — a remix deliberately
-changes topic/copy, so it will NOT pixel-match; that's expected. And `score-template.mjs` only measures
-structure, clean render and recolor — it says NOTHING about whether the design is good. Never quote it
-as evidence of quality; your own eyes are the judge.
+Add `"<slug>": "<id>"` to `remix-map.json` (slug → designId, NOT the reverse — and NOT
+`archetype-map.json`, which belongs to `template-author-agent` faithful repros only). This is what
+`--action refresh` reads to build `entry.remixes` and flip the design to `success`; skip it and the
+deck ships fine on disk but never appears on the dashboard. Many remixes of the same design are fine
+— just give each a distinct key. Two notes: the comparison view is "Original → replica → variant" — a
+remix deliberately changes topic/copy, so it will NOT pixel-match; that's expected. And
+`score-template.mjs` only measures structure, clean render and recolor — it says NOTHING about
+whether the design is good. Never quote it as evidence of quality; your own eyes are the judge.
 
 ## Verify before reporting (honesty rules)
 

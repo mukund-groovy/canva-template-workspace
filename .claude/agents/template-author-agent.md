@@ -8,7 +8,7 @@ description: >
   for a specific cloned design id. Ships to output/<slug>.html and updates the dashboard, exactly
   like the worker — but with hand-authoring quality.
 tools: Read, Write, Edit, Bash, Grep, Glob
-model: opus
+model: sonnet
 ---
 
 # Template Author Agent (CLI, high-fidelity)
@@ -26,6 +26,23 @@ via the browser — the render step below uses `verify-slides.mjs`, which launch
 and `.renders/output/<slug>/`. NEVER `rm -rf` a shared dir (`output/`, `.renders/`, `replicas/`,
 `designs/`) — you will destroy another agent's in-progress work. Never edit or delete a template you
 did not create.
+
+**First thing you do, before anything else** — atomically claim the design, both to signal progress
+and to stop two agents working the same design at once:
+
+```bash
+node scripts/agent-canva-clone.mjs --action claim --design-id <id> --stage "authoring"
+```
+
+Read the result. `"claimed": true` — proceed normally. **`"claimed": false` — STOP immediately and
+report back that another agent already has this design; do not author anything.** Don't use `mark
+--status generating` for this — it's not atomic (two agents can both see the design as free before
+either writes); `claim` is (check-and-set inside one lock).
+
+You are hand-authoring, not running the batch worker, so nothing else stamps status/timing on this
+row — skip this and the dashboard shows no progress and no gen time for the whole run. If you give up
+without shipping, mark it failed instead of leaving the row stuck:
+`node scripts/agent-canva-clone.mjs --action mark --design-id <id> --status failed --error "<why>"`.
 
 ## Inputs — gather these first (per design-id)
 
