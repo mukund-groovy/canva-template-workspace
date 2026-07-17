@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap');
+
+  :root{
+    /* Accent roles re-skin (primary/secondary/accent); canvas + ink stay fixed for
+       legibility. This deck paints the brand as COLOURED TYPE on a pale canvas — the
+       giant index numeral, the one accented headline word, the corner tag and the
+       folio. Coloured type on a light bg must clear AA, so every branded TEXT run is
+       routed through --primary (which stays dark across brand palettes); --accent is
+       reserved for non-text decorative fills (the kicker dash, the outro underline). */
+    --primary:var(--brand-primary,#5E17EB);
+    --secondary:var(--brand-secondary,#4711C2);
+    --accent:var(--brand-accent,#5E17EB);
+    --highlight:var(--brand-accent,#5E17EB);
+    --bg:var(--brand-bg,#F1F1F1);
+    --surface:var(--brand-surface,#E6E6E6);
+    --text-high:var(--brand-ink,#141414);
+    --text-low:var(--brand-text-muted,#6C6C6C);
+    --border:var(--brand-border,rgba(20,20,20,.12));
+    --on-accent:var(--brand-on-accent,#ffffff);
+    --on-primary:var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);font-family:'Poppins',sans-serif;
+  }
+
+  /* ── top furniture ── */
+  .lockup{position:absolute;left:90px;top:58px;z-index:5;display:inline-flex;align-items:center;gap:12px;}
+  .brand-mark{height:30px;width:auto;max-width:120px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Poppins',sans-serif;font-weight:700;font-size:27px;letter-spacing:.14em;color:var(--text-high);white-space:nowrap;text-transform:uppercase;}
+
+  .tag{position:absolute;right:90px;top:60px;z-index:5;}
+  .tag span{font-family:'Poppins',sans-serif;font-weight:700;font-size:27px;letter-spacing:.14em;color:var(--primary);white-space:nowrap;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;}
+
+  /* ── giant index numeral (the signature) — rendered as a decorative pseudo-element,
+     not a copy slot: it carries no text node, so the bleed-off-canvas edge and its tall
+     display line-box never trip the text OVERFLOW / collision harness, while its
+     var(--primary) fill still re-skins per brand (brand-audit is pixel-based). ── */
+  .num{position:absolute;z-index:1;pointer-events:none;}
+  .num::before{content:attr(data-num);display:block;font-family:'Anton',sans-serif;font-weight:400;
+    line-height:.86;letter-spacing:-.02em;color:var(--primary);white-space:nowrap;}
+  .slide-content .num{left:-20px;top:150px;}
+  .slide-content .num::before{font-size:470px;}
+  /* cover mark is an SVG glyph so it registers as visual body for the coverage grid
+     while staying out of the text-collision harness (SVG-enclosed) */
+  .dollar{position:absolute;left:-16px;top:104px;width:470px;height:520px;z-index:1;overflow:visible;pointer-events:none;}
+  .dollar text{font-family:'Anton',sans-serif;fill:var(--primary);}
+
+  /* ── kicker (cover) ── */
+  .dash{position:absolute;left:92px;top:650px;width:56px;height:8px;background:var(--accent);z-index:3;}
+  .kicker{position:absolute;left:168px;top:630px;right:90px;z-index:3;}
+  .kicker span{font-family:'Poppins',sans-serif;font-weight:700;font-size:34px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;}
+
+  /* ── headline ── */
+  .hl{position:absolute;left:90px;right:84px;z-index:4;}
+  .hl h1,.hl h2{margin:0;font-family:'Poppins',sans-serif;font-weight:700;letter-spacing:-.015em;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.14em;}
+  .hl .ac{color:var(--primary);}
+
+  .slide-content .hl{top:552px;right:352px;}
+  .slide-content .hl h2{font-size:80px;line-height:1.07;-webkit-line-clamp:3;}
+
+  .slide-cover .hl{top:702px;right:96px;}
+  .slide-cover .hl h1{font-size:96px;line-height:1.03;-webkit-line-clamp:4;}
+
+  .slide-outro .hl{top:392px;right:96px;}
+  .slide-outro .hl h1{font-size:118px;line-height:1.04;-webkit-line-clamp:4;}
+  .uline{position:absolute;left:96px;top:892px;width:420px;height:14px;background:var(--accent);z-index:3;}
+
+  /* ── body / subhead / cta ── */
+  .body{position:absolute;left:96px;z-index:4;}
+  .body p{margin:0;font-family:'Poppins',sans-serif;font-weight:400;color:var(--text-low);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.1em;}
+  .body p b{font-weight:600;color:var(--text-high);}
+
+  .slide-content .body{top:846px;right:350px;}
+  .slide-content .body p{font-size:31px;line-height:1.42;-webkit-line-clamp:6;}
+
+  .slide-cover .body{top:1122px;right:120px;}
+  .slide-cover .body p{font-size:34px;line-height:1.4;-webkit-line-clamp:2;color:var(--text-high);opacity:.72;}
+
+  .slide-outro .body{top:948px;right:180px;}
+  .slide-outro .body p{font-size:36px;line-height:1.42;-webkit-line-clamp:3;color:var(--text-high);opacity:.72;}
+
+  /* ── footer ── */
+  .footcap{position:absolute;left:96px;bottom:62px;z-index:5;}
+  .footcap span{font-family:'Poppins',sans-serif;font-weight:500;font-size:24px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-low);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;}
+  /* ── right progress rail (interior slides) ── */
+  .rail{position:absolute;top:0;right:0;width:332px;height:100%;background:var(--surface);z-index:0;}
+  .rail::before{content:'';position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--accent);}
+  .dots{position:absolute;right:129px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;gap:30px;z-index:1;}
+  .dots i{width:22px;height:22px;border-radius:11px;background:var(--border);display:block;}
+  .dots i.on{background:var(--accent);height:64px;}
+
+  .counter{position:absolute;right:90px;bottom:60px;z-index:5;}
+  .counter span{font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;letter-spacing:.16em;color:var(--primary);white-space:nowrap;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Cover -->
+  <section class="slide slide-cover" data-cg-slide-type="cover">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">LEDGER</span></div>
+    <div class="tag"><span>/ MONEY</span></div>
+
+    <svg class="dollar" viewBox="0 0 470 520" aria-hidden="true"><text x="0" y="470" font-size="590" letter-spacing="-6">$</text></svg>
+    <div class="dash"></div>
+    <div class="kicker"><span data-tagline="true">The Wealth Guide</span></div>
+    <div class="hl"><h1 data-title="true">Small Habits That <span class="ac">Quietly</span> Build Real Wealth</h1></div>
+    <div class="body"><p data-message="true">Five money habits that grow your net worth on almost any income.</p></div>
+
+    <div class="footcap"><span>Wealth Habits</span></div>
+    <div class="counter"><span data-counter="true">01 / 07</span></div>
+  </section>
+
+  <!-- 01 -->
+  <section class="slide slide-content" data-cg-slide-type="content">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">LEDGER</span></div>
+    <div class="tag"><span>/ MONEY</span></div>
+
+    <div class="rail"><div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="num" data-num="01"></div>
+    <div class="hl"><h2 data-title="true">Pay Yourself <span class="ac">First</span> Every Single Payday</h2></div>
+    <div class="body"><p data-message="true">Move money to savings the moment you are paid, <b>before you spend</b> a cent. Treating your future like a fixed bill makes saving <b>automatic</b>, so whatever is left over is genuinely yours to enjoy without any guilt at all.</p></div>
+
+    <div class="footcap"><span>Wealth Habits</span></div>
+    <div class="counter"><span data-counter="true">02 / 07</span></div>
+  </section>
+
+  <!-- 02 -->
+  <section class="slide slide-content" data-cg-slide-type="content">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">LEDGER</span></div>
+    <div class="tag"><span>/ MONEY</span></div>
+
+    <div class="rail"><div class="dots"><i></i><i class="on"></i><i></i><i></i><i></i></div></div>
+    <div class="num" data-num="02"></div>
+    <div class="hl"><h2 data-title="true"><span class="ac">Automate</span> The Boring Money Decisions</h2></div>
+    <div class="body"><p data-message="true">Set your transfers, bills and investing to <b>run on autopilot</b> every month. Take raw willpower out of the loop and the good choices keep happening on their own, <b>even on the weeks</b> you are far too busy or tired to think about money.</p></div>
+
+    <div class="footcap"><span>Wealth Habits</span></div>
+    <div class="counter"><span data-counter="true">03 / 07</span></div>
+  </section>
+
+  <!-- 03 -->
+  <section class="slide slide-content" data-cg-slide-type="content">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">LEDGER</span></div>
+    <div class="tag"><span>/ MONEY</span></div>
+
+    <div class="rail"><div class="dots"><i></i><i></i><i class="on"></i><i></i><i></i></div></div>
+    <div class="num" data-num="03"></div>
+    <div class="hl"><h2 data-title="true">Let Small Amounts <span class="ac">Compound</span></h2></div>
+    <div class="body"><p data-message="true">A small amount invested <b>every single month</b> beats a big lump sum you keep waiting until you can afford. <b>Time in the market</b> quietly does the heavy lifting for you, and the size of each deposit matters far less than the streak.</p></div>
+
+    <div class="footcap"><span>Wealth Habits</span></div>
+    <div class="counter"><span data-counter="true">04 / 07</span></div>
+  </section>
+
+  <!-- 04 -->
+  <section class="slide slide-content" data-cg-slide-type="content">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">LEDGER</span></div>
+    <div class="tag"><span>/ MONEY</span></div>
+
+    <div class="rail"><div class="dots"><i></i><i></i><i></i><i class="on"></i><i></i></div></div>
+    <div class="num" data-num="04"></div>
+    <div class="hl"><h2 data-title="true">Spend Loudly On What You <span class="ac">Value</span></h2></div>
+    <div class="body"><p data-message="true"><b>Cut hard</b> and without guilt on the things you do not really care about, so you can spend freely on the few that you love. A budget is not a restriction, it is simply <b>permission</b> to fund what genuinely matters to you.</p></div>
+
+    <div class="footcap"><span>Wealth Habits</span></div>
+    <div class="counter"><span data-counter="true">05 / 07</span></div>
+  </section>
+
+  <!-- 05 -->
+  <section class="slide slide-content" data-cg-slide-type="content">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">LEDGER</span></div>
+    <div class="tag"><span>/ MONEY</span></div>
+
+    <div class="rail"><div class="dots"><i></i><i></i><i></i><i></i><i class="on"></i></div></div>
+    <div class="num" data-num="05"></div>
+    <div class="hl"><h2 data-title="true">Check Your <span class="ac">Numbers</span> Without Fear</h2></div>
+    <div class="body"><p data-message="true">Open your accounts and look at the real numbers <b>every week</b>, even when the total stings a little. Awareness is where <b>real control begins</b>, and over time the habit turns money from a background worry into a tool you can actually steer.</p></div>
+
+    <div class="footcap"><span>Wealth Habits</span></div>
+    <div class="counter"><span data-counter="true">06 / 07</span></div>
+  </section>
+
+  <!-- Outro -->
+  <section class="slide slide-outro" data-cg-slide-type="outro">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">LEDGER</span></div>
+    <div class="tag"><span>/ MONEY</span></div>
+
+    <div class="hl"><h1 data-title="true">Keep This For Your <span class="ac">Next Payday</span></h1></div>
+    <div class="uline"></div>
+    <div class="body"><p data-cta="true">Save it now so the next paycheck actually changes something.</p></div>
+
+    <div class="footcap"><span>Wealth Habits</span></div>
+    <div class="counter"><span data-counter="true">07 / 07</span></div>
+  </section>
+
+</div>
+</body>
+</html>

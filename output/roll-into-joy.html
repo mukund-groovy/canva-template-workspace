@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500;1,600;1,800&family=Inter:wght@400;700;800&display=swap');
+
+    :root{
+      /* Brand role colors. --primary drives the big rounded card, the avatar
+         scallop and the name chip; --accent drives the full-bleed frame and
+         the CTA pill — mirrors the reference's own two-colour (pink/lime)
+         logic. Cream reading card + all ink stay fixed for legibility. */
+      --primary:var(--brand-primary,#F7CFF3);
+      --secondary:var(--brand-secondary,#C98FE0);
+      --accent:var(--brand-accent,#EFF98E);
+      --highlight:var(--brand-highlight,var(--brand-accent,#EFF98E));
+      --bg:var(--brand-bg,#FFFCF5);
+      --surface:var(--brand-surface,var(--brand-bg-alt,#FBF6E8));
+      --text-high:var(--brand-ink,var(--brand-text,#2B2117));
+      --text-low:var(--brand-text-muted,#6B5E50);
+      --border:var(--brand-border,rgba(30,20,15,.16));
+      --on-accent:var(--brand-on-accent,#22160f);
+      --on-primary:var(--brand-on-primary,#22160f);
+    }
+
+    *{box-sizing:border-box;}
+
+    .ig-carousel{display:flex;width:max-content;min-height:1080px;background:#0c0c0c;}
+
+    .slide{
+      width:1080px;height:1080px;flex:none;position:relative;overflow:hidden;
+      background:var(--accent);
+      font-family:'Inter',sans-serif;
+    }
+
+    /* ── the big rounded surface — the reference's dominant pink field ── */
+    .surface-big{
+      position:absolute;left:68px;top:68px;width:944px;height:944px;
+      border-radius:92px;background:var(--primary);
+      border:3px solid #1c140f;
+    }
+
+    /* ── the cream reading card, fixed for legibility ── */
+    .surface-card{
+      position:absolute;left:196px;top:196px;width:664px;height:545px;
+      border-radius:56px;background:var(--bg);
+      border:3px solid #1c140f;
+      box-shadow:0 22px 40px rgba(20,12,6,.16);
+      z-index:1;
+    }
+
+    /* ── avatar scallop frame (soft 8-petal flower, faux-stroke underlay) + photo ── */
+    .avatar-frame{position:absolute;left:252px;top:252px;width:140px;height:140px;z-index:2;filter:drop-shadow(0 4px 0 rgba(0,0,0,.05));}
+    .avatar-photo{
+      position:absolute;left:274px;top:274px;width:96px;height:96px;border-radius:50%;
+      overflow:hidden;z-index:3;border:2px solid #1c140f;
+    }
+    .avatar-photo img{width:100%;height:100%;object-fit:cover;display:block;background:#cbb896;}
+
+    /* ── isolated wrapper per text node ── */
+    .tn-title{position:absolute;left:428px;top:260px;z-index:2;}
+    .tn-title h1{
+      margin:0;font-family:'Playfair Display',serif;font-weight:800;font-style:italic;
+      font-size:42px;line-height:1.14;color:var(--on-primary);background:var(--primary);
+      border:3px solid #1c140f;border-radius:22px;padding:10px 24px 16px;
+      display:-webkit-inline-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+      max-width:320px;white-space:nowrap;
+    }
+
+    .tn-tagline{position:absolute;left:428px;top:356px;width:320px;z-index:2;}
+    .tn-tagline span{
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+      font-family:'Playfair Display',serif;font-style:italic;font-weight:500;font-size:26px;
+      color:var(--text-low);padding-bottom:6px;
+    }
+
+    .tn-message{position:absolute;left:252px;top:432px;width:552px;z-index:2;}
+    .tn-message p{
+      margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:28px;line-height:1.46;
+      color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;overflow:hidden;
+      padding-bottom:8px;
+    }
+
+    /* ── CTA pill — sits on the big surface, outside the cream card ── */
+    .tn-cta{
+      position:absolute;left:196px;top:781px;width:664px;height:92px;z-index:2;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--accent);border:3px solid #1c140f;border-radius:46px;
+    }
+    .tn-cta span{
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+      font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:29px;
+      color:var(--on-accent);text-align:center;max-width:600px;padding-bottom:4px;
+    }
+
+    /* ── brand lockup, on the accent frame band ── */
+    .foot{
+      position:absolute;left:0;right:0;bottom:16px;z-index:3;
+      display:flex;align-items:center;justify-content:center;gap:12px;
+    }
+    .brand-mark{height:26px;width:auto;max-width:110px;object-fit:contain;display:block;}
+    .brand-word{
+      font-family:'Inter',sans-serif;font-weight:800;letter-spacing:.08em;font-size:19px;
+      color:var(--on-accent);text-transform:uppercase;white-space:nowrap;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <section class="slide" data-cg-slide-type="quote">
+      <div class="surface-big"></div>
+      <div class="surface-card"></div>
+
+      <svg class="avatar-frame" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#1c140f">
+          <circle cx="70" cy="50" r="24.5"/><circle cx="64.14" cy="64.14" r="24.5"/>
+          <circle cx="50" cy="70" r="24.5"/><circle cx="35.86" cy="64.14" r="24.5"/>
+          <circle cx="30" cy="50" r="24.5"/><circle cx="35.86" cy="35.86" r="24.5"/>
+          <circle cx="50" cy="30" r="24.5"/><circle cx="64.14" cy="35.86" r="24.5"/>
+        </g>
+        <g fill="var(--primary)">
+          <circle cx="70" cy="50" r="22"/><circle cx="64.14" cy="64.14" r="22"/>
+          <circle cx="50" cy="70" r="22"/><circle cx="35.86" cy="64.14" r="22"/>
+          <circle cx="30" cy="50" r="22"/><circle cx="35.86" cy="35.86" r="22"/>
+          <circle cx="50" cy="30" r="22"/><circle cx="64.14" cy="35.86" r="22"/>
+        </g>
+      </svg>
+      <div class="avatar-photo">
+        <img data-image="true" data-image-size="512x512" data-image-prompt="Close-up joyful portrait of a young woman with wind-tousled hair mid-laugh, warm golden-hour light, cropped tight for a circular profile photo, roller rink blurred in the background" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><rect width='100%25' height='100%25' fill='%23cbb896'/></svg>"/>
+      </div>
+
+      <div class="tn-title"><h1 data-title="true">Reyna K</h1></div>
+      <div class="tn-tagline"><span data-tagline="true">@wheelandglow</span></div>
+      <div class="tn-message"><p data-message="true">Eight wheels and zero small talk — every roll is my reset button for the week. The wind, the music, the wobble right before you land it clean: skating taught me joy doesn't need to be perfect, it just needs to move.</p></div>
+
+      <div class="tn-cta"><span data-cta="true">Follow @wheelandglow for more skate diaries</span></div>
+
+      <div class="foot">
+        <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/>
+        <span class="brand-word">YOURBRAND</span>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

@@ -197,10 +197,10 @@ function collectCloneShots(designRoot, extractDir, pageCount) {
 }
 
 // ── HTML assembly ────────────────────────────────────────────────────────────
-function buildHtml({ designId, title, originals, replica, variant, brands, archetypeSlug, liveSrc }) {
+function buildHtml({ designId, title, originals, replica, variant, brands, archetypeSlug, liveSrc, isRemix }) {
   const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-  // Columns present, in order: Original → Exact replica (clone) → Generated (archetype).
+  // Columns present, in order: Original → Exact replica (clone) → Generated (archetype/remix).
   const cols = [{ key: 'original', label: 'Original', sub: 'Canva design', imgs: originals }];
   if (replica && replica.some(Boolean)) {
     cols.push({ key: 'replica', label: 'Exact replica', sub: 'our HTML clone', imgs: replica });
@@ -211,8 +211,8 @@ function buildHtml({ designId, title, originals, replica, variant, brands, arche
     // selectable, inspectable — instead of a stale render baked in at build time.
     cols.push({
       key: 'variant',
-      label: 'Generated',
-      sub: liveSrc ? 'our live HTML' : 'brand archetype',
+      label: isRemix ? 'Remix' : 'Generated',
+      sub: liveSrc ? (isRemix ? 'live HTML — new topic/copy' : 'our live HTML') : 'brand archetype',
       imgs: variant,
       live: liveSrc || null,
     });
@@ -289,7 +289,7 @@ code{color:#ff8210;background:#2c261d;padding:2px 7px;border-radius:5px;margin-r
 <div class="legend">
   <span><b>Original</b> = the Canva design</span>
   <span><b>Exact replica</b> = faithful clone in our HTML (reuses Canva assets)</span>
-  <span><b>Variant</b> = brand archetype${archetypeSlug ? ' <code>' + esc(archetypeSlug) + '.html</code>' : ''} — our own template, brand-recolorable</span>
+  <span><b>Variant</b> = ${isRemix ? 'remix' : 'brand archetype'}${archetypeSlug ? ' <code>' + esc(archetypeSlug) + '.html</code>' : ''} — ${isRemix ? 'same design language, its own content, brand-recolorable' : 'our own template, brand-recolorable'}</span>
 </div>
 <h2>1 · Original &rarr; Exact replica &rarr; Variant</h2>
 ${rows}
@@ -333,9 +333,24 @@ async function main() {
   if (!templateData) throw new Error(`No extracted template-data.json for ${designId}. Clone first.`);
   const pageCount = Array.isArray(templateData.pages) ? templateData.pages.length : 5;
 
-  // resolve archetype slug: explicit flag, else archetype-map.json
+  // resolve archetype slug: explicit flag, else archetype-map.json, else remix-map.json.
+  // A remix never owns archetype-map.json (see CLAUDE.md Stage 2 / memory remix-agent), so
+  // without this fallback every remix-only design built a comparison page with no live
+  // "Variant" column at all — the reference was the only thing shown, with no colors.
   const map = readJsonSafe(path.join(workspaceRoot, 'archetype-map.json'), {}) || {};
-  const archetypeSlug = args.archetype && args.archetype !== 'true' ? args.archetype : map[designId] || null;
+  let archetypeSlug = args.archetype && args.archetype !== 'true' ? args.archetype : map[designId] || null;
+  let isRemix = false;
+  if (!archetypeSlug) {
+    const rmap = readJsonSafe(path.join(workspaceRoot, 'remix-map.json'), {}) || {};
+    const remixSlug =
+      args.remix && args.remix !== 'true'
+        ? args.remix
+        : Object.entries(rmap).find(([, id]) => String(id) === String(designId))?.[0] || null;
+    if (remixSlug) {
+      archetypeSlug = remixSlug;
+      isRemix = true;
+    }
+  }
   const archetypeFile = archetypeSlug
     ? path.join(outputDir, `${archetypeSlug}.html`)
     : null;
@@ -384,6 +399,7 @@ async function main() {
     brands,
     liveSrc,
     archetypeSlug,
+    isRemix,
   });
   fs.writeFileSync(outPath, html);
 

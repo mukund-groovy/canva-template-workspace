@@ -694,6 +694,272 @@
       }
     }
   },
+  "quiet-money-habits": {
+    "score": 8.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.2,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 6,
+        "stFail": 0,
+        "deckAvg": 8.97,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "newsletters-worth-opening": {
+    "score": 8.4,
+    "breakdown": {
+      "contract": 3.3,
+      "verify": 2.1,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 5,
+        "vFail": 0,
+        "vWarn": 3,
+        "stFail": 0,
+        "deckAvg": 23.2,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "start-your-journal": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 3.3,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "quiet-garden-lessons": {
+    "score": 8.8,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.8,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 4,
+        "stFail": 0,
+        "deckAvg": 39.3,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "read-remember-more": {
+    "score": 5.7,
+    "breakdown": {
+      "contract": 3,
+      "verify": 1.2,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 7,
+        "vFail": 0,
+        "vWarn": 6,
+        "stFail": 0,
+        "deckAvg": 6.81,
+        "brandPass": true,
+        "brandFail": 6
+      }
+    }
+  },
+  "brew-better-coffee": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 9.24,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "permission-slips-daily": {
+    "score": 9.1,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.1,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 3,
+        "stFail": 0,
+        "deckAvg": 3.62,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "slow-morning-rituals": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 18.22,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "clay-year-recap": {
+    "score": 9.1,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.1,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 3,
+        "stFail": 0,
+        "deckAvg": 3.23,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "steady-not-loud": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 3.09,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "start-messy-today": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 57.65,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "roll-into-joy": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 69.22,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "brave-career-pivot": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 20.19,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "never-too-late": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 3.88,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
   "freelancer-weekly-reset": {
     "score": 7.5,
     "breakdown": {

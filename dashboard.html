@@ -188,7 +188,7 @@
         mgal.innerHTML='<div class="cmp1"><div class="chd '+s.cls+'">'+esc(s.label)+' · '+s.imgs.length+' slides</div>'+
           '<div class="cgrid">'+s.imgs.map((p,i)=>'<figure><img loading="lazy" src="'+esc(fileHref(p))+'" alt="slide '+(i+1)+'"/><figcaption>'+String(i+1).padStart(2,'0')+'</figcaption></figure>').join('')+'</div></div>';
         mgal.hidden=false; mframe.hidden=true; mframe.src='about:blank'; mgal.scrollTop=0; modal.classList.add('gal');
-        mtitle.innerHTML=esc(m.title||e.designId||'Preview')+'<span>'+esc(s.label)+' — not generated yet</span>';
+        mtitle.innerHTML=esc(m.title||e.designId||'Preview')+'<span>'+esc(s.label)+' — not generated yet</span>'+fullReportBtn(e);
         modal.hidden=false; document.body.style.overflow='hidden';
         return true;
       }
@@ -207,9 +207,18 @@
       h+='</div>';
       mgal.innerHTML=h; mgal.hidden=false; mframe.hidden=true; mframe.src='about:blank'; mgal.scrollTop=0; modal.classList.add('gal');
       const sub=sets.map(s=>s.label).join('  →  ');
-      mtitle.innerHTML=esc(m.title||e.designId||'Preview')+'<span>'+esc(sub)+'</span>';
+      mtitle.innerHTML=esc(m.title||e.designId||'Preview')+'<span>'+esc(sub)+'</span>'+fullReportBtn(e);
       modal.hidden=false; document.body.style.overflow='hidden';
       return true;
+    }
+    // This slide grid is derived-from-disk and always safe to build, but it only ever
+    // shows slides — it has no idea about brand-palette swatches (Teal/Green/Indigo),
+    // which only exist inside comparison.html (build-comparison.mjs). Surface a way to
+    // reach that page instead of leaving the 4-color view unreachable from the dashboard.
+    function fullReportBtn(e){
+      return e.comparison
+        ? '<button class="btn primary" data-modal data-href="'+esc(fileHref(e.comparison))+'" data-title="Comparison" data-sub="'+esc(e.designId||'')+'" style="margin-left:10px">Full report + brand colors ↗</button>'
+        : '';
     }
     function openModal(href,title,sub){
       if(!href) return;
@@ -259,11 +268,13 @@
       // Preview = reference beside every generated deck, one line per slide (built from
       // the entry at click time). Falls back to the comparison page, then the thumbnail,
       // for rows with no renders on this box.
-      const canCmp=(Array.isArray(e.pageThumbs)&&e.pageThumbs.length)?' data-compare="'+esc(e.designId||'')+'"':'';
       const preview=e.comparison||e.thumb;
-      const nSets=1+(Array.isArray(e.archetypeSlides)&&e.archetypeSlides.length?1:0)+(Array.isArray(e.remixes)?e.remixes.filter(r=>Array.isArray(r.slides)&&r.slides.length).length:0);
-      const psub=canCmp?(nSets>1?'original + '+(nSets-1)+' generated':(Array.isArray(e.pageThumbs)?e.pageThumbs.length:0)+' reference slides'):'Original → replica → variant';
-      const thumb=e.thumb?'<img class="thumb" src="'+esc(fileHref(e.thumb))+'"'+canCmp+' data-modal data-href="'+esc(fileHref(preview))+'" data-title="'+esc(m.title||e.designId||'Preview')+'" data-sub="'+esc(psub)+'" title="Open preview" alt=""/>':'';
+      // The thumbnail must open the SAME thing the "Preview" button does (comparison.html —
+      // live HTML + brand-color section), not the separate PNG-grid compare view. It used to
+      // carry its own data-compare and diverge from the button, which was confusing: two
+      // different click targets in the same row showing two different previews.
+      const psub=e.comparison?'Original → replica → variant':(Array.isArray(e.pageThumbs)?e.pageThumbs.length:0)+' reference slides';
+      const thumb=e.thumb?'<img class="thumb" src="'+esc(fileHref(e.thumb))+'" data-modal data-href="'+esc(fileHref(preview))+'" data-title="'+esc(m.title||e.designId||'Preview')+'" data-sub="'+esc(psub)+'" title="Open preview" alt=""/>':'';
       const pal=(Array.isArray(m.palette)?m.palette:[]).slice(0,5).map(x=>'<span class="sw" style="background:'+esc(x)+'"></span>').join('');
       const nRemix=Array.isArray(e.remixes)?e.remixes.length:0;
       const details='<div class="meta"><div class="mrow">'+(m.pages?'<span class="chip"><b>'+m.pages+'</b> slides</span>':'')+(Array.isArray(m.fonts)&&m.fonts.length?'<span class="chip">'+m.fonts.slice(0,2).map(esc).join(' · ')+'</span>':'')+(nRemix?'<span class="chip rx" title="remix templates generated from this reference"><b>'+nRemix+'</b> remix</span>':'')+'</div>'+(pal?'<div class="mrow">'+pal+'</div>':'')+'</div>';
@@ -273,11 +284,14 @@
       // archetype-map entry, design stays 'cloned') — so they only reach the user here.
       const remixes=Array.isArray(e.remixes)?e.remixes:[];
       const remixBtns=remixes.map(r=>{
-        // With renders, show it beside the reference in the compare view; without (deck
-        // generated on another box), open the deck HTML — a strip, but it's all there is.
-        return (Array.isArray(r.slides)&&r.slides.length)
+        // Two separate actions, always both present: compare view (needs renders) and the
+        // raw deck HTML in a real new tab (works regardless of renders). Collapsing these
+        // into one button used to mean a rendered remix lost its "open in new tab" entirely.
+        const cmp=(Array.isArray(r.slides)&&r.slides.length)
           ? '<button class="btn remix" data-modal data-compare="'+esc(e.designId||'')+'" title="Remix — same design language, its own content · '+esc(r.output)+'">'+esc(r.slug)+' ↗</button>'
-          : '<a class="btn remix" href="'+esc(fileHref(r.output))+'" target="_blank" rel="noreferrer" title="Remix — same design language, its own content: '+esc(r.output)+'">'+esc(r.slug)+' ↗</a>';
+          : '';
+        const open='<a class="btn'+(cmp?' ghost':' remix')+'" href="'+esc(fileHref(r.output))+'" target="_blank" rel="noreferrer" title="Open the remix template HTML: '+esc(r.output)+'">'+(cmp?'Open ↗':esc(r.slug)+' ↗')+'</a>';
+        return cmp+open;
       }).join('');
       const files='<div class="files">'+
         (e.comparison?'<button class="btn primary" data-modal data-href="'+esc(fileHref(e.comparison))+'" data-title="Comparison" data-sub="'+esc(e.designId)+'">Preview ↗</button>':'')+

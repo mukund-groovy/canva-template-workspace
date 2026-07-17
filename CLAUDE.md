@@ -84,6 +84,41 @@ if one exists). Two remixes of the same reference are fine — give each a disti
 arrows clipped off the canvas. ALWAYS look at `.renders/output/<slug>/slide-NN.png` before calling a
 deck done, and send the agent back with a specific defect list if it's wrong.
 
+**Dispatching the CLI agent one-by-one across many designs?** The queue/progress lives ONLY in
+whichever chat is dispatching it (one subagent call per design) — nothing durable tracks it, so a
+crash or session restart loses "where we were" entirely (happened 2026-07-17). If you're driving a
+multi-design batch this way, write the fixed scope to `remix-queue.json` (ids + why any were
+excluded) once at the start, and check `node scripts/remix-queue-status.mjs` to see done/in-progress/
+pending — it derives progress live from `remix-map.json` + `dashboard-store.json`, so it can't drift
+out of sync. Any `generating` row left over from a real crash (not another chat's live agent) should
+be knocked back with `node scripts/agent-canva-clone.mjs --action mark --design-id <id> --status
+cloned` before resuming it.
+
+**"start queue" / "resume queue" / "continue the queue"** (or similar, no design id given): run
+`remix-queue-status.mjs`, take the FIRST entry under PENDING (queue order = oldest-first, not
+in-progress) as the design to work, and dispatch exactly ONE `template-remix-agent` subagent for it.
+Default concurrency is **1 at a time** — never launch more than one subagent from a bare "start
+queue" instruction. Only run more concurrently if the user's prompt explicitly says a number or
+"parallel"/"at once" (e.g. "start queue with 3 in parallel"). Chain the next one only after the
+current one reports back, same as running it manually one-by-one.
+
+**Multi-session safety**: `remix-queue-status.mjs` only READS — it claims nothing. Two separate
+chats both saying "start queue" within moments of each other WILL both compute the same oldest-
+pending design (confirmed happening in practice, 2026-07-17 — two chats both started DAHO9lfaPdg).
+`--action mark --status generating` does NOT fully close this: it reads the store once at process
+start and only locks at save time, so two callers can both see "free" before either writes.
+
+Use **`agent-canva-clone.mjs --action claim --design-id <id> --stage "authoring"`** instead — it does
+the check-and-set as ONE atomic operation inside a single lock acquisition (re-reads the store fresh
+from disk only once the lock is held), so exactly one caller gets `claimed: true` even when raced
+head-to-head (tested: two simultaneous calls on the same id → one true, one false). The ORCHESTRATING
+session must call `claim` and check the result BEFORE dispatching the subagent: `claimed: false` means
+someone else already has it — pick the next pending design instead. `mark` still exists for manual
+status fixes (un-sticking a crash-orphaned row back to `cloned`, marking `failed`) where atomicity
+doesn't matter. (The self-driving batch command
+below doesn't have this problem — its
+queue is just "whatever is still `cloned`", which is already durable on disk.)
+
 ### B) Batch command — self-driving, drains the `cloned` queue
 
 ```bash

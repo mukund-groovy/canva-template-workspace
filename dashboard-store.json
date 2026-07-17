@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-17T16:01:59.629Z",
+  "generatedAt": "2026-07-17T13:30:11.218Z",
   "entries": [
     {
       "designId": "DAHOxjfy5Mo",
       "status": "success",
       "createdAt": "2026-07-08T06:42:03.068Z",
-      "updatedAt": "2026-07-17T16:01:59.470Z",
+      "updatedAt": "2026-07-17T08:38:28.406Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -53,7 +53,8 @@
           "#fefbf8",
           "#26201b",
           "#ff8210"
-        ]
+        ],
+        "score": 8.4
       },
       "summary": "designs/DAHOxjfy5Mo/workspace-summary.json",
       "output": "designs/DAHOxjfy5Mo/final/template-clone-pure-html.html",
@@ -72,32 +73,25 @@
         "designs/DAHOxjfy5Mo/extract/assets/pages/page-05-thumbnail.png"
       ],
       "genStage": "",
-      "genDurationMs": 1803099,
-      "genRetries": 8,
+      "genDurationMs": 1093264,
+      "genRetries": 10,
       "lastError": "",
-      "belowThreshold": true,
-      "score": 7.5,
-      "detScore": 7.5,
+      "belowThreshold": false,
+      "score": 8.4,
+      "detScore": 8.4,
       "premiumScore": 0,
       "remixes": [
         {
-          "slug": "freelancer-weekly-reset",
-          "output": "output/freelancer-weekly-reset.html",
-          "slides": [
-            ".renders/output/freelancer-weekly-reset/slide-01.png",
-            ".renders/output/freelancer-weekly-reset/slide-02.png",
-            ".renders/output/freelancer-weekly-reset/slide-03.png",
-            ".renders/output/freelancer-weekly-reset/slide-04.png",
-            ".renders/output/freelancer-weekly-reset/slide-05.png"
-          ]
+          "slug": "the-freelance-reset",
+          "output": "output/the-freelance-reset.html"
         }
       ]
     },
     {
       "designId": "DAHOyNQEdgs",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-08T08:59:25.920Z",
-      "updatedAt": "2026-07-16T16:45:05.149Z",
+      "updatedAt": "2026-07-17T09:33:04.566Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -144,10 +138,11 @@
           "#f1f1f1",
           "#5e17eb",
           "#191919"
-        ]
+        ],
+        "score": 8.2
       },
-      "detScore": 9.7,
-      "premiumScore": 7,
+      "detScore": 5.7,
+      "premiumScore": 0,
       "summary": "designs/DAHOyNQEdgs/workspace-summary.json",
       "output": "designs/DAHOyNQEdgs/final/template-clone-pure-html.html",
       "qualityGate": {
@@ -165,13 +160,47 @@
         "designs/DAHOyNQEdgs/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHOyNQEdgs/extract/assets/pages/page-06-thumbnail.png",
         "designs/DAHOyNQEdgs/extract/assets/pages/page-07-thumbnail.png"
-      ]
+      ],
+      "remixes": [
+        {
+          "slug": "quiet-money-habits",
+          "output": "output/quiet-money-habits.html",
+          "slides": [
+            ".renders/output/quiet-money-habits/slide-01.png",
+            ".renders/output/quiet-money-habits/slide-02.png",
+            ".renders/output/quiet-money-habits/slide-03.png",
+            ".renders/output/quiet-money-habits/slide-04.png",
+            ".renders/output/quiet-money-habits/slide-05.png",
+            ".renders/output/quiet-money-habits/slide-06.png",
+            ".renders/output/quiet-money-habits/slide-07.png"
+          ]
+        },
+        {
+          "slug": "read-remember-more",
+          "output": "output/read-remember-more.html",
+          "slides": [
+            ".renders/output/read-remember-more/slide-01.png",
+            ".renders/output/read-remember-more/slide-02.png",
+            ".renders/output/read-remember-more/slide-03.png",
+            ".renders/output/read-remember-more/slide-04.png",
+            ".renders/output/read-remember-more/slide-05.png",
+            ".renders/output/read-remember-more/slide-06.png",
+            ".renders/output/read-remember-more/slide-07.png"
+          ]
+        }
+      ],
+      "genStage": "",
+      "genDurationMs": 1794504,
+      "genRetries": 11,
+      "lastError": "",
+      "belowThreshold": true,
+      "score": 5.7
     },
     {
       "designId": "DAHOyRRg-yQ",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-08T09:23:13.178Z",
-      "updatedAt": "2026-07-16T16:45:05.154Z",
+      "updatedAt": "2026-07-17T10:13:25.419Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -218,11 +247,12 @@
           "#000000",
           "#c9c2e8",
           "#3e52ac"
-        ]
+        ],
+        "score": 8.4
       },
       "genProvider": "claude",
-      "detScore": 9.3,
-      "premiumScore": 6,
+      "detScore": 4.3,
+      "premiumScore": 0,
       "summary": "designs/DAHOyRRg-yQ/workspace-summary.json",
       "output": "designs/DAHOyRRg-yQ/final/template-clone-pure-html.html",
       "qualityGate": {
@@ -243,13 +273,39 @@
         "designs/DAHOyRRg-yQ/extract/assets/pages/page-08-thumbnail.png",
         "designs/DAHOyRRg-yQ/extract/assets/pages/page-09-thumbnail.png",
         "designs/DAHOyRRg-yQ/extract/assets/pages/page-10-thumbnail.png"
-      ]
+      ],
+      "genDurationMs": 1771600,
+      "genRetries": 7,
+      "lastError": "",
+      "belowThreshold": true,
+      "score": 4.3,
+      "remixes": [
+        {
+          "slug": "newsletters-worth-opening",
+          "output": "output/newsletters-worth-opening.html",
+          "slides": [
+            ".renders/output/newsletters-worth-opening/slide-01.png",
+            ".renders/output/newsletters-worth-opening/slide-02.png",
+            ".renders/output/newsletters-worth-opening/slide-03.png",
+            ".renders/output/newsletters-worth-opening/slide-04.png",
+            ".renders/output/newsletters-worth-opening/slide-05.png",
+            ".renders/output/newsletters-worth-opening/slide-06.png",
+            ".renders/output/newsletters-worth-opening/slide-07.png",
+            ".renders/output/newsletters-worth-opening/slide-08.png",
+            ".renders/output/newsletters-worth-opening/slide-09.png",
+            ".renders/output/newsletters-worth-opening/slide-10.png"
+          ]
+        }
+      ],
+      "startedAt": "2026-07-17T08:57:35.962Z",
+      "finishedAt": null,
+      "durationMs": null
     },
     {
       "designId": "DAHO3nrn8r4",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-09T07:38:42.320Z",
-      "updatedAt": "2026-07-17T15:30:29.069Z",
+      "updatedAt": "2026-07-17T10:34:52.812Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -294,7 +350,8 @@
           "#324b3e",
           "#e65a38",
           "#d3cfff"
-        ]
+        ],
+        "score": 9.1
       },
       "summary": "designs/DAHO3nrn8r4/workspace-summary.json",
       "thumb": "designs/DAHO3nrn8r4/archetype-cover.png",
@@ -305,13 +362,29 @@
         "designs/DAHO3nrn8r4/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHO3nrn8r4/extract/assets/pages/page-05-thumbnail.png"
       ],
-      "genStage": ""
+      "genStage": "authoring",
+      "startedAt": null,
+      "finishedAt": "2026-07-17T10:34:52.811Z",
+      "durationMs": 2203091,
+      "remixes": [
+        {
+          "slug": "permission-slips-daily",
+          "output": "output/permission-slips-daily.html",
+          "slides": [
+            ".renders/output/permission-slips-daily/slide-01.png",
+            ".renders/output/permission-slips-daily/slide-02.png",
+            ".renders/output/permission-slips-daily/slide-03.png",
+            ".renders/output/permission-slips-daily/slide-04.png",
+            ".renders/output/permission-slips-daily/slide-05.png"
+          ]
+        }
+      ]
     },
     {
       "designId": "DAHO4Oe5Bbw",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-09T08:41:36.641Z",
-      "updatedAt": "2026-07-16T16:45:05.161Z",
+      "updatedAt": "2026-07-17T08:38:28.426Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -356,7 +429,8 @@
           "#ed744a",
           "#3b3b3b",
           "#000000"
-        ]
+        ],
+        "score": 10
       },
       "summary": "designs/DAHO4Oe5Bbw/workspace-summary.json",
       "thumb": "designs/DAHO4Oe5Bbw/archetype-cover.png",
@@ -371,13 +445,31 @@
         "designs/DAHO4Oe5Bbw/extract/assets/pages/page-08-thumbnail.png",
         "designs/DAHO4Oe5Bbw/extract/assets/pages/page-09-thumbnail.png",
         "designs/DAHO4Oe5Bbw/extract/assets/pages/page-10-thumbnail.png"
+      ],
+      "remixes": [
+        {
+          "slug": "start-your-journal",
+          "output": "output/start-your-journal.html",
+          "slides": [
+            ".renders/output/start-your-journal/slide-01.png",
+            ".renders/output/start-your-journal/slide-02.png",
+            ".renders/output/start-your-journal/slide-03.png",
+            ".renders/output/start-your-journal/slide-04.png",
+            ".renders/output/start-your-journal/slide-05.png",
+            ".renders/output/start-your-journal/slide-06.png",
+            ".renders/output/start-your-journal/slide-07.png",
+            ".renders/output/start-your-journal/slide-08.png",
+            ".renders/output/start-your-journal/slide-09.png",
+            ".renders/output/start-your-journal/slide-10.png"
+          ]
+        }
       ]
     },
     {
       "designId": "DAHO4AoXL1M",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-09T08:45:07.723Z",
-      "updatedAt": "2026-07-16T16:45:05.166Z",
+      "updatedAt": "2026-07-17T08:53:25.111Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -419,7 +511,8 @@
           "#ffffff",
           "#f2eecf",
           "#312721"
-        ]
+        ],
+        "score": 8.8
       },
       "summary": "designs/DAHO4AoXL1M/workspace-summary.json",
       "thumb": "designs/DAHO4AoXL1M/archetype-cover.png",
@@ -429,13 +522,27 @@
         "designs/DAHO4AoXL1M/extract/assets/pages/page-03-thumbnail.png",
         "designs/DAHO4AoXL1M/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHO4AoXL1M/extract/assets/pages/page-05-thumbnail.png"
+      ],
+      "comparison": "designs/DAHO4AoXL1M/comparison.html",
+      "remixes": [
+        {
+          "slug": "quiet-garden-lessons",
+          "output": "output/quiet-garden-lessons.html",
+          "slides": [
+            ".renders/output/quiet-garden-lessons/slide-01.png",
+            ".renders/output/quiet-garden-lessons/slide-02.png",
+            ".renders/output/quiet-garden-lessons/slide-03.png",
+            ".renders/output/quiet-garden-lessons/slide-04.png",
+            ".renders/output/quiet-garden-lessons/slide-05.png"
+          ]
+        }
       ]
     },
     {
       "designId": "DAHO4NT5oWA",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-09T10:12:20.632Z",
-      "updatedAt": "2026-07-16T16:45:05.168Z",
+      "updatedAt": "2026-07-17T09:36:43.914Z",
       "attempts": 0,
       "extractDir": "designs/DAHO4NT5oWA/extract",
       "sourceUrl": "",
@@ -450,7 +557,8 @@
         "palette": [
           "#000000",
           "#ffffff"
-        ]
+        ],
+        "score": 9.7
       },
       "summary": "designs/DAHO4NT5oWA/workspace-summary.json",
       "thumb": "designs/DAHO4NT5oWA/archetype-cover.png",
@@ -461,13 +569,30 @@
         "designs/DAHO4NT5oWA/extract/assets/pages/page-03-thumbnail.png",
         "designs/DAHO4NT5oWA/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHO4NT5oWA/extract/assets/pages/page-05-thumbnail.png"
+      ],
+      "comparison": "designs/DAHO4NT5oWA/comparison.html",
+      "startedAt": null,
+      "finishedAt": "2026-07-17T09:36:43.913Z",
+      "durationMs": 2568052,
+      "remixes": [
+        {
+          "slug": "brew-better-coffee",
+          "output": "output/brew-better-coffee.html",
+          "slides": [
+            ".renders/output/brew-better-coffee/slide-01.png",
+            ".renders/output/brew-better-coffee/slide-02.png",
+            ".renders/output/brew-better-coffee/slide-03.png",
+            ".renders/output/brew-better-coffee/slide-04.png",
+            ".renders/output/brew-better-coffee/slide-05.png"
+          ]
+        }
       ]
     },
     {
       "designId": "DAHO9gKsy-I",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-13T06:48:42.499Z",
-      "updatedAt": "2026-07-16T16:45:05.173Z",
+      "updatedAt": "2026-07-17T10:47:20.772Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -508,7 +633,8 @@
         "palette": [
           "#fffffa",
           "#483626"
-        ]
+        ],
+        "score": 10
       },
       "summary": "designs/DAHO9gKsy-I/workspace-summary.json",
       "thumb": "designs/DAHO9gKsy-I/archetype-cover.png",
@@ -519,13 +645,31 @@
         "designs/DAHO9gKsy-I/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHO9gKsy-I/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHO9gKsy-I/extract/assets/pages/page-06-thumbnail.png"
+      ],
+      "startedAt": null,
+      "finishedAt": "2026-07-17T10:47:20.772Z",
+      "durationMs": 4120618,
+      "genStage": "authoring",
+      "remixes": [
+        {
+          "slug": "slow-morning-rituals",
+          "output": "output/slow-morning-rituals.html",
+          "slides": [
+            ".renders/output/slow-morning-rituals/slide-01.png",
+            ".renders/output/slow-morning-rituals/slide-02.png",
+            ".renders/output/slow-morning-rituals/slide-03.png",
+            ".renders/output/slow-morning-rituals/slide-04.png",
+            ".renders/output/slow-morning-rituals/slide-05.png",
+            ".renders/output/slow-morning-rituals/slide-06.png"
+          ]
+        }
       ]
     },
     {
       "designId": "DAHO9lfaPdg",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-13T06:48:52.647Z",
-      "updatedAt": "2026-07-16T16:45:05.175Z",
+      "updatedAt": "2026-07-17T11:36:05.069Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -568,7 +712,8 @@
           "#ebe8e7",
           "#ffffff",
           "#2b2525"
-        ]
+        ],
+        "score": 9.1
       },
       "summary": "designs/DAHO9lfaPdg/workspace-summary.json",
       "thumb": "designs/DAHO9lfaPdg/archetype-cover.png",
@@ -578,13 +723,30 @@
         "designs/DAHO9lfaPdg/extract/assets/pages/page-03-thumbnail.png",
         "designs/DAHO9lfaPdg/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHO9lfaPdg/extract/assets/pages/page-05-thumbnail.png"
+      ],
+      "startedAt": null,
+      "finishedAt": "2026-07-17T11:36:05.069Z",
+      "durationMs": 3607671,
+      "genStage": "authoring",
+      "remixes": [
+        {
+          "slug": "clay-year-recap",
+          "output": "output/clay-year-recap.html",
+          "slides": [
+            ".renders/output/clay-year-recap/slide-01.png",
+            ".renders/output/clay-year-recap/slide-02.png",
+            ".renders/output/clay-year-recap/slide-03.png",
+            ".renders/output/clay-year-recap/slide-04.png",
+            ".renders/output/clay-year-recap/slide-05.png"
+          ]
+        }
       ]
     },
     {
       "designId": "DAHOrBKyBxs",
       "status": "success",
       "createdAt": "2026-07-13T06:49:06.882Z",
-      "updatedAt": "2026-07-16T17:23:05.297Z",
+      "updatedAt": "2026-07-17T08:38:28.447Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -627,7 +789,7 @@
           "#191919",
           "#d2bcff"
         ],
-        "score": 8.2
+        "score": 8.8
       },
       "summary": "designs/DAHOrBKyBxs/workspace-summary.json",
       "thumb": "designs/DAHOrBKyBxs/archetype-cover.png",
@@ -640,16 +802,7 @@
       "remixes": [
         {
           "slug": "write-better-emails",
-          "output": "output/write-better-emails.html",
-          "slides": [
-            ".renders/output/write-better-emails/slide-01.png",
-            ".renders/output/write-better-emails/slide-02.png",
-            ".renders/output/write-better-emails/slide-03.png",
-            ".renders/output/write-better-emails/slide-04.png",
-            ".renders/output/write-better-emails/slide-05.png",
-            ".renders/output/write-better-emails/slide-06.png",
-            ".renders/output/write-better-emails/slide-07.png"
-          ]
+          "output": "output/write-better-emails.html"
         }
       ],
       "pageThumbs": [
@@ -666,7 +819,7 @@
       "designId": "DAHOrUQo44I",
       "status": "cloned",
       "createdAt": "2026-07-13T06:49:46.895Z",
-      "updatedAt": "2026-07-16T16:45:05.183Z",
+      "updatedAt": "2026-07-17T06:12:46.861Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -720,13 +873,14 @@
         "designs/DAHOrUQo44I/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHOrUQo44I/extract/assets/pages/page-06-thumbnail.png",
         "designs/DAHOrUQo44I/extract/assets/pages/page-07-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHOrUQo44I/comparison.html"
     },
     {
       "designId": "DAHPPm3V4_U",
       "status": "cloned",
       "createdAt": "2026-07-13T06:57:04.649Z",
-      "updatedAt": "2026-07-16T16:45:05.186Z",
+      "updatedAt": "2026-07-17T06:12:46.863Z",
       "attempts": 0,
       "sourceUrl": "https://www.canva.com/design/DAHPPm3V4_U/0JmVp6b7wY5fMVmtqiFc5g/edit",
       "clone": {
@@ -777,13 +931,14 @@
         "designs/DAHPPm3V4_U/extract/assets/pages/page-02-thumbnail.png",
         "designs/DAHPPm3V4_U/extract/assets/pages/page-03-thumbnail.png",
         "designs/DAHPPm3V4_U/extract/assets/pages/page-04-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPPm3V4_U/comparison.html"
     },
     {
       "designId": "DAHPRMKHicM",
       "status": "success",
       "createdAt": "2026-07-13T14:12:27.053Z",
-      "updatedAt": "2026-07-16T17:23:05.302Z",
+      "updatedAt": "2026-07-17T08:38:28.457Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -828,7 +983,7 @@
           "#265dc6",
           "#e44614"
         ],
-        "score": 8.7
+        "score": 10
       },
       "detScore": 8.2,
       "premiumScore": 0,
@@ -863,7 +1018,7 @@
       "designId": "DAHPVaxNBps",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.542Z",
-      "updatedAt": "2026-07-16T16:45:05.193Z",
+      "updatedAt": "2026-07-17T06:12:46.872Z",
       "attempts": 0,
       "extractDir": "designs/DAHPVaxNBps/extract",
       "meta": {
@@ -888,13 +1043,14 @@
         "designs/DAHPVaxNBps/extract/assets/pages/page-03-thumbnail.png",
         "designs/DAHPVaxNBps/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPVaxNBps/extract/assets/pages/page-05-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPVaxNBps/comparison.html"
     },
     {
       "designId": "DAHPVbBq5wg",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.546Z",
-      "updatedAt": "2026-07-16T16:45:05.196Z",
+      "updatedAt": "2026-07-17T06:12:46.876Z",
       "attempts": 0,
       "extractDir": "designs/DAHPVbBq5wg/extract",
       "meta": {
@@ -918,7 +1074,8 @@
         "designs/DAHPVbBq5wg/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPVbBq5wg/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPVbBq5wg/extract/assets/pages/page-06-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPVbBq5wg/comparison.html"
     },
     {
       "designId": "DAHPVeGs3T8",
@@ -989,7 +1146,7 @@
       "designId": "DAHPVlMJjyY",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.553Z",
-      "updatedAt": "2026-07-16T16:45:05.203Z",
+      "updatedAt": "2026-07-17T06:12:46.884Z",
       "attempts": 0,
       "extractDir": "designs/DAHPVlMJjyY/extract",
       "meta": {
@@ -1012,13 +1169,14 @@
         "designs/DAHPVlMJjyY/extract/assets/pages/page-02-thumbnail.png",
         "designs/DAHPVlMJjyY/extract/assets/pages/page-03-thumbnail.png",
         "designs/DAHPVlMJjyY/extract/assets/pages/page-04-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPVlMJjyY/comparison.html"
     },
     {
       "designId": "DAHPVWp9uGY",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.555Z",
-      "updatedAt": "2026-07-16T16:45:05.206Z",
+      "updatedAt": "2026-07-17T06:12:46.886Z",
       "attempts": 0,
       "extractDir": "designs/DAHPVWp9uGY/extract",
       "meta": {
@@ -1042,13 +1200,14 @@
         "designs/DAHPVWp9uGY/extract/assets/pages/page-03-thumbnail.png",
         "designs/DAHPVWp9uGY/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPVWp9uGY/extract/assets/pages/page-05-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPVWp9uGY/comparison.html"
     },
     {
       "designId": "DAHPVXi2XbY",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.557Z",
-      "updatedAt": "2026-07-16T16:45:05.208Z",
+      "updatedAt": "2026-07-17T06:12:46.889Z",
       "attempts": 0,
       "extractDir": "designs/DAHPVXi2XbY/extract",
       "meta": {
@@ -1068,13 +1227,14 @@
       "thumb": "designs/DAHPVXi2XbY/archetype-cover.png",
       "pageThumbs": [
         "designs/DAHPVXi2XbY/extract/assets/pages/page-01-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPVXi2XbY/comparison.html"
     },
     {
       "designId": "DAHPVXsUdj8",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.558Z",
-      "updatedAt": "2026-07-16T16:45:05.210Z",
+      "updatedAt": "2026-07-17T06:12:46.891Z",
       "attempts": 0,
       "extractDir": "designs/DAHPVXsUdj8/extract",
       "meta": {
@@ -1099,13 +1259,14 @@
         "designs/DAHPVXsUdj8/extract/assets/pages/page-03-thumbnail.png",
         "designs/DAHPVXsUdj8/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPVXsUdj8/extract/assets/pages/page-05-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPVXsUdj8/comparison.html"
     },
     {
       "designId": "DAHPVXvX6PM",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.560Z",
-      "updatedAt": "2026-07-16T16:45:05.212Z",
+      "updatedAt": "2026-07-17T06:12:46.894Z",
       "attempts": 0,
       "extractDir": "designs/DAHPVXvX6PM/extract",
       "meta": {
@@ -1130,13 +1291,14 @@
         "designs/DAHPVXvX6PM/extract/assets/pages/page-03-thumbnail.png",
         "designs/DAHPVXvX6PM/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPVXvX6PM/extract/assets/pages/page-05-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPVXvX6PM/comparison.html"
     },
     {
       "designId": "DAHPbmjary8",
       "status": "cloned",
       "createdAt": "2026-07-15T06:29:53.030Z",
-      "updatedAt": "2026-07-16T16:45:05.216Z",
+      "updatedAt": "2026-07-17T06:12:46.898Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T06:29:53.030Z",
@@ -1197,13 +1359,14 @@
         "designs/DAHPbmjary8/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPbmjary8/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPbmjary8/extract/assets/pages/page-06-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPbmjary8/comparison.html"
     },
     {
       "designId": "DAHPbizwZZw",
       "status": "cloned",
       "createdAt": "2026-07-15T06:30:16.666Z",
-      "updatedAt": "2026-07-16T16:45:05.220Z",
+      "updatedAt": "2026-07-17T06:12:46.903Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T06:30:16.666Z",
@@ -1261,13 +1424,14 @@
         "designs/DAHPbizwZZw/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPbizwZZw/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPbizwZZw/extract/assets/pages/page-06-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPbizwZZw/comparison.html"
     },
     {
       "designId": "DAHPbhPf09I",
       "status": "cloned",
       "createdAt": "2026-07-15T06:30:36.703Z",
-      "updatedAt": "2026-07-16T16:45:05.223Z",
+      "updatedAt": "2026-07-17T06:12:46.907Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T06:30:36.703Z",
@@ -1328,13 +1492,14 @@
         "designs/DAHPbhPf09I/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPbhPf09I/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPbhPf09I/extract/assets/pages/page-06-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPbhPf09I/comparison.html"
     },
     {
       "designId": "DAHPbh2bDgU",
       "status": "cloned",
       "createdAt": "2026-07-15T06:30:58.915Z",
-      "updatedAt": "2026-07-16T16:45:05.225Z",
+      "updatedAt": "2026-07-17T06:12:46.911Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T06:30:58.915Z",
@@ -1391,13 +1556,14 @@
         "designs/DAHPbh2bDgU/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPbh2bDgU/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPbh2bDgU/extract/assets/pages/page-06-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPbh2bDgU/comparison.html"
     },
     {
       "designId": "DAHPeDvPxI4",
       "status": "cloned",
       "createdAt": "2026-07-15T16:04:45.526Z",
-      "updatedAt": "2026-07-16T16:45:05.229Z",
+      "updatedAt": "2026-07-17T06:12:46.914Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T16:04:45.526Z",
@@ -1452,7 +1618,6 @@
           "#af993f"
         ]
       },
-      "comparison": "designs/DAHPeDvPxI4/comparison.html",
       "thumb": "designs/DAHPeDvPxI4/extract/assets/pages/page-01-preview.png",
       "pageThumbs": [
         "designs/DAHPeDvPxI4/extract/assets/pages/page-01-thumbnail.png",
@@ -1536,7 +1701,7 @@
       "designId": "DAHPeNVWHgI",
       "status": "cloned",
       "createdAt": "2026-07-15T16:10:13.773Z",
-      "updatedAt": "2026-07-16T16:45:05.236Z",
+      "updatedAt": "2026-07-17T06:12:46.922Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T16:10:13.773Z",
@@ -1588,7 +1753,6 @@
           "#ffffff"
         ]
       },
-      "comparison": "designs/DAHPeNVWHgI/comparison.html",
       "thumb": "designs/DAHPeNVWHgI/extract/assets/pages/page-01-preview.png",
       "pageThumbs": [
         "designs/DAHPeNVWHgI/extract/assets/pages/page-01-thumbnail.png",
@@ -1604,7 +1768,7 @@
       "designId": "DAHPeEgX1Og",
       "status": "cloned",
       "createdAt": "2026-07-15T16:10:58.149Z",
-      "updatedAt": "2026-07-16T16:45:05.240Z",
+      "updatedAt": "2026-07-17T06:12:46.926Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T16:10:58.149Z",
@@ -1655,7 +1819,6 @@
           "#ffffff"
         ]
       },
-      "comparison": "designs/DAHPeEgX1Og/comparison.html",
       "thumb": "designs/DAHPeEgX1Og/archetype-cover.png",
       "pageThumbs": [
         "designs/DAHPeEgX1Og/extract/assets/pages/page-01-thumbnail.png",
@@ -1674,7 +1837,7 @@
       "designId": "DAHPeA8eqz4",
       "status": "cloned",
       "createdAt": "2026-07-15T16:12:45.540Z",
-      "updatedAt": "2026-07-16T16:45:05.244Z",
+      "updatedAt": "2026-07-17T06:12:46.930Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T16:12:45.540Z",
@@ -1725,7 +1888,6 @@
         ]
       },
       "thumb": "designs/DAHPeA8eqz4/archetype-cover.png",
-      "comparison": "designs/DAHPeA8eqz4/comparison.html",
       "pageThumbs": [
         "designs/DAHPeA8eqz4/extract/assets/pages/page-01-thumbnail.png",
         "designs/DAHPeA8eqz4/extract/assets/pages/page-02-thumbnail.png",
@@ -1738,7 +1900,7 @@
       "designId": "DAHPeD1kppo",
       "status": "cloned",
       "createdAt": "2026-07-15T16:13:13.194Z",
-      "updatedAt": "2026-07-16T16:45:05.246Z",
+      "updatedAt": "2026-07-17T06:12:46.933Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T16:13:13.194Z",
@@ -1787,7 +1949,6 @@
         ]
       },
       "thumb": "designs/DAHPeD1kppo/archetype-cover.png",
-      "comparison": "designs/DAHPeD1kppo/comparison.html",
       "pageThumbs": [
         "designs/DAHPeD1kppo/extract/assets/pages/page-01-thumbnail.png",
         "designs/DAHPeD1kppo/extract/assets/pages/page-02-thumbnail.png",
@@ -1802,7 +1963,7 @@
       "designId": "DAHPeIV3RuA",
       "status": "cloned",
       "createdAt": "2026-07-15T16:13:51.365Z",
-      "updatedAt": "2026-07-16T16:45:05.250Z",
+      "updatedAt": "2026-07-17T06:12:46.936Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-15T16:13:51.365Z",
@@ -1852,7 +2013,6 @@
         ]
       },
       "thumb": "designs/DAHPeIV3RuA/archetype-cover.png",
-      "comparison": "designs/DAHPeIV3RuA/comparison.html",
       "pageThumbs": [
         "designs/DAHPeIV3RuA/extract/assets/pages/page-01-thumbnail.png",
         "designs/DAHPeIV3RuA/extract/assets/pages/page-02-thumbnail.png",
@@ -1867,7 +2027,7 @@
       "designId": "DAHPhJJGLyM",
       "status": "cloned",
       "createdAt": "2026-07-16T04:21:08.902Z",
-      "updatedAt": "2026-07-16T16:45:05.255Z",
+      "updatedAt": "2026-07-17T06:12:46.942Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T04:21:08.902Z",
@@ -1924,7 +2084,8 @@
       "pageThumbs": [
         "designs/DAHPhJJGLyM/extract/assets/pages/page-01-thumbnail.png",
         "designs/DAHPhJJGLyM/extract/assets/pages/page-02-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPhJJGLyM/comparison.html"
     },
     {
       "designId": "DAHPhC76mo0",
@@ -2274,7 +2435,7 @@
       "designId": "DAHPheuRB9M",
       "status": "cloned",
       "createdAt": "2026-07-16T05:12:07.435Z",
-      "updatedAt": "2026-07-16T16:45:05.271Z",
+      "updatedAt": "2026-07-17T06:12:46.964Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T05:12:07.435Z",
@@ -2335,13 +2496,14 @@
         "designs/DAHPheuRB9M/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPheuRB9M/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPheuRB9M/extract/assets/pages/page-06-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPheuRB9M/comparison.html"
     },
     {
       "designId": "DAHPhaXds1M",
       "status": "cloned",
       "createdAt": "2026-07-16T05:12:22.260Z",
-      "updatedAt": "2026-07-16T16:45:05.274Z",
+      "updatedAt": "2026-07-17T06:12:46.968Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T05:12:22.260Z",
@@ -2405,13 +2567,14 @@
         "designs/DAHPhaXds1M/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPhaXds1M/extract/assets/pages/page-06-thumbnail.png",
         "designs/DAHPhaXds1M/extract/assets/pages/page-07-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPhaXds1M/comparison.html"
     },
     {
       "designId": "DAHPhQ4CKmo",
       "status": "cloned",
       "createdAt": "2026-07-16T05:12:34.998Z",
-      "updatedAt": "2026-07-16T16:45:05.277Z",
+      "updatedAt": "2026-07-17T06:12:46.971Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T05:12:34.998Z",
@@ -2473,7 +2636,8 @@
         "designs/DAHPhQ4CKmo/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPhQ4CKmo/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPhQ4CKmo/extract/assets/pages/page-06-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPhQ4CKmo/comparison.html"
     },
     {
       "designId": "DAHPhXt_7uU",
@@ -2549,7 +2713,7 @@
       "designId": "DAHPhTwuqUY",
       "status": "success",
       "createdAt": "2026-07-16T05:18:06.061Z",
-      "updatedAt": "2026-07-16T17:23:05.353Z",
+      "updatedAt": "2026-07-17T06:12:46.977Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T05:18:06.061Z",
@@ -2601,14 +2765,7 @@
       "remixes": [
         {
           "slug": "read-more-books",
-          "output": "output/read-more-books.html",
-          "slides": [
-            ".renders/output/read-more-books/slide-01.png",
-            ".renders/output/read-more-books/slide-02.png",
-            ".renders/output/read-more-books/slide-03.png",
-            ".renders/output/read-more-books/slide-04.png",
-            ".renders/output/read-more-books/slide-05.png"
-          ]
+          "output": "output/read-more-books.html"
         }
       ],
       "pageThumbs": [
@@ -2617,13 +2774,14 @@
         "designs/DAHPhTwuqUY/extract/assets/pages/page-03-thumbnail.png",
         "designs/DAHPhTwuqUY/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPhTwuqUY/extract/assets/pages/page-05-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPhTwuqUY/comparison.html"
     },
     {
       "designId": "DAHPhbFYgDA",
       "status": "cloned",
       "createdAt": "2026-07-16T05:18:27.887Z",
-      "updatedAt": "2026-07-16T16:45:05.286Z",
+      "updatedAt": "2026-07-17T06:12:46.980Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T05:18:27.887Z",
@@ -2684,13 +2842,14 @@
         "designs/DAHPhbFYgDA/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPhbFYgDA/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPhbFYgDA/extract/assets/pages/page-06-thumbnail.png"
-      ]
+      ],
+      "comparison": "designs/DAHPhbFYgDA/comparison.html"
     },
     {
       "designId": "DAHPheh9ggM",
       "status": "cloned",
       "createdAt": "2026-07-16T05:18:42.101Z",
-      "updatedAt": "2026-07-16T16:45:05.288Z",
+      "updatedAt": "2026-07-17T06:12:46.983Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-16T05:18:42.101Z",
@@ -2749,7 +2908,786 @@
         "designs/DAHPheh9ggM/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPheh9ggM/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPheh9ggM/extract/assets/pages/page-06-thumbnail.png"
+      ],
+      "comparison": "designs/DAHPheh9ggM/comparison.html"
+    },
+    {
+      "designId": "DAHPpN9NeYQ",
+      "status": "cloned",
+      "createdAt": "2026-07-17T12:19:06.703Z",
+      "updatedAt": "2026-07-17T12:19:19.428Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:19:06.703Z",
+      "finishedAt": "2026-07-17T12:19:07.981Z",
+      "durationMs": 1278,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpN9NeYQ",
+        "outDir": "designs/DAHPpN9NeYQ/extract",
+        "cloneProfile": "minimal",
+        "duplicate": false,
+        "duplicateOf": null,
+        "outputs": {
+          "templateData": "designs/DAHPpN9NeYQ/extract/template-data.json",
+          "signature": "designs/DAHPpN9NeYQ/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpN9NeYQ/extract/assets",
+          "pages": "designs/DAHPpN9NeYQ/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 5,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 2,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:19:07.909Z",
+      "inputHtml": "designs/DAHPpN9NeYQ/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpN9NeYQ/extract",
+      "duplicate": false,
+      "duplicateOf": null,
+      "output": null,
+      "summary": "designs/DAHPpN9NeYQ/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "pageThumbs": [
+        "designs/DAHPpN9NeYQ/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPpN9NeYQ/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPpN9NeYQ/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPpN9NeYQ/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPpN9NeYQ/extract/assets/pages/page-05-thumbnail.png"
+      ],
+      "comparison": "designs/DAHPpN9NeYQ/comparison.html",
+      "meta": {
+        "title": "Purple and White Modern Microblog Carousel Content Instagram Post",
+        "pages": 5,
+        "fonts": [
+          "Arimo",
+          "League Gothic",
+          "Poppins"
+        ],
+        "palette": [
+          "#0f0328",
+          "#ffffff",
+          "#a422ff"
+        ]
+      },
+      "thumb": "designs/DAHPpN9NeYQ/extract/assets/pages/page-01-preview.png"
+    },
+    {
+      "designId": "DAHPpBFsnk8",
+      "status": "duplicate",
+      "createdAt": "2026-07-17T12:19:19.429Z",
+      "updatedAt": "2026-07-17T12:19:36.346Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:19:19.429Z",
+      "finishedAt": "2026-07-17T12:19:36.351Z",
+      "durationMs": 16922,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpBFsnk8",
+        "outDir": "designs/DAHPpBFsnk8/extract",
+        "cloneProfile": "minimal",
+        "duplicate": true,
+        "duplicateOf": {
+          "designId": "DAHO3nrn8r4",
+          "outDir": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHO3nrn8r4\\extract",
+          "exactHash": "92fb10c5f6c8c53ba20502722303dfc46b37bf86cf80b832b56ca99185a04790",
+          "layoutHash": "2a96e0af5d69bcd66ae33589388f2e8e3add25325bd0fc1470be88313ff75695"
+        },
+        "outputs": {
+          "templateData": "designs/DAHPpBFsnk8/extract/template-data.json",
+          "signature": "designs/DAHPpBFsnk8/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpBFsnk8/extract/assets",
+          "pages": "designs/DAHPpBFsnk8/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 5,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 2,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:19:36.345Z",
+      "inputHtml": "designs/DAHPpBFsnk8/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpBFsnk8/extract",
+      "duplicate": true,
+      "duplicateOf": {
+        "designId": "DAHO3nrn8r4",
+        "outDir": "C:\\Users\\Groovy\\Projects\\content-gen\\canva-template-workspace\\designs\\DAHO3nrn8r4\\extract",
+        "exactHash": "92fb10c5f6c8c53ba20502722303dfc46b37bf86cf80b832b56ca99185a04790",
+        "layoutHash": "2a96e0af5d69bcd66ae33589388f2e8e3add25325bd0fc1470be88313ff75695"
+      },
+      "output": null,
+      "summary": "designs/DAHPpBFsnk8/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "meta": {
+        "title": "Beige Playful Scrapbook Typography Quote Carousel Instagram Post",
+        "pages": 5,
+        "fonts": [
+          "Arimo",
+          "Cooper BT",
+          "Lekton"
+        ],
+        "palette": [
+          "#ecedda",
+          "#324b3e",
+          "#e65a38",
+          "#d3cfff"
+        ]
+      }
+    },
+    {
+      "designId": "DAHPpNZqcww",
+      "status": "cloned",
+      "createdAt": "2026-07-17T12:20:02.432Z",
+      "updatedAt": "2026-07-17T12:20:07.130Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:20:02.432Z",
+      "finishedAt": "2026-07-17T12:20:04.069Z",
+      "durationMs": 1637,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpNZqcww",
+        "outDir": "designs/DAHPpNZqcww/extract",
+        "cloneProfile": "minimal",
+        "duplicate": false,
+        "duplicateOf": null,
+        "outputs": {
+          "templateData": "designs/DAHPpNZqcww/extract/template-data.json",
+          "signature": "designs/DAHPpNZqcww/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpNZqcww/extract/assets",
+          "pages": "designs/DAHPpNZqcww/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 6,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 2,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:20:03.981Z",
+      "inputHtml": "designs/DAHPpNZqcww/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpNZqcww/extract",
+      "duplicate": false,
+      "duplicateOf": null,
+      "output": null,
+      "summary": "designs/DAHPpNZqcww/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "pageThumbs": [
+        "designs/DAHPpNZqcww/extract/assets/pages/page-01-thumbnail.png",
+        "designs/DAHPpNZqcww/extract/assets/pages/page-02-thumbnail.png",
+        "designs/DAHPpNZqcww/extract/assets/pages/page-03-thumbnail.png",
+        "designs/DAHPpNZqcww/extract/assets/pages/page-04-thumbnail.png",
+        "designs/DAHPpNZqcww/extract/assets/pages/page-05-thumbnail.png",
+        "designs/DAHPpNZqcww/extract/assets/pages/page-06-thumbnail.png"
+      ],
+      "comparison": "designs/DAHPpNZqcww/comparison.html",
+      "meta": {
+        "title": "Green Grey Orange Modern Illustrative Information Square Carousel Threads Post",
+        "pages": 6,
+        "fonts": [
+          "Arimo",
+          "Klein",
+          "Darker Grotesque"
+        ],
+        "palette": [
+          "#ebebe4",
+          "#007266",
+          "#404040"
+        ]
+      },
+      "thumb": "designs/DAHPpNZqcww/extract/assets/pages/page-01-preview.png"
+    },
+    {
+      "designId": "DAHPpPDvZpM",
+      "status": "success",
+      "createdAt": "2026-07-17T12:38:15.721Z",
+      "updatedAt": "2026-07-17T13:30:11.018Z",
+      "attempts": 3,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T13:18:09.922Z",
+      "finishedAt": "2026-07-17T13:18:10.750Z",
+      "durationMs": 828,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpPDvZpM",
+        "outDir": "designs/DAHPpPDvZpM/extract",
+        "cloneProfile": "minimal",
+        "duplicate": false,
+        "duplicateOf": null,
+        "outputs": {
+          "templateData": "designs/DAHPpPDvZpM/extract/template-data.json",
+          "signature": "designs/DAHPpPDvZpM/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpPDvZpM/extract/assets",
+          "pages": "designs/DAHPpPDvZpM/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 1,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 0,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T13:18:10.654Z",
+      "inputHtml": "designs/DAHPpPDvZpM/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpPDvZpM/extract",
+      "duplicate": false,
+      "duplicateOf": null,
+      "output": null,
+      "summary": "designs/DAHPpPDvZpM/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "thumb": "designs/DAHPpPDvZpM/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHPpPDvZpM/extract/assets/pages/page-01-thumbnail.png"
+      ],
+      "meta": {
+        "title": "Twitter Quote Template for Social Media",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Nunito Sans"
+        ],
+        "palette": [
+          "#fafafa"
+        ],
+        "score": 9.7
+      },
+      "comparison": "designs/DAHPpPDvZpM/comparison.html",
+      "genStage": "authoring",
+      "remixes": [
+        {
+          "slug": "never-too-late",
+          "output": "output/never-too-late.html",
+          "slides": [
+            ".renders/output/never-too-late/slide-01.png"
+          ]
+        }
       ]
+    },
+    {
+      "designId": "DAHPpAF8YsM",
+      "status": "duplicate",
+      "createdAt": "2026-07-17T12:40:33.927Z",
+      "updatedAt": "2026-07-17T12:42:33.012Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:40:33.927Z",
+      "finishedAt": "2026-07-17T12:40:35.460Z",
+      "durationMs": 1533,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpAF8YsM",
+        "outDir": "designs/DAHPpAF8YsM/extract",
+        "cloneProfile": "minimal",
+        "duplicate": true,
+        "duplicateOf": {
+          "designId": "DAHPpP26KUM",
+          "outDir": "designs/DAHPpP26KUM/extract",
+          "exactHash": "f0461f424073b8749fe3bc5fa4f2ac63649e2b1684adce5625b40f0106696b04",
+          "layoutHash": "a086683f31d0718b5cb18a5466408acd22d629b4d331973f5f541da1fbbc848f"
+        },
+        "outputs": {
+          "templateData": "designs/DAHPpAF8YsM/extract/template-data.json",
+          "signature": "designs/DAHPpAF8YsM/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpAF8YsM/extract/assets",
+          "pages": "designs/DAHPpAF8YsM/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 1,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 0,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:40:35.452Z",
+      "inputHtml": "designs/DAHPpAF8YsM/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpAF8YsM/extract",
+      "duplicate": true,
+      "duplicateOf": {
+        "designId": "DAHPpP26KUM",
+        "outDir": "designs/DAHPpP26KUM/extract",
+        "exactHash": "f0461f424073b8749fe3bc5fa4f2ac63649e2b1684adce5625b40f0106696b04",
+        "layoutHash": "a086683f31d0718b5cb18a5466408acd22d629b4d331973f5f541da1fbbc848f"
+      },
+      "output": null,
+      "summary": "designs/DAHPpAF8YsM/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "thumb": "designs/DAHPpAF8YsM/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHPpAF8YsM/extract/assets/pages/page-01-thumbnail.png"
+      ],
+      "meta": {
+        "title": "Cream White Simple Ramadan Quote Daily Reminder Tweet Instagram Post",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Montserrat",
+          "Garet"
+        ],
+        "palette": [
+          "#000000",
+          "#ffffff",
+          "#d6c6b9"
+        ]
+      }
+    },
+    {
+      "designId": "DAHPpNmoMqc",
+      "status": "cloned",
+      "createdAt": "2026-07-17T12:42:33.013Z",
+      "updatedAt": "2026-07-17T12:42:37.841Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:42:33.013Z",
+      "finishedAt": "2026-07-17T12:42:35.611Z",
+      "durationMs": 2598,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpNmoMqc",
+        "outDir": "designs/DAHPpNmoMqc/extract",
+        "cloneProfile": "minimal",
+        "duplicate": false,
+        "duplicateOf": null,
+        "outputs": {
+          "templateData": "designs/DAHPpNmoMqc/extract/template-data.json",
+          "signature": "designs/DAHPpNmoMqc/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpNmoMqc/extract/assets",
+          "pages": "designs/DAHPpNmoMqc/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 1,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 0,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:42:35.520Z",
+      "inputHtml": "designs/DAHPpNmoMqc/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpNmoMqc/extract",
+      "duplicate": false,
+      "duplicateOf": null,
+      "output": null,
+      "summary": "designs/DAHPpNmoMqc/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "thumb": "designs/DAHPpNmoMqc/archetype-cover.png",
+      "comparison": "designs/DAHPpNmoMqc/comparison.html",
+      "meta": {
+        "title": "Twitter Tweet Interactive Beauty Instagram Post",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Arial MT Pro"
+        ],
+        "palette": [
+          "#ffffff",
+          "#004aad",
+          "#000000"
+        ]
+      },
+      "pageThumbs": [
+        "designs/DAHPpNmoMqc/extract/assets/pages/page-01-thumbnail.png"
+      ]
+    },
+    {
+      "designId": "DAHPpE_asG4",
+      "status": "success",
+      "createdAt": "2026-07-17T12:42:58.606Z",
+      "updatedAt": "2026-07-17T13:07:02.922Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:42:58.606Z",
+      "finishedAt": "2026-07-17T12:42:59.722Z",
+      "durationMs": 1116,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpE_asG4",
+        "outDir": "designs/DAHPpE_asG4/extract",
+        "cloneProfile": "minimal",
+        "duplicate": false,
+        "duplicateOf": null,
+        "outputs": {
+          "templateData": "designs/DAHPpE_asG4/extract/template-data.json",
+          "signature": "designs/DAHPpE_asG4/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpE_asG4/extract/assets",
+          "pages": "designs/DAHPpE_asG4/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 1,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 0,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:42:59.626Z",
+      "inputHtml": "designs/DAHPpE_asG4/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpE_asG4/extract",
+      "duplicate": false,
+      "duplicateOf": null,
+      "output": null,
+      "summary": "designs/DAHPpE_asG4/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "thumb": "designs/DAHPpE_asG4/archetype-cover.png",
+      "comparison": "designs/DAHPpE_asG4/comparison.html",
+      "meta": {
+        "title": "Blue Modern Relaxing Motivational Quote Instagram Post",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Poppins"
+        ],
+        "palette": [
+          "#0884cf",
+          "#ffffff",
+          "#171717",
+          "#a6a6a6"
+        ],
+        "score": 10
+      },
+      "pageThumbs": [
+        "designs/DAHPpE_asG4/extract/assets/pages/page-01-thumbnail.png"
+      ],
+      "genStage": "authoring",
+      "remixes": [
+        {
+          "slug": "start-messy-today",
+          "output": "output/start-messy-today.html",
+          "slides": [
+            ".renders/output/start-messy-today/slide-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "designId": "DAHPpAdKx9A",
+      "status": "success",
+      "createdAt": "2026-07-17T12:49:38.803Z",
+      "updatedAt": "2026-07-17T13:06:36.246Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:49:38.803Z",
+      "finishedAt": "2026-07-17T12:49:39.850Z",
+      "durationMs": 1047,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpAdKx9A",
+        "outDir": "designs/DAHPpAdKx9A/extract",
+        "cloneProfile": "minimal",
+        "duplicate": false,
+        "duplicateOf": null,
+        "outputs": {
+          "templateData": "designs/DAHPpAdKx9A/extract/template-data.json",
+          "signature": "designs/DAHPpAdKx9A/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpAdKx9A/extract/assets",
+          "pages": "designs/DAHPpAdKx9A/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 1,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 0,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:49:39.757Z",
+      "inputHtml": "designs/DAHPpAdKx9A/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpAdKx9A/extract",
+      "duplicate": false,
+      "duplicateOf": null,
+      "output": null,
+      "summary": "designs/DAHPpAdKx9A/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "thumb": "designs/DAHPpAdKx9A/archetype-cover.png",
+      "comparison": "designs/DAHPpAdKx9A/comparison.html",
+      "meta": {
+        "title": "Blue and Grey Minimalist Daily Motivation Tweet Instagram Post",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Canva Sans",
+          "Archivo Black"
+        ],
+        "palette": [
+          "#ffffff",
+          "#073d56",
+          "#000000",
+          "#111111"
+        ],
+        "score": 10
+      },
+      "pageThumbs": [
+        "designs/DAHPpAdKx9A/extract/assets/pages/page-01-thumbnail.png"
+      ],
+      "genStage": "authoring",
+      "remixes": [
+        {
+          "slug": "steady-not-loud",
+          "output": "output/steady-not-loud.html",
+          "slides": [
+            ".renders/output/steady-not-loud/slide-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "designId": "DAHPpIQ0PCk",
+      "status": "success",
+      "createdAt": "2026-07-17T12:50:58.645Z",
+      "updatedAt": "2026-07-17T13:13:05.248Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:50:58.645Z",
+      "finishedAt": "2026-07-17T12:50:59.829Z",
+      "durationMs": 1184,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpIQ0PCk",
+        "outDir": "designs/DAHPpIQ0PCk/extract",
+        "cloneProfile": "minimal",
+        "duplicate": false,
+        "duplicateOf": null,
+        "outputs": {
+          "templateData": "designs/DAHPpIQ0PCk/extract/template-data.json",
+          "signature": "designs/DAHPpIQ0PCk/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpIQ0PCk/extract/assets",
+          "pages": "designs/DAHPpIQ0PCk/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 1,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 0,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:50:59.742Z",
+      "inputHtml": "designs/DAHPpIQ0PCk/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpIQ0PCk/extract",
+      "duplicate": false,
+      "duplicateOf": null,
+      "output": null,
+      "summary": "designs/DAHPpIQ0PCk/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "thumb": "designs/DAHPpIQ0PCk/archetype-cover.png",
+      "comparison": "designs/DAHPpIQ0PCk/comparison.html",
+      "meta": {
+        "title": "Blue Abstract Shapes Business Tips Tweet Quote Instagram Post",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Inter"
+        ],
+        "palette": [
+          "#cacedf",
+          "#4a4f7f"
+        ],
+        "score": 9.7
+      },
+      "pageThumbs": [
+        "designs/DAHPpIQ0PCk/extract/assets/pages/page-01-thumbnail.png"
+      ],
+      "genStage": "authoring",
+      "remixes": [
+        {
+          "slug": "brave-career-pivot",
+          "output": "output/brave-career-pivot.html",
+          "slides": [
+            ".renders/output/brave-career-pivot/slide-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "designId": "DAHPpHe6qAc",
+      "status": "success",
+      "createdAt": "2026-07-17T12:51:18.106Z",
+      "updatedAt": "2026-07-17T13:09:35.082Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:51:18.106Z",
+      "finishedAt": "2026-07-17T12:51:19.369Z",
+      "durationMs": 1263,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpHe6qAc",
+        "outDir": "designs/DAHPpHe6qAc/extract",
+        "cloneProfile": "minimal",
+        "duplicate": false,
+        "duplicateOf": null,
+        "outputs": {
+          "templateData": "designs/DAHPpHe6qAc/extract/template-data.json",
+          "signature": "designs/DAHPpHe6qAc/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpHe6qAc/extract/assets",
+          "pages": "designs/DAHPpHe6qAc/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 1,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 0,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:51:19.262Z",
+      "inputHtml": "designs/DAHPpHe6qAc/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpHe6qAc/extract",
+      "duplicate": false,
+      "duplicateOf": null,
+      "output": null,
+      "summary": "designs/DAHPpHe6qAc/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "thumb": "designs/DAHPpHe6qAc/archetype-cover.png",
+      "comparison": "designs/DAHPpHe6qAc/comparison.html",
+      "meta": {
+        "title": "Neon Pink Yellow Simple Makeup Tweet Instagram Post",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Montserrat",
+          "Telegraf"
+        ],
+        "palette": [
+          "#f0fa91",
+          "#f9dbff",
+          "#fffbf2",
+          "#343434",
+          "#000000"
+        ],
+        "score": 9.7
+      },
+      "pageThumbs": [
+        "designs/DAHPpHe6qAc/extract/assets/pages/page-01-thumbnail.png"
+      ],
+      "genStage": "authoring",
+      "remixes": [
+        {
+          "slug": "roll-into-joy",
+          "output": "output/roll-into-joy.html",
+          "slides": [
+            ".renders/output/roll-into-joy/slide-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "designId": "DAHPpD6Q_Z8",
+      "status": "duplicate",
+      "createdAt": "2026-07-17T12:51:44.344Z",
+      "updatedAt": "2026-07-17T12:51:55.332Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:51:44.344Z",
+      "finishedAt": "2026-07-17T12:51:47.144Z",
+      "durationMs": 2800,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpD6Q_Z8",
+        "outDir": "designs/DAHPpD6Q_Z8/extract",
+        "cloneProfile": "minimal",
+        "duplicate": true,
+        "duplicateOf": {
+          "designId": "DAHPpPadfyg",
+          "outDir": "designs/DAHPpPadfyg/extract",
+          "exactHash": "69080615974794e1595562aea7af396faab832e04cf3b8312f1f0384a3f50fdc",
+          "layoutHash": "4ea7fea50a9d854928856e3b5033b83821b26ac50422ebe96a88aa872272a73a"
+        },
+        "outputs": {
+          "templateData": "designs/DAHPpD6Q_Z8/extract/template-data.json",
+          "signature": "designs/DAHPpD6Q_Z8/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpD6Q_Z8/extract/assets",
+          "pages": "designs/DAHPpD6Q_Z8/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 1,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 0,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:51:47.135Z",
+      "inputHtml": "designs/DAHPpD6Q_Z8/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpD6Q_Z8/extract",
+      "duplicate": true,
+      "duplicateOf": {
+        "designId": "DAHPpPadfyg",
+        "outDir": "designs/DAHPpPadfyg/extract",
+        "exactHash": "69080615974794e1595562aea7af396faab832e04cf3b8312f1f0384a3f50fdc",
+        "layoutHash": "4ea7fea50a9d854928856e3b5033b83821b26ac50422ebe96a88aa872272a73a"
+      },
+      "output": null,
+      "summary": "designs/DAHPpD6Q_Z8/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "thumb": "designs/DAHPpD6Q_Z8/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHPpD6Q_Z8/extract/assets/pages/page-01-thumbnail.png"
+      ],
+      "meta": {
+        "title": "Blue Minimalist Neutral Motivational Tweet Instagram Post",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Roboto",
+          "Montserrat"
+        ],
+        "palette": [
+          "#ffffff",
+          "#46423f",
+          "#fffffe"
+        ]
+      }
     }
   ]
 }
