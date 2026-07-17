@@ -52,6 +52,9 @@
 
 /* ── on-photo header ink ── */
 .slide--photo .brand-word,.slide--photo .tn-tag span{color:#F1EFE9;text-shadow:0 1px 10px rgba(0,0,0,.45);}
+/* On a photo the lockup/tag can land on bright sky (RUNWILD read 2.24:1). A blur shadow
+   doesn't carry AA, so back them with a dark chip — legible over any frame, and a surface. */
+.slide--photo .lockup,.slide--photo .tn-tag{background:rgba(16,14,11,.62);padding:7px 12px;border-radius:9px;}
 
 /* ── display headline ── */
 .tn-title{position:absolute;z-index:5;}
