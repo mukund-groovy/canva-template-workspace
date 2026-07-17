@@ -867,5 +867,100 @@
         "brandFail": 0
       }
     }
+  },
+  "steady-not-loud": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 3.09,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "start-messy-today": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 57.65,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "roll-into-joy": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 69.22,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "brave-career-pivot": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 20.19,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "never-too-late": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 3.88,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
   }
 }

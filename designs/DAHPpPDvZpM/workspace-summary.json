@@ -1,20 +1,15 @@
 {
   "designId": "DAHPpPDvZpM",
-  "startedAt": "2026-07-17T12:38:15.721Z",
-  "finishedAt": "2026-07-17T12:38:16.876Z",
+  "startedAt": "2026-07-17T13:18:09.922Z",
+  "finishedAt": "2026-07-17T13:18:10.654Z",
   "workspaceRoot": "C:\\Users\\Groovy\\Projects\\canva-template-workspace",
   "cloneProfile": "minimal",
   "clone": {
     "designId": "DAHPpPDvZpM",
     "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPpPDvZpM\\extract",
     "cloneProfile": "minimal",
-    "duplicate": true,
-    "duplicateOf": {
-      "designId": "DAHPpLLVxSA",
-      "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPpLLVxSA\\extract",
-      "exactHash": "c8f99ecd3f87c671b872f60317e94c38da82e3b2ec28dbcd0ba28040480bd033",
-      "layoutHash": "c8f99ecd3f87c671b872f60317e94c38da82e3b2ec28dbcd0ba28040480bd033"
-    },
+    "duplicate": false,
+    "duplicateOf": null,
     "outputs": {
       "templateData": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPpPDvZpM\\extract\\template-data.json",
       "signature": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPpPDvZpM\\extract\\template-signature.json",
@@ -41,19 +36,14 @@
     "runDir": null,
     "report": null,
     "output": null,
-    "createdAt": "2026-07-17T12:38:16.876Z",
+    "createdAt": "2026-07-17T13:18:10.654Z",
     "source": "clone-only",
-    "duplicate": true
+    "duplicate": false
   },
   "final": {
-    "duplicate": true,
+    "duplicate": false,
     "output": null,
-    "duplicateOf": {
-      "designId": "DAHPpLLVxSA",
-      "outDir": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPpLLVxSA\\extract",
-      "exactHash": "c8f99ecd3f87c671b872f60317e94c38da82e3b2ec28dbcd0ba28040480bd033",
-      "layoutHash": "c8f99ecd3f87c671b872f60317e94c38da82e3b2ec28dbcd0ba28040480bd033"
-    }
+    "duplicateOf": null
   },
   "paths": {
     "inputHtml": "C:\\Users\\Groovy\\Projects\\canva-template-workspace\\designs\\DAHPpPDvZpM\\capture\\editor-page.full.html",

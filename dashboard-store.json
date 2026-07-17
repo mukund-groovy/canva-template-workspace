@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-17T12:40:35.462Z",
+  "generatedAt": "2026-07-17T13:30:11.218Z",
   "entries": [
     {
       "designId": "DAHOxjfy5Mo",
@@ -3117,26 +3117,21 @@
     },
     {
       "designId": "DAHPpPDvZpM",
-      "status": "duplicate",
+      "status": "success",
       "createdAt": "2026-07-17T12:38:15.721Z",
-      "updatedAt": "2026-07-17T12:38:33.328Z",
-      "attempts": 1,
+      "updatedAt": "2026-07-17T13:30:11.018Z",
+      "attempts": 3,
       "sourceUrl": "",
-      "startedAt": "2026-07-17T12:38:15.721Z",
-      "finishedAt": "2026-07-17T12:38:16.884Z",
-      "durationMs": 1163,
+      "startedAt": "2026-07-17T13:18:09.922Z",
+      "finishedAt": "2026-07-17T13:18:10.750Z",
+      "durationMs": 828,
       "lastError": "",
       "clone": {
         "designId": "DAHPpPDvZpM",
         "outDir": "designs/DAHPpPDvZpM/extract",
         "cloneProfile": "minimal",
-        "duplicate": true,
-        "duplicateOf": {
-          "designId": "DAHPpLLVxSA",
-          "outDir": "designs/DAHPpLLVxSA/extract",
-          "exactHash": "c8f99ecd3f87c671b872f60317e94c38da82e3b2ec28dbcd0ba28040480bd033",
-          "layoutHash": "c8f99ecd3f87c671b872f60317e94c38da82e3b2ec28dbcd0ba28040480bd033"
-        },
+        "duplicate": false,
+        "duplicateOf": null,
         "outputs": {
           "templateData": "designs/DAHPpPDvZpM/extract/template-data.json",
           "signature": "designs/DAHPpPDvZpM/extract/template-signature.json",
@@ -3153,16 +3148,11 @@
           "failed": 0
         }
       },
-      "clonedAt": "2026-07-17T12:38:16.876Z",
+      "clonedAt": "2026-07-17T13:18:10.654Z",
       "inputHtml": "designs/DAHPpPDvZpM/capture/editor-page.full.html",
       "extractDir": "designs/DAHPpPDvZpM/extract",
-      "duplicate": true,
-      "duplicateOf": {
-        "designId": "DAHPpLLVxSA",
-        "outDir": "designs/DAHPpLLVxSA/extract",
-        "exactHash": "c8f99ecd3f87c671b872f60317e94c38da82e3b2ec28dbcd0ba28040480bd033",
-        "layoutHash": "c8f99ecd3f87c671b872f60317e94c38da82e3b2ec28dbcd0ba28040480bd033"
-      },
+      "duplicate": false,
+      "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPpPDvZpM/workspace-summary.json",
       "qualityGate": null,
@@ -3181,14 +3171,26 @@
         ],
         "palette": [
           "#fafafa"
-        ]
-      }
+        ],
+        "score": 9.7
+      },
+      "comparison": "designs/DAHPpPDvZpM/comparison.html",
+      "genStage": "authoring",
+      "remixes": [
+        {
+          "slug": "never-too-late",
+          "output": "output/never-too-late.html",
+          "slides": [
+            ".renders/output/never-too-late/slide-01.png"
+          ]
+        }
+      ]
     },
     {
       "designId": "DAHPpAF8YsM",
       "status": "duplicate",
       "createdAt": "2026-07-17T12:40:33.927Z",
-      "updatedAt": "2026-07-17T12:40:35.456Z",
+      "updatedAt": "2026-07-17T12:42:33.012Z",
       "attempts": 1,
       "sourceUrl": "",
       "startedAt": "2026-07-17T12:40:33.927Z",
@@ -3237,7 +3239,455 @@
       "qualityGate": null,
       "runId": null,
       "generatedAt": null,
-      "thumb": "designs/DAHPpAF8YsM/archetype-cover.png"
+      "thumb": "designs/DAHPpAF8YsM/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHPpAF8YsM/extract/assets/pages/page-01-thumbnail.png"
+      ],
+      "meta": {
+        "title": "Cream White Simple Ramadan Quote Daily Reminder Tweet Instagram Post",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Montserrat",
+          "Garet"
+        ],
+        "palette": [
+          "#000000",
+          "#ffffff",
+          "#d6c6b9"
+        ]
+      }
+    },
+    {
+      "designId": "DAHPpNmoMqc",
+      "status": "cloned",
+      "createdAt": "2026-07-17T12:42:33.013Z",
+      "updatedAt": "2026-07-17T12:42:37.841Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:42:33.013Z",
+      "finishedAt": "2026-07-17T12:42:35.611Z",
+      "durationMs": 2598,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpNmoMqc",
+        "outDir": "designs/DAHPpNmoMqc/extract",
+        "cloneProfile": "minimal",
+        "duplicate": false,
+        "duplicateOf": null,
+        "outputs": {
+          "templateData": "designs/DAHPpNmoMqc/extract/template-data.json",
+          "signature": "designs/DAHPpNmoMqc/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpNmoMqc/extract/assets",
+          "pages": "designs/DAHPpNmoMqc/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 1,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 0,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:42:35.520Z",
+      "inputHtml": "designs/DAHPpNmoMqc/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpNmoMqc/extract",
+      "duplicate": false,
+      "duplicateOf": null,
+      "output": null,
+      "summary": "designs/DAHPpNmoMqc/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "thumb": "designs/DAHPpNmoMqc/archetype-cover.png",
+      "comparison": "designs/DAHPpNmoMqc/comparison.html",
+      "meta": {
+        "title": "Twitter Tweet Interactive Beauty Instagram Post",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Arial MT Pro"
+        ],
+        "palette": [
+          "#ffffff",
+          "#004aad",
+          "#000000"
+        ]
+      },
+      "pageThumbs": [
+        "designs/DAHPpNmoMqc/extract/assets/pages/page-01-thumbnail.png"
+      ]
+    },
+    {
+      "designId": "DAHPpE_asG4",
+      "status": "success",
+      "createdAt": "2026-07-17T12:42:58.606Z",
+      "updatedAt": "2026-07-17T13:07:02.922Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:42:58.606Z",
+      "finishedAt": "2026-07-17T12:42:59.722Z",
+      "durationMs": 1116,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpE_asG4",
+        "outDir": "designs/DAHPpE_asG4/extract",
+        "cloneProfile": "minimal",
+        "duplicate": false,
+        "duplicateOf": null,
+        "outputs": {
+          "templateData": "designs/DAHPpE_asG4/extract/template-data.json",
+          "signature": "designs/DAHPpE_asG4/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpE_asG4/extract/assets",
+          "pages": "designs/DAHPpE_asG4/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 1,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 0,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:42:59.626Z",
+      "inputHtml": "designs/DAHPpE_asG4/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpE_asG4/extract",
+      "duplicate": false,
+      "duplicateOf": null,
+      "output": null,
+      "summary": "designs/DAHPpE_asG4/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "thumb": "designs/DAHPpE_asG4/archetype-cover.png",
+      "comparison": "designs/DAHPpE_asG4/comparison.html",
+      "meta": {
+        "title": "Blue Modern Relaxing Motivational Quote Instagram Post",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Poppins"
+        ],
+        "palette": [
+          "#0884cf",
+          "#ffffff",
+          "#171717",
+          "#a6a6a6"
+        ],
+        "score": 10
+      },
+      "pageThumbs": [
+        "designs/DAHPpE_asG4/extract/assets/pages/page-01-thumbnail.png"
+      ],
+      "genStage": "authoring",
+      "remixes": [
+        {
+          "slug": "start-messy-today",
+          "output": "output/start-messy-today.html",
+          "slides": [
+            ".renders/output/start-messy-today/slide-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "designId": "DAHPpAdKx9A",
+      "status": "success",
+      "createdAt": "2026-07-17T12:49:38.803Z",
+      "updatedAt": "2026-07-17T13:06:36.246Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:49:38.803Z",
+      "finishedAt": "2026-07-17T12:49:39.850Z",
+      "durationMs": 1047,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpAdKx9A",
+        "outDir": "designs/DAHPpAdKx9A/extract",
+        "cloneProfile": "minimal",
+        "duplicate": false,
+        "duplicateOf": null,
+        "outputs": {
+          "templateData": "designs/DAHPpAdKx9A/extract/template-data.json",
+          "signature": "designs/DAHPpAdKx9A/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpAdKx9A/extract/assets",
+          "pages": "designs/DAHPpAdKx9A/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 1,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 0,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:49:39.757Z",
+      "inputHtml": "designs/DAHPpAdKx9A/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpAdKx9A/extract",
+      "duplicate": false,
+      "duplicateOf": null,
+      "output": null,
+      "summary": "designs/DAHPpAdKx9A/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "thumb": "designs/DAHPpAdKx9A/archetype-cover.png",
+      "comparison": "designs/DAHPpAdKx9A/comparison.html",
+      "meta": {
+        "title": "Blue and Grey Minimalist Daily Motivation Tweet Instagram Post",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Canva Sans",
+          "Archivo Black"
+        ],
+        "palette": [
+          "#ffffff",
+          "#073d56",
+          "#000000",
+          "#111111"
+        ],
+        "score": 10
+      },
+      "pageThumbs": [
+        "designs/DAHPpAdKx9A/extract/assets/pages/page-01-thumbnail.png"
+      ],
+      "genStage": "authoring",
+      "remixes": [
+        {
+          "slug": "steady-not-loud",
+          "output": "output/steady-not-loud.html",
+          "slides": [
+            ".renders/output/steady-not-loud/slide-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "designId": "DAHPpIQ0PCk",
+      "status": "success",
+      "createdAt": "2026-07-17T12:50:58.645Z",
+      "updatedAt": "2026-07-17T13:13:05.248Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:50:58.645Z",
+      "finishedAt": "2026-07-17T12:50:59.829Z",
+      "durationMs": 1184,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpIQ0PCk",
+        "outDir": "designs/DAHPpIQ0PCk/extract",
+        "cloneProfile": "minimal",
+        "duplicate": false,
+        "duplicateOf": null,
+        "outputs": {
+          "templateData": "designs/DAHPpIQ0PCk/extract/template-data.json",
+          "signature": "designs/DAHPpIQ0PCk/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpIQ0PCk/extract/assets",
+          "pages": "designs/DAHPpIQ0PCk/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 1,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 0,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:50:59.742Z",
+      "inputHtml": "designs/DAHPpIQ0PCk/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpIQ0PCk/extract",
+      "duplicate": false,
+      "duplicateOf": null,
+      "output": null,
+      "summary": "designs/DAHPpIQ0PCk/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "thumb": "designs/DAHPpIQ0PCk/archetype-cover.png",
+      "comparison": "designs/DAHPpIQ0PCk/comparison.html",
+      "meta": {
+        "title": "Blue Abstract Shapes Business Tips Tweet Quote Instagram Post",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Inter"
+        ],
+        "palette": [
+          "#cacedf",
+          "#4a4f7f"
+        ],
+        "score": 9.7
+      },
+      "pageThumbs": [
+        "designs/DAHPpIQ0PCk/extract/assets/pages/page-01-thumbnail.png"
+      ],
+      "genStage": "authoring",
+      "remixes": [
+        {
+          "slug": "brave-career-pivot",
+          "output": "output/brave-career-pivot.html",
+          "slides": [
+            ".renders/output/brave-career-pivot/slide-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "designId": "DAHPpHe6qAc",
+      "status": "success",
+      "createdAt": "2026-07-17T12:51:18.106Z",
+      "updatedAt": "2026-07-17T13:09:35.082Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:51:18.106Z",
+      "finishedAt": "2026-07-17T12:51:19.369Z",
+      "durationMs": 1263,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpHe6qAc",
+        "outDir": "designs/DAHPpHe6qAc/extract",
+        "cloneProfile": "minimal",
+        "duplicate": false,
+        "duplicateOf": null,
+        "outputs": {
+          "templateData": "designs/DAHPpHe6qAc/extract/template-data.json",
+          "signature": "designs/DAHPpHe6qAc/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpHe6qAc/extract/assets",
+          "pages": "designs/DAHPpHe6qAc/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 1,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 0,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:51:19.262Z",
+      "inputHtml": "designs/DAHPpHe6qAc/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpHe6qAc/extract",
+      "duplicate": false,
+      "duplicateOf": null,
+      "output": null,
+      "summary": "designs/DAHPpHe6qAc/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "thumb": "designs/DAHPpHe6qAc/archetype-cover.png",
+      "comparison": "designs/DAHPpHe6qAc/comparison.html",
+      "meta": {
+        "title": "Neon Pink Yellow Simple Makeup Tweet Instagram Post",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Montserrat",
+          "Telegraf"
+        ],
+        "palette": [
+          "#f0fa91",
+          "#f9dbff",
+          "#fffbf2",
+          "#343434",
+          "#000000"
+        ],
+        "score": 9.7
+      },
+      "pageThumbs": [
+        "designs/DAHPpHe6qAc/extract/assets/pages/page-01-thumbnail.png"
+      ],
+      "genStage": "authoring",
+      "remixes": [
+        {
+          "slug": "roll-into-joy",
+          "output": "output/roll-into-joy.html",
+          "slides": [
+            ".renders/output/roll-into-joy/slide-01.png"
+          ]
+        }
+      ]
+    },
+    {
+      "designId": "DAHPpD6Q_Z8",
+      "status": "duplicate",
+      "createdAt": "2026-07-17T12:51:44.344Z",
+      "updatedAt": "2026-07-17T12:51:55.332Z",
+      "attempts": 1,
+      "sourceUrl": "",
+      "startedAt": "2026-07-17T12:51:44.344Z",
+      "finishedAt": "2026-07-17T12:51:47.144Z",
+      "durationMs": 2800,
+      "lastError": "",
+      "clone": {
+        "designId": "DAHPpD6Q_Z8",
+        "outDir": "designs/DAHPpD6Q_Z8/extract",
+        "cloneProfile": "minimal",
+        "duplicate": true,
+        "duplicateOf": {
+          "designId": "DAHPpPadfyg",
+          "outDir": "designs/DAHPpPadfyg/extract",
+          "exactHash": "69080615974794e1595562aea7af396faab832e04cf3b8312f1f0384a3f50fdc",
+          "layoutHash": "4ea7fea50a9d854928856e3b5033b83821b26ac50422ebe96a88aa872272a73a"
+        },
+        "outputs": {
+          "templateData": "designs/DAHPpD6Q_Z8/extract/template-data.json",
+          "signature": "designs/DAHPpD6Q_Z8/extract/template-signature.json",
+          "dedupeIndex": "index/template-dedupe-index.json",
+          "assets": "designs/DAHPpD6Q_Z8/extract/assets",
+          "pages": "designs/DAHPpD6Q_Z8/extract/assets/pages"
+        },
+        "stats": {
+          "pagesDetected": 1,
+          "slidesInHtmlClone": 0,
+          "promotedActualPages": 0,
+          "fallbackPageAssets": 0,
+          "downloaded": 2,
+          "failed": 0
+        }
+      },
+      "clonedAt": "2026-07-17T12:51:47.135Z",
+      "inputHtml": "designs/DAHPpD6Q_Z8/capture/editor-page.full.html",
+      "extractDir": "designs/DAHPpD6Q_Z8/extract",
+      "duplicate": true,
+      "duplicateOf": {
+        "designId": "DAHPpPadfyg",
+        "outDir": "designs/DAHPpPadfyg/extract",
+        "exactHash": "69080615974794e1595562aea7af396faab832e04cf3b8312f1f0384a3f50fdc",
+        "layoutHash": "4ea7fea50a9d854928856e3b5033b83821b26ac50422ebe96a88aa872272a73a"
+      },
+      "output": null,
+      "summary": "designs/DAHPpD6Q_Z8/workspace-summary.json",
+      "qualityGate": null,
+      "runId": null,
+      "generatedAt": null,
+      "thumb": "designs/DAHPpD6Q_Z8/archetype-cover.png",
+      "pageThumbs": [
+        "designs/DAHPpD6Q_Z8/extract/assets/pages/page-01-thumbnail.png"
+      ],
+      "meta": {
+        "title": "Blue Minimalist Neutral Motivational Tweet Instagram Post",
+        "pages": 1,
+        "fonts": [
+          "Arimo",
+          "Roboto",
+          "Montserrat"
+        ],
+        "palette": [
+          "#ffffff",
+          "#46423f",
+          "#fffffe"
+        ]
+      }
     }
   ]
 }
