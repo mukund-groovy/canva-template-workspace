@@ -88,9 +88,14 @@ topic; append `-N` if taken). It MUST:
   (`--primary,--secondary,--accent,--bg,--surface,--text-high,--text-low,--border,--highlight`), and
   use the role tokens for every themeable colour.
 - **Recolor**: the brand preview re-skins ONLY the accent roles (`--primary`/`--secondary`/`--accent`);
-  canvas (`--bg`) and ink (`--text-*`) are fixed for legibility. So whatever plays the ACCENT role in
-  your design (a coloured headline, filled pill/box/tab, highlight, rule, number) must be
-  `var(--accent)`/`var(--primary)` — never a literal hex.
+  canvas (`--bg`) and ink (`--text-*`) are fixed for legibility. So whatever plays the accent role in
+  your design must be `var(--accent)`/`var(--primary)`, never a literal hex.
+- **`--accent` is for FILLED SURFACES, never text.** The brand device is a painted area — a filled
+  pill/box/tab/card, a highlight bar, a solid CTA, a coloured band. Branded **TEXT** (a coloured
+  headline, a kicker, a big index numeral) routes through `--primary`, which stays DARK across every
+  brand palette — because `--accent` on the pale canvas fails AA (accent-orange on cream ≈ 2.3:1, and
+  a real intake held 18 slides for exactly this). `--accent` and `--primary` are NOT interchangeable:
+  fills take `--accent`, ink takes `--primary` (or the on-fill token when it sits on a fill).
 - **EVERY slide must carry at least one VISIBLE brand-bound device.** This is the product: a slide a
   brand cannot tint is not a template, it's a stock post. Do not leave any slide brand-dead.
   - You are almost never short of a candidate — the lockup chip, a page numeral, a rule, a caption
@@ -113,6 +118,16 @@ topic; append `-N` if taken). It MUST:
   default black-and-white but goes **unreadable** the instant a brand's accent is light (yellow, amber,
   lime) — the skinner supplies an AA-safe on-colour precisely so you don't have to guess. Verify it:
   `node scripts/verify-slides.mjs output/<slug>.html --brand "#C1502C,#FFE14D"` must be **0 fails**.
+- **Measure contrast against the ACTUAL surface, never assert it in a comment.** Every text run must
+  clear AA on the background it truly sits on (≥4.5:1 body, ≥3:1 large). Three traps have each shipped
+  a failing deck — a `:root` comment claiming legibility is where the wrong assumption hides:
+  - **White ink needs a guaranteed-dark surface.** Do not fix `--text-high` to white if the canvas has
+    any light region — a gradient that ends on a white/pale stop makes white text invisible over that
+    end. (`orange-white-gradient` failed every run this way.)
+  - **Accent as type on a pale canvas fails.** Covered above: branded text → `--primary`.
+  - **A dark photo scrim carries LIGHT text, not the canvas ink.** A cover whose scrim darkens the
+    photo needs an on-scrim light token for its lockup/label; reusing the beige canvas's near-black ink
+    puts 1.2–2.2:1 text on the scrim. Scope it to the scrimmed cover; leave canvas slides alone.
 - Brand lockup `<span class="brand-word">YOURBRAND</span>` +
   `<img class="brand-mark" data-brand-logo="" src="<grey svg data-uri>">`; semantic slots
   `data-title` / `data-message` / `data-cta` (and `data-tagline` where it fits); exactly ONE body `<p>`

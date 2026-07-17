@@ -1,18 +1,18 @@
 {
   "cream-and-orange": {
-    "score": 8.4,
+    "score": 7.5,
     "breakdown": {
       "contract": 3.9,
-      "verify": 3,
+      "verify": 2.1,
       "stress": 0,
       "brand": 1.5,
       "raw": {
         "cViol": 0,
         "cWarn": 1,
         "vFail": 0,
-        "vWarn": 0,
-        "stFail": 13,
-        "deckAvg": 18.69,
+        "vWarn": 3,
+        "stFail": 6,
+        "deckAvg": 10.88,
         "brandPass": true,
         "brandFail": 0
       }
@@ -689,6 +689,25 @@
         "vWarn": 0,
         "stFail": 13,
         "deckAvg": 18.69,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "freelancer-weekly-reset": {
+    "score": 7.5,
+    "breakdown": {
+      "contract": 3.9,
+      "verify": 2.1,
+      "stress": 0,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 1,
+        "vFail": 0,
+        "vWarn": 3,
+        "stFail": 6,
+        "deckAvg": 10.88,
         "brandPass": true,
         "brandFail": 0
       }

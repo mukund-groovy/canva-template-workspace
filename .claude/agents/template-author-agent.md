@@ -57,10 +57,17 @@ of the title (e.g. `white-and-black-2`; append `-N` if the file already exists).
 - **RECOLOR: route the reference's ACCENT colour to the brand roles.** The brand preview re-skins ONLY the
   accent roles — `--brand-primary` / `--brand-secondary` / `--brand-accent` (`--primary`/`--secondary`/`--accent`).
   Canvas (`--bg`) and ink (`--text-*`) are intentionally FIXED (kept readable across brands). So: whatever
-  colour the reference uses as its ACCENT (a coloured headline, a filled pill/box/tab, a highlight, an
-  accent rule/number) MUST be `var(--accent)` / `var(--primary)` — NEVER a literal hex — so a brand palette
-  tints it. Body text and page background use `--text-*` / `--bg` (their fixed fallbacks are fine). A literal
-  accent like `#e8b400` on the headline is the bug to avoid — it won't recolour.
+  the reference uses as its accent — a filled pill/box/tab/card, a highlight bar, a rule, a solid CTA —
+  MUST be `var(--accent)` — NEVER a literal hex — so a brand palette tints it. A literal accent like
+  `#e8b400` on a fill is the bug to avoid — it won't recolour.
+  - **`--accent` is for FILLED SURFACES, not text.** A branded coloured headline, kicker or index numeral
+    routes through `--primary`, which stays DARK across every palette — `--accent` on the pale canvas fails
+    AA (accent-orange on cream ≈ 2.3:1; a real intake held 18 slides for this). `--accent` ≠ `--primary`:
+    fills take `--accent`, ink takes `--primary`. Text sitting ON a fill uses `--on-accent`/`--on-primary`
+    (declare `--on-accent:var(--brand-on-accent,#fff)` in `:root`), never the canvas ink and never a literal.
+  - **Measure contrast on the actual surface; never assert it in a `:root` comment.** Don't fix ink to
+    white unless the surface under it is guaranteed dark (a white/pale gradient stop makes white invisible);
+    on a dark photo scrim use a light on-scrim token, not the beige canvas's near-black ink.
 - **EVERY slide must carry at least one VISIBLE brand-bound device — fidelity does NOT excuse a
   brand-dead slide.** This is the product: a slide a brand cannot tint is not a template, it's a stock
   post. Your prime directive is faithful reproduction, and on a photo-canvas reference those two goals

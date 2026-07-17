@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-17T04:56:23.736Z",
+  "generatedAt": "2026-07-17T16:01:59.629Z",
   "entries": [
     {
       "designId": "DAHOxjfy5Mo",
       "status": "success",
       "createdAt": "2026-07-08T06:42:03.068Z",
-      "updatedAt": "2026-07-17T04:53:56.864Z",
+      "updatedAt": "2026-07-17T16:01:59.470Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -72,23 +72,23 @@
         "designs/DAHOxjfy5Mo/extract/assets/pages/page-05-thumbnail.png"
       ],
       "genStage": "",
-      "genDurationMs": 1093264,
-      "genRetries": 10,
+      "genDurationMs": 1803099,
+      "genRetries": 8,
       "lastError": "",
-      "belowThreshold": false,
-      "score": 8.4,
-      "detScore": 8.4,
+      "belowThreshold": true,
+      "score": 7.5,
+      "detScore": 7.5,
       "premiumScore": 0,
       "remixes": [
         {
-          "slug": "the-freelance-reset",
-          "output": "output/the-freelance-reset.html",
+          "slug": "freelancer-weekly-reset",
+          "output": "output/freelancer-weekly-reset.html",
           "slides": [
-            ".renders/output/the-freelance-reset/slide-01.png",
-            ".renders/output/the-freelance-reset/slide-02.png",
-            ".renders/output/the-freelance-reset/slide-03.png",
-            ".renders/output/the-freelance-reset/slide-04.png",
-            ".renders/output/the-freelance-reset/slide-05.png"
+            ".renders/output/freelancer-weekly-reset/slide-01.png",
+            ".renders/output/freelancer-weekly-reset/slide-02.png",
+            ".renders/output/freelancer-weekly-reset/slide-03.png",
+            ".renders/output/freelancer-weekly-reset/slide-04.png",
+            ".renders/output/freelancer-weekly-reset/slide-05.png"
           ]
         }
       ]
@@ -247,9 +247,9 @@
     },
     {
       "designId": "DAHO3nrn8r4",
-      "status": "generating",
+      "status": "cloned",
       "createdAt": "2026-07-09T07:38:42.320Z",
-      "updatedAt": "2026-07-17T04:56:23.490Z",
+      "updatedAt": "2026-07-17T15:30:29.069Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -305,7 +305,7 @@
         "designs/DAHO3nrn8r4/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHO3nrn8r4/extract/assets/pages/page-05-thumbnail.png"
       ],
-      "genStage": "authoring (gen 1/1)"
+      "genStage": ""
     },
     {
       "designId": "DAHO4Oe5Bbw",
