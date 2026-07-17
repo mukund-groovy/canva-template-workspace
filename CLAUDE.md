@@ -84,7 +84,28 @@ if one exists). Two remixes of the same reference are fine — give each a disti
 arrows clipped off the canvas. ALWAYS look at `.renders/output/<slug>/slide-NN.png` before calling a
 deck done, and send the agent back with a specific defect list if it's wrong.
 
-### B) Batch command (`generate-worker.mjs`) — self-driving, uses the Azure model
+### B) Batch command — self-driving, drains the `cloned` queue
+
+```bash
+node scripts/remix-worker.mjs                 # REMIX (the default deliverable), every cloned design
+node scripts/remix-worker.mjs --once          # just the next one
+node scripts/remix-worker.mjs --design-id <ID>
+node scripts/generate-worker.mjs              # FAITHFUL repro — same engine, opt-in only
+```
+
+`remix-worker.mjs` is a thin wrapper over `generate-worker.mjs --remix` — ONE engine, not a fork.
+`--remix` only selects prompts + the ship branch (standalone slug + `remix-map.json`, no
+`archetype-map` claim); everything else — best-of-N, gates, bounded repair, occlusion guard,
+count-lock, vision review — is shared, and `SYSTEM_REMIX`/`REVIEW_REMIX` are DERIVED from the
+faithful prompts so the structure contract can't drift (a missed swap throws at startup). Don't
+fork it to add a mode: this repo already carries one such fork (two copies of
+`template-author-agent.md`) and they diverged.
+
+**The worker is weaker than the CLI agent** — the gates measure structure, not composition, and its
+vision review passes flat decks the agent's own eyes would catch. Spot-check
+`.renders/output/<slug>/slide-NN.png` before trusting a batch.
+
+#### Engine internals (`generate-worker.mjs`)
 
 Walks the `cloned` queue and, per design: transcribes the reference faithfully, feeds the author EXACT
 geometry (`decode-geometry.mjs` → real font-sizes/box-sizes so it stops eyeballing), runs the contract +

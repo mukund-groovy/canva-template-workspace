@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-16T17:52:55.780Z",
+  "generatedAt": "2026-07-17T04:56:23.736Z",
   "entries": [
     {
       "designId": "DAHOxjfy5Mo",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-08T06:42:03.068Z",
-      "updatedAt": "2026-07-16T17:52:55.620Z",
+      "updatedAt": "2026-07-17T04:53:56.864Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -72,13 +72,26 @@
         "designs/DAHOxjfy5Mo/extract/assets/pages/page-05-thumbnail.png"
       ],
       "genStage": "",
-      "genDurationMs": 417156,
-      "genRetries": 3,
+      "genDurationMs": 1093264,
+      "genRetries": 10,
       "lastError": "",
-      "belowThreshold": true,
-      "score": 4,
-      "detScore": 4,
-      "premiumScore": 0
+      "belowThreshold": false,
+      "score": 8.4,
+      "detScore": 8.4,
+      "premiumScore": 0,
+      "remixes": [
+        {
+          "slug": "the-freelance-reset",
+          "output": "output/the-freelance-reset.html",
+          "slides": [
+            ".renders/output/the-freelance-reset/slide-01.png",
+            ".renders/output/the-freelance-reset/slide-02.png",
+            ".renders/output/the-freelance-reset/slide-03.png",
+            ".renders/output/the-freelance-reset/slide-04.png",
+            ".renders/output/the-freelance-reset/slide-05.png"
+          ]
+        }
+      ]
     },
     {
       "designId": "DAHOyNQEdgs",
@@ -234,9 +247,9 @@
     },
     {
       "designId": "DAHO3nrn8r4",
-      "status": "cloned",
+      "status": "generating",
       "createdAt": "2026-07-09T07:38:42.320Z",
-      "updatedAt": "2026-07-16T16:45:05.158Z",
+      "updatedAt": "2026-07-17T04:56:23.490Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -291,7 +304,8 @@
         "designs/DAHO3nrn8r4/extract/assets/pages/page-03-thumbnail.png",
         "designs/DAHO3nrn8r4/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHO3nrn8r4/extract/assets/pages/page-05-thumbnail.png"
-      ]
+      ],
+      "genStage": "authoring (gen 1/1)"
     },
     {
       "designId": "DAHO4Oe5Bbw",

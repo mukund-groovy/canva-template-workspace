@@ -35,7 +35,11 @@ const ONCE = flag('once');
 const MAX = Number(opt('max', 0)) || Infinity;
 const ONE_ID = opt('design-id', null);
 const SLIDE_NUM = Number(opt('slide', 0)); // >0 = author ONLY this reference page, render a preview, and stop (fast per-slide quality iteration)
-const MAX_REPAIRS = Number(opt('repairs', 3));
+// Remix needs a bigger budget than faithful: its slides start from invented copy, so they spend
+// the first passes on structural fails (COVERAGE especially) and used to run out BEFORE reaching
+// a clean render — which is where the recolor/stress phase kicks in. It never got there, so brand
+// was never repaired and decks shipped at 1% recolor.
+const MAX_REPAIRS = Number(opt('repairs', argv.includes('--remix') ? 6 : 3));
 const MIN_SCORE = Number(opt('min-score', 8));   // regenerate until COMBINED score >= this (out of 10)
 const GEN_ATTEMPTS = Number(opt('gens', 2));      // fresh-author fallbacks; premium now climbs via feedback, not blind re-authoring
 const PREMIUM_MIN = Number(opt('premium-min', 8)); // below this, run judge-guided aesthetic repairs
@@ -398,7 +402,11 @@ const SYSTEM_REMIX = (() => {
     ],
     [
       'Reproduce the reference\'s composition per slide: the same layout, the same copy in the same roles, the same decorative devices in roughly their positions and sizes. Map the reference\'s actual colours onto the brand tokens so a palette swap re-skins it. The result should read as the SAME template, cleanly rebuilt and recolorable — not a new design, not "elevated", not flatter or busier than the reference.',
-      'Compose each slide per the plan, in the reference\'s design language: its type character and scale contrast, its grid and margins, its density, and its composing devices (highlight bars, tinted cards, offset shadows, rules, chips, oversized numerals). Map the reference\'s actual colours onto the brand tokens so a palette swap re-skins it. The result should read as a sibling of the reference — same craft, its own content and composition. Never flatter or plainer than the reference.',
+      'Compose each slide per the plan, in the reference\'s design language: its type character and scale contrast, its grid and margins, its density, and its composing devices (highlight bars, tinted cards, offset shadows, rules, chips, oversized numerals).\n' +
+        'FILL THE FRAME. A content slide is NEVER just a headline and a paragraph floating on a plain background — that is the single most common failure and it fails the coverage gate. Every content slide carries the reference\'s furniture: a card or panel behind the body, a highlight bar or rule on the headline, a numeral/chip/kicker anchoring the corner. No band of roughly a third of the slide\'s height may sit empty; enlarge the headline, add the surface, or spread the composition until the frame is used.\n' +
+        'RECOLOR IS NOT OPTIONAL. Every colour that carries the design — headline ink, accent bars/chips/cards, rules, CTA fills, numerals — is a brand token (var(--primary), var(--accent), var(--surface), var(--highlight), var(--text-high) ...), NEVER a literal hex. Only the fixed canvas (paper/background) may stay literal. A deck whose accent is a hardcoded colour fails the recolor audit even when it looks right.\n' +
+        'GIVE --primary/--accent REAL AREA, on every slide. The audit re-skins the deck by changing ONLY those two, and scores the share of pixels that move: >=3% deck average, >=1.5% per slide. A thin rule and a small chip do not reach it — a deck that scores ~1% is a failure however good it looks. So each slide needs a substantial primary/accent-filled element: a headline highlight bar, a filled card or panel behind the body, a solid CTA, a large numeral or a band. This is not decoration for its own sake — it is the same furniture the reference uses to fill its frame, and it is what makes the template resellable to a brand.\n' +
+        'Map the reference\'s actual colours onto those tokens so a palette swap re-skins it. The result should read as a sibling of the reference — same craft, its own content and composition. Never flatter or plainer than the reference.',
     ],
     [
       'CHROME — reproduce the content, neutralize only the source\'s identity:',
@@ -414,6 +422,17 @@ const SYSTEM_REMIX = (() => {
     if (!s.includes(from)) throw new Error(`--remix: SYSTEM changed, cannot derive SYSTEM_REMIX (missing: ${from.slice(0, 60)}…)`);
     s = s.replace(from, to);
   }
+  // Appended, not swapped: SYSTEM says nothing about copy growth beyond clamping, so decks lay
+  // out against their own exact wording and every slot collides once the stress gate refills them
+  // (9 TEXT-COLLISIONs on the first passing remix — a decorative "?" landing on the headline,
+  // body text reaching the numeral). Remix-only, so the faithful path stays byte-identical.
+  s += `
+
+COPY GROWTH — this is a TEMPLATE, not a poster: every text slot gets REPLACED by generated copy that may run ~1.5x longer than yours, and a layout that only works at your exact wording fails.
+- Lay blocks out in normal flow with real spacing, so a longer headline PUSHES what follows instead of overlapping it. Absolute positioning is for the canvas furniture (bars, cards, marks), not for stacking text blocks on top of each other.
+- Never place a decorative numeral, mark, badge or glyph where a growing headline or body can reach it. Give it its own column, corner or margin — text over text is an automatic failure.
+- That includes a GHOST/WATERMARK NUMERAL behind the headline. It looks deliberate at your wording and still fails: the gate counts any glyph overlapping a text box as a collision, and a longer headline buries it. Want the oversized numeral? Put it BESIDE the headline in its own column, or in a margin/corner the text never reaches — clear of every text box, not behind one.
+- Reserve room for the longest plausible line: size each slot for its clamp, not for the string you happened to write.`;
   return s;
 })();
 
@@ -636,6 +655,41 @@ function leakedBrandTokens(html, td) {
   return [...tokens].filter((t) => new RegExp(`\\b${t}\\b`).test(body));
 }
 
+// Recolor + stress failures. These two gates only ran inside score-template AFTER ship, so a
+// deck that hardcoded its colours (brand-audit 1% instead of 17-21%) or blew up on worst-case
+// copy was measured and shipped anyway — 3 of the 4 points a bad deck loses were never repaired.
+// They cost a browser launch each, so the caller runs them only once the structural gates are
+// clean, not on every repair attempt.
+function qualityFailures(file) {
+  const st = runGate('stress-slots.mjs', file);
+  const stFail = Number((st.out.match(/(\d+)\s+failure/i) || [])[1] || 0);
+  const br = runGate('brand-audit.mjs', file);
+  const brandPass = /RESULT:\s*PASS/i.test(br.out);
+  const deckAvg = Number((br.out.match(/deck\s*avg\s+([\d.]+)%/i) || [])[1] || 0);
+  let text = '';
+  if (!brandPass) {
+    text += `brand-audit — RECOLOR IS BROKEN (${deckAvg}% of pixels move when the brand palette changes; needs >=3% deck average, 1.5% per slide).\n` +
+      `The audit changes ONLY --brand-primary and --brand-accent and measures the share of pixels that move, so TWO things are required:\n` +
+      `1. Every colour that carries the design — headline ink, accent chips/bars/cards, rules, CTA fills, numerals — comes from the brand tokens ` +
+      `(var(--primary), var(--accent), var(--highlight) ...), NOT a literal hex. Only the fixed canvas (paper/bg) may stay literal.\n` +
+      `2. --primary/--accent must cover real AREA on EVERY slide, not a hairline rule or a tiny chip: a headline highlight bar, a filled card/panel behind the body, a solid CTA, a large numeral or a band. ` +
+      `A deck at ~1% has the tokens wired but nothing filled — enlarge or add the accent-filled element, keeping the composition.\n` +
+      `${br.out.slice(-500)}\n`;
+  }
+  if (stFail) {
+    text += `stress-slots — ${stFail} failure(s) when the slots are refilled with generated copy (this is a TEMPLATE: the words WILL change).\n` +
+      `TEXT-COLLISION means two blocks overlap once the copy runs long. Fix the LAYOUT, not the wording — shortening your own text hides the bug and it fails again on real copy:\n` +
+      `put the text blocks in normal flow with real spacing so a longer headline pushes what follows down instead of landing on it, and move any decorative numeral/mark/badge out of the path of a growing headline or body (its own column, corner or margin).\n` +
+      `A GHOST/WATERMARK NUMERAL BEHIND THE HEADLINE is the usual culprit and reads as intentional — it is still a failure: move it beside the headline or into a margin the text never reaches, do not just recolour or shrink it.\n` +
+      `${st.out.slice(-500)}\n`;
+  }
+  // Severity, not a boolean: as a 0/1/2 count a deck with 3 stress failures TIED one with 10, so
+  // the loop could not tell a near-fix from a disaster and kept whichever came first. Recolor is
+  // worth more than a stress fail (it is 1.5 points and makes the template resellable), so it
+  // dominates the ordering; stress then breaks ties by how many slots actually blow up.
+  return { count: (brandPass ? 0 : 100) + stFail, text, deckAvg, stFail, brandPass };
+}
+
 // Surgical repair: shows the model its OWN rendered slides + the exact gate failures,
 // asks for a minimal targeted fix (not a rewrite — that caused the contract/verify oscillation).
 async function repair({ currentHtml, failures, renders, slideCount }) {
@@ -692,7 +746,7 @@ const REVIEW_REMIX = (() => {
     ],
     [
       '- MISSING: an element clearly present in the reference is absent in the reproduction.',
-      '- MISSING: the slide is missing something it needs to work — a headline with no support, a device the design language depends on, an empty region with no job.\n- PLAGIARISM: the remix reuses the reference\'s actual words, headline, brand name, @handle or placeholder text ("BORCELLE", "@REALLYGREATSITE", "reallygreatsite.com"). This is the worst defect: the copy must be the remix\'s own.\n- FLAT: the slide reads plainer or cheaper than the reference — the craft is gone (no scale contrast, no devices, weak hierarchy), or the body is shouty all-caps where the reference was restrained.',
+      '- MISSING: the slide is missing something it needs to work — a headline with no support, a device the design language depends on, an empty region with no job.\n- PLAGIARISM: the remix reuses the reference\'s actual words, headline, brand name, @handle or placeholder text ("BORCELLE", "@REALLYGREATSITE", "reallygreatsite.com"). This is the worst defect: the copy must be the remix\'s own.\n- FLAT: the slide reads plainer or cheaper than the reference. Be strict and concrete — this is the most common failure and it is easy to wave through. A slide that is only a headline plus a paragraph of body text on a plain background, while the reference composes with cards, panels, highlight bars, rules, chips, oversized numerals or marks, IS FLAT — report it. So is a slide carrying a large empty band (roughly a third of its height with nothing in it), one with no real scale contrast between headline and body, and one whose body is shouty all-caps where the reference was restrained. Name the device from the reference\'s design language that the slide should be using.',
     ],
     [
       '- SIZE: an element is much larger or smaller than in the reference (e.g. an oversized headline that dominates wrongly).',
@@ -700,7 +754,7 @@ const REVIEW_REMIX = (() => {
     ],
     [
       'Report ONLY real, visible defects. If a slide faithfully matches the reference and is clean, report nothing for it.',
-      'Report ONLY real, visible defects. If a slide is clean and carries the reference\'s craft, report nothing for it — do NOT report it for differing from the reference in words, topic or composition. That is the point.',
+      'Report ONLY real, visible defects. If a slide is clean and carries the reference\'s craft, report nothing for it — do NOT report it for differing from the reference in words, topic or composition. That is the point. But do NOT call a slide clean merely because nothing is broken: a slide that is intact yet flat is a defect, and shipping flat decks is the failure this review exists to stop.',
     ],
     [
       '"fix":"specific change to make it match the reference"',
@@ -820,14 +874,30 @@ async function processOne(entry) {
       // A wrong slide count is a structural defect — treat it like a contract violation for candidate ranking.
       const badCount = sc !== EXPECT ? 1 : 0;
       const cvEff = cv + badCount;
-      if (!cand || cvEff < cand.cv || (cvEff === cand.cv && vFail < cand.vFail)) cand = { cv: cvEff, vFail, html: cur, failures };
-      if (cv === 0 && vFail === 0 && badCount === 0) break;
+      // Recolor/stress are expensive (a browser launch each), so only weigh them once the deck is
+      // structurally sound. NEAR-clean, not clean: one stubborn verify fail would otherwise block
+      // the quality phase for the whole budget (observed: vFail stuck at 1 for 4 attempts, so
+      // stress was never repaired and the deck shipped at stress 0/1.5).
+      const structClean = cv === 0 && vFail === 0 && badCount === 0;
+      const nearClean = cv === 0 && badCount === 0 && vFail <= 1;
+      // Infinity, not a number: "not measured" must never rank ABOVE a measured deck (a sentinel
+      // of 9 would have beaten a real brand failure at 100 and shipped the unmeasured one).
+      const q = nearClean ? qualityFailures(replica) : { count: Infinity, text: '' };
+      const allFailures = q.text ? `${failures}\n${q.text}` : failures;
+      // Rank lexicographically: contract -> verify -> recolor/stress. Without the last term a
+      // brand-repaired candidate ties its broken predecessor and loses, so the fix is discarded.
+      const better = !cand || cvEff < cand.cv ||
+        (cvEff === cand.cv && vFail < cand.vFail) ||
+        (cvEff === cand.cv && vFail === cand.vFail && q.count < cand.qFail);
+      if (better) cand = { cv: cvEff, vFail, qFail: q.count, html: cur, failures: allFailures };
+      if (structClean && q.count === 0) break; // clean on every gate
       if (attempt === MAX_REPAIRS) break;
+      if (nearClean) log(`  gen ${gen} quality repair ${attempt + 1}/${MAX_REPAIRS} (verify ${vFail}, brand ${q.deckAvg}%, stress-fail ${q.stFail})`);
       // Blown-up draft guard: a fresh author that renders with a huge verify-fail count is garbage;
       // repairing it just feeds a giant failures blob back in (the 7->193 cascade + 13-min calls).
       // Abandon this draft and let the next gen re-author from scratch instead.
       if (vFail > 60) { log(`  gen ${gen}: ${vFail} verify fails — abandoning blown-up draft`); genRetries++; break; }
-      log(`  gen ${gen} repair ${attempt + 1}/${MAX_REPAIRS} (contract ${cv}, verify fail ${vFail})`);
+      if (!nearClean) log(`  gen ${gen} repair ${attempt + 1}/${MAX_REPAIRS} (contract ${cv}, verify fail ${vFail})`);
       genRetries++;
       setStage(designId, `repair ${attempt + 1}/${MAX_REPAIRS} (gen ${gen}, contract ${cv}, verify ${vFail})`);
       // Repair from the BEST candidate so far + ITS failures — never the latest, which a prior
