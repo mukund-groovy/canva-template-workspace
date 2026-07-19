@@ -1,0 +1,37 @@
+{
+  "template": "D:\\wamp64\\www\\canva-template-workspace\\output\\brown-and-cream.html",
+  "slides": 5,
+  "fonts": [
+    {
+      "family": "Noto Serif Display",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Noto Serif Display",
+      "weight": 700,
+      "style": "italic",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Dancing Script",
+      "weight": 600,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Arimo",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    }
+  ],
+  "photoStats": [],
+  "findings": [],
+  "pass": true
+}

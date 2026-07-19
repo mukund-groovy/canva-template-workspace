@@ -1,0 +1,37 @@
+{
+  "template": "D:\\wamp64\\www\\canva-template-workspace\\output\\quiet-reminders-nights.html",
+  "slides": 7,
+  "fonts": [
+    {
+      "family": "Anton",
+      "weight": 400,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Anton",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Poppins",
+      "weight": 600,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Poppins",
+      "weight": 500,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    }
+  ],
+  "photoStats": [],
+  "findings": [],
+  "pass": true
+}

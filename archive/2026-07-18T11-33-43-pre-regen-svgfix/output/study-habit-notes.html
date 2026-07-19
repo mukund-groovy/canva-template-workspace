@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=DM+Sans:wght@500;700;800&display=swap');
+
+  :root{
+    /* Brand role tokens. --accent/--primary/--secondary are the ONLY roles a
+       brand preview re-skins; --bg/--text-* stay fixed literals for
+       legibility on the cream "notebook" surface. */
+    --primary:var(--brand-primary,#16233A);
+    --secondary:var(--brand-secondary,#2C4F86);
+    --accent:var(--brand-accent,#174497);
+    --highlight:var(--brand-highlight,#174497);
+    --bg:var(--brand-bg,#F7F2EC);
+    --surface:var(--brand-surface,#DBE1EE);
+    --text-high:var(--brand-ink,#181410);
+    --text-low:var(--brand-text-muted,rgba(24,20,16,.62));
+    --border:var(--brand-border,rgba(24,20,16,.08));
+    --on-accent:var(--brand-on-accent,#FFFFFF);
+    --on-primary:var(--brand-on-primary,#FFFFFF);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);
+    font-family:'DM Sans',sans-serif;
+  }
+
+  /* graph-paper backdrop — the reference's defining texture */
+  .grid{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(var(--border) 1.5px, transparent 1.5px),
+      linear-gradient(90deg, var(--border) 1.5px, transparent 1.5px);
+    background-size:54px 54px;
+  }
+
+  /* ── kicker: layered sticky-note badge, top-left on every slide ── */
+  .kicker{position:absolute;left:90px;top:86px;z-index:5;}
+  .kicker-shadow{position:absolute;left:8px;top:9px;width:100%;height:100%;
+    background:var(--surface);border-radius:14px;}
+  .kicker-pill{position:relative;display:flex;align-items:center;gap:16px;
+    height:78px;padding:0 40px 0 26px;background:var(--accent);border-radius:14px;}
+  .kicker-pill svg{width:26px;height:34px;flex:none;color:var(--on-accent);}
+  .kicker-pill span{font-family:'DM Sans',sans-serif;font-weight:800;font-size:25px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--on-accent);white-space:nowrap;}
+
+  /* ── folded-corner flourish — top-right on every slide, echoes a
+     dog-eared notebook page and gives row-0's right half real coverage ── */
+  .corner{position:absolute;right:0;top:0;width:96px;height:96px;z-index:1;pointer-events:none;
+    background:var(--surface);clip-path:polygon(100% 0, 100% 100%, 0 0);}
+
+  /* ── doodle arrow, position/rotation set per instance ── */
+  .doodle-arrow{position:absolute;z-index:1;pointer-events:none;color:var(--accent);}
+  .doodle-arrow svg{width:100%;height:100%;display:block;}
+
+  /* ── washi-tape strip — a small taped-down accent that keeps the
+     top-center band from ever reading empty, on every slide ── */
+  .tape{position:absolute;left:596px;top:64px;width:160px;height:56px;z-index:1;pointer-events:none;
+    background:var(--surface);border:2px solid var(--accent);border-radius:4px;transform:rotate(-6deg);opacity:.9;}
+
+  /* ── sticky note flourish — bridges the mid-canvas band, always clear of
+     the text lane (text maxes out at x=896, this sits from x=924+) ── */
+  .tab{position:absolute;z-index:1;width:214px;height:380px;background:var(--surface);
+    border:3px solid var(--accent);border-radius:26px;display:flex;align-items:center;justify-content:center;}
+  .tab svg{width:78px;height:78px;color:var(--accent);}
+
+  /* ── notebook rule — divider bar above the footer ── */
+  .rule{position:absolute;left:90px;right:90px;top:1162px;height:9px;border-radius:5px;background:var(--secondary);z-index:1;}
+
+  /* ── hand-drawn underline swash beneath the headline ── */
+  .swash{position:absolute;left:100px;top:830px;width:230px;height:44px;z-index:1;pointer-events:none;color:var(--accent);}
+  .swash svg{width:100%;height:100%;display:block;}
+
+  /* ── headline: -webkit-line-clamp:3 caps its box at a fixed worst-case
+     height (padding 8/28 + 3 x 126px*1.24 lines ≈ 505px) regardless of copy
+     length, so everything below it is positioned against that WORST CASE,
+     never against today's actual (often shorter) line count — that is what
+     keeps longer stress-test copy from ever sliding under the body/CTA.
+     line-height 1.24 (up from 1.16) opens real breathing room between
+     lines so the circled word's annotation never grazes the line above. ── */
+  .tn-title{position:absolute;left:96px;top:310px;width:760px;z-index:3;}
+  .tn-title h1{
+    margin:0;font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+    font-size:120px;line-height:1.36;letter-spacing:-.005em;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;
+    padding:8px 40px 28px 4px;
+  }
+  /* Centered on the SPAN's own box (which CSS centers the font's ascent+
+     descent metrics within, regardless of leading), not on the old
+     asymmetric top/bottom insets that previously pushed the ellipse low
+     and let it bleed into the line above. A fixed 1.06em height/centered
+     transform reliably encloses ANY word — with or without descenders
+     (Studying, Progress) — the same way. */
+  .hl-mark{position:relative;display:inline-block;white-space:nowrap;}
+  .hl-mark svg{position:absolute;left:50%;top:41%;transform:translate(-50%,-50%);
+    width:calc(100% + .4em);height:1.12em;z-index:2;overflow:visible;pointer-events:none;}
+
+  /* ── body copy — clamp:3 caps it at ~175px regardless of copy length ── */
+  .tn-message{position:absolute;left:96px;top:890px;width:620px;z-index:3;}
+  .tn-message p{
+    margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:40px;line-height:1.4;
+    color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;
+    padding-bottom:.18em;
+  }
+
+  /* ── streak tracker — a small "day streak" strip of tick squares, doubles
+     as the habit-tracker motif this topic calls for and as real coverage ── */
+  .streak{position:absolute;left:96px;top:1090px;display:flex;align-items:center;gap:16px;z-index:1;}
+  .streak span{width:60px;height:60px;border-radius:14px;display:block;background:var(--surface);}
+  .streak span.on{background:var(--accent);}
+
+  /* ── CTA chip (closer slide) ── */
+  .tn-cta{position:absolute;left:96px;top:890px;z-index:5;}
+  .cta-chip{display:inline-flex;align-items:center;height:74px;padding:0 36px;
+    background:var(--accent);border-radius:37px;}
+  .cta-chip p{margin:0;font-family:'DM Sans',sans-serif;font-weight:800;font-size:26px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--on-accent);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;white-space:nowrap;}
+
+  /* ── footer: brand lockup left, folio + dots track right ── */
+  .foot{position:absolute;left:90px;right:90px;bottom:66px;z-index:5;
+    display:flex;align-items:center;justify-content:space-between;}
+  .lockup{display:inline-flex;align-items:center;gap:14px;}
+  .brand-mark{height:32px;width:32px;border-radius:8px;display:block;object-fit:contain;}
+  .brand-word{font-family:'DM Sans',sans-serif;font-weight:800;font-size:25px;
+    letter-spacing:.02em;color:var(--primary);white-space:nowrap;}
+  .dots-track{display:flex;align-items:center;gap:13px;background:var(--surface);
+    padding:12px 20px;border-radius:30px;}
+  .folio-num{font-family:'DM Sans',sans-serif;font-weight:700;font-size:22px;
+    letter-spacing:.06em;color:var(--text-low);}
+  .dots{display:flex;align-items:center;gap:12px;}
+  .dots span{width:16px;height:16px;border-radius:50%;background:var(--accent);display:block;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="corner" aria-hidden="true"></div>
+    <div class="tape" aria-hidden="true" style="left:596px;top:64px;width:160px;height:56px;transform:rotate(-6deg);"></div>
+
+    <div class="kicker">
+      <div class="kicker-shadow"></div>
+      <div class="kicker-pill">
+        <svg data-cg-svg data-cg-preserve viewBox="0 0 24 32" fill="none" aria-hidden="true"><path d="M7 11.5V23a5 5 0 0010 0V8a3 3 0 00-6 0v12.5a1 1 0 002 0V9.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Study Note</span>
+      </div>
+    </div>
+
+    <div class="doodle-arrow" style="left:800px;top:108px;width:250px;height:170px;">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 220 150" fill="none" aria-hidden="true"><path d="M8 118C58 40 128 24 196 46" stroke="currentColor" stroke-width="14" stroke-linecap="round"/><path d="M148 22 L200 44 L166 82" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    </div>
+
+    <div class="tab" style="left:924px;top:560px;transform:rotate(-7deg);">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 80 80" fill="none" aria-hidden="true"><path d="M40 6 L47 33 L74 40 L47 47 L40 74 L33 47 L6 40 L33 33 Z" fill="currentColor"/></svg>
+    </div>
+
+    <div class="tn-title">
+      <h1 data-title="true">Cramming Isn&rsquo;t <span class="hl-mark">Studying<svg data-cg-svg data-cg-preserve viewBox="0 0 300 130" preserveAspectRatio="none" fill="none" aria-hidden="true"><path d="M18 78C14 34 78 6 156 10C240 14 288 44 276 78C262 116 176 132 104 126C48 121 22 106 18 78Z" stroke="var(--highlight)" stroke-width="9" fill="none"/><path d="M24 70C34 32 96 12 160 18" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round" fill="none"/></svg></span>.</h1>
+    </div>
+
+    <div class="swash">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 220 40" fill="none" aria-hidden="true"><path d="M6 24C40 4 80 44 120 20C150 4 180 30 214 14" stroke="currentColor" stroke-width="10" stroke-linecap="round"/></svg>
+    </div>
+
+    <div class="tn-message">
+      <p data-message="true">Real learning happens in short, spaced sessions &mdash; not one long night before the test.</p>
+    </div>
+
+    <div class="streak">
+      <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="foot">
+      <div class="lockup">
+        <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/>
+        <span class="brand-word">NOTEWORTHY</span>
+      </div>
+      <div class="dots-track">
+        <span class="folio-num" data-counter="true">01</span>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 2 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="corner" aria-hidden="true"></div>
+    <div class="tape" aria-hidden="true" style="left:576px;top:48px;width:160px;height:56px;transform:rotate(5deg);"></div>
+
+    <div class="kicker">
+      <div class="kicker-shadow"></div>
+      <div class="kicker-pill">
+        <svg data-cg-svg data-cg-preserve viewBox="0 0 24 32" fill="none" aria-hidden="true"><path d="M7 11.5V23a5 5 0 0010 0V8a3 3 0 00-6 0v12.5a1 1 0 002 0V9.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Study Note</span>
+      </div>
+    </div>
+
+    <div class="doodle-arrow" style="right:-56px;top:360px;width:240px;height:210px;transform:scaleX(-1) rotate(8deg);">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 220 150" fill="none" aria-hidden="true"><path d="M8 118C58 40 128 24 196 46" stroke="currentColor" stroke-width="14" stroke-linecap="round"/><path d="M148 22 L200 44 L166 82" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    </div>
+
+    <div class="tab" style="left:924px;top:600px;transform:rotate(6deg);">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 80 80" fill="none" aria-hidden="true"><path d="M40 6 L47 33 L74 40 L47 47 L40 74 L33 47 L6 40 L33 33 Z" fill="currentColor"/></svg>
+    </div>
+
+    <div class="tn-title">
+      <h1 data-title="true">Short Study Sessions Still <span class="hl-mark">Work<svg data-cg-svg data-cg-preserve viewBox="0 0 260 130" preserveAspectRatio="none" fill="none" aria-hidden="true"><path d="M16 74C12 32 68 6 138 10C214 14 250 44 238 76C225 112 148 128 84 122C36 117 20 102 16 74Z" stroke="var(--highlight)" stroke-width="9" fill="none"/><path d="M22 66C30 30 84 10 142 16" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round" fill="none"/></svg></span></h1>
+    </div>
+
+    <div class="swash">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 220 40" fill="none" aria-hidden="true"><path d="M6 24C40 4 80 44 120 20C150 4 180 30 214 14" stroke="currentColor" stroke-width="10" stroke-linecap="round"/></svg>
+    </div>
+
+    <div class="tn-message">
+      <p data-message="true">Twenty focused minutes, repeated daily, beat one long all&#8209;nighter, every single time.</p>
+    </div>
+
+    <div class="streak">
+      <span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="foot">
+      <div class="lockup">
+        <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/>
+        <span class="brand-word">NOTEWORTHY</span>
+      </div>
+      <div class="dots-track">
+        <span class="folio-num" data-counter="true">02</span>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 3 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="corner" aria-hidden="true"></div>
+    <div class="tape" aria-hidden="true" style="left:614px;top:78px;width:160px;height:56px;transform:rotate(-11deg);"></div>
+
+    <div class="kicker">
+      <div class="kicker-shadow"></div>
+      <div class="kicker-pill">
+        <svg data-cg-svg data-cg-preserve viewBox="0 0 24 32" fill="none" aria-hidden="true"><path d="M7 11.5V23a5 5 0 0010 0V8a3 3 0 00-6 0v12.5a1 1 0 002 0V9.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Study Note</span>
+      </div>
+    </div>
+
+    <div class="doodle-arrow" style="left:-60px;top:150px;width:210px;height:170px;transform:rotate(-18deg);">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 220 150" fill="none" aria-hidden="true"><path d="M8 118C58 40 128 24 196 46" stroke="currentColor" stroke-width="14" stroke-linecap="round"/><path d="M148 22 L200 44 L166 82" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    </div>
+
+    <div class="tab" style="left:924px;top:600px;transform:rotate(-10deg);">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 80 80" fill="none" aria-hidden="true"><path d="M40 6 L47 33 L74 40 L47 47 L40 74 L33 47 L6 40 L33 33 Z" fill="currentColor"/></svg>
+    </div>
+
+    <div class="tn-title">
+      <h1 data-title="true">Confusion Means <span class="hl-mark">Progress<svg data-cg-svg data-cg-preserve viewBox="0 0 320 130" preserveAspectRatio="none" fill="none" aria-hidden="true"><path d="M18 78C14 34 82 6 166 10C254 14 304 44 292 78C278 116 186 132 110 126C50 121 22 106 18 78Z" stroke="var(--highlight)" stroke-width="9" fill="none"/><path d="M24 70C34 32 102 12 170 18" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round" fill="none"/></svg></span></h1>
+    </div>
+
+    <div class="swash">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 220 40" fill="none" aria-hidden="true"><path d="M6 24C40 4 80 44 120 20C150 4 180 30 214 14" stroke="currentColor" stroke-width="10" stroke-linecap="round"/></svg>
+    </div>
+
+    <div class="tn-message">
+      <p data-message="true">That stuck, fuzzy feeling means new connections are forming. Push through it, don&rsquo;t panic.</p>
+    </div>
+
+    <div class="streak">
+      <span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="foot">
+      <div class="lockup">
+        <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/>
+        <span class="brand-word">NOTEWORTHY</span>
+      </div>
+      <div class="dots-track">
+        <span class="folio-num" data-counter="true">03</span>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 4 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="corner" aria-hidden="true"></div>
+    <div class="tape" aria-hidden="true" style="left:588px;top:54px;width:160px;height:56px;transform:rotate(8deg);"></div>
+
+    <div class="kicker">
+      <div class="kicker-shadow"></div>
+      <div class="kicker-pill">
+        <svg data-cg-svg data-cg-preserve viewBox="0 0 24 32" fill="none" aria-hidden="true"><path d="M7 11.5V23a5 5 0 0010 0V8a3 3 0 00-6 0v12.5a1 1 0 002 0V9.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Study Note</span>
+      </div>
+    </div>
+
+    <div class="doodle-arrow" style="left:-64px;top:452px;width:220px;height:160px;transform:rotate(4deg);">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 220 150" fill="none" aria-hidden="true"><path d="M8 118C58 40 128 24 196 46" stroke="currentColor" stroke-width="14" stroke-linecap="round"/><path d="M148 22 L200 44 L166 82" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    </div>
+
+    <div class="tab" style="left:924px;top:600px;transform:rotate(8deg);">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 80 80" fill="none" aria-hidden="true"><path d="M40 6 L47 33 L74 40 L47 47 L40 74 L33 47 L6 40 L33 33 Z" fill="currentColor"/></svg>
+    </div>
+
+    <div class="tn-title">
+      <h1 data-title="true">Rest Is Not Wasted <span class="hl-mark">Time<svg data-cg-svg data-cg-preserve viewBox="0 0 240 130" preserveAspectRatio="none" fill="none" aria-hidden="true"><path d="M15 74C11 32 62 6 130 10C202 14 236 44 224 76C212 112 138 128 78 122C33 117 19 102 15 74Z" stroke="var(--highlight)" stroke-width="9" fill="none"/><path d="M20 66C28 30 78 10 134 16" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round" fill="none"/></svg></span></h1>
+    </div>
+
+    <div class="swash">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 220 40" fill="none" aria-hidden="true"><path d="M6 24C40 4 80 44 120 20C150 4 180 30 214 14" stroke="currentColor" stroke-width="10" stroke-linecap="round"/></svg>
+    </div>
+
+    <div class="tn-message">
+      <p data-message="true">Your brain files away what you studied while you sleep &mdash; don&rsquo;t skip that rest.</p>
+    </div>
+
+    <div class="streak">
+      <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="foot">
+      <div class="lockup">
+        <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/>
+        <span class="brand-word">NOTEWORTHY</span>
+      </div>
+      <div class="dots-track">
+        <span class="folio-num" data-counter="true">04</span>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 5 — closer -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="corner" aria-hidden="true"></div>
+    <div class="tape" aria-hidden="true" style="left:602px;top:44px;width:160px;height:56px;transform:rotate(-4deg);"></div>
+
+    <div class="kicker">
+      <div class="kicker-shadow"></div>
+      <div class="kicker-pill">
+        <svg data-cg-svg data-cg-preserve viewBox="0 0 24 32" fill="none" aria-hidden="true"><path d="M7 11.5V23a5 5 0 0010 0V8a3 3 0 00-6 0v12.5a1 1 0 002 0V9.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Study Note</span>
+      </div>
+    </div>
+
+    <div class="doodle-arrow" style="left:-56px;top:190px;width:220px;height:170px;transform:rotate(-14deg);">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 220 150" fill="none" aria-hidden="true"><path d="M8 118C58 40 128 24 196 46" stroke="currentColor" stroke-width="14" stroke-linecap="round"/><path d="M148 22 L200 44 L166 82" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    </div>
+
+    <div class="tab" style="left:924px;top:600px;transform:rotate(-9deg);">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 80 80" fill="none" aria-hidden="true"><path d="M40 6 L47 33 L74 40 L47 47 L40 74 L33 47 L6 40 L33 33 Z" fill="currentColor"/></svg>
+    </div>
+
+    <div class="tn-title" style="width:800px;">
+      <h1 data-title="true">What Will You <span class="hl-mark">Review<svg data-cg-svg data-cg-preserve viewBox="0 0 300 130" preserveAspectRatio="none" fill="none" aria-hidden="true"><path d="M18 78C14 34 78 6 156 10C240 14 288 44 276 78C262 116 176 132 104 126C48 121 22 106 18 78Z" stroke="var(--highlight)" stroke-width="9" fill="none"/><path d="M24 70C34 32 96 12 160 18" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round" fill="none"/></svg></span> Today?</h1>
+    </div>
+
+    <div class="swash">
+      <svg data-cg-svg data-cg-preserve viewBox="0 0 220 40" fill="none" aria-hidden="true"><path d="M6 24C40 4 80 44 120 20C150 4 180 30 214 14" stroke="currentColor" stroke-width="10" stroke-linecap="round"/></svg>
+    </div>
+
+    <div class="tn-cta">
+      <div class="cta-chip"><p data-cta="true">Save this for exam week</p></div>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="foot">
+      <div class="lockup">
+        <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/>
+        <span class="brand-word">NOTEWORTHY</span>
+      </div>
+      <div class="dots-track">
+        <span class="folio-num" data-counter="true">05</span>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

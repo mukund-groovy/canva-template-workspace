@@ -31,6 +31,7 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import https from 'node:https';
 import { spawnSync } from 'node:child_process';
 
 const argv = process.argv.slice(2);
@@ -108,13 +109,45 @@ function compress(buf, targetW, targetH) {
   return { buf: out, mime: 'image/jpeg', compressed: true };
 }
 
-async function generate(prompt, size) {
-  const r = await fetch(provider.url, {
-    method: 'POST',
-    headers: provider.headers,
-    body: JSON.stringify({ model: provider.model, prompt, size, n: 1, quality: QUALITY }),
+const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+
+// This Azure APIM frontend renegotiates TLS mid-handshake on every request (confirmed with
+// curl, repeatedly, at different times — not intermittent, a structural trait of this
+// endpoint). curl/schannel accepts the renegotiation and completes the request every time.
+// Node's fetch (undici) refuses it categorically (a deliberate security choice in undici's
+// TLS stack) and throws UND_ERR_SOCKET/"other side closed" — every single time, regardless
+// of retries, backoff, or a fresh unpooled connection per attempt (all tried and all failed
+// identically). Node's older `https` module does NOT have undici's renegotiation refusal, so
+// it succeeds where fetch structurally cannot. This is the actual fix, not a workaround.
+function httpsRequest(urlStr, { method = 'GET', headers = {}, body } = {}) {
+  return new Promise((resolve, reject) => {
+    const u = new URL(urlStr);
+    const req = https.request(
+      { hostname: u.hostname, path: u.pathname + u.search, method, headers, port: 443 },
+      (res) => {
+        const chunks = [];
+        res.on('data', (c) => chunks.push(c));
+        res.on('end', () => resolve({ status: res.statusCode, ok: res.statusCode >= 200 && res.statusCode < 300, buffer: Buffer.concat(chunks) }));
+      }
+    );
+    req.on('error', reject);
+    // gpt-image-2-1 at quality:high genuinely takes 60-120s+ per image — a 60s client
+    // timeout was firing on real in-flight generations, not network failures (confirmed: no
+    // instant error like the old fetch/UND_ERR_SOCKET failures, just a slow real request).
+    req.setTimeout(180000, () => req.destroy(new Error('request timed out after 180s')));
+    if (body) req.write(body);
+    req.end();
   });
-  const text = await r.text();
+}
+
+async function generateOnce(prompt, size) {
+  const bodyStr = JSON.stringify({ model: provider.model, prompt, size, n: 1, quality: QUALITY });
+  const r = await httpsRequest(provider.url, {
+    method: 'POST',
+    headers: { ...provider.headers, 'Content-Length': Buffer.byteLength(bodyStr) },
+    body: bodyStr,
+  });
+  const text = r.buffer.toString('utf8');
   if (!r.ok) {
     let msg = text;
     try { msg = JSON.parse(text).error?.message ?? text; } catch {}
@@ -123,8 +156,25 @@ async function generate(prompt, size) {
   const d = JSON.parse(text).data?.[0] ?? {};
   const buf = d.b64_json
     ? Buffer.from(d.b64_json, 'base64')
-    : Buffer.from(await (await fetch(d.url)).arrayBuffer());
+    : (await httpsRequest(d.url)).buffer;
   return { ok: true, buf };
+}
+
+async function generate(prompt, size, attempts = 2) {
+  let lastErr = null;
+  for (let i = 1; i <= attempts; i++) {
+    try {
+      const res = await generateOnce(prompt, size);
+      // Retry on 429/5xx (transient) but not on 4xx like bad prompt/auth — those won't
+      // fix themselves on retry.
+      if (res.ok || (res.status && res.status < 500 && res.status !== 429)) return res;
+      lastErr = res;
+    } catch (e) {
+      lastErr = { ok: false, status: 0, message: `${e?.cause?.code || e?.code || ''} ${e.message}`.trim() };
+    }
+    if (i < attempts) await sleep(1500 * i);
+  }
+  return lastErr;
 }
 
 if (PROBE) {
@@ -408,6 +458,11 @@ for (let i = jobs.length - 1; i >= 0; i--) {
     : `${Math.round(res.buf.length / 1024)} KB (magick missing, no compression)`;
   console.log(`ok (${note})`);
   filled++;
+  // Save after EVERY successful slot, not just once at the end — generate() retries
+  // transient failures internally now, but a slot can still exhaust its retries (or the
+  // process can be killed/interrupted), and losing every already-filled slot along with it
+  // wasted whole multi-slot runs. Cheap: the file is small HTML, not the image itself.
+  fs.writeFileSync(htmlPath, html);
 }
 
 fs.writeFileSync(htmlPath, html);

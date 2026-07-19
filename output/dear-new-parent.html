@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap');
+
+      :root{
+        /* Brand role colors — the reminder chip, the doodled arrow/circle marks
+           and the pagination dots are the brand-bound devices; the cream canvas,
+           the grid, and all ink stay fixed literals so the "notebook reminder"
+           reading surface stays AA-legible under any brand palette. */
+        --primary:var(--brand-primary,#16234a);
+        --secondary:var(--brand-secondary,#1d3f91);
+        --accent:var(--brand-accent,#2547a8);
+        --highlight:var(--brand-highlight,var(--brand-accent,#2547a8));
+        --bg:var(--brand-bg,#f7f2ea);
+        --surface:var(--brand-surface,#dee4f2);
+        --text-high:var(--brand-text,#14120f);
+        --text-low:var(--brand-text-muted,rgba(20,18,15,.62));
+        --border:var(--brand-border,rgba(20,18,15,.10));
+        --on-accent:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);
+        font-family:'DM Sans',sans-serif;
+      }
+
+      /* ── graph-paper backdrop: the reference's texture, kept at real strength ── */
+      .grid-bg{
+        position:absolute;inset:0;z-index:0;
+        background-image:
+          linear-gradient(var(--border) 1.5px, transparent 1.5px),
+          linear-gradient(90deg, var(--border) 1.5px, transparent 1.5px);
+        background-size:54px 54px;
+        background-position:-1px -1px;
+      }
+      .corner-glow{
+        position:absolute;left:-460px;top:-520px;width:1500px;height:1500px;z-index:0;
+        border-radius:50%;pointer-events:none;
+        background:radial-gradient(circle at 42% 40%, rgba(20,18,15,.055), transparent 68%);
+      }
+
+      /* ── reminder chip: pale surface + paperclip + label ── */
+      .chip{
+        position:absolute;top:90px;z-index:3;
+        display:flex;align-items:center;gap:16px;
+        background:var(--surface);border-radius:20px;
+        padding:20px 30px 20px 22px;
+      }
+      .chip.chip-left{left:90px;}
+      .chip.chip-right{right:90px;}
+      .chip svg{width:26px;height:36px;flex:none;color:var(--primary);}
+      .chip span{
+        font-family:'DM Sans',sans-serif;font-weight:700;font-size:25px;
+        letter-spacing:.14em;text-transform:uppercase;color:var(--text-high);
+        white-space:nowrap;
+      }
+
+      /* ── doodled arrow flourish ── */
+      .doodle{position:absolute;z-index:2;pointer-events:none;}
+      .doodle svg{display:block;overflow:visible;}
+
+      /* ── title ── */
+      .tn-title{position:absolute;left:90px;z-index:3;}
+      .tn-title h1{
+        margin:0;font-family:'Baloo 2',sans-serif;font-weight:800;
+        color:var(--text-high);line-height:1.2;letter-spacing:-.01em;
+        display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;
+        padding-bottom:.22em;
+      }
+      .circle-word{position:relative;display:inline-block;white-space:nowrap;}
+      .circle-word::after{
+        content:'';position:absolute;left:-.16em;right:-.18em;top:-.14em;bottom:-.06em;
+        border:6px solid var(--highlight);border-radius:52% 48% 54% 46% / 58% 52% 48% 42%;
+        transform:rotate(-2.4deg);pointer-events:none;
+      }
+
+      /* ── body message ── */
+      .tn-message{position:absolute;left:90px;z-index:3;}
+      .tn-message p{
+        margin:0;font-family:'DM Sans',sans-serif;font-weight:500;font-size:37px;line-height:1.4;
+        color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+        padding-bottom:.15em;
+      }
+
+      /* ── CTA pill (closing slide) ── */
+      .cta-pill{
+        position:absolute;z-index:3;display:inline-flex;align-items:center;
+        background:var(--accent);border-radius:100px;padding:26px 42px;
+      }
+      .cta-pill span{
+        font-family:'DM Sans',sans-serif;font-weight:700;font-size:30px;line-height:1.3;
+        color:var(--on-accent);white-space:nowrap;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+        padding-bottom:.22em;
+      }
+
+      /* ── accent tape stripe: a small confident brand device under the body copy ── */
+      .accent-rule{position:absolute;z-index:2;border-radius:10px;background:var(--accent);}
+
+      /* ── ghost index numeral: fills the open lower-right field, big index-numeral
+         convention — routed through --primary (dark ink), never --accent, so it
+         stays legible on the pale canvas under any brand. ── */
+      .index-num{
+        position:absolute;z-index:1;right:36px;bottom:148px;white-space:nowrap;
+        font-family:'Baloo 2',sans-serif;font-weight:800;font-size:330px;line-height:1;
+        color:var(--primary);opacity:.16;
+        pointer-events:none;
+      }
+
+      /* ── ghost quote mark: mirrors the index numeral on the open left-lower
+         field — same hollow-ink family, keeps the frame full without crowding
+         the copy. Pure vector (no glyph), so it carries no readable text. ── */
+      .quote-mark{position:absolute;z-index:1;left:66px;bottom:150px;width:230px;height:180px;opacity:.13;pointer-events:none;}
+
+      /* ── pagination track: a soft surface shelf behind the dots — a believable
+         carousel-progress device, and a deliberate way to give the footer row
+         real visual body instead of two tiny marks floating in empty paper. ── */
+      .dots-track{position:absolute;right:56px;bottom:82px;width:420px;height:56px;z-index:2;border-radius:32px;background:var(--surface);}
+      .dots{position:absolute;right:90px;bottom:96px;z-index:3;display:flex;gap:16px;}
+      .dots span{width:22px;height:22px;border-radius:50%;background:var(--accent);display:block;}
+
+      /* ── footer brand lockup ── */
+      .foot-lockup{position:absolute;left:90px;bottom:96px;z-index:3;display:inline-flex;align-items:center;gap:14px;}
+      .brand-mark{height:28px;width:auto;max-width:100px;object-fit:contain;display:block;}
+      .brand-word{
+        font-family:'DM Sans',sans-serif;font-weight:700;font-size:24px;letter-spacing:.04em;
+        color:var(--text-low);white-space:nowrap;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Slide 1 — cover -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="corner-glow" aria-hidden="true"></div>
+
+        <div class="chip chip-left">
+          <svg viewBox="0 0 26 36" fill="none" data-cg-svg data-cg-preserve aria-hidden="true"><path d="M20 9V25a7 7 0 0 1-14 0V7a4.5 4.5 0 0 1 9 0v16a2 2 0 0 1-4 0V10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-tagline="true">Reminder</span>
+        </div>
+
+        <div class="doodle" style="top:104px;right:94px;width:230px;">
+          <svg viewBox="0 0 230 90" fill="none" data-cg-svg data-cg-preserve aria-hidden="true"><path d="M8 46C64 30 150 26 214 44" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round"/><path d="M186 22C198 30 210 38 216 46C208 50 194 54 180 58" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+
+        <div class="tn-title" style="top:266px;width:860px;">
+          <h1 data-title="true" style="font-size:120px;-webkit-line-clamp:2;">You Are Doing <span class="circle-word">Enough</span></h1>
+        </div>
+
+        <div class="tn-message" style="top:610px;width:660px;">
+          <p data-message="true">Even on the days it doesn't feel true.</p>
+        </div>
+
+        <div class="accent-rule" style="top:749px;left:90px;width:460px;height:44px;transform:rotate(-1.4deg);"></div>
+        <div class="index-num" aria-hidden="true">01</div>
+
+        <div class="foot-lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/>
+          <span class="brand-word">SOFTHOURS</span>
+        </div>
+        <div class="dots-track"></div>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </section>
+
+      <!-- Slide 2 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="corner-glow" aria-hidden="true"></div>
+
+        <div class="chip chip-left">
+          <svg viewBox="0 0 26 36" fill="none" data-cg-svg data-cg-preserve aria-hidden="true"><path d="M20 9V25a7 7 0 0 1-14 0V7a4.5 4.5 0 0 1 9 0v16a2 2 0 0 1-4 0V10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-tagline="true">Reminder</span>
+        </div>
+
+        <div class="doodle" style="top:150px;right:58px;width:190px;transform:rotate(18deg);">
+          <svg viewBox="0 0 190 130" fill="none" data-cg-svg data-cg-preserve aria-hidden="true"><path d="M10 120C22 66 66 22 176 12" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round"/><path d="M150 8C160 10 172 12 182 14C178 22 172 34 166 46" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+
+        <div class="tn-title" style="top:322px;width:780px;">
+          <h1 data-title="true" style="font-size:118px;-webkit-line-clamp:2;">This Season Will <span class="circle-word">Pass</span></h1>
+        </div>
+
+        <div class="tn-message" style="top:660px;width:660px;">
+          <p data-message="true">The 3am feedings and the blurry days fade faster than they feel right now.</p>
+        </div>
+
+        <div class="accent-rule" style="top:799px;left:90px;width:460px;height:44px;transform:rotate(1.2deg);"></div>
+        <div class="index-num" aria-hidden="true">02</div>
+        <div class="quote-mark"><svg viewBox="0 0 230 180" fill="none" data-cg-svg data-cg-preserve aria-hidden="true"><path d="M55 40C30 40 12 58 12 85C12 110 30 128 52 128C58 128 64 127 69 124C62 145 45 162 20 170" stroke="var(--primary)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><path d="M175 40C150 40 132 58 132 85C132 110 150 128 172 128C178 128 184 127 189 124C182 145 165 162 140 170" stroke="var(--primary)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <div class="foot-lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/>
+          <span class="brand-word">SOFTHOURS</span>
+        </div>
+        <div class="dots-track"></div>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </section>
+
+      <!-- Slide 3 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="corner-glow" aria-hidden="true"></div>
+
+        <div class="chip chip-left">
+          <svg viewBox="0 0 26 36" fill="none" data-cg-svg data-cg-preserve aria-hidden="true"><path d="M20 9V25a7 7 0 0 1-14 0V7a4.5 4.5 0 0 1 9 0v16a2 2 0 0 1-4 0V10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-tagline="true">Reminder</span>
+        </div>
+
+        <div class="doodle" style="top:184px;left:18px;width:140px;transform:rotate(-108deg) scaleX(-1);">
+          <svg viewBox="0 0 190 130" fill="none" data-cg-svg data-cg-preserve aria-hidden="true"><path d="M10 120C22 66 66 22 176 12" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round"/><path d="M150 8C160 10 172 12 182 14C178 22 172 34 166 46" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+
+        <div class="tn-title" style="top:300px;width:840px;">
+          <h1 data-title="true" style="font-size:112px;-webkit-line-clamp:2;">Resting Counts as <span class="circle-word">Caring</span></h1>
+        </div>
+
+        <div class="tn-message" style="top:630px;width:660px;">
+          <p data-message="true">A fed baby and a fed parent both count as a good day.</p>
+        </div>
+
+        <div class="accent-rule" style="top:769px;left:90px;width:460px;height:44px;transform:rotate(-1.6deg);"></div>
+        <div class="index-num" aria-hidden="true">03</div>
+        <div class="quote-mark"><svg viewBox="0 0 230 180" fill="none" data-cg-svg data-cg-preserve aria-hidden="true"><path d="M55 40C30 40 12 58 12 85C12 110 30 128 52 128C58 128 64 127 69 124C62 145 45 162 20 170" stroke="var(--primary)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><path d="M175 40C150 40 132 58 132 85C132 110 150 128 172 128C178 128 184 127 189 124C182 145 165 162 140 170" stroke="var(--primary)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <div class="foot-lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/>
+          <span class="brand-word">SOFTHOURS</span>
+        </div>
+        <div class="dots-track"></div>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </section>
+
+      <!-- Slide 4 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="corner-glow" aria-hidden="true"></div>
+
+        <div class="chip chip-left">
+          <svg viewBox="0 0 26 36" fill="none" data-cg-svg data-cg-preserve aria-hidden="true"><path d="M20 9V25a7 7 0 0 1-14 0V7a4.5 4.5 0 0 1 9 0v16a2 2 0 0 1-4 0V10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-tagline="true">Reminder</span>
+        </div>
+
+        <div class="doodle" style="top:920px;left:0px;width:150px;">
+          <svg viewBox="0 0 230 90" fill="none" data-cg-svg data-cg-preserve aria-hidden="true"><path d="M8 46C64 30 150 26 214 44" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round"/><path d="M186 22C198 30 210 38 216 46C208 50 194 54 180 58" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+        <div class="doodle" style="top:104px;right:80px;width:190px;transform:rotate(-8deg);">
+          <svg viewBox="0 0 230 90" fill="none" data-cg-svg data-cg-preserve aria-hidden="true"><path d="M8 46C64 30 150 26 214 44" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round"/><path d="M186 22C198 30 210 38 216 46C208 50 194 54 180 58" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+
+        <div class="tn-title" style="top:300px;width:760px;">
+          <h1 data-title="true" style="font-size:118px;-webkit-line-clamp:2;">Let Someone Help <span class="circle-word">You</span></h1>
+        </div>
+
+        <div style="position:absolute;top:598px;left:90px;width:760px;height:300px;background:var(--surface);border-radius:32px;z-index:1;" aria-hidden="true"></div>
+        <div class="tn-message" style="top:660px;left:132px;width:660px;">
+          <p data-message="true">Asking is not failing. It's how you make it through the hard weeks.</p>
+        </div>
+
+        <div class="accent-rule" style="top:820px;left:132px;width:460px;height:44px;transform:rotate(1.4deg);"></div>
+        <div class="index-num" aria-hidden="true">04</div>
+        <div class="quote-mark"><svg viewBox="0 0 230 180" fill="none" data-cg-svg data-cg-preserve aria-hidden="true"><path d="M55 40C30 40 12 58 12 85C12 110 30 128 52 128C58 128 64 127 69 124C62 145 45 162 20 170" stroke="var(--primary)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><path d="M175 40C150 40 132 58 132 85C132 110 150 128 172 128C178 128 184 127 189 124C182 145 165 162 140 170" stroke="var(--primary)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <div class="foot-lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/>
+          <span class="brand-word">SOFTHOURS</span>
+        </div>
+        <div class="dots-track"></div>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </section>
+
+      <!-- Slide 5 — closing prompt + CTA -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="corner-glow" aria-hidden="true"></div>
+
+        <div class="chip chip-right">
+          <svg viewBox="0 0 26 36" fill="none" data-cg-svg data-cg-preserve aria-hidden="true"><path d="M20 9V25a7 7 0 0 1-14 0V7a4.5 4.5 0 0 1 9 0v16a2 2 0 0 1-4 0V10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-tagline="true">Reminder</span>
+        </div>
+
+        <div class="doodle" style="top:150px;left:60px;width:170px;transform:rotate(-108deg) scaleX(-1);">
+          <svg viewBox="0 0 190 130" fill="none" data-cg-svg data-cg-preserve aria-hidden="true"><path d="M10 120C22 66 66 22 176 12" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round"/><path d="M150 8C160 10 172 12 182 14C178 22 172 34 166 46" stroke="var(--highlight)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+
+        <div class="tn-title" style="top:300px;width:860px;">
+          <h1 data-title="true" style="font-size:98px;-webkit-line-clamp:2;">What Do You Need Right <span class="circle-word">Now</span>?</h1>
+        </div>
+
+        <div class="tn-message" style="top:680px;width:660px;">
+          <p data-message="true">Say it out loud. Someone close to you wants to help.</p>
+        </div>
+
+        <div class="cta-pill" style="top:826px;left:90px;">
+          <span data-cta="true">Tell someone today</span>
+        </div>
+
+        <div class="index-num" aria-hidden="true" style="font-size:250px;">05</div>
+
+        <div class="foot-lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/>
+          <span class="brand-word">SOFTHOURS</span>
+        </div>
+        <div class="dots-track"></div>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </section>
+
+    </div>
+  </body>
+</html>

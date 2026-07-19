@@ -1,0 +1,65 @@
+{
+  "template": "D:\\wamp64\\www\\canva-template-workspace\\output\\start-your-journal.html",
+  "slides": 10,
+  "fonts": [
+    {
+      "family": "Playfair Display",
+      "weight": 600,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "EB Garamond",
+      "weight": 500,
+      "style": "italic",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Playfair Display",
+      "weight": 800,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "DM Sans",
+      "weight": 500,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "DM Sans",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    }
+  ],
+  "photoStats": [
+    {
+      "slide": 2,
+      "mean": 0.6525336371678772,
+      "stddev": 0.27638460065888915
+    },
+    {
+      "slide": 4,
+      "mean": 0.7536169075267858,
+      "stddev": 0.2471158566965297
+    },
+    {
+      "slide": 7,
+      "mean": 0.6212017498469287,
+      "stddev": 0.2725485768271266
+    },
+    {
+      "slide": 8,
+      "mean": 0.5092266685520388,
+      "stddev": 0.30909548629837647
+    }
+  ],
+  "findings": [],
+  "pass": true
+}

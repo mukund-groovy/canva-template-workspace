@@ -160,6 +160,39 @@ slides.each((i, el) => {
   });
 });
 
+// ── C9. no readable copy inside <svg><text> ──────────────────────────────────
+// SVG <text> does NOT reliably repaint when an async webfont arrives after first
+// paint (unlike HTML text, which does FOUT/FOIT). Under load — content-gen opens
+// up to 8 template iframes at once, all fetching the same Google Font — an SVG
+// numeral/label painted before its font loads stays stuck in the fallback face
+// PERMANENTLY (not a flash). Any readable copy must be a plain HTML element and,
+// if it needs a decorative treatment, use CSS (background-clip:text,
+// -webkit-text-stroke, mask-image) — never move the text into <svg>.
+$('svg text').each((_j, e) => {
+  const t = ($(e).text() || '').trim();
+  if (t) v('C9-SVGTEXT', `readable copy "${t.slice(0, 20)}" inside <svg><text> — will stick in the fallback font if it paints before the webfont loads; use an HTML element + CSS instead`);
+});
+
+// ── C10. every real <svg> graphic carries the content-gen contract attributes ──
+// data-cg-svg   → makes the SVG a first-class editable element in the playground
+//                 (selectable/movable/resizable); without it the SVG is inert.
+// data-cg-preserve → marks it an opaque subtree the backend carries through
+//                 byte-identical; without it cheerio (HTML mode) lowercases
+//                 camelCase attrs (viewBox→viewbox) and mangles self-closing tags,
+//                 corrupting the vector on the generation round-trip.
+// Scoped to ROOT <svg> only (an <svg> nested inside another is covered by its root).
+$('svg').each((_j, e) => {
+  const $e = $(e);
+  if ($e.parents('svg').length) return; // not a root
+  const miss = [];
+  if ($e.attr('data-cg-svg') === undefined) miss.push('data-cg-svg');
+  if ($e.attr('data-cg-preserve') === undefined) miss.push('data-cg-preserve');
+  if (miss.length) {
+    const id = $e.attr('class') || $e.attr('id') || $e.attr('viewBox') || '(anon)';
+    v('C10-SVGATTR', `<svg ${String(id).slice(0, 30)}> missing ${miss.join(' + ')} — required on every SVG root (editable in playground + preserved through the backend pipeline)`);
+  }
+});
+
 // ── report ───────────────────────────────────────────────────────────────────
 const result = { template: file, slides: slides.length, violations, warnings, pass: violations.length === 0 };
 if (asJson) {

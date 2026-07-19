@@ -1,0 +1,57 @@
+{
+  "template": "D:\\wamp64\\www\\canva-template-workspace\\output\\roll-into-joy.html",
+  "slides": 1,
+  "fonts": [
+    {
+      "family": "Playfair Display",
+      "weight": 800,
+      "style": "italic",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Playfair Display",
+      "weight": 500,
+      "style": "italic",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Inter",
+      "weight": 400,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Playfair Display",
+      "weight": 600,
+      "style": "italic",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Inter",
+      "weight": 800,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    }
+  ],
+  "photoStats": [
+    {
+      "slide": 1,
+      "mean": 0.709992528207949,
+      "stddev": 0.15717411339342682
+    }
+  ],
+  "findings": [
+    {
+      "slide": 1,
+      "check": "PHOTO",
+      "severity": "warn",
+      "message": "photo has flat tonal range (stddev 0.157 < 0.18) — reads as a smudge"
+    }
+  ],
+  "pass": true
+}

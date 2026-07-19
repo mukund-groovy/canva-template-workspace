@@ -1,0 +1,88 @@
+{
+  "template": "D:\\wamp64\\www\\canva-template-workspace\\output\\quiet-garden-lessons.html",
+  "slides": 5,
+  "fonts": [
+    {
+      "family": "Playfair Display",
+      "weight": 700,
+      "style": "italic",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Caveat",
+      "weight": 500,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Playfair Display",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Playfair Display",
+      "weight": 500,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    }
+  ],
+  "photoStats": [
+    {
+      "slide": 1,
+      "mean": 0.216955041336619,
+      "stddev": 0.16164769366581377
+    },
+    {
+      "slide": 2,
+      "mean": 0.30721700788927725,
+      "stddev": 0.15539328414877218
+    },
+    {
+      "slide": 3,
+      "mean": 0.10507107723577312,
+      "stddev": 0.16391428934972196
+    },
+    {
+      "slide": 4,
+      "mean": 0.3165756493090391,
+      "stddev": 0.17991759532828736
+    },
+    {
+      "slide": 5,
+      "mean": 0.3122608173415295,
+      "stddev": 0.2241150763135212
+    }
+  ],
+  "findings": [
+    {
+      "slide": 1,
+      "check": "PHOTO",
+      "severity": "warn",
+      "message": "photo has flat tonal range (stddev 0.162 < 0.18) — reads as a smudge"
+    },
+    {
+      "slide": 2,
+      "check": "PHOTO",
+      "severity": "warn",
+      "message": "photo has flat tonal range (stddev 0.155 < 0.18) — reads as a smudge"
+    },
+    {
+      "slide": 3,
+      "check": "PHOTO",
+      "severity": "warn",
+      "message": "photo has flat tonal range (stddev 0.164 < 0.18) — reads as a smudge"
+    },
+    {
+      "slide": 4,
+      "check": "PHOTO",
+      "severity": "warn",
+      "message": "photo has flat tonal range (stddev 0.180 < 0.18) — reads as a smudge"
+    }
+  ],
+  "pass": true
+}

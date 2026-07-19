@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Caveat:wght@600;700&family=Nunito:wght@400;600;700&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#241C15);
+  --secondary:var(--brand-secondary,#A5672E);
+  --accent:var(--brand-accent,#D95D39);
+  --bg:var(--brand-bg,#F2EBDD);
+  --surface:var(--brand-surface,#FBF7EE);
+  --text-high:var(--brand-ink,var(--brand-text,#241C15));
+  --text-low:var(--brand-text-muted,rgba(36,28,21,.62));
+  --border:var(--brand-border,rgba(36,28,21,.16));
+  --highlight:var(--brand-accent2,var(--brand-accent,#D6A93A));
+  --on-accent:var(--brand-on-accent,#ffffff);
+  --on-primary:var(--brand-on-primary,#ffffff);
+}
+
+*{box-sizing:border-box;}
+
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+.slide{
+  width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(36,28,21,.05) 0, transparent 3px) 0 0/34px 34px,
+    radial-gradient(circle at 26% 60%, rgba(36,28,21,.04) 0, transparent 3px) 0 0/41px 41px,
+    var(--bg);
+  font-family:'Nunito',sans-serif;
+}
+
+/* ===== paper card (lined notebook sheet, torn right edge) ===== */
+.paper{
+  position:absolute;left:96px;width:820px;height:720px;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 43px, rgba(36,28,21,.09) 43px 44px),
+    var(--surface);
+  box-shadow:0 30px 60px rgba(20,14,8,.22);
+  clip-path:polygon(0 0,97% 0,100% 3%,98.4% 7%,100% 11%,98.2% 15%,100% 19%,98.5% 23%,100% 27%,98.3% 31%,100% 35%,98.4% 39%,100% 43%,98.2% 47%,100% 51%,98.5% 55%,100% 59%,98.3% 63%,100% 67%,98.4% 71%,100% 75%,98.2% 79%,100% 83%,98.5% 87%,100% 91%,98.3% 95%,100% 100%,0 100%);
+}
+.paper.small{height:700px;}
+.paper::before{content:'';position:absolute;left:0;top:0;bottom:0;width:14px;background:var(--accent);z-index:2;}
+
+/* spiral binding along the left edge */
+.spiral{position:absolute;left:-14px;top:26px;bottom:26px;width:28px;display:flex;flex-direction:column;justify-content:space-between;z-index:4;}
+.spiral i{display:block;width:26px;height:26px;border-radius:50%;border:5px solid #cfc6b3;background:var(--bg);box-shadow:inset 0 0 0 2px rgba(36,28,21,.18);}
+
+/* washi tape strip */
+.tape{position:absolute;height:64px;width:172px;background:color-mix(in srgb, var(--secondary) 55%, #caa46b 45%);opacity:.82;box-shadow:0 4px 10px rgba(20,14,8,.18);}
+
+/* oval brand lockup badge (thematic device carried from reference) */
+.badge{position:absolute;border:2.5px solid var(--primary);border-radius:50%;width:280px;height:112px;display:flex;align-items:center;justify-content:center;gap:12px;background:var(--surface);}
+.badge .brand-word{font-family:'Playfair Display',serif;font-weight:700;font-size:26px;letter-spacing:.1em;color:var(--primary);text-transform:uppercase;}
+.badge .brand-mark{height:28px;width:auto;max-width:60px;object-fit:contain;display:block;}
+
+/* accent-filled step numeral badge — the guaranteed brand device on every step slide */
+.stepnum{position:absolute;width:132px;height:132px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;z-index:5;box-shadow:0 10px 22px rgba(20,14,8,.28);}
+.stepnum span{font-family:'Playfair Display',serif;font-weight:800;font-size:60px;color:var(--on-accent);}
+
+/* accent-filled CTA pill */
+.pill{position:absolute;background:var(--accent);border-radius:999px;padding:26px 54px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 14px 26px rgba(20,14,8,.24);}
+.pill span{font-family:'Nunito',sans-serif;font-weight:700;font-size:32px;color:var(--on-accent);white-space:nowrap;}
+
+/* text wrappers — one node per text run, own absolute box */
+.tn-pretitle{position:absolute;left:0;right:0;text-align:center;}
+.tn-pretitle p{margin:0;font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:78px;line-height:1.05;color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.2em;}
+
+.tn-cover-title{position:absolute;left:0;right:0;text-align:center;}
+.tn-cover-title h1{margin:0;font-family:'Playfair Display',serif;font-style:italic;font-weight:800;font-size:132px;line-height:1.0;color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.18em;}
+
+.tn-cover-sub{position:absolute;left:0;right:0;text-align:center;}
+.tn-cover-sub p{margin:0;font-family:'Playfair Display',serif;font-weight:700;font-size:104px;line-height:1.05;color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.18em;}
+
+.tn-tagline{position:absolute;left:170px;right:170px;text-align:center;}
+.tn-tagline p{margin:0;font-family:'Nunito',sans-serif;font-weight:600;font-style:italic;font-size:30px;line-height:1.3;color:var(--text-low);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.1em;}
+
+.tn-kicker{position:absolute;left:80px;right:80px;text-align:center;}
+.tn-kicker h2{margin:0;font-family:'Playfair Display',serif;font-weight:700;font-size:78px;line-height:1.05;letter-spacing:.01em;text-transform:uppercase;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.1em;}
+
+.tn-script{position:absolute;left:0;right:0;text-align:center;}
+.tn-script p{margin:0;font-family:'Caveat',cursive;font-weight:700;font-size:96px;line-height:1.0;color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.15em;}
+
+.tn-body{position:absolute;left:96px;right:96px;text-align:center;}
+.tn-body p{margin:0;font-family:'Nunito',sans-serif;font-weight:600;font-size:33px;line-height:1.42;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.1em;}
+
+.tn-cta{position:absolute;left:0;right:0;text-align:center;}
+
+.tn-closing-title{position:absolute;left:0;right:0;text-align:center;}
+.tn-closing-title h1{margin:0;font-family:'Playfair Display',serif;font-style:italic;font-weight:800;font-size:118px;line-height:1.06;color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.18em;}
+
+/* footer lockup + counter */
+.foot{position:absolute;left:76px;right:76px;bottom:44px;z-index:6;display:flex;align-items:center;justify-content:space-between;}
+.foot .lockup{display:inline-flex;align-items:center;gap:12px;}
+.foot .brand-mark{height:28px;width:auto;max-width:100px;object-fit:contain;display:block;}
+.foot .brand-word{font-family:'Playfair Display',serif;font-weight:700;font-size:22px;letter-spacing:.06em;color:var(--text-low);}
+.cg-slide-counter{font-family:'Nunito',sans-serif;font-weight:700;font-size:20px;letter-spacing:.12em;color:var(--text-low);}
+
+svg{display:block;}
+</style>
+</head>
+
+<body>
+<div class="ig-carousel">
+
+<!-- Slide 1 — Cover -->
+<section class="slide" data-cg-slide-type="cover">
+  <div class="tape" style="left:454px;top:64px;transform:rotate(-3deg);"></div>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;left:52px;top:150px;width:158px;height:158px;transform:rotate(-8deg);z-index:3;" aria-hidden="true">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  </svg>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 60 60" style="position:absolute;right:96px;top:118px;width:52px;height:52px;z-index:3;" aria-hidden="true">
+    <path d="M30 2 L36 24 L58 30 L36 36 L30 58 L24 36 L2 30 L24 24 Z" fill="var(--highlight)"/>
+  </svg>
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 60 60" style="position:absolute;right:150px;top:180px;width:30px;height:30px;z-index:3;" aria-hidden="true">
+    <path d="M30 2 L36 24 L58 30 L36 36 L30 58 L24 36 L2 30 L24 24 Z" fill="var(--highlight)"/>
+  </svg>
+
+  <div class="badge" style="left:400px;top:396px;">
+    <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23241C15%22%20fill-opacity=%220.55%22/%3E%3C/svg%3E"/>
+    <span class="brand-word">Paper&amp;Ink</span>
+  </div>
+
+  <div class="tn-pretitle" style="top:534px;"><p class="eyebrow">How to</p></div>
+  <div class="tn-cover-title" style="top:668px;"><h1 data-title="true">Make a</h1></div>
+  <div class="tn-cover-sub" style="top:840px;"><p class="title-line" data-title="true">Zine</p></div>
+
+  <div class="tn-tagline" style="top:1000px;"><p data-tagline="true">A scrappy, hand-cut guide to your first eight-page zine.</p></div>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 60 90" style="position:absolute;left:60px;top:1010px;width:60px;height:90px;transform:rotate(-12deg);z-index:3;" aria-hidden="true">
+    <path d="M8 4 L52 4 L52 12 L20 12 L20 86 L8 86 Z" fill="none" stroke="var(--text-high)" stroke-width="4" stroke-linejoin="round"/>
+    <circle cx="14" cy="8" r="4" fill="var(--text-high)"/>
+  </svg>
+
+  <div class="pill" style="left:390px;top:1120px;"><span data-cta="true">Let's Get Cutting</span></div>
+
+  <div class="foot">
+    <div class="lockup"><span class="brand-word">MAKE&nbsp;YOUR&nbsp;ZINE</span></div>
+    <div class="cg-slide-counter" data-counter="true">01 / 10</div>
+  </div>
+</section>
+
+<!-- Slide 2 — Step 1 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="tn-kicker" style="top:78px;"><h2 data-title="true">Pick Your Theme</h2></div>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 24 24" style="position:absolute;left:70px;top:250px;width:56px;height:56px;z-index:5;transform:rotate(-18deg);" aria-hidden="true">
+    <path d="M4 4 L4 20 M4 4 A6 6 0 0 1 16 4 L16 16 A6 6 0 0 1 4 16" fill="none" stroke="var(--text-high)" stroke-width="2.4" stroke-linecap="round"/>
+  </svg>
+
+  <div class="paper small" style="top:258px;">
+    <div class="spiral"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="tn-script" style="top:58px;"><p class="step-num-label">Step 1</p></div>
+    <div class="tn-body" style="top:206px;left:64px;right:64px;"><p data-message="true">Choose one big idea to build your zine around — a hobby, an obsession, a rant. A tight theme beats a broad one every time.</p></div>
+  </div>
+
+  <div class="tape" style="left:456px;top:238px;transform:rotate(-2deg);"></div>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;right:70px;top:800px;width:128px;height:128px;transform:rotate(14deg);z-index:3;" aria-hidden="true">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  </svg>
+
+  <div class="stepnum" style="left:96px;top:1002px;"><span>1</span></div>
+
+  <div class="foot">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="cg-slide-counter" data-counter="true">02 / 10</div>
+  </div>
+</section>
+
+<!-- Slide 3 — Step 2 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="tn-kicker" style="top:78px;"><h2 data-title="true">Know Your Reader</h2></div>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;left:56px;top:230px;width:140px;height:140px;transform:rotate(9deg);z-index:3;" aria-hidden="true">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  </svg>
+
+  <div class="paper small" style="top:258px;">
+    <div class="spiral"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="tn-script" style="top:58px;"><p class="step-num-label">Step 2</p></div>
+    <div class="tn-body" style="top:206px;left:64px;right:64px;"><p data-message="true">Picture the one person you're making this for. Write like you're handing it to them, not shouting into a crowd.</p></div>
+  </div>
+
+  <div class="tape" style="left:456px;top:238px;transform:rotate(2deg);"></div>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 60 90" style="position:absolute;right:90px;top:800px;width:60px;height:90px;transform:rotate(10deg);z-index:3;" aria-hidden="true">
+    <path d="M8 4 L52 4 L52 12 L20 12 L20 86 L8 86 Z" fill="none" stroke="var(--secondary)" stroke-width="4" stroke-linejoin="round"/>
+    <circle cx="14" cy="8" r="4" fill="var(--secondary)"/>
+  </svg>
+
+  <div class="stepnum" style="left:864px;top:1002px;"><span>2</span></div>
+
+  <div class="foot">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="cg-slide-counter" data-counter="true">03 / 10</div>
+  </div>
+</section>
+
+<!-- Slide 4 — Step 3 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="tn-kicker" style="top:78px;"><h2 data-title="true">Choose Your Format</h2></div>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;left:60px;top:230px;width:132px;height:132px;transform:rotate(-10deg);z-index:3;" aria-hidden="true">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  </svg>
+
+  <div class="paper small" style="top:258px;">
+    <div class="spiral"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="tn-script" style="top:58px;"><p class="step-num-label">Step 3</p></div>
+    <div class="tn-body" style="top:206px;left:64px;right:64px;"><p data-message="true">Half-page, mini, single-sheet foldout — pick a size you can actually finish. Format shapes everything that follows.</p></div>
+  </div>
+
+  <div class="tape" style="left:456px;top:238px;transform:rotate(-1.5deg);"></div>
+
+  <div class="pill" style="left:396px;top:1004px;"><span>Fold. Staple. Repeat.</span></div>
+
+  <div class="foot">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="cg-slide-counter" data-counter="true">04 / 10</div>
+  </div>
+</section>
+
+<!-- Slide 5 — Step 4 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="tn-kicker" style="top:78px;"><h2 data-title="true">Plan Your Pages</h2></div>
+
+  <div class="paper small" style="top:258px;">
+    <div class="spiral"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="tn-script" style="top:58px;"><p class="step-num-label">Step 4</p></div>
+    <div class="tn-body" style="top:206px;left:64px;right:64px;"><p data-message="true">Sketch a thumbnail map of every spread before you commit ink. Know where the reader breathes and where they turn.</p></div>
+  </div>
+
+  <div class="tape" style="left:456px;top:238px;transform:rotate(2.5deg);"></div>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;right:70px;top:800px;width:140px;height:140px;transform:rotate(-11deg);z-index:3;" aria-hidden="true">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  </svg>
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 60 60" style="position:absolute;right:80px;top:660px;width:44px;height:44px;z-index:3;" aria-hidden="true">
+    <path d="M30 2 L36 24 L58 30 L36 36 L30 58 L24 36 L2 30 L24 24 Z" fill="var(--highlight)"/>
+  </svg>
+
+  <div class="stepnum" style="left:96px;top:1002px;"><span>4</span></div>
+
+  <div class="foot">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="cg-slide-counter" data-counter="true">05 / 10</div>
+  </div>
+</section>
+
+<!-- Slide 6 — Step 5 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="tn-kicker" style="top:78px;"><h2 data-title="true">Draft With Heart</h2></div>
+
+  <div class="paper small" style="top:258px;">
+    <div class="spiral"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="tn-script" style="top:58px;"><p class="step-num-label">Step 5</p></div>
+    <div class="tn-body" style="top:206px;left:64px;right:64px;"><p data-message="true">Write the messy first draft fast. Perfect sentences can wait — get the whole thing down on paper first.</p></div>
+  </div>
+
+  <div class="tape" style="left:456px;top:238px;transform:rotate(-2deg);"></div>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;right:64px;top:800px;width:130px;height:130px;transform:rotate(20deg);z-index:3;" aria-hidden="true">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  </svg>
+
+  <div class="badge" style="left:400px;top:1004px;width:250px;height:96px;">
+    <span class="brand-word" style="font-size:22px;">Paper&amp;Ink</span>
+  </div>
+
+  <div class="foot">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="cg-slide-counter" data-counter="true">06 / 10</div>
+  </div>
+</section>
+
+<!-- Slide 7 — Step 6 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="tn-kicker" style="top:78px;"><h2 data-title="true">Cut &amp; Paste</h2></div>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;left:56px;top:230px;width:150px;height:150px;transform:rotate(-6deg);z-index:3;" aria-hidden="true">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  </svg>
+
+  <div class="paper small" style="top:258px;">
+    <div class="spiral"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="tn-script" style="top:58px;"><p class="step-num-label">Step 6</p></div>
+    <div class="tn-body" style="top:206px;left:64px;right:64px;"><p data-message="true">Collage is the craft. Layer photocopies, ticket stubs, handwriting — texture makes it feel touched by a real hand.</p></div>
+  </div>
+
+  <div class="tape" style="left:456px;top:238px;transform:rotate(1.5deg);"></div>
+
+  <div class="stepnum" style="left:864px;top:1002px;"><span>6</span></div>
+
+  <div class="foot">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="cg-slide-counter" data-counter="true">07 / 10</div>
+  </div>
+</section>
+
+<!-- Slide 8 — Step 7 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="tn-kicker" style="top:78px;"><h2 data-title="true">Photocopy &amp; Fold</h2></div>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;left:60px;top:232px;width:130px;height:130px;transform:rotate(-8deg);z-index:3;" aria-hidden="true">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  </svg>
+
+  <div class="paper small" style="top:258px;">
+    <div class="spiral"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="tn-script" style="top:58px;"><p class="step-num-label">Step 7</p></div>
+    <div class="tn-body" style="top:206px;left:64px;right:64px;"><p data-message="true">Run your masters through the copier, then fold and staple a test copy. Check the flow before you print the run.</p></div>
+  </div>
+
+  <div class="tape" style="left:456px;top:238px;transform:rotate(-2.5deg);"></div>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 24 24" style="position:absolute;right:80px;top:820px;width:64px;height:64px;z-index:5;transform:rotate(20deg);" aria-hidden="true">
+    <path d="M4 4 L4 20 M4 4 A6 6 0 0 1 16 4 L16 16 A6 6 0 0 1 4 16" fill="none" stroke="var(--secondary)" stroke-width="2.4" stroke-linecap="round"/>
+  </svg>
+
+  <div class="stepnum" style="left:96px;top:1002px;"><span>7</span></div>
+
+  <div class="foot">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="cg-slide-counter" data-counter="true">08 / 10</div>
+  </div>
+</section>
+
+<!-- Slide 9 — Step 8 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="tn-kicker" style="top:78px;"><h2 data-title="true">Share It Loud</h2></div>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;right:60px;top:230px;width:140px;height:140px;transform:rotate(12deg);z-index:3;" aria-hidden="true">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  </svg>
+
+  <div class="paper small" style="top:258px;">
+    <div class="spiral"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="tn-script" style="top:58px;"><p class="step-num-label">Step 8</p></div>
+    <div class="tn-body" style="top:206px;left:64px;right:64px;"><p data-message="true">Trade copies at shows, leave them in cafés, mail one to a stranger. A zine wants to travel, not sit in a drawer.</p></div>
+  </div>
+
+  <div class="tape" style="left:456px;top:238px;transform:rotate(2deg);"></div>
+
+  <div class="pill" style="left:376px;top:1004px;"><span>Print. Trade. Repeat.</span></div>
+
+  <div class="foot">
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="cg-slide-counter" data-counter="true">09 / 10</div>
+  </div>
+</section>
+
+<!-- Slide 10 — Closing -->
+<section class="slide" data-cg-slide-type="cover">
+  <div class="tape" style="left:454px;top:64px;transform:rotate(3deg);"></div>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;left:64px;top:900px;width:150px;height:150px;transform:rotate(-14deg);z-index:3;" aria-hidden="true">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  </svg>
+
+  <svg data-cg-svg data-cg-preserve viewBox="0 0 60 60" style="position:absolute;right:100px;top:920px;width:56px;height:56px;z-index:3;" aria-hidden="true">
+    <path d="M30 2 L36 24 L58 30 L36 36 L30 58 L24 36 L2 30 L24 24 Z" fill="var(--highlight)"/>
+  </svg>
+
+  <div class="badge" style="left:400px;top:170px;">
+    <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23241C15%22%20fill-opacity=%220.55%22/%3E%3C/svg%3E"/>
+    <span class="brand-word">Paper&amp;Ink</span>
+  </div>
+
+  <div class="tn-closing-title" style="top:400px;"><h1 data-title="true">Now Go Make One</h1></div>
+
+  <div class="tn-tagline" style="top:750px;"><p data-message="true">Every great zine starts messy. Yours just has to exist.</p></div>
+
+  <div class="pill" style="left:440px;top:1120px;"><span data-cta="true">Start Today</span></div>
+
+  <div class="foot">
+    <div class="lockup"><span class="brand-word">MAKE&nbsp;YOUR&nbsp;ZINE</span></div>
+    <div class="cg-slide-counter" data-counter="true">10 / 10</div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

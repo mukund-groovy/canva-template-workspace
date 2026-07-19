@@ -160,6 +160,17 @@ topic; append `-N` if taken). It MUST:
   `<img data-image="true">` with a grey svg data-uri placeholder and a topical `data-image-prompt`;
   max one per slide. A full-page (~1080x1350) image is the BACKGROUND → build it in CSS, not a photo
   slot. Small (<250px) marks are decoration → inline SVG. Typographic decks ship zero photo slots.
+- **SVG rules (both are gate-enforced by `check-template-contract` — C9/C10):**
+  1. **Never put readable copy in `<svg><text>`.** Numerals, headlines, labels, any glyph a reader reads
+     must be a plain HTML element (`div`/`span`/`h1`). SVG `<text>` does NOT reliably repaint when a
+     webfont loads late (the editor opens many iframes at once, all racing for the same Google Font) and
+     sticks in the fallback face **permanently**. Need a decorative treatment? Do it in CSS on the HTML
+     element — `-webkit-text-stroke` for a hollow/outline numeral, `background-clip:text` for a gradient
+     fill, `mask-image` for a cut — never by moving the text into SVG. Reserve SVG for vector art only.
+  2. **Every `<svg>` root carries `data-cg-svg data-cg-preserve`** — e.g.
+     `<svg data-cg-svg data-cg-preserve viewBox="...">`. `data-cg-svg` makes it editable in the playground;
+     `data-cg-preserve` keeps it byte-identical through the backend (cheerio HTML-mode otherwise lowercases
+     `viewBox`→`viewbox` and corrupts the vector). No exceptions — icons, blobs, dividers, marks, all of them.
 - **Fit, no collision, no occlusion**: text fits its box and the canvas (shrink before you clip);
   nothing overlaps the headline/footer/another block; text sits above filled surfaces (higher z-index).
 - **Never clip descenders.** The line-clamp contract forces `overflow:hidden` on every text run, so any

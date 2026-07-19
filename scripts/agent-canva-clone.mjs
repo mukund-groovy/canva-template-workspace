@@ -251,7 +251,7 @@ function statusCounts(entries) {
   return base;
 }
 
-const DASHBOARD_SHELL_VERSION = 10;
+const DASHBOARD_SHELL_VERSION = 11;
 
 // Static shell — the data lives in dashboard-data.js (window.__DASH__), which is
 // loaded + polled client-side. A change patches only the modified <tr> (keyed by
@@ -791,6 +791,26 @@ function reconcileEntryFromWorkspace(workspaceRoot, entry) {
     }
   }
 
+  // Stale deliverable pointers: entry.output/summary/qualityGate are only ever SET above
+  // (from finalDir clone output or summary.final.output), never cleared — so an archived or
+  // deleted deliverable left a dead path on the row that the dashboard preview still opened.
+  // Clear any pointer whose file no longer exists so a "clean" leaves no stale data behind.
+  if (entry.output) {
+    const outAbs = toAbs(workspaceRoot, String(entry.output));
+    if (!fs.existsSync(outAbs)) {
+      delete entry.output;
+      changed = true;
+    }
+  }
+  if (entry.summary && !fs.existsSync(toAbs(workspaceRoot, String(entry.summary)))) {
+    delete entry.summary;
+    changed = true;
+  }
+  if (entry.qualityGate && !hasSummary && !entry.output) {
+    delete entry.qualityGate;
+    changed = true;
+  }
+
   if (!hasOutput && hasDuplicateMeta && mutableStatuses.has(current)) {
     entry.status = 'duplicate';
     changed = true;
@@ -972,6 +992,35 @@ function reconcileEntryFromWorkspace(workspaceRoot, entry) {
   if (normalizeStatus(entry.status) === 'success' && !hasDeliverable && !hasOutput) {
     entry.status = 'cloned';
     changed = true;
+  }
+
+  // No deliverable on disk → wipe every gen-derived field the pipeline stamped on this
+  // row. These (quality scores, gate, gen-run stats, timings) are ONLY set on generation
+  // and never cleared, so after a `clean`/archive they lingered as stale badges pointing
+  // at a deck that no longer exists. A bare cloned row must carry intake data only.
+  //
+  // EXCLUDES startedAt/finishedAt/durationMs while status is 'generating': those three are
+  // an ACTIVE clock (opened by claim/mark, closed by the "new remix appeared" check below),
+  // not a stale badge — a design has no deliverable for its ENTIRE run, so wiping them here
+  // deleted startedAt on every intermediate `--action refresh` before the remix finished,
+  // and the close-out check a few lines below then always found startedAt already gone. Net
+  // effect: every remix this session shipped with no duration on the dashboard. Confirmed by
+  // reading the store directly — say-no-kindly had status:success but no startedAt/
+  // finishedAt/durationMs keys at all, despite claim() setting startedAt at dispatch time.
+  if (!hasDeliverable && !hasOutput) {
+    const genFieldsAlways = [
+      'qualityGate', 'score', 'detScore', 'premiumScore', 'belowThreshold',
+      'genStage', 'genDurationMs', 'genRetries', 'lastError',
+    ];
+    for (const f of genFieldsAlways) {
+      if (entry[f] !== undefined) { delete entry[f]; changed = true; }
+    }
+    if (normalizeStatus(entry.status) !== 'generating') {
+      for (const f of ['startedAt', 'finishedAt', 'durationMs']) {
+        if (entry[f] !== undefined) { delete entry[f]; changed = true; }
+      }
+    }
+    if (entry.meta && entry.meta.score !== undefined) { delete entry.meta.score; changed = true; }
   }
 
   // Attach the gate-derived /10 quality score (score-template.mjs writes
@@ -1210,15 +1259,15 @@ function runGenerateOnly({ workspaceRoot, designId, targetRmse, stopOnTarget, re
 function main() {
   const args = parseArgs(process.argv.slice(2));
   const action = String(args.action || 'run').toLowerCase();
-  if (!['add', 'clone', 'generate', 'run', 'comparison', 'refresh', 'mark', 'claim'].includes(action)) {
-    throw new Error('Invalid --action. Use: add | clone | generate | run | comparison | refresh | mark | claim');
+  if (!['add', 'clone', 'generate', 'run', 'comparison', 'refresh', 'mark', 'claim', 'clean'].includes(action)) {
+    throw new Error('Invalid --action. Use: add | clone | generate | run | comparison | refresh | mark | claim | clean');
   }
 
   const sourceUrl = String(args.url || args['design-url'] || '').trim();
   const designIdFromUrl = parseDesignIdFromUrl(sourceUrl);
   const designId = String(args['design-id'] || designIdFromUrl || '').trim();
-  // `refresh` re-syncs the whole dashboard from disk — it is not scoped to one design.
-  if (!designId && action !== 'refresh') {
+  // `refresh`/`clean` re-sync the whole dashboard from disk — not scoped to one design.
+  if (!designId && action !== 'refresh' && action !== 'clean') {
     throw new Error('Missing --design-id (or provide --url containing /design/<DESIGN_ID>/...)');
   }
 
@@ -1310,6 +1359,117 @@ function main() {
           ok: true,
           action: 'refresh',
           adopted,
+          entries: saved.store.entries.length,
+          statuses: statusCounts(saved.store.entries),
+          dashboard: saved.htmlPath,
+        },
+        null,
+        2
+      )
+    );
+    return;
+  }
+
+  // `clean`: reset the workspace for a fresh regeneration run. Archives every DELIVERABLE
+  // + derived artifact (never deletes — reversible) and leaves NO stale data behind, so a
+  // later generation can't pick up a dead path or a leftover deck. Archived, not removed:
+  //   - output/*.html            (the generated/remixed decks)
+  //   - .renders/output/*        (their per-slide render dirs)
+  //   - designs/*/comparison.html(per-machine before/after boards that embed old decks)
+  //   - remix-map.json           (reset to {})   + archetype-map.json (reset to stub)
+  // Then reconcile re-runs against the now-empty disk: stale output/summary/comparison/
+  // remixes pointers drop off every row and success → cloned. Duplicates stay duplicate.
+  // Extract/clone intake (designs/<id>/extract) is preserved — clean is NOT a re-clone.
+  if (action === 'clean') {
+    const dry = String(args.dry ?? false).toLowerCase() === 'true' || process.argv.includes('--dry');
+    const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+    const label = String(args.label || 'clean').trim().replace(/[^a-z0-9-]+/gi, '-');
+    const arcRoot = path.join(workspaceRoot, 'archive', `${stamp}-${label}`);
+    const moved = { output: 0, renders: 0, comparisons: 0, maps: 0 };
+    const move = (src, dest) => {
+      if (dry) return true;
+      fs.mkdirSync(path.dirname(dest), { recursive: true });
+      try {
+        fs.renameSync(src, dest);
+      } catch {
+        // cross-device or dir move fallback: copy then remove.
+        fs.cpSync(src, dest, { recursive: true });
+        fs.rmSync(src, { recursive: true, force: true });
+      }
+      return true;
+    };
+    // 1) generated decks
+    const outDir = path.join(workspaceRoot, 'output');
+    if (fs.existsSync(outDir)) {
+      for (const f of fs.readdirSync(outDir)) {
+        if (!f.endsWith('.html')) continue;
+        move(path.join(outDir, f), path.join(arcRoot, 'output', f));
+        moved.output++;
+      }
+    }
+    // 2) their renders
+    const rendersDir = path.join(workspaceRoot, '.renders', 'output');
+    if (fs.existsSync(rendersDir)) {
+      for (const d of fs.readdirSync(rendersDir)) {
+        move(path.join(rendersDir, d), path.join(arcRoot, 'renders', d));
+        moved.renders++;
+      }
+    }
+    // 3) per-design comparison boards (embed the old decks)
+    const designsDir = path.join(workspaceRoot, 'designs');
+    if (fs.existsSync(designsDir)) {
+      for (const d of fs.readdirSync(designsDir)) {
+        const cmp = path.join(designsDir, d, 'comparison.html');
+        if (fs.existsSync(cmp)) {
+          move(cmp, path.join(arcRoot, 'comparisons', `${d}-comparison.html`));
+          moved.comparisons++;
+        }
+      }
+    }
+    // 4) maps → snapshot, then reset to empty so nothing re-derives a dead deliverable
+    for (const m of ['remix-map.json', 'archetype-map.json']) {
+      const mp = path.join(workspaceRoot, m);
+      if (!fs.existsSync(mp)) continue;
+      if (!dry) {
+        fs.mkdirSync(arcRoot, { recursive: true });
+        fs.copyFileSync(mp, path.join(arcRoot, m));
+        if (m === 'remix-map.json') fs.writeFileSync(mp, '{}\n');
+        else
+          fs.writeFileSync(
+            mp,
+            JSON.stringify(
+              {
+                _comment:
+                  'Maps a Canva design ID to the brand archetype slug (output/<slug>.html) authored from it. The comparison view and default deliverable use this.',
+              },
+              null,
+              2
+            ) + '\n'
+          );
+      }
+      moved.maps++;
+    }
+
+    if (dry) {
+      console.log(JSON.stringify({ ok: true, action: 'clean', dry: true, wouldArchive: moved, archiveDir: toRel(workspaceRoot, arcRoot) }, null, 2));
+      return;
+    }
+
+    // 5) reconcile every row against the now-empty disk (files moved above) so no stale
+    //    pointer survives and success → cloned. reconcile at process start ran on the OLD
+    //    disk state, so it must run AGAIN here.
+    for (const row of store.entries) {
+      if (reconcileEntryFromWorkspace(workspaceRoot, row)) row.updatedAt = toIsoNow();
+    }
+    store.generatedAt = toIsoNow();
+    const saved = saveDashboard(workspaceRoot, store);
+    console.log(
+      JSON.stringify(
+        {
+          ok: true,
+          action: 'clean',
+          archived: moved,
+          archiveDir: toRel(workspaceRoot, arcRoot),
           entries: saved.store.entries.length,
           statuses: statusCounts(saved.store.entries),
           dashboard: saved.htmlPath,

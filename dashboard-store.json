@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-17T17:14:22.122Z",
+  "generatedAt": "2026-07-19T15:18:45.894Z",
   "entries": [
     {
       "designId": "DAHOxjfy5Mo",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-08T06:42:03.068Z",
-      "updatedAt": "2026-07-17T17:14:21.806Z",
+      "updatedAt": "2026-07-19T15:18:45.798Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -40,7 +40,6 @@
       "duplicate": false,
       "duplicateOf": null,
       "genProvider": "claude",
-      "comparison": "designs/DAHOxjfy5Mo/comparison.html",
       "meta": {
         "title": "Cream and Orange Bold Modern Professional Entrepreneurship Information Tips Instagram Carousel Post",
         "pages": 5,
@@ -54,16 +53,9 @@
           "#26201b",
           "#ff8210"
         ],
-        "score": 7.5
+        "score": 9.1
       },
       "summary": "designs/DAHOxjfy5Mo/workspace-summary.json",
-      "output": "designs/DAHOxjfy5Mo/final/template-clone-pure-html.html",
-      "qualityGate": {
-        "targetRmse": 0.24,
-        "met": true,
-        "stopOnTarget": false,
-        "earlyStop": null
-      },
       "thumb": "designs/DAHOxjfy5Mo/archetype-cover.png",
       "pageThumbs": [
         "designs/DAHOxjfy5Mo/extract/assets/pages/page-01-thumbnail.png",
@@ -72,20 +64,32 @@
         "designs/DAHOxjfy5Mo/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHOxjfy5Mo/extract/assets/pages/page-05-thumbnail.png"
       ],
-      "genStage": "",
-      "genDurationMs": 1093264,
-      "genRetries": 10,
-      "lastError": "",
-      "belowThreshold": false,
-      "score": 8.4,
-      "detScore": 8.4,
-      "premiumScore": 0
+      "qualityGate": {
+        "targetRmse": 0.24,
+        "met": true,
+        "stopOnTarget": false,
+        "earlyStop": null
+      },
+      "remixes": [
+        {
+          "slug": "pack-light-checklist",
+          "output": "output/pack-light-checklist.html",
+          "slides": [
+            ".renders/output/pack-light-checklist/slide-01.png",
+            ".renders/output/pack-light-checklist/slide-02.png",
+            ".renders/output/pack-light-checklist/slide-03.png",
+            ".renders/output/pack-light-checklist/slide-04.png",
+            ".renders/output/pack-light-checklist/slide-05.png"
+          ]
+        }
+      ],
+      "comparison": "designs/DAHOxjfy5Mo/comparison.html"
     },
     {
       "designId": "DAHOyNQEdgs",
       "status": "success",
       "createdAt": "2026-07-08T08:59:25.920Z",
-      "updatedAt": "2026-07-17T17:14:21.837Z",
+      "updatedAt": "2026-07-19T15:18:45.800Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -119,7 +123,6 @@
       "duplicate": false,
       "duplicateOf": null,
       "genProvider": "claude",
-      "comparison": "designs/DAHOyNQEdgs/comparison.html",
       "meta": {
         "title": "Purple Black Modern Carousel Instagram Post",
         "pages": 7,
@@ -133,18 +136,9 @@
           "#5e17eb",
           "#191919"
         ],
-        "score": 8.2
+        "score": 9.7
       },
-      "detScore": 5.7,
-      "premiumScore": 0,
       "summary": "designs/DAHOyNQEdgs/workspace-summary.json",
-      "output": "designs/DAHOyNQEdgs/final/template-clone-pure-html.html",
-      "qualityGate": {
-        "targetRmse": 0.24,
-        "met": true,
-        "stopOnTarget": false,
-        "earlyStop": null
-      },
       "thumb": "designs/DAHOyNQEdgs/archetype-cover.png",
       "pageThumbs": [
         "designs/DAHOyNQEdgs/extract/assets/pages/page-01-thumbnail.png",
@@ -155,46 +149,38 @@
         "designs/DAHOyNQEdgs/extract/assets/pages/page-06-thumbnail.png",
         "designs/DAHOyNQEdgs/extract/assets/pages/page-07-thumbnail.png"
       ],
+      "genStage": "authoring",
+      "startedAt": null,
+      "finishedAt": "2026-07-18T12:03:10.515Z",
+      "durationMs": 1747468,
+      "qualityGate": {
+        "targetRmse": 0.24,
+        "met": true,
+        "stopOnTarget": false,
+        "earlyStop": null
+      },
       "remixes": [
         {
-          "slug": "quiet-money-habits",
-          "output": "output/quiet-money-habits.html",
+          "slug": "pitch-craft-rules",
+          "output": "output/pitch-craft-rules.html",
           "slides": [
-            ".renders/output/quiet-money-habits/slide-01.png",
-            ".renders/output/quiet-money-habits/slide-02.png",
-            ".renders/output/quiet-money-habits/slide-03.png",
-            ".renders/output/quiet-money-habits/slide-04.png",
-            ".renders/output/quiet-money-habits/slide-05.png",
-            ".renders/output/quiet-money-habits/slide-06.png",
-            ".renders/output/quiet-money-habits/slide-07.png"
-          ]
-        },
-        {
-          "slug": "read-remember-more",
-          "output": "output/read-remember-more.html",
-          "slides": [
-            ".renders/output/read-remember-more/slide-01.png",
-            ".renders/output/read-remember-more/slide-02.png",
-            ".renders/output/read-remember-more/slide-03.png",
-            ".renders/output/read-remember-more/slide-04.png",
-            ".renders/output/read-remember-more/slide-05.png",
-            ".renders/output/read-remember-more/slide-06.png",
-            ".renders/output/read-remember-more/slide-07.png"
+            ".renders/output/pitch-craft-rules/slide-01.png",
+            ".renders/output/pitch-craft-rules/slide-02.png",
+            ".renders/output/pitch-craft-rules/slide-03.png",
+            ".renders/output/pitch-craft-rules/slide-04.png",
+            ".renders/output/pitch-craft-rules/slide-05.png",
+            ".renders/output/pitch-craft-rules/slide-06.png",
+            ".renders/output/pitch-craft-rules/slide-07.png"
           ]
         }
       ],
-      "genStage": "",
-      "genDurationMs": 1794504,
-      "genRetries": 11,
-      "lastError": "",
-      "belowThreshold": true,
-      "score": 5.7
+      "comparison": "designs/DAHOyNQEdgs/comparison.html"
     },
     {
       "designId": "DAHOyRRg-yQ",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-08T09:23:13.178Z",
-      "updatedAt": "2026-07-17T17:14:21.842Z",
+      "updatedAt": "2026-07-19T15:18:45.803Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -227,7 +213,6 @@
       "extractDir": "designs/DAHOyRRg-yQ/extract",
       "duplicate": false,
       "duplicateOf": null,
-      "comparison": "designs/DAHOyRRg-yQ/comparison.html",
       "meta": {
         "title": "White Purple Gradient Minimalist Social Media Branding Carousel Instagram Post",
         "pages": 10,
@@ -241,20 +226,10 @@
           "#000000",
           "#c9c2e8",
           "#3e52ac"
-        ],
-        "score": 8.4
+        ]
       },
       "genProvider": "claude",
-      "detScore": 4.3,
-      "premiumScore": 0,
       "summary": "designs/DAHOyRRg-yQ/workspace-summary.json",
-      "output": "designs/DAHOyRRg-yQ/final/template-clone-pure-html.html",
-      "qualityGate": {
-        "targetRmse": 0.24,
-        "met": true,
-        "stopOnTarget": false,
-        "earlyStop": null
-      },
       "thumb": "designs/DAHOyRRg-yQ/archetype-cover.png",
       "pageThumbs": [
         "designs/DAHOyRRg-yQ/extract/assets/pages/page-01-thumbnail.png",
@@ -267,39 +242,13 @@
         "designs/DAHOyRRg-yQ/extract/assets/pages/page-08-thumbnail.png",
         "designs/DAHOyRRg-yQ/extract/assets/pages/page-09-thumbnail.png",
         "designs/DAHOyRRg-yQ/extract/assets/pages/page-10-thumbnail.png"
-      ],
-      "genDurationMs": 1771600,
-      "genRetries": 7,
-      "lastError": "",
-      "belowThreshold": true,
-      "score": 4.3,
-      "remixes": [
-        {
-          "slug": "newsletters-worth-opening",
-          "output": "output/newsletters-worth-opening.html",
-          "slides": [
-            ".renders/output/newsletters-worth-opening/slide-01.png",
-            ".renders/output/newsletters-worth-opening/slide-02.png",
-            ".renders/output/newsletters-worth-opening/slide-03.png",
-            ".renders/output/newsletters-worth-opening/slide-04.png",
-            ".renders/output/newsletters-worth-opening/slide-05.png",
-            ".renders/output/newsletters-worth-opening/slide-06.png",
-            ".renders/output/newsletters-worth-opening/slide-07.png",
-            ".renders/output/newsletters-worth-opening/slide-08.png",
-            ".renders/output/newsletters-worth-opening/slide-09.png",
-            ".renders/output/newsletters-worth-opening/slide-10.png"
-          ]
-        }
-      ],
-      "startedAt": "2026-07-17T08:57:35.962Z",
-      "finishedAt": null,
-      "durationMs": null
+      ]
     },
     {
       "designId": "DAHO3nrn8r4",
       "status": "success",
       "createdAt": "2026-07-09T07:38:42.320Z",
-      "updatedAt": "2026-07-17T17:14:21.846Z",
+      "updatedAt": "2026-07-18T16:38:45.199Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -330,7 +279,6 @@
       "duplicate": false,
       "duplicateOf": null,
       "genProvider": "claude",
-      "comparison": "designs/DAHO3nrn8r4/comparison.html",
       "meta": {
         "title": "Beige Playful Scrapbook Typography Quote Carousel Instagram Post",
         "pages": 5,
@@ -345,7 +293,7 @@
           "#e65a38",
           "#d3cfff"
         ],
-        "score": 9.1
+        "score": 8.8
       },
       "summary": "designs/DAHO3nrn8r4/workspace-summary.json",
       "thumb": "designs/DAHO3nrn8r4/archetype-cover.png",
@@ -356,29 +304,26 @@
         "designs/DAHO3nrn8r4/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHO3nrn8r4/extract/assets/pages/page-05-thumbnail.png"
       ],
-      "genStage": "authoring",
-      "startedAt": null,
-      "finishedAt": "2026-07-17T10:34:52.811Z",
-      "durationMs": 2203091,
       "remixes": [
         {
-          "slug": "permission-slips-daily",
-          "output": "output/permission-slips-daily.html",
+          "slug": "new-plant-parent",
+          "output": "output/new-plant-parent.html",
           "slides": [
-            ".renders/output/permission-slips-daily/slide-01.png",
-            ".renders/output/permission-slips-daily/slide-02.png",
-            ".renders/output/permission-slips-daily/slide-03.png",
-            ".renders/output/permission-slips-daily/slide-04.png",
-            ".renders/output/permission-slips-daily/slide-05.png"
+            ".renders/output/new-plant-parent/slide-01.png",
+            ".renders/output/new-plant-parent/slide-02.png",
+            ".renders/output/new-plant-parent/slide-03.png",
+            ".renders/output/new-plant-parent/slide-04.png",
+            ".renders/output/new-plant-parent/slide-05.png"
           ]
         }
-      ]
+      ],
+      "comparison": "designs/DAHO3nrn8r4/comparison.html"
     },
     {
       "designId": "DAHO4Oe5Bbw",
       "status": "success",
       "createdAt": "2026-07-09T08:41:36.641Z",
-      "updatedAt": "2026-07-17T17:14:21.851Z",
+      "updatedAt": "2026-07-18T16:31:59.257Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -409,7 +354,6 @@
       "duplicate": false,
       "duplicateOf": null,
       "genProvider": "claude",
-      "comparison": "designs/DAHO4Oe5Bbw/comparison.html",
       "meta": {
         "title": "White and Black Collage How to be Content Creator Instagram Post Carousel",
         "pages": 10,
@@ -440,30 +384,35 @@
         "designs/DAHO4Oe5Bbw/extract/assets/pages/page-09-thumbnail.png",
         "designs/DAHO4Oe5Bbw/extract/assets/pages/page-10-thumbnail.png"
       ],
+      "genStage": "authoring",
+      "startedAt": null,
+      "finishedAt": "2026-07-18T16:31:59.257Z",
+      "durationMs": 1256196,
       "remixes": [
         {
-          "slug": "start-your-journal",
-          "output": "output/start-your-journal.html",
+          "slug": "make-your-zine",
+          "output": "output/make-your-zine.html",
           "slides": [
-            ".renders/output/start-your-journal/slide-01.png",
-            ".renders/output/start-your-journal/slide-02.png",
-            ".renders/output/start-your-journal/slide-03.png",
-            ".renders/output/start-your-journal/slide-04.png",
-            ".renders/output/start-your-journal/slide-05.png",
-            ".renders/output/start-your-journal/slide-06.png",
-            ".renders/output/start-your-journal/slide-07.png",
-            ".renders/output/start-your-journal/slide-08.png",
-            ".renders/output/start-your-journal/slide-09.png",
-            ".renders/output/start-your-journal/slide-10.png"
+            ".renders/output/make-your-zine/slide-01.png",
+            ".renders/output/make-your-zine/slide-02.png",
+            ".renders/output/make-your-zine/slide-03.png",
+            ".renders/output/make-your-zine/slide-04.png",
+            ".renders/output/make-your-zine/slide-05.png",
+            ".renders/output/make-your-zine/slide-06.png",
+            ".renders/output/make-your-zine/slide-07.png",
+            ".renders/output/make-your-zine/slide-08.png",
+            ".renders/output/make-your-zine/slide-09.png",
+            ".renders/output/make-your-zine/slide-10.png"
           ]
         }
-      ]
+      ],
+      "comparison": "designs/DAHO4Oe5Bbw/comparison.html"
     },
     {
       "designId": "DAHO4AoXL1M",
       "status": "success",
       "createdAt": "2026-07-09T08:45:07.723Z",
-      "updatedAt": "2026-07-17T17:14:21.856Z",
+      "updatedAt": "2026-07-18T16:54:19.226Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -506,7 +455,7 @@
           "#f2eecf",
           "#312721"
         ],
-        "score": 8.8
+        "score": 8.5
       },
       "summary": "designs/DAHO4AoXL1M/workspace-summary.json",
       "thumb": "designs/DAHO4AoXL1M/archetype-cover.png",
@@ -519,23 +468,24 @@
       ],
       "remixes": [
         {
-          "slug": "quiet-garden-lessons",
-          "output": "output/quiet-garden-lessons.html",
+          "slug": "solo-travel-lessons",
+          "output": "output/solo-travel-lessons.html",
           "slides": [
-            ".renders/output/quiet-garden-lessons/slide-01.png",
-            ".renders/output/quiet-garden-lessons/slide-02.png",
-            ".renders/output/quiet-garden-lessons/slide-03.png",
-            ".renders/output/quiet-garden-lessons/slide-04.png",
-            ".renders/output/quiet-garden-lessons/slide-05.png"
+            ".renders/output/solo-travel-lessons/slide-01.png",
+            ".renders/output/solo-travel-lessons/slide-02.png",
+            ".renders/output/solo-travel-lessons/slide-03.png",
+            ".renders/output/solo-travel-lessons/slide-04.png",
+            ".renders/output/solo-travel-lessons/slide-05.png"
           ]
         }
-      ]
+      ],
+      "comparison": "designs/DAHO4AoXL1M/comparison.html"
     },
     {
       "designId": "DAHO4NT5oWA",
       "status": "success",
       "createdAt": "2026-07-09T10:12:20.632Z",
-      "updatedAt": "2026-07-17T17:14:21.859Z",
+      "updatedAt": "2026-07-18T12:09:55.997Z",
       "attempts": 0,
       "extractDir": "designs/DAHO4NT5oWA/extract",
       "sourceUrl": "",
@@ -551,11 +501,10 @@
           "#000000",
           "#ffffff"
         ],
-        "score": 9.7
+        "score": 9.1
       },
       "summary": "designs/DAHO4NT5oWA/workspace-summary.json",
       "thumb": "designs/DAHO4NT5oWA/archetype-cover.png",
-      "genStage": "",
       "pageThumbs": [
         "designs/DAHO4NT5oWA/extract/assets/pages/page-01-thumbnail.png",
         "designs/DAHO4NT5oWA/extract/assets/pages/page-02-thumbnail.png",
@@ -563,28 +512,26 @@
         "designs/DAHO4NT5oWA/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHO4NT5oWA/extract/assets/pages/page-05-thumbnail.png"
       ],
-      "startedAt": null,
-      "finishedAt": "2026-07-17T09:36:43.913Z",
-      "durationMs": 2568052,
       "remixes": [
         {
-          "slug": "brew-better-coffee",
-          "output": "output/brew-better-coffee.html",
+          "slug": "strength-training-rules",
+          "output": "output/strength-training-rules.html",
           "slides": [
-            ".renders/output/brew-better-coffee/slide-01.png",
-            ".renders/output/brew-better-coffee/slide-02.png",
-            ".renders/output/brew-better-coffee/slide-03.png",
-            ".renders/output/brew-better-coffee/slide-04.png",
-            ".renders/output/brew-better-coffee/slide-05.png"
+            ".renders/output/strength-training-rules/slide-01.png",
+            ".renders/output/strength-training-rules/slide-02.png",
+            ".renders/output/strength-training-rules/slide-03.png",
+            ".renders/output/strength-training-rules/slide-04.png",
+            ".renders/output/strength-training-rules/slide-05.png"
           ]
         }
-      ]
+      ],
+      "comparison": "designs/DAHO4NT5oWA/comparison.html"
     },
     {
       "designId": "DAHO9gKsy-I",
       "status": "success",
       "createdAt": "2026-07-13T06:48:42.499Z",
-      "updatedAt": "2026-07-17T17:14:21.863Z",
+      "updatedAt": "2026-07-18T16:36:20.934Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -614,7 +561,6 @@
       "extractDir": "designs/DAHO9gKsy-I/extract",
       "duplicate": false,
       "duplicateOf": null,
-      "comparison": "designs/DAHO9gKsy-I/comparison.html",
       "meta": {
         "title": "Yellow Simple Minimalist Personal Notes Message Instagram Carousel",
         "pages": 6,
@@ -638,30 +584,27 @@
         "designs/DAHO9gKsy-I/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHO9gKsy-I/extract/assets/pages/page-06-thumbnail.png"
       ],
-      "startedAt": null,
-      "finishedAt": "2026-07-17T10:47:20.772Z",
-      "durationMs": 4120618,
-      "genStage": "authoring",
       "remixes": [
         {
-          "slug": "slow-morning-rituals",
-          "output": "output/slow-morning-rituals.html",
+          "slug": "plant-parent-notes",
+          "output": "output/plant-parent-notes.html",
           "slides": [
-            ".renders/output/slow-morning-rituals/slide-01.png",
-            ".renders/output/slow-morning-rituals/slide-02.png",
-            ".renders/output/slow-morning-rituals/slide-03.png",
-            ".renders/output/slow-morning-rituals/slide-04.png",
-            ".renders/output/slow-morning-rituals/slide-05.png",
-            ".renders/output/slow-morning-rituals/slide-06.png"
+            ".renders/output/plant-parent-notes/slide-01.png",
+            ".renders/output/plant-parent-notes/slide-02.png",
+            ".renders/output/plant-parent-notes/slide-03.png",
+            ".renders/output/plant-parent-notes/slide-04.png",
+            ".renders/output/plant-parent-notes/slide-05.png",
+            ".renders/output/plant-parent-notes/slide-06.png"
           ]
         }
-      ]
+      ],
+      "comparison": "designs/DAHO9gKsy-I/comparison.html"
     },
     {
       "designId": "DAHO9lfaPdg",
       "status": "success",
       "createdAt": "2026-07-13T06:48:52.647Z",
-      "updatedAt": "2026-07-17T17:14:21.866Z",
+      "updatedAt": "2026-07-18T18:10:46.770Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -691,7 +634,6 @@
       "extractDir": "designs/DAHO9lfaPdg/extract",
       "duplicate": false,
       "duplicateOf": null,
-      "comparison": "designs/DAHO9lfaPdg/comparison.html",
       "meta": {
         "title": "Editorial Aesthetic Content Creator Recap Carousel Instagram Post",
         "pages": 5,
@@ -705,7 +647,7 @@
           "#ffffff",
           "#2b2525"
         ],
-        "score": 9.1
+        "score": 7.6
       },
       "summary": "designs/DAHO9lfaPdg/workspace-summary.json",
       "thumb": "designs/DAHO9lfaPdg/archetype-cover.png",
@@ -717,28 +659,28 @@
         "designs/DAHO9lfaPdg/extract/assets/pages/page-05-thumbnail.png"
       ],
       "startedAt": null,
-      "finishedAt": "2026-07-17T11:36:05.069Z",
-      "durationMs": 3607671,
-      "genStage": "authoring",
+      "finishedAt": "2026-07-18T18:10:46.769Z",
+      "durationMs": 1411438,
       "remixes": [
         {
-          "slug": "clay-year-recap",
-          "output": "output/clay-year-recap.html",
+          "slug": "garden-year-recap",
+          "output": "output/garden-year-recap.html",
           "slides": [
-            ".renders/output/clay-year-recap/slide-01.png",
-            ".renders/output/clay-year-recap/slide-02.png",
-            ".renders/output/clay-year-recap/slide-03.png",
-            ".renders/output/clay-year-recap/slide-04.png",
-            ".renders/output/clay-year-recap/slide-05.png"
+            ".renders/output/garden-year-recap/slide-01.png",
+            ".renders/output/garden-year-recap/slide-02.png",
+            ".renders/output/garden-year-recap/slide-03.png",
+            ".renders/output/garden-year-recap/slide-04.png",
+            ".renders/output/garden-year-recap/slide-05.png"
           ]
         }
-      ]
+      ],
+      "comparison": "designs/DAHO9lfaPdg/comparison.html"
     },
     {
       "designId": "DAHOrBKyBxs",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-13T06:49:06.882Z",
-      "updatedAt": "2026-07-17T16:39:56.405Z",
+      "updatedAt": "2026-07-18T06:29:58.826Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -780,32 +722,10 @@
           "#5e17eb",
           "#191919",
           "#d2bcff"
-        ],
-        "score": 8.8
+        ]
       },
       "summary": "designs/DAHOrBKyBxs/workspace-summary.json",
       "thumb": "designs/DAHOrBKyBxs/archetype-cover.png",
-      "lastError": "",
-      "belowThreshold": false,
-      "score": 8,
-      "detScore": 9.4,
-      "premiumScore": 7,
-      "comparison": "designs/DAHOrBKyBxs/comparison.html",
-      "remixes": [
-        {
-          "slug": "write-better-emails",
-          "output": "output/write-better-emails.html",
-          "slides": [
-            ".renders/output/write-better-emails/slide-01.png",
-            ".renders/output/write-better-emails/slide-02.png",
-            ".renders/output/write-better-emails/slide-03.png",
-            ".renders/output/write-better-emails/slide-04.png",
-            ".renders/output/write-better-emails/slide-05.png",
-            ".renders/output/write-better-emails/slide-06.png",
-            ".renders/output/write-better-emails/slide-07.png"
-          ]
-        }
-      ],
       "pageThumbs": [
         "designs/DAHOrBKyBxs/extract/assets/pages/page-01-thumbnail.png",
         "designs/DAHOrBKyBxs/extract/assets/pages/page-02-thumbnail.png",
@@ -818,9 +738,9 @@
     },
     {
       "designId": "DAHOrUQo44I",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-13T06:49:46.895Z",
-      "updatedAt": "2026-07-17T16:39:56.422Z",
+      "updatedAt": "2026-07-18T17:27:32.484Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -862,7 +782,8 @@
           "#fdfaf6",
           "#000000",
           "#c56c30"
-        ]
+        ],
+        "score": 9.1
       },
       "summary": "designs/DAHOrUQo44I/workspace-summary.json",
       "thumb": "designs/DAHOrUQo44I/archetype-cover.png",
@@ -874,13 +795,29 @@
         "designs/DAHOrUQo44I/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHOrUQo44I/extract/assets/pages/page-06-thumbnail.png",
         "designs/DAHOrUQo44I/extract/assets/pages/page-07-thumbnail.png"
-      ]
+      ],
+      "remixes": [
+        {
+          "slug": "say-no-kindly",
+          "output": "output/say-no-kindly.html",
+          "slides": [
+            ".renders/output/say-no-kindly/slide-01.png",
+            ".renders/output/say-no-kindly/slide-02.png",
+            ".renders/output/say-no-kindly/slide-03.png",
+            ".renders/output/say-no-kindly/slide-04.png",
+            ".renders/output/say-no-kindly/slide-05.png",
+            ".renders/output/say-no-kindly/slide-06.png",
+            ".renders/output/say-no-kindly/slide-07.png"
+          ]
+        }
+      ],
+      "comparison": "designs/DAHOrUQo44I/comparison.html"
     },
     {
       "designId": "DAHPPm3V4_U",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-13T06:57:04.649Z",
-      "updatedAt": "2026-07-17T16:39:56.441Z",
+      "updatedAt": "2026-07-18T17:23:06.947Z",
       "attempts": 0,
       "sourceUrl": "https://www.canva.com/design/DAHPPm3V4_U/0JmVp6b7wY5fMVmtqiFc5g/edit",
       "clone": {
@@ -922,7 +859,8 @@
           "#ffffff",
           "#edadff",
           "#cb6ce6"
-        ]
+        ],
+        "score": 9.4
       },
       "summary": "designs/DAHPPm3V4_U/workspace-summary.json",
       "thumb": "designs/DAHPPm3V4_U/archetype-cover.png",
@@ -931,13 +869,30 @@
         "designs/DAHPPm3V4_U/extract/assets/pages/page-02-thumbnail.png",
         "designs/DAHPPm3V4_U/extract/assets/pages/page-03-thumbnail.png",
         "designs/DAHPPm3V4_U/extract/assets/pages/page-04-thumbnail.png"
-      ]
+      ],
+      "genStage": "authoring",
+      "startedAt": null,
+      "finishedAt": "2026-07-18T17:23:06.947Z",
+      "durationMs": 1185178,
+      "remixes": [
+        {
+          "slug": "breach-alert-briefing",
+          "output": "output/breach-alert-briefing.html",
+          "slides": [
+            ".renders/output/breach-alert-briefing/slide-01.png",
+            ".renders/output/breach-alert-briefing/slide-02.png",
+            ".renders/output/breach-alert-briefing/slide-03.png",
+            ".renders/output/breach-alert-briefing/slide-04.png"
+          ]
+        }
+      ],
+      "comparison": "designs/DAHPPm3V4_U/comparison.html"
     },
     {
       "designId": "DAHPRMKHicM",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-13T14:12:27.053Z",
-      "updatedAt": "2026-07-17T08:38:28.457Z",
+      "updatedAt": "2026-07-18T06:29:58.832Z",
       "attempts": 0,
       "sourceUrl": "",
       "clone": {
@@ -981,30 +936,10 @@
           "#55b2ed",
           "#265dc6",
           "#e44614"
-        ],
-        "score": 10
+        ]
       },
-      "detScore": 8.2,
-      "premiumScore": 0,
       "summary": "designs/DAHPRMKHicM/workspace-summary.json",
       "thumb": "designs/DAHPRMKHicM/archetype-cover.png",
-      "lastError": "",
-      "belowThreshold": false,
-      "score": 8.2,
-      "comparison": "designs/DAHPRMKHicM/comparison.html",
-      "remixes": [
-        {
-          "slug": "the-drawn-line",
-          "output": "output/the-drawn-line.html",
-          "slides": [
-            ".renders/output/the-drawn-line/slide-01.png",
-            ".renders/output/the-drawn-line/slide-02.png",
-            ".renders/output/the-drawn-line/slide-03.png",
-            ".renders/output/the-drawn-line/slide-04.png",
-            ".renders/output/the-drawn-line/slide-05.png"
-          ]
-        }
-      ],
       "pageThumbs": [
         "designs/DAHPRMKHicM/extract/assets/pages/page-01-thumbnail.png",
         "designs/DAHPRMKHicM/extract/assets/pages/page-02-thumbnail.png",
@@ -1015,9 +950,9 @@
     },
     {
       "designId": "DAHPVaxNBps",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-15T04:20:15.542Z",
-      "updatedAt": "2026-07-17T16:39:56.478Z",
+      "updatedAt": "2026-07-18T17:39:56.310Z",
       "attempts": 0,
       "extractDir": "designs/DAHPVaxNBps/extract",
       "meta": {
@@ -1031,18 +966,32 @@
         "palette": [
           "#312721",
           "#1054ab"
-        ]
+        ],
+        "score": 9.1
       },
       "summary": "designs/DAHPVaxNBps/workspace-summary.json",
       "thumb": "designs/DAHPVaxNBps/archetype-cover.png",
-      "genStage": "",
       "pageThumbs": [
         "designs/DAHPVaxNBps/extract/assets/pages/page-01-thumbnail.png",
         "designs/DAHPVaxNBps/extract/assets/pages/page-02-thumbnail.png",
         "designs/DAHPVaxNBps/extract/assets/pages/page-03-thumbnail.png",
         "designs/DAHPVaxNBps/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPVaxNBps/extract/assets/pages/page-05-thumbnail.png"
-      ]
+      ],
+      "remixes": [
+        {
+          "slug": "saturday-market-haul",
+          "output": "output/saturday-market-haul.html",
+          "slides": [
+            ".renders/output/saturday-market-haul/slide-01.png",
+            ".renders/output/saturday-market-haul/slide-02.png",
+            ".renders/output/saturday-market-haul/slide-03.png",
+            ".renders/output/saturday-market-haul/slide-04.png",
+            ".renders/output/saturday-market-haul/slide-05.png"
+          ]
+        }
+      ],
+      "comparison": "designs/DAHPVaxNBps/comparison.html"
     },
     {
       "designId": "DAHPVbBq5wg",
@@ -1109,7 +1058,7 @@
       "designId": "DAHPVfvXB5k",
       "status": "cloned",
       "createdAt": "2026-07-15T04:20:15.551Z",
-      "updatedAt": "2026-07-16T17:22:20.277Z",
+      "updatedAt": "2026-07-18T06:29:58.839Z",
       "attempts": 0,
       "extractDir": "designs/DAHPVfvXB5k/extract",
       "meta": {
@@ -1124,13 +1073,11 @@
           "#ffffff",
           "#f2eecf",
           "#312721"
-        ],
-        "score": 9.7
+        ]
       },
       "summary": "designs/DAHPVfvXB5k/workspace-summary.json",
       "thumb": "designs/DAHPVfvXB5k/archetype-cover.png",
       "sourceUrl": "",
-      "comparison": "designs/DAHPVfvXB5k/comparison.html",
       "pageThumbs": [
         "designs/DAHPVfvXB5k/extract/assets/pages/page-01-thumbnail.png",
         "designs/DAHPVfvXB5k/extract/assets/pages/page-02-thumbnail.png",
@@ -1288,15 +1235,11 @@
     },
     {
       "designId": "DAHPbmjary8",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-15T06:29:53.030Z",
-      "updatedAt": "2026-07-17T16:39:56.828Z",
+      "updatedAt": "2026-07-18T12:05:40.334Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-15T06:29:53.030Z",
-      "finishedAt": "2026-07-15T06:30:00.009Z",
-      "durationMs": 6979,
-      "lastError": "",
       "clone": {
         "designId": "DAHPbmjary8",
         "outDir": "designs/DAHPbmjary8/extract",
@@ -1338,12 +1281,9 @@
           "#f0f3f4",
           "#000000",
           "#f8f7f5"
-        ]
+        ],
+        "score": 9.1
       },
-      "belowThreshold": true,
-      "score": 6.4,
-      "detScore": 6.4,
-      "premiumScore": 0,
       "pageThumbs": [
         "designs/DAHPbmjary8/extract/assets/pages/page-01-thumbnail.png",
         "designs/DAHPbmjary8/extract/assets/pages/page-02-thumbnail.png",
@@ -1351,19 +1291,30 @@
         "designs/DAHPbmjary8/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPbmjary8/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPbmjary8/extract/assets/pages/page-06-thumbnail.png"
-      ]
+      ],
+      "remixes": [
+        {
+          "slug": "street-photography-diary",
+          "output": "output/street-photography-diary.html",
+          "slides": [
+            ".renders/output/street-photography-diary/slide-01.png",
+            ".renders/output/street-photography-diary/slide-02.png",
+            ".renders/output/street-photography-diary/slide-03.png",
+            ".renders/output/street-photography-diary/slide-04.png",
+            ".renders/output/street-photography-diary/slide-05.png",
+            ".renders/output/street-photography-diary/slide-06.png"
+          ]
+        }
+      ],
+      "comparison": "designs/DAHPbmjary8/comparison.html"
     },
     {
       "designId": "DAHPbizwZZw",
       "status": "cloned",
       "createdAt": "2026-07-15T06:30:16.666Z",
-      "updatedAt": "2026-07-17T16:39:56.888Z",
+      "updatedAt": "2026-07-18T06:29:58.850Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-15T06:30:16.666Z",
-      "finishedAt": "2026-07-15T06:30:21.032Z",
-      "durationMs": 4366,
-      "lastError": "",
       "clone": {
         "designId": "DAHPbizwZZw",
         "outDir": "designs/DAHPbizwZZw/extract",
@@ -1421,13 +1372,9 @@
       "designId": "DAHPbhPf09I",
       "status": "cloned",
       "createdAt": "2026-07-15T06:30:36.703Z",
-      "updatedAt": "2026-07-17T16:39:56.948Z",
+      "updatedAt": "2026-07-18T06:29:58.852Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-15T06:30:36.703Z",
-      "finishedAt": "2026-07-15T06:30:40.312Z",
-      "durationMs": 3609,
-      "lastError": "",
       "clone": {
         "designId": "DAHPbhPf09I",
         "outDir": "designs/DAHPbhPf09I/extract",
@@ -1457,7 +1404,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPbhPf09I/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "thumb": "designs/DAHPbhPf09I/archetype-cover.png",
@@ -1488,13 +1434,9 @@
       "designId": "DAHPbh2bDgU",
       "status": "cloned",
       "createdAt": "2026-07-15T06:30:58.915Z",
-      "updatedAt": "2026-07-17T16:39:57.013Z",
+      "updatedAt": "2026-07-18T06:29:58.853Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-15T06:30:58.915Z",
-      "finishedAt": "2026-07-15T06:31:04.057Z",
-      "durationMs": 5142,
-      "lastError": "",
       "clone": {
         "designId": "DAHPbh2bDgU",
         "outDir": "designs/DAHPbh2bDgU/extract",
@@ -1551,13 +1493,9 @@
       "designId": "DAHPeDvPxI4",
       "status": "cloned",
       "createdAt": "2026-07-15T16:04:45.526Z",
-      "updatedAt": "2026-07-17T16:39:57.076Z",
+      "updatedAt": "2026-07-18T06:29:58.855Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-15T16:04:45.526Z",
-      "finishedAt": "2026-07-15T16:04:47.376Z",
-      "durationMs": 1850,
-      "lastError": "",
       "clone": {
         "designId": "DAHPeDvPxI4",
         "outDir": "designs/DAHPeDvPxI4/extract",
@@ -1587,7 +1525,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPeDvPxI4/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -1615,20 +1552,15 @@
         "designs/DAHPeDvPxI4/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPeDvPxI4/extract/assets/pages/page-06-thumbnail.png",
         "designs/DAHPeDvPxI4/extract/assets/pages/page-07-thumbnail.png"
-      ],
-      "comparison": "designs/DAHPeDvPxI4/comparison.html"
+      ]
     },
     {
       "designId": "DAHPeO1ArA0",
       "status": "duplicate",
       "createdAt": "2026-07-15T16:05:30.157Z",
-      "updatedAt": "2026-07-16T04:28:15.341Z",
+      "updatedAt": "2026-07-18T06:29:58.857Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-15T16:05:30.157Z",
-      "finishedAt": "2026-07-15T16:05:31.495Z",
-      "durationMs": 1338,
-      "lastError": "",
       "clone": {
         "designId": "DAHPeO1ArA0",
         "outDir": "designs/DAHPeO1ArA0/extract",
@@ -1668,7 +1600,6 @@
       },
       "output": null,
       "summary": "designs/DAHPeO1ArA0/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -1690,13 +1621,9 @@
       "designId": "DAHPeNVWHgI",
       "status": "cloned",
       "createdAt": "2026-07-15T16:10:13.773Z",
-      "updatedAt": "2026-07-17T16:39:57.193Z",
+      "updatedAt": "2026-07-18T06:29:58.860Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-15T16:10:13.773Z",
-      "finishedAt": "2026-07-15T16:10:15.487Z",
-      "durationMs": 1714,
-      "lastError": "",
       "clone": {
         "designId": "DAHPeNVWHgI",
         "outDir": "designs/DAHPeNVWHgI/extract",
@@ -1726,7 +1653,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPeNVWHgI/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -1751,20 +1677,15 @@
         "designs/DAHPeNVWHgI/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPeNVWHgI/extract/assets/pages/page-06-thumbnail.png",
         "designs/DAHPeNVWHgI/extract/assets/pages/page-07-thumbnail.png"
-      ],
-      "comparison": "designs/DAHPeNVWHgI/comparison.html"
+      ]
     },
     {
       "designId": "DAHPeEgX1Og",
       "status": "cloned",
       "createdAt": "2026-07-15T16:10:58.149Z",
-      "updatedAt": "2026-07-17T16:39:57.248Z",
+      "updatedAt": "2026-07-18T06:29:58.862Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-15T16:10:58.149Z",
-      "finishedAt": "2026-07-15T16:10:59.600Z",
-      "durationMs": 1451,
-      "lastError": "",
       "clone": {
         "designId": "DAHPeEgX1Og",
         "outDir": "designs/DAHPeEgX1Og/extract",
@@ -1794,7 +1715,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPeEgX1Og/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -1821,20 +1741,15 @@
         "designs/DAHPeEgX1Og/extract/assets/pages/page-08-thumbnail.png",
         "designs/DAHPeEgX1Og/extract/assets/pages/page-09-thumbnail.png",
         "designs/DAHPeEgX1Og/extract/assets/pages/page-10-thumbnail.png"
-      ],
-      "comparison": "designs/DAHPeEgX1Og/comparison.html"
+      ]
     },
     {
       "designId": "DAHPeA8eqz4",
-      "status": "cloned",
+      "status": "success",
       "createdAt": "2026-07-15T16:12:45.540Z",
-      "updatedAt": "2026-07-17T16:39:57.304Z",
+      "updatedAt": "2026-07-18T12:05:56.890Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-15T16:12:45.540Z",
-      "finishedAt": "2026-07-15T16:12:46.983Z",
-      "durationMs": 1443,
-      "lastError": "",
       "clone": {
         "designId": "DAHPeA8eqz4",
         "outDir": "designs/DAHPeA8eqz4/extract",
@@ -1876,7 +1791,8 @@
           "#000000",
           "#174497",
           "#dbe1ee"
-        ]
+        ],
+        "score": 9.1
       },
       "thumb": "designs/DAHPeA8eqz4/archetype-cover.png",
       "pageThumbs": [
@@ -1886,19 +1802,28 @@
         "designs/DAHPeA8eqz4/extract/assets/pages/page-04-thumbnail.png",
         "designs/DAHPeA8eqz4/extract/assets/pages/page-05-thumbnail.png"
       ],
+      "remixes": [
+        {
+          "slug": "dear-new-parent",
+          "output": "output/dear-new-parent.html",
+          "slides": [
+            ".renders/output/dear-new-parent/slide-01.png",
+            ".renders/output/dear-new-parent/slide-02.png",
+            ".renders/output/dear-new-parent/slide-03.png",
+            ".renders/output/dear-new-parent/slide-04.png",
+            ".renders/output/dear-new-parent/slide-05.png"
+          ]
+        }
+      ],
       "comparison": "designs/DAHPeA8eqz4/comparison.html"
     },
     {
       "designId": "DAHPeD1kppo",
       "status": "cloned",
       "createdAt": "2026-07-15T16:13:13.194Z",
-      "updatedAt": "2026-07-17T16:39:57.362Z",
+      "updatedAt": "2026-07-18T06:29:58.866Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-15T16:13:13.194Z",
-      "finishedAt": "2026-07-15T16:13:14.720Z",
-      "durationMs": 1526,
-      "lastError": "",
       "clone": {
         "designId": "DAHPeD1kppo",
         "outDir": "designs/DAHPeD1kppo/extract",
@@ -1949,20 +1874,15 @@
         "designs/DAHPeD1kppo/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPeD1kppo/extract/assets/pages/page-06-thumbnail.png",
         "designs/DAHPeD1kppo/extract/assets/pages/page-07-thumbnail.png"
-      ],
-      "comparison": "designs/DAHPeD1kppo/comparison.html"
+      ]
     },
     {
       "designId": "DAHPeIV3RuA",
       "status": "cloned",
       "createdAt": "2026-07-15T16:13:51.365Z",
-      "updatedAt": "2026-07-17T16:39:57.423Z",
+      "updatedAt": "2026-07-18T06:29:58.868Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-15T16:13:51.365Z",
-      "finishedAt": "2026-07-15T16:13:53.369Z",
-      "durationMs": 2004,
-      "lastError": "",
       "clone": {
         "designId": "DAHPeIV3RuA",
         "outDir": "designs/DAHPeIV3RuA/extract",
@@ -2014,20 +1934,15 @@
         "designs/DAHPeIV3RuA/extract/assets/pages/page-05-thumbnail.png",
         "designs/DAHPeIV3RuA/extract/assets/pages/page-06-thumbnail.png",
         "designs/DAHPeIV3RuA/extract/assets/pages/page-07-thumbnail.png"
-      ],
-      "comparison": "designs/DAHPeIV3RuA/comparison.html"
+      ]
     },
     {
       "designId": "DAHPhJJGLyM",
       "status": "cloned",
       "createdAt": "2026-07-16T04:21:08.902Z",
-      "updatedAt": "2026-07-17T16:39:57.473Z",
+      "updatedAt": "2026-07-18T06:29:58.871Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-16T04:21:08.902Z",
-      "finishedAt": "2026-07-16T04:21:11.166Z",
-      "durationMs": 2264,
-      "lastError": "",
       "clone": {
         "designId": "DAHPhJJGLyM",
         "outDir": "designs/DAHPhJJGLyM/extract",
@@ -2057,7 +1972,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPhJJGLyM/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -2084,13 +1998,9 @@
       "designId": "DAHPhC76mo0",
       "status": "cloned",
       "createdAt": "2026-07-16T04:21:35.097Z",
-      "updatedAt": "2026-07-16T17:22:20.326Z",
+      "updatedAt": "2026-07-18T06:29:58.873Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-16T04:21:35.097Z",
-      "finishedAt": "2026-07-16T04:21:36.623Z",
-      "durationMs": 1526,
-      "lastError": "",
       "clone": {
         "designId": "DAHPhC76mo0",
         "outDir": "designs/DAHPhC76mo0/extract",
@@ -2120,7 +2030,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPhC76mo0/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -2136,11 +2045,9 @@
           "#bc3538",
           "#ebc1b9",
           "#950003"
-        ],
-        "score": 10
+        ]
       },
       "thumb": "designs/DAHPhC76mo0/archetype-cover.png",
-      "comparison": "designs/DAHPhC76mo0/comparison.html",
       "pageThumbs": [
         "designs/DAHPhC76mo0/extract/assets/pages/page-01-thumbnail.png",
         "designs/DAHPhC76mo0/extract/assets/pages/page-02-thumbnail.png",
@@ -2155,13 +2062,9 @@
       "designId": "DAHPhHueV_U",
       "status": "duplicate",
       "createdAt": "2026-07-16T04:43:44.867Z",
-      "updatedAt": "2026-07-16T04:43:46.971Z",
+      "updatedAt": "2026-07-18T06:29:58.874Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-16T04:43:44.867Z",
-      "finishedAt": "2026-07-16T04:43:46.972Z",
-      "durationMs": 2105,
-      "lastError": "",
       "clone": {
         "designId": "DAHPhHueV_U",
         "outDir": "designs/DAHPhHueV_U/extract",
@@ -2201,7 +2104,6 @@
       },
       "output": null,
       "summary": "designs/DAHPhHueV_U/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -2224,13 +2126,9 @@
       "designId": "DAHPhIyiZEA",
       "status": "duplicate",
       "createdAt": "2026-07-16T04:51:15.792Z",
-      "updatedAt": "2026-07-16T04:51:17.001Z",
+      "updatedAt": "2026-07-18T06:29:58.876Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-16T04:51:15.792Z",
-      "finishedAt": "2026-07-16T04:51:17.003Z",
-      "durationMs": 1211,
-      "lastError": "",
       "clone": {
         "designId": "DAHPhIyiZEA",
         "outDir": "designs/DAHPhIyiZEA/extract",
@@ -2270,7 +2168,6 @@
       },
       "output": null,
       "summary": "designs/DAHPhIyiZEA/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -2293,13 +2190,9 @@
       "designId": "DAHPhRtnWw4",
       "status": "cloned",
       "createdAt": "2026-07-16T05:07:27.407Z",
-      "updatedAt": "2026-07-16T17:22:20.334Z",
+      "updatedAt": "2026-07-18T06:29:58.878Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-16T05:07:27.407Z",
-      "finishedAt": "2026-07-16T05:07:29.096Z",
-      "durationMs": 1689,
-      "lastError": "",
       "clone": {
         "designId": "DAHPhRtnWw4",
         "outDir": "designs/DAHPhRtnWw4/extract",
@@ -2329,7 +2222,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPhRtnWw4/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -2343,11 +2235,9 @@
         "palette": [
           "#ffffff",
           "#000000"
-        ],
-        "score": 7.7
+        ]
       },
       "thumb": "designs/DAHPhRtnWw4/archetype-cover.png",
-      "comparison": "designs/DAHPhRtnWw4/comparison.html",
       "pageThumbs": [
         "designs/DAHPhRtnWw4/extract/assets/pages/page-01-thumbnail.png",
         "designs/DAHPhRtnWw4/extract/assets/pages/page-02-thumbnail.png",
@@ -2361,13 +2251,9 @@
       "designId": "DAHPhTNionw",
       "status": "duplicate",
       "createdAt": "2026-07-16T05:11:55.890Z",
-      "updatedAt": "2026-07-16T05:11:58.546Z",
+      "updatedAt": "2026-07-18T06:29:58.880Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-16T05:11:55.890Z",
-      "finishedAt": "2026-07-16T05:11:58.548Z",
-      "durationMs": 2658,
-      "lastError": "",
       "clone": {
         "designId": "DAHPhTNionw",
         "outDir": "designs/DAHPhTNionw/extract",
@@ -2407,7 +2293,6 @@
       },
       "output": null,
       "summary": "designs/DAHPhTNionw/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -2428,13 +2313,9 @@
       "designId": "DAHPheuRB9M",
       "status": "cloned",
       "createdAt": "2026-07-16T05:12:07.435Z",
-      "updatedAt": "2026-07-17T16:39:57.657Z",
+      "updatedAt": "2026-07-18T06:29:58.882Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-16T05:12:07.435Z",
-      "finishedAt": "2026-07-16T05:12:09.145Z",
-      "durationMs": 1710,
-      "lastError": "",
       "clone": {
         "designId": "DAHPheuRB9M",
         "outDir": "designs/DAHPheuRB9M/extract",
@@ -2464,7 +2345,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPheuRB9M/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -2495,13 +2375,9 @@
       "designId": "DAHPhaXds1M",
       "status": "cloned",
       "createdAt": "2026-07-16T05:12:22.260Z",
-      "updatedAt": "2026-07-17T16:39:57.675Z",
+      "updatedAt": "2026-07-18T06:29:58.884Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-16T05:12:22.260Z",
-      "finishedAt": "2026-07-16T05:12:23.462Z",
-      "durationMs": 1202,
-      "lastError": "",
       "clone": {
         "designId": "DAHPhaXds1M",
         "outDir": "designs/DAHPhaXds1M/extract",
@@ -2531,7 +2407,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPhaXds1M/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -2565,13 +2440,9 @@
       "designId": "DAHPhQ4CKmo",
       "status": "cloned",
       "createdAt": "2026-07-16T05:12:34.998Z",
-      "updatedAt": "2026-07-17T16:39:57.692Z",
+      "updatedAt": "2026-07-18T06:29:58.886Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-16T05:12:34.998Z",
-      "finishedAt": "2026-07-16T05:12:36.217Z",
-      "durationMs": 1219,
-      "lastError": "",
       "clone": {
         "designId": "DAHPhQ4CKmo",
         "outDir": "designs/DAHPhQ4CKmo/extract",
@@ -2601,7 +2472,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPhQ4CKmo/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -2633,13 +2503,9 @@
       "designId": "DAHPhXt_7uU",
       "status": "duplicate",
       "createdAt": "2026-07-16T05:17:18.974Z",
-      "updatedAt": "2026-07-16T05:17:20.131Z",
+      "updatedAt": "2026-07-18T06:29:58.888Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-16T05:17:18.974Z",
-      "finishedAt": "2026-07-16T05:17:20.134Z",
-      "durationMs": 1160,
-      "lastError": "",
       "clone": {
         "designId": "DAHPhXt_7uU",
         "outDir": "designs/DAHPhXt_7uU/extract",
@@ -2679,7 +2545,6 @@
       },
       "output": null,
       "summary": "designs/DAHPhXt_7uU/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -2701,15 +2566,11 @@
     },
     {
       "designId": "DAHPhTwuqUY",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-16T05:18:06.061Z",
-      "updatedAt": "2026-07-17T16:39:57.727Z",
+      "updatedAt": "2026-07-18T06:29:58.890Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-16T05:18:06.061Z",
-      "finishedAt": "2026-07-16T05:18:08.020Z",
-      "durationMs": 1959,
-      "lastError": "",
       "clone": {
         "designId": "DAHPhTwuqUY",
         "outDir": "designs/DAHPhTwuqUY/extract",
@@ -2748,23 +2609,9 @@
         "palette": [
           "#ffffff",
           "#000000"
-        ],
-        "score": 8.5
+        ]
       },
       "thumb": "designs/DAHPhTwuqUY/archetype-cover.png",
-      "remixes": [
-        {
-          "slug": "read-more-books",
-          "output": "output/read-more-books.html",
-          "slides": [
-            ".renders/output/read-more-books/slide-01.png",
-            ".renders/output/read-more-books/slide-02.png",
-            ".renders/output/read-more-books/slide-03.png",
-            ".renders/output/read-more-books/slide-04.png",
-            ".renders/output/read-more-books/slide-05.png"
-          ]
-        }
-      ],
       "pageThumbs": [
         "designs/DAHPhTwuqUY/extract/assets/pages/page-01-thumbnail.png",
         "designs/DAHPhTwuqUY/extract/assets/pages/page-02-thumbnail.png",
@@ -2777,13 +2624,9 @@
       "designId": "DAHPhbFYgDA",
       "status": "cloned",
       "createdAt": "2026-07-16T05:18:27.887Z",
-      "updatedAt": "2026-07-17T16:39:57.745Z",
+      "updatedAt": "2026-07-18T06:29:58.892Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-16T05:18:27.887Z",
-      "finishedAt": "2026-07-16T05:18:29.612Z",
-      "durationMs": 1725,
-      "lastError": "",
       "clone": {
         "designId": "DAHPhbFYgDA",
         "outDir": "designs/DAHPhbFYgDA/extract",
@@ -2813,7 +2656,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPhbFYgDA/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -2844,13 +2686,9 @@
       "designId": "DAHPheh9ggM",
       "status": "cloned",
       "createdAt": "2026-07-16T05:18:42.101Z",
-      "updatedAt": "2026-07-17T16:39:57.759Z",
+      "updatedAt": "2026-07-18T06:29:58.893Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-16T05:18:42.101Z",
-      "finishedAt": "2026-07-16T05:18:43.577Z",
-      "durationMs": 1476,
-      "lastError": "",
       "clone": {
         "designId": "DAHPheh9ggM",
         "outDir": "designs/DAHPheh9ggM/extract",
@@ -2880,7 +2718,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPheh9ggM/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -2909,13 +2746,9 @@
       "designId": "DAHPpN9NeYQ",
       "status": "cloned",
       "createdAt": "2026-07-17T12:19:06.703Z",
-      "updatedAt": "2026-07-17T16:39:57.788Z",
+      "updatedAt": "2026-07-18T06:29:58.895Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-17T12:19:06.703Z",
-      "finishedAt": "2026-07-17T12:19:07.981Z",
-      "durationMs": 1278,
-      "lastError": "",
       "clone": {
         "designId": "DAHPpN9NeYQ",
         "outDir": "designs/DAHPpN9NeYQ/extract",
@@ -2945,7 +2778,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPpN9NeYQ/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "pageThumbs": [
@@ -2975,13 +2807,9 @@
       "designId": "DAHPpBFsnk8",
       "status": "duplicate",
       "createdAt": "2026-07-17T12:19:19.429Z",
-      "updatedAt": "2026-07-17T12:19:36.346Z",
+      "updatedAt": "2026-07-18T06:29:58.896Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-17T12:19:19.429Z",
-      "finishedAt": "2026-07-17T12:19:36.351Z",
-      "durationMs": 16922,
-      "lastError": "",
       "clone": {
         "designId": "DAHPpBFsnk8",
         "outDir": "designs/DAHPpBFsnk8/extract",
@@ -3021,7 +2849,6 @@
       },
       "output": null,
       "summary": "designs/DAHPpBFsnk8/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "meta": {
@@ -3044,13 +2871,9 @@
       "designId": "DAHPpNZqcww",
       "status": "cloned",
       "createdAt": "2026-07-17T12:20:02.432Z",
-      "updatedAt": "2026-07-17T16:39:57.912Z",
+      "updatedAt": "2026-07-18T06:29:58.899Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-17T12:20:02.432Z",
-      "finishedAt": "2026-07-17T12:20:04.069Z",
-      "durationMs": 1637,
-      "lastError": "",
       "clone": {
         "designId": "DAHPpNZqcww",
         "outDir": "designs/DAHPpNZqcww/extract",
@@ -3080,7 +2903,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPpNZqcww/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "pageThumbs": [
@@ -3109,15 +2931,11 @@
     },
     {
       "designId": "DAHPpPDvZpM",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-17T12:38:15.721Z",
-      "updatedAt": "2026-07-17T17:14:22.007Z",
+      "updatedAt": "2026-07-18T06:29:58.901Z",
       "attempts": 3,
       "sourceUrl": "",
-      "startedAt": "2026-07-17T13:18:09.922Z",
-      "finishedAt": "2026-07-17T13:18:10.750Z",
-      "durationMs": 828,
-      "lastError": "",
       "clone": {
         "designId": "DAHPpPDvZpM",
         "outDir": "designs/DAHPpPDvZpM/extract",
@@ -3147,7 +2965,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPpPDvZpM/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "thumb": "designs/DAHPpPDvZpM/archetype-cover.png",
@@ -3163,31 +2980,16 @@
         ],
         "palette": [
           "#fafafa"
-        ],
-        "score": 9.7
-      },
-      "genStage": "authoring",
-      "remixes": [
-        {
-          "slug": "never-too-late",
-          "output": "output/never-too-late.html",
-          "slides": [
-            ".renders/output/never-too-late/slide-01.png"
-          ]
-        }
-      ]
+        ]
+      }
     },
     {
       "designId": "DAHPpAF8YsM",
       "status": "duplicate",
       "createdAt": "2026-07-17T12:40:33.927Z",
-      "updatedAt": "2026-07-17T12:42:33.012Z",
+      "updatedAt": "2026-07-18T06:29:58.902Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-17T12:40:33.927Z",
-      "finishedAt": "2026-07-17T12:40:35.460Z",
-      "durationMs": 1533,
-      "lastError": "",
       "clone": {
         "designId": "DAHPpAF8YsM",
         "outDir": "designs/DAHPpAF8YsM/extract",
@@ -3227,7 +3029,6 @@
       },
       "output": null,
       "summary": "designs/DAHPpAF8YsM/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "thumb": "designs/DAHPpAF8YsM/archetype-cover.png",
@@ -3253,13 +3054,9 @@
       "designId": "DAHPpNmoMqc",
       "status": "cloned",
       "createdAt": "2026-07-17T12:42:33.013Z",
-      "updatedAt": "2026-07-17T16:39:58.114Z",
+      "updatedAt": "2026-07-18T06:29:58.903Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-17T12:42:33.013Z",
-      "finishedAt": "2026-07-17T12:42:35.611Z",
-      "durationMs": 2598,
-      "lastError": "",
       "clone": {
         "designId": "DAHPpNmoMqc",
         "outDir": "designs/DAHPpNmoMqc/extract",
@@ -3289,7 +3086,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPpNmoMqc/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "thumb": "designs/DAHPpNmoMqc/archetype-cover.png",
@@ -3312,15 +3108,11 @@
     },
     {
       "designId": "DAHPpE_asG4",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-17T12:42:58.606Z",
-      "updatedAt": "2026-07-17T17:14:22.013Z",
+      "updatedAt": "2026-07-18T06:29:58.904Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-17T12:42:58.606Z",
-      "finishedAt": "2026-07-17T12:42:59.722Z",
-      "durationMs": 1116,
-      "lastError": "",
       "clone": {
         "designId": "DAHPpE_asG4",
         "outDir": "designs/DAHPpE_asG4/extract",
@@ -3350,7 +3142,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPpE_asG4/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "thumb": "designs/DAHPpE_asG4/archetype-cover.png",
@@ -3366,34 +3157,19 @@
           "#ffffff",
           "#171717",
           "#a6a6a6"
-        ],
-        "score": 10
+        ]
       },
       "pageThumbs": [
         "designs/DAHPpE_asG4/extract/assets/pages/page-01-thumbnail.png"
-      ],
-      "genStage": "authoring",
-      "remixes": [
-        {
-          "slug": "start-messy-today",
-          "output": "output/start-messy-today.html",
-          "slides": [
-            ".renders/output/start-messy-today/slide-01.png"
-          ]
-        }
       ]
     },
     {
       "designId": "DAHPpAdKx9A",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-17T12:49:38.803Z",
-      "updatedAt": "2026-07-17T17:14:22.015Z",
+      "updatedAt": "2026-07-18T06:29:58.905Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-17T12:49:38.803Z",
-      "finishedAt": "2026-07-17T12:49:39.850Z",
-      "durationMs": 1047,
-      "lastError": "",
       "clone": {
         "designId": "DAHPpAdKx9A",
         "outDir": "designs/DAHPpAdKx9A/extract",
@@ -3423,7 +3199,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPpAdKx9A/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "thumb": "designs/DAHPpAdKx9A/archetype-cover.png",
@@ -3440,34 +3215,19 @@
           "#073d56",
           "#000000",
           "#111111"
-        ],
-        "score": 10
+        ]
       },
       "pageThumbs": [
         "designs/DAHPpAdKx9A/extract/assets/pages/page-01-thumbnail.png"
-      ],
-      "genStage": "authoring",
-      "remixes": [
-        {
-          "slug": "steady-not-loud",
-          "output": "output/steady-not-loud.html",
-          "slides": [
-            ".renders/output/steady-not-loud/slide-01.png"
-          ]
-        }
       ]
     },
     {
       "designId": "DAHPpIQ0PCk",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-17T12:50:58.645Z",
-      "updatedAt": "2026-07-17T17:14:22.017Z",
+      "updatedAt": "2026-07-18T06:29:58.906Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-17T12:50:58.645Z",
-      "finishedAt": "2026-07-17T12:50:59.829Z",
-      "durationMs": 1184,
-      "lastError": "",
       "clone": {
         "designId": "DAHPpIQ0PCk",
         "outDir": "designs/DAHPpIQ0PCk/extract",
@@ -3497,7 +3257,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPpIQ0PCk/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "thumb": "designs/DAHPpIQ0PCk/archetype-cover.png",
@@ -3511,34 +3270,19 @@
         "palette": [
           "#cacedf",
           "#4a4f7f"
-        ],
-        "score": 9.7
+        ]
       },
       "pageThumbs": [
         "designs/DAHPpIQ0PCk/extract/assets/pages/page-01-thumbnail.png"
-      ],
-      "genStage": "authoring",
-      "remixes": [
-        {
-          "slug": "brave-career-pivot",
-          "output": "output/brave-career-pivot.html",
-          "slides": [
-            ".renders/output/brave-career-pivot/slide-01.png"
-          ]
-        }
       ]
     },
     {
       "designId": "DAHPpHe6qAc",
-      "status": "success",
+      "status": "cloned",
       "createdAt": "2026-07-17T12:51:18.106Z",
-      "updatedAt": "2026-07-17T17:14:22.019Z",
+      "updatedAt": "2026-07-18T06:29:58.907Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-17T12:51:18.106Z",
-      "finishedAt": "2026-07-17T12:51:19.369Z",
-      "durationMs": 1263,
-      "lastError": "",
       "clone": {
         "designId": "DAHPpHe6qAc",
         "outDir": "designs/DAHPpHe6qAc/extract",
@@ -3568,7 +3312,6 @@
       "duplicateOf": null,
       "output": null,
       "summary": "designs/DAHPpHe6qAc/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "thumb": "designs/DAHPpHe6qAc/archetype-cover.png",
@@ -3586,34 +3329,19 @@
           "#fffbf2",
           "#343434",
           "#000000"
-        ],
-        "score": 9.7
+        ]
       },
       "pageThumbs": [
         "designs/DAHPpHe6qAc/extract/assets/pages/page-01-thumbnail.png"
-      ],
-      "genStage": "authoring",
-      "remixes": [
-        {
-          "slug": "roll-into-joy",
-          "output": "output/roll-into-joy.html",
-          "slides": [
-            ".renders/output/roll-into-joy/slide-01.png"
-          ]
-        }
       ]
     },
     {
       "designId": "DAHPpD6Q_Z8",
       "status": "duplicate",
       "createdAt": "2026-07-17T12:51:44.344Z",
-      "updatedAt": "2026-07-17T12:51:55.332Z",
+      "updatedAt": "2026-07-18T06:29:58.908Z",
       "attempts": 1,
       "sourceUrl": "",
-      "startedAt": "2026-07-17T12:51:44.344Z",
-      "finishedAt": "2026-07-17T12:51:47.144Z",
-      "durationMs": 2800,
-      "lastError": "",
       "clone": {
         "designId": "DAHPpD6Q_Z8",
         "outDir": "designs/DAHPpD6Q_Z8/extract",
@@ -3653,7 +3381,6 @@
       },
       "output": null,
       "summary": "designs/DAHPpD6Q_Z8/workspace-summary.json",
-      "qualityGate": null,
       "runId": null,
       "generatedAt": null,
       "thumb": "designs/DAHPpD6Q_Z8/archetype-cover.png",

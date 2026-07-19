@@ -1,0 +1,88 @@
+{
+  "template": "D:\\wamp64\\www\\canva-template-workspace\\output\\permission-slips-daily.html",
+  "slides": 5,
+  "fonts": [
+    {
+      "family": "Space Mono",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Fraunces",
+      "weight": 420,
+      "style": "italic",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Caveat",
+      "weight": 600,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "DM Sans",
+      "weight": 800,
+      "style": "italic",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Caveat",
+      "weight": 600,
+      "style": "italic",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "DM Sans",
+      "weight": 800,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "DM Sans",
+      "weight": 400,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    }
+  ],
+  "photoStats": [
+    {
+      "slide": 1,
+      "mean": 0.6050582080011538,
+      "stddev": 0.26074146891387107
+    },
+    {
+      "slide": 5,
+      "mean": 0.5660286237966371,
+      "stddev": 0.2965078284572161
+    }
+  ],
+  "findings": [
+    {
+      "slide": 2,
+      "check": "COVERAGE",
+      "severity": "warn",
+      "message": "content slide 67% filled — could carry more visual weight"
+    },
+    {
+      "slide": 3,
+      "check": "COVERAGE",
+      "severity": "warn",
+      "message": "content slide 63% filled — could carry more visual weight"
+    },
+    {
+      "slide": 4,
+      "check": "COVERAGE",
+      "severity": "warn",
+      "message": "content slide 67% filled — could carry more visual weight"
+    }
+  ],
+  "pass": true
+}

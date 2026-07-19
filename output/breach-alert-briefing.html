@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@500;600;700;800&display=swap');
+
+    :root{
+      /* Canvas is a fixed near-black slab (matches the reference's grainy dark
+         backdrop) and ink is fixed off-white — per the recolor contract,
+         --bg/--text-* never move. Brand identity lives ONLY in filled
+         surfaces: the arrow disc, the kicker/cta/counter pills and the
+         stat-bullet sparks — all --accent (with --primary as a second fill
+         tone on the logo chip). Nothing routes branded colour into text
+         sitting directly on the black canvas: --primary's only guarantee is
+         "stays dark", which is invisible on black regardless of brand, so
+         canvas text stays --text-high/--text-low (or a fixed decorative ink
+         for the two-tone headline word, exactly like the reference's own
+         fixed lilac — never brand-bound, so it can never go invisible). */
+      --primary:var(--brand-primary,#241a35);
+      --secondary:var(--brand-secondary,#7c3aed);
+      --accent:var(--brand-accent,#c98bff);
+      --highlight:var(--brand-accent,#c98bff);
+      --bg:var(--brand-bg,#08070b);
+      --surface:var(--brand-surface,#141020);
+      --text-high:var(--brand-ink,#f7f4fb);
+      --text-low:var(--brand-text-muted,rgba(247,244,251,.66));
+      --border:var(--brand-border,rgba(247,244,251,.16));
+      --on-accent:var(--brand-on-accent,#150c22);
+      --on-primary:var(--brand-on-primary,#ffffff);
+    }
+
+    *{box-sizing:border-box;}
+    .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#050409;}
+
+    .slide{
+      width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+      background:var(--bg);
+      font-family:'Manrope',sans-serif;
+    }
+
+    /* ── backdrop: dark violet-black gradient + film grain, no photo needed ── */
+    .bg{
+      position:absolute;inset:0;z-index:0;
+      background:
+        radial-gradient(55% 42% at 84% 98%, rgba(167,124,219,.34) 0%, rgba(167,124,219,0) 62%),
+        radial-gradient(70% 50% at 8% 4%, rgba(90,64,124,.22) 0%, rgba(90,64,124,0) 60%),
+        linear-gradient(165deg, #18122a 0%, #0d0a15 45%, var(--bg) 100%);
+    }
+    .grain{position:absolute;inset:0;z-index:1;mix-blend-mode:overlay;opacity:.55;pointer-events:none;}
+
+    /* ── topbar: brand lockup + circular arrow device (accent fill, every slide) ── */
+    .topbar{position:absolute;left:100px;right:96px;top:88px;z-index:4;display:flex;align-items:flex-start;justify-content:space-between;}
+    .lockup{display:inline-flex;align-items:center;gap:16px;}
+    .brand-mark-clip{flex:none;height:60px;display:flex;align-items:center;}
+    .brand-mark{height:60px;width:auto;max-width:130px;object-fit:contain;display:block;}
+    .brand-word{font-family:'Manrope',sans-serif;font-weight:800;font-size:30px;line-height:1.1;letter-spacing:.01em;color:var(--text-high);white-space:nowrap;}
+    .arrow-btn{width:100px;height:100px;flex:none;}
+
+    /* ── kicker pill (accent fill, on-accent text) ── */
+    .tn-tag{position:absolute;left:100px;z-index:3;}
+    .kicker{
+      display:inline-flex;align-items:center;background:var(--accent);color:var(--on-accent);
+      font-family:'Manrope',sans-serif;font-weight:800;font-size:28px;letter-spacing:.1em;text-transform:uppercase;
+      padding:14px 30px 16px;border-radius:999px;white-space:nowrap;
+    }
+
+    /* ── headline: fixed white ink + fixed lilac accent word, never brand-bound ── */
+    .tn-title{position:absolute;left:100px;right:104px;z-index:3;}
+    .tn-title h1{
+      margin:0;font-family:'Anton',sans-serif;font-weight:400;font-size:104px;line-height:.98;
+      letter-spacing:.005em;text-transform:uppercase;color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.18em;
+    }
+    .accent-word{color:#caa6ff;}
+
+    /* ── message paragraph ── */
+    .tn-msg{position:absolute;left:100px;right:220px;z-index:3;}
+    .tn-msg p{
+      margin:0;font-family:'Manrope',sans-serif;font-weight:600;font-size:34px;line-height:1.38;
+      color:var(--text-low);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.2em;
+    }
+
+    /* ── cta pill (accent fill, on-accent text) ── */
+    .tn-cta{position:absolute;left:100px;z-index:3;}
+    .cta-btn{
+      display:inline-flex;align-items:center;background:var(--accent);color:var(--on-accent);
+      font-family:'Manrope',sans-serif;font-weight:800;font-size:32px;letter-spacing:.02em;text-transform:uppercase;
+      padding:24px 44px 27px;border-radius:999px;white-space:nowrap;line-height:1.1;
+    }
+
+    /* ── stat rows (slide 3) ── */
+    .stat-line{position:absolute;left:100px;right:112px;display:flex;align-items:flex-start;gap:26px;z-index:3;}
+    .stat-line .bullet{width:42px;height:42px;flex:none;margin-top:6px;}
+    .stat-text{
+      margin:0;font-family:'Manrope',sans-serif;font-weight:800;font-size:42px;line-height:1.22;
+      letter-spacing:.005em;text-transform:uppercase;color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.16em;
+    }
+    .stat-note{position:absolute;left:100px;right:340px;top:1096px;z-index:3;}
+    .stat-note span{
+      font-family:'Manrope',sans-serif;font-weight:700;font-size:26px;letter-spacing:.01em;color:var(--text-low);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+    }
+
+    /* ── footer: url tag (fixed) + counter pill (accent fill, every slide) ── */
+    .footer{position:absolute;left:100px;right:100px;bottom:78px;z-index:4;display:flex;align-items:center;justify-content:space-between;}
+    .foot-url{
+      font-family:'Manrope',sans-serif;font-weight:700;font-size:27px;letter-spacing:.01em;color:var(--text-high);white-space:nowrap;
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;line-height:1.3;padding-bottom:.18em;
+    }
+    .counter{
+      display:inline-flex;align-items:center;background:var(--accent);color:var(--on-accent);
+      font-family:'Manrope',sans-serif;font-weight:800;font-size:24px;letter-spacing:.08em;
+      padding:11px 24px 13px;border-radius:999px;white-space:nowrap;
+    }
+
+    /* ── decorative low-poly mesh (slide 4 closer only) ── */
+    .mesh{position:absolute;right:-30px;bottom:60px;width:420px;height:480px;z-index:2;opacity:.9;}
+
+    /* ── decorative spark (slide 2 teaser only) ── */
+    .spark-deco{position:absolute;right:110px;top:600px;width:250px;height:250px;z-index:2;opacity:.92;}
+
+    /* ── topic tag row (slide 2 teaser only) — outline chips, extra coverage ── */
+    .tag-row{position:absolute;left:100px;right:170px;top:960px;z-index:3;display:flex;gap:18px;flex-wrap:wrap;}
+    .tag-chip{
+      border:2px solid var(--border);border-radius:999px;padding:14px 26px 16px;
+      font-family:'Manrope',sans-serif;font-weight:700;font-size:24px;letter-spacing:.06em;text-transform:uppercase;
+      color:var(--text-low);white-space:nowrap;
+    }
+
+    /* ── thin accent rule above footer, every slide — extra brand-bound coverage ── */
+    .foot-rule{position:absolute;left:100px;right:100px;bottom:158px;height:8px;background:var(--accent);opacity:.6;z-index:3;border-radius:4px;}
+
+    /* ── accent spine down the left edge, every slide — large, always-visible brand fill ── */
+    .edge-spine{position:absolute;left:0;top:0;bottom:0;width:16px;background:var(--accent);opacity:.6;z-index:2;}
+
+    /* ── tinted surface card behind the stat list (slide 3) — big brand-driven area ── */
+    .stat-card{
+      position:absolute;left:76px;top:206px;width:928px;height:986px;z-index:1;border-radius:36px;
+      background:color-mix(in srgb, var(--accent) 12%, var(--surface) 88%);
+      border:1px solid var(--border);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <!-- Slide 1 — Cover -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="edge-spine" aria-hidden="true"></div>
+      <svg class="grain" data-cg-svg data-cg-preserve viewBox="0 0 1080 1350" preserveAspectRatio="none" aria-hidden="true">
+        <filter id="n1"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/><feColorMatrix in="noise" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0"/></filter>
+        <rect width="1080" height="1350" filter="url(#n1)"/>
+      </svg>
+
+      <div class="topbar">
+        <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></span>
+        <svg class="arrow-btn" data-cg-svg data-cg-preserve viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="41" fill="var(--accent)"/><path d="M32 24 L52 42 L32 60" stroke="var(--on-accent)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      </div>
+
+      <div class="tn-tag" style="top:206px;"><span class="kicker" data-tagline="true">Threat Briefing</span></div>
+      <div class="tn-title" style="top:326px;height:420px;"><h1 data-title="true">Do You Know <span class="accent-word">How Fast A Breach Spreads?</span></h1></div>
+      <div class="tn-msg" style="top:772px;"><p data-message="true">One weak password is all it takes to open the door.</p></div>
+
+      <div class="foot-rule" aria-hidden="true"></div>
+      <div class="footer">
+        <span class="foot-url">yourbrand.io</span>
+        <span class="counter" data-counter="true">01 / 04</span>
+      </div>
+    </section>
+
+    <!-- Slide 2 — Teaser -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="edge-spine" aria-hidden="true"></div>
+      <svg class="grain" data-cg-svg data-cg-preserve viewBox="0 0 1080 1350" preserveAspectRatio="none" aria-hidden="true">
+        <filter id="n2"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/><feColorMatrix in="noise" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0"/></filter>
+        <rect width="1080" height="1350" filter="url(#n2)"/>
+      </svg>
+
+      <div class="topbar">
+        <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></span>
+        <svg class="arrow-btn" data-cg-svg data-cg-preserve viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="41" fill="var(--accent)"/><path d="M32 24 L52 42 L32 60" stroke="var(--on-accent)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      </div>
+
+      <div class="tn-tag" style="top:206px;"><span class="kicker" data-tagline="true">Field Note</span></div>
+      <div class="tn-title" style="top:326px;height:420px;right:200px;"><h1 data-title="true">Here's The Part <span class="accent-word">Most Teams Get Wrong</span></h1></div>
+      <div class="tn-msg" style="top:772px;"><p data-message="true">It's rarely the hackers. It's the habits.</p></div>
+
+      <div class="tag-row">
+        <span class="tag-chip">Phishing</span>
+        <span class="tag-chip">Passwords</span>
+        <span class="tag-chip">2FA</span>
+        <span class="tag-chip">Backups</span>
+      </div>
+      <svg class="spark-deco" data-cg-svg data-cg-preserve viewBox="0 0 120 120" aria-hidden="true"><path d="M60 0 L70 48 L120 60 L70 72 L60 120 L50 72 L0 60 L50 48 Z" fill="var(--accent)"/></svg>
+
+      <div class="foot-rule" aria-hidden="true"></div>
+      <div class="footer">
+        <span class="foot-url">yourbrand.io</span>
+        <span class="counter" data-counter="true">02 / 04</span>
+      </div>
+    </section>
+
+    <!-- Slide 3 — Stats -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="edge-spine" aria-hidden="true"></div>
+      <svg class="grain" data-cg-svg data-cg-preserve viewBox="0 0 1080 1350" preserveAspectRatio="none" aria-hidden="true">
+        <filter id="n3"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/><feColorMatrix in="noise" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0"/></filter>
+        <rect width="1080" height="1350" filter="url(#n3)"/>
+      </svg>
+
+      <div class="topbar">
+        <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></span>
+        <svg class="arrow-btn" data-cg-svg data-cg-preserve viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="41" fill="var(--accent)"/><path d="M32 24 L52 42 L32 60" stroke="var(--on-accent)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      </div>
+
+      <div class="stat-card" aria-hidden="true"></div>
+
+      <div class="stat-line" style="top:238px;">
+        <svg class="bullet" data-cg-svg data-cg-preserve viewBox="0 0 40 40" aria-hidden="true"><path d="M20 0 L24 16 L40 20 L24 24 L20 40 L16 24 L0 20 L16 16 Z" fill="var(--accent)"/></svg>
+        <div class="stat-text">A new cyberattack hits a business every 11 seconds worldwide</div>
+      </div>
+
+      <div class="stat-line" style="top:512px;">
+        <svg class="bullet" data-cg-svg data-cg-preserve viewBox="0 0 40 40" aria-hidden="true"><path d="M20 0 L24 16 L40 20 L24 24 L20 40 L16 24 L0 20 L16 16 Z" fill="var(--accent)"/></svg>
+        <div class="stat-text">The average breach now costs a company $4.9 million to contain</div>
+      </div>
+
+      <div class="stat-line" style="top:786px;">
+        <svg class="bullet" data-cg-svg data-cg-preserve viewBox="0 0 40 40" aria-hidden="true"><path d="M20 0 L24 16 L40 20 L24 24 L20 40 L16 24 L0 20 L16 16 Z" fill="var(--accent)"/></svg>
+        <div class="stat-text">94% of breaches start with one phishing email, not advanced code</div>
+      </div>
+
+      <div class="stat-note"><span data-cta="true">and the list keeps growing..</span></div>
+
+      <div class="foot-rule" aria-hidden="true"></div>
+      <div class="footer">
+        <span class="foot-url">yourbrand.io</span>
+        <span class="counter" data-counter="true">03 / 04</span>
+      </div>
+    </section>
+
+    <!-- Slide 4 — Closer -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="edge-spine" aria-hidden="true"></div>
+      <svg class="grain" data-cg-svg data-cg-preserve viewBox="0 0 1080 1350" preserveAspectRatio="none" aria-hidden="true">
+        <filter id="n4"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/><feColorMatrix in="noise" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0"/></filter>
+        <rect width="1080" height="1350" filter="url(#n4)"/>
+      </svg>
+
+      <svg class="mesh" data-cg-svg data-cg-preserve viewBox="0 0 420 480" aria-hidden="true">
+        <g stroke="#ffffff" stroke-opacity="0.16" stroke-width="1.4" fill="none">
+          <path d="M40 40 L180 90 L320 30 M180 90 L140 220 M320 30 L380 160 M140 220 L60 340 M140 220 L300 260 M300 260 L380 160 M60 340 L180 430 M300 260 L360 400"/>
+        </g>
+        <g fill="#ffffff" fill-opacity="0.5">
+          <circle cx="40" cy="40" r="4"/><circle cx="180" cy="90" r="4"/><circle cx="320" cy="30" r="4"/><circle cx="140" cy="220" r="4"/><circle cx="380" cy="160" r="4"/><circle cx="60" cy="340" r="4"/><circle cx="300" cy="260" r="4"/><circle cx="180" cy="430" r="4"/><circle cx="360" cy="400" r="4"/>
+        </g>
+      </svg>
+
+      <div class="topbar">
+        <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></span>
+        <svg class="arrow-btn" data-cg-svg data-cg-preserve viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="41" fill="var(--accent)"/><path d="M32 24 L52 42 L32 60" stroke="var(--on-accent)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      </div>
+
+      <div class="tn-title" style="top:326px;height:420px;right:200px;"><h1 data-title="true">Still Using <span class="accent-word">"Password123"?</span></h1></div>
+      <div class="tn-msg" style="top:772px;right:280px;"><p data-message="true">Two-factor authentication blocks 99% of automated attacks.</p></div>
+      <div class="tn-cta" style="top:998px;"><span class="cta-btn" data-cta="true">Switch On 2FA Today</span></div>
+
+      <div class="foot-rule" aria-hidden="true"></div>
+      <div class="footer">
+        <span class="foot-url">yourbrand.io</span>
+        <span class="counter" data-counter="true">04 / 04</span>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

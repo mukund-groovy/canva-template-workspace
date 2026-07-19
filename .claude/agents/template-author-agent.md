@@ -146,6 +146,14 @@ This is the #1 way a reproduction fails while still "having the right words".
   them with real CSS/SVG so they read like the reference — a spiral binding is a column of metal rings
   (SVG ellipses with a metallic gradient + shadow + a punched hole), NOT a plain line; paper gets a
   subtle texture / inner-shadow, not flat white.
+- **SVG rules (gate-enforced by `check-template-contract` — C9/C10):** (1) **Never put readable copy in
+  `<svg><text>`** — numerals, headlines, labels, any glyph a reader reads goes in a plain HTML element
+  (`div`/`span`/`h1`). SVG `<text>` does not reliably repaint when a webfont loads late (many iframes race
+  the same font) and sticks in the fallback face permanently. Decorative treatment → CSS on the HTML element
+  (`-webkit-text-stroke` for hollow/outline numerals, `background-clip:text`, `mask-image`), never by moving
+  text into SVG. (2) **Every `<svg>` root carries `data-cg-svg data-cg-preserve`** (e.g.
+  `<svg data-cg-svg data-cg-preserve viewBox="...">`) — editable in the playground + preserved byte-identical
+  through the backend (cheerio HTML-mode otherwise lowercases `viewBox`→`viewbox`). Applies to every SVG.
 - **The SIGNATURE BACKDROP must be reproduced at the reference's STRENGTH — never "faint".** The most
   eye-catching element is often the background (a graph-paper grid, ruled lines, kraft paper, halftone,
   colour field). Sample how DARK and how DENSE it is in the reference and match it: a visible grid is

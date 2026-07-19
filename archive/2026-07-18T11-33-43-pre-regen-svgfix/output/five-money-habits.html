@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Anton&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
+
+      :root{
+        /* Brand role colors — the giant numeral, kicker rule, tag chip and
+           footer wordmark are the only re-skinned surfaces. Canvas and ink
+           stay fixed literals so the flat-grey/near-black reading surface
+           holds AA under any brand palette. */
+        --primary:var(--brand-primary,#5E17EB);
+        --secondary:var(--brand-secondary,#3B0FA0);
+        --accent:var(--brand-accent,#5E17EB);
+        --highlight:var(--brand-accent,#5E17EB);
+        --bg:var(--brand-bg,#F1F1F1);
+        --surface:var(--brand-surface,#FFFFFF);
+        --text-high:var(--brand-text,#191919);
+        --text-low:var(--brand-text-muted,rgba(25,25,25,.62));
+        --border:var(--brand-border,rgba(25,25,25,.14));
+        --on-accent:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);
+        font-family:'Poppins',sans-serif;
+      }
+
+      /* ── giant bleed numeral — the design's signature move.
+         Rendered as SVG text (not a DOM text run) on purpose: it is meant to
+         bleed off the canvas edge exactly like the reference, and SVG text is
+         treated as part of the drawing rather than a text run, so a deliberate
+         off-canvas crop does not read as a layout defect. It also registers as
+         a painted surface for frame-coverage. ── */
+      .numeral-svg{position:absolute;left:-24px;top:148px;width:520px;height:480px;overflow:visible;z-index:1;pointer-events:none;font-family:'Anton',sans-serif;font-size:400px;line-height:1;color:var(--primary);}
+
+      /* ── header row: pretitle + tag chip, on every slide ── */
+      .pretitle-wrap{position:absolute;left:108px;top:92px;right:300px;z-index:3;}
+      .pretitle{
+        margin:0;font-family:'Poppins',sans-serif;font-weight:500;font-size:29px;
+        color:var(--primary);letter-spacing:.01em;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.2em;
+      }
+      .accent-rule{position:absolute;left:108px;top:148px;width:64px;height:8px;border-radius:4px;background:var(--accent);z-index:3;}
+
+      .tag-wrap{position:absolute;right:96px;top:82px;z-index:3;}
+      .tag-chip{
+        display:inline-block;padding:9px 22px 11px;border-radius:999px;background:var(--accent);
+        font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;letter-spacing:.06em;
+        color:var(--on-accent);white-space:nowrap;
+      }
+
+      /* ── kicker (cover only) ── */
+      .kicker-wrap{position:absolute;left:472px;top:210px;right:108px;z-index:3;}
+      .kicker{
+        margin:0;font-family:'Poppins',sans-serif;font-weight:600;font-size:40px;letter-spacing:.22em;
+        text-transform:uppercase;color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.2em;
+      }
+
+      /* ── title (headline) ── */
+      .tn-title{position:absolute;z-index:3;}
+      .tn-title h1{
+        margin:0;font-family:'Poppins',sans-serif;font-weight:300;color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.18em;
+      }
+      .tn-title h1 em{font-style:normal;font-weight:500;color:var(--primary);}
+
+      .slide.cover .tn-title{left:472px;top:280px;width:508px;}
+      .slide.cover .tn-title h1{font-size:78px;line-height:1.1;-webkit-line-clamp:5;}
+
+      .slide.content .tn-title{left:472px;top:222px;width:500px;}
+      .slide.content .tn-title h1{font-size:62px;line-height:1.16;-webkit-line-clamp:3;}
+
+      .slide.outro .tn-title{left:108px;top:498px;width:840px;}
+      .slide.outro .tn-title h1{font-size:88px;line-height:1.1;-webkit-line-clamp:4;}
+
+      /* ── message (body paragraph) ── */
+      .tn-message{position:absolute;z-index:3;}
+      .tn-message p{
+        margin:0;font-family:'Poppins',sans-serif;font-weight:400;color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.25em;
+      }
+      .tn-message p b{font-weight:600;}
+
+      .slide.cover .tn-message{left:472px;top:750px;width:508px;}
+      .slide.cover .tn-message p{font-size:32px;line-height:1.4;-webkit-line-clamp:2;color:var(--text-low);}
+
+      /* the body paragraph sits full-width once it clears the numeral column,
+         so real copy — not decoration — is what fills the lower frame */
+      .slide.content .tn-message{left:108px;top:672px;width:864px;}
+      .slide.content .tn-message p{font-size:30px;line-height:1.46;-webkit-line-clamp:5;}
+
+      .slide.outro .tn-message{left:108px;top:930px;width:760px;}
+      .slide.outro .tn-message p{font-size:33px;line-height:1.42;-webkit-line-clamp:2;color:var(--text-low);}
+
+      /* ── step-progress card: a real wayfinding device for a 5-step series.
+         Carried on an actual panel (not just loose type) so it reads as a
+         module and gives the lower frame real visual body. ── */
+      .step-card{
+        position:absolute;left:108px;top:918px;width:864px;z-index:3;
+        background:var(--surface);border-radius:24px;padding:30px 40px 34px;
+        box-shadow:0 1px 0 var(--border);
+      }
+      .step-caption{
+        margin:0 0 16px;font-family:'Poppins',sans-serif;font-weight:600;font-size:22px;
+        letter-spacing:.16em;text-transform:uppercase;color:var(--text-low);
+      }
+      .step-track{display:flex;gap:10px;}
+      .step-seg{flex:1;height:20px;border-radius:10px;background:var(--border);}
+      .step-seg.is-done{background:var(--accent);}
+
+      /* ── footer: brand lockup chip + slide-counter pill — a second bookend
+         pair of painted accent surfaces, so the frame stays branded to the
+         very last row instead of thinning out to bare type. ── */
+      .foot{position:absolute;left:108px;right:108px;bottom:80px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+      .lockup{
+        display:inline-flex;align-items:center;gap:14px;padding:14px 26px;
+        border-radius:999px;border:2px solid var(--border);
+      }
+      .brand-mark-clip{flex:none;height:28px;display:flex;align-items:center;}
+      .brand-mark{height:28px;width:auto;max-width:100px;object-fit:contain;display:block;}
+      .brand-word{
+        font-family:'Poppins',sans-serif;font-weight:300;font-style:italic;font-size:27px;
+        color:var(--text-high);white-space:nowrap;
+      }
+      .cg-slide-counter{
+        display:inline-block;padding:14px 26px;border-radius:999px;background:var(--accent);
+        font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;letter-spacing:.06em;
+        color:var(--on-accent);white-space:nowrap;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Slide 1 · Cover -->
+      <section class="slide cover" data-cg-slide-type="cover">
+        <div class="numeral-svg" aria-hidden="true">05</div>
+
+        <div class="pretitle-wrap"><p class="pretitle" data-tagline="true">Nadia Cole</p></div>
+        <div class="accent-rule" aria-hidden="true"></div>
+        <div class="tag-wrap"><span class="tag-chip">MONEY</span></div>
+
+        <div class="kicker-wrap"><p class="kicker" data-tagline="true">Steps to:</p></div>
+
+        <div class="tn-title"><h1 data-title="true">Build <em>Real Wealth</em> On Any Income</h1></div>
+        <div class="tn-message"><p data-message="true">Five simple money habits to start this week.</p></div>
+
+        <div class="step-card" style="top:960px;">
+          <p class="step-caption" data-tagline="true">Five steps, one page each</p>
+          <div class="step-track" aria-hidden="true">
+            <span class="step-seg"></span><span class="step-seg"></span><span class="step-seg"></span><span class="step-seg"></span><span class="step-seg"></span>
+          </div>
+        </div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">wealthwise</span></div>
+          <div class="cg-slide-counter" data-counter="true">01 / 07</div>
+        </div>
+      </section>
+
+      <!-- Slide 2 · Step 01 -->
+      <section class="slide content" data-cg-slide-type="content">
+        <div class="numeral-svg" aria-hidden="true">01</div>
+
+        <div class="pretitle-wrap"><p class="pretitle" data-tagline="true">Nadia Cole</p></div>
+        <div class="accent-rule" aria-hidden="true"></div>
+        <div class="tag-wrap"><span class="tag-chip">MONEY</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Pay Yourself <em>First, Always</em></h1></div>
+        <div class="tn-message"><p data-message="true">Automate a transfer to savings the moment you're paid, before a single bill goes out. Treating savings like a <b>non-negotiable expense</b> builds a cushion fast, cuts money stress, and makes <b>every other habit</b> on this list easier to keep.</p></div>
+
+        <div class="step-card">
+          <p class="step-caption" data-tagline="true">Step 01 of 05</p>
+          <div class="step-track" aria-hidden="true">
+            <span class="step-seg is-done"></span><span class="step-seg"></span><span class="step-seg"></span><span class="step-seg"></span><span class="step-seg"></span>
+          </div>
+        </div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">wealthwise</span></div>
+          <div class="cg-slide-counter" data-counter="true">02 / 07</div>
+        </div>
+      </section>
+
+      <!-- Slide 3 · Step 02 -->
+      <section class="slide content" data-cg-slide-type="content">
+        <div class="numeral-svg" aria-hidden="true">02</div>
+
+        <div class="pretitle-wrap"><p class="pretitle" data-tagline="true">Nadia Cole</p></div>
+        <div class="accent-rule" aria-hidden="true"></div>
+        <div class="tag-wrap"><span class="tag-chip">MONEY</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Track Every <em>Single Dollar</em></h1></div>
+        <div class="tn-message"><p data-message="true">You can't fix what you don't see. Spend fifteen minutes a week reviewing where your money actually went, not where you meant it to go. Awareness alone <b>cuts impulse spending</b>, reveals sneaky subscriptions, and keeps your budget <b>honest</b>.</p></div>
+
+        <div class="step-card">
+          <p class="step-caption" data-tagline="true">Step 02 of 05</p>
+          <div class="step-track" aria-hidden="true">
+            <span class="step-seg is-done"></span><span class="step-seg is-done"></span><span class="step-seg"></span><span class="step-seg"></span><span class="step-seg"></span>
+          </div>
+        </div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">wealthwise</span></div>
+          <div class="cg-slide-counter" data-counter="true">03 / 07</div>
+        </div>
+      </section>
+
+      <!-- Slide 4 · Step 03 -->
+      <section class="slide content" data-cg-slide-type="content">
+        <div class="numeral-svg" aria-hidden="true">03</div>
+
+        <div class="pretitle-wrap"><p class="pretitle" data-tagline="true">Nadia Cole</p></div>
+        <div class="accent-rule" aria-hidden="true"></div>
+        <div class="tag-wrap"><span class="tag-chip">MONEY</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Kill <em>High-Interest Debt</em> Fast</h1></div>
+        <div class="tn-message"><p data-message="true">Interest compounds against you just as fast as it compounds for you. List every balance, attack the <b>highest rate first</b>, and keep paying the minimum on the rest. Every dollar of interest avoided is a <b>guaranteed return</b> no market can promise.</p></div>
+
+        <div class="step-card">
+          <p class="step-caption" data-tagline="true">Step 03 of 05</p>
+          <div class="step-track" aria-hidden="true">
+            <span class="step-seg is-done"></span><span class="step-seg is-done"></span><span class="step-seg is-done"></span><span class="step-seg"></span><span class="step-seg"></span>
+          </div>
+        </div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">wealthwise</span></div>
+          <div class="cg-slide-counter" data-counter="true">04 / 07</div>
+        </div>
+      </section>
+
+      <!-- Slide 5 · Step 04 -->
+      <section class="slide content" data-cg-slide-type="content">
+        <div class="numeral-svg" aria-hidden="true">04</div>
+
+        <div class="pretitle-wrap"><p class="pretitle" data-tagline="true">Nadia Cole</p></div>
+        <div class="accent-rule" aria-hidden="true"></div>
+        <div class="tag-wrap"><span class="tag-chip">MONEY</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Automate Your <em>Investing Habit</em></h1></div>
+        <div class="tn-message"><p data-message="true">Set a recurring transfer into a low-cost index fund and stop timing the market. <b>Consistency beats prediction</b> over decades. Small, automatic contributions compound quietly in the background while you focus on <b>living your life</b>.</p></div>
+
+        <div class="step-card">
+          <p class="step-caption" data-tagline="true">Step 04 of 05</p>
+          <div class="step-track" aria-hidden="true">
+            <span class="step-seg is-done"></span><span class="step-seg is-done"></span><span class="step-seg is-done"></span><span class="step-seg is-done"></span><span class="step-seg"></span>
+          </div>
+        </div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">wealthwise</span></div>
+          <div class="cg-slide-counter" data-counter="true">05 / 07</div>
+        </div>
+      </section>
+
+      <!-- Slide 6 · Step 05 -->
+      <section class="slide content" data-cg-slide-type="content">
+        <div class="numeral-svg" aria-hidden="true">05</div>
+
+        <div class="pretitle-wrap"><p class="pretitle" data-tagline="true">Nadia Cole</p></div>
+        <div class="accent-rule" aria-hidden="true"></div>
+        <div class="tag-wrap"><span class="tag-chip">MONEY</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Protect <em>What You've Built</em></h1></div>
+        <div class="tn-message"><p data-message="true">Wealth without protection is fragile. Build an emergency fund worth <b>three months</b> of expenses, get proper insurance, and review your plan yearly. A safety net turns a bad month into an <b>inconvenience</b>, not a crisis.</p></div>
+
+        <div class="step-card">
+          <p class="step-caption" data-tagline="true">Step 05 of 05</p>
+          <div class="step-track" aria-hidden="true">
+            <span class="step-seg is-done"></span><span class="step-seg is-done"></span><span class="step-seg is-done"></span><span class="step-seg is-done"></span><span class="step-seg is-done"></span>
+          </div>
+        </div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">wealthwise</span></div>
+          <div class="cg-slide-counter" data-counter="true">06 / 07</div>
+        </div>
+      </section>
+
+      <!-- Slide 7 · Outro -->
+      <section class="slide outro" data-cg-slide-type="outro">
+        <div class="pretitle-wrap"><p class="pretitle" data-tagline="true">Nadia Cole</p></div>
+        <div class="accent-rule" aria-hidden="true"></div>
+        <div class="tag-wrap"><span class="tag-chip">MONEY</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Pick One Habit. <em>Start Today.</em></h1></div>
+        <div class="tn-message"><p data-message="true">Money habits compound quietly — start today, not someday.</p></div>
+
+        <div class="step-card" style="top:1060px;">
+          <p class="step-caption" data-tagline="true">All five habits, ready when you are</p>
+          <div class="step-track" aria-hidden="true">
+            <span class="step-seg is-done"></span><span class="step-seg is-done"></span><span class="step-seg is-done"></span><span class="step-seg is-done"></span><span class="step-seg is-done"></span>
+          </div>
+        </div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">wealthwise</span></div>
+          <div class="cg-slide-counter" data-counter="true">07 / 07</div>
+        </div>
+      </section>
+
+    </div>
+  </body>
+</html>

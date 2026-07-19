@@ -1,0 +1,67 @@
+{
+  "template": "D:\\wamp64\\www\\canva-template-workspace\\output\\no-spend-month.html",
+  "slides": 6,
+  "fonts": [
+    {
+      "family": "Poppins",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Poppins",
+      "weight": 600,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Imbue",
+      "weight": 500,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Big Shoulders Display",
+      "weight": 800,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    }
+  ],
+  "photoStats": [
+    {
+      "slide": 2,
+      "mean": 0.2177858409128901,
+      "stddev": 0.2583146425412087
+    },
+    {
+      "slide": 3,
+      "mean": 0.37148460099553987,
+      "stddev": 0.22854452558583851
+    }
+  ],
+  "findings": [
+    {
+      "slide": 3,
+      "check": "COVERAGE",
+      "severity": "warn",
+      "message": "content slide 63% filled — could carry more visual weight"
+    },
+    {
+      "slide": 4,
+      "check": "COVERAGE",
+      "severity": "warn",
+      "message": "content slide 67% filled — could carry more visual weight"
+    },
+    {
+      "slide": 5,
+      "check": "COVERAGE",
+      "severity": "warn",
+      "message": "content slide 63% filled — could carry more visual weight"
+    }
+  ],
+  "pass": true
+}

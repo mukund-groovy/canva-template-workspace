@@ -1,0 +1,82 @@
+{
+  "template": "D:\\wamp64\\www\\canva-template-workspace\\output\\pink-modern-photo-2.html",
+  "slides": 5,
+  "fonts": [
+    {
+      "family": "Space Mono",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Fraunces",
+      "weight": 600,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Fraunces",
+      "weight": 400,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Space Mono",
+      "weight": 400,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    }
+  ],
+  "photoStats": [
+    {
+      "slide": 1,
+      "mean": 0.5833175998268427,
+      "stddev": 0.19880545858810644
+    },
+    {
+      "slide": 2,
+      "mean": 0.4222810612776314,
+      "stddev": 0.2345704048546744
+    },
+    {
+      "slide": 3,
+      "mean": 0.36235218345905196,
+      "stddev": 0.1991021444921886
+    },
+    {
+      "slide": 4,
+      "mean": 0.49217337614782863,
+      "stddev": 0.17217648206411842
+    },
+    {
+      "slide": 5,
+      "mean": 0.24239585294477478,
+      "stddev": 0.13425833080349636
+    }
+  ],
+  "findings": [
+    {
+      "slide": 3,
+      "check": "COVERAGE",
+      "severity": "warn",
+      "message": "content slide 63% filled — could carry more visual weight"
+    },
+    {
+      "slide": 4,
+      "check": "PHOTO",
+      "severity": "warn",
+      "message": "photo has flat tonal range (stddev 0.172 < 0.18) — reads as a smudge"
+    },
+    {
+      "slide": 5,
+      "check": "PHOTO",
+      "severity": "warn",
+      "message": "photo has flat tonal range (stddev 0.134 < 0.18) — reads as a smudge"
+    }
+  ],
+  "pass": true
+}

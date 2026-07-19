@@ -1,0 +1,64 @@
+{
+  "template": "D:\\wamp64\\www\\canva-template-workspace\\output\\read-forty-books.html",
+  "slides": 6,
+  "fonts": [
+    {
+      "family": "Public Sans",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Playfair Display",
+      "weight": 400,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Playfair Display",
+      "weight": 500,
+      "style": "italic",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Public Sans",
+      "weight": 400,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Public Sans",
+      "weight": 600,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Playfair Display",
+      "weight": 400,
+      "style": "italic",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    }
+  ],
+  "photoStats": [],
+  "findings": [
+    {
+      "slide": 1,
+      "check": "COVERAGE",
+      "severity": "warn",
+      "message": "cover/closer 38% filled — could carry more weight"
+    },
+    {
+      "slide": 6,
+      "check": "COVERAGE",
+      "severity": "warn",
+      "message": "cover/closer 42% filled — could carry more weight"
+    }
+  ],
+  "pass": true
+}

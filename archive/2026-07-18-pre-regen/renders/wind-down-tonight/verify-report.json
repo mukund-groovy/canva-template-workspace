@@ -1,0 +1,23 @@
+{
+  "template": "D:\\wamp64\\www\\canva-template-workspace\\output\\wind-down-tonight.html",
+  "slides": 5,
+  "fonts": [
+    {
+      "family": "Arimo",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Times New Roman",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": true
+    }
+  ],
+  "photoStats": [],
+  "findings": [],
+  "pass": true
+}

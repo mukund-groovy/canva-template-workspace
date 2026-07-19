@@ -1,0 +1,68 @@
+{
+  "template": "D:\\wamp64\\www\\canva-template-workspace\\output\\slow-morning-rituals.html",
+  "slides": 6,
+  "fonts": [
+    {
+      "family": "Arimo",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "DM Sans",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Arimo",
+      "weight": 400,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Arimo",
+      "weight": 700,
+      "style": "italic",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    }
+  ],
+  "photoStats": [
+    {
+      "slide": 1,
+      "mean": 0.5441596788663261,
+      "stddev": 0.3291587061491133
+    },
+    {
+      "slide": 2,
+      "mean": 0.5670194114742289,
+      "stddev": 0.3307600790921141
+    },
+    {
+      "slide": 3,
+      "mean": 0.4392754602759025,
+      "stddev": 0.34335331217709664
+    },
+    {
+      "slide": 4,
+      "mean": 0.5501877955458977,
+      "stddev": 0.31611334315910117
+    },
+    {
+      "slide": 5,
+      "mean": 0.7263092096327672,
+      "stddev": 0.2728911095297858
+    },
+    {
+      "slide": 6,
+      "mean": 0.4238113715082042,
+      "stddev": 0.3627355569587147
+    }
+  ],
+  "findings": [],
+  "pass": true
+}

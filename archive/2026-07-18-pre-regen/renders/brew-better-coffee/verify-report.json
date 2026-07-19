@@ -1,0 +1,77 @@
+{
+  "template": "D:\\wamp64\\www\\canva-template-workspace\\output\\brew-better-coffee.html",
+  "slides": 5,
+  "fonts": [
+    {
+      "family": "Montserrat",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Montserrat",
+      "weight": 600,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Montserrat",
+      "weight": 900,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Montserrat",
+      "weight": 800,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Montserrat",
+      "weight": 400,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    }
+  ],
+  "photoStats": [
+    {
+      "slide": 1,
+      "mean": 0.18081677567693852,
+      "stddev": 0.16764628472749424
+    },
+    {
+      "slide": 2,
+      "mean": 0.28444094530469466,
+      "stddev": 0.23745084345288678
+    },
+    {
+      "slide": 3,
+      "mean": 0.2821718530504904,
+      "stddev": 0.27894081761419437
+    },
+    {
+      "slide": 4,
+      "mean": 0.29406045650458523,
+      "stddev": 0.23354142136073247
+    },
+    {
+      "slide": 5,
+      "mean": 0.20001978359994618,
+      "stddev": 0.19046238898664403
+    }
+  ],
+  "findings": [
+    {
+      "slide": 1,
+      "check": "PHOTO",
+      "severity": "warn",
+      "message": "photo has flat tonal range (stddev 0.168 < 0.18) — reads as a smudge"
+    }
+  ],
+  "pass": true
+}

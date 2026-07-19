@@ -1,0 +1,57 @@
+{
+  "template": "D:\\wamp64\\www\\canva-template-workspace\\output\\how-to-become.html",
+  "slides": 5,
+  "fonts": [
+    {
+      "family": "Arimo",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Tinos",
+      "weight": 400,
+      "style": "italic",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": true
+    },
+    {
+      "family": "Tinos",
+      "weight": 700,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": true
+    },
+    {
+      "family": "Arimo",
+      "weight": 400,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": false
+    },
+    {
+      "family": "Tinos",
+      "weight": 400,
+      "style": "normal",
+      "apiSaysLoaded": true,
+      "widthMatchesFallback": true
+    }
+  ],
+  "photoStats": [],
+  "findings": [
+    {
+      "slide": 4,
+      "check": "COVERAGE",
+      "severity": "warn",
+      "message": "content slide 67% filled — could carry more visual weight"
+    },
+    {
+      "slide": 5,
+      "check": "COVERAGE",
+      "severity": "warn",
+      "message": "cover/closer 42% filled — could carry more weight"
+    }
+  ],
+  "pass": true
+}
