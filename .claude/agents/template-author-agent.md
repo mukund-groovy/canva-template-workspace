@@ -146,14 +146,26 @@ This is the #1 way a reproduction fails while still "having the right words".
   them with real CSS/SVG so they read like the reference — a spiral binding is a column of metal rings
   (SVG ellipses with a metallic gradient + shadow + a punched hole), NOT a plain line; paper gets a
   subtle texture / inner-shadow, not flat white.
-- **SVG rules (gate-enforced by `check-template-contract` — C9/C10):** (1) **Never put readable copy in
-  `<svg><text>`** — numerals, headlines, labels, any glyph a reader reads goes in a plain HTML element
-  (`div`/`span`/`h1`). SVG `<text>` does not reliably repaint when a webfont loads late (many iframes race
-  the same font) and sticks in the fallback face permanently. Decorative treatment → CSS on the HTML element
-  (`-webkit-text-stroke` for hollow/outline numerals, `background-clip:text`, `mask-image`), never by moving
-  text into SVG. (2) **Every `<svg>` root carries `data-cg-svg data-cg-preserve`** (e.g.
-  `<svg data-cg-svg data-cg-preserve viewBox="...">`) — editable in the playground + preserved byte-identical
-  through the backend (cheerio HTML-mode otherwise lowercases `viewBox`→`viewbox`). Applies to every SVG.
+- **SVG rules (gate-enforced by `check-template-contract` — C9/C10/C11; C11 added 2026-07-21 after
+  auditing content-gen's real sanitizer + seed/CI lint — a prior batch shipped 0 of 81 templates
+  compliant on the paint rule, part 3 below, all silently rejectable on content-gen):** (1) **Never
+  put readable copy in `<svg><text>`** — numerals, headlines, labels, any glyph a reader reads goes in
+  a plain HTML element (`div`/`span`/`h1`). SVG `<text>` does not reliably repaint when a webfont loads
+  late (many iframes race the same font) and sticks in the fallback face permanently. Decorative
+  treatment → CSS on the HTML element (`-webkit-text-stroke` for hollow/outline numerals,
+  `background-clip:text`, `mask-image`), never by moving text into SVG. (2) **Every `<svg>` root
+  carries `data-cg-svg data-cg-preserve aria-hidden="true" focusable="false"`** (e.g. `<svg data-cg-svg
+  data-cg-preserve aria-hidden="true" focusable="false" viewBox="...">`) — editable in the playground +
+  preserved byte-identical through the backend (cheerio HTML-mode otherwise lowercases
+  `viewBox`→`viewbox`); the a11y pair is required by the backend's own SVG lint. Applies to every SVG.
+  (3) **PAINT**: inner geometry paints ONLY via `fill="var(--cg-fill)"` / `stroke="var(--cg-stroke)"`,
+  with `--cg-fill`/`--cg-stroke` declared once on the outer `<svg>` as an existing ecosystem token
+  (`var(--primary)`, `var(--accent)`, `var(--text-high)`, etc — never `--brand-*` directly, never a
+  literal color). NEVER `currentColor` or a literal hex/rgb/hsl on inner fill/stroke (content-gen
+  **hard-rejects these at seed/CI**), NEVER inline `style=` on a non-root SVG node (silently stripped
+  by the backend's sanitizer — the paint just vanishes), NEVER an SVG `<filter>`/`<feGaussianBlur>`/
+  `<feTurbulence>` (hard-stripped WITH contents) — use CSS `filter:blur(Npx)` on the outer `<svg>`
+  instead, and skip grain/texture entirely (no compliant equivalent).
 - **The SIGNATURE BACKDROP must be reproduced at the reference's STRENGTH — never "faint".** The most
   eye-catching element is often the background (a graph-paper grid, ruled lines, kraft paper, halftone,
   colour field). Sample how DARK and how DENSE it is in the reference and match it: a visible grid is

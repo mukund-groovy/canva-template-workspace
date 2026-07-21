@@ -171,17 +171,35 @@ topic; append `-N` if taken). It MUST:
   `<img data-image="true">` with a grey svg data-uri placeholder and a topical `data-image-prompt`;
   max one per slide. A full-page (~1080x1350) image is the BACKGROUND → build it in CSS, not a photo
   slot. Small (<250px) marks are decoration → inline SVG. Typographic decks ship zero photo slots.
-- **SVG rules (both are gate-enforced by `check-template-contract` — C9/C10):**
+- **SVG rules (all gate-enforced by `check-template-contract` — C9/C10/C11; C11 added 2026-07-21
+  after auditing content-gen's REAL sanitizer + seed/CI lint, not just its prompt text — a prior
+  batch shipped 0 of 81 templates compliant on the paint rule below, all silently rejectable):**
   1. **Never put readable copy in `<svg><text>`.** Numerals, headlines, labels, any glyph a reader reads
      must be a plain HTML element (`div`/`span`/`h1`). SVG `<text>` does NOT reliably repaint when a
      webfont loads late (the editor opens many iframes at once, all racing for the same Google Font) and
      sticks in the fallback face **permanently**. Need a decorative treatment? Do it in CSS on the HTML
      element — `-webkit-text-stroke` for a hollow/outline numeral, `background-clip:text` for a gradient
      fill, `mask-image` for a cut — never by moving the text into SVG. Reserve SVG for vector art only.
-  2. **Every `<svg>` root carries `data-cg-svg data-cg-preserve`** — e.g.
-     `<svg data-cg-svg data-cg-preserve viewBox="...">`. `data-cg-svg` makes it editable in the playground;
-     `data-cg-preserve` keeps it byte-identical through the backend (cheerio HTML-mode otherwise lowercases
-     `viewBox`→`viewbox` and corrupts the vector). No exceptions — icons, blobs, dividers, marks, all of them.
+  2. **Every `<svg>` root carries `data-cg-svg data-cg-preserve aria-hidden="true" focusable="false"`**
+     — e.g. `<svg data-cg-svg data-cg-preserve aria-hidden="true" focusable="false" viewBox="...">`.
+     `data-cg-svg` makes it editable in the playground; `data-cg-preserve` keeps it byte-identical
+     through the backend (cheerio HTML-mode otherwise lowercases `viewBox`→`viewbox` and corrupts the
+     vector); the a11y pair is required by the backend's own SVG lint. No exceptions — icons, blobs,
+     dividers, marks, all of them.
+  3. **PAINT — the #1 real-world SVG rejection cause.** Inner geometry (`path`/`circle`/`rect`/etc.)
+     paints ONLY via `fill="var(--cg-fill)"` and/or `stroke="var(--cg-stroke)"`. Declare `--cg-fill`/
+     `--cg-stroke` ONCE on the outer `<svg>` (inline `style="--cg-fill:var(--primary);--cg-stroke:var(--primary)"`
+     or a CSS class rule — either is valid) as one of the EXISTING ecosystem role tokens
+     (`var(--primary)`, `var(--accent)`, `var(--text-high)`, etc.) — never `--brand-*` directly, never
+     a literal hex/rgb/hsl. NEVER: `fill="currentColor"`/`stroke="currentColor"` on inner geometry
+     (content-gen's backend **hard-rejects this at seed/CI**, not a warning), a literal hex/rgb/hsla
+     fill or stroke on inner geometry (same hard rejection), or ANY inline `style=` on a non-root SVG
+     node (the backend's sanitizer silently strips it — the paint just vanishes). NEVER an SVG
+     `<filter>`/`<feGaussianBlur>`/`<feTurbulence>` element — the backend hard-strips `<filter>` WITH
+     its contents, so a blur/noise effect built this way silently disappears in production. For a soft
+     blur, use CSS `filter:blur(Npx)` on the outer `<svg>`'s own style/class instead (never `url(...)`,
+     never inside the SVG markup). For grain/texture, skip it — there's no compliant equivalent; a
+     `color-mix()` tint reads as intentional and survives.
 - **Fit, no collision, no occlusion**: text fits its box and the canvas (shrink before you clip);
   nothing overlaps the headline/footer/another block; text sits above filled surfaces (higher z-index).
 - **Never clip descenders.** The line-clamp contract forces `overflow:hidden` on every text run, so any
