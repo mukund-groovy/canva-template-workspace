@@ -90,10 +90,64 @@ if (selfDefined.length) {
 if ($('.brand-word').length === 0) v('C2-LOCKUP', 'no .brand-word — injectBrandLogo() cannot set the brand name; ships "YOURBRAND"');
 if ($('img[data-brand-logo]').length === 0) w('C2-LOCKUP', 'no img[data-brand-logo] — the brand logo will never be injected (wordmark only)');
 
-// ── per-slide rules ──────────────────────────────────────────────────────────
-const slides = $('.slide');
-if (!slides.length) v('C3-SLIDES', 'no .slide elements found');
+// ── single-image detection ────────────────────────────────────────────────────
+// content-gen's single-image kind (.si-single > EXACTLY ONE .si-page) is a structurally
+// different, mutually-exclusive contract from the carousel one (.ig-carousel > N .slide):
+// flow-layout content instead of per-element absolute positioning, a hard-required
+// <h1 class="headline">, and — uniquely — a 1.91:1 landscape aspect is legal. Rules mirrored
+// from backend/services/content/src/services/SingleImageTemplateGenerationService.ts's own
+// "HARD CONTRACT" block (rules 1-11) and the ground-truth seeded si-*.html files.
+const siPages = $('.si-page');
+const isSingleImage = siPages.length > 0;
 
+if (isSingleImage) {
+  // S1. exactly one .si-page, and it must be a direct child of .si-single.
+  if (siPages.length > 1) v('S1-STRUCT', `${siPages.length} .si-page elements — single-image allows EXACTLY one`);
+  const $sis = $('.si-single');
+  if (!$sis.length) v('S1-STRUCT', 'no .si-single root — required wrapper for a single-image template');
+  siPages.each((_i, el) => {
+    if (!$(el).parent().is('.si-single')) v('S1-STRUCT', '.si-page must be a DIRECT child of .si-single');
+  });
+  // S2. mutual exclusivity — a single-image template must never carry carousel markup.
+  if ($('.slide').length) v('S2-MIXED', 'both .si-page and .slide present — single-image and carousel structure cannot mix');
+  if ($('.ig-carousel').length) v('S2-MIXED', '.ig-carousel present on a single-image template — carousel-only wrapper');
+
+  siPages.each((i, el) => {
+    const $p = $(el);
+    // S3. the one hard-required slot: <h1 class="headline">, exactly that class, no substitute.
+    const headlines = $p.find('h1.headline');
+    if (!headlines.length) v('S3-HEADLINE', 'missing required <h1 class="headline"> — content-gen\'s validator rejects every attempt without exactly this element+class');
+    if ($p.find('h1').length > headlines.length) v('S3-HEADLINE', 'an <h1> exists without class="headline" — only <h1 class="headline"> counts, others are invisible to the validator and to content-fill');
+
+    // S4. flow layout only. Per the real contract: position:absolute is allowed ONLY for (a)
+    // a full-bleed background/photo wrapper, or (b) a single corner decoration — never on a
+    // content slot itself (headline/body/cta/eyebrow). Checked via the inline style attribute,
+    // since that's how this pipeline's own authoring emits positioning.
+    $p.find('.headline, .body, .cta, .eyebrow').each((_j, e) => {
+      const style = $(e).attr('style') || '';
+      if (/position\s*:\s*absolute/i.test(style)) {
+        v('S4-FLOW', `slide ${i + 1}: .${$(e).attr('class')} is position:absolute — single-image content slots must use flow layout (flexbox/grid), not per-element positioning (that's the carousel convention, not this one)`);
+      }
+    });
+
+    // S5. at most one content image, and it must be a direct child of .si-page (not nested
+    // inside the text cluster) — mirrors carousel's C7/C8 image-slot rules for this kind.
+    const contentImgs = $p.find('img').filter((_j, e) => {
+      const $img = $(e);
+      return $img.attr('data-brand-logo') === undefined
+        && $img.closest('.brand, .brand-mark-clip, .lockup').length === 0
+        && !/brand-mark|brand-logo/.test($img.attr('class') || '');
+    });
+    if (contentImgs.length > 1) v('S5-IMG', `slide ${i + 1}: ${contentImgs.length} content images — single-image allows at most one (.si-image)`);
+    contentImgs.each((_j, e) => {
+      if (!$(e).parent().is('.si-page')) v('S5-IMG', 'the content image (.si-image) must be a DIRECT child of .si-page, not nested inside a text wrapper');
+    });
+  });
+}
+
+// ── per-slide rules (carousel only) ───────────────────────────────────────────
+const slides = isSingleImage ? $() : $('.slide');
+if (!isSingleImage && !slides.length) v('C3-SLIDES', 'no .slide elements found');
 slides.each((i, el) => {
   const n = i + 1;
   const $s = $(el);
@@ -194,11 +248,12 @@ $('svg').each((_j, e) => {
 });
 
 // ── report ───────────────────────────────────────────────────────────────────
-const result = { template: file, slides: slides.length, violations, warnings, pass: violations.length === 0 };
+const unitCount = isSingleImage ? siPages.length : slides.length;
+const result = { template: file, kind: isSingleImage ? 'single-image' : 'carousel', slides: unitCount, violations, warnings, pass: violations.length === 0 };
 if (asJson) {
   console.log(JSON.stringify(result, null, 2));
 } else {
-  console.log(`\ncontract — ${path.basename(file)} (${slides.length} slides)\n`);
+  console.log(`\ncontract — ${path.basename(file)} (${isSingleImage ? 'single-image' : `${unitCount} slides`})\n`);
   if (!violations.length && !warnings.length) console.log('  clean.');
   for (const x of violations) console.log(`  FAIL  ${x}`);
   for (const x of warnings) console.log(`  warn  ${x}`);
