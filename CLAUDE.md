@@ -1,7 +1,42 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # Canva Template Workspace — project guide
 
 Standalone engine that clones Canva templates and authors brand-recolorable carousel
 templates from them. Two stages, two entry points.
+
+## Commands
+
+Plain Node (ESM `.mjs` + a few `.cjs`); deps are just `playwright` + `cheerio`. There is **no
+build, no linter, and no test runner** — the gate scripts below ARE the test suite for an
+authored template. Run everything from the repo root; scripts self-resolve their own root, so
+paths are plain `scripts/…`.
+
+```bash
+npm run clone          # scripts/agent-canva-clone.mjs  — clone/dedupe orchestrator + status
+npm run clone:browser  # scripts/clone-from-browser.mjs — CDP capture (Stage 1, needs Chrome :9222)
+npm run generate       # scripts/generate-worker.mjs     — FAITHFUL batch (drains cloned queue)
+npm run generate:once  # just the next cloned design
+npm run dashboard      # rebuild dashboard-store.json + dashboard.html from disk
+```
+
+Gate an authored template (`output/<slug>.html`) — see "Gate & score pipeline" below:
+
+```bash
+npm run gate:contract <html>   # static contract check (0 violations = full marks)
+npm run gate:verify   <html>   # render + measure: fonts/overflow/collision/contrast/photo
+npm run gate:stress   <html>   # re-render with worst-case generated text; must still hold
+npm run gate:brand    <html>   # differential recolor coverage under brand palettes
+npm run score         <slug|path>   # combine all four gates → /10 into template-scores.json
+npm run comparison    --design-id <id>   # rebuild designs/<id>/comparison.html
+```
+
+Other useful scripts: `remix-worker.mjs` (remix batch — the DEFAULT deliverable),
+`remix-queue-status.mjs` / `next-template.mjs` (work queues), `decode-geometry.mjs` (exact
+per-slide layout from Canva's obfuscated JSON), `fill-image-slots.mjs` (generate + inline photos
+into `<img data-image="true">` slots), `fix-moved-paths.cjs` (repair a store written on another box).
 
 ## Prerequisite (both stages)
 
@@ -169,6 +204,48 @@ template, placeholder text and all, which is why it is no longer the default. Ru
 dashboard row (cloned → success). New agent files need a Claude Code restart to be spawnable by type;
 until then run it via a `general-purpose` (opus) agent told to Read and follow that runbook.
 
+## Single-image mode (`kind: 'single-image'`) — one-page posts, not carousels
+
+Added 2026-07-20. content-gen has two template kinds, discriminated by a DB column, not a
+filename convention: `carousel` (2-12 slides, `.ig-carousel > .slide`, per-element absolute
+positioning mirroring Canva's own geometry) and `single-image` (exactly one page,
+`.si-single > .si-page`, and — critically — **flow layout only** for every content slot;
+position:absolute is allowed ONLY for a full-bleed background photo and one optional corner
+decoration). Those two contracts structurally contradict each other, so this pipeline's usual
+"decode exact Canva geometry, place each text node at its own x/y" approach cannot produce a
+valid single-image template — the single-image path is **remix-only** for that reason (study
+the reference's craft — density, hierarchy, decorative devices — and re-compose it in flow
+layout with an invented topic; never a pixel-exact clone).
+
+- **Clone**: `node scripts/clone-from-browser.mjs --search "<query>" --tiles <N> --kind
+  single-image --english-only`. Flips the usual gates: requires pageCount === 1 (rejects
+  multi-page), allows 1:1 / 4:5 / 9:16 / **1.91:1 landscape** aspect (the one landscape ratio
+  this kind allows — content-gen's `SINGLE_IMAGE_FALLBACKS`), and disables the photo-heavy cap
+  by default (a full-bleed background photo is the normal PHOTO-HERO archetype here, not a
+  defect). Tags the dashboard entry `kind: 'single-image'`.
+- **Generate**: `generate-worker.mjs --remix --design-id <id>` reads the entry's `kind` and
+  routes automatically to the single-image authoring path (`processOneSI`/`SYSTEM_SI`/
+  `REVIEW_SI`) — same plan → author → bounded-repair → faithfulness-vision-loop shape as the
+  carousel path, simplified to one generation attempt (not best-of-N) since the tighter
+  contract (one page, one required `<h1 class="headline">` slot) converges reliably without it.
+  Ships to `output/<slug>.html` via `remix-map.json`, same as a carousel remix — always remix,
+  regardless of whether `--remix` was passed, since single-image has no faithful mode.
+- **Image slots**: `data-image-size` on `<img class="si-image">` MUST be `1024x1024` or
+  `1024x1536` (the image-gen API's own valid sizes) — **never** the canvas's own pixel WxH
+  (1080x1350 etc.). CSS (`object-fit:cover`) scales the generated image to fill whatever box
+  it's placed in; the generator's native resolution is unrelated to the design canvas size.
+  Getting this wrong fails generation with a confusing `400: ... divisible by 1` error.
+- **Gates**: `check-template-contract.mjs`, `verify-slides.mjs`, `stress-slots.mjs`,
+  `brand-audit.mjs` all auto-detect `.si-page` (a union selector alongside `.slide`,
+  `.ig-carousel .slide, .si-single .si-page`) and treat it as a one-page deck; the viewport
+  resizes to the page's own box since single-image canvases aren't locked to 1080×1350.
+  `score-template.mjs` needed no changes — it just orchestrates the other four.
+- **Verified against real content-gen source**, not guessed: the structural contract mirrors
+  `backend/services/content/src/services/SingleImageTemplateGenerationService.ts`'s own "HARD
+  CONTRACT" block, cross-checked against the ground-truth seeded `si-photo-hero.html` file. A
+  real content-gen single-image file passes this workspace's contract gate clean; a real clone
+  was authored, repaired, and shipped end-to-end during this rollout.
+
 ## Concurrency — other chats/agents may be working RIGHT NOW
 
 This workspace is routinely driven from **several chats at once** (a clone agent here, a remix/author
@@ -190,6 +267,52 @@ agent there). Treat every shared path as live, not yours.
 - **Changing a shared script** (e.g. `verify-slides.mjs` paths) while agents run will break them
   mid-flight: they loaded their runbook at spawn and follow the OLD contract. Prefer backwards-
   compatible changes, or wait until nothing is running.
+
+## Architecture & data model
+
+**The deliverable** is a single self-contained `output/<slug>.html`: one section per slide, all
+CSS/fonts/photos inlined so it renders offline. It is **brand-recolorable** — every non-fixed
+color is a `--brand-*` CSS var (`--brand-primary/-accent/-bg/-ink/-surface/…`), and photo slots
+are `<img data-image="true">` that `fill-image-slots.mjs` fills with per-slide generated images.
+Fixed literals (canvas paper, ink) intentionally do NOT move under recolor — that's what
+`brand-audit.mjs` measures differentially.
+
+**Gate & score pipeline** — why there are four gates, not one. Each catches a defect class the
+others are blind to; a template only ships when all pass, and `score-template.mjs` folds them into
+a single /10 (weights: contract 4.0, verify 3.0, stress 1.5, brand 1.5) cached in
+`template-scores.json` for the dashboard:
+- `check-template-contract.mjs` — **static**: element/slot semantics the runtime parser enforces
+  (a body message stuffed into a label slot is a contract bug no render can see). Selectors + token
+  list are copied from the `content-gen` backend parser so they can't silently diverge.
+- `verify-slides.mjs` — **renders + measures pixels**: font actually loaded (no silent fallback),
+  no overflow, no text/photo collision, WCAG-AA contrast, photo not flat. Writes to
+  `<dir-of-html>/.verify/<template-name>/slide-NN.png` (per-template, so parallel runs never collide).
+- `stress-slots.mjs` — re-renders with **worst-case generated text** (the author picks copy that
+  fits; a production LLM won't), catching slots that only hold at the short end.
+- `brand-audit.mjs` — a pixel counts as brand-driven only if it **changes** when the brand vars
+  change (per-slide ≥1.5%, deck avg ≥3.0%).
+
+Remember: the score measures **structure, not composition** — a 10/10 deck can still have colliding
+tabs and shouty copy. Always LOOK at the rendered `slide-NN.png` before calling a deck done.
+
+**JSON stores (all at repo root, all checked in):**
+- `dashboard-store.json` — source of truth for the dashboard; one entry per design keyed by
+  `designId` with `status` (`pending`→`cloning`→`cloned`→`generating`→`success`/`failed`/`duplicate`),
+  `clone`, `qualityGate`, `remixes`, `comparison`, thumbnails. **All paths are workspace-RELATIVE**
+  (`designs/<id>/…`) — the store is worked on from several machines, so an absolute root breaks every
+  thumbnail elsewhere. `agent-canva-clone.mjs` relativizes on save; resolve with `toAbs(root, p)`
+  before any `fs` call.
+- `archetype-map.json` — design id → slug for its **faithful** template (owns the dashboard row).
+- `remix-map.json` — design id → slug for **remixes** (standalone; no dashboard row).
+- `template-scores.json` — slug → gate breakdown + /10 (populated by `score-template.mjs`).
+- `index/template-dedupe-index.json` — dedupe is by content fingerprint (`exactHash` + `layoutHash`),
+  NOT URL, so a recolor of a base template is a real `duplicate`.
+
+**Concurrency & claiming** — because several chats drive this workspace at once, `remix-queue-status.mjs`
+only READS (claims nothing) and status-marking is not atomic. To take a design safely, the orchestrating
+session must call `agent-canva-clone.mjs --action claim --design-id <id> --stage authoring` (atomic
+check-and-set under one lock) and dispatch only if `claimed: true`. See the Concurrency section above for
+the shared-directory rules (never `rm -rf` a shared dir; scope deletes to your own slug).
 
 ## Notes
 

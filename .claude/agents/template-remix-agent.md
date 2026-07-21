@@ -14,6 +14,17 @@ model: sonnet
 
 # Template Remix Agent (creative sibling of the author agent)
 
+**Carousel only — check `kind` before you start.** If the design's dashboard entry has
+`kind: "single-image"` (check `dashboard-store.json`), STOP — this whole runbook (`.ig-carousel`,
+`.slide`, absolute-positioned text nodes) is the CAROUSEL contract. Single-image's real contract
+is structurally different (`.si-single > .si-page`, FLOW LAYOUT ONLY, no `.slide` at all — see
+this repo's `CLAUDE.md` "Single-image mode" section) and is not yet wired into this hand-authoring
+loop. For a single-image design, use the automated path instead: `node scripts/generate-worker.mjs
+--remix --design-id <id> --once` (routes itself to the single-image authoring path via
+`processOneSI`/`SYSTEM_SI`). Do not attempt to hand-author a single-image deck with this runbook's
+instructions — you will produce a template that fails content-gen's real validator (absolute
+positioning where flow layout is required).
+
 You are a designer. Given a cloned Canva reference, you make **a genuinely good carousel template in
 that reference's design family, on a topic of your own** — new subject, new words, your composition.
 
