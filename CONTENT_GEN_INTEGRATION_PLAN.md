@@ -47,7 +47,7 @@ authoring prompt once and apply to every future template.
 
 ## Part B — Confirmed gaps (evidence-based, ranked by severity)
 
-### B1. `--highlight` sometimes derives from a brand variable content-gen never defines — **confirmed broken in 2 of 16 templates**
+### B1. `--highlight` sometimes derives from a brand variable content-gen never defines — **confirmed broken in 2 of 16 templates** — ✅ RESOLVED (2026-07-21)
 
 content-gen's validator doesn't just check that `--highlight` exists — it checks *what it
 derives from* (`validateColorTokens.ts:186-208`, `checkBrandDerivation`), against a fixed map
@@ -80,6 +80,15 @@ blind spot in this workspace's own gate, not just a content-gen mismatch (see Pa
 token *names* but never pins the exact derivation source per token, so the model is free to
 invent a plausible-looking but non-existent intermediate variable name.
 
+**Shipped**: `price-your-worth.html` and `street-photography-diary.html` fixed directly
+(`--brand-highlight` -> `--brand-accent`, same fallback hex, zero visual change). The authoring
+prompt (`SYSTEM`/`SYSTEM_SI` in `generate-worker.mjs`) now pins the exact derivation pair for all
+9 tokens instead of just listing names, so future generations can't reintroduce this. And the gate
+gap called out above is also closed (see Part E1) — `check-template-contract.mjs`'s C1-TOKENS now
+checks derivation source against the same `TOKEN_BRAND_MAP`, not just presence; verified it
+correctly flags a synthetic `--highlight:var(--brand-highlight,...)` file and passes all 16 real
+outputs (including the 2 just fixed) clean.
+
 ### B2. Baked-in generated images make some files ~500× larger than content-gen's own templates — will not scale into a database row
 
 content-gen's own image-slot convention (`carousel-template-parser.ts:313-321`) never embeds a
@@ -111,7 +120,7 @@ enabled for that brand) fills it per-brand at actual generation time, which is t
 place for that image to be decided anyway — a seed template baking in one specific stock photo
 makes no sense once real brands with real topics start using it.
 
-### B3. `--on-accent` doesn't match content-gen's own on-pair naming convention — cosmetic, but causes false-positive warnings
+### B3. `--on-accent` doesn't match content-gen's own on-pair naming convention — cosmetic, but causes false-positive warnings — ✅ RESOLVED (2026-07-21)
 
 content-gen's own templates name this intermediate token `--on-fill` (confirmed in
 `arrow-flow.html:22`: `--on-fill: var(--brand-on-accent, #ffffff);`), and its validator's
@@ -129,6 +138,10 @@ gen's validator output for these templates).
 
 **Fix**: rename `--on-accent` → `--on-fill` everywhere in the authoring prompt and existing
 outputs. Purely mechanical, zero visual/quality impact.
+
+**Shipped**: renamed across all 74 output templates that used it (protected `--brand-on-accent`
+from the rename via a placeholder swap — that one's the real content-gen var and must stay as-is).
+Verified: 0 bare `--on-accent` remain, `--on-fill` present, `--brand-on-accent` untouched.
 
 ### B4. No seed metadata exists yet for any of the 40 (arguably the biggest gap, just not a code gap)
 
