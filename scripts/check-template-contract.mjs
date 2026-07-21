@@ -176,7 +176,14 @@ if (!isSingleImage && !slides.length) v('C3-SLIDES', 'no .slide elements found')
 slides.each((i, el) => {
   const n = i + 1;
   const $s = $(el);
-  if ($s.attr('data-cg-slide-type') === undefined) v('C3-SLIDES', `slide ${n}: missing data-cg-slide-type`);
+  // C3b: downgraded from a violation to a warning (2026-07-21) — verified against content-gen's
+  // real source (carousel-template-parser.ts, carouselTemplateContract.ts, every .ts file under
+  // backend/services/content/src): NO code consumer of data-cg-slide-type was found anywhere. It
+  // appears in every seeded carousels/*.html file as an authoring convention, but nothing reads
+  // it at runtime. Kept as a warning (not required) since it costs nothing to keep writing and
+  // may be consumed by a frontend/editor feature outside the paths searched — but a template
+  // missing it is NOT a contract violation until a real consumer is confirmed.
+  if ($s.attr('data-cg-slide-type') === undefined) w('C3-SLIDES', `slide ${n}: missing data-cg-slide-type (convention only — no confirmed runtime consumer)`);
 
   // C4. A PROSE element (p / h1-h6) with no slot semantics is free real estate: the slide
   // generator reads it as content and may write a full body message into it. That is how a
