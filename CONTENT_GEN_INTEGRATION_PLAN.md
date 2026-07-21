@@ -223,7 +223,7 @@ as a scope note, not a defect.
   found and fixed along the way (image-gen API rejects the canvas's own pixel size as a
   `data-image-size` — needs `1024x1024`/`1024x1536` regardless of canvas dimensions).
 
-### B7. SVG decoration doesn't follow content-gen's real paint contract — confirmed across all 81 SVG-bearing outputs (2026-07-21, OPEN — not yet fixed)
+### B7. SVG decoration doesn't follow content-gen's real paint contract — confirmed across all 81 SVG-bearing outputs (2026-07-21) — ✅ RESOLVED (2026-07-21)
 
 Our own gate (`check-template-contract.mjs` C9/C10) only checks 2 things: no readable text inside
 `<svg><text>`, and every root `<svg>` carries `data-cg-svg` + `data-cg-preserve`. That's a small
@@ -256,26 +256,49 @@ fraction of content-gen's real, code-enforced SVG contract. Found the actual enf
 | `--cg-fill`/`--cg-stroke` convention used | **0 of 81** | This is the required mechanism — total non-adoption |
 | `currentColor` on fill/stroke | 42 of 81 files | HARD-REJECTED at seed/CI |
 | Hardcoded hex fill/stroke inside SVG | 39 of 81 files | HARD-REJECTED at seed/CI |
-| `<filter>` elements (blur/noise effects) | 5 files: `birdwatching-field-notes` (1), `breach-alert-briefing` (4), `cold-water-swimming` (1), `garden-year-recap` (1), `real-rest-rituals` (7) | Sanitizer **hard-strips the element and its contents** — silent visual breakage |
+| `<filter>` elements — **corrected**: only 2 of the original 5 flagged files were a real inline-DOM violation. `birdwatching-field-notes`, `cold-water-swimming`, `garden-year-recap` embed their grain filter inside a CSS `background-image: url("data:image/svg+xml,...")` — an opaque image resource to the browser and to content-gen's DOM-based sanitizer, never parsed as live SVG markup, so this pattern was never actually at risk. Only `real-rest-rituals` (7 genuine inline `<svg data-cg-svg>` blur filters) and `breach-alert-briefing` (1 genuine inline grain filter, introduced into the local working copy after the last commit — not present in the originally-shipped version) were real. | Sanitizer **hard-strips a genuine inline `<filter>` and its contents** — silent visual breakage. Not a risk for a filter embedded inside a `background-image` data-URI. |
 | `aria-hidden="true"` present | 359 of 831 root SVGs (472 missing) | Auto-corrected by the lint, not a hard block |
 | `focusable="false"` present | **0 of 831** | Auto-corrected, but universal miss |
 | Inline `style=` on an inner node | 9 instances | Sanitizer silently strips it — paint vanishes, shape renders unstyled |
 | `var(--brand-*)` directly inside SVG | 0 | ✅ clean |
 | `<script>`/`<image>`/`<a>`/`<animate*>`/`<foreignObject>` | 0 (properly scoped check — nested inside `<svg>…</svg>` only, not matched against unrelated same-named HTML like a `<a class="cta">` button) | ✅ clean |
 
-**Net effect if seeded as-is**: every carousel template using `currentColor` or a hardcoded hex in
-its decorative SVGs (a large majority) would be **hard-rejected** by content-gen's own seed/CI
-lint, not just warned. The 5 templates using `<filter>` would seed "successfully" but silently
-lose that visual element entirely at runtime. Single-image templates would currently pass (no
-lint wired up on that path yet) despite the same convention gap.
+**Net effect if seeded as-is (before the fix)**: every carousel template using `currentColor` or a
+hardcoded hex in its decorative SVGs (a large majority) would have been **hard-rejected** by
+content-gen's own seed/CI lint, not just warned. `real-rest-rituals` and `breach-alert-briefing`
+would have seeded "successfully" but silently lost that visual element entirely at runtime.
+Single-image templates would currently pass regardless (no lint wired up on that path yet on
+content-gen's side).
 
-**Not yet fixed** — this needs: (1) rewrite the authoring prompt to emit `fill="var(--cg-fill)"` /
-`stroke="var(--cg-stroke)"` + `aria-hidden="true" focusable="false"` on every decorative SVG,
-matching content-gen's real convention exactly; (2) drop/rework the 5 `<filter>`-based effects
-into an allowed equivalent (e.g. a `color-mix()` gradient or blur simulated via layered shapes,
-since `filter: blur()` itself isn't in the allowed CSS either); (3) extend
-`check-template-contract.mjs` with the missing rules so this can't silently regress again — the
-gate should have caught this from the start, the same lesson as B1's derivation-check gap.
+**Shipped:**
+- **Authoring prompt** (`SYSTEM`/`SYSTEM_REMIX`/`SYSTEM_SI` in `generate-worker.mjs`): now spells
+  out the full paint contract — `fill="var(--cg-fill)"`/`stroke="var(--cg-stroke)"` declared on
+  the outer `<svg>` as an existing ecosystem token, `aria-hidden="true" focusable="false"`
+  required, no `currentColor`/literal color/inline style on inner nodes, no `<filter>` (use CSS
+  `filter:blur(Npx)` on the outer `<svg>` instead, skip grain/texture entirely).
+- **Contract gate** (`check-template-contract.mjs`): new C11-SVGPAINT rule set mirroring
+  `svgEmitLint.ts`'s real rules (currentColor/literal-color/brand-var on fill or stroke, inline
+  style on an inner node, `<filter>` presence, `--cg-fill`/`--cg-stroke` itself must be a token
+  not a literal) plus a11y checks on C10. Verified: 0 false positives against real content-gen
+  files (`si-photo-hero.html`, `glow-orbs.html`) and correctly flags a synthetic bad-derivation
+  file.
+- **Agent docs** (`template-remix-agent.md`, `template-author-agent.md`): both carry the same
+  paint-contract rules now, so hand-authoring can't reintroduce this.
+- **Backfilled all existing output templates** via a new `scripts/fix-svg-contract.mjs`: resolves
+  each inner node's actual paint intent (from an existing inline-style hint, a matching root-token
+  hex, or an ancestor CSS `color:` rule) and rewrites it to the `--cg-fill`/`--cg-stroke`
+  convention; hoists the 7 genuine `real-rest-rituals` blur filters to CSS `filter:blur(22px)` on
+  their own dedicated root `<svg>`; removes the 1 genuine `breach-alert-briefing` grain filter (no
+  compliant equivalent exists). **Verified with 0 remaining C11-SVGPAINT violations across every
+  output template**, and spot-rendered before/after (`price-your-worth`, `real-rest-rituals`) to
+  confirm zero visual regression — colors and the blur effect render pixel-identical to before.
+- Two real bugs found and fixed **while building the fixer itself**, both from cheerio's
+  well-documented HTML-mode lowercasing of camelCase SVG tags/attrs (`feGaussianBlur`→
+  `fegaussianblur` at the selector-matching level, though the live DOM `tagName` itself stays
+  correctly cased) — required comparing `tagName` directly instead of using `find('tagName')` CSS
+  selectors; and an inline-style color extraction path that captured a literal hex directly
+  without mapping it through the same token-fallback lookup as every other path, briefly leaving
+  a literal `--cg-fill:#000` on ~20 files before a second pass corrected it.
 
 ---
 
