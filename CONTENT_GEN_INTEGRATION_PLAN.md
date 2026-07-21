@@ -157,7 +157,7 @@ be functionally required without a maintainer confirming where (if anywhere) it'
 — worth a 2-minute question to whoever owns the content-gen frontend rather than guessing further
 here.
 
-### B6. This workspace has never produced a single-image (`si-*`) template
+### B6. This workspace has never produced a single-image (`si-*`) template — ✅ RESOLVED (2026-07-21)
 
 content-gen has two template *kinds*, discriminated by a DB column, not a filename convention:
 `carousel` (2-12 slides) and `single-image` (exactly one `.si-page`, no `.slide`/`.ig-carousel`
@@ -166,6 +166,32 @@ This workspace's entire pipeline (`clone-from-browser.mjs`'s `--min-pages` gate,
 authoring prompt) is built exclusively around multi-slide carousels. If single-image posts are
 a format worth having more of on content-gen, that's a new pipeline mode here, not a tweak — flagged
 as a scope note, not a defect.
+
+**Shipped.** Both sides now exist:
+
+- **Clone**: `clone-from-browser.mjs --kind single-image` — exactly-1-page gate, allows content-gen's
+  4 aspect ratios (including the 1.91:1 landscape one, unique to this kind), photo cap disabled by
+  default, tags the entry `kind: 'single-image'`. `--url` also now auto-detects a template landing
+  page vs an editor URL.
+- **Contract gate**: `check-template-contract.mjs` detects `.si-page` and applies its own S1-S5
+  rules (root structure, mutual exclusivity with carousel markup, the hard-required
+  `<h1 class="headline">`, flow-layout-only enforcement, single-image-slot rule) — mirrored from
+  content-gen's real `SingleImageTemplateGenerationService.ts` HARD CONTRACT, verified clean
+  against a real content-gen file (`si-photo-hero.html`).
+- **Render/measure gates**: `verify-slides.mjs`/`stress-slots.mjs`/`brand-audit.mjs` recognize
+  `.si-single .si-page` alongside `.slide`, with a viewport that resizes to the page's actual
+  canvas instead of assuming 1080×1350. `score-template.mjs` needed no changes.
+- **Generation**: `generate-worker.mjs` gained a parallel authoring path (`SYSTEM_SI`/`REVIEW_SI`/
+  `processOneSI`) — remix-only, since single-image's flow-layout requirement is structurally
+  incompatible with this pipeline's exact-geometry faithful-reproduction approach. Dispatches
+  automatically by `entry.kind`.
+- **Agent docs**: `canva-clone-agent.md` and `template-remix-agent.md` updated so neither agent
+  gets confused about which contract applies to which kind.
+- **Verified end-to-end**, not just unit-tested: a real single-image Canva design was cloned,
+  planned, authored, repaired, scored, and shipped through the full pipeline, producing a
+  structurally valid, contract-clean template with a real generated photo baked in. One real bug
+  found and fixed along the way (image-gen API rejects the canvas's own pixel size as a
+  `data-image-size` — needs `1024x1024`/`1024x1536` regardless of canvas dimensions).
 
 ---
 
