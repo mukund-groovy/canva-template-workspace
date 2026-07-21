@@ -1,5 +1,4 @@
-<!doctype html>
-<html lang="en"><head>
+<!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
@@ -15,7 +14,7 @@
   --text-low:var(--brand-text-muted,rgba(36,28,21,.62));
   --border:var(--brand-border,rgba(36,28,21,.16));
   --highlight:var(--brand-accent2,var(--brand-accent,#D6A93A));
-  --on-accent:var(--brand-on-accent,#ffffff);
+  --on-fill:var(--brand-on-accent,#ffffff);
   --on-primary:var(--brand-on-primary,#ffffff);
 }
 
@@ -58,11 +57,11 @@
 
 /* accent-filled step numeral badge — the guaranteed brand device on every step slide */
 .stepnum{position:absolute;width:132px;height:132px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;z-index:5;box-shadow:0 10px 22px rgba(20,14,8,.28);}
-.stepnum span{font-family:'Playfair Display',serif;font-weight:800;font-size:60px;color:var(--on-accent);}
+.stepnum span{font-family:'Playfair Display',serif;font-weight:800;font-size:60px;color:var(--on-fill);}
 
 /* accent-filled CTA pill */
 .pill{position:absolute;background:var(--accent);border-radius:999px;padding:26px 54px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 14px 26px rgba(20,14,8,.24);}
-.pill span{font-family:'Nunito',sans-serif;font-weight:700;font-size:32px;color:var(--on-accent);white-space:nowrap;}
+.pill span{font-family:'Nunito',sans-serif;font-weight:700;font-size:32px;color:var(--on-fill);white-space:nowrap;}
 
 /* text wrappers — one node per text run, own absolute box */
 .tn-pretitle{position:absolute;left:0;right:0;text-align:center;}
@@ -109,19 +108,19 @@ svg{display:block;}
 <section class="slide" data-cg-slide-type="cover">
   <div class="tape" style="left:454px;top:64px;transform:rotate(-3deg);"></div>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;left:52px;top:150px;width:158px;height:158px;transform:rotate(-8deg);z-index:3;" aria-hidden="true">
-    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="position:absolute;left:52px;top:150px;width:158px;height:158px;transform:rotate(-8deg);z-index:3;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--cg-fill)"></polygon>
   </svg>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 60 60" style="position:absolute;right:96px;top:118px;width:52px;height:52px;z-index:3;" aria-hidden="true">
-    <path d="M30 2 L36 24 L58 30 L36 36 L30 58 L24 36 L2 30 L24 24 Z" fill="var(--highlight)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 60 60" style="position:absolute;right:96px;top:118px;width:52px;height:52px;z-index:3;--cg-fill:var(--highlight);--cg-stroke:var(--highlight);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+    <path d="M30 2 L36 24 L58 30 L36 36 L30 58 L24 36 L2 30 L24 24 Z" fill="var(--cg-fill)"></path>
   </svg>
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 60 60" style="position:absolute;right:150px;top:180px;width:30px;height:30px;z-index:3;" aria-hidden="true">
-    <path d="M30 2 L36 24 L58 30 L36 36 L30 58 L24 36 L2 30 L24 24 Z" fill="var(--highlight)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 60 60" style="position:absolute;right:150px;top:180px;width:30px;height:30px;z-index:3;--cg-fill:var(--highlight);--cg-stroke:var(--highlight);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+    <path d="M30 2 L36 24 L58 30 L36 36 L30 58 L24 36 L2 30 L24 24 Z" fill="var(--cg-fill)"></path>
   </svg>
 
   <div class="badge" style="left:400px;top:396px;">
-    <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23241C15%22%20fill-opacity=%220.55%22/%3E%3C/svg%3E"/>
+    <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23241C15%22%20fill-opacity=%220.55%22/%3E%3C/svg%3E">
     <span class="brand-word">Paper&amp;Ink</span>
   </div>
 
@@ -131,9 +130,9 @@ svg{display:block;}
 
   <div class="tn-tagline" style="top:1000px;"><p data-tagline="true">A scrappy, hand-cut guide to your first eight-page zine.</p></div>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 60 90" style="position:absolute;left:60px;top:1010px;width:60px;height:90px;transform:rotate(-12deg);z-index:3;" aria-hidden="true">
-    <path d="M8 4 L52 4 L52 12 L20 12 L20 86 L8 86 Z" fill="none" stroke="var(--text-high)" stroke-width="4" stroke-linejoin="round"/>
-    <circle cx="14" cy="8" r="4" fill="var(--text-high)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 60 90" style="position:absolute;left:60px;top:1010px;width:60px;height:90px;transform:rotate(-12deg);z-index:3;--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" aria-hidden="true" focusable="false">
+    <path d="M8 4 L52 4 L52 12 L20 12 L20 86 L8 86 Z" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linejoin="round"></path>
+    <circle cx="14" cy="8" r="4" fill="var(--cg-fill)"></circle>
   </svg>
 
   <div class="pill" style="left:390px;top:1120px;"><span data-cta="true">Let's Get Cutting</span></div>
@@ -148,8 +147,8 @@ svg{display:block;}
 <section class="slide" data-cg-slide-type="text">
   <div class="tn-kicker" style="top:78px;"><h2 data-title="true">Pick Your Theme</h2></div>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 24 24" style="position:absolute;left:70px;top:250px;width:56px;height:56px;z-index:5;transform:rotate(-18deg);" aria-hidden="true">
-    <path d="M4 4 L4 20 M4 4 A6 6 0 0 1 16 4 L16 16 A6 6 0 0 1 4 16" fill="none" stroke="var(--text-high)" stroke-width="2.4" stroke-linecap="round"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" style="position:absolute;left:70px;top:250px;width:56px;height:56px;z-index:5;transform:rotate(-18deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" aria-hidden="true" focusable="false">
+    <path d="M4 4 L4 20 M4 4 A6 6 0 0 1 16 4 L16 16 A6 6 0 0 1 4 16" fill="none" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round"></path>
   </svg>
 
   <div class="paper small" style="top:258px;">
@@ -160,14 +159,14 @@ svg{display:block;}
 
   <div class="tape" style="left:456px;top:238px;transform:rotate(-2deg);"></div>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;right:70px;top:800px;width:128px;height:128px;transform:rotate(14deg);z-index:3;" aria-hidden="true">
-    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="position:absolute;right:70px;top:800px;width:128px;height:128px;transform:rotate(14deg);z-index:3;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--cg-fill)"></polygon>
   </svg>
 
   <div class="stepnum" style="left:96px;top:1002px;"><span>1</span></div>
 
   <div class="foot">
-    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">MAKE YOUR ZINE</span></div>
     <div class="cg-slide-counter" data-counter="true">02 / 10</div>
   </div>
 </section>
@@ -176,8 +175,8 @@ svg{display:block;}
 <section class="slide" data-cg-slide-type="text">
   <div class="tn-kicker" style="top:78px;"><h2 data-title="true">Know Your Reader</h2></div>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;left:56px;top:230px;width:140px;height:140px;transform:rotate(9deg);z-index:3;" aria-hidden="true">
-    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="position:absolute;left:56px;top:230px;width:140px;height:140px;transform:rotate(9deg);z-index:3;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--cg-fill)"></polygon>
   </svg>
 
   <div class="paper small" style="top:258px;">
@@ -188,15 +187,15 @@ svg{display:block;}
 
   <div class="tape" style="left:456px;top:238px;transform:rotate(2deg);"></div>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 60 90" style="position:absolute;right:90px;top:800px;width:60px;height:90px;transform:rotate(10deg);z-index:3;" aria-hidden="true">
-    <path d="M8 4 L52 4 L52 12 L20 12 L20 86 L8 86 Z" fill="none" stroke="var(--secondary)" stroke-width="4" stroke-linejoin="round"/>
-    <circle cx="14" cy="8" r="4" fill="var(--secondary)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 60 90" style="position:absolute;right:90px;top:800px;width:60px;height:90px;transform:rotate(10deg);z-index:3;--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" aria-hidden="true" focusable="false">
+    <path d="M8 4 L52 4 L52 12 L20 12 L20 86 L8 86 Z" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linejoin="round"></path>
+    <circle cx="14" cy="8" r="4" fill="var(--cg-fill)"></circle>
   </svg>
 
   <div class="stepnum" style="left:864px;top:1002px;"><span>2</span></div>
 
   <div class="foot">
-    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">MAKE YOUR ZINE</span></div>
     <div class="cg-slide-counter" data-counter="true">03 / 10</div>
   </div>
 </section>
@@ -205,8 +204,8 @@ svg{display:block;}
 <section class="slide" data-cg-slide-type="text">
   <div class="tn-kicker" style="top:78px;"><h2 data-title="true">Choose Your Format</h2></div>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;left:60px;top:230px;width:132px;height:132px;transform:rotate(-10deg);z-index:3;" aria-hidden="true">
-    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="position:absolute;left:60px;top:230px;width:132px;height:132px;transform:rotate(-10deg);z-index:3;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--cg-fill)"></polygon>
   </svg>
 
   <div class="paper small" style="top:258px;">
@@ -220,7 +219,7 @@ svg{display:block;}
   <div class="pill" style="left:396px;top:1004px;"><span>Fold. Staple. Repeat.</span></div>
 
   <div class="foot">
-    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">MAKE YOUR ZINE</span></div>
     <div class="cg-slide-counter" data-counter="true">04 / 10</div>
   </div>
 </section>
@@ -237,17 +236,17 @@ svg{display:block;}
 
   <div class="tape" style="left:456px;top:238px;transform:rotate(2.5deg);"></div>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;right:70px;top:800px;width:140px;height:140px;transform:rotate(-11deg);z-index:3;" aria-hidden="true">
-    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="position:absolute;right:70px;top:800px;width:140px;height:140px;transform:rotate(-11deg);z-index:3;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--cg-fill)"></polygon>
   </svg>
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 60 60" style="position:absolute;right:80px;top:660px;width:44px;height:44px;z-index:3;" aria-hidden="true">
-    <path d="M30 2 L36 24 L58 30 L36 36 L30 58 L24 36 L2 30 L24 24 Z" fill="var(--highlight)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 60 60" style="position:absolute;right:80px;top:660px;width:44px;height:44px;z-index:3;--cg-fill:var(--highlight);--cg-stroke:var(--highlight);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+    <path d="M30 2 L36 24 L58 30 L36 36 L30 58 L24 36 L2 30 L24 24 Z" fill="var(--cg-fill)"></path>
   </svg>
 
   <div class="stepnum" style="left:96px;top:1002px;"><span>4</span></div>
 
   <div class="foot">
-    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">MAKE YOUR ZINE</span></div>
     <div class="cg-slide-counter" data-counter="true">05 / 10</div>
   </div>
 </section>
@@ -264,8 +263,8 @@ svg{display:block;}
 
   <div class="tape" style="left:456px;top:238px;transform:rotate(-2deg);"></div>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;right:64px;top:800px;width:130px;height:130px;transform:rotate(20deg);z-index:3;" aria-hidden="true">
-    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="position:absolute;right:64px;top:800px;width:130px;height:130px;transform:rotate(20deg);z-index:3;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--cg-fill)"></polygon>
   </svg>
 
   <div class="badge" style="left:400px;top:1004px;width:250px;height:96px;">
@@ -273,7 +272,7 @@ svg{display:block;}
   </div>
 
   <div class="foot">
-    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">MAKE YOUR ZINE</span></div>
     <div class="cg-slide-counter" data-counter="true">06 / 10</div>
   </div>
 </section>
@@ -282,8 +281,8 @@ svg{display:block;}
 <section class="slide" data-cg-slide-type="text">
   <div class="tn-kicker" style="top:78px;"><h2 data-title="true">Cut &amp; Paste</h2></div>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;left:56px;top:230px;width:150px;height:150px;transform:rotate(-6deg);z-index:3;" aria-hidden="true">
-    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="position:absolute;left:56px;top:230px;width:150px;height:150px;transform:rotate(-6deg);z-index:3;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--cg-fill)"></polygon>
   </svg>
 
   <div class="paper small" style="top:258px;">
@@ -297,7 +296,7 @@ svg{display:block;}
   <div class="stepnum" style="left:864px;top:1002px;"><span>6</span></div>
 
   <div class="foot">
-    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">MAKE YOUR ZINE</span></div>
     <div class="cg-slide-counter" data-counter="true">07 / 10</div>
   </div>
 </section>
@@ -306,8 +305,8 @@ svg{display:block;}
 <section class="slide" data-cg-slide-type="text">
   <div class="tn-kicker" style="top:78px;"><h2 data-title="true">Photocopy &amp; Fold</h2></div>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;left:60px;top:232px;width:130px;height:130px;transform:rotate(-8deg);z-index:3;" aria-hidden="true">
-    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="position:absolute;left:60px;top:232px;width:130px;height:130px;transform:rotate(-8deg);z-index:3;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--cg-fill)"></polygon>
   </svg>
 
   <div class="paper small" style="top:258px;">
@@ -318,14 +317,14 @@ svg{display:block;}
 
   <div class="tape" style="left:456px;top:238px;transform:rotate(-2.5deg);"></div>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 24 24" style="position:absolute;right:80px;top:820px;width:64px;height:64px;z-index:5;transform:rotate(20deg);" aria-hidden="true">
-    <path d="M4 4 L4 20 M4 4 A6 6 0 0 1 16 4 L16 16 A6 6 0 0 1 4 16" fill="none" stroke="var(--secondary)" stroke-width="2.4" stroke-linecap="round"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" style="position:absolute;right:80px;top:820px;width:64px;height:64px;z-index:5;transform:rotate(20deg);--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" aria-hidden="true" focusable="false">
+    <path d="M4 4 L4 20 M4 4 A6 6 0 0 1 16 4 L16 16 A6 6 0 0 1 4 16" fill="none" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round"></path>
   </svg>
 
   <div class="stepnum" style="left:96px;top:1002px;"><span>7</span></div>
 
   <div class="foot">
-    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">MAKE YOUR ZINE</span></div>
     <div class="cg-slide-counter" data-counter="true">08 / 10</div>
   </div>
 </section>
@@ -334,8 +333,8 @@ svg{display:block;}
 <section class="slide" data-cg-slide-type="text">
   <div class="tn-kicker" style="top:78px;"><h2 data-title="true">Share It Loud</h2></div>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;right:60px;top:230px;width:140px;height:140px;transform:rotate(12deg);z-index:3;" aria-hidden="true">
-    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="position:absolute;right:60px;top:230px;width:140px;height:140px;transform:rotate(12deg);z-index:3;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--cg-fill)"></polygon>
   </svg>
 
   <div class="paper small" style="top:258px;">
@@ -349,7 +348,7 @@ svg{display:block;}
   <div class="pill" style="left:376px;top:1004px;"><span>Print. Trade. Repeat.</span></div>
 
   <div class="foot">
-    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">MAKE YOUR ZINE</span></div>
+    <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">MAKE YOUR ZINE</span></div>
     <div class="cg-slide-counter" data-counter="true">09 / 10</div>
   </div>
 </section>
@@ -358,16 +357,16 @@ svg{display:block;}
 <section class="slide" data-cg-slide-type="cover">
   <div class="tape" style="left:454px;top:64px;transform:rotate(3deg);"></div>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 200 200" style="position:absolute;left:64px;top:900px;width:150px;height:150px;transform:rotate(-14deg);z-index:3;" aria-hidden="true">
-    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--accent)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="position:absolute;left:64px;top:900px;width:150px;height:150px;transform:rotate(-14deg);z-index:3;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+    <polygon points="100,4 118,72 186,50 132,96 178,150 112,130 100,198 88,130 22,150 68,96 14,50 82,72" fill="var(--cg-fill)"></polygon>
   </svg>
 
-  <svg data-cg-svg data-cg-preserve viewBox="0 0 60 60" style="position:absolute;right:100px;top:920px;width:56px;height:56px;z-index:3;" aria-hidden="true">
-    <path d="M30 2 L36 24 L58 30 L36 36 L30 58 L24 36 L2 30 L24 24 Z" fill="var(--highlight)"/>
+  <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 60 60" style="position:absolute;right:100px;top:920px;width:56px;height:56px;z-index:3;--cg-fill:var(--highlight);--cg-stroke:var(--highlight);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+    <path d="M30 2 L36 24 L58 30 L36 36 L30 58 L24 36 L2 30 L24 24 Z" fill="var(--cg-fill)"></path>
   </svg>
 
   <div class="badge" style="left:400px;top:170px;">
-    <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23241C15%22%20fill-opacity=%220.55%22/%3E%3C/svg%3E"/>
+    <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23241C15%22%20fill-opacity=%220.55%22/%3E%3C/svg%3E">
     <span class="brand-word">Paper&amp;Ink</span>
   </div>
 
@@ -384,5 +383,6 @@ svg{display:block;}
 </section>
 
 </div>
-</body>
-</html>
+
+
+</body></html>
