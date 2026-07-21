@@ -249,6 +249,18 @@ function slideOf(offset) {
   return html.slice(start, end === -1 ? html.length : end);
 }
 
+// Asset filename for the slot at `offset`, matching externalize-images.mjs's scheme exactly:
+// a photo is named for the slide it sits on (`slide-03.png`) — unique and meaningful, since the
+// contract permits at most one content photo per slide. Single-image pages get `page-01`.
+function assetNameFor(offset, fallbackIndex) {
+  const before = html.slice(0, offset);
+  const nSections = (before.match(/<section/gi) || []).length;
+  if (nSections > 0) return `slide-${String(nSections).padStart(2, '0')}`;
+  const nPages = (before.match(/class="si-page"/gi) || []).length;
+  if (nPages > 0) return `page-${String(nPages).padStart(2, '0')}`;
+  return `slot-${String(fallbackIndex).padStart(2, '0')}`;
+}
+
 const clean = (s) => s.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 
 /** Which physical object holds this slot — a phone screen crops differently than a torn scrap. */
@@ -359,11 +371,13 @@ const jobs = [];
   while ((m = SLOT_RE.exec(html)) !== null) {
     if (!isSlot(m[0])) continue;
     const size = m[0].match(/data-image-size="(\d+x\d+)"/i)?.[1] ?? DEFAULT_SIZE;
-    // A slot counts as filled only when it holds a REAL raster photo (png/jpeg/webp).
-    // The authored template ships every slot with a grey `data:image/svg+xml` placeholder;
-    // treating that as filled made the default (non-force) pass skip every slot, so photos
-    // never generated in the pipeline. Placeholders must read as EMPTY.
-    const filled = /\ssrc="data:image\/(?:png|jpe?g|webp);base64,/i.test(m[0]);
+    // A slot counts as filled only when it holds a REAL photo — either a linked asset file
+    // (the current convention) or a legacy inlined raster. The authored template ships every
+    // slot with a grey `data:image/svg+xml` placeholder; treating that as filled made the
+    // default (non-force) pass skip every slot, so photos never generated in the pipeline.
+    // Placeholders must read as EMPTY.
+    const filled = /\ssrc="data:image\/(?:png|jpe?g|webp);base64,/i.test(m[0])
+      || /\ssrc="assets\/images\//i.test(m[0]);
     jobs.push({ tag: m[0], index: m.index, size, filled });
   }
 }
@@ -420,17 +434,27 @@ console.log(`\n${todo} slot(s) to generate, ${jobs.length - todo} kept as-is.`);
 if (!todo) { console.log('nothing to do (use --force or --only N to regenerate).'); process.exit(0); }
 if (DRY) { console.log('\n--dry: nothing generated.'); process.exit(0); }
 
-// Generated slot images are BUILD ARTEFACTS, not deliverables: they live under
-// <root>/.slot-images/<source-dir>/<template>/, never beside the HTML. output/ must hold
-// ONLY final template HTML so the whole folder can be lifted elsewhere as-is.
-// Per-template subdir so parallel fills of DIFFERENT templates never share a slot-N.png
-// path. (Inlining uses the freshly generated buffer directly, so the HTML was already
-// safe — the per-template archive keeps regeneration/debugging correct under concurrency.)
+// Generated slot images are now DELIVERABLES that sit beside the template, not inlined into
+// it (B2, 2026-07-21). A baked `data:…;base64` photo pushed templates to 16-21 MB — content-gen
+// stores template HTML in a Postgres text column that accepts that, but its own HTTP
+// create/update path caps at 10 MB (express.json), so an inlined template can be seeded yet
+// never edited through the admin API; and its own 40 seeded templates carry zero base64.
+//
+//   <dir-of-html>/assets/images/<template-slug>/slide-03.png
+//   <img src="assets/images/<template-slug>/slide-03.png">
+//
+// The path is RELATIVE to the template, so the folder still lifts elsewhere as a unit, and at
+// seed time the local prefix is swapped for the hosted (Azure Blob) URL.
+const TEMPLATE_SLUG = path.basename(htmlPath, '.html');
+const assetDir = path.join(path.dirname(htmlPath), 'assets', 'images', TEMPLATE_SLUG);
+const assetRelBase = `assets/images/${TEMPLATE_SLUG}`;
+fs.mkdirSync(assetDir, { recursive: true });
+// Raw (uncompressed) generations still archived off to the side for debugging/regeneration.
 const outDir = path.join(
   WS_ROOT, // declared with the lock dir above
   '.slot-images',
   path.basename(path.dirname(htmlPath)),
-  path.basename(htmlPath, '.html')
+  TEMPLATE_SLUG
 );
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -446,17 +470,23 @@ for (let i = jobs.length - 1; i >= 0; i--) {
   fs.writeFileSync(path.join(outDir, `slot-${i + 1}.png`), res.buf);
   const [w, h] = j.size.split('x').map(Number);
   const { buf: small, mime, compressed } = compress(res.buf, w, h);
-  const uri = `data:${mime};base64,${small.toString('base64')}`;
-  const newTag = j.tag.replace(/\ssrc="[^"]*"/i, ` src="${uri}"`);
-  if (newTag === j.tag) {
-    console.log('FAILED — could not rewrite src (no src attribute matched); image saved but NOT inlined');
+  const ext = /jpeg|jpg/i.test(mime) ? 'jpg' : 'png';
+  const assetFile = `${assetNameFor(j.index, i + 1)}.${ext}`;
+  fs.writeFileSync(path.join(assetDir, assetFile), small);
+  const wantSrc = `src="${assetRelBase}/${assetFile}"`;
+  const newTag = j.tag.replace(/\ssrc="[^"]*"/i, ` ${wantSrc}`);
+  // Assert the tag ENDS UP correct, not that it CHANGED: a regenerated slot resolves to the
+  // same asset filename (slide-03.png), so the rewritten tag is byte-identical to the original
+  // and a `newTag === j.tag` check reports a false failure on an operation that worked.
+  if (!newTag.includes(wantSrc)) {
+    console.log('FAILED — could not rewrite src (no src attribute matched); image saved but NOT linked');
     continue;
   }
   html = html.slice(0, j.index) + newTag + html.slice(j.index + j.tag.length);
   const note = compressed
     ? `${Math.round(res.buf.length / 1024)} KB → ${Math.round(small.length / 1024)} KB jpeg`
     : `${Math.round(res.buf.length / 1024)} KB (magick missing, no compression)`;
-  console.log(`ok (${note})`);
+  console.log(`ok (${note}) -> ${assetRelBase}/${assetFile}`);
   filled++;
   // Save after EVERY successful slot, not just once at the end — generate() retries
   // transient failures internally now, but a slot can still exhaust its retries (or the
@@ -467,10 +497,14 @@ for (let i = jobs.length - 1; i >= 0; i--) {
 
 fs.writeFileSync(htmlPath, html);
 
-// Never claim success without proving it landed in the file.
+// Never claim success without proving it landed in the file — and that the file it points at
+// actually exists on disk (a linked path that 404s is worse than an inlined image).
 const written = fs.readFileSync(htmlPath, 'utf8');
-const inlined = (written.match(/data:image\/(png|jpeg);base64,/g) || []).length;
-console.log(`\nfilled ${filled}/${jobs.length}, verified ${inlined} inlined image(s) in the file.`);
-if (inlined < filled) { console.error('MISMATCH — generated more than were inlined.'); process.exit(1); }
+const linkedPaths = [...written.matchAll(/src="(assets\/images\/[^"]+)"/g)].map((m) => m[1]);
+const missing = linkedPaths.filter((p) => !fs.existsSync(path.join(path.dirname(htmlPath), p)));
+console.log(`\nfilled ${filled}/${jobs.length}, verified ${linkedPaths.length} linked image(s) in the file.`);
+if (missing.length) { console.error(`MISMATCH — ${missing.length} linked image(s) missing on disk: ${missing.join(', ')}`); process.exit(1); }
+if (linkedPaths.length < filled) { console.error('MISMATCH — generated more than were linked.'); process.exit(1); }
 console.log(`template ${Math.round(written.length / 1024)} KB — wrote ${htmlPath}`);
+console.log(`images → ${assetDir}`);
 console.log(`raw PNGs → ${outDir}`);

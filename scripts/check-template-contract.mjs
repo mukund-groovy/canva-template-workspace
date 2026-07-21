@@ -328,6 +328,37 @@ $('svg').each((_j, root) => {
   }
 });
 
+// ── C12. content photos live in files, never inlined as base64 ────────────────
+// A baked `data:…;base64` photo pushed templates to 16-21 MB (345 MB across output/).
+// content-gen stores template HTML in a Postgres `html_content @db.Text` column that WILL
+// accept that, but its own HTTP create/update path caps at 10 MB (express.json in
+// config/middleware.ts), so an inlined template can be seeded yet never edited through the
+// admin API — and its own 40 seeded templates carry ZERO base64 (every content photo is a
+// plain URL). Photos belong in files: output/assets/images/<slug>/<name>.png, referenced by a
+// relative path that is swapped for the hosted URL at seed time.
+//
+// Brand-logo <img data-brand-logo> is exempt: it is a few hundred bytes of URL-encoded SVG
+// (not base64) and content-gen swaps it for the real brand logo at generation anyway.
+const htmlDir = path.dirname(file);
+$('img').each((_j, e) => {
+  const $img = $(e);
+  const src = $img.attr('src') || '';
+  const isLogo = $img.attr('data-brand-logo') !== undefined
+    || $img.closest('.brand, .brand-mark-clip').length > 0
+    || /brand-mark|brand-logo/.test($img.attr('class') || '');
+  if (isLogo) return;
+  if (/^data:image\/[a-z+]+;base64,/i.test(src)) {
+    const kb = Math.round((src.length * 0.75) / 1024);
+    v('C12-IMGSRC', `content photo is inlined as base64 (~${kb} KB) — externalize it to assets/images/<slug>/ and reference the relative path (node scripts/externalize-images.mjs)`);
+    return;
+  }
+  // A linked asset that doesn't exist on disk is worse than an inlined one — it renders as a
+  // broken image with no error anywhere upstream.
+  if (/^assets\/images\//.test(src) && !fs.existsSync(path.join(htmlDir, src))) {
+    v('C12-IMGSRC', `linked image "${src}" does not exist on disk (resolved against ${path.basename(htmlDir)}/)`);
+  }
+});
+
 // ── report ───────────────────────────────────────────────────────────────────
 const unitCount = isSingleImage ? siPages.length : slides.length;
 const result = { template: file, kind: isSingleImage ? 'single-image' : 'carousel', slides: unitCount, violations, warnings, pass: violations.length === 0 };
