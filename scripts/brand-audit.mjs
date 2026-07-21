@@ -92,6 +92,20 @@ const page = await browser.newPage({ viewport: { width: 1080, height: 1350 } });
 await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
 await page.waitForTimeout(2400);
 
+// Single-image canvases aren't locked to 1080x1350 (see verify-slides.mjs for the same fix).
+const siBox = await page.evaluate(() => {
+  const el = document.querySelector('.si-single .si-page');
+  if (!el) return null;
+  const r = el.getBoundingClientRect();
+  return { w: Math.ceil(r.width), h: Math.ceil(r.height) };
+});
+if (siBox && siBox.w && siBox.h && (siBox.w !== 1080 || siBox.h !== 1350)) {
+  await page.setViewportSize({ width: siBox.w, height: siBox.h });
+  await page.waitForTimeout(300);
+}
+
+const SLIDE_SEL = '.ig-carousel .slide, .si-single .si-page';
+
 const defaults = await page.evaluate(() => {
   const cs = getComputedStyle(document.documentElement);
   return {
@@ -100,14 +114,14 @@ const defaults = await page.evaluate(() => {
   };
 });
 
-const n = (await page.$$('.ig-carousel .slide')).length;
+const n = (await page.$$(SLIDE_SEL)).length;
 console.log(`template : ${path.basename(htmlPath)}`);
 console.log(`slides   : ${n}`);
 console.log(`defaults : primary ${defaults.primary}  accent ${defaults.accent}\n`);
 
 // default-palette renders for the human collision check
 if (outDir) {
-  const slides = await page.$$('.ig-carousel .slide');
+  const slides = await page.$$(SLIDE_SEL);
   for (let i = 0; i < slides.length; i++) {
     await slides[i].screenshot({ path: path.join(outDir, `slide-${i + 1}.png`) });
   }
@@ -115,11 +129,11 @@ if (outDir) {
 
 await setBrand(page, A);
 const shotsA = [];
-{ const s = await page.$$('.ig-carousel .slide'); for (const el of s) shotsA.push(await grab(page, el)); }
+{ const s = await page.$$(SLIDE_SEL); for (const el of s) shotsA.push(await grab(page, el)); }
 
 await setBrand(page, B);
 const shotsB = [];
-{ const s = await page.$$('.ig-carousel .slide'); for (const el of s) shotsB.push(await grab(page, el)); }
+{ const s = await page.$$(SLIDE_SEL); for (const el of s) shotsB.push(await grab(page, el)); }
 
 await browser.close();
 

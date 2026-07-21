@@ -45,7 +45,7 @@ const CASES = [
 // photo. Stress under a substituted font, not the author's.
 const BRAND_FONT =
   "@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');" +
-  " .slide, .slide *{font-family:'Plus Jakarta Sans',sans-serif !important;}";
+  " .slide, .slide *, .si-page, .si-page *{font-family:'Plus Jakarta Sans',sans-serif !important;}";
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1080, height: 1350 } });
@@ -59,10 +59,28 @@ async function loadFresh() {
 }
 await loadFresh();
 
+// Single-image canvases aren't locked to 1080x1350 (see verify-slides.mjs for the same fix) —
+// resize the viewport to the real .si-page box so stress text isn't measured against a clipped
+// or padded frame.
+const siBox = await page.evaluate(() => {
+  const el = document.querySelector('.si-page');
+  if (!el) return null;
+  const r = el.getBoundingClientRect();
+  return { w: Math.ceil(r.width), h: Math.ceil(r.height) };
+});
+if (siBox && siBox.w && siBox.h && (siBox.w !== 1080 || siBox.h !== 1350)) {
+  await page.setViewportSize({ width: siBox.w, height: siBox.h });
+  await page.waitForTimeout(300);
+}
+
 const findings = [];
 for (const c of CASES) {
   const res = await page.evaluate(({ title, message, caseName }) => {
     document.querySelectorAll('[data-title="true"]').forEach((e) => { e.textContent = title; });
+    // Single-image's own class-based slots (no data-title/data-message attribute convention —
+    // see check-template-contract.mjs's S3 rule): stress the same worst-case copy directly.
+    document.querySelectorAll('h1.headline').forEach((e) => { e.textContent = title; });
+    document.querySelectorAll('p.body').forEach((e) => { e.textContent = message; });
     document.querySelectorAll('[data-message="true"]').forEach((e) => { e.textContent = message; });
 
     const out = [];
@@ -77,7 +95,7 @@ for (const c of CASES) {
     // templates fit, never trigger autofit, and resize correctly.
     //
     // So: a template that never overflows never gets stamped. Assert that here.
-    document.querySelectorAll('.slide').forEach((slide, i) => {
+    document.querySelectorAll('.slide, .si-page').forEach((slide, i) => {
       const rootRect = slide.getBoundingClientRect();
       const frameH = rootRect.height || 1350;
       let ratio = 0, sawInFlow = false;
@@ -97,7 +115,7 @@ for (const c of CASES) {
       }
     });
 
-    document.querySelectorAll('.slide').forEach((slide, i) => {
+    document.querySelectorAll('.slide, .si-page').forEach((slide, i) => {
       const sr = slide.getBoundingClientRect();
       const texts = [...slide.querySelectorAll('*')].filter(
         (e) => !e.children.length && (e.textContent || '').trim() && !e.closest('svg')

@@ -249,6 +249,20 @@ await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
 await page.evaluate(() => document.fonts.ready);
 await page.waitForTimeout(1500);
 
+// Single-image canvases aren't locked to the carousel's fixed 1080x1350 — content-gen supports
+// 1:1 (1080x1080), 9:16 (1080x1920), and 1.91:1 (1200x628) too. Resize the viewport to the
+// actual .si-page box (if present) so the element screenshot below isn't clipped or padded.
+const siBox = await page.evaluate(() => {
+  const el = document.querySelector('.si-single .si-page');
+  if (!el) return null;
+  const r = el.getBoundingClientRect();
+  return { w: Math.ceil(r.width), h: Math.ceil(r.height) };
+});
+if (siBox && siBox.w && siBox.h && (siBox.w !== SLIDE_W || siBox.h !== SLIDE_H)) {
+  await page.setViewportSize({ width: siBox.w, height: siBox.h });
+  await page.waitForTimeout(300);
+}
+
 // ---------- BRAND PASS ----------
 // `--brand "<primary>,<accent>"` skins the deck with a brand palette before any check
 // runs, exactly like the production skinner (which sets --brand-* on the root). The
@@ -275,7 +289,7 @@ if (BRAND) {
 const fontReport = await page.evaluate(() => {
   const generic = /^(serif|sans-serif|monospace|cursive|fantasy|system-ui|ui-\w+|inherit|initial|unset)$/i;
   const used = new Map();
-  for (const el of document.querySelectorAll('.ig-carousel .slide *')) {
+  for (const el of document.querySelectorAll('.ig-carousel .slide *, .si-single .si-page *')) {
     if (el.children.length || !(el.textContent || '').trim()) continue;
     if (el.closest('svg')) continue;
     const cs = getComputedStyle(el);
@@ -320,7 +334,7 @@ for (const f of fontReport) {
 }
 
 // ---------- per-slide geometry ----------
-const slides = await page.$$('.ig-carousel .slide');
+const slides = await page.$$('.ig-carousel .slide, .si-single .si-page');
 for (let i = 0; i < slides.length; i++) {
   const n = i + 1;
   const png = path.join(outDir, `slide-${String(n).padStart(2, '0')}.png`);
@@ -527,7 +541,7 @@ for (let i = 0; i < slides.length; i++) {
   // sample measures what is BEHIND the run instead of averaging in the run itself.
   const bgPng = path.join(outDir, `slide-${String(n).padStart(2, '0')}-bg.png`);
   await page.addStyleTag({
-    content: '.ig-carousel .slide *:not(svg):not(svg *){color:transparent !important;text-shadow:none !important;}',
+    content: '.ig-carousel .slide *:not(svg):not(svg *),.si-single .si-page *:not(svg):not(svg *){color:transparent !important;text-shadow:none !important;}',
   }).then(async (tag) => {
     await slides[i].screenshot({ path: bgPng });
     await tag.evaluate((el) => el.remove());
