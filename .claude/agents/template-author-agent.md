@@ -59,8 +59,9 @@ without shipping, mark it failed instead of leaving the row stuck:
 
 ## The deliverable — a faithful, recolorable template
 
-Author ONE self-contained HTML document at `output/<slug>.html` where `<slug>` is a 3-word kebab slug
-of the title (e.g. `white-and-black-2`; append `-N` if the file already exists). It MUST:
+Author ONE HTML document at `output/<slug>.html` where `<slug>` is a 3-word kebab slug of the title
+(e.g. `white-and-black-2`; append `-N` if the file already exists), with CSS and fonts inlined.
+**Photos are the one exception — they are FILES, not inlined** (see the Photos bullet). It MUST:
 
 - **Reproduce the reference faithfully** — same layout, same copy (verbatim from the geometry/transcription),
   same decorative devices (pills, folder-tabs, node handles, cursors, rules) in their positions and at
@@ -118,7 +119,12 @@ of the title (e.g. `white-and-black-2`; append `-N` if the file already exists).
   swipe/next prompts entirely. Reproduce every OTHER text run verbatim.
 - **Photos** (only for photo decks): a content photo is `<img data-image="true" ...>` with a grey svg
   data-uri placeholder src (the pipeline fills it later); at most one per slide; purely typographic
-  slides ship zero.
+  slides ship zero. **Author the grey placeholder only — never a real photo, and NEVER a
+  `data:…;base64` image.** `fill-image-slots.mjs` generates the photo and writes it as a FILE to
+  `output/assets/images/<slug>/slide-NN.png`, rewriting the `src` to that relative path. Inlining a
+  photo as base64 is a hard gate violation (C12-IMGSRC) — it pushed templates to 16-21 MB, which
+  content-gen's Postgres column accepts but its 10 MB HTTP update cap does not, making the template
+  seedable-but-uneditable. Leave the placeholder and let the fill step run.
 - **Fit + no collision + no occlusion**: text must FIT its box and the 1080x1350 canvas (shrink font
   before you clip); nothing overlaps the headline / footer / another block; body text renders ABOVE its
   card/panel (give text wrappers a higher z-index than filled surfaces — a card must never cover its own copy).

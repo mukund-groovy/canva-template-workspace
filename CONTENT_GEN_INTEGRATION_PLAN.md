@@ -89,7 +89,7 @@ checks derivation source against the same `TOKEN_BRAND_MAP`, not just presence; 
 correctly flags a synthetic `--highlight:var(--brand-highlight,...)` file and passes all 16 real
 outputs (including the 2 just fixed) clean.
 
-### B2. Baked-in generated images make some files ~500× larger than content-gen's own templates — will not scale into a database row
+### B2. Baked-in generated images make some files ~500× larger than content-gen's own templates — ✅ RESOLVED (2026-07-21)
 
 content-gen's own image-slot convention (`carousel-template-parser.ts:313-321`) never embeds a
 real image in the seeded template file — it sets `src="[[AI_IMG:<query>]]"`, a text placeholder
@@ -119,6 +119,53 @@ the authoring intent, and content-gen's own Pexels-resolution pipeline (or its o
 enabled for that brand) fills it per-brand at actual generation time, which is the *correct*
 place for that image to be decided anyway — a seed template baking in one specific stock photo
 makes no sense once real brands with real topics start using it.
+
+**Corrections to the original framing, after reading content-gen's actual code:**
+- The DB is **not** the blocker. `htmlContent String @db.Text` on **Postgres** — no practical
+  limit; a 21 MB template seeds fine. Seeding is a direct CLI script (`fs.readFileSync` → Prisma),
+  no size check, no truncation.
+- The real hard limit is the **HTTP path**: `express.json({ limit: '10mb' })`
+  (`config/middleware.ts:89`). So an inlined template is **seedable but never editable** through
+  the admin API/UI — a 413 the moment anyone updates it.
+- It also **propagates**: the change-template path (`extractSlidesFromRenderedCarousel:581`) only
+  skips a src starting with `[[AI_IMG`, so a `data:` URI is captured verbatim and re-saved into
+  every derived template.
+- And it's **discarded anyway**: `mergeSlidesIntoTemplate:536` unconditionally overwrites the
+  first content `<img>` src per slide, without inspecting what was there.
+- Strongest signal: **zero of content-gen's own 40 seeded templates contain base64.** Every
+  content photo is a plain URL; the only `data:` URI is the tiny URL-encoded brand-logo SVG.
+
+**Shipped — files on disk, not `[[AI_IMG:]]`.** The originally-proposed `[[AI_IMG:<query>]]`
+placeholder was **rejected on evidence**: `renderDesignToPng.ts:17` exports an unresolved
+`[[AI_IMG:]]` as-is (a visible placeholder), and content-gen's own seeds never use it — a seed
+template carrying one renders broken in the gallery card. Instead, photos became real files, which
+also keeps our art-directed image quality instead of falling back to a Pexels keyword search:
+
+- `output/assets/images/<slug>/<name>.png`, referenced by a relative
+  `src="assets/images/<slug>/slide-03.png"`. Naming is derived from the slide the photo sits on
+  (the contract allows at most one content photo per slide, so it's unique *and* meaningful);
+  single-image pages get `page-01.png`.
+- **Backfilled all 33 image-bearing templates / 131 photos** via new
+  `scripts/externalize-images.mjs` (`--all`, `--dry` to preview) — pure local base64-decode, no
+  network. **HTML: 343 MB → 0.56 MB.** Verified renders and the full 4-gate score are unchanged
+  (`garden-year-recap` 7.6/10 before and after, contract 4/4).
+- `fill-image-slots.mjs` now writes new generations to the same folder + relative path instead of
+  inlining, so this can't come back. Verified end-to-end with a real regeneration.
+- Gate-enforced by **C12-IMGSRC** in `check-template-contract.mjs`: base64 content photo = a
+  violation, and so is a linked path with no file behind it (a broken link renders as a silently
+  missing image — worse than an inlined one). Both branches negative-tested against synthetic
+  files. Brand-logo `<img data-brand-logo>` is exempt (URL-encoded SVG, a few hundred bytes,
+  swapped for the real logo at generation).
+- Path resolution verified everywhere it's loaded: all four gates and `build-comparison.mjs` open
+  the HTML in place via `pathToFileURL`, and the dashboard iframes `output/<slug>.html` from the
+  repo root — both resolve `assets/images/…` against `output/`. No breakage.
+- One real bug found and fixed while building it: the src-rewrite guard used `newTag === j.tag` to
+  detect failure, but a *regenerated* slot resolves to the same filename, making the rewritten tag
+  byte-identical and reporting a false failure on a successful write. Now asserts the tag ends up
+  correct rather than that it changed.
+- **Still manual:** uploading `output/assets/images/**` to Azure Blob and swapping the relative
+  prefix for the hosted URL at seed time. Deliberate — the container/credentials aren't wired into
+  this workspace yet. Documented as a future improvement in `CLAUDE.md` with the exact requirements.
 
 ### B3. `--on-accent` doesn't match content-gen's own on-pair naming convention — cosmetic, but causes false-positive warnings — ✅ RESOLVED (2026-07-21)
 

@@ -270,12 +270,37 @@ agent there). Treat every shared path as live, not yours.
 
 ## Architecture & data model
 
-**The deliverable** is a single self-contained `output/<slug>.html`: one section per slide, all
-CSS/fonts/photos inlined so it renders offline. It is **brand-recolorable** — every non-fixed
-color is a `--brand-*` CSS var (`--brand-primary/-accent/-bg/-ink/-surface/…`), and photo slots
-are `<img data-image="true">` that `fill-image-slots.mjs` fills with per-slide generated images.
-Fixed literals (canvas paper, ink) intentionally do NOT move under recolor — that's what
+**The deliverable** is `output/<slug>.html` + its sibling image folder: one section per slide,
+CSS/fonts inlined, **photos as files** at `output/assets/images/<slug>/<name>.png` referenced by
+a RELATIVE path (`src="assets/images/<slug>/slide-03.png"`). It is **brand-recolorable** — every
+non-fixed color is a `--brand-*` CSS var (`--brand-primary/-accent/-bg/-ink/-surface/…`), and photo
+slots are `<img data-image="true">` that `fill-image-slots.mjs` fills with per-slide generated
+images. Fixed literals (canvas paper, ink) intentionally do NOT move under recolor — that's what
 `brand-audit.mjs` measures differentially.
+
+**Photos are files, not base64 (changed 2026-07-21 — B2).** They used to be inlined as
+`data:…;base64`, which pushed templates to 16-21 MB (345 MB across `output/`). content-gen stores
+template HTML in a Postgres `html_content @db.Text` column that *will* accept that, but its own
+HTTP create/update path caps at **10 MB** (`express.json` in `config/middleware.ts`) — so an
+inlined template can be seeded yet never edited through the admin API — and its own 40 seeded
+templates carry **zero** base64 (every content photo is a plain URL). Externalizing took HTML from
+343 MB → 0.56 MB total.
+
+- Naming is DERIVED, not arbitrary: a photo is named for the slide it sits on (`slide-03.png`),
+  since the contract already permits at most one content photo per slide, so the slide number is
+  both unique and meaningful. Single-image pages get `page-01.png`.
+- Brand-logo `<img data-brand-logo>` stays INLINE — a few hundred bytes of URL-encoded SVG (not
+  base64), and content-gen swaps it for the real brand logo at generation anyway.
+- The relative path resolves correctly everywhere it's loaded today: every gate and
+  `build-comparison.mjs` load the HTML in place via `pathToFileURL`, and the dashboard iframes it
+  as `output/<slug>.html` from the repo root — both resolve `assets/images/…` against `output/`.
+- Gate-enforced by `check-template-contract.mjs` **C12-IMGSRC**: a base64 content photo is a
+  violation, and so is a linked path with no file behind it (a broken link renders as a silently
+  missing image, which is worse).
+- Backfill/repair tool: `node scripts/externalize-images.mjs --all` (decodes any base64 photo to a
+  file and rewrites the src; `--dry` to preview).
+- **At seed time** the relative prefix is swapped for the hosted (Azure Blob) URL. That upload +
+  swap is **manual for now** — see "Future improvement" below.
 
 **Gate & score pipeline** — why there are four gates, not one. Each catches a defect class the
 others are blind to; a template only ships when all pass, and `score-template.mjs` folds them into
@@ -313,6 +338,20 @@ only READS (claims nothing) and status-marking is not atomic. To take a design s
 session must call `agent-canva-clone.mjs --action claim --design-id <id> --stage authoring` (atomic
 check-and-set under one lock) and dispatch only if `claimed: true`. See the Concurrency section above for
 the shared-directory rules (never `rm -rf` a shared dir; scope deletes to your own slug).
+
+## Future improvement — automate the seed-time image upload
+
+Photos ship as local relative paths (`assets/images/<slug>/slide-03.png`). At seed time they must
+live on Azure Blob and the HTML must point at the hosted URL instead. **Today that swap is manual**
+— deliberately, because the Blob container/credentials aren't wired into this workspace yet.
+
+When those details exist, automate it as a script that: uploads `output/assets/images/**` to the
+container preserving the `<slug>/<name>.png` layout (so the hosted path mirrors the local one
+1:1 — that symmetry is the whole point of the folder structure), then rewrites every
+`src="assets/images/…"` to `<blob-base-url>/assets/images/…`. Keep it a SEPARATE step that emits
+seed-ready copies rather than mutating `output/` in place, so the workspace stays renderable
+offline and re-runnable. Needs: container name, base URL, and a connection string or SAS token
+with write access.
 
 ## Notes
 

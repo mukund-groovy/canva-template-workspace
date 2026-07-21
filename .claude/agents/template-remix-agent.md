@@ -111,8 +111,9 @@ Supporting inputs:
 
 ## 3. The technical contract (non-negotiable — the pipeline depends on it)
 
-Ship ONE self-contained HTML document at `output/<slug>.html` (`<slug>` = 3-word kebab slug of your
-topic; append `-N` if taken). It MUST:
+Ship ONE HTML document at `output/<slug>.html` (`<slug>` = 3-word kebab slug of your topic; append
+`-N` if taken), with CSS and fonts inlined. **Photos are the one exception — they are FILES, not
+inlined** (see the Photos bullet below). It MUST:
 
 - **Mirror the exemplar structure**: root `<div class="ig-carousel">`, one
   `<section class="slide" data-cg-slide-type="...">` per page, fixed 1080x1350 canvas each; in `:root`
@@ -171,6 +172,12 @@ topic; append `-N` if taken). It MUST:
   `<img data-image="true">` with a grey svg data-uri placeholder and a topical `data-image-prompt`;
   max one per slide. A full-page (~1080x1350) image is the BACKGROUND → build it in CSS, not a photo
   slot. Small (<250px) marks are decoration → inline SVG. Typographic decks ship zero photo slots.
+  **You author the grey placeholder only — never a real photo, and NEVER a `data:…;base64` image.**
+  `fill-image-slots.mjs` generates the real photo and writes it as a FILE to
+  `output/assets/images/<slug>/slide-NN.png`, rewriting your `src` to that relative path. Inlining a
+  photo as base64 is a hard gate violation (C12-IMGSRC): it pushed templates to 16-21 MB, and while
+  content-gen's Postgres column accepts that, its own HTTP update path caps at 10 MB — so such a
+  template can be seeded but never edited. Leave the placeholder alone and let the fill step run.
 - **SVG rules (all gate-enforced by `check-template-contract` — C9/C10/C11; C11 added 2026-07-21
   after auditing content-gen's REAL sanitizer + seed/CI lint, not just its prompt text — a prior
   batch shipped 0 of 81 templates compliant on the paint rule below, all silently rejectable):**
