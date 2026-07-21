@@ -277,6 +277,55 @@ $('svg').each((_j, e) => {
     const id = $e.attr('class') || $e.attr('id') || $e.attr('viewBox') || '(anon)';
     v('C10-SVGATTR', `<svg ${String(id).slice(0, 30)}> missing ${miss.join(' + ')} — required on every SVG root (editable in playground + preserved through the backend pipeline)`);
   }
+  // a11y attrs the backend's own SVG lint checks for — auto-corrected there, but a
+  // template that already carries them needs no correction pass on ship.
+  if ($e.attr('aria-hidden') !== 'true') w('C10-SVGATTR', `<svg ${String($e.attr('class') || '(anon)').slice(0, 30)}> missing aria-hidden="true"`);
+  if ($e.attr('focusable') !== 'false') w('C10-SVGATTR', `<svg ${String($e.attr('class') || '(anon)').slice(0, 30)}> missing focusable="false"`);
+});
+
+// ── C11. SVG paint contract — mirrored from content-gen's real enforcement code:
+// carousel-preserve-guard.ts (sanitizer: style= stripped on every non-root SVG node) and
+// svgEmitLint.ts (lintSvgEmit — HARD-REJECTS at seed/CI: no currentColor, no literal hex/
+// rgb/hsl, no --brand-* on fill/stroke; --cg-fill/--cg-stroke must be an ecosystem token,
+// never a literal or --brand-*). Verified against real seeded templates (glow-orbs.html,
+// tech-futurist.html): they all paint inner geometry via fill="var(--cg-fill)" /
+// stroke="var(--cg-stroke)", declared once on the outer <svg>.
+const LITERAL_COLOR_RE = /^\s*(#[0-9a-fA-F]{3,8}|rgba?\([^)]+\)|hsla?\([^)]+\))\s*$/;
+$('svg').each((_j, root) => {
+  const $root = $(root);
+  if ($root.parents('svg').length) return; // only walk from each root once
+  const id = String($root.attr('class') || $root.attr('id') || '(anon)').slice(0, 30);
+  // C11a. <filter> and its children are hard-stripped by the backend sanitizer — a
+  // template shipping one loses that visual element silently at runtime, not at review time.
+  if ($root.find('filter').length) {
+    v('C11-SVGPAINT', `<svg ${id}> uses <filter> (blur/noise/etc.) — the backend's sanitizer hard-strips <filter> WITH its contents; use CSS filter:blur(Npx) on the outer <svg> instead, or drop the effect`);
+  }
+  $root.find('*').each((_k, node) => {
+    const $n = $(node);
+    if (node.tagName === 'svg') return; // nested svg roots are handled by their own iteration
+    // C11b. inline style on any non-root node — the sanitizer strips this silently.
+    if ($n.attr('style') !== undefined) {
+      v('C11-SVGPAINT', `<svg ${id}> inner <${node.tagName}> has an inline style= — the backend's sanitizer strips style on every SVG node except the root; move fill/stroke into the fill="var(--cg-fill)"/stroke="var(--cg-stroke)" attributes instead`);
+    }
+    for (const prop of ['fill', 'stroke']) {
+      const val = $n.attr(prop);
+      if (val === undefined || val === 'none') continue;
+      if (/currentColor/i.test(val)) {
+        v('C11-SVGPAINT', `<svg ${id}> inner <${node.tagName} ${prop}="currentColor"> — HARD-REJECTED by the backend's seed/CI lint; use ${prop}="var(--cg-${prop})" instead`);
+      } else if (LITERAL_COLOR_RE.test(val)) {
+        v('C11-SVGPAINT', `<svg ${id}> inner <${node.tagName} ${prop}="${val}"> — a literal color is HARD-REJECTED by the backend's seed/CI lint; use ${prop}="var(--cg-${prop})" instead`);
+      } else if (/var\(\s*--brand-/i.test(val)) {
+        v('C11-SVGPAINT', `<svg ${id}> inner <${node.tagName} ${prop}="${val}"> references --brand-* directly — brand isn't resolved at template-creation time; route through --cg-${prop} instead`);
+      }
+    }
+  });
+  // C11c. --cg-fill/--cg-stroke themselves must be an ecosystem token, never literal or --brand-*.
+  const rootStyle = String($root.attr('style') || '');
+  const cgDecls = [...rootStyle.matchAll(/--cg-(fill|stroke)\s*:\s*([^;]+)/g)];
+  for (const [, role, val] of cgDecls) {
+    if (LITERAL_COLOR_RE.test(val.trim())) v('C11-SVGPAINT', `<svg ${id}> --cg-${role} is a literal color (${val.trim()}) — must be an ecosystem token like var(--primary), never a literal`);
+    else if (/var\(\s*--brand-/i.test(val)) v('C11-SVGPAINT', `<svg ${id}> --cg-${role} references --brand-* directly — use the ecosystem token (var(--primary) etc.) instead`);
+  }
 });
 
 // ── report ───────────────────────────────────────────────────────────────────
