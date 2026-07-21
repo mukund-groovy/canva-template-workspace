@@ -69,6 +69,24 @@ const RECOGNISED = [
 const REQUIRED_TOKENS = ['--primary','--secondary','--accent','--bg','--surface',
   '--text-high','--text-low','--border','--highlight'];
 
+// TOKEN_BRAND_MAP, copied exactly from validateColorTokens.ts (checkBrandDerivation) — a
+// required token existing is not enough; it must derive from ITS mapped --brand-* var, or
+// content-gen's real validator rejects it even though this gate's old C1 check passed it clean.
+// This is exactly the bug that shipped: --highlight:var(--brand-highlight,#hex) had the token
+// declared, but --brand-highlight is never one of the vars the brand skin actually injects, so
+// the color never re-branded. Caught here now, before ship, not discovered by hand later.
+const TOKEN_BRAND_MAP = {
+  '--primary': ['--brand-primary'],
+  '--secondary': ['--brand-secondary'],
+  '--accent': ['--brand-accent'],
+  '--bg': ['--brand-bg'],
+  '--surface': ['--brand-surface', '--brand-bg-alt'],
+  '--text-high': ['--brand-ink', '--brand-text'],
+  '--text-low': ['--brand-text-muted'],
+  '--border': ['--brand-border'],
+  '--highlight': ['--brand-accent'],
+};
+
 const html = fs.readFileSync(file, 'utf8');
 const $ = cheerio.load(html);
 const violations = [];
@@ -79,7 +97,14 @@ const w = (rule, msg) => warnings.push(`${rule}: ${msg}`);
 // ── C1. brand colour tokens ──────────────────────────────────────────────────
 const styleText = $('style').text();
 for (const t of REQUIRED_TOKENS) {
-  if (!new RegExp(`${t}\\s*:`).test(styleText)) v('C1-TOKENS', `missing required token ${t}`);
+  const re = new RegExp(`${t}\\s*:\\s*([^;]+);`);
+  const m = styleText.match(re);
+  if (!m) { v('C1-TOKENS', `missing required token ${t}`); continue; }
+  const expected = TOKEN_BRAND_MAP[t];
+  const derivesOk = expected.some((b) => m[1].includes(`var(${b}`));
+  if (!derivesOk) {
+    v('C1-TOKENS', `${t} must derive from ${expected.map((b) => `var(${b}, ...)`).join(' or ')} — found: ${m[1].trim()}`);
+  }
 }
 const selfDefined = styleText.match(/--brand-[a-z-]+\s*:\s*(?!var)[^;]/g) || [];
 if (selfDefined.length) {
