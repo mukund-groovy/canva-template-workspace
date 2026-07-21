@@ -1110,6 +1110,10 @@ async function processOneSI(entry) {
   fs.copyFileSync(replica, path.join(OUTPUT, `${shipSlug}.html`));
   addRemixMap(designId, shipSlug);
   runGate('score-template.mjs', shipSlug);
+  // Draft the content-gen seed catalog entry (B4) for this template automatically — no design
+  // ships without one going forward. Non-fatal: a metadata-draft hiccup must never fail a ship
+  // that already succeeded.
+  try { execSync(`node "${path.join(SCRIPTS, 'generate-seed-metadata.mjs')}" --slug ${shipSlug}`, { cwd: WORKSPACE, stdio: 'ignore' }); } catch {}
   setGenMetrics(designId, {
     genDurationMs: Date.now() - t0, genRetries, genProvider: PROVIDER, genStage: '',
     status: 'success', lastError: '', belowThreshold, score, detScore: score, premiumScore: 0,
@@ -1302,6 +1306,10 @@ async function processOne(entry) {
   if (!REMIX) {
     try { execSync(`node "${path.join(SCRIPTS, 'build-comparison.mjs')}" --design-id ${designId}`, { cwd: WORKSPACE, stdio: 'ignore' }); } catch {}
   }
+  // Draft the content-gen seed catalog entry (B4) for this template automatically — no design
+  // ships without one going forward. Non-fatal: a metadata-draft hiccup must never fail a ship
+  // that already succeeded.
+  try { execSync(`node "${path.join(SCRIPTS, 'generate-seed-metadata.mjs')}" --slug ${shipSlug}`, { cwd: WORKSPACE, stdio: 'ignore' }); } catch {}
   // Record generation metrics (shown in the dashboard) before the refresh regenerates the HTML.
   // Mark success explicitly on the entry BEFORE the refresh — the ship already happened, so
   // status must not depend on the refresh succeeding.
