@@ -251,7 +251,7 @@ function statusCounts(entries) {
   return base;
 }
 
-const DASHBOARD_SHELL_VERSION = 11;
+const DASHBOARD_SHELL_VERSION = 12;
 
 // Static shell — the data lives in dashboard-data.js (window.__DASH__), which is
 // loaded + polled client-side. A change patches only the modified <tr> (keyed by
@@ -381,13 +381,13 @@ function renderDashboardShell() {
       </div>
       <div class="upd" id="upd"></div>
     </div>
-    <div class="pipeline">
+    <div class="pipeline" id="pipeline">
       <span class="plabel">Pipeline</span>
-      <span class="pstep s0">0 · Queued</span><span class="parr">→</span>
-      <span class="pstep s1">1 · Cloning…</span><span class="parr">→</span>
-      <span class="pstep s1">1 · Cloned</span><span class="parr">→</span>
-      <span class="pstep s2">2 · Generating…</span><span class="parr">→</span>
-      <span class="pstep s2">2 · Ready</span>
+      <span class="pstep s0" id="p-pending">0 · Queued</span><span class="parr">→</span>
+      <span class="pstep s1" id="p-cloning">0 · Cloning…</span><span class="parr">→</span>
+      <span class="pstep s1" id="p-cloned">0 · Cloned</span><span class="parr">→</span>
+      <span class="pstep s2" id="p-generating">0 · Generating…</span><span class="parr">→</span>
+      <span class="pstep s2" id="p-success">0 · Ready</span>
       <span class="pnote">Stage 1 = clone intake (thumbnails + data) · Stage 2 = author brand-recolorable template + score /10</span>
     </div>
     <div class="toolbar">
@@ -395,7 +395,7 @@ function renderDashboardShell() {
       <input class="search" id="search" type="search" placeholder="Search design id or title…" />
     </div>
     <div class="tablewrap"><table>
-      <thead><tr><th>Preview</th><th>Template</th><th>Status</th><th>Details</th><th>Score</th><th>Gen Time</th><th>Retries</th><th>Files</th><th>Updated</th></tr></thead>
+      <thead><tr><th>Preview</th><th>Template</th><th>Type</th><th>Status</th><th>Details</th><th>Score</th><th>Gen Time</th><th>Retries</th><th>Files</th><th>Updated</th></tr></thead>
       <tbody id="tbody"></tbody>
     </table></div>
     <div class="empty" id="empty" hidden>No templates match your filter.</div>
@@ -502,6 +502,11 @@ function renderDashboardShell() {
       const key=JSON.stringify([entries.length,counts,STORE.generatedAt,activeFilter]);
       if(key===_hdrKey) return; _hdrKey=key;
       document.getElementById('upd').innerHTML='<b>'+entries.length+'</b> template'+(entries.length===1?'':'s')+'<br>Updated '+(STORE.generatedAt?new Date(STORE.generatedAt).toLocaleString():'-');
+      document.getElementById('p-pending').textContent=(counts.pending||0)+' · Queued';
+      document.getElementById('p-cloning').textContent=(counts.cloning||0)+' · Cloning…';
+      document.getElementById('p-cloned').textContent=(counts.cloned||0)+' · Cloned';
+      document.getElementById('p-generating').textContent=(counts.generating||0)+' · Generating…';
+      document.getElementById('p-success').textContent=(counts.success||0)+' · Ready';
       document.getElementById('filters').innerHTML=order.map(([k,l])=>{
         const n=k==='all'?entries.length:(counts[k]||0);
         const dot=k==='all'?'':'<span class="dot" style="background:'+(SC[k]||'#888')+'"></span>';
@@ -550,6 +555,7 @@ function renderDashboardShell() {
       return '<tr data-uid="'+esc(e.designId||'')+'" data-updated="'+esc(String(e.updatedAt||''))+'" data-status="'+st+'" data-search="'+esc(((e.designId||'')+' '+(m.title||'')).toLowerCase())+'">'+
         '<td>'+thumb+'</td>'+
         '<td><div class="tt">'+esc(m.title||e.designId||'Untitled')+'</div><div class="id">'+esc(e.designId||'')+'</div>'+err+'</td>'+
+        '<td><span class="pill" style="background:'+(e.kind==='single-image'?'#6b5bd6':'#3a7bd5')+'" title="'+(e.kind==='single-image'?'Single-image — one-page post':'Carousel — multi-slide deck')+'">'+(e.kind==='single-image'?'Single-image':'Carousel')+'</span></td>'+
         '<td><span class="pill" style="background:'+c+'" title="'+esc(st==='failed'&&e.lastError?e.lastError:(st==='generating'&&e.genStage?e.genStage:(m.score!=null?'score '+m.score+'/10':st)))+'">'+esc(({pending:'Queued',cloning:'Cloning…',cloned:'Cloned',generating:'Generating…',success:'Ready',failed:'✕ Failed',duplicate:'⧉ Duplicate'})[st]||st)+'</span>'+((st==='generating'&&e.genStage)?'<div class="when" style="margin-top:4px;font-size:11px" title="'+esc(e.genStage)+'">'+esc(e.genStage)+'</div>':'')+((st==='failed'&&e.lastError)?'<div class="when" style="margin-top:4px;font-size:11px;color:#c0392b;max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+esc(e.lastError)+'">'+esc(e.lastError)+'</div>':'')+'</td>'+
         '<td>'+details+'</td>'+
         '<td>'+score+'</td>'+
