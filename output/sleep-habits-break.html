@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    /* Brand roles — the skinner re-tints ONLY primary/secondary/accent.
+       Canvas (paper cream / ink black / fixed dark literal) and text-high/low
+       stay put so the editorial "hardcover essay" reading surface stays
+       AA-legible under any brand palette. */
+    --primary:var(--brand-primary,#181A1B);
+    --secondary:var(--brand-secondary,#A93C0C);
+    --accent:var(--brand-accent,#E8540F);
+    --highlight:var(--brand-accent,#E8540F);
+    --bg:var(--brand-bg,#ECF1EE);
+    --surface:var(--brand-surface,#FFFFFF);
+    --text-high:var(--brand-ink,#181A1B);
+    --text-low:var(--brand-text-muted,rgba(24,26,27,.62));
+    --border:var(--brand-border,rgba(24,26,27,.14));
+    --on-fill:var(--brand-on-accent,#ffffff);
+    --on-primary:var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0a0a0a;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    font-family:'Inter',sans-serif;
+  }
+  .slide--paper{background:var(--bg);}
+  .slide--ink{background:#171717;}
+  .slide--accent{background:var(--accent);}
+
+  /* ── recurring kicker line, top-left every slide ── */
+  .kicker{position:absolute;top:54px;left:90px;right:260px;z-index:5;}
+  /* slides that also carry a top-right pill need a narrower kicker lane so a long
+     tagline can never run under the pill, at any content length */
+  .cover .kicker,.quote .kicker{right:440px;}
+  .kicker span{
+    font-family:'Inter',sans-serif;font-weight:700;font-size:20px;letter-spacing:.14em;
+    text-transform:uppercase;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;
+    overflow:hidden;padding-bottom:.1em;
+  }
+  .on-paper .kicker span{color:var(--text-low);}
+  .on-ink .kicker span{color:#EDECE4;opacity:.78;}
+  .on-accent .kicker span{color:var(--on-fill);opacity:.85;}
+
+  /* ── accent chip / pill badge, top-right, on non-card slides ── */
+  .pill{
+    position:absolute;top:48px;right:90px;z-index:6;background:var(--accent);
+    border-radius:999px;padding:20px 34px;display:inline-flex;align-items:center;
+  }
+  .pill span{
+    font-family:'Inter',sans-serif;font-weight:700;font-size:26px;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--on-fill);white-space:nowrap;
+  }
+
+  /* ── decorative burst / asterisk mark, reused at different sizes ── */
+  .burst{position:absolute;z-index:1;}
+
+  /* ── COVER title + message ── */
+  .tn-title{position:absolute;left:90px;right:90px;z-index:4;}
+  .tn-title h1{
+    margin:0;font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-.015em;
+    color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;
+    overflow:hidden;padding-bottom:.14em;
+  }
+  .cover .tn-title{top:548px;}
+  .cover .tn-title h1{font-size:100px;line-height:1.06;}
+
+  .tn-message{position:absolute;left:90px;z-index:4;}
+  .tn-message p{
+    margin:0;font-family:'Inter',sans-serif;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.3em;
+  }
+  .cover .tn-message{top:838px;width:800px;}
+  .cover .tn-message p{font-size:30px;line-height:1.52;font-weight:400;opacity:.82;-webkit-line-clamp:4;}
+
+  .hl-em{font-style:italic;text-decoration:underline;text-decoration-color:var(--accent);
+    text-decoration-thickness:7px;text-underline-offset:10px;}
+
+  /* ── card slides (dark canvas + floating white note) ── */
+  .card{position:absolute;left:90px;right:90px;background:var(--surface);border-radius:32px;
+    box-shadow:0 34px 70px rgba(0,0,0,.4);z-index:3;overflow:hidden;}
+  .card-lo{top:742px;height:494px;}
+  .card-hi{top:110px;height:494px;}
+
+  .card-tab{position:absolute;top:0;left:0;right:0;height:86px;background:var(--accent);
+    display:flex;align-items:center;justify-content:space-between;padding:0 40px;}
+  .card-tab .num{font-family:'Poppins',sans-serif;font-weight:800;font-size:32px;color:var(--on-fill);}
+  .card-tab .lbl{font-family:'Inter',sans-serif;font-weight:700;font-size:20px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--on-fill);opacity:.92;}
+
+  .card .tn-title{position:absolute;left:64px;right:64px;top:150px;}
+  .card .tn-title h1{font-size:58px;line-height:1.1;-webkit-line-clamp:2;padding-bottom:.16em;}
+
+  .card .tn-message{position:absolute;left:64px;right:64px;top:320px;width:auto;}
+  .card .tn-message p{
+    font-size:25px;line-height:1.44;font-weight:500;text-transform:uppercase;letter-spacing:.005em;
+    opacity:.72;-webkit-line-clamp:5;
+  }
+
+  /* ── full-accent slides (headline + message + optional bottom tag) ── */
+  .accent-slide .tn-title{top:508px;}
+  .accent-slide .tn-title h1{font-size:104px;line-height:1.04;color:var(--on-fill);-webkit-line-clamp:2;}
+  .accent-slide .tn-message{top:788px;width:820px;}
+  .accent-slide .tn-message p{font-size:32px;line-height:1.5;font-weight:400;color:var(--on-fill);
+    opacity:.92;-webkit-line-clamp:4;}
+
+  .tagbar{position:absolute;left:90px;bottom:118px;z-index:4;display:flex;align-items:center;gap:22px;}
+  .tagbar span{font-family:'Poppins',sans-serif;font-weight:800;font-size:30px;letter-spacing:.02em;
+    color:var(--on-fill);white-space:nowrap;}
+  .tagbar .rule{width:220px;height:5px;background:var(--on-fill);opacity:.9;border-radius:3px;}
+
+  /* ── cream "quote" mistake slide ── */
+  .quote .tn-title{top:230px;}
+  .quote .tn-title h1{font-size:80px;line-height:1.06;-webkit-line-clamp:2;}
+  .quote .rule-accent{position:absolute;left:90px;top:432px;width:150px;height:8px;border-radius:4px;
+    background:var(--accent);z-index:4;}
+  .quote .tn-message{top:540px;left:150px;width:780px;text-align:center;}
+  .quote .tn-message p{font-size:46px;line-height:1.38;font-weight:600;text-transform:uppercase;
+    letter-spacing:-.005em;text-align:center;-webkit-line-clamp:5;opacity:1;}
+
+  /* ── closing slide ── */
+  .closing .tn-title{top:500px;}
+  .closing .tn-title h1{font-size:126px;line-height:1.04;color:var(--on-fill);-webkit-line-clamp:1;}
+  .closing .rule-on-accent{position:absolute;left:90px;top:646px;width:150px;height:8px;border-radius:4px;
+    background:var(--on-fill);opacity:.9;z-index:4;}
+  .closing .tn-message{top:702px;width:780px;}
+  .closing .tn-message p{font-size:34px;line-height:1.5;font-weight:400;color:var(--on-fill);
+    opacity:.94;-webkit-line-clamp:3;}
+  .cta-pill{position:absolute;left:90px;top:918px;z-index:4;background:#FFFFFF;border-radius:999px;
+    padding:26px 44px;display:inline-flex;align-items:center;}
+  .cta-pill span{font-family:'Inter',sans-serif;font-weight:700;font-size:27px;letter-spacing:.03em;
+    text-transform:uppercase;color:var(--primary);white-space:nowrap;}
+
+  /* ── footer: brand lockup + slide counter ── */
+  .foot{position:absolute;left:90px;right:90px;bottom:44px;z-index:6;display:flex;align-items:center;
+    justify-content:space-between;}
+  .lockup{display:inline-flex;align-items:center;gap:14px;}
+  .brand-mark-clip{flex:none;height:32px;display:flex;align-items:center;}
+  .brand-mark{height:32px;width:auto;max-width:112px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Inter',sans-serif;font-weight:700;font-size:24px;letter-spacing:.02em;
+    white-space:nowrap;text-transform:uppercase;}
+  .cg-slide-counter{font-family:'Inter',sans-serif;font-weight:700;font-size:21px;letter-spacing:.1em;}
+
+  .on-paper .brand-word,.on-paper .cg-slide-counter{color:var(--text-high);}
+  .on-ink .brand-word,.on-ink .cg-slide-counter{color:#F1F0E8;}
+  .on-ink .brand-mark{filter:invert(1) brightness(1.6);}
+  .on-accent .brand-word,.on-accent .cg-slide-counter{color:var(--on-fill);}
+  .on-accent .brand-mark{filter:brightness(2.4);}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- 1. Cover -->
+  <section class="slide slide--paper cover on-paper" data-cg-slide-type="text">
+    <svg class="burst" data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="top:158px;right:40px;width:380px;height:380px;--cg-fill:var(--surface);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)" fill-opacity=".95">
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(0 100 100)"></rect>
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(60 100 100)"></rect>
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(120 100 100)"></rect>
+      </g>
+    </svg>
+    <div class="kicker"><span data-tagline="true">Rest starts with better habits.</span></div>
+    <div class="pill"><span>05 Habits To Break</span></div>
+    <div class="tn-title"><h1 data-title="true">Sleep Habits Worth <span class="hl-em">Breaking</span></h1></div>
+    <div class="tn-message"><p data-message="true">Good sleep isn't about trying harder — it's about noticing the small patterns quietly working against you at night. Here are five habits worth breaking, one simple shift at a time.</p></div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">yourbrand</span></div>
+      <div class="cg-slide-counter" data-counter="true">01 / 06</div>
+    </div>
+  </section>
+
+  <!-- 2. Mistake 01 -->
+  <section class="slide slide--ink on-ink" data-cg-slide-type="text">
+    <svg class="burst" data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="top:300px;left:400px;width:520px;height:520px;--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)" fill-opacity=".12">
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(0 100 100)"></rect>
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(60 100 100)"></rect>
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(120 100 100)"></rect>
+      </g>
+    </svg>
+    <div class="kicker"><span data-tagline="true">Rest starts with better habits.</span></div>
+    <div class="card card-lo">
+      <div class="card-tab"><span class="num">01</span><span class="lbl">Revenge Sleep</span></div>
+      <div class="tn-title"><h1 data-title="true"><span class="hl-em">Revenge</span> Bedtime Procrastination</h1></div>
+      <div class="tn-message"><p data-message="true">Scrolling past midnight to reclaim "me time" just steals tomorrow's energy. Protect a wind-down hour you actually enjoy before the lights go out.</p></div>
+    </div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">yourbrand</span></div>
+      <div class="cg-slide-counter" data-counter="true">02 / 06</div>
+    </div>
+  </section>
+
+  <!-- 3. Mistake 02 -->
+  <section class="slide slide--accent accent-slide on-accent" data-cg-slide-type="text">
+    <svg class="burst" data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="top:112px;left:60px;width:420px;height:420px;--cg-fill:var(--surface);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)" fill-opacity=".18">
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(0 100 100)"></rect>
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(60 100 100)"></rect>
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(120 100 100)"></rect>
+      </g>
+    </svg>
+    <div class="kicker"><span data-tagline="true">Rest starts with better habits.</span></div>
+    <div class="tn-title"><h1 data-title="true">Doomscrolling in the Dark</h1></div>
+    <div class="tn-message"><p data-message="true">Blue light delays melatonin, but the real damage is the scroll itself — news and comparison keep your mind alert exactly when it should be slowing down.</p></div>
+    <svg class="burst" data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="top:820px;right:-100px;width:520px;height:520px;--cg-fill:var(--surface);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)" fill-opacity=".14">
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(0 100 100)"></rect>
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(60 100 100)"></rect>
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(120 100 100)"></rect>
+      </g>
+    </svg>
+    <div class="tagbar"><span>Mistake 02</span><div class="rule"></div></div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">yourbrand</span></div>
+      <div class="cg-slide-counter" data-counter="true">03 / 06</div>
+    </div>
+  </section>
+
+  <!-- 4. Mistake 03 -->
+  <section class="slide slide--paper quote on-paper" data-cg-slide-type="text">
+    <div class="kicker"><span data-tagline="true">Rest starts with better habits.</span></div>
+    <div class="pill"><span>03 — Sleep</span></div>
+    <div class="tn-title"><h1 data-title="true">Weekend Sleep Whiplash</h1></div>
+    <div class="rule-accent"></div>
+    <div class="tn-message"><p data-message="true">Sleeping in three extra hours on Saturday resets your body clock like a mini jet-lag. One steady wake time beats a few borrowed hours.</p></div>
+    <svg class="burst" data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="top:860px;right:-90px;width:480px;height:480px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)" fill-opacity=".14">
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(0 100 100)"></rect>
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(60 100 100)"></rect>
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(120 100 100)"></rect>
+      </g>
+    </svg>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">yourbrand</span></div>
+      <div class="cg-slide-counter" data-counter="true">04 / 06</div>
+    </div>
+  </section>
+
+  <!-- 5. Mistake 04 -->
+  <section class="slide slide--ink on-ink" data-cg-slide-type="text">
+    <svg class="burst" data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="top:760px;left:100px;width:520px;height:520px;--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)" fill-opacity=".12">
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(0 100 100)"></rect>
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(60 100 100)"></rect>
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(120 100 100)"></rect>
+      </g>
+    </svg>
+    <div class="kicker"><span data-tagline="true">Rest starts with better habits.</span></div>
+    <div class="card card-hi">
+      <div class="card-tab"><span class="num">04</span><span class="lbl">Late Caffeine</span></div>
+      <div class="tn-title"><h1 data-title="true">Caffeine's <span class="hl-em">Long Tail</span></h1></div>
+      <div class="tn-message"><p data-message="true">Caffeine has roughly a six-hour half-life, so a 3pm coffee is still a quarter-strength cup at 9pm. Cut off earlier than you think you need to.</p></div>
+    </div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">yourbrand</span></div>
+      <div class="cg-slide-counter" data-counter="true">05 / 06</div>
+    </div>
+  </section>
+
+  <!-- 6. Closing -->
+  <section class="slide slide--accent closing on-accent" data-cg-slide-type="text">
+    <svg class="burst" data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="top:150px;left:-120px;width:760px;height:760px;--cg-fill:var(--surface);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)" fill-opacity=".16">
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(0 100 100)"></rect>
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(60 100 100)"></rect>
+        <rect x="87" y="14" width="26" height="172" rx="13" transform="rotate(120 100 100)"></rect>
+      </g>
+    </svg>
+    <div class="kicker"><span data-tagline="true">Rest starts with better habits.</span></div>
+    <div class="tn-title"><h1 data-title="true">Sleep Well.</h1></div>
+    <div class="rule-on-accent"></div>
+    <div class="tn-message"><p data-message="true">Five small habits, swapped for five better ones. Save this carousel for the night you actually need it.</p></div>
+    <div class="cta-pill"><span data-cta="true">Save This For Tonight</span></div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">yourbrand</span></div>
+      <div class="cg-slide-counter" data-counter="true">06 / 06</div>
+    </div>
+  </section>
+
+</div>
+
+
+</body></html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
+:root{
+  /* Brand role tokens — the accent trio (primary/secondary/accent) is what a brand
+     preview re-skins. Canvas cream and ink stay fixed literals so the flat-illustrated
+     surface stays AA-legible under any palette. */
+  --primary:var(--brand-primary,#7A3B1D);
+  --secondary:var(--brand-secondary,#C97A3E);
+  --accent:var(--brand-accent,#E8A33D);
+  --highlight:var(--brand-accent,#E8A33D);
+  --bg:var(--brand-bg,#F7EFE0);
+  --surface:var(--brand-surface,#FFF8EC);
+  --text-high:var(--brand-ink,#33241B);
+  --text-low:var(--brand-text-muted,rgba(51,36,27,.62));
+  --border:var(--brand-border,rgba(51,36,27,.14));
+  --on-fill:var(--brand-on-accent,#2B1B10);
+  --on-primary:var(--brand-on-primary,#FFF8EC);
+}
+
+*{box-sizing:border-box;}
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+.slide{width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;background:var(--bg);font-family:'Montserrat',sans-serif;}
+
+/* ── brand lockup, top-right, every slide ── */
+.lockup{position:absolute;top:62px;right:90px;display:inline-flex;align-items:center;gap:12px;z-index:20;}
+.brand-mark{height:28px;width:auto;max-width:100px;object-fit:contain;display:block;}
+.brand-word{font-family:'Montserrat',sans-serif;font-weight:700;font-size:21px;letter-spacing:.16em;color:var(--text-low);white-space:nowrap;}
+
+/* ── folio pill, bottom-right, every slide — filled accent surface ── */
+.folio{position:absolute;bottom:112px;right:90px;background:var(--accent);color:var(--on-fill);
+  border-radius:999px;padding:14px 30px;font-family:'Montserrat',sans-serif;font-weight:700;
+  font-size:23px;letter-spacing:.05em;z-index:20;}
+
+/* ── day kicker, filled accent pill, top-left on content slides ── */
+.kicker{position:absolute;top:94px;left:90px;background:var(--accent);color:var(--on-fill);
+  border-radius:999px;padding:16px 38px;display:inline-flex;z-index:20;}
+.kicker span{font-family:'Montserrat',sans-serif;font-weight:700;font-size:27px;letter-spacing:.16em;
+  text-transform:uppercase;line-height:1;display:-webkit-box;-webkit-box-orient:vertical;
+  -webkit-line-clamp:1;overflow:hidden;padding-bottom:3px;}
+
+/* ── title ── */
+.tn-title{position:absolute;}
+.tn-title h1{margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;}
+.cover-title{font-weight:700;text-transform:uppercase;letter-spacing:.005em;font-size:88px;
+  line-height:1.14;-webkit-line-clamp:3;padding-bottom:.15em;}
+.content-title{font-size:68px;line-height:1.2;-webkit-line-clamp:2;padding-bottom:.22em;}
+
+/* ── body ── */
+.tn-message{position:absolute;}
+.tn-message p{margin:0;font-family:'Montserrat',sans-serif;font-weight:400;font-size:42px;
+  line-height:1.55;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;
+  -webkit-line-clamp:6;overflow:hidden;padding-bottom:.2em;}
+
+/* ── decoration: illustration + soft accent wash behind it ── */
+.deco{position:absolute;z-index:5;}
+.deco-glow{position:absolute;border-radius:50%;background:var(--accent);opacity:.38;z-index:1;}
+.deco svg{position:relative;z-index:2;display:block;}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-tagline]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+<!-- Slide 1 — Cover -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">HEARTHLOAF</span></div>
+
+  <div class="deco" style="left:44px;top:70px;width:340px;height:634px;">
+    <div class="deco-glow" style="left:-70px;top:150px;width:460px;height:460px;"></div>
+    <svg viewBox="0 0 300 560" width="340" height="634" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <defs>
+        <g id="wheatEar">
+          <path d="M0,0 C-3,-70 3,-140 0,-210" fill="none" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></path>
+          <ellipse cx="-10" cy="-90" rx="9" ry="17" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="1.5" transform="rotate(-25 -10 -90)"></ellipse>
+          <ellipse cx="10" cy="-105" rx="9" ry="17" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="1.5" transform="rotate(25 10 -105)"></ellipse>
+          <ellipse cx="-11" cy="-122" rx="9" ry="17" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="1.5" transform="rotate(-25 -11 -122)"></ellipse>
+          <ellipse cx="11" cy="-138" rx="9" ry="17" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="1.5" transform="rotate(25 11 -138)"></ellipse>
+          <ellipse cx="-10" cy="-155" rx="8" ry="15" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="1.5" transform="rotate(-25 -10 -155)"></ellipse>
+          <ellipse cx="9" cy="-170" rx="8" ry="15" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="1.5" transform="rotate(25 9 -170)"></ellipse>
+          <ellipse cx="-8" cy="-185" rx="7" ry="13" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="1.5" transform="rotate(-22 -8 -185)"></ellipse>
+          <ellipse cx="7" cy="-198" rx="6" ry="12" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="1.5" transform="rotate(22 7 -198)"></ellipse>
+          <line x1="0" y1="-205" x2="0" y2="-232" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></line>
+        </g>
+        <path id="leafBlade" d="M0,0 C-38,-58 -66,-88 -56,-152 C-28,-96 -10,-56 0,0 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></path>
+      </defs>
+      <use href="#leafBlade" transform="translate(150,540) rotate(-46)"></use>
+      <use href="#leafBlade" transform="translate(150,540) rotate(30) scale(-1,1)"></use>
+      <use href="#wheatEar" transform="translate(78,538) rotate(-18) scale(0.82)"></use>
+      <use href="#wheatEar" transform="translate(150,542) rotate(-4) scale(1.18)"></use>
+      <use href="#wheatEar" transform="translate(222,538) rotate(15) scale(0.92)"></use>
+    </svg>
+  </div>
+
+  <div class="tn-title" style="left:398px;top:414px;width:610px;">
+    <h1 class="cover-title" data-title="true">7-Day Sourdough Ritual</h1>
+  </div>
+
+  <div class="folio" data-counter="true">01 / 08</div>
+</section>
+
+<!-- Slide 2 — Day 01 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">HEARTHLOAF</span></div>
+  <div class="kicker"><span data-tagline="true">Day 01</span></div>
+
+  <div class="tn-title" style="left:90px;top:196px;width:780px;">
+    <h1 class="content-title" data-title="true">Feed your starter</h1>
+  </div>
+  <div class="tn-message" style="left:90px;top:396px;width:740px;">
+    <p data-message="true">Every morning, feed your starter equal parts flour and water. A bubbly, doubled jar by afternoon means it's strong enough to leaven your loaf.</p>
+  </div>
+
+  <div class="deco" style="left:90px;top:840px;width:430px;height:430px;">
+    <div class="deco-glow" style="left:-55px;top:-55px;width:540px;height:540px;"></div>
+    <svg viewBox="0 0 340 340" width="430" height="430" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--surface);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <rect x="95" y="120" width="150" height="170" rx="26" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+      <rect x="125" y="86" width="90" height="42" rx="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+      <ellipse cx="170" cy="84" rx="58" ry="16" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></ellipse>
+      <rect x="118" y="112" width="104" height="16" rx="8" fill="var(--cg-fill)"></rect>
+      <path d="M103,205 Q125,188 148,203 T193,203 T237,203 L237,272 Q170,284 103,272 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></path>
+      <circle cx="140" cy="195" r="6" fill="var(--cg-fill)"></circle>
+      <circle cx="165" cy="188" r="4" fill="var(--cg-fill)"></circle>
+      <circle cx="195" cy="193" r="5" fill="var(--cg-fill)"></circle>
+      <circle cx="150" cy="230" r="4" fill="var(--cg-fill)"></circle>
+      <circle cx="185" cy="240" r="5" fill="var(--cg-fill)"></circle>
+      <line x1="252" y1="96" x2="300" y2="40" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round"></line>
+      <ellipse cx="305" cy="32" rx="16" ry="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4" transform="rotate(-35 305 32)"></ellipse>
+    </svg>
+  </div>
+  <div class="folio" data-counter="true">02 / 08</div>
+</section>
+
+<!-- Slide 3 — Day 02 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">HEARTHLOAF</span></div>
+  <div class="kicker"><span data-tagline="true">Day 02</span></div>
+
+  <div class="tn-title" style="left:90px;top:196px;width:780px;">
+    <h1 class="content-title" data-title="true">Mix, then let it rest</h1>
+  </div>
+  <div class="tn-message" style="left:90px;top:396px;width:740px;">
+    <p data-message="true">Combine flour, water, and salt, then walk away. A slow rest lets the gluten build itself, so you barely have to knead at all.</p>
+  </div>
+
+  <div class="deco" style="left:90px;top:840px;width:430px;height:430px;">
+    <div class="deco-glow" style="left:-55px;top:-55px;width:540px;height:540px;"></div>
+    <svg viewBox="0 0 340 340" width="430" height="430" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <path d="M70,165 C70,225 270,225 270,165 L258,163 C250,205 90,205 82,163 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></path>
+      <ellipse cx="170" cy="163" rx="100" ry="24" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></ellipse>
+      <path d="M110,158 C100,120 130,90 170,92 C212,90 244,120 232,158 C210,175 128,175 110,158 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4"></path>
+      <circle cx="150" cy="120" r="4" fill="var(--cg-fill)"></circle>
+      <circle cx="185" cy="112" r="3" fill="var(--cg-fill)"></circle>
+      <circle cx="200" cy="135" r="4" fill="var(--cg-fill)"></circle>
+      <line x1="245" y1="150" x2="290" y2="95" stroke="var(--cg-stroke)" stroke-width="9" stroke-linecap="round"></line>
+      <path d="M283,88 C293,78 303,88 297,100 C289,96 281,96 283,88 Z" fill="none" stroke="var(--cg-stroke)" stroke-width="5"></path>
+    </svg>
+  </div>
+  <div class="folio" data-counter="true">03 / 08</div>
+</section>
+
+<!-- Slide 4 — Day 03 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">HEARTHLOAF</span></div>
+  <div class="kicker"><span data-tagline="true">Day 03</span></div>
+
+  <div class="tn-title" style="left:90px;top:196px;width:780px;">
+    <h1 class="content-title" data-title="true">Fold with patience</h1>
+  </div>
+  <div class="tn-message" style="left:90px;top:396px;width:740px;">
+    <p data-message="true">A few gentle stretch-and-folds every half hour build real strength into the dough. Handle it like it matters, and the crumb will thank you.</p>
+  </div>
+
+  <div class="deco" style="left:90px;top:840px;width:430px;height:430px;">
+    <div class="deco-glow" style="left:-55px;top:-55px;width:540px;height:540px;"></div>
+    <svg viewBox="0 0 340 340" width="430" height="430" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--surface);--cg-stroke:var(--secondary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <path d="M170,70 C235,70 275,115 275,168 C275,224 228,262 170,262 C118,262 78,230 76,182" fill="none" stroke="var(--cg-stroke)" stroke-width="24" stroke-linecap="round"></path>
+      <path d="M170,105 C210,105 238,133 238,168 C238,206 208,228 170,228 C136,228 110,208 108,178" fill="none" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round"></path>
+      <circle cx="150" cy="150" r="4" fill="var(--cg-fill)"></circle>
+      <circle cx="190" cy="140" r="3" fill="var(--cg-fill)"></circle>
+      <circle cx="175" cy="185" r="4" fill="var(--cg-fill)"></circle>
+      <circle cx="125" cy="200" r="3" fill="var(--cg-fill)"></circle>
+    </svg>
+  </div>
+  <div class="folio" data-counter="true">04 / 08</div>
+</section>
+
+<!-- Slide 5 — Day 04 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">HEARTHLOAF</span></div>
+  <div class="kicker"><span data-tagline="true">Day 04</span></div>
+
+  <div class="tn-title" style="left:90px;top:196px;width:780px;">
+    <h1 class="content-title" data-title="true">Shape a tight boule</h1>
+  </div>
+  <div class="tn-message" style="left:90px;top:396px;width:740px;">
+    <p data-message="true">Tuck the edges under and drag the dough against the counter until the surface turns taut. Tension now becomes lift in the oven.</p>
+  </div>
+
+  <div class="deco" style="left:90px;top:840px;width:430px;height:430px;">
+    <div class="deco-glow" style="left:-55px;top:-55px;width:540px;height:540px;"></div>
+    <svg viewBox="0 0 340 340" width="430" height="430" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <ellipse cx="170" cy="255" rx="130" ry="34" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></ellipse>
+      <ellipse cx="170" cy="245" rx="110" ry="28" fill="none" stroke="var(--cg-stroke)" stroke-width="5"></ellipse>
+      <ellipse cx="170" cy="236" rx="88" ry="22" fill="none" stroke="var(--cg-stroke)" stroke-width="5"></ellipse>
+      <ellipse cx="170" cy="228" rx="66" ry="17" fill="none" stroke="var(--cg-stroke)" stroke-width="5"></ellipse>
+      <circle cx="170" cy="165" r="78" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></circle>
+      <path d="M110,150 C140,130 200,130 230,150" fill="none" stroke="var(--cg-stroke)" stroke-width="5" stroke-linecap="round"></path>
+      <circle cx="140" cy="190" r="3" fill="var(--cg-fill)"></circle>
+      <circle cx="195" cy="200" r="3" fill="var(--cg-fill)"></circle>
+      <circle cx="170" cy="215" r="3" fill="var(--cg-fill)"></circle>
+    </svg>
+  </div>
+  <div class="folio" data-counter="true">05 / 08</div>
+</section>
+
+<!-- Slide 6 — Day 05 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">HEARTHLOAF</span></div>
+  <div class="kicker"><span data-tagline="true">Day 05</span></div>
+
+  <div class="tn-title" style="left:90px;top:196px;width:780px;">
+    <h1 class="content-title" data-title="true">Score before it bakes</h1>
+  </div>
+  <div class="tn-message" style="left:90px;top:396px;width:740px;">
+    <p data-message="true">A confident blade cut gives steam somewhere to go. Score deep and quick, right before the loaf meets the heat, for a clean, dramatic bloom.</p>
+  </div>
+
+  <div class="deco" style="left:90px;top:840px;width:430px;height:430px;">
+    <div class="deco-glow" style="left:-55px;top:-55px;width:540px;height:540px;"></div>
+    <svg viewBox="0 0 340 340" width="430" height="430" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <ellipse cx="170" cy="200" rx="130" ry="86" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></ellipse>
+      <path d="M85,175 L140,235" stroke="var(--cg-stroke)" stroke-width="8" stroke-linecap="round"></path>
+      <path d="M115,155 L180,240" stroke="var(--cg-stroke)" stroke-width="8" stroke-linecap="round"></path>
+      <path d="M150,142 L215,232" stroke="var(--cg-stroke)" stroke-width="8" stroke-linecap="round"></path>
+      <path d="M190,148 L245,220" stroke="var(--cg-stroke)" stroke-width="8" stroke-linecap="round"></path>
+      <g transform="translate(258,95) rotate(35)">
+        <line x1="0" y1="0" x2="46" y2="0" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></line>
+        <path d="M40,-9 L60,0 L40,9 Z" fill="var(--cg-fill)"></path>
+      </g>
+    </svg>
+  </div>
+  <div class="folio" data-counter="true">06 / 08</div>
+</section>
+
+<!-- Slide 7 — Day 06 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">HEARTHLOAF</span></div>
+  <div class="kicker"><span data-tagline="true">Day 06</span></div>
+
+  <div class="tn-title" style="left:90px;top:196px;width:780px;">
+    <h1 class="content-title" data-title="true">Bake low, slow, covered</h1>
+  </div>
+  <div class="tn-message" style="left:90px;top:396px;width:740px;">
+    <p data-message="true">A hot dutch oven traps steam around the crust, so the loaf can spring before it sets. Uncover near the end for a deep, burnished crust.</p>
+  </div>
+
+  <div class="deco" style="left:90px;top:840px;width:430px;height:430px;">
+    <div class="deco-glow" style="left:-55px;top:-55px;width:540px;height:540px;"></div>
+    <svg viewBox="0 0 340 340" width="430" height="430" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <path d="M80,190 C80,250 260,250 260,190 L255,190 C250,155 90,155 85,190 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></path>
+      <rect x="52" y="172" width="30" height="18" rx="9" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></rect>
+      <rect x="258" y="172" width="30" height="18" rx="9" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></rect>
+      <ellipse cx="170" cy="155" rx="90" ry="20" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></ellipse>
+      <ellipse cx="170" cy="143" rx="52" ry="14" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></ellipse>
+      <circle cx="170" cy="128" r="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4"></circle>
+      <path d="M138,100 C132,80 148,72 142,54" fill="none" stroke="var(--cg-stroke)" stroke-opacity=".35" stroke-width="5" stroke-linecap="round"></path>
+      <path d="M172,96 C166,76 182,68 176,50" fill="none" stroke="var(--cg-stroke)" stroke-opacity=".35" stroke-width="5" stroke-linecap="round"></path>
+      <path d="M110,305 C122,283 100,272 114,250" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round"></path>
+      <path d="M170,312 C182,288 158,276 172,252" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round"></path>
+      <path d="M228,305 C240,283 216,272 230,250" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round"></path>
+    </svg>
+  </div>
+  <div class="folio" data-counter="true">07 / 08</div>
+</section>
+
+<!-- Slide 8 — Day 07 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">HEARTHLOAF</span></div>
+  <div class="kicker"><span data-tagline="true">Day 07</span></div>
+
+  <div class="tn-title" style="left:90px;top:196px;width:780px;">
+    <h1 class="content-title" data-title="true">Rest before you slice</h1>
+  </div>
+  <div class="tn-message" style="left:90px;top:396px;width:740px;">
+    <p data-message="true">Let the loaf cool for a full hour before cutting. The crumb is still setting inside, and an early slice steals the texture you worked all week for.</p>
+  </div>
+
+  <div class="deco" style="left:90px;top:840px;width:430px;height:430px;">
+    <div class="deco-glow" style="left:-55px;top:-55px;width:540px;height:540px;"></div>
+    <svg viewBox="0 0 340 340" width="430" height="430" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <g stroke="var(--cg-stroke)" stroke-width="5" stroke-linecap="round">
+        <line x1="60" y1="260" x2="280" y2="260"></line>
+        <line x1="60" y1="278" x2="280" y2="278"></line>
+        <line x1="60" y1="296" x2="280" y2="296"></line>
+      </g>
+      <line x1="80" y1="296" x2="70" y2="315" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></line>
+      <line x1="260" y1="296" x2="270" y2="315" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></line>
+      <path d="M75,255 C70,190 100,140 145,140 C155,190 152,230 148,258 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></path>
+      <path d="M145,140 C150,190 148,230 148,258 L135,258 C132,220 130,180 132,148 Z" fill="var(--cg-fill)"></path>
+      <circle cx="138" cy="180" r="4" fill="var(--cg-fill)"></circle>
+      <circle cx="142" cy="210" r="3" fill="var(--cg-fill)"></circle>
+      <circle cx="136" cy="235" r="3" fill="var(--cg-fill)"></circle>
+      <path d="M175,258 C172,220 174,180 178,150 C222,155 248,195 245,255 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></path>
+      <path d="M178,150 C174,180 172,220 175,258 L188,258 C190,215 190,180 190,152 Z" fill="var(--cg-fill)"></path>
+      <circle cx="185" cy="185" r="3" fill="var(--cg-fill)"></circle>
+      <circle cx="182" cy="215" r="4" fill="var(--cg-fill)"></circle>
+      <path d="M140,130 C132,110 148,102 140,84" fill="none" stroke="var(--cg-stroke)" stroke-opacity=".3" stroke-width="5" stroke-linecap="round"></path>
+      <path d="M182,138 C174,118 190,110 182,92" fill="none" stroke="var(--cg-stroke)" stroke-opacity=".3" stroke-width="5" stroke-linecap="round"></path>
+    </svg>
+  </div>
+  <div class="folio" data-counter="true">08 / 08</div>
+</section>
+
+</div>
+
+
+</body></html>

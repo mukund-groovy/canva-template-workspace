@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap');
+
+      :root{
+        /* Brand role colors — the top bar, cover tag, recap badge/checkmarks and CTA are
+           the tintable brand devices (var(--accent)); the recap ribbon and kicker dot use
+           var(--secondary)/var(--highlight) as pure decoration (no text ever sits on them,
+           so they carry no contrast obligation). The teal backdrop, the card surface and
+           all reading ink are FIXED literals — exactly like the reference's own monochrome
+           navy-on-cream system — so the deck stays legible under any brand palette. */
+        --primary:var(--brand-primary,#0b2530);
+        --secondary:var(--brand-secondary,#12414d);
+        --accent:var(--brand-accent,#0b2530);
+        --highlight:var(--brand-accent,#1c5866);
+        --bg:var(--brand-bg,#0d5a6c);
+        --surface:var(--brand-surface,#f7f5f1);
+        --text-high:var(--brand-ink,#0b2530);
+        --text-low:var(--brand-text-muted,rgba(11,37,48,.6));
+        --border:var(--brand-border,rgba(11,37,48,.14));
+        --on-fill:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#081b22;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        font-family:'Inter',sans-serif;
+        background:
+          radial-gradient(ellipse 760px 640px at 80% 12%, color-mix(in srgb, var(--bg) 40%, #3fb0c2 60%) 0%, transparent 62%),
+          radial-gradient(ellipse 720px 800px at 10% 92%, color-mix(in srgb, var(--bg) 70%, #04222b 30%) 0%, transparent 66%),
+          linear-gradient(140deg, #0a3d48 0%, var(--bg) 38%, #2f95a6 56%, #0d5a6c 78%, #052731 100%);
+      }
+
+      /* ── the floating index card — fixed cream literal, never re-skinned ── */
+      .card{
+        position:absolute; left:90px; top:108px; width:900px; height:1134px;
+        transform:rotate(-1.1deg);
+        background:var(--surface); border-radius:16px; overflow:hidden;
+        box-shadow:0 46px 90px rgba(3,12,16,.5), 0 14px 30px rgba(3,12,16,.32);
+        z-index:1;
+      }
+
+      /* ── top bar: the deck's primary brand device, present on every slide ── */
+      .bar{position:absolute; top:0; left:0; right:0; height:84px; background:var(--accent); display:flex; align-items:center; justify-content:flex-end; padding:0 42px; z-index:2;}
+      .lockup{display:flex; align-items:center; gap:12px;}
+      .brand-mark-clip{width:26px; height:26px; flex:none; display:flex; align-items:center;}
+      .brand-mark{width:100%; height:100%; object-fit:contain; display:block;}
+      .brand-word{font-family:'Inter',sans-serif; font-weight:800; font-size:24px; letter-spacing:.16em; text-transform:uppercase; color:var(--on-fill); white-space:nowrap;}
+
+      /* ── folio counter, bottom of every card ── */
+      .folio{position:absolute; bottom:38px; right:56px; font-family:'Inter',sans-serif; font-weight:700; font-size:21px; letter-spacing:.12em; color:var(--text-low); z-index:2;}
+
+      /* ── every text node gets its own absolutely-positioned wrapper; the run itself
+         stays in normal flow with line-clamp, so overflow / collision probes see it.
+         Decorative fixed labels (kicker word, big index numeral, cover numeral/pill,
+         recap badge pill) are NEVER tagged data-title/data-message — those attributes are
+         reserved for the two slots the generator actually rewrites, so a two-digit numeral
+         never gets asked to hold a 68-character generated headline. ── */
+
+      /* Cover */
+      .cv-tag{position:absolute; top:126px; left:60px; right:60px; z-index:2;}
+      .cv-tag span{font-weight:800; font-size:22px; letter-spacing:.22em; text-transform:uppercase; color:var(--primary); display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:1; overflow:hidden;}
+      .cv-rule{position:absolute; top:170px; left:60px; width:96px; height:8px; border-radius:4px; background:var(--secondary); z-index:2;}
+      .cv-num{position:absolute; top:206px; left:48px; width:440px; z-index:2; font-weight:800; font-size:296px; line-height:.82; color:var(--primary); padding-bottom:.06em;}
+      .cv-pill{position:absolute; top:494px; left:266px; z-index:3;}
+      .cv-pill span{display:inline-block; background:var(--accent); color:var(--on-fill); font-weight:800; font-size:56px; text-transform:uppercase; letter-spacing:.01em; padding:22px 40px; border-radius:18px; transform:rotate(-3deg); box-shadow:0 18px 30px rgba(3,12,16,.28); white-space:nowrap;}
+      .cv-title{position:absolute; top:648px; left:60px; right:56px; z-index:2;}
+      .cv-title h1{margin:0; font-weight:800; font-size:60px; line-height:1.1; color:var(--primary); display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden; padding-bottom:.16em;}
+      .cv-msg{position:absolute; top:874px; left:60px; right:56px; z-index:2;}
+      .cv-msg p{margin:0; font-weight:600; font-size:34px; line-height:1.32; color:var(--text-low); display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; padding-bottom:.16em;}
+
+      /* Numbered checks */
+      .kicker{position:absolute; top:126px; left:60px; right:56px; z-index:2; display:flex; align-items:center; gap:14px;}
+      .kicker .dot{width:14px; height:14px; border-radius:3px; background:var(--highlight); flex:none;}
+      .kicker span{font-weight:800; font-size:28px; letter-spacing:.22em; text-transform:uppercase; color:var(--primary); display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:1; overflow:hidden;}
+      .step-num{position:absolute; top:198px; left:60px; right:56px; z-index:2; text-align:right; font-weight:800; font-size:300px; line-height:.82; color:var(--primary); padding-bottom:.06em;}
+      .tn-title{position:absolute; top:500px; left:60px; right:56px; z-index:2;}
+      .tn-title h1{margin:0; font-weight:800; font-size:56px; line-height:1.14; color:var(--primary); display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden; padding-bottom:.18em;}
+      .tn-msg{position:absolute; top:722px; left:60px; right:56px; z-index:2;}
+      .tn-msg p{margin:0; font-weight:600; font-size:36px; line-height:1.32; color:var(--text-low); display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden; padding-bottom:.18em;}
+
+      /* Recap */
+      .rc-kicker{position:absolute; top:114px; left:60px; right:56px; z-index:2; display:flex; align-items:center; gap:14px;}
+      .rc-kicker .dot{width:14px; height:14px; border-radius:3px; background:var(--highlight); flex:none;}
+      .rc-kicker span{font-weight:800; font-size:24px; letter-spacing:.22em; text-transform:uppercase; color:var(--primary); display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:1; overflow:hidden;}
+      .rc-title{position:absolute; top:158px; left:60px; right:56px; z-index:2;}
+      .rc-title h1{margin:0; font-weight:800; font-size:46px; line-height:1.15; color:var(--primary); display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; padding-bottom:.16em;}
+      .rc-msg{position:absolute; top:296px; left:60px; right:56px; z-index:2;}
+      .rc-msg p{margin:0; font-weight:600; font-size:29px; line-height:1.32; color:var(--text-low); display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; padding-bottom:.16em;}
+
+      .rc-list{position:absolute; top:414px; left:60px; right:56px; bottom:150px; z-index:2; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-start; gap:22px;}
+      .rc-row{flex:none; display:flex; align-items:flex-start; gap:20px; min-height:72px;}
+      .rc-check{width:50px; height:50px; border-radius:50%; background:var(--accent); flex:none; display:flex; align-items:center; justify-content:center; margin-top:2px;}
+      .rc-check svg{width:24px; height:24px;}
+      .rc-row .rc-text{margin:0; font-weight:700; font-size:34px; line-height:1.25; color:var(--text-high); display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; padding-bottom:.2em;}
+
+      .rc-cta{position:absolute; left:60px; right:56px; bottom:38px; z-index:2;}
+      .rc-cta div{background:var(--accent); color:var(--on-fill); font-weight:800; font-size:28px; line-height:1.25; text-align:center; border-radius:16px; padding:24px 30px; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden;}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Cover -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="card">
+          <div class="bar"><span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.5%22/%3E%3C/svg%3E"></span><span class="brand-word">Spokeworks</span></span></div>
+          <div class="cv-tag" data-tagline="true"><span>Pre-Ride Series</span></div>
+          <div class="cv-rule" aria-hidden="true"></div>
+          <div class="cv-num" aria-hidden="true">5</div>
+          <div class="cv-pill"><span>Checks</span></div>
+          <div class="cv-title"><h1 data-title="true">Before You Clip In</h1></div>
+          <div class="cv-msg"><p data-message="true">Five checks, thirty seconds, zero surprises.</p></div>
+          <div class="folio">01 / 07</div>
+        </div>
+      </section>
+
+      <!-- Check 01 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="card">
+          <div class="bar"><span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.5%22/%3E%3C/svg%3E"></span><span class="brand-word">Spokeworks</span></span></div>
+          <div class="kicker"><span class="dot" aria-hidden="true"></span><span>Check</span></div>
+          <div class="step-num" aria-hidden="true">01</div>
+          <div class="tn-title"><h1 data-title="true">Check Your Tires</h1></div>
+          <div class="tn-msg"><p data-message="true">Squeeze both. If your thumb dents the rubber, air comes before mileage.</p></div>
+          <div class="folio">02 / 07</div>
+        </div>
+      </section>
+
+      <!-- Check 02 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="card">
+          <div class="bar"><span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.5%22/%3E%3C/svg%3E"></span><span class="brand-word">Spokeworks</span></span></div>
+          <div class="kicker"><span class="dot" aria-hidden="true"></span><span>Check</span></div>
+          <div class="step-num" aria-hidden="true">02</div>
+          <div class="tn-title"><h1 data-title="true">Test Your Brakes</h1></div>
+          <div class="tn-msg"><p data-message="true">Pull each lever — it should bite within an inch, or the pads need attention.</p></div>
+          <div class="folio">03 / 07</div>
+        </div>
+      </section>
+
+      <!-- Check 03 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="card">
+          <div class="bar"><span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.5%22/%3E%3C/svg%3E"></span><span class="brand-word">Spokeworks</span></span></div>
+          <div class="kicker"><span class="dot" aria-hidden="true"></span><span>Check</span></div>
+          <div class="step-num" aria-hidden="true">03</div>
+          <div class="tn-title"><h1 data-title="true">Watch The Chain</h1></div>
+          <div class="tn-msg"><p data-message="true">Turn the pedals once. A skipping link won't survive the first hill.</p></div>
+          <div class="folio">04 / 07</div>
+        </div>
+      </section>
+
+      <!-- Check 04 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="card">
+          <div class="bar"><span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.5%22/%3E%3C/svg%3E"></span><span class="brand-word">Spokeworks</span></span></div>
+          <div class="kicker"><span class="dot" aria-hidden="true"></span><span>Check</span></div>
+          <div class="step-num" aria-hidden="true">04</div>
+          <div class="tn-title"><h1 data-title="true">Rock The Wheels</h1></div>
+          <div class="tn-msg"><p data-message="true">A loose skewer wobbles your first turn, not your last.</p></div>
+          <div class="folio">05 / 07</div>
+        </div>
+      </section>
+
+      <!-- Check 05 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="card">
+          <div class="bar"><span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.5%22/%3E%3C/svg%3E"></span><span class="brand-word">Spokeworks</span></span></div>
+          <div class="kicker"><span class="dot" aria-hidden="true"></span><span>Check</span></div>
+          <div class="step-num" aria-hidden="true">05</div>
+          <div class="tn-title"><h1 data-title="true">Flash The Lights</h1></div>
+          <div class="tn-msg"><p data-message="true">A dead battery is a decision better made in the driveway than in the dark.</p></div>
+          <div class="folio">06 / 07</div>
+        </div>
+      </section>
+
+      <!-- Recap -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="card">
+          <div class="bar"><span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.5%22/%3E%3C/svg%3E"></span><span class="brand-word">Spokeworks</span></span></div>
+          <div class="rc-kicker"><span class="dot" aria-hidden="true"></span><span>Before You Ride</span></div>
+          <div class="rc-title"><h1 data-title="true">Run Through This Once</h1></div>
+          <div class="rc-msg"><p data-message="true">Five checks. Thirty seconds. Zero surprises on the road.</p></div>
+          <div class="rc-list">
+            <div class="rc-row">
+              <span class="rc-check" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill)"><path d="M5 12.5L10 17L19 7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+              <div class="rc-text">Tires firm to the thumb</div>
+            </div>
+            <div class="rc-row">
+              <span class="rc-check" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill)"><path d="M5 12.5L10 17L19 7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+              <div class="rc-text">Brakes bite within an inch</div>
+            </div>
+            <div class="rc-row">
+              <span class="rc-check" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill)"><path d="M5 12.5L10 17L19 7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+              <div class="rc-text">Chain turns without a skip</div>
+            </div>
+            <div class="rc-row">
+              <span class="rc-check" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill)"><path d="M5 12.5L10 17L19 7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+              <div class="rc-text">Skewers snug, no wobble</div>
+            </div>
+            <div class="rc-row">
+              <span class="rc-check" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill)"><path d="M5 12.5L10 17L19 7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+              <div class="rc-text">Lights flash before dark</div>
+            </div>
+          </div>
+          <div class="rc-cta"><div data-cta="true">Save this before your next ride.</div></div>
+        </div>
+      </section>
+
+    </div>
+  
+
+</body></html>

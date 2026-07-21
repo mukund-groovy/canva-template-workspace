@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Oswald:wght@400;500;600;700&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#2B5FE3);
+  --secondary:var(--brand-secondary,#4FA8E8);
+  --accent:var(--brand-accent,#E24A1E);
+  --highlight:var(--brand-accent,#E24A1E);
+  --bg:var(--brand-bg,#F7F6F2);
+  --surface:var(--brand-surface,#4FA8E8);
+  --text-high:var(--brand-ink,#111111);
+  --text-low:var(--brand-text-muted,rgba(17,17,17,.6));
+  --border:var(--brand-border,rgba(17,17,17,.12));
+  --on-fill:var(--brand-on-accent,#ffffff);
+  --on-primary:var(--brand-on-primary,#ffffff);
+}
+*{box-sizing:border-box;}
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+.slide{
+  width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+  background:var(--bg);font-family:'Oswald',sans-serif;
+  background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:135px 135px;
+}
+/* header */
+.hdr{position:absolute;top:70px;left:96px;right:96px;z-index:5;display:flex;align-items:center;}
+.lockup{display:inline-flex;align-items:center;gap:14px;}
+.brand-mark-clip{flex:none;height:34px;display:flex;align-items:center;}
+.brand-mark{height:34px;width:auto;max-width:120px;object-fit:contain;display:block;}
+.brand-word{font-family:'Oswald',sans-serif;font-weight:600;font-size:30px;letter-spacing:.12em;color:var(--text-high);white-space:nowrap;}
+
+/* serif display */
+.disp{font-family:'Playfair Display',serif;color:var(--text-high);}
+
+/* pills */
+.pill{position:absolute;z-index:6;border-radius:40px;display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.02em;padding:0 30px;}
+.pill span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:2px;white-space:nowrap;}
+.pill-primary{background:var(--primary);color:var(--on-primary);}
+.pill-accent{background:var(--accent);color:var(--on-fill);transform:rotate(-4deg);}
+.pill-sky{background:var(--secondary);color:var(--text-high);}
+
+/* folder tab */
+.tab{position:absolute;z-index:4;border-radius:16px 16px 0 0;display:flex;align-items:center;padding-left:30px;font-family:'Playfair Display',serif;font-weight:700;}
+.tab span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;white-space:nowrap;padding-bottom:2px;}
+
+/* body card */
+.card{position:absolute;z-index:3;border-radius:26px;overflow:hidden;}
+
+.footcap{position:absolute;z-index:5;font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.05em;color:var(--text-high);text-transform:uppercase;}
+.footcap span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:3px;line-height:1.3;}
+
+.node{position:absolute;z-index:2;}
+.node svg{display:block;}
+
+.cursor{position:absolute;z-index:7;width:46px;height:46px;color:var(--text-high);}
+.cursor svg{width:100%;height:100%;display:block;}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+<!-- SLIDE 1 COVER -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="hdr">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+  </div>
+
+  <div class="node" style="top:190px;right:96px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 90" width="120" height="90" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><line x1="10" y1="12" x2="110" y2="12" stroke="var(--cg-stroke)" stroke-width="2"></line><line x1="110" y1="12" x2="110" y2="78" stroke="var(--cg-stroke)" stroke-width="2"></line><rect x="4" y="6" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="104" y="6" width="12" height="12" fill="none" stroke="var(--cg-stroke)" stroke-width="2"></rect><rect x="104" y="72" width="12" height="12" fill="var(--cg-fill)"></rect></svg></div>
+
+  <div class="disp" data-title="true" style="position:absolute;left:96px;top:340px;width:820px;font-weight:400;font-size:168px;line-height:.96;-webkit-box-orient:vertical;display:-webkit-box;-webkit-line-clamp:4;overflow:hidden;padding-bottom:10px;letter-spacing:-.01em;">How to Become a Content Creator</div>
+
+  <div class="pill pill-primary" style="top:1030px;left:96px;height:58px;font-size:26px;"><span data-tagline="true">Freelance Ready</span></div>
+  <div class="pill pill-accent" style="top:1024px;left:420px;height:60px;font-size:25px;"><span>Turn skills into income</span></div>
+
+  <div class="cursor" style="top:490px;left:820px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4 2L20 12L12 13L16 21L13 22L9 14L4 18Z"></path></svg></div>
+
+  <div class="footcap" style="left:96px;bottom:110px;width:360px;font-size:31px;"><span data-message="true">Pick a skill. Find one client. Deliver.</span></div>
+  <div class="footcap" style="right:96px;bottom:110px;width:340px;text-align:right;font-size:31px;color:var(--primary);"><span data-cta="true">No permission needed.</span></div>
+</section>
+
+<!-- SLIDE 2 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="hdr">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+  </div>
+
+  <div class="disp" data-title="true" style="position:absolute;left:96px;top:210px;width:880px;font-weight:400;font-style:italic;font-size:150px;line-height:.98;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:8px;">Pick One Thing</div>
+
+  <div class="node" style="top:550px;left:30px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 70 70" width="70" height="70" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><rect x="6" y="6" width="58" height="58" fill="none" stroke="var(--cg-stroke)" stroke-width="2"></rect><rect x="0" y="0" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="58" y="0" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="0" y="58" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="58" y="58" width="12" height="12" fill="var(--cg-fill)"></rect></svg></div>
+
+  <!-- tabs -->
+  <div class="tab" style="top:540px;left:130px;width:320px;height:66px;background:var(--primary);color:var(--on-primary);font-size:44px;"><span data-tagline="true">#Skill1</span></div>
+  <div class="tab" style="top:598px;left:130px;width:340px;height:66px;background:var(--secondary);color:var(--text-high);font-size:44px;"><span>#Skill2</span></div>
+
+  <div class="pill pill-accent" style="top:538px;left:560px;height:64px;font-size:30px;"><span data-cta="true">Next Slide</span></div>
+
+  <!-- body card -->
+  <div class="card" style="top:664px;left:130px;width:820px;height:440px;background:var(--secondary);"></div>
+  <div style="position:absolute;z-index:5;left:170px;top:706px;width:740px;font-family:'Oswald',sans-serif;font-weight:500;font-size:44px;line-height:1.28;letter-spacing:.01em;text-transform:uppercase;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:7;overflow:hidden;padding-bottom:6px;" data-message="true">You cannot sell everything at once. Choose a single skill you can charge for and go deep before you go wide.</div>
+
+  <div class="cursor" style="bottom:190px;right:180px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="#fff" stroke="#111" stroke-width="1" aria-hidden="true" focusable="false"><path d="M4 2L20 12L12 13L16 21L13 22L9 14L4 18Z"></path></svg></div>
+</section>
+
+<!-- SLIDE 3 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="hdr">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+  </div>
+
+  <div class="disp" data-title="true" style="position:absolute;left:96px;top:180px;width:888px;text-align:center;font-weight:700;font-size:132px;line-height:.98;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:8px;">Show Proof First</div>
+
+  <div class="node" style="top:400px;left:24px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 80 60" width="80" height="60" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><rect x="8" y="10" width="60" height="34" fill="none" stroke="var(--cg-stroke)" stroke-width="2"></rect><rect x="2" y="4" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="62" y="38" width="12" height="12" fill="var(--cg-fill)"></rect></svg></div>
+  <div class="node" style="top:420px;right:60px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 80" width="120" height="80" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><line x1="12" y1="14" x2="108" y2="14" stroke="var(--cg-stroke)" stroke-width="2"></line><line x1="108" y1="14" x2="108" y2="66" stroke="var(--cg-stroke)" stroke-width="2"></line><rect x="6" y="8" width="12" height="12" fill="none" stroke="var(--cg-stroke)" stroke-width="2"></rect><rect x="102" y="8" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="102" y="60" width="12" height="12" fill="var(--cg-fill)"></rect></svg></div>
+
+  <div class="tab" style="top:520px;left:130px;width:330px;height:66px;background:var(--primary);color:var(--on-primary);font-size:44px;"><span data-tagline="true">#Portfolio3</span></div>
+  <div class="tab" style="top:578px;left:130px;width:350px;height:66px;background:var(--secondary);color:var(--text-high);font-size:44px;"><span>#Portfolio4</span></div>
+
+  <div class="pill pill-accent" style="top:526px;left:560px;height:64px;font-size:30px;"><span data-cta="true">Next Slide</span></div>
+
+  <div class="card" style="top:644px;left:130px;width:820px;height:470px;background:var(--primary);"></div>
+  <div style="position:absolute;z-index:5;left:180px;top:700px;width:720px;text-align:center;font-family:'Oswald',sans-serif;font-weight:500;font-size:46px;line-height:1.26;letter-spacing:.01em;text-transform:uppercase;color:var(--on-primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:7;overflow:hidden;padding-bottom:6px;" data-message="true">Clients hire evidence, not promises. Build two sample projects, put them online, and let the work do the pitching for you.</div>
+
+  <div class="cursor" style="bottom:200px;right:170px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="#fff" stroke="#111" stroke-width="1" aria-hidden="true" focusable="false"><path d="M4 2L20 12L12 13L16 21L13 22L9 14L4 18Z"></path></svg></div>
+</section>
+
+<!-- SLIDE 4 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="hdr">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+  </div>
+
+  <div class="disp" data-title="true" style="position:absolute;left:96px;top:160px;width:888px;text-align:center;font-weight:400;font-size:132px;line-height:1.0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:8px;">Charge On Purpose</div>
+
+  <div class="node" style="top:340px;left:36px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 70 70" width="66" height="66" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><rect x="6" y="6" width="58" height="58" fill="none" stroke="var(--cg-stroke)" stroke-width="2"></rect><rect x="0" y="0" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="58" y="0" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="0" y="58" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="58" y="58" width="12" height="12" fill="var(--cg-fill)"></rect></svg></div>
+  <div class="node" style="top:340px;right:36px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 70 70" width="66" height="66" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><rect x="6" y="6" width="58" height="58" fill="none" stroke="var(--cg-stroke)" stroke-width="2"></rect><rect x="0" y="0" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="58" y="0" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="0" y="58" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="58" y="58" width="12" height="12" fill="var(--cg-fill)"></rect></svg></div>
+
+  <!-- two folder cards -->
+  <div class="card" style="top:520px;left:96px;width:390px;height:310px;background:var(--primary);border-radius:0 26px 26px 26px;"></div>
+  <div style="position:absolute;z-index:5;left:96px;top:640px;width:390px;text-align:center;font-family:'Playfair Display',serif;font-weight:700;font-size:56px;color:var(--on-primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:4px;" data-tagline="true">#Price5</div>
+
+  <div class="card" style="top:520px;left:594px;width:390px;height:310px;background:var(--secondary);border-radius:0 26px 26px 26px;"></div>
+  <div style="position:absolute;z-index:5;left:594px;top:640px;width:390px;text-align:center;font-family:'Playfair Display',serif;font-weight:700;font-size:56px;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:4px;">#Rates6</div>
+
+  <div class="pill pill-accent" style="top:800px;right:130px;height:62px;font-size:29px;"><span data-cta="true">Next Slide</span></div>
+
+  <div style="position:absolute;z-index:5;left:143px;top:920px;width:794px;text-align:center;font-family:'Oswald',sans-serif;font-weight:500;font-size:33px;line-height:1.3;letter-spacing:.02em;text-transform:uppercase;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:5px;" data-message="true">Underpricing signals doubt. Set a rate, test it on the next client, and raise it the moment demand outpaces your calendar.</div>
+
+  <div class="footcap" style="left:96px;bottom:100px;width:360px;font-size:30px;"><span>Data is your</span></div>
+  <div class="footcap" style="right:96px;bottom:100px;width:360px;text-align:right;font-size:30px;color:var(--primary);"><span>best teacher.</span></div>
+</section>
+
+<!-- SLIDE 5 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="hdr">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+  </div>
+
+  <div class="node" style="top:320px;right:96px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 70 70" width="70" height="70" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><rect x="6" y="6" width="58" height="58" fill="none" stroke="var(--cg-stroke)" stroke-width="2"></rect><rect x="0" y="0" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="58" y="0" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="0" y="58" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="58" y="58" width="12" height="12" fill="var(--cg-fill)"></rect></svg></div>
+  <div class="node" style="top:460px;right:60px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 140 60" width="140" height="60" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><line x1="14" y1="30" x2="126" y2="30" stroke="var(--cg-stroke)" stroke-width="2"></line><rect x="8" y="24" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="120" y="8" width="12" height="12" fill="var(--cg-fill)"></rect><rect x="120" y="40" width="12" height="12" fill="var(--cg-fill)"></rect></svg></div>
+
+  <div class="disp" data-title="true" style="position:absolute;left:96px;top:290px;width:600px;font-weight:900;font-size:172px;line-height:.94;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:10px;">Thank You</div>
+
+  <div class="pill pill-accent" style="top:660px;left:420px;height:66px;font-size:31px;"><span data-cta="true">For Reading</span></div>
+  <div class="pill pill-primary" style="top:660px;left:96px;height:60px;font-size:27px;"><span data-tagline="true">Freelance Ready</span></div>
+  <div class="pill pill-sky" style="top:740px;left:96px;height:60px;font-size:27px;"><span>Follow Us</span></div>
+
+  <div class="cursor" style="top:760px;left:660px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="#fff" stroke="#111" stroke-width="1" aria-hidden="true" focusable="false"><path d="M4 2L20 12L12 13L16 21L13 22L9 14L4 18Z"></path></svg></div>
+
+  <div style="position:absolute;z-index:5;left:96px;top:830px;width:620px;font-family:'Oswald',sans-serif;font-weight:500;font-size:33px;line-height:1.3;letter-spacing:.01em;text-transform:uppercase;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:5px;" data-message="true">You do not need a big network. You need one paid job and the nerve to ask for it.</div>
+
+  <div class="footcap" style="left:96px;bottom:100px;width:360px;font-size:30px;color:var(--primary);"><span>123-456-789</span></div>
+  <div class="footcap" style="right:96px;bottom:100px;width:360px;text-align:right;font-size:30px;"><span>YOURBRAND</span></div>
+</section>
+
+</div>
+
+</body></html>

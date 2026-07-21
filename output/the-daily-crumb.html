@@ -1,0 +1,186 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#6CA6E0);
+  --secondary:var(--brand-secondary,#4E86C0);
+  --accent:var(--brand-accent,#6CA6E0);
+  --highlight:var(--brand-accent,#6CA6E0);
+  --bg:var(--brand-bg,#EFEEEC);
+  --surface:var(--brand-surface,#FFFFFF);
+  --text-high:var(--brand-ink,#111111);
+  --text-low:var(--brand-text-muted,rgba(17,17,17,.6));
+  --border:var(--brand-border,#C9C9C9);
+  --on-fill:var(--brand-on-accent,#ffffff);
+  --on-primary:var(--brand-on-primary,#ffffff);
+}
+*{box-sizing:border-box;}
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+.slide{width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;background:var(--bg);font-family:'Source Sans 3',sans-serif;}
+
+/* headline lockup */
+.lk-script{position:absolute;text-align:center;}
+.lk-script span{font-family:'Pinyon Script',cursive;font-size:180px;line-height:.9;color:var(--text-high);display:block;padding-bottom:10px;}
+.lk-serif{position:absolute;text-align:center;}
+.lk-serif h1{margin:0;font-family:'Playfair Display',serif;font-weight:900;font-size:150px;line-height:.92;letter-spacing:-.02em;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:14px;white-space:nowrap;}
+
+/* selection label box */
+.sel-box{position:absolute;border:1px solid var(--primary);background:transparent;}
+.sel-box .lbl{font-family:'Source Sans 3',sans-serif;font-size:20px;color:var(--text-high);text-align:center;line-height:1.2;padding:8px 0;}
+.sel-box::before,.sel-box::after{content:'';position:absolute;width:7px;height:7px;background:var(--surface);border:1px solid var(--primary);}
+.sel-box::before{left:-4px;top:-4px;}
+.sel-box::after{right:-4px;bottom:-4px;}
+.sel-h1,.sel-h2{position:absolute;width:7px;height:7px;background:var(--surface);border:1px solid var(--primary);}
+
+/* cursor */
+.cursor{position:absolute;width:22px;height:22px;z-index:6;color:var(--text-high);}
+
+/* preview window */
+.win{position:absolute;background:var(--surface);border:1px solid var(--border);z-index:4;}
+.win-bar{height:26px;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 8px;gap:6px;}
+.win-dots{display:flex;gap:5px;}
+.win-dots i{width:8px;height:8px;border-radius:50%;border:1px solid var(--border);display:block;}
+.win-name{font-family:'Source Sans 3',sans-serif;font-size:12px;color:var(--text-high);font-weight:600;margin-left:6px;}
+.win-tools{margin-left:auto;display:flex;gap:6px;color:var(--primary);}
+.win-tools svg{width:13px;height:13px;}
+.win-photo{position:absolute;inset:26px 0 0 0;overflow:hidden;}
+.win-photo img{width:100%;height:100%;object-fit:cover;display:block;background:#cbc9c4;}
+
+/* folders */
+.folder{position:absolute;text-align:center;z-index:5;}
+.folder svg{width:56px;height:44px;display:block;margin:0 auto;color:var(--accent);}
+.folder .cap{font-family:'Source Sans 3',sans-serif;font-size:20px;color:var(--text-high);margin-top:6px;line-height:1.2;}
+
+.next{position:absolute;color:var(--text-low);font-size:26px;z-index:5;}
+
+/* slide 4 */
+.kicker4{position:absolute;text-align:center;}
+.kicker4 span{font-family:'Pinyon Script',cursive;font-size:52px;color:var(--primary);line-height:1.1;padding-bottom:6px;display:block;}
+.title4{position:absolute;text-align:center;}
+.title4 h1{margin:0;font-family:'Playfair Display',serif;font-weight:900;font-size:88px;line-height:.98;letter-spacing:-.01em;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:10px;}
+.textwin{position:absolute;background:var(--surface);border:1px solid var(--border);z-index:4;}
+.tw-bar{height:24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:flex-end;padding:0 6px;gap:5px;}
+.tw-bar i{width:16px;height:14px;border:1px solid var(--border);display:block;}
+.tw-body{position:absolute;top:44px;left:22px;right:22px;}
+.tw-body p{margin:0;font-family:'Source Sans 3',sans-serif;font-size:20px;line-height:1.34;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:8;overflow:hidden;padding-bottom:6px;}
+.imgwin{position:absolute;background:var(--surface);border:1px solid var(--border);z-index:5;}
+.iw-bar{height:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 6px;}
+.iw-name{font-family:'Source Sans 3',sans-serif;font-size:11px;color:var(--text-high);font-weight:600;}
+.iw-photo{position:absolute;top:20px;left:12px;right:12px;height:160px;overflow:hidden;}
+.iw-photo img{width:100%;height:100%;object-fit:cover;display:block;background:#cbc9c4;}
+.iw-tools{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:16px;color:var(--primary);}
+.iw-tools svg{width:16px;height:16px;}
+
+.brand-word{font-family:'Playfair Display',serif;font-weight:700;font-size:24px;color:var(--text-high);white-space:nowrap;}
+.brand-mark{height:26px;width:auto;max-width:100px;object-fit:contain;display:block;}
+.foot{position:absolute;left:70px;bottom:44px;z-index:7;display:inline-flex;align-items:center;gap:12px;}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+<!-- Slide 1 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="lk-script" style="left:300px;top:110px;width:480px;"><span data-title="true">Fresh</span></div>
+  <div class="lk-serif" style="left:150px;top:210px;width:780px;"><h1 data-title="true">Baked</h1></div>
+
+  <div class="sel-box" style="left:407px;top:420px;width:266px;height:56px;">
+    <div class="lbl" data-tagline="true">the studio</div>
+    <span class="sel-h1" style="right:-4px;top:-4px;"></span>
+    <span class="sel-h2" style="left:-4px;bottom:-4px;"></span>
+  </div>
+  <svg class="cursor" style="left:640px;top:485px;" viewBox="0 0 24 24" fill="currentColor" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M4 2L4 20L9 15L12 22L15 21L12 14L19 14Z"></path></svg>
+
+  <div class="win" style="left:220px;top:520px;width:300px;height:400px;">
+    <div class="win-bar"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-name">preview.jpg</span><span class="win-tools"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><circle cx="11" cy="11" r="7" stroke="var(--cg-stroke)" stroke-width="2"></circle><path d="M21 21L16 16" stroke="var(--cg-stroke)" stroke-width="2"></path></svg></span></div>
+    <div class="win-photo"><img data-image="true" data-image-size="1024x1536" alt="" src="assets/images/the-daily-crumb/slide-01.png"></div>
+  </div>
+
+  <div class="folder" style="left:620px;top:530px;width:80px;"><svg viewBox="0 0 60 48" fill="currentColor" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M2 8 h20 l6 6 h28 a2 2 0 0 1 2 2 v28 a2 2 0 0 1 -2 2 H2 a2 2 0 0 1 -2 -2 V10 a2 2 0 0 1 2 -2 Z"></path></svg><div class="cap" data-tagline="true">content</div></div>
+  <div class="folder" style="left:620px;top:660px;width:80px;"><svg viewBox="0 0 60 48" fill="currentColor" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M2 8 h20 l6 6 h28 a2 2 0 0 1 2 2 v28 a2 2 0 0 1 -2 2 H2 a2 2 0 0 1 -2 -2 V10 a2 2 0 0 1 2 -2 Z"></path></svg><div class="cap" data-tagline="true">design</div></div>
+  <div class="folder" style="left:620px;top:790px;width:120px;"><svg viewBox="0 0 60 48" fill="currentColor" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M2 8 h20 l6 6 h28 a2 2 0 0 1 2 2 v28 a2 2 0 0 1 -2 2 H2 a2 2 0 0 1 -2 -2 V10 a2 2 0 0 1 2 -2 Z"></path></svg><div class="cap" data-tagline="true">engagement</div></div>
+  <div class="next" style="left:545px;top:900px;">›</div>
+
+  <div class="foot"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+</section>
+
+<!-- Slide 2 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="lk-script" style="left:300px;top:150px;width:480px;"><span data-title="true">Fresh</span></div>
+  <div class="lk-serif" style="left:150px;top:250px;width:780px;"><h1 data-title="true">Baked</h1></div>
+
+  <div class="sel-box" style="left:407px;top:470px;width:266px;height:56px;">
+    <div class="lbl" data-tagline="true">the studio</div>
+    <span class="sel-h1" style="right:-4px;top:-4px;"></span>
+    <span class="sel-h2" style="left:-4px;bottom:-4px;"></span>
+  </div>
+  <svg class="cursor" style="left:640px;top:535px;" viewBox="0 0 24 24" fill="currentColor" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M4 2L4 20L9 15L12 22L15 21L12 14L19 14Z"></path></svg>
+
+  <div class="win" style="left:220px;top:600px;width:300px;height:400px;">
+    <div class="win-bar"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-name">preview.jpg</span><span class="win-tools"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><circle cx="11" cy="11" r="7" stroke="var(--cg-stroke)" stroke-width="2"></circle><path d="M21 21L16 16" stroke="var(--cg-stroke)" stroke-width="2"></path></svg></span></div>
+    <div class="win-photo"><img data-image="true" data-image-size="1024x1536" alt="" src="assets/images/the-daily-crumb/slide-02.png"></div>
+  </div>
+
+  <div class="folder" style="left:620px;top:610px;width:80px;"><svg viewBox="0 0 60 48" fill="currentColor" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M2 8 h20 l6 6 h28 a2 2 0 0 1 2 2 v28 a2 2 0 0 1 -2 2 H2 a2 2 0 0 1 -2 -2 V10 a2 2 0 0 1 2 -2 Z"></path></svg><div class="cap" data-tagline="true">content</div></div>
+  <div class="folder" style="left:620px;top:740px;width:80px;"><svg viewBox="0 0 60 48" fill="currentColor" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M2 8 h20 l6 6 h28 a2 2 0 0 1 2 2 v28 a2 2 0 0 1 -2 2 H2 a2 2 0 0 1 -2 -2 V10 a2 2 0 0 1 2 -2 Z"></path></svg><div class="cap" data-tagline="true">design</div></div>
+  <div class="folder" style="left:620px;top:870px;width:120px;"><svg viewBox="0 0 60 48" fill="currentColor" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M2 8 h20 l6 6 h28 a2 2 0 0 1 2 2 v28 a2 2 0 0 1 -2 2 H2 a2 2 0 0 1 -2 -2 V10 a2 2 0 0 1 2 -2 Z"></path></svg><div class="cap" data-tagline="true">engagement</div></div>
+  <div class="next" style="left:545px;top:980px;">›</div>
+
+  <div class="foot"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+</section>
+
+<!-- Slide 3 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="lk-script" style="left:160px;top:60px;width:480px;text-align:left;"><span data-title="true">Fresh</span></div>
+  <div class="lk-serif" style="left:100px;top:160px;width:780px;text-align:left;"><h1 data-title="true">Baked</h1></div>
+
+  <div class="sel-box" style="left:340px;top:390px;width:266px;height:56px;">
+    <div class="lbl" data-tagline="true">the studio</div>
+    <span class="sel-h1" style="right:-4px;top:-4px;"></span>
+    <span class="sel-h2" style="left:-4px;bottom:-4px;"></span>
+  </div>
+  <svg class="cursor" style="left:575px;top:455px;" viewBox="0 0 24 24" fill="currentColor" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M4 2L4 20L9 15L12 22L15 21L12 14L19 14Z"></path></svg>
+
+  <div class="win" style="left:150px;top:530px;width:300px;height:400px;">
+    <div class="win-bar"><span class="win-dots"><i></i><i></i><i></i></span><span class="win-name">preview.jpg</span><span class="win-tools"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><circle cx="11" cy="11" r="7" stroke="var(--cg-stroke)" stroke-width="2"></circle><path d="M21 21L16 16" stroke="var(--cg-stroke)" stroke-width="2"></path></svg></span></div>
+    <div class="win-photo"><img data-image="true" data-image-size="1024x1536" alt="" src="assets/images/the-daily-crumb/slide-03.png"></div>
+  </div>
+
+  <div class="folder" style="left:640px;top:540px;width:80px;"><svg viewBox="0 0 60 48" fill="currentColor" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M2 8 h20 l6 6 h28 a2 2 0 0 1 2 2 v28 a2 2 0 0 1 -2 2 H2 a2 2 0 0 1 -2 -2 V10 a2 2 0 0 1 2 -2 Z"></path></svg><div class="cap" data-tagline="true">content</div></div>
+  <div class="folder" style="left:640px;top:670px;width:80px;"><svg viewBox="0 0 60 48" fill="currentColor" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M2 8 h20 l6 6 h28 a2 2 0 0 1 2 2 v28 a2 2 0 0 1 -2 2 H2 a2 2 0 0 1 -2 -2 V10 a2 2 0 0 1 2 -2 Z"></path></svg><div class="cap" data-tagline="true">design</div></div>
+  <div class="folder" style="left:640px;top:800px;width:120px;"><svg viewBox="0 0 60 48" fill="currentColor" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M2 8 h20 l6 6 h28 a2 2 0 0 1 2 2 v28 a2 2 0 0 1 -2 2 H2 a2 2 0 0 1 -2 -2 V10 a2 2 0 0 1 2 -2 Z"></path></svg><div class="cap" data-tagline="true">engagement</div></div>
+  <div class="next" style="left:475px;top:910px;">›</div>
+
+  <div class="foot"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+</section>
+
+<!-- Slide 4 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="kicker4" style="left:290px;top:240px;width:500px;"><span data-message="true">morning bakes</span></div>
+  <div class="title4" style="left:190px;top:300px;width:700px;"><h1 data-title="true">Sourdough Loaves</h1></div>
+
+  <div class="folder" style="left:250px;top:540px;width:120px;"><svg viewBox="0 0 60 48" fill="currentColor" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M2 8 h20 l6 6 h28 a2 2 0 0 1 2 2 v28 a2 2 0 0 1 -2 2 H2 a2 2 0 0 1 -2 -2 V10 a2 2 0 0 1 2 -2 Z"></path></svg><div class="cap" data-tagline="true">sourdough</div></div>
+
+  <div class="textwin" style="left:410px;top:530px;width:420px;height:340px;">
+    <div class="tw-bar"><i></i><i></i><i></i></div>
+    <div class="tw-body"><p data-message="true">Every loaf begins the night before with a slow cold ferment, so the crust cracks and the crumb pulls into long open holes. We mill part of the flour in house for a deeper wheat flavor, and each batch is scored by hand just before it hits the stone.</p></div>
+  </div>
+
+  <div class="imgwin" style="left:210px;top:790px;width:260px;height:260px;">
+    <div class="iw-bar"><span class="iw-name">img001.jpg</span></div>
+    <div class="iw-photo"><img data-image="true" data-image-size="1024x1024" alt="" src="assets/images/the-daily-crumb/slide-04.png"></div>
+    <div class="iw-tools"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><circle cx="11" cy="11" r="7" stroke="var(--cg-stroke)" stroke-width="2"></circle><path d="M21 21L16 16" stroke="var(--cg-stroke)" stroke-width="2"></path></svg><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M15 5L8 12L15 19" stroke="var(--cg-stroke)" stroke-width="2"></path></svg><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M9 5L16 12L9 19" stroke="var(--cg-stroke)" stroke-width="2"></path></svg><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12a8 8 0 1 1 2 5" stroke="var(--cg-stroke)" stroke-width="2"></path><path d="M4 8V13H9" stroke="var(--cg-stroke)" stroke-width="2"></path></svg></div>
+  </div>
+
+  <div class="foot"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+</section>
+
+</div>
+
+</body></html>

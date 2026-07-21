@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap');
+
+      :root{
+        /* Brand role colors — fills (panels, badges, CTA, rule bars) take --accent;
+           branded TEXT (numeral, headline) takes --primary, which the skinner keeps
+           dark/AA-safe on the cream canvas even when --accent is a pale brand hue.
+           Canvas + ink stay fixed literals so the reading surface never breaks. */
+        --primary:var(--brand-primary,#B23A22);
+        --secondary:var(--brand-secondary,#F2A65A);
+        --accent:var(--brand-accent,#E2593E);
+        --bg:var(--brand-bg,#FFF7EE);
+        --surface:var(--brand-surface,#FFFFFF);
+        --text-high:var(--brand-ink,#241208);
+        --text-low:var(--brand-text-muted,#6B4A3A);
+        --border:var(--brand-border,#EAD9C8);
+        --highlight:var(--brand-accent,#FBE4C8);
+        --on-fill:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+      }
+
+      *{box-sizing:border-box;}
+      html,body{margin:0;padding:0;}
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);font-family:'Nunito',sans-serif;
+      }
+
+      /* ── shared chrome: brand lockup + folio counter ── */
+      .lockup{position:absolute;left:72px;top:56px;z-index:5;display:inline-flex;align-items:center;gap:12px;}
+      .brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+      .brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:24px;letter-spacing:.02em;white-space:nowrap;}
+      .lockup.on-light .brand-word{color:var(--primary);}
+      .lockup.on-dark .brand-word{color:var(--on-fill);}
+      .counter{position:absolute;right:72px;top:62px;z-index:5;font-family:'Nunito',sans-serif;font-weight:800;font-size:20px;letter-spacing:.14em;}
+      .counter.on-light{color:var(--text-low);}
+      .counter.on-dark{color:var(--on-fill);opacity:.85;}
+
+      /* ── cover ── */
+      .cover-bar{position:absolute;left:72px;top:322px;width:9px;height:372px;background:var(--accent);border-radius:6px;z-index:2;}
+      .cover-num{position:absolute;left:104px;top:296px;width:230px;height:236px;z-index:2;
+        font-family:'Baloo 2',sans-serif;font-weight:800;font-size:222px;line-height:1;color:var(--primary);}
+      .tn-cover-title{position:absolute;left:352px;top:268px;width:648px;z-index:2;padding-top:28px;}
+      .tn-cover-title h1{
+        margin:0;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:78px;line-height:1.04;
+        text-transform:uppercase;letter-spacing:-.005em;color:var(--primary);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.12em;
+      }
+      .tn-cover-sub{position:absolute;left:104px;top:698px;width:760px;z-index:2;}
+      .tn-cover-sub p{
+        margin:0;font-family:'Nunito',sans-serif;font-weight:700;font-size:35px;line-height:1.32;
+        color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.18em;
+      }
+      .cover-cta{position:absolute;left:104px;top:858px;z-index:3;display:inline-flex;align-items:center;
+        padding:22px 40px 28px;border-radius:999px;background:var(--accent);overflow:hidden;}
+      .cover-cta span{font-family:'Nunito',sans-serif;font-weight:800;font-size:30px;line-height:1;color:var(--on-fill);white-space:nowrap;}
+      .cover-photo{position:absolute;right:64px;top:938px;width:420px;height:376px;z-index:1;
+        border-radius:30px;overflow:hidden;transform:rotate(-3.5deg);
+        box-shadow:0 30px 60px rgba(36,18,8,.28);}
+      .cover-photo img{width:100%;height:100%;object-fit:cover;display:block;background:#d8c3ae;}
+      .cover-mark{position:absolute;left:150px;top:230px;width:52px;height:52px;z-index:1;color:var(--accent);transform:rotate(-8deg);}
+      .cover-trail{position:absolute;left:56px;top:1060px;width:480px;height:220px;z-index:1;color:var(--accent);opacity:.14;}
+      .bg-pattern{position:absolute;inset:0;z-index:0;color:var(--border);}
+      /* Cover's headline lives in a tall growth column (numeral + multi-line title); a
+         worst-case generated headline lays out extra wrapped lines that stay geometrically
+         present (just visually clamped) below the visible box. Keep the full-bleed texture
+         out of that whole column's reach — y<900 — so a long headline never measures as
+         "covered" by decoration that a reader never actually sees overlapping it. */
+      .cover .bg-pattern{clip-path:inset(900px 0 0 0);}
+
+      /* ── quote slides ── */
+      .photo-panel{position:absolute;top:0;bottom:0;width:420px;z-index:1;}
+      .photo-panel img{width:100%;height:100%;object-fit:cover;display:block;background:#d8c3ae;}
+      .quote-panel{position:absolute;top:0;bottom:0;width:660px;background:var(--accent);z-index:1;overflow:hidden;}
+      .quote-a .photo-panel{left:0;} .quote-a .quote-panel{right:0;}
+      .quote-b .photo-panel{right:0;} .quote-b .quote-panel{left:0;}
+
+      .qp-pattern{position:absolute;inset:0;z-index:0;opacity:.16;}
+      .qp-kicker{position:absolute;left:0;right:0;top:150px;z-index:2;display:flex;justify-content:center;}
+      .qp-kicker span{
+        font-family:'Nunito',sans-serif;font-weight:800;font-size:26px;letter-spacing:.16em;color:var(--on-fill);
+        text-transform:uppercase;border:2.5px solid var(--on-fill);border-radius:999px;padding:14px 34px;white-space:nowrap;}
+      .qp-rule{position:absolute;left:50%;transform:translateX(-50%);width:280px;height:3px;background:var(--on-fill);opacity:.7;z-index:2;}
+      .qp-rule.top{top:236px;} .qp-rule.bot{top:838px;}
+      .tn-quote{position:absolute;left:40px;right:40px;top:290px;z-index:2;}
+      .tn-quote p{
+        margin:0;text-align:center;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:56px;line-height:1.18;
+        color:var(--on-fill);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;overflow:hidden;padding-bottom:.16em;}
+      .tn-tagline{position:absolute;left:60px;right:60px;top:888px;z-index:2;display:flex;justify-content:center;}
+      .tn-tagline div{
+        font-family:'Nunito',sans-serif;font-weight:700;font-style:italic;font-size:30px;color:var(--on-fill);opacity:.92;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.15em;text-align:center;}
+
+      /* ── divider ── */
+      .div-top{position:absolute;left:0;right:0;top:0;height:560px;background:var(--accent);z-index:1;overflow:hidden;}
+      .div-bottom{position:absolute;left:0;right:0;top:560px;bottom:0;background:var(--bg);z-index:0;overflow:hidden;}
+      .div-pattern-light{position:absolute;inset:0;opacity:.55;color:var(--border);}
+      .div-kicker{position:absolute;left:0;right:0;top:230px;display:flex;justify-content:center;z-index:2;}
+      .div-kicker span{font-family:'Nunito',sans-serif;font-weight:800;font-size:26px;letter-spacing:.18em;color:var(--on-fill);
+        text-transform:uppercase;border:2.5px solid var(--on-fill);border-radius:999px;padding:13px 32px;}
+      .div-rule{position:absolute;left:50%;top:316px;transform:translateX(-50%);width:280px;height:3px;background:var(--on-fill);opacity:.7;z-index:2;}
+      .tn-div{position:absolute;left:120px;right:120px;top:366px;z-index:2;}
+      .tn-div p{margin:0;text-align:center;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:52px;line-height:1.22;
+        color:var(--on-fill);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.16em;}
+
+      /* ── outro ── */
+      .outro-mark{position:absolute;left:50%;top:300px;transform:translateX(-50%);width:120px;height:120px;color:var(--accent);z-index:2;}
+      .tn-outro{position:absolute;left:120px;right:120px;top:480px;z-index:2;}
+      .tn-outro h1{margin:0;text-align:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:66px;line-height:1.14;
+        text-transform:uppercase;color:var(--primary);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.14em;}
+      .tn-outro-sub{position:absolute;left:150px;right:150px;top:756px;z-index:2;display:flex;justify-content:center;}
+      .tn-outro-sub p{margin:0;font-family:'Nunito',sans-serif;font-weight:700;font-size:31px;line-height:1.3;color:var(--text-low);
+        text-align:center;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.15em;}
+      .outro-cta{position:absolute;left:50%;top:900px;transform:translateX(-50%);z-index:3;display:inline-flex;align-items:center;
+        padding:24px 46px 30px;border-radius:999px;background:var(--accent);white-space:nowrap;overflow:hidden;}
+      .outro-cta span{font-family:'Nunito',sans-serif;font-weight:800;font-size:30px;line-height:1;color:var(--on-fill);}
+      .outro-band{position:absolute;left:0;right:0;bottom:0;height:170px;background:var(--accent);z-index:1;overflow:hidden;}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- 1: Cover -->
+      <section class="slide cover" data-cg-slide-type="text">
+        <svg class="bg-pattern" data-cg-svg="" data-cg-preserve="" viewBox="0 0 1080 1350" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" style="--cg-fill:var(--border);--cg-stroke:var(--border);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+          <defs><pattern id="fp0" width="180" height="180" patternUnits="userSpaceOnUse" patternTransform="rotate(12)">
+            <ellipse cx="90" cy="114" rx="24" ry="33" fill="var(--cg-fill)"></ellipse>
+            <circle cx="68" cy="72" r="8.5" fill="var(--cg-fill)"></circle><circle cx="86" cy="62" r="9" fill="var(--cg-fill)"></circle>
+            <circle cx="104" cy="62" r="8.5" fill="var(--cg-fill)"></circle><circle cx="119" cy="72" r="7.5" fill="var(--cg-fill)"></circle>
+          </pattern></defs>
+          <rect width="1080" height="1350" fill="var(--cg-fill)" opacity=".4"></rect>
+        </svg>
+
+        <div class="lockup on-light"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">STRIDE</span></div>
+        <div class="counter on-light" data-counter="true">01 / 07</div>
+
+        <div class="cover-bar" aria-hidden="true"></div>
+        <div class="cover-num">04</div>
+        <div class="tn-cover-title"><h1 data-title="true">Bold quotes to fuel your next run</h1></div>
+        <svg class="cover-mark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M6 40L24 22L34 32L58 8" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M44 8H58V22" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+
+        <div class="tn-cover-sub"><p data-message="true">For the days your legs say no but your heart says one more mile.</p></div>
+        <div class="cover-cta"><span data-cta="true">Swipe for motivation →</span></div>
+
+        <svg class="cover-trail" data-cg-svg="" data-cg-preserve="" viewBox="0 0 500 340" fill="currentColor" aria-hidden="true" focusable="false">
+          <defs><g id="fp-single"><ellipse cx="0" cy="0" rx="20" ry="28"></ellipse><circle cx="-16" cy="-34" r="7"></circle><circle cx="-2" cy="-41" r="7.5"></circle><circle cx="13" cy="-41" r="7"></circle><circle cx="25" cy="-34" r="6"></circle></g></defs>
+          <use href="#fp-single" transform="translate(40,300) rotate(-15) scale(0.8)"></use>
+          <use href="#fp-single" transform="translate(135,255) rotate(10) scale(0.9)"></use>
+          <use href="#fp-single" transform="translate(240,195) rotate(-12) scale(1)"></use>
+          <use href="#fp-single" transform="translate(345,130) rotate(8) scale(1.05)"></use>
+          <use href="#fp-single" transform="translate(445,60) rotate(-10) scale(1.1)"></use>
+        </svg>
+
+        <div class="cover-photo"><img data-image="true" data-image-size="1024x1024" data-image-prompt="close-up flat lay of a pair of coral-orange running shoes on textured warm pavement, soft morning light, shallow depth of field, editorial fitness photography" alt="" src="assets/images/run-motivation-quotes/slide-01.png"></div>
+      </section>
+
+      <!-- 2: Quote 01 (photo left) -->
+      <section class="slide quote-a" data-cg-slide-type="text">
+        <div class="photo-panel"><img data-image="true" data-image-size="1024x1536" data-image-prompt="tall close-up of running shoes mid-stride kicking up dust on an orange dirt trail, dynamic motion, warm morning light" alt="" src="assets/images/run-motivation-quotes/slide-02.png"></div>
+        <div class="quote-panel">
+          <svg class="qp-pattern" data-cg-svg="" data-cg-preserve="" viewBox="0 0 660 1350" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+            <defs><pattern id="fp1" width="150" height="150" patternUnits="userSpaceOnUse" patternTransform="rotate(18)">
+              <ellipse cx="75" cy="95" rx="20" ry="28" fill="var(--cg-fill)"></ellipse>
+              <circle cx="58" cy="60" r="7" fill="var(--cg-fill)"></circle><circle cx="72" cy="52" r="7.5" fill="var(--cg-fill)"></circle>
+              <circle cx="87" cy="52" r="7" fill="var(--cg-fill)"></circle><circle cx="99" cy="60" r="6" fill="var(--cg-fill)"></circle>
+            </pattern></defs>
+            <rect width="660" height="1350" fill="var(--cg-fill)"></rect>
+          </svg>
+          <div class="lockup on-dark"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.55%22/%3E%3C/svg%3E"></span><span class="brand-word">STRIDE</span></div>
+          <div class="counter on-dark" data-counter="true">02 / 07</div>
+          <div class="qp-kicker"><span>Quote 01</span></div>
+          <div class="qp-rule top" aria-hidden="true"></div>
+          <div class="tn-quote"><p data-message="true">The run doesn't get easier. You get stronger.</p></div>
+          <div class="qp-rule bot" aria-hidden="true"></div>
+          <div class="tn-tagline"><div data-tagline="true">Lace up. Show up. Repeat.</div></div>
+        </div>
+      </section>
+
+      <!-- 3: Quote 02 (photo right, mirrored) -->
+      <section class="slide quote-b" data-cg-slide-type="text">
+        <div class="photo-panel"><img data-image="true" data-image-size="1024x1536" data-image-prompt="tall photo of a runner's legs and sneakers pausing on a park path at sunrise, warm golden light, shallow depth of field, no visible face" alt="" src="assets/images/run-motivation-quotes/slide-03.png"></div>
+        <div class="quote-panel">
+          <svg class="qp-pattern" data-cg-svg="" data-cg-preserve="" viewBox="0 0 660 1350" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+            <defs><pattern id="fp2" width="150" height="150" patternUnits="userSpaceOnUse" patternTransform="rotate(-14)">
+              <ellipse cx="75" cy="95" rx="20" ry="28" fill="var(--cg-fill)"></ellipse>
+              <circle cx="58" cy="60" r="7" fill="var(--cg-fill)"></circle><circle cx="72" cy="52" r="7.5" fill="var(--cg-fill)"></circle>
+              <circle cx="87" cy="52" r="7" fill="var(--cg-fill)"></circle><circle cx="99" cy="60" r="6" fill="var(--cg-fill)"></circle>
+            </pattern></defs>
+            <rect width="660" height="1350" fill="var(--cg-fill)"></rect>
+          </svg>
+          <div class="lockup on-dark"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.55%22/%3E%3C/svg%3E"></span><span class="brand-word">STRIDE</span></div>
+          <div class="counter on-dark" data-counter="true">03 / 07</div>
+          <div class="qp-kicker"><span>Quote 02</span></div>
+          <div class="qp-rule top" aria-hidden="true"></div>
+          <div class="tn-quote"><p data-message="true">Some days you run for time. Some days you run for peace.</p></div>
+          <div class="qp-rule bot" aria-hidden="true"></div>
+          <div class="tn-tagline"><div data-tagline="true">Every pace counts.</div></div>
+        </div>
+      </section>
+
+      <!-- 4: Divider / breather -->
+      <section class="slide divider" data-cg-slide-type="text">
+        <div class="div-top">
+          <svg class="qp-pattern" data-cg-svg="" data-cg-preserve="" viewBox="0 0 1080 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+            <defs><pattern id="fp3" width="150" height="150" patternUnits="userSpaceOnUse" patternTransform="rotate(10)">
+              <ellipse cx="75" cy="95" rx="20" ry="28" fill="var(--cg-fill)"></ellipse>
+              <circle cx="58" cy="60" r="7" fill="var(--cg-fill)"></circle><circle cx="72" cy="52" r="7.5" fill="var(--cg-fill)"></circle>
+              <circle cx="87" cy="52" r="7" fill="var(--cg-fill)"></circle><circle cx="99" cy="60" r="6" fill="var(--cg-fill)"></circle>
+            </pattern></defs>
+            <rect width="1080" height="560" fill="var(--cg-fill)" opacity=".16"></rect>
+          </svg>
+          <div class="div-kicker"><span>Keep going</span></div>
+          <div class="div-rule" aria-hidden="true"></div>
+          <div class="tn-div"><p data-message="true">Halfway is just the beginning of the good part.</p></div>
+        </div>
+        <div class="div-bottom">
+          <svg class="div-pattern-light" data-cg-svg="" data-cg-preserve="" viewBox="0 0 1080 790" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" style="--cg-fill:var(--border);--cg-stroke:var(--border);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+            <defs><pattern id="fp4" width="170" height="170" patternUnits="userSpaceOnUse" patternTransform="rotate(-8)">
+              <ellipse cx="85" cy="108" rx="23" ry="32" fill="var(--cg-fill)"></ellipse>
+              <circle cx="65" cy="68" r="8" fill="var(--cg-fill)"></circle><circle cx="82" cy="59" r="8.5" fill="var(--cg-fill)"></circle>
+              <circle cx="99" cy="59" r="8" fill="var(--cg-fill)"></circle><circle cx="113" cy="68" r="7" fill="var(--cg-fill)"></circle>
+            </pattern></defs>
+            <rect width="1080" height="790" fill="var(--cg-fill)"></rect>
+          </svg>
+        </div>
+        <div class="lockup on-light" style="top:1276px;"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">STRIDE</span></div>
+        <div class="counter on-light" style="top:1282px;" data-counter="true">04 / 07</div>
+      </section>
+
+      <!-- 5: Quote 03 (photo left) -->
+      <section class="slide quote-a" data-cg-slide-type="text">
+        <div class="photo-panel"><img data-image="true" data-image-size="1024x1536" data-image-prompt="tall photo of a lone runner's shadow stretching across an empty road at dawn, warm orange sky, motivational fitness photography, no visible face" alt="" src="assets/images/run-motivation-quotes/slide-05.png"></div>
+        <div class="quote-panel">
+          <svg class="qp-pattern" data-cg-svg="" data-cg-preserve="" viewBox="0 0 660 1350" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+            <defs><pattern id="fp5" width="150" height="150" patternUnits="userSpaceOnUse" patternTransform="rotate(22)">
+              <ellipse cx="75" cy="95" rx="20" ry="28" fill="var(--cg-fill)"></ellipse>
+              <circle cx="58" cy="60" r="7" fill="var(--cg-fill)"></circle><circle cx="72" cy="52" r="7.5" fill="var(--cg-fill)"></circle>
+              <circle cx="87" cy="52" r="7" fill="var(--cg-fill)"></circle><circle cx="99" cy="60" r="6" fill="var(--cg-fill)"></circle>
+            </pattern></defs>
+            <rect width="660" height="1350" fill="var(--cg-fill)"></rect>
+          </svg>
+          <div class="lockup on-dark"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.55%22/%3E%3C/svg%3E"></span><span class="brand-word">STRIDE</span></div>
+          <div class="counter on-dark" data-counter="true">05 / 07</div>
+          <div class="qp-kicker"><span>Quote 03</span></div>
+          <div class="qp-rule top" aria-hidden="true"></div>
+          <div class="tn-quote"><p data-message="true">Slow miles still count. Show up anyway.</p></div>
+          <div class="qp-rule bot" aria-hidden="true"></div>
+          <div class="tn-tagline"><div data-tagline="true">Progress, not perfection.</div></div>
+        </div>
+      </section>
+
+      <!-- 6: Quote 04 (photo right, mirrored) -->
+      <section class="slide quote-b" data-cg-slide-type="text">
+        <div class="photo-panel"><img data-image="true" data-image-size="1024x1536" data-image-prompt="tall photo of a runner tying shoelaces on a park bench, cropped hands and shoes only, soft morning light, warm tones, no visible face" alt="" src="assets/images/run-motivation-quotes/slide-06.png"></div>
+        <div class="quote-panel">
+          <svg class="qp-pattern" data-cg-svg="" data-cg-preserve="" viewBox="0 0 660 1350" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+            <defs><pattern id="fp6" width="150" height="150" patternUnits="userSpaceOnUse" patternTransform="rotate(-20)">
+              <ellipse cx="75" cy="95" rx="20" ry="28" fill="var(--cg-fill)"></ellipse>
+              <circle cx="58" cy="60" r="7" fill="var(--cg-fill)"></circle><circle cx="72" cy="52" r="7.5" fill="var(--cg-fill)"></circle>
+              <circle cx="87" cy="52" r="7" fill="var(--cg-fill)"></circle><circle cx="99" cy="60" r="6" fill="var(--cg-fill)"></circle>
+            </pattern></defs>
+            <rect width="660" height="1350" fill="var(--cg-fill)"></rect>
+          </svg>
+          <div class="lockup on-dark"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.55%22/%3E%3C/svg%3E"></span><span class="brand-word">STRIDE</span></div>
+          <div class="counter on-dark" data-counter="true">06 / 07</div>
+          <div class="qp-kicker"><span>Quote 04</span></div>
+          <div class="qp-rule top" aria-hidden="true"></div>
+          <div class="tn-quote"><p data-message="true">You are not behind. You are exactly where your training is.</p></div>
+          <div class="qp-rule bot" aria-hidden="true"></div>
+          <div class="tn-tagline"><div data-tagline="true">Trust the process.</div></div>
+        </div>
+      </section>
+
+      <!-- 7: Outro -->
+      <section class="slide outro" data-cg-slide-type="text">
+        <svg class="bg-pattern" data-cg-svg="" data-cg-preserve="" viewBox="0 0 1080 1350" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" style="--cg-fill:var(--border);--cg-stroke:var(--border);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+          <defs><pattern id="fp7" width="180" height="180" patternUnits="userSpaceOnUse" patternTransform="rotate(-14)">
+            <ellipse cx="90" cy="114" rx="24" ry="33" fill="var(--cg-fill)"></ellipse>
+            <circle cx="68" cy="72" r="8.5" fill="var(--cg-fill)"></circle><circle cx="86" cy="62" r="9" fill="var(--cg-fill)"></circle>
+            <circle cx="104" cy="62" r="8.5" fill="var(--cg-fill)"></circle><circle cx="119" cy="72" r="7.5" fill="var(--cg-fill)"></circle>
+          </pattern></defs>
+          <rect width="1080" height="1350" fill="var(--cg-fill)" opacity=".4"></rect>
+        </svg>
+
+        <div class="lockup on-light"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">STRIDE</span></div>
+        <div class="counter on-light" data-counter="true">07 / 07</div>
+
+        <svg class="outro-mark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <circle cx="32" cy="32" r="29" stroke="var(--cg-stroke)" stroke-width="6"></circle>
+          <path d="M20 34L28 42L45 22" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <div class="tn-outro"><h1 data-title="true">Your next run starts with your next step</h1></div>
+        <div class="tn-outro-sub"><p data-message="true">Come back for more fuel on the days your motivation runs low.</p></div>
+        <div class="outro-cta"><span data-cta="true">Save this for your next run</span></div>
+
+        <div class="outro-band" aria-hidden="true">
+          <svg class="qp-pattern" data-cg-svg="" data-cg-preserve="" viewBox="0 0 1080 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+            <defs><pattern id="fp8" width="140" height="140" patternUnits="userSpaceOnUse" patternTransform="rotate(14)">
+              <ellipse cx="70" cy="88" rx="18" ry="26" fill="var(--cg-fill)"></ellipse>
+              <circle cx="54" cy="56" r="6.5" fill="var(--cg-fill)"></circle><circle cx="67" cy="49" r="7" fill="var(--cg-fill)"></circle>
+              <circle cx="81" cy="49" r="6.5" fill="var(--cg-fill)"></circle><circle cx="92" cy="56" r="5.5" fill="var(--cg-fill)"></circle>
+            </pattern></defs>
+            <rect width="1080" height="170" fill="var(--cg-fill)"></rect>
+          </svg>
+        </div>
+      </section>
+
+    </div>
+  
+
+</body></html>

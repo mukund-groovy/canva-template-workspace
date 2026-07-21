@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&family=Nunito:wght@600;700;800&display=swap');
+
+  :root{
+    /* Brand role colors — applied ONLY to filled accent surfaces (the bottom
+       band, the numeral chip, the closing CTA pill). The dark eggplant canvas
+       and all headline/body ink are FIXED literals so the big-type reading
+       stays AA-legible under any brand palette. */
+    --primary:var(--brand-primary,#6E4F86);
+    --secondary:var(--brand-secondary,#4C3568);
+    --accent:var(--brand-accent,#AD8FB0);
+    --highlight:var(--brand-accent,#AD8FB0);
+    --bg:var(--brand-bg,#241A2E);
+    --surface:var(--brand-surface,#2F2440);
+    --text-high:var(--brand-text-high,#FFFFFF);
+    --text-low:var(--brand-text-muted,rgba(255,255,255,.72));
+    --border:var(--brand-border,rgba(255,255,255,.2));
+    --on-fill:var(--brand-on-accent,#241A2E);
+    --on-primary:var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#111;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);font-family:'Nunito',sans-serif;
+  }
+
+  /* ── top bar: brand lockup + folio counter ── */
+  .top-bar{position:absolute;top:60px;left:84px;right:84px;z-index:3;display:flex;align-items:center;justify-content:space-between;overflow:hidden;}
+  .lockup{display:flex;align-items:center;gap:12px;}
+  .brand-mark{width:30px;height:30px;display:block;object-fit:contain;}
+  .brand-word{font-family:'Nunito',sans-serif;font-weight:800;font-size:26px;line-height:1.2;color:var(--text-high);white-space:nowrap;}
+  .counter{font-family:'Nunito',sans-serif;font-weight:800;font-size:36px;line-height:1.2;color:var(--text-high);letter-spacing:.01em;}
+
+  /* ── cover-only kicker pill ── */
+  .cover-tag{position:absolute;top:196px;left:84px;z-index:3;background:var(--accent);color:var(--on-fill);
+    font-family:'Nunito',sans-serif;font-weight:800;font-size:24px;line-height:1.2;letter-spacing:.08em;
+    text-transform:uppercase;padding:15px 30px;border-radius:999px;white-space:nowrap;}
+
+  /* ── tip-only kicker row: numeral chip + outlined "RULE" label ── */
+  .kicker-row{position:absolute;top:198px;left:84px;z-index:3;display:flex;align-items:center;gap:20px;overflow:hidden;}
+  .num-chip{width:84px;height:84px;border-radius:22px;background:var(--primary);flex:none;
+    display:flex;align-items:center;justify-content:center;}
+  .num-chip span{font-family:'Poppins',sans-serif;font-weight:900;font-size:40px;color:var(--on-primary);line-height:1;padding-bottom:.06em;}
+  .rule-tag{border:2px solid var(--secondary);border-radius:999px;padding:15px 30px;
+    font-family:'Nunito',sans-serif;font-weight:800;font-size:26px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--text-low);white-space:nowrap;}
+
+  /* ── slim accent rule beside the body copy: a real device, not filler —
+     grounds the tip/closing slides and adds honest coverage without clutter ── */
+  .msg-bar{position:absolute;left:84px;width:5px;border-radius:3px;background:var(--secondary);z-index:2;}
+  .tip .tn-message,.s6 .tn-message{left:118px;}
+
+  /* ── ghost numeral: an oversized, low-opacity digit anchored to the page's
+     right column — echoes the kicker's numeral, gives the tip slides a
+     confident signature mark, and keeps the frame full without adding
+     literal clutter (it sits BEHIND every text run). ── */
+  .ghost-num{position:absolute;right:52px;top:830px;font-family:'Poppins',sans-serif;font-weight:900;
+    font-size:300px;line-height:1;color:#7A5C99;z-index:0;pointer-events:none;}
+
+  /* text nodes: each in its own absolutely-positioned wrapper */
+  .tn-title{position:absolute;left:84px;z-index:2;}
+  .tn-title h1{margin:0;font-family:'Poppins',sans-serif;font-weight:900;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.16em;}
+
+  .tn-message{position:absolute;left:84px;z-index:2;}
+  .tn-message p{margin:0;font-family:'Nunito',sans-serif;font-weight:700;color:var(--text-low);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.15em;}
+
+  /* ── closing-only CTA pill ── */
+  .cta-pill{position:absolute;left:84px;z-index:3;background:var(--accent);color:var(--on-fill);
+    font-family:'Nunito',sans-serif;font-weight:800;font-size:32px;line-height:1.2;letter-spacing:.02em;
+    padding:26px 52px;border-radius:999px;display:inline-block;white-space:nowrap;padding-bottom:calc(26px + .1em);}
+
+  /* ── bottom band: the deck's biggest brand-bound surface ── */
+  .band{position:absolute;left:0;right:0;bottom:0;height:206px;background:var(--accent);z-index:1;}
+  .band-pill{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    background:#F3EADF;color:#241A2E;font-family:'Nunito',sans-serif;font-weight:800;font-size:26px;
+    letter-spacing:.1em;text-transform:uppercase;padding:20px 44px;border-radius:999px;white-space:nowrap;}
+  .band-rule{position:absolute;top:50%;height:2px;background:var(--on-fill);opacity:.55;transform:translateY(-50%);}
+  .band-rule.left{left:84px;width:230px;}
+  .band-rule.right{right:84px;width:230px;}
+  .band-dot{position:absolute;top:50%;width:9px;height:9px;border-radius:50%;background:var(--on-fill);opacity:.7;transform:translateY(-50%);}
+  .band-dot.left{left:60px;}
+  .band-dot.right{right:60px;}
+
+  /* per-slide geometry — message tops sit clear of a full clamped title
+     (worst-case generated copy), not just the short line the author wrote */
+  .s1 .tn-title{top:280px;width:900px;}
+  .s1 .tn-title h1{font-size:104px;line-height:1.05;-webkit-line-clamp:4;}
+  .s1 .tn-message{top:780px;width:660px;}
+  .s1 .tn-message p{font-size:38px;line-height:1.35;-webkit-line-clamp:3;}
+
+  .tip .tn-title{top:320px;width:680px;}
+  .tip .tn-title h1{font-size:120px;line-height:1.06;-webkit-line-clamp:3;}
+  .tip .tn-message{top:770px;width:606px;}
+  .tip .tn-message p{font-size:40px;line-height:1.4;-webkit-line-clamp:3;}
+  .tip .msg-bar{top:770px;height:174px;}
+
+  .s6 .tn-title{top:280px;width:880px;}
+  .s6 .tn-title h1{font-size:100px;line-height:1.06;-webkit-line-clamp:3;}
+  .s6 .tn-message{top:660px;width:626px;}
+  .s6 .tn-message p{font-size:44px;line-height:1.42;-webkit-line-clamp:3;}
+  .s6 .msg-bar{top:660px;height:190px;}
+  .s6 .cta-pill{top:900px;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — Cover -->
+  <section class="slide s1" data-cg-slide-type="text">
+    <div class="top-bar">
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"/><span class="brand-word">YOURBRAND</span></div>
+      <div class="counter" data-counter="true">1/6</div>
+    </div>
+    <div class="cover-tag">Six Rules Inside</div>
+    <div class="tn-title"><h1 data-title="true">Speak So The Room Leans In</h1></div>
+    <div class="tn-message"><p data-message="true">Six honest rules for sounding calm and clear, even when your hands are shaking.</p></div>
+    <div class="band">
+      <div class="band-dot left"></div>
+      <div class="band-rule left"></div>
+      <div class="band-pill">Own The Room</div>
+      <div class="band-rule right"></div>
+      <div class="band-dot right"></div>
+    </div>
+  </section>
+
+  <!-- Slide 2 — Rule 1 -->
+  <section class="slide tip s2" data-cg-slide-type="text">
+    <div class="top-bar">
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"/><span class="brand-word">YOURBRAND</span></div>
+      <div class="counter" data-counter="true">2/6</div>
+    </div>
+    <div class="ghost-num">1</div>
+    <div class="kicker-row"><div class="num-chip"><span>01</span></div><div class="rule-tag">Rule</div></div>
+    <div class="tn-title"><h1 data-title="true">Own The Pause</h1></div>
+    <div class="msg-bar"></div>
+    <div class="tn-message"><p data-message="true">Silence isn't a mistake to fix. Let it sit, it gives your words room to land.</p></div>
+    <div class="band">
+      <div class="band-dot left"></div>
+      <div class="band-rule left"></div>
+      <div class="band-pill">Own The Room</div>
+      <div class="band-rule right"></div>
+      <div class="band-dot right"></div>
+    </div>
+  </section>
+
+  <!-- Slide 3 — Rule 2 -->
+  <section class="slide tip s3" data-cg-slide-type="text">
+    <div class="top-bar">
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"/><span class="brand-word">YOURBRAND</span></div>
+      <div class="counter" data-counter="true">3/6</div>
+    </div>
+    <div class="ghost-num">2</div>
+    <div class="kicker-row"><div class="num-chip"><span>02</span></div><div class="rule-tag">Rule</div></div>
+    <div class="tn-title"><h1 data-title="true">Talk To One Face</h1></div>
+    <div class="msg-bar"></div>
+    <div class="tn-message"><p data-message="true">Scanning the whole room spikes panic. Speak to one kind face instead.</p></div>
+    <div class="band">
+      <div class="band-dot left"></div>
+      <div class="band-rule left"></div>
+      <div class="band-pill">Own The Room</div>
+      <div class="band-rule right"></div>
+      <div class="band-dot right"></div>
+    </div>
+  </section>
+
+  <!-- Slide 4 — Rule 3 -->
+  <section class="slide tip s4" data-cg-slide-type="text">
+    <div class="top-bar">
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"/><span class="brand-word">YOURBRAND</span></div>
+      <div class="counter" data-counter="true">4/6</div>
+    </div>
+    <div class="ghost-num">3</div>
+    <div class="kicker-row"><div class="num-chip"><span>03</span></div><div class="rule-tag">Rule</div></div>
+    <div class="tn-title"><h1 data-title="true">Cut The Apology Words</h1></div>
+    <div class="msg-bar"></div>
+    <div class="tn-message"><p data-message="true">Drop "sorry," "just," and "I think." Say the sentence like you already believe it.</p></div>
+    <div class="band">
+      <div class="band-dot left"></div>
+      <div class="band-rule left"></div>
+      <div class="band-pill">Own The Room</div>
+      <div class="band-rule right"></div>
+      <div class="band-dot right"></div>
+    </div>
+  </section>
+
+  <!-- Slide 5 — Rule 4 -->
+  <section class="slide tip s5" data-cg-slide-type="text">
+    <div class="top-bar">
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"/><span class="brand-word">YOURBRAND</span></div>
+      <div class="counter" data-counter="true">5/6</div>
+    </div>
+    <div class="ghost-num">4</div>
+    <div class="kicker-row"><div class="num-chip"><span>04</span></div><div class="rule-tag">Rule</div></div>
+    <div class="tn-title"><h1 data-title="true">Rehearse Out Loud</h1></div>
+    <div class="msg-bar"></div>
+    <div class="tn-message"><p data-message="true">A silent run-through lies to you. Say it standing up, out loud, before the room hears it.</p></div>
+    <div class="band">
+      <div class="band-dot left"></div>
+      <div class="band-rule left"></div>
+      <div class="band-pill">Own The Room</div>
+      <div class="band-rule right"></div>
+      <div class="band-dot right"></div>
+    </div>
+  </section>
+
+  <!-- Slide 6 — Closing -->
+  <section class="slide s6" data-cg-slide-type="text">
+    <div class="top-bar">
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"/><span class="brand-word">YOURBRAND</span></div>
+      <div class="counter" data-counter="true">6/6</div>
+    </div>
+    <div class="tn-title"><h1 data-title="true">Your Next Sentence Is Ready</h1></div>
+    <div class="msg-bar"></div>
+    <div class="tn-message"><p data-message="true">Confidence isn't the absence of nerves. It's opening your mouth anyway.</p></div>
+    <div class="cta-pill" data-cta="true">Say It Today</div>
+    <div class="band">
+      <div class="band-dot left"></div>
+      <div class="band-rule left"></div>
+      <div class="band-pill">Own The Room</div>
+      <div class="band-rule right"></div>
+      <div class="band-dot right"></div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

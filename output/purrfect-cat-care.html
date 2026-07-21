@@ -1,0 +1,508 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Quicksand:wght@500;600;700&display=swap');
+
+  :root{
+    --primary:var(--brand-primary,#E8563A);
+    --secondary:var(--brand-secondary,#B23A22);
+    --accent:var(--brand-accent,#F6B93B);
+    --highlight:var(--brand-accent,#F6B93B);
+    --bg:var(--brand-bg,#FDE6DF);
+    --surface:var(--brand-surface,#FFFFFF);
+    --text-high:var(--brand-text,#4A2E22);
+    --text-low:var(--brand-text-muted,rgba(74,46,34,.62));
+    --border:var(--brand-border,rgba(74,46,34,.16));
+    --on-fill:var(--brand-on-accent,#4A2E22);
+    --on-primary:var(--brand-on-primary,#FFFFFF);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);
+    font-family:'Quicksand',sans-serif;
+  }
+  .grain{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background-image:radial-gradient(circle at 1px 1px, rgba(74,46,34,.07) 1.2px, transparent 0);
+    background-size:7px 7px;opacity:.55;}
+
+  /* ── gingham band ── */
+  .gingham{position:absolute;left:0;right:0;bottom:0;height:196px;z-index:1;background:#fff;overflow:hidden;}
+  .gingham::before{content:'';position:absolute;inset:0;
+    background-image:
+      repeating-linear-gradient(90deg, color-mix(in srgb, var(--accent) 60%, transparent) 0 24px, transparent 24px 48px),
+      repeating-linear-gradient(0deg, color-mix(in srgb, var(--accent) 60%, transparent) 0 24px, transparent 24px 48px);
+  }
+  .gingham::after{content:'';position:absolute;left:0;right:0;top:0;height:10px;background:var(--primary);}
+
+  /* ── blob card ── */
+  .blob-card{position:absolute;left:120px;width:840px;background:var(--surface);
+    border:6px solid var(--accent);border-radius:44% 56% 40% 60% / 58% 44% 56% 42%;
+    box-shadow:0 26px 46px rgba(74,46,34,.16);z-index:4;}
+  .blob-card.cover{top:396px;height:512px;border-radius:40% 60% 46% 54% / 52% 48% 52% 48%;}
+  .blob-card.content{top:452px;height:566px;}
+
+  .squiggle{position:absolute;z-index:5;width:104px;height:76px;pointer-events:none;}
+  .squiggle path{fill:none;stroke:var(--accent);stroke-width:7;stroke-linecap:round;}
+  .squiggle.tl{left:70px;}
+  .squiggle.tr{right:70px;transform:scaleX(-1);}
+  .squiggle.br{right:70px;bottom:-2px;transform:scaleY(-1);}
+
+  /* ── text roles ── */
+  .tn-eyebrow{position:absolute;left:50%;transform:translateX(-50%);z-index:6;}
+  .eyebrow-chip{display:inline-flex;align-items:center;white-space:nowrap;background:var(--primary);
+    color:var(--on-primary);font-family:'Baloo 2',sans-serif;font-weight:700;font-size:24px;
+    letter-spacing:.08em;text-transform:uppercase;padding:14px 34px;border-radius:999px;
+    box-shadow:0 8px 0 rgba(74,46,34,.12);}
+
+  .tn-title{position:absolute;left:140px;right:140px;text-align:center;z-index:6;}
+  .tn-title h1{margin:0;font-family:'Baloo 2',sans-serif;font-weight:800;color:var(--primary);
+    text-transform:uppercase;letter-spacing:.005em;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.15em;}
+  .cover .tn-title h1{font-size:76px;line-height:1.06;}
+  .cover .tn-title{top:474px;}
+  .content-title .tn-title h1{font-size:52px;line-height:1.12;}
+  .content-title .tn-title{top:318px;}
+
+  .tn-message{position:absolute;left:190px;right:190px;text-align:center;z-index:6;}
+  .cover .tn-message p{margin:0;font-family:'Quicksand',sans-serif;font-weight:700;font-size:30px;
+    line-height:1.36;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.2em;}
+  .cover .tn-message{top:648px;}
+
+  .content-title .tn-message{left:230px;right:230px;top:638px;}
+  .content-title .tn-message p{margin:0;font-family:'Quicksand',sans-serif;font-weight:600;font-size:23px;
+    line-height:1.5;color:var(--text-high);text-align:center;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;padding-bottom:.2em;}
+
+  .tn-tagline{position:absolute;left:190px;right:190px;text-align:center;z-index:6;}
+  .content-title .tn-tagline{top:508px;}
+  .tagline-txt{margin:0;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:31px;line-height:1.32;
+    color:var(--secondary);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.16em;}
+
+  .rule{position:absolute;left:50%;transform:translateX(-50%);top:612px;width:96px;height:5px;
+    border-radius:4px;background:var(--accent);z-index:6;}
+
+  /* ── stickers ── */
+  .sticker{position:absolute;z-index:5;filter:drop-shadow(0 8px 14px rgba(74,46,34,.18));}
+  .sticker .halo{fill:#fff;}
+  .sticker svg{display:block;}
+
+  /* ── CTA pill ── */
+  .cta-btn{position:absolute;left:50%;transform:translateX(-50%);z-index:6;
+    display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:var(--on-fill);
+    font-family:'Baloo 2',sans-serif;font-weight:700;font-size:28px;padding:20px 46px;border-radius:999px;
+    box-shadow:0 10px 0 rgba(74,46,34,.14);white-space:nowrap;}
+
+  /* ── header chrome: lockup + counter ── */
+  .foot{position:absolute;left:56px;right:56px;top:44px;z-index:8;display:flex;align-items:center;justify-content:space-between;}
+  .lockup{display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.82);
+    padding:10px 20px 10px 12px;border-radius:999px;box-shadow:0 4px 10px rgba(74,46,34,.12);}
+  .brand-mark-clip{flex:none;height:28px;display:flex;align-items:center;}
+  .brand-mark{height:28px;width:auto;max-width:100px;object-fit:contain;display:block;border-radius:8px;}
+  .brand-word{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:22px;color:var(--primary);white-space:nowrap;}
+  .cg-slide-counter{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:21px;color:var(--on-fill);
+    background:var(--accent);padding:9px 20px;border-radius:999px;box-shadow:0 4px 10px rgba(74,46,34,.12);}
+
+  /* ── mascots ── */
+  .mascot{position:absolute;z-index:3;}
+  .mascot svg{display:block;}
+  .cat .eyes-closed{display:none;}
+  .cat.sleepy .eyes-open{display:none;}
+  .cat.sleepy .eyes-closed{display:block;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+<!-- ============ SLIDE 1 — COVER ============ -->
+<section class="slide cover" data-cg-slide-type="cover">
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+    <div class="cg-slide-counter" data-counter="true">01 / 07</div>
+  </div>
+
+  <!-- sparkle stickers -->
+  <div class="sticker" style="left:118px;top:180px;width:88px;height:88px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 88 88" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path class="halo" d="M44 4c8 0 6 22 14 30s26 6 26 10-18 2-26 10-6 30-14 30-6-22-14-30-26-6-26-10 18-2 26-10 6-30 14-30Z" transform="scale(.86) translate(7,7)"></path><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" stroke-linejoin="round" d="M44 16c5 0 4 15 10 21s21 4 21 7-15 1-21 7-5 21-10 21-4-15-10-21-21-4-21-7 15-1 21-7 5-21 10-21Z"></path></svg>
+  </div>
+  <div class="sticker" style="right:112px;top:300px;width:60px;height:60px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 60 60" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" stroke-linejoin="round" d="M30 6c3 0 3 11 7 15s15 4 15 9-11 4-15 9-4 15-7 15-3-11-7-15-15-4-15-9 11-4 15-9 4-15 7-15Z"></path></svg>
+  </div>
+
+  <div class="tn-eyebrow" style="top:326px;"><span class="eyebrow-chip" data-tagline="true">Daily Cat Care</span></div>
+
+  <div class="blob-card cover">
+    <div class="squiggle tl" style="top:-40px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 76" aria-hidden="true" focusable="false"><path d="M6 60 C 24 44, 24 20, 44 8"></path><path d="M20 68 C 38 50, 38 26, 58 12"></path><path d="M34 74 C 52 56, 52 32, 72 16"></path></svg></div>
+    <div class="squiggle tr" style="top:-40px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 76" aria-hidden="true" focusable="false"><path d="M6 60 C 24 44, 24 20, 44 8"></path><path d="M20 68 C 38 50, 38 26, 58 12"></path><path d="M34 74 C 52 56, 52 32, 72 16"></path></svg></div>
+  </div>
+
+  <div class="tn-title cover"><h1 data-title="true">Purrfect Cat Care</h1></div>
+  <div class="tn-message cover"><p data-message="true">Small joys, every day, for a happy healthy cat.</p></div>
+
+  <!-- cat mascot -->
+  <div class="mascot cat" style="left:-30px;bottom:96px;width:360px;height:360px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 400 420" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <path d="M92,330 Q42,262 62,190 Q78,148 114,138" fill="none" stroke="var(--cg-stroke)" stroke-width="34" stroke-linecap="round"></path>
+      <path d="M92,330 Q42,262 62,190 Q78,148 114,138" fill="none" stroke="var(--cg-stroke)" stroke-width="22" stroke-linecap="round"></path>
+      <ellipse cx="210" cy="300" rx="130" ry="100" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8"></ellipse>
+      <ellipse cx="172" cy="392" rx="26" ry="30" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7"></ellipse>
+      <ellipse cx="252" cy="392" rx="26" ry="30" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7"></ellipse>
+      <path d="M130,110 L100,20 L178,96 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8" stroke-linejoin="round"></path>
+      <path d="M290,110 L322,20 L244,96 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8" stroke-linejoin="round"></path>
+      <path d="M136,92 L120,44 L166,86 Z" fill="var(--cg-fill)"></path>
+      <path d="M285,92 L302,44 L256,86 Z" fill="var(--cg-fill)"></path>
+      <circle cx="210" cy="172" r="100" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8"></circle>
+      <ellipse cx="150" cy="196" rx="17" ry="12" fill="var(--cg-fill)" opacity=".75"></ellipse>
+      <ellipse cx="270" cy="196" rx="17" ry="12" fill="var(--cg-fill)" opacity=".75"></ellipse>
+      <g class="eyes-open">
+        <ellipse cx="176" cy="168" rx="13" ry="19" fill="var(--cg-fill)"></ellipse>
+        <ellipse cx="244" cy="168" rx="13" ry="19" fill="var(--cg-fill)"></ellipse>
+        <circle cx="180" cy="160" r="4" fill="var(--cg-fill)"></circle>
+        <circle cx="248" cy="160" r="4" fill="var(--cg-fill)"></circle>
+      </g>
+      <path d="M138,192 L84,182 M138,200 L82,200 M138,208 L86,218" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path>
+      <path d="M282,192 L336,182 M282,200 L338,200 M282,208 L334,218" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path>
+      <path d="M210,190 L200,202 L220,202 Z" fill="var(--cg-fill)"></path>
+      <path d="M192,208 Q202,220 210,208 Q218,220 228,208" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+      <path d="M148,392 Q172,410 210,410 Q248,410 272,392" fill="none" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round" opacity=".4"></path>
+    </svg>
+  </div>
+
+  <!-- fish bone sticker on band -->
+  <div class="sticker" style="right:96px;bottom:34px;width:150px;height:96px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 150 96" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="none" stroke="var(--cg-stroke)" stroke-width="8" stroke-linecap="round" d="M18 48 C 40 20, 110 20, 132 48 C 110 76, 40 76, 18 48 Z"></path><path fill="none" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round" d="M50 30 L50 66 M75 26 L75 70 M100 32 L100 64"></path><circle cx="30" cy="48" r="5" fill="var(--cg-fill)"></circle></svg>
+  </div>
+
+  <div class="gingham"></div>
+</section>
+
+<!-- ============ SLIDE 2 ============ -->
+<section class="slide content-title" data-cg-slide-type="text">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+    <div class="cg-slide-counter" data-counter="true">02 / 07</div>
+  </div>
+
+  <div class="sticker" style="right:96px;top:150px;width:132px;height:132px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 132 132" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path class="halo" fill="var(--cg-fill)" d="M66 8c34 0 58 24 58 58s-24 58-58 58S8 100 8 66 32 8 66 8Z"></path><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6" stroke-linejoin="round" d="M66 34c14 20 26 34 26 50a26 26 0 0 1-52 0c0-16 12-30 26-50Z"></path><ellipse cx="58" cy="90" rx="7" ry="10" fill="var(--cg-fill)" opacity=".7"></ellipse></svg>
+  </div>
+
+  <div class="blob-card content">
+    <div class="squiggle tl" style="top:-38px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 76" aria-hidden="true" focusable="false"><path d="M6 60 C 24 44, 24 20, 44 8"></path><path d="M20 68 C 38 50, 38 26, 58 12"></path><path d="M34 74 C 52 56, 52 32, 72 16"></path></svg></div>
+    <div class="squiggle br"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 76" aria-hidden="true" focusable="false"><path d="M6 60 C 24 44, 24 20, 44 8"></path><path d="M20 68 C 38 50, 38 26, 58 12"></path><path d="M34 74 C 52 56, 52 32, 72 16"></path></svg></div>
+  </div>
+
+  <div class="tn-title"><h1 data-title="true">Fill The Water Bowl</h1></div>
+  <div class="tn-tagline"><div class="tagline-txt" data-tagline="true">Fresh water every day keeps your cat happy and hydrated.</div></div>
+  <div class="rule" aria-hidden="true"></div>
+  <div class="tn-message"><p data-message="true">Cats rarely drink enough on their own, so a clean, full bowl matters more than any treat. Refill it daily and keep it away from the litter box — cats are picky, and this simple habit protects their kidneys for the long run.</p></div>
+
+  <div class="mascot cat" style="right:-40px;bottom:90px;width:380px;height:380px;transform:scaleX(-1);">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 400 420" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <path d="M92,330 Q42,262 62,190 Q78,148 114,138" fill="none" stroke="var(--cg-stroke)" stroke-width="34" stroke-linecap="round"></path>
+      <path d="M92,330 Q42,262 62,190 Q78,148 114,138" fill="none" stroke="var(--cg-stroke)" stroke-width="22" stroke-linecap="round"></path>
+      <ellipse cx="210" cy="300" rx="130" ry="100" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8"></ellipse>
+      <ellipse cx="172" cy="392" rx="26" ry="30" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7"></ellipse>
+      <ellipse cx="252" cy="392" rx="26" ry="30" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7"></ellipse>
+      <path d="M130,110 L100,20 L178,96 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8" stroke-linejoin="round"></path>
+      <path d="M290,110 L322,20 L244,96 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8" stroke-linejoin="round"></path>
+      <path d="M136,92 L120,44 L166,86 Z" fill="var(--cg-fill)"></path>
+      <path d="M285,92 L302,44 L256,86 Z" fill="var(--cg-fill)"></path>
+      <circle cx="210" cy="172" r="100" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8"></circle>
+      <ellipse cx="150" cy="196" rx="17" ry="12" fill="var(--cg-fill)" opacity=".75"></ellipse>
+      <ellipse cx="270" cy="196" rx="17" ry="12" fill="var(--cg-fill)" opacity=".75"></ellipse>
+      <g class="eyes-open">
+        <ellipse cx="176" cy="168" rx="13" ry="19" fill="var(--cg-fill)"></ellipse>
+        <ellipse cx="244" cy="168" rx="13" ry="19" fill="var(--cg-fill)"></ellipse>
+        <circle cx="180" cy="160" r="4" fill="var(--cg-fill)"></circle>
+        <circle cx="248" cy="160" r="4" fill="var(--cg-fill)"></circle>
+      </g>
+      <path d="M138,192 L84,182 M138,200 L82,200 M138,208 L86,218" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path>
+      <path d="M282,192 L336,182 M282,200 L338,200 M282,208 L334,218" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path>
+      <path d="M210,190 L200,202 L220,202 Z" fill="var(--cg-fill)"></path>
+      <path d="M192,208 Q202,220 210,208 Q218,220 228,208" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+    </svg>
+  </div>
+  <div class="sticker" style="left:76px;bottom:44px;width:120px;height:120px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 120" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><ellipse cx="60" cy="86" rx="46" ry="20" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></ellipse><path d="M60 24c16 18 26 34 26 48H34c0-14 10-30 26-48Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6" stroke-linejoin="round"></path></svg>
+  </div>
+
+  <div class="gingham"></div>
+</section>
+
+<!-- ============ SLIDE 3 ============ -->
+<section class="slide content-title" data-cg-slide-type="text">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+    <div class="cg-slide-counter" data-counter="true">03 / 07</div>
+  </div>
+
+  <div class="sticker" style="left:90px;top:160px;width:130px;height:130px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 130 130" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" d="M65 6c33 0 59 26 59 59s-26 59-59 59S6 98 6 65 32 6 65 6Z"></path><g transform="translate(30,32) rotate(-18)"><rect x="0" y="0" width="60" height="26" rx="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></rect><rect x="4" y="26" width="52" height="34" rx="8" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></rect><path d="M10 34 L10 54 M20 32 L20 56 M30 30 L30 58 M40 32 L40 56 M50 34 L50 54" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path></g></svg>
+  </div>
+
+  <div class="blob-card content">
+    <div class="squiggle tl" style="top:-38px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 76" aria-hidden="true" focusable="false"><path d="M6 60 C 24 44, 24 20, 44 8"></path><path d="M20 68 C 38 50, 38 26, 58 12"></path><path d="M34 74 C 52 56, 52 32, 72 16"></path></svg></div>
+    <div class="squiggle br"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 76" aria-hidden="true" focusable="false"><path d="M6 60 C 24 44, 24 20, 44 8"></path><path d="M20 68 C 38 50, 38 26, 58 12"></path><path d="M34 74 C 52 56, 52 32, 72 16"></path></svg></div>
+  </div>
+
+  <div class="tn-title"><h1 data-title="true">Brush Away Loose Fur</h1></div>
+  <div class="tn-tagline"><div class="tagline-txt" data-tagline="true">A few gentle strokes mean less shedding and more bonding time.</div></div>
+  <div class="rule" aria-hidden="true"></div>
+  <div class="tn-message"><p data-message="true">A quick brushing session does more than tidy stray fur — it prevents painful mats, cuts down on hairballs, and gives you a few calm minutes together. Most cats grow to love it, turning grooming into one of the sweetest parts of the day.</p></div>
+
+  <div class="mascot cat" style="left:-36px;bottom:88px;width:370px;height:370px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 400 420" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <path d="M92,330 Q42,262 62,190 Q78,148 114,138" fill="none" stroke="var(--cg-stroke)" stroke-width="34" stroke-linecap="round"></path>
+      <path d="M92,330 Q42,262 62,190 Q78,148 114,138" fill="none" stroke="var(--cg-stroke)" stroke-width="22" stroke-linecap="round"></path>
+      <ellipse cx="210" cy="300" rx="130" ry="100" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8"></ellipse>
+      <ellipse cx="172" cy="392" rx="26" ry="30" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7"></ellipse>
+      <ellipse cx="252" cy="392" rx="26" ry="30" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7"></ellipse>
+      <path d="M130,110 L100,20 L178,96 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8" stroke-linejoin="round"></path>
+      <path d="M290,110 L322,20 L244,96 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8" stroke-linejoin="round"></path>
+      <path d="M136,92 L120,44 L166,86 Z" fill="var(--cg-fill)"></path>
+      <path d="M285,92 L302,44 L256,86 Z" fill="var(--cg-fill)"></path>
+      <circle cx="210" cy="172" r="100" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8"></circle>
+      <ellipse cx="150" cy="196" rx="17" ry="12" fill="var(--cg-fill)" opacity=".75"></ellipse>
+      <ellipse cx="270" cy="196" rx="17" ry="12" fill="var(--cg-fill)" opacity=".75"></ellipse>
+      <g class="eyes-open">
+        <path d="M162,168 Q176,152 190,168" fill="none" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></path>
+        <path d="M230,168 Q244,152 258,168" fill="none" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></path>
+      </g>
+      <path d="M138,192 L84,182 M138,200 L82,200 M138,208 L86,218" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path>
+      <path d="M282,192 L336,182 M282,200 L338,200 M282,208 L334,218" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path>
+      <path d="M210,190 L200,202 L220,202 Z" fill="var(--cg-fill)"></path>
+      <path d="M192,208 Q202,220 210,208 Q218,220 228,208" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+    </svg>
+  </div>
+
+  <div class="gingham"></div>
+</section>
+
+<!-- ============ SLIDE 4 ============ -->
+<section class="slide content-title" data-cg-slide-type="text">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+    <div class="cg-slide-counter" data-counter="true">04 / 07</div>
+  </div>
+
+  <div class="sticker" style="right:96px;top:150px;width:132px;height:132px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 132 132" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" d="M66 8c34 0 58 24 58 58s-24 58-58 58S8 100 8 66 32 8 66 8Z"></path><circle cx="66" cy="70" r="34" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></circle><path d="M40 50 Q66 30 92 50 M36 68 Q66 88 96 68 M42 90 Q66 104 90 90" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round" opacity=".55"></path><path d="M92 50 Q104 40 112 26" fill="none" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></path></svg>
+  </div>
+
+  <div class="blob-card content">
+    <div class="squiggle tl" style="top:-38px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 76" aria-hidden="true" focusable="false"><path d="M6 60 C 24 44, 24 20, 44 8"></path><path d="M20 68 C 38 50, 38 26, 58 12"></path><path d="M34 74 C 52 56, 52 32, 72 16"></path></svg></div>
+    <div class="squiggle br"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 76" aria-hidden="true" focusable="false"><path d="M6 60 C 24 44, 24 20, 44 8"></path><path d="M20 68 C 38 50, 38 26, 58 12"></path><path d="M34 74 C 52 56, 52 32, 72 16"></path></svg></div>
+  </div>
+
+  <div class="tn-title"><h1 data-title="true">Make Time To Play</h1></div>
+  <div class="tn-tagline"><div class="tagline-txt" data-tagline="true">Ten minutes of pouncing keeps their wild side happy.</div></div>
+  <div class="rule" aria-hidden="true"></div>
+  <div class="tn-message"><p data-message="true">Indoor cats still carry a hunter's instincts, and a wand toy or crinkly ball gives them somewhere to put that energy. A short daily play session burns off restlessness, sharpens their senses, and usually ends in a very good nap.</p></div>
+
+  <div class="mascot cat" style="right:-44px;bottom:92px;width:380px;height:380px;transform:scaleX(-1) rotate(-6deg);">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 400 420" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <path d="M92,330 Q42,262 62,190 Q78,148 114,138" fill="none" stroke="var(--cg-stroke)" stroke-width="34" stroke-linecap="round"></path>
+      <path d="M92,330 Q42,262 62,190 Q78,148 114,138" fill="none" stroke="var(--cg-stroke)" stroke-width="22" stroke-linecap="round"></path>
+      <ellipse cx="210" cy="300" rx="130" ry="100" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8"></ellipse>
+      <ellipse cx="172" cy="392" rx="26" ry="30" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7"></ellipse>
+      <ellipse cx="252" cy="392" rx="26" ry="30" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7"></ellipse>
+      <path d="M130,110 L100,20 L178,96 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8" stroke-linejoin="round"></path>
+      <path d="M290,110 L322,20 L244,96 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8" stroke-linejoin="round"></path>
+      <path d="M136,92 L120,44 L166,86 Z" fill="var(--cg-fill)"></path>
+      <path d="M285,92 L302,44 L256,86 Z" fill="var(--cg-fill)"></path>
+      <circle cx="210" cy="172" r="100" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8"></circle>
+      <ellipse cx="150" cy="196" rx="17" ry="12" fill="var(--cg-fill)" opacity=".75"></ellipse>
+      <ellipse cx="270" cy="196" rx="17" ry="12" fill="var(--cg-fill)" opacity=".75"></ellipse>
+      <g class="eyes-open">
+        <ellipse cx="176" cy="168" rx="13" ry="19" fill="var(--cg-fill)"></ellipse>
+        <ellipse cx="244" cy="168" rx="13" ry="19" fill="var(--cg-fill)"></ellipse>
+        <circle cx="180" cy="160" r="4" fill="var(--cg-fill)"></circle>
+        <circle cx="248" cy="160" r="4" fill="var(--cg-fill)"></circle>
+      </g>
+      <path d="M138,192 L84,182 M138,200 L82,200 M138,208 L86,218" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path>
+      <path d="M282,192 L336,182 M282,200 L338,200 M282,208 L334,218" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path>
+      <path d="M210,190 L200,202 L220,202 Z" fill="var(--cg-fill)"></path>
+      <path d="M192,208 Q202,220 210,208 Q218,220 228,208" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+    </svg>
+  </div>
+  <div class="sticker" style="left:80px;bottom:44px;width:110px;height:110px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 110" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><circle cx="55" cy="55" r="40" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></circle><path d="M20 55 Q55 30 90 55 M20 55 Q55 80 90 55 M55 15 Q30 55 55 95 M55 15 Q80 55 55 95" fill="none" stroke="var(--cg-stroke)" stroke-width="3" opacity=".55"></path><path d="M92 40 Q104 26 108 10" fill="none" stroke="var(--cg-stroke)" stroke-width="5" stroke-linecap="round"></path></svg>
+  </div>
+
+  <div class="gingham"></div>
+</section>
+
+<!-- ============ SLIDE 5 ============ -->
+<section class="slide content-title" data-cg-slide-type="text">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+    <div class="cg-slide-counter" data-counter="true">05 / 07</div>
+  </div>
+
+  <div class="sticker" style="left:90px;top:150px;width:126px;height:126px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 126 126" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" d="M63 6c31 0 57 26 57 57s-26 57-57 57S6 94 6 63 32 6 63 6Z"></path><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6" stroke-linejoin="round" d="M78 26a38 38 0 1 0 22 45c-3 2-7 3-11 3a35 35 0 0 1-11-68Z"></path><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" stroke-linejoin="round" d="M96 34c2 0 2 6 4 8s8 2 8 4-6 2-8 4-2 8-4 8-2-6-4-8-8-2-8-4 6-2 8-4 2-8 4-8Z"></path></svg>
+  </div>
+
+  <div class="blob-card content">
+    <div class="squiggle tl" style="top:-38px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 76" aria-hidden="true" focusable="false"><path d="M6 60 C 24 44, 24 20, 44 8"></path><path d="M20 68 C 38 50, 38 26, 58 12"></path><path d="M34 74 C 52 56, 52 32, 72 16"></path></svg></div>
+    <div class="squiggle br"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 76" aria-hidden="true" focusable="false"><path d="M6 60 C 24 44, 24 20, 44 8"></path><path d="M20 68 C 38 50, 38 26, 58 12"></path><path d="M34 74 C 52 56, 52 32, 72 16"></path></svg></div>
+  </div>
+
+  <div class="tn-title"><h1 data-title="true">Give Them A Cozy Spot</h1></div>
+  <div class="tn-tagline"><div class="tagline-txt" data-tagline="true">A warm blanket or sunny sill is where cats truly unwind.</div></div>
+  <div class="rule" aria-hidden="true"></div>
+  <div class="tn-message"><p data-message="true">Cats sleep up to sixteen hours a day, so a soft, quiet spot to curl up matters. Try a blanket nest near a window or a warm corner away from foot traffic — a cat that feels safe rests deeper, and it shows in a calmer, happier mood.</p></div>
+
+  <div class="mascot cat sleepy" style="left:330px;bottom:64px;width:420px;height:274px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 460 300" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <path d="M50,240 C50,150 90,90 160,80 C180,60 280,60 300,80 C370,90 410,150 410,240 C410,280 350,296 230,296 C110,296 50,280 50,240 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8"></path>
+      <path d="M150,90 L134,40 L182,86 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7" stroke-linejoin="round"></path>
+      <path d="M310,90 L326,40 L278,86 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7" stroke-linejoin="round"></path>
+      <path d="M156,78 L146,50 L176,82 Z" fill="var(--cg-fill)"></path>
+      <path d="M304,78 L314,50 L284,82 Z" fill="var(--cg-fill)"></path>
+      <ellipse cx="190" cy="150" rx="14" ry="9" fill="var(--cg-fill)" opacity=".7"></ellipse>
+      <ellipse cx="270" cy="150" rx="14" ry="9" fill="var(--cg-fill)" opacity=".7"></ellipse>
+      <path d="M164,134 Q180,124 196,134" fill="none" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></path>
+      <path d="M264,134 Q280,124 296,134" fill="none" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></path>
+      <path d="M222,150 L212,162 L232,162 Z" fill="var(--cg-fill)"></path>
+      <path d="M206,168 Q230,182 254,168" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+      <path d="M156,146 L100,138 M156,154 L98,154 M156,162 L100,170" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path>
+      <path d="M304,146 L360,138 M304,154 L362,154 M304,162 L360,170" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path>
+    </svg>
+  </div>
+  <div class="sticker" style="left:70px;top:280px;width:56px;height:56px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 56 56" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" stroke-linejoin="round" d="M28 4c3 0 2 10 6 14s16 3 16 6-12 2-16 6-3 16-6 16-2-10-6-14-16-3-16-6 12-2 16-6 3-16 6-16Z"></path></svg>
+  </div>
+
+  <div class="gingham"></div>
+</section>
+
+<!-- ============ SLIDE 6 ============ -->
+<section class="slide content-title" data-cg-slide-type="text">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+    <div class="cg-slide-counter" data-counter="true">06 / 07</div>
+  </div>
+
+  <div class="sticker" style="right:92px;top:150px;width:128px;height:128px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 128 128" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" d="M64 6c32 0 58 26 58 58s-26 58-58 58S6 96 6 64 32 6 64 6Z"></path><rect x="52" y="24" width="20" height="72" rx="9" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect><path d="M40 100c0 8 11 14 24 14s24-6 24-14" fill="none" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></path><path d="M42 46 L36 40 M62 40 L62 32 M86 46 L92 40" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path></svg>
+  </div>
+
+  <div class="blob-card content">
+    <div class="squiggle tl" style="top:-38px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 76" aria-hidden="true" focusable="false"><path d="M6 60 C 24 44, 24 20, 44 8"></path><path d="M20 68 C 38 50, 38 26, 58 12"></path><path d="M34 74 C 52 56, 52 32, 72 16"></path></svg></div>
+    <div class="squiggle br"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 76" aria-hidden="true" focusable="false"><path d="M6 60 C 24 44, 24 20, 44 8"></path><path d="M20 68 C 38 50, 38 26, 58 12"></path><path d="M34 74 C 52 56, 52 32, 72 16"></path></svg></div>
+  </div>
+
+  <div class="tn-title"><h1 data-title="true">Keep Claws Somewhere Safe</h1></div>
+  <div class="tn-tagline"><div class="tagline-txt" data-tagline="true">A good scratching post saves the sofa and the sanity.</div></div>
+  <div class="rule" aria-hidden="true"></div>
+  <div class="tn-message"><p data-message="true">Scratching is instinct, not bad behavior — it stretches muscles, sheds claw husks and marks territory. Set a sturdy post somewhere central, not tucked in a corner, and your cat will choose it over the couch. A little redirection goes a long way.</p></div>
+
+  <div class="mascot cat" style="left:-30px;bottom:88px;width:360px;height:360px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 400 420" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <path d="M92,330 Q42,262 62,190 Q78,148 114,138" fill="none" stroke="var(--cg-stroke)" stroke-width="34" stroke-linecap="round"></path>
+      <path d="M92,330 Q42,262 62,190 Q78,148 114,138" fill="none" stroke="var(--cg-stroke)" stroke-width="22" stroke-linecap="round"></path>
+      <ellipse cx="210" cy="300" rx="130" ry="100" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8"></ellipse>
+      <ellipse cx="172" cy="392" rx="26" ry="30" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7"></ellipse>
+      <ellipse cx="252" cy="392" rx="26" ry="30" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7"></ellipse>
+      <path d="M130,110 L100,20 L178,96 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8" stroke-linejoin="round"></path>
+      <path d="M290,110 L322,20 L244,96 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8" stroke-linejoin="round"></path>
+      <path d="M136,92 L120,44 L166,86 Z" fill="var(--cg-fill)"></path>
+      <path d="M285,92 L302,44 L256,86 Z" fill="var(--cg-fill)"></path>
+      <circle cx="210" cy="172" r="100" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8"></circle>
+      <ellipse cx="150" cy="196" rx="17" ry="12" fill="var(--cg-fill)" opacity=".75"></ellipse>
+      <ellipse cx="270" cy="196" rx="17" ry="12" fill="var(--cg-fill)" opacity=".75"></ellipse>
+      <g class="eyes-open">
+        <ellipse cx="176" cy="168" rx="13" ry="19" fill="var(--cg-fill)"></ellipse>
+        <ellipse cx="244" cy="168" rx="13" ry="19" fill="var(--cg-fill)"></ellipse>
+        <circle cx="180" cy="160" r="4" fill="var(--cg-fill)"></circle>
+        <circle cx="248" cy="160" r="4" fill="var(--cg-fill)"></circle>
+      </g>
+      <path d="M138,192 L84,182 M138,200 L82,200 M138,208 L86,218" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path>
+      <path d="M282,192 L336,182 M282,200 L338,200 M282,208 L334,218" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path>
+      <path d="M210,190 L200,202 L220,202 Z" fill="var(--cg-fill)"></path>
+      <path d="M192,208 Q202,220 210,208 Q218,220 228,208" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+    </svg>
+  </div>
+  <div class="sticker" style="right:80px;bottom:44px;width:104px;height:170px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 170" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><rect x="34" y="16" width="36" height="130" rx="12" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect><ellipse cx="52" cy="150" rx="44" ry="14" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></ellipse><path d="M40 30 L64 30 M40 46 L64 46 M40 62 L64 62 M40 78 L64 78 M40 94 L64 94" stroke="var(--cg-stroke)" stroke-width="3" opacity=".5"></path></svg>
+  </div>
+
+  <div class="gingham"></div>
+</section>
+
+<!-- ============ SLIDE 7 — CLOSING ============ -->
+<section class="slide content-title closing" data-cg-slide-type="text">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+    <div class="cg-slide-counter" data-counter="true">07 / 07</div>
+  </div>
+
+  <div class="sticker" style="left:96px;top:150px;width:126px;height:126px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 126 126" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" d="M63 6c31 0 57 26 57 57s-26 57-57 57S6 94 6 63 32 6 63 6Z"></path><path d="M40 52a16 16 0 0 1 23-14 16 16 0 0 1 23 14c0 16-23 32-23 32S40 68 40 52Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5" stroke-linejoin="round"></path><path d="M74 78 L92 78 L86 96 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5" stroke-linejoin="round"></path></svg>
+  </div>
+
+  <div class="blob-card content" style="height:520px;">
+    <div class="squiggle tl" style="top:-38px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 76" aria-hidden="true" focusable="false"><path d="M6 60 C 24 44, 24 20, 44 8"></path><path d="M20 68 C 38 50, 38 26, 58 12"></path><path d="M34 74 C 52 56, 52 32, 72 16"></path></svg></div>
+    <div class="squiggle tr" style="top:-38px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 104 76" aria-hidden="true" focusable="false"><path d="M6 60 C 24 44, 24 20, 44 8"></path><path d="M20 68 C 38 50, 38 26, 58 12"></path><path d="M34 74 C 52 56, 52 32, 72 16"></path></svg></div>
+  </div>
+
+  <div class="tn-title"><h1 data-title="true">Little Things, Big Purrs</h1></div>
+  <div class="tn-tagline"><div class="tagline-txt" data-tagline="true">Consistency is the secret ingredient of a happy cat.</div></div>
+  <div class="rule" aria-hidden="true"></div>
+  <div class="tn-message" style="top:636px;"><p data-message="true">None of this takes much — a full bowl, a few brushed strokes, a little play. Do these small things most days and watch the difference: a calmer, closer, more content companion curled up right beside you.</p></div>
+
+  <div class="cta-btn" style="top:848px;" data-cta="true">Save This Guide</div>
+
+  <div class="mascot cat" style="right:-40px;bottom:70px;width:390px;height:390px;transform:scaleX(-1);">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 400 420" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <path d="M92,330 Q42,262 62,190 Q78,148 114,138" fill="none" stroke="var(--cg-stroke)" stroke-width="34" stroke-linecap="round"></path>
+      <path d="M92,330 Q42,262 62,190 Q78,148 114,138" fill="none" stroke="var(--cg-stroke)" stroke-width="22" stroke-linecap="round"></path>
+      <ellipse cx="210" cy="300" rx="130" ry="100" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8"></ellipse>
+      <ellipse cx="172" cy="392" rx="26" ry="30" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7"></ellipse>
+      <ellipse cx="252" cy="392" rx="26" ry="30" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7"></ellipse>
+      <path d="M130,110 L100,20 L178,96 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8" stroke-linejoin="round"></path>
+      <path d="M290,110 L322,20 L244,96 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8" stroke-linejoin="round"></path>
+      <path d="M136,92 L120,44 L166,86 Z" fill="var(--cg-fill)"></path>
+      <path d="M285,92 L302,44 L256,86 Z" fill="var(--cg-fill)"></path>
+      <circle cx="210" cy="172" r="100" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8"></circle>
+      <ellipse cx="150" cy="196" rx="17" ry="12" fill="var(--cg-fill)" opacity=".75"></ellipse>
+      <ellipse cx="270" cy="196" rx="17" ry="12" fill="var(--cg-fill)" opacity=".75"></ellipse>
+      <g class="eyes-open">
+        <path d="M162,168 Q176,150 190,168" fill="none" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></path>
+        <path d="M230,168 Q244,150 258,168" fill="none" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></path>
+      </g>
+      <path d="M138,192 L84,182 M138,200 L82,200 M138,208 L86,218" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path>
+      <path d="M282,192 L336,182 M282,200 L338,200 M282,208 L334,218" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path>
+      <path d="M210,190 L200,202 L220,202 Z" fill="var(--cg-fill)"></path>
+      <path d="M192,208 Q202,220 210,208 Q218,220 228,208" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+      <path d="M148,392 Q172,410 210,410 Q248,410 272,392" fill="none" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round" opacity=".4"></path>
+    </svg>
+  </div>
+  <div class="sticker" style="left:80px;bottom:44px;width:64px;height:64px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" stroke-linejoin="round" d="M32 4c3 0 3 12 8 17s17 5 17 11-12 5-17 11-5 17-8 17-3-12-8-17-17-5-17-11 12-5 17-11 5-17 8-17Z"></path></svg>
+  </div>
+
+  <div class="gingham"></div>
+</section>
+
+</div>
+
+
+</body></html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Inter:wght@400;600;700;800&display=swap');
+
+  :root{
+    /* Brand role colors — the numeral/glyph badge (filled circle) and the
+       counter chip's ink are the only things that move under a brand palette.
+       Canvas pink, headline yellow and body white are FIXED literals so the
+       hot-pink "tips card" reading surface stays AA-legible under any brand. */
+    --primary:var(--brand-primary,#7A1339);
+    --secondary:var(--brand-secondary,#B0125A);
+    --accent:var(--brand-accent,#FFC845);
+    --on-fill:var(--brand-on-accent,#5C0F33);
+    --on-primary:var(--brand-on-primary,#ffffff);
+    --bg:var(--brand-bg,#E31C63);
+    --surface:var(--brand-surface,#FBEFE0);
+    --text-high:var(--brand-ink,#ffffff);
+    --text-low:var(--brand-text-muted,rgba(255,255,255,.7));
+    --border:var(--brand-border,rgba(255,255,255,.18));
+    --highlight:var(--brand-accent,#FFDE59);
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0;}
+
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#100014;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    font-family:'Inter',sans-serif;
+    background-color:var(--bg);
+    background-repeat:repeat,repeat;
+    background-size:260px 260px, 260px 130px;
+    background-position:0 0, 0 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Ccircle cx='24' cy='38' r='3.2' fill='%23ffde59' fill-opacity='0.55'/%3E%3Ccircle cx='96' cy='14' r='2.4' fill='%23ffde59' fill-opacity='0.4'/%3E%3Ccircle cx='168' cy='54' r='3.6' fill='%23ffde59' fill-opacity='0.5'/%3E%3Ccircle cx='226' cy='20' r='2.2' fill='%23ffde59' fill-opacity='0.35'/%3E%3Ccircle cx='52' cy='118' r='2.6' fill='%23ffde59' fill-opacity='0.45'/%3E%3Ccircle cx='140' cy='140' r='3.0' fill='%23ffde59' fill-opacity='0.4'/%3E%3Ccircle cx='210' cy='120' r='2.4' fill='%23ffde59' fill-opacity='0.35'/%3E%3Ccircle cx='18' cy='190' r='3.4' fill='%23ffde59' fill-opacity='0.5'/%3E%3Ccircle cx='90' cy='210' r='2.2' fill='%23ffde59' fill-opacity='0.4'/%3E%3Ccircle cx='170' cy='230' r='3.0' fill='%23ffde59' fill-opacity='0.45'/%3E%3Ccircle cx='236' cy='200' r='2.6' fill='%23ffde59' fill-opacity='0.4'/%3E%3Ccircle cx='60' cy='250' r='2.0' fill='%23ffde59' fill-opacity='0.3'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='130'%3E%3Cpath d='M0 112 L65 18 L130 112 L195 18 L260 112' fill='none' stroke='%23ffffff' stroke-opacity='0.09' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+
+  /* ── counter chip, top-left: pale fixed surface, --primary ink ── */
+  .chip{
+    position:absolute;left:84px;top:76px;height:58px;padding:0 26px;
+    border-radius:29px;background:var(--surface);display:flex;align-items:center;
+  }
+  .chip span{font-family:'Inter',sans-serif;font-weight:800;font-size:24px;letter-spacing:.02em;color:var(--primary);}
+
+  /* ── kicker row: small secondary tick + muted label, direct on canvas ── */
+  .kicker{position:absolute;left:84px;top:198px;display:flex;align-items:center;gap:12px;}
+  .kicker .tick{width:16px;height:6px;border-radius:3px;background:var(--secondary);flex:none;}
+  .kicker span{font-family:'Inter',sans-serif;font-weight:800;font-size:21px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-low);}
+
+  /* ── isolated positioned wrapper PER text node ── */
+  .tn-title{position:absolute;left:84px;right:150px;top:250px;}
+  .tn-title h1{
+    margin:0;font-family:'Poppins',sans-serif;font-weight:900;color:var(--highlight);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .slide.tip .tn-title h1{font-size:84px;line-height:1.1;-webkit-line-clamp:2;padding-bottom:.18em;}
+  .slide.statement .tn-title h1{font-size:78px;line-height:1.1;-webkit-line-clamp:3;text-transform:uppercase;letter-spacing:.005em;padding-bottom:.18em;}
+
+  .tn-message{position:absolute;left:84px;right:220px;}
+  .slide.tip .tn-message{top:530px;}
+  .slide.statement .tn-message{top:600px;}
+  .tn-message p{
+    margin:0;font-family:'Inter',sans-serif;font-weight:600;font-size:37px;line-height:1.36;
+    color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.2em;
+  }
+
+  /* ── large hollow watermark numeral: fills the lower-middle band with a
+     tasteful decorative device tied to the tip number (transparent fill, thin
+     stroke) rather than padding the frame with extra clutter. Decorative +
+     aria-hidden, sits behind every real content node in paint order. ── */
+  .ghost{position:absolute;right:340px;bottom:300px;pointer-events:none;z-index:0;}
+  .ghost span{
+    font-family:'Poppins',sans-serif;font-weight:900;font-size:280px;line-height:.85;
+    color:transparent;-webkit-text-stroke:3px rgba(255,255,255,.15);display:inline-block;
+  }
+  /* statement (cover/closer) slides carry no CTA pill and their message can
+     grow to 3 full lines — give the watermark back the extra size and let it
+     sit a notch lower, clear of that worst-case message. */
+  .slide.statement .ghost{bottom:280px;}
+  .slide.statement .ghost span{font-size:320px;}
+
+  /* ── tip-only CTA pill: a small accent-filled action tag under the body copy.
+     Genuine content (not padding) — it's what makes a "tip" a habit to actually
+     act on — and it doubles as extra brand-accent surface area. ── */
+  .cta{position:absolute;left:84px;top:742px;display:inline-flex;align-items:center;gap:12px;padding:16px 30px;border-radius:32px;background:var(--accent);}
+  .cta span{font-family:'Inter',sans-serif;font-weight:800;font-size:26px;letter-spacing:.01em;color:var(--on-fill);white-space:nowrap;}
+
+  /* ── closer-only decorative cluster: fixed cream circles, pure flourish ── */
+  .cluster{position:absolute;left:86px;top:686px;width:260px;height:110px;}
+  .cluster span{position:absolute;bottom:0;border-radius:50%;background:var(--surface);}
+  .cluster span:nth-child(1){width:92px;height:92px;left:0;opacity:.92;}
+  .cluster span:nth-child(2){width:70px;height:70px;left:70px;opacity:.72;}
+  .cluster span:nth-child(3){width:50px;height:50px;left:128px;bottom:6px;opacity:.55;}
+
+  /* ── subtle divider above the footer row ── */
+  .divider{position:absolute;left:84px;right:84px;bottom:190px;height:1px;background:var(--border);}
+
+  /* ── footer: brand lockup left, accent glyph badge right ── */
+  .foot{position:absolute;left:84px;bottom:78px;z-index:3;display:flex;align-items:center;gap:14px;}
+  .brand-mark-clip{flex:none;height:34px;display:flex;align-items:center;}
+  .brand-mark{height:34px;width:auto;max-width:120px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Poppins',sans-serif;font-weight:800;font-size:27px;letter-spacing:.01em;color:var(--text-high);white-space:nowrap;}
+
+  .badge{
+    position:absolute;right:72px;bottom:60px;width:250px;height:250px;border-radius:50%;
+    background:var(--accent);display:flex;align-items:center;justify-content:center;z-index:3;
+  }
+  .badge svg{width:122px;height:122px;color:var(--on-fill);}
+</style>
+</head>
+
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — Cover -->
+  <section class="slide statement" data-cg-slide-type="cover">
+    <div class="ghost" aria-hidden="true"><span>01</span></div>
+    <div class="chip"><span>GUIDE · 1 / 6</span></div>
+    <div class="kicker"><span class="tick"></span><span>Getting started</span></div>
+    <div class="tn-title"><h1 data-title="true">Own your calendar before it owns you</h1></div>
+    <div class="tn-message"><p data-message="true">A simple six-step system for turning a chaotic day into a calendar you actually control.</p></div>
+    <div class="divider"></div>
+    <div class="foot">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">TIMEBOX</span>
+    </div>
+    <div class="badge" aria-hidden="true">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M13 6H35M13 42H35M13 6C13 6 13 17 24 23C35 17 35 6 35 6M13 42C13 42 13 31 24 25C35 31 35 42 35 42" stroke="var(--cg-stroke)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Slide 2 -->
+  <section class="slide tip" data-cg-slide-type="text">
+    <div class="ghost" aria-hidden="true"><span>02</span></div>
+    <div class="chip"><span>TIP · 2 / 6</span></div>
+    <div class="kicker"><span class="tick"></span><span>Time blocking tip</span></div>
+    <div class="tn-title"><h1 data-title="true">Protect One Deep Work Block</h1></div>
+    <div class="tn-message"><p data-message="true">Ninety uninterrupted minutes beats eight fragmented hours. Guard it like a meeting with your boss.</p></div>
+    <div class="cta"><span data-cta="true">Block it before 9am</span></div>
+    <div class="divider"></div>
+    <div class="foot">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">TIMEBOX</span>
+    </div>
+    <div class="badge" aria-hidden="true">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M13 6H35M13 42H35M13 6C13 6 13 17 24 23C35 17 35 6 35 6M13 42C13 42 13 31 24 25C35 31 35 42 35 42" stroke="var(--cg-stroke)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Slide 3 -->
+  <section class="slide tip" data-cg-slide-type="text">
+    <div class="ghost" aria-hidden="true"><span>03</span></div>
+    <div class="chip"><span>TIP · 3 / 6</span></div>
+    <div class="kicker"><span class="tick"></span><span>Time blocking tip</span></div>
+    <div class="tn-title"><h1 data-title="true">Batch Your Small Tasks</h1></div>
+    <div class="tn-message"><p data-message="true">Emails, calls and admin work pile up fast. Group them into one block instead of scattering all day.</p></div>
+    <div class="cta"><span data-cta="true">Pick one batch slot today</span></div>
+    <div class="divider"></div>
+    <div class="foot">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">TIMEBOX</span>
+    </div>
+    <div class="badge" aria-hidden="true">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M13 6H35M13 42H35M13 6C13 6 13 17 24 23C35 17 35 6 35 6M13 42C13 42 13 31 24 25C35 31 35 42 35 42" stroke="var(--cg-stroke)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Slide 4 -->
+  <section class="slide tip" data-cg-slide-type="text">
+    <div class="ghost" aria-hidden="true"><span>04</span></div>
+    <div class="chip"><span>TIP · 4 / 6</span></div>
+    <div class="kicker"><span class="tick"></span><span>Time blocking tip</span></div>
+    <div class="tn-title"><h1 data-title="true">Leave Buffer Between Blocks</h1></div>
+    <div class="tn-message"><p data-message="true">Back-to-back plans always slip. Fifteen minutes of white space keeps your whole day on schedule.</p></div>
+    <div class="cta"><span data-cta="true">Add buffers to tomorrow</span></div>
+    <div class="divider"></div>
+    <div class="foot">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">TIMEBOX</span>
+    </div>
+    <div class="badge" aria-hidden="true">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M13 6H35M13 42H35M13 6C13 6 13 17 24 23C35 17 35 6 35 6M13 42C13 42 13 31 24 25C35 31 35 42 35 42" stroke="var(--cg-stroke)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Slide 5 -->
+  <section class="slide tip" data-cg-slide-type="text">
+    <div class="ghost" aria-hidden="true"><span>05</span></div>
+    <div class="chip"><span>TIP · 5 / 6</span></div>
+    <div class="kicker"><span class="tick"></span><span>Time blocking tip</span></div>
+    <div class="tn-title"><h1 data-title="true">Time-Box, Don’t Time-Hope</h1></div>
+    <div class="tn-message"><p data-message="true">Give every task a hard stop. Work expands to fill the time you give it, so give it less.</p></div>
+    <div class="cta"><span data-cta="true">Set a hard stop today</span></div>
+    <div class="divider"></div>
+    <div class="foot">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">TIMEBOX</span>
+    </div>
+    <div class="badge" aria-hidden="true">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M13 6H35M13 42H35M13 6C13 6 13 17 24 23C35 17 35 6 35 6M13 42C13 42 13 31 24 25C35 31 35 42 35 42" stroke="var(--cg-stroke)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Slide 6 — Closer -->
+  <section class="slide statement" data-cg-slide-type="cover">
+    <div class="ghost" aria-hidden="true"><span>06</span></div>
+    <div class="chip"><span>RECAP · 6 / 6</span></div>
+    <div class="kicker"><span class="tick"></span><span>The takeaway</span></div>
+    <div class="tn-title"><h1 data-title="true">Block it. Protect it. Live it.</h1></div>
+    <div class="cluster" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="tn-message"><p data-message="true">Open your calendar right now and block tomorrow’s first hour.</p></div>
+    <div class="divider"></div>
+    <div class="foot">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">TIMEBOX</span>
+    </div>
+    <div class="badge" aria-hidden="true">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M13 6H35M13 42H35M13 6C13 6 13 17 24 23C35 17 35 6 35 6M13 42C13 42 13 31 24 25C35 31 35 42 35 42" stroke="var(--cg-stroke)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </section>
+
+</div>
+
+
+</body></html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&display=swap');
+
+      :root{
+        /* Brand role tokens — the brand preview re-skins ONLY --primary/--secondary/--accent.
+           --bg/--surface/--text-high/--text-low/--border stay fixed literals so the
+           torn-paper-on-graph-paper reading surface stays legible under any palette. */
+        --primary:var(--brand-primary,#17181a);
+        --secondary:var(--brand-secondary,#4b5563);
+        --accent:var(--brand-accent,#c65a2e);
+        --highlight:var(--brand-accent,#c65a2e);
+        --bg:var(--brand-bg,#eef0ec);
+        --surface:var(--brand-surface,#fbfaf5);
+        --text-high:var(--brand-ink,#1b1b18);
+        --text-low:var(--brand-text-muted,rgba(27,27,24,.62));
+        --border:var(--brand-border,rgba(20,20,16,.14));
+        --on-fill:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+
+        --torn-clip:polygon(
+          0% 1.4%, 4% 0.3%, 8% 2.1%, 12% 0.2%, 16% 1.7%, 20% 0.4%, 24% 2.3%, 28% 0.3%,
+          32% 1.5%, 36% 0.1%, 40% 2.1%, 44% 0.6%, 48% 1.3%, 52% 0.2%, 56% 1.9%, 60% 0.4%,
+          64% 1.6%, 68% 0.1%, 72% 2.3%, 76% 0.3%, 80% 1.4%, 84% 0.2%, 88% 1.8%, 92% 0.4%,
+          96% 1.1%, 100% 0.3%,
+          100% 98.7%, 96% 99.8%, 92% 98.2%, 88% 99.9%, 84% 98.5%, 80% 99.6%, 76% 98.0%,
+          72% 99.8%, 68% 98.3%, 64% 99.9%, 60% 98.1%, 56% 99.6%, 52% 98.8%, 48% 99.9%,
+          44% 98.2%, 40% 99.6%, 36% 99.9%, 32% 98.0%, 28% 99.7%, 24% 98.4%, 20% 99.8%,
+          16% 98.4%, 12% 99.6%, 8% 98.8%, 4% 99.7%, 0% 98.6%
+        );
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);
+        font-family:'Work Sans',sans-serif;
+      }
+
+      /* ── graph-paper backdrop ── */
+      .grid-bg{
+        position:absolute;inset:0;z-index:0;
+        background-image:
+          repeating-linear-gradient(0deg, var(--border) 0px, var(--border) 1px, transparent 1px, transparent 45px),
+          repeating-linear-gradient(90deg, var(--border) 0px, var(--border) 1px, transparent 1px, transparent 45px);
+      }
+      .blob{position:absolute;border-radius:50%;filter:blur(70px);z-index:0;pointer-events:none;}
+      .blob-a{width:520px;height:520px;left:-220px;top:120px;background:rgba(110,120,140,.20);}
+      .blob-b{width:460px;height:460px;right:-200px;bottom:60px;background:rgba(140,110,90,.16);}
+
+      /* ── torn paper card ── */
+      .card{
+        position:absolute;left:0;right:0;top:110px;height:1130px;z-index:1;
+        background:var(--surface);
+        clip-path:var(--torn-clip);
+        filter:drop-shadow(0 26px 46px rgba(20,16,10,.22));
+      }
+
+      /* ── cover lockup ── */
+      .lockup-top{position:absolute;left:0;right:0;top:186px;z-index:2;display:flex;align-items:center;justify-content:center;gap:14px;}
+      .lockup-top .brand-mark-clip{flex:none;height:38px;display:flex;align-items:center;}
+      .lockup-top .brand-mark{height:38px;width:auto;max-width:44px;object-fit:contain;display:block;}
+      .lockup-top .brand-word{font-family:'Work Sans',sans-serif;font-weight:800;font-size:30px;letter-spacing:.03em;color:var(--primary);white-space:nowrap;}
+
+      /* ── kicker pill (cover) / tip pill (content) — the accent-filled surface ── */
+      .pill{
+        position:absolute;left:50%;transform:translateX(-50%);z-index:2;
+        display:inline-flex;align-items:center;gap:10px;white-space:nowrap;
+        background:var(--accent);border-radius:999px;padding:15px 30px;
+      }
+      .pill svg{width:20px;height:20px;color:var(--on-fill);flex:none;}
+      .pill span{font-family:'Work Sans',sans-serif;font-weight:700;font-size:23px;letter-spacing:.09em;color:var(--on-fill);text-transform:uppercase;}
+      .cover .pill{top:288px;}
+
+      /* ── numbered bookmark ribbon (content slides) — the big accent-filled surface ── */
+      .ribbon{
+        position:absolute;top:64px;left:0;width:148px;height:404px;z-index:2;
+        background:var(--accent);
+        clip-path:polygon(0 0,100% 0,100% 88%,50% 100%,0 88%);
+        display:flex;flex-direction:column;align-items:center;padding-top:56px;
+      }
+      .ribbon .rb-label{font-family:'Work Sans',sans-serif;font-weight:700;font-size:20px;letter-spacing:.16em;color:var(--on-fill);text-transform:uppercase;}
+      .ribbon .rb-num{margin-top:6px;font-family:'Anton',sans-serif;font-size:78px;line-height:1;color:var(--on-fill);}
+
+      /* ── isolated positioned wrapper per text node ── */
+      .tn-title{position:absolute;left:90px;right:90px;z-index:2;display:flex;}
+      .tn-title h1{
+        margin:0;width:100%;font-family:'Anton',sans-serif;font-weight:400;
+        text-transform:uppercase;color:var(--text-high);text-align:center;
+        display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.12em;
+      }
+      .cover .tn-title{top:396px;height:534px;align-items:flex-end;}
+      .cover .tn-title h1{font-size:134px;line-height:1.04;letter-spacing:-.005em;-webkit-line-clamp:3;}
+
+      .content .tn-title{top:300px;height:auto;left:150px;right:150px;display:block;}
+      .content .tn-title h1{font-size:100px;line-height:1.06;letter-spacing:-.005em;-webkit-line-clamp:3;}
+
+      .tn-message{position:absolute;left:220px;right:220px;z-index:2;}
+      .tn-message p{
+        margin:0;font-family:'Work Sans',sans-serif;font-weight:500;text-align:center;
+        color:var(--text-low);
+        display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.2em;
+      }
+      .cover .tn-message{top:948px;left:170px;right:170px;}
+      .cover .tn-message p{font-size:26px;line-height:1.5;letter-spacing:.02em;-webkit-line-clamp:2;text-transform:uppercase;font-weight:700;}
+
+      .content .tn-message{top:680px;}
+      .content .tn-message p{font-size:35px;line-height:1.44;-webkit-line-clamp:4;}
+
+      /* ── pagination dots ── */
+      .dots{position:absolute;left:0;right:0;top:1164px;z-index:2;display:flex;align-items:center;justify-content:center;gap:16px;}
+      .dots i{width:16px;height:16px;border-radius:50%;display:block;background:var(--highlight);opacity:.4;}
+      .dots i.on{opacity:1;background:var(--accent);}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Slide 1 — Cover -->
+      <section class="slide cover" data-cg-slide-type="text">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="blob blob-a" aria-hidden="true"></div>
+        <div class="blob blob-b" aria-hidden="true"></div>
+        <div class="card"></div>
+
+        <div class="lockup-top">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">NOTEWELL</span>
+        </div>
+
+        <div class="pill">
+          <svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M12 2L14.2 9.2L21 12L14.2 14.8L12 22L9.8 14.8L3 12L9.8 9.2L12 2Z" stroke="var(--cg-stroke)" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+          <span>A 5-Minute Study Guide</span>
+        </div>
+
+        <div class="tn-title"><h1 data-title="true">5 Study Habits That Stick</h1></div>
+        <div class="tn-message"><p data-message="true">Real techniques, backed by memory science</p></div>
+
+        <div class="dots">
+          <i class="on"></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+      </section>
+
+      <!-- Slide 2 -->
+      <section class="slide content" data-cg-slide-type="text">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="blob blob-a" aria-hidden="true"></div>
+        <div class="blob blob-b" aria-hidden="true"></div>
+        <div class="card"></div>
+
+        <div class="ribbon"><span class="rb-label">Tip</span><span class="rb-num">01</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Space Out Your Reviews</h1></div>
+        <div class="tn-message"><p data-message="true">Cramming fades by tomorrow. Revisit the same idea after a day, a week, then a month — and watch it stick.</p></div>
+
+        <div class="dots">
+          <i></i><i class="on"></i><i></i><i></i><i></i><i></i>
+        </div>
+      </section>
+
+      <!-- Slide 3 -->
+      <section class="slide content" data-cg-slide-type="text">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="blob blob-a" aria-hidden="true"></div>
+        <div class="blob blob-b" aria-hidden="true"></div>
+        <div class="card"></div>
+
+        <div class="ribbon"><span class="rb-label">Tip</span><span class="rb-num">02</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Teach It to Someone Else</h1></div>
+        <div class="tn-message"><p data-message="true">If you can't explain it simply, you don't know it yet. Say it out loud, even to an empty room.</p></div>
+
+        <div class="dots">
+          <i></i><i></i><i class="on"></i><i></i><i></i><i></i>
+        </div>
+      </section>
+
+      <!-- Slide 4 -->
+      <section class="slide content" data-cg-slide-type="text">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="blob blob-a" aria-hidden="true"></div>
+        <div class="blob blob-b" aria-hidden="true"></div>
+        <div class="card"></div>
+
+        <div class="ribbon"><span class="rb-label">Tip</span><span class="rb-num">03</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Recall Beats Rereading</h1></div>
+        <div class="tn-message"><p data-message="true">Highlighting feels like learning. Recalling is learning. Close the book and write what you actually remember.</p></div>
+
+        <div class="dots">
+          <i></i><i></i><i></i><i class="on"></i><i></i><i></i>
+        </div>
+      </section>
+
+      <!-- Slide 5 -->
+      <section class="slide content" data-cg-slide-type="text">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="blob blob-a" aria-hidden="true"></div>
+        <div class="blob blob-b" aria-hidden="true"></div>
+        <div class="card"></div>
+
+        <div class="ribbon"><span class="rb-label">Tip</span><span class="rb-num">04</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Focus on One Task Only</h1></div>
+        <div class="tn-message"><p data-message="true">Every switch costs you focus. Silence the tabs, pick one task, and give it your full fifteen minutes.</p></div>
+
+        <div class="dots">
+          <i></i><i></i><i></i><i></i><i class="on"></i><i></i>
+        </div>
+      </section>
+
+      <!-- Slide 6 -->
+      <section class="slide content" data-cg-slide-type="text">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="blob blob-a" aria-hidden="true"></div>
+        <div class="blob blob-b" aria-hidden="true"></div>
+        <div class="card"></div>
+
+        <div class="ribbon"><span class="rb-label">Tip</span><span class="rb-num">05</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Sleep Locks in the Learning</h1></div>
+        <div class="tn-message"><p data-message="true">Memory consolidates while you rest. A late night of cramming loses to an early night of sleep.</p></div>
+
+        <div class="dots">
+          <i></i><i></i><i></i><i></i><i></i><i class="on"></i>
+        </div>
+      </section>
+
+    </div>
+  
+
+</body></html>

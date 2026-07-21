@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,700;0,800;0,900;1,700&family=Arimo:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+      :root{
+        /* Brand role colors — the brand preview re-skins ONLY --primary/--secondary/--accent.
+           Canvas (--bg) and ink (--text-*) are fixed literals so the page always reads. */
+        --primary:var(--brand-primary,#171A2E);
+        --secondary:var(--brand-secondary,#4C5FD9);
+        --accent:var(--brand-accent,#7C5CFC);
+        --highlight:var(--brand-accent-2,#FFD166);
+        --bg:var(--brand-bg,#F1F0EC);
+        --surface:var(--brand-surface,#FFFFFF);
+        --text-high:var(--brand-ink,#14151A);
+        --text-low:var(--brand-text-muted,rgba(20,21,26,.62));
+        --border:var(--brand-border,rgba(20,21,26,.12));
+        --on-fill:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);font-family:'Arimo',sans-serif;
+      }
+
+      /* ── backdrop: soft concentric rings bleeding off the top-left corner ── */
+      .blob{position:absolute;top:-300px;left:-300px;width:760px;height:760px;border-radius:50%;
+        background:radial-gradient(circle at 62% 60%, rgba(255,255,255,.95), rgba(255,255,255,.4) 55%, rgba(255,255,255,0) 74%);
+        z-index:0;pointer-events:none;}
+      .blob::after{content:'';position:absolute;inset:96px;border-radius:50%;
+        border:2px solid rgba(255,255,255,.55);}
+
+      /* ── top brand strip: primary → secondary → accent sweep ── */
+      .topbar{position:absolute;top:0;left:0;right:0;height:34px;z-index:6;
+        background:linear-gradient(100deg,var(--primary) 0%,var(--secondary) 55%,var(--accent) 100%);}
+
+      /* ── bottom-right accent glow: pairs with the ghost numeral, gives the
+         lower half real visual weight, and is itself a second brand-bound surface ── */
+      .glow{position:absolute;right:-320px;bottom:-320px;width:900px;height:900px;z-index:1;
+        border-radius:50%;background:radial-gradient(circle at 45% 45%, var(--accent), transparent 68%);
+        opacity:.12;pointer-events:none;}
+
+      /* ── header: kicker label, top-right — a bordered chip, not bare text,
+         so it reads as real furniture and helps the frame feel intentionally
+         composed rather than a headline dropped on empty paper. ── */
+      .kicker{position:absolute;top:56px;right:80px;z-index:5;
+        padding:10px 22px;border-radius:999px;border:1.5px solid var(--border);
+        font-family:'Poppins',sans-serif;font-weight:700;font-size:23px;letter-spacing:.14em;
+        color:var(--primary);text-transform:uppercase;white-space:nowrap;}
+
+      /* ── numbered / labeled badge chip ── */
+      .badge{position:absolute;z-index:4;background:var(--accent);color:var(--on-fill);
+        display:flex;align-items:center;justify-content:center;box-shadow:0 10px 22px rgba(20,15,50,.16);}
+      .badge.num{left:80px;top:206px;width:88px;height:88px;border-radius:24px;}
+      .badge.num::after{content:'';position:absolute;inset:-7px;border-radius:30px;border:2px solid var(--surface);opacity:.55;pointer-events:none;}
+      .badge.num span{font-family:'Poppins',sans-serif;font-weight:800;font-size:38px;line-height:1;}
+      .badge.pill{left:80px;top:216px;height:60px;padding:0 30px;border-radius:999px;}
+      .badge.pill span{font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;letter-spacing:.06em;text-transform:uppercase;}
+
+      /* ── headline: isolated wrapper, text in normal flow inside ── */
+      .tn-title{position:absolute;left:80px;right:80px;z-index:3;}
+      .tn-title h1{
+        margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:104px;line-height:1.05;
+        letter-spacing:-.01em;text-transform:uppercase;color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.12em;
+      }
+      .tn-title h1 .lt{font-weight:300;}
+      .slide.cover .tn-title{top:326px;}
+      .slide.cover .tn-title h1{font-size:118px;-webkit-line-clamp:4;}
+      .slide.tip .tn-title{top:338px;}
+      .slide.outro .tn-title{top:420px;}
+
+      /* ── body copy: one per slide ── */
+      .tn-message{position:absolute;left:80px;right:96px;z-index:3;}
+      .tn-message p{
+        margin:0;font-family:'Arimo',sans-serif;font-style:italic;font-weight:400;font-size:42px;line-height:1.36;
+        color:var(--text-low);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.2em;
+      }
+      .slide.cover .tn-message{top:876px;}
+      .slide.cover .tn-message p{font-size:40px;-webkit-line-clamp:2;}
+      .slide.tip .tn-message{top:702px;}
+      .slide.outro .tn-message{top:786px;}
+      .slide.outro .tn-message p{-webkit-line-clamp:2;}
+
+      /* ── ghost ordinal: pure CSS-generated content (::before), so the element
+         carries no real textContent — a decorative flourish the pipeline can never
+         mistake for copy to fill, and one that render/stress checks (which key off
+         textContent) correctly treat as art, not a text run. Opacity keeps it a
+         near-invisible texture, same spirit as the reference's own locked numeral. ── */
+      .ghost-num{position:absolute;right:-46px;bottom:-58px;z-index:1;pointer-events:none;}
+      .ghost-num::before{content:attr(data-ghost);display:block;
+        font-family:'Poppins',sans-serif;font-weight:800;font-size:640px;line-height:1;
+        color:var(--text-high);opacity:.045;letter-spacing:-.02em;}
+
+      /* ── CTA pill (outro only) — a second, larger accent surface so the
+         closing slide (no numbered badge) still carries strong brand coverage ── */
+      .cta-pill{position:absolute;left:80px;top:944px;z-index:3;height:92px;padding:0 40px;
+        border-radius:999px;background:var(--accent);display:inline-flex;align-items:center;gap:16px;
+        box-shadow:0 14px 28px rgba(20,15,50,.18);}
+      .cta-pill span{font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;letter-spacing:.04em;
+        text-transform:uppercase;color:var(--on-fill);white-space:nowrap;}
+      .cta-pill svg{width:30px;height:30px;flex:none;}
+
+      /* ── footer: brand lockup + swipe / save cue ── */
+      .foot{position:absolute;left:80px;right:80px;bottom:56px;z-index:5;
+        display:flex;align-items:center;justify-content:space-between;}
+      .brand-mark-clip{flex:none;height:32px;display:flex;align-items:center;}
+      .brand-mark{height:32px;width:auto;max-width:110px;object-fit:contain;display:block;}
+      .brand-word{position:relative;font-family:'Poppins',sans-serif;font-weight:800;font-size:27px;
+        letter-spacing:.04em;color:var(--text-high);white-space:nowrap;}
+      .brand-word::after{content:'';position:absolute;left:0;right:14%;bottom:-7px;height:4px;
+        background:var(--highlight);border-radius:2px;}
+      .lockup{display:inline-flex;align-items:center;gap:16px;}
+
+      .swipe-pill{display:inline-flex;align-items:center;gap:10px;height:58px;padding:0 26px;
+        border-radius:999px;background:var(--accent);}
+      .swipe-pill span{font-family:'Poppins',sans-serif;font-weight:700;font-style:italic;font-size:24px;
+        letter-spacing:.06em;text-transform:uppercase;color:var(--on-fill);}
+      .swipe-pill svg{width:20px;height:20px;color:var(--on-fill);}
+
+      .save-chip{width:58px;height:58px;border-radius:16px;background:var(--accent);
+        display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(20,15,50,.16);}
+      .save-chip svg{width:26px;height:26px;color:var(--on-fill);}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Cover -->
+      <section class="slide cover" data-cg-slide-type="cover">
+        <div class="blob" aria-hidden="true"></div>
+        <div class="topbar" aria-hidden="true"></div>
+        <div class="glow" aria-hidden="true"></div>
+        <div class="kicker">Sleep Guide</div>
+        <div class="badge pill"><span>5 Habits</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Your best <span class="lt">mornings begin the</span> <span class="lt">night</span> before</h1></div>
+        <div class="tn-message"><p data-message="true">Five small evening habits that help you fall asleep faster and wake up clearer.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+            <span class="brand-word">RESTLY</span>
+          </div>
+          <div class="swipe-pill"><span>Swipe</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        </div>
+      </section>
+
+      <!-- Tip 01 -->
+      <section class="slide tip" data-cg-slide-type="tip">
+        <div class="blob" aria-hidden="true"></div>
+        <div class="topbar" aria-hidden="true"></div>
+        <div class="glow" aria-hidden="true"></div>
+        <div class="kicker">Step 01</div>
+        <div class="badge num"><span>01</span></div>
+        <div class="ghost-num" data-ghost="01" aria-hidden="true"></div>
+
+        <div class="tn-title"><h1 data-title="true"><span class="lt">Cool</span> Dark Room</h1></div>
+        <div class="tn-message"><p data-message="true">Drop the room temperature and block outside light so your body eases into deep sleep faster.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+            <span class="brand-word">RESTLY</span>
+          </div>
+          <div class="swipe-pill"><span>Swipe</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        </div>
+      </section>
+
+      <!-- Tip 02 -->
+      <section class="slide tip" data-cg-slide-type="tip">
+        <div class="blob" aria-hidden="true"></div>
+        <div class="topbar" aria-hidden="true"></div>
+        <div class="glow" aria-hidden="true"></div>
+        <div class="kicker">Step 02</div>
+        <div class="badge num"><span>02</span></div>
+        <div class="ghost-num" data-ghost="02" aria-hidden="true"></div>
+
+        <div class="tn-title"><h1 data-title="true"><span class="lt">Steady</span> Sleep Clock</h1></div>
+        <div class="tn-message"><p data-message="true">Go to bed and wake at the same time every day, even weekends, to lock in your rhythm.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+            <span class="brand-word">RESTLY</span>
+          </div>
+          <div class="swipe-pill"><span>Swipe</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        </div>
+      </section>
+
+      <!-- Tip 03 -->
+      <section class="slide tip" data-cg-slide-type="tip">
+        <div class="blob" aria-hidden="true"></div>
+        <div class="topbar" aria-hidden="true"></div>
+        <div class="glow" aria-hidden="true"></div>
+        <div class="kicker">Step 03</div>
+        <div class="badge num"><span>03</span></div>
+        <div class="ghost-num" data-ghost="03" aria-hidden="true"></div>
+
+        <div class="tn-title"><h1 data-title="true"><span class="lt">Slow</span> Wind Down</h1></div>
+        <div class="tn-message"><p data-message="true">Dim the lights an hour before bed and trade your screen for something slower and quiet.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+            <span class="brand-word">RESTLY</span>
+          </div>
+          <div class="swipe-pill"><span>Swipe</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        </div>
+      </section>
+
+      <!-- Tip 04 -->
+      <section class="slide tip" data-cg-slide-type="tip">
+        <div class="blob" aria-hidden="true"></div>
+        <div class="topbar" aria-hidden="true"></div>
+        <div class="glow" aria-hidden="true"></div>
+        <div class="kicker">Step 04</div>
+        <div class="badge num"><span>04</span></div>
+        <div class="ghost-num" data-ghost="04" aria-hidden="true"></div>
+
+        <div class="tn-title"><h1 data-title="true"><span class="lt">Light</span> Late Meals</h1></div>
+        <div class="tn-message"><p data-message="true">Eat earlier and lighter at night so digestion isn't competing with your rest.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+            <span class="brand-word">RESTLY</span>
+          </div>
+          <div class="swipe-pill"><span>Swipe</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        </div>
+      </section>
+
+      <!-- Tip 05 -->
+      <section class="slide tip" data-cg-slide-type="tip">
+        <div class="blob" aria-hidden="true"></div>
+        <div class="topbar" aria-hidden="true"></div>
+        <div class="glow" aria-hidden="true"></div>
+        <div class="kicker">Step 05</div>
+        <div class="badge num"><span>05</span></div>
+        <div class="ghost-num" data-ghost="05" aria-hidden="true"></div>
+
+        <div class="tn-title"><h1 data-title="true"><span class="lt">Calm</span> Morning Light</h1></div>
+        <div class="tn-message"><p data-message="true">Step into daylight soon after waking to reset your internal clock for the day ahead.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+            <span class="brand-word">RESTLY</span>
+          </div>
+          <div class="swipe-pill"><span>Swipe</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        </div>
+      </section>
+
+      <!-- Closing / save -->
+      <section class="slide outro" data-cg-slide-type="outro">
+        <div class="blob" aria-hidden="true"></div>
+        <div class="topbar" aria-hidden="true"></div>
+        <div class="glow" aria-hidden="true"></div>
+        <div class="kicker">Save It</div>
+
+        <div class="tn-title"><h1 data-title="true"><span class="lt">Keep this for your</span> next reset</h1></div>
+        <div class="tn-message"><p data-message="true">Five habits, one better night — come back anytime you need the reminder.</p></div>
+
+        <div class="cta-pill" data-cta="true">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M7 3H17C17.5523 3 18 3.44772 18 4V21L12 17.5L6 21V4C6 3.44772 6.44772 3 7 3Z" stroke="var(--cg-stroke)" stroke-width="2" stroke-linejoin="round"></path></svg>
+          <span>Save this guide</span>
+        </div>
+
+        <div class="foot">
+          <div class="lockup">
+            <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+            <span class="brand-word">RESTLY</span>
+          </div>
+          <div class="save-chip"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M7 3H17C17.5523 3 18 3.44772 18 4V21L12 17.5L6 21V4C6 3.44772 6.44772 3 7 3Z" stroke="var(--cg-stroke)" stroke-width="2" stroke-linejoin="round"></path></svg></div>
+        </div>
+      </section>
+
+    </div>
+  
+
+</body></html>

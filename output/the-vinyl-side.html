@@ -1,0 +1,193 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@500;600;700&display=swap');
+
+  :root{
+    /* Brand role tokens. --accent is the moss-green FILL that carries the deck's identity
+       (full cover field / center panel / pill chip). --primary is text ink and stays dark
+       across every brand palette, used for branded copy sitting on the plain cream canvas.
+       --bg/--text-* are fixed literals for legibility and are never re-skinned. */
+    --primary:var(--brand-primary,#2B2A1E);
+    --secondary:var(--brand-secondary,#6B5F43);
+    --accent:var(--brand-accent,#5F5636);
+    --highlight:var(--brand-accent,#5F5636);
+    --bg:var(--brand-bg,#EFE7D2);
+    --surface:var(--brand-surface,#E4DABF);
+    --text-high:var(--brand-ink,#241F14);
+    --text-low:var(--brand-text-muted,rgba(36,31,20,.62));
+    --border:var(--brand-border,rgba(36,31,20,.16));
+    --on-fill:var(--brand-on-accent,#F7F1E0);
+    --on-primary:var(--brand-on-primary,#FFFFFF);
+    /* fixed literal for text sitting on the darkened slide-3 photo — not brand-bound on
+       purpose: it must stay light no matter what the canvas ink token is doing. */
+    --on-scrim:#FBF6E8;
+  }
+
+  *{box-sizing:border-box;}
+
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    font-family:'Montserrat',sans-serif;
+    background:var(--bg);
+  }
+
+  /* ───────── slide 1 — cover: full field of accent, inset photo ───────── */
+  .s1{background:var(--accent);}
+  .s1 .kicker{
+    position:absolute;left:80px;right:80px;top:108px;text-align:center;
+    font-family:'Montserrat',sans-serif;font-weight:700;font-size:23px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--on-fill);opacity:.82;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .s1 .tn-title{position:absolute;left:110px;right:110px;top:170px;}
+  .s1 .tn-title h1{
+    margin:0;font-family:'Playfair Display',serif;font-weight:700;font-size:68px;line-height:1.08;
+    text-transform:uppercase;text-align:center;color:var(--on-fill);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.15em;
+  }
+  .photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+  .s1 .photo-frame{position:absolute;left:260px;top:490px;width:560px;height:560px;overflow:hidden;z-index:2;background:var(--surface);}
+  .s1 .tn-message{position:absolute;left:150px;right:150px;top:1080px;}
+  .s1 .tn-message p{
+    margin:0;font-family:'Montserrat',sans-serif;font-weight:500;font-size:30px;line-height:1.35;
+    text-align:center;color:var(--on-fill);opacity:.92;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.2em;
+  }
+
+  /* ───────── slide 2 — cream canvas + centered accent panel ───────── */
+  .s2{background:var(--bg);}
+  .s2 .mark{position:absolute;left:90px;top:94px;display:flex;align-items:center;gap:12px;z-index:2;}
+  .s2 .mark span{
+    font-family:'Montserrat',sans-serif;font-weight:700;font-size:20px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--primary);opacity:.85;
+  }
+  .s2 .panel{position:absolute;left:230px;top:222px;width:620px;height:806px;background:var(--accent);z-index:1;}
+  .s2 .tn-title{position:absolute;left:250px;width:580px;top:282px;z-index:2;}
+  .s2 .tn-title h1{
+    margin:0;font-family:'Playfair Display',serif;font-weight:700;font-size:64px;line-height:1.08;
+    text-transform:uppercase;text-align:center;color:var(--on-fill);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.15em;
+  }
+  .s2 .photo-frame{position:absolute;left:260px;top:428px;width:560px;height:400px;overflow:hidden;z-index:2;background:var(--surface);}
+  .s2 .tn-message{position:absolute;left:250px;width:580px;top:878px;z-index:2;}
+  .s2 .tn-message p{
+    margin:0;font-family:'Playfair Display',serif;font-weight:700;font-size:64px;line-height:1.08;
+    text-transform:uppercase;text-align:center;color:var(--on-fill);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.15em;
+  }
+
+  /* ───────── slide 3 — full-bleed photo, uniform scrim, accent pill ───────── */
+  .s3{background:#1C1712;}
+  .s3 .photo{position:absolute;inset:0;z-index:0;}
+  .s3 .photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .s3 .scrim{
+    position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,
+      rgba(18,14,8,.34) 0%,
+      rgba(18,14,8,.46) 45%,
+      color-mix(in srgb, var(--accent) 34%, #0a0803 66%) 100%);
+  }
+  .s3 .pill{
+    position:absolute;top:112px;left:50%;transform:translateX(-50%);z-index:2;
+    background:var(--accent);padding:15px 36px;border-radius:999px;max-width:820px;
+  }
+  .s3 .pill span{
+    display:block;font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--on-fill);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .s3 .tn-title{position:absolute;left:110px;right:110px;top:560px;z-index:2;}
+  .s3 .tn-title h1{
+    margin:0;font-family:'Playfair Display',serif;font-weight:700;font-size:76px;line-height:1.1;
+    text-transform:uppercase;text-align:center;color:var(--on-scrim);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.15em;
+  }
+  .s3 .tn-message{position:absolute;left:140px;right:140px;top:900px;z-index:2;}
+  .s3 .tn-message p{
+    margin:0;font-family:'Montserrat',sans-serif;font-weight:700;font-size:32px;line-height:1.35;letter-spacing:.02em;
+    text-transform:uppercase;text-align:center;color:var(--on-scrim);opacity:.95;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.2em;
+  }
+
+  /* ───────── shared brand footer ───────── */
+  .foot{position:absolute;left:0;right:0;bottom:64px;z-index:3;display:flex;align-items:center;justify-content:center;gap:14px;}
+  .brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+  .brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;letter-spacing:.1em;white-space:nowrap;}
+  .lockup{display:inline-flex;align-items:center;gap:14px;}
+  .s1 .brand-word{color:var(--on-fill);opacity:.82;}
+  .s2 .brand-word{color:var(--primary);opacity:.85;}
+  .s3 .brand-word{color:var(--on-scrim);opacity:.85;}
+  .s1 .brand-mark{filter:brightness(0) invert(1) opacity(.82);}
+  .s2 .brand-mark{filter:brightness(0) saturate(100%) opacity(.85);}
+  .s3 .brand-mark{filter:brightness(0) invert(1) opacity(.85);}
+</style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <!-- Slide 1 — cover -->
+    <section class="slide s1" data-cg-slide-type="cover">
+      <div class="kicker">A vinyl listening journal</div>
+      <div class="tn-title"><h1 data-title="true">Songs that slow the world down</h1></div>
+      <div class="photo-frame">
+        <img data-image="true" data-image-size="1024x1024" data-image-prompt="close-up of hands lowering a turntable needle onto a spinning vinyl record, warm afternoon light, film photography, shallow depth of field" alt="" src="assets/images/the-vinyl-side/slide-01.png">
+      </div>
+      <div class="tn-message"><p data-message="true">One side at a time, no skipping ahead.</p></div>
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 2 — panel -->
+    <section class="slide s2" data-cg-slide-type="content">
+      <div class="mark">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 40 40" width="32" height="32" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+          <circle cx="20" cy="20" r="19" fill="var(--cg-fill)"></circle>
+          <circle cx="20" cy="20" r="12" fill="none" stroke="var(--cg-stroke)" stroke-opacity=".4" stroke-width="1.6"></circle>
+          <circle cx="20" cy="20" r="3" fill="var(--cg-fill)"></circle>
+        </svg>
+        <span>Vol. 02</span>
+      </div>
+      <div class="panel"></div>
+      <div class="tn-title"><h1 data-title="true">Every record</h1></div>
+      <div class="photo-frame">
+        <img data-image="true" data-image-size="1536x1024" data-image-prompt="hands flipping through a crate of vinyl records, warm tones, tactile close-up, editorial still life" alt="" src="assets/images/the-vinyl-side/slide-02.png">
+      </div>
+      <div class="tn-message"><p data-message="true">holds a story</p></div>
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 3 — closing -->
+    <section class="slide s3" data-cg-slide-type="closing">
+      <div class="photo">
+        <img data-image="true" data-image-size="1024x1280" data-image-prompt="extreme close-up of a vinyl record spinning on a turntable, grooves catching warm light, moody atmospheric tone" alt="" src="assets/images/the-vinyl-side/slide-03.png">
+      </div>
+      <div class="scrim" aria-hidden="true"></div>
+      <div class="pill"><span data-tagline="true">Side B — now playing</span></div>
+      <div class="tn-title"><h1 data-title="true">It sounds better when you slow down</h1></div>
+      <div class="tn-message"><p data-message="true">What's spinning this week?</p></div>
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+
+</body></html>

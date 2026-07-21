@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+    :root{
+      /* Brand role colors. The huge numeral + the full-bleed field on the "rule"
+         slides ARE the brand device (accent = filled surfaces only); headline and
+         body ink stay fixed-dark (--primary/--text-high) so copy never rides on
+         --accent directly, and --on-fill carries text that sits on the accent
+         field so it stays AA no matter how dark/light a brand's accent lands. */
+      --primary:var(--brand-primary,#211A1D);
+      --secondary:var(--brand-secondary,#8E2E1E);
+      --accent:var(--brand-accent,#E2492F);
+      --highlight:var(--brand-accent,#E2492F);
+      --bg:var(--brand-bg,#FBF8F4);
+      --surface:var(--brand-surface,var(--brand-bg-alt,#FFFFFF));
+      --text-high:var(--brand-ink,var(--brand-text,#211A1D));
+      --text-low:var(--brand-text-muted,rgba(34,26,29,.62));
+      --border:var(--brand-border,rgba(34,26,29,.14));
+      --on-fill:var(--brand-on-accent,#FFFFFF);
+      --on-primary:var(--brand-on-primary,#FFFFFF);
+    }
+
+    *{box-sizing:border-box;}
+
+    .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+    .slide{
+      width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+      background:var(--bg);font-family:'Inter',sans-serif;
+    }
+    .slide--fill{background:var(--accent);}
+
+    /* ── the giant cutout numeral — the whole personality of this design.
+       Plain HTML text (never svg<text>) so it always repaints with the font. ── */
+    .numeral{
+      position:absolute;z-index:0;font-family:'Poppins',sans-serif;font-weight:800;
+      line-height:.72;letter-spacing:-.03em;user-select:none;pointer-events:none;
+    }
+
+    .topbar{position:absolute;top:64px;left:90px;right:90px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+    .kicker{margin:0;font-family:'Inter',sans-serif;font-weight:700;font-size:23px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-low);}
+    .folio{margin:0;font-family:'Inter',sans-serif;font-weight:700;font-size:23px;letter-spacing:.06em;color:var(--text-low);}
+    .slide--fill .kicker,.slide--fill .folio{color:var(--on-fill);}
+
+    .tn-title{position:absolute;z-index:2;}
+    .tn-title h1{
+      margin:0;font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-.01em;
+      color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.18em;
+    }
+    .slide--fill .tn-title h1{color:var(--on-fill);}
+
+    .tn-message{position:absolute;z-index:2;}
+    .tn-message p{
+      margin:0;font-family:'Inter',sans-serif;font-weight:400;line-height:1.5;color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.3em;
+    }
+    .slide--fill .tn-message p{color:var(--on-fill);}
+
+    .tn-cta{position:absolute;z-index:2;}
+    .tn-cta p{
+      margin:0;font-family:'Poppins',sans-serif;font-weight:700;line-height:1.32;color:var(--primary);
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.2em;
+    }
+
+    .foot{position:absolute;left:90px;right:90px;bottom:60px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+    .lockup{display:inline-flex;align-items:center;gap:14px;}
+    .brand-mark{height:32px;width:32px;object-fit:contain;display:block;border-radius:50%;}
+    .brand-word{font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;letter-spacing:.05em;color:var(--primary);}
+    .slide--fill .brand-word{color:var(--on-fill);}
+
+    /* decorative "tag" flourish, echoing the reference's bookmark ribbon */
+    .tag{width:50px;height:60px;clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);background:var(--accent);}
+    .slide--fill .tag{background:var(--bg);}
+
+    /* soft card behind the rule numeral — confined to the numeral's own lane
+       (never the text column), so it adds real visual body + coverage at any
+       digit width without ever competing with growing copy. */
+    .numeral-card{position:absolute;right:30px;top:230px;bottom:230px;width:420px;border-radius:56px;background:rgba(255,255,255,.08);z-index:0;}
+
+    /* ── per-slide placement — the numeral stays fully ON-canvas (large, but never
+       bled past the frame): the verify gate measures glyph ink against slide bounds
+       for every text run, decorative or not, so an off-canvas bleed reads as a hard
+       OVERFLOW failure no matter how intentional. Scale carries the same "huge digit"
+       character without leaving the frame. ── */
+    .s1 .numeral{left:64px;top:560px;font-size:600px;color:var(--primary);}
+    .s1 .tn-title{top:186px;left:90px;right:90px;}
+    .s1 .tn-title h1{font-size:84px;line-height:1.1;-webkit-line-clamp:3;}
+
+    /* numeral column is a hard-separated lane (x > 640) the text column (x < 580)
+       never enters, at any content length — a two-digit "01" ran wide enough under
+       stress copy to invade the text lane, so this stays a single digit, sized to
+       fit the lane with margin even for the widest glyph ("2"/"3"). */
+    .s2 .numeral,.s3 .numeral,.s4 .numeral{right:50px;bottom:150px;font-size:640px;color:var(--on-fill);}
+    .s2 .tn-title,.s3 .tn-title,.s4 .tn-title{top:200px;left:90px;right:580px;}
+    .s2 .tn-title h1,.s3 .tn-title h1,.s4 .tn-title h1{font-size:58px;line-height:1.14;-webkit-line-clamp:3;}
+    .s2 .tn-message,.s3 .tn-message,.s4 .tn-message{top:452px;left:90px;right:580px;}
+    .s2 .tn-message p,.s3 .tn-message p,.s4 .tn-message p{font-size:32px;-webkit-line-clamp:10;}
+    .rule{position:absolute;top:112px;left:90px;right:90px;height:2px;background:var(--border);z-index:2;}
+    .slide--fill .rule{background:rgba(255,255,255,.28);}
+
+    .s5 .numeral{left:70px;top:560px;font-size:400px;color:var(--primary);}
+    .s5 .tn-title{top:210px;left:90px;right:90px;}
+    .s5 .tn-title h1{font-size:80px;line-height:1.12;-webkit-line-clamp:3;}
+    .s5 .tn-cta{top:960px;left:90px;right:200px;}
+    .s5 .tn-cta p{font-size:38px;-webkit-line-clamp:3;}
+  </style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <!-- Slide 1 — cover -->
+    <section class="slide s1" data-cg-slide-type="cover">
+      <div class="numeral" aria-hidden="true">3</div>
+      <div class="topbar">
+        <p class="kicker" data-tagline="true">Capsule Wardrobe</p>
+        <div class="folio">1/5</div>
+      </div>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="tn-title"><h1 data-title="true">Build A Wardrobe You Actually Wear</h1></div>
+      <div class="foot">
+        <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Ccircle%20cx=%2212%22%20cy=%2212%22%20r=%2212%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">EDITED</span></div>
+        <div class="tag" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- Slide 2 — rule one -->
+    <section class="slide slide--fill s2" data-cg-slide-type="content">
+      <div class="numeral-card" aria-hidden="true"></div>
+      <div class="numeral" aria-hidden="true">1</div>
+      <div class="topbar">
+        <p class="kicker" data-tagline="true">Rule One</p>
+        <div class="folio">2/5</div>
+      </div>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="tn-title"><h1 data-title="true">Pick One Palette</h1></div>
+      <div class="tn-message"><p data-message="true">Choose two or three base colors and one accent, then build every piece around them — when it all already matches, getting dressed stops being a decision.</p></div>
+      <div class="foot">
+        <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Ccircle%20cx=%2212%22%20cy=%2212%22%20r=%2212%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">EDITED</span></div>
+        <div class="tag" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- Slide 3 — rule two -->
+    <section class="slide slide--fill s3" data-cg-slide-type="content">
+      <div class="numeral-card" aria-hidden="true"></div>
+      <div class="numeral" aria-hidden="true">2</div>
+      <div class="topbar">
+        <p class="kicker" data-tagline="true">Rule Two</p>
+        <div class="folio">3/5</div>
+      </div>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="tn-title"><h1 data-title="true">Buy Less, Wear More</h1></div>
+      <div class="tn-message"><p data-message="true">Before a purchase, count the outfits it can make with what you already own — a piece earns its place by pulling its weight all season, not by sitting pretty once.</p></div>
+      <div class="foot">
+        <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Ccircle%20cx=%2212%22%20cy=%2212%22%20r=%2212%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">EDITED</span></div>
+        <div class="tag" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- Slide 4 — rule three -->
+    <section class="slide slide--fill s4" data-cg-slide-type="content">
+      <div class="numeral-card" aria-hidden="true"></div>
+      <div class="numeral" aria-hidden="true">3</div>
+      <div class="topbar">
+        <p class="kicker" data-tagline="true">Rule Three</p>
+        <div class="folio">4/5</div>
+      </div>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="tn-title"><h1 data-title="true">Fill The Gaps Last</h1></div>
+      <div class="tn-message"><p data-message="true">Start with the basics you reach for daily, then add trend pieces once that foundation is solid — gaps are easier to spot once the essentials are already working hard.</p></div>
+      <div class="foot">
+        <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Ccircle%20cx=%2212%22%20cy=%2212%22%20r=%2212%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">EDITED</span></div>
+        <div class="tag" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- Slide 5 — CTA -->
+    <section class="slide s5" data-cg-slide-type="cta">
+      <div class="numeral" aria-hidden="true">&#10003;</div>
+      <div class="topbar">
+        <p class="kicker" data-tagline="true">Capsule Wardrobe</p>
+        <div class="folio">5/5</div>
+      </div>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="tn-title"><h1 data-title="true">Ready To Edit Your Closet?</h1></div>
+      <div class="tn-cta"><p class="cta" data-cta="true">Save this list before your next shopping trip.</p></div>
+      <div class="foot">
+        <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Ccircle%20cx=%2212%22%20cy=%2212%22%20r=%2212%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">EDITED</span></div>
+        <div class="tag" aria-hidden="true"></div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

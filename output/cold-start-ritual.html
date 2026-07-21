@@ -1,0 +1,311 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=Raleway:wght@400;600;700;800&display=swap');
+
+    :root{
+      /* Brand role colors. Only primary/secondary/accent (+ their on-colours) move
+         under a brand skin. The dark teal canvas and its ink stay fixed literals so
+         the "bold condensed carousel" reading surface holds AA legibility under any
+         brand palette — the accent lives in the kicker chip, the numeral tab and the
+         cover glow, which is where the real recolor coverage lives. */
+      --primary:var(--brand-primary,#2A2015);
+      --secondary:var(--brand-secondary,#1B1610);
+      --accent:var(--brand-accent,#F2A33C);
+      --highlight:var(--brand-accent,#F2A33C);
+      --bg:var(--brand-bg,#153436);
+      --surface:var(--brand-surface,#1D4145);
+      --text-high:var(--brand-text,#FBF7EE);
+      --text-low:var(--brand-text-muted,rgba(251,247,238,.72));
+      --border:var(--brand-border,rgba(251,247,238,.22));
+      --on-fill:var(--brand-on-accent,#20180E);
+      --on-primary:var(--brand-on-primary,#FBF7EE);
+    }
+
+    *{box-sizing:border-box;}
+    html,body{margin:0;padding:0;}
+
+    .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0a0a0a;}
+
+    .slide{
+      width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+      background:var(--bg);
+      font-family:'Raleway',sans-serif;
+    }
+
+    /* ── backdrop texture: soft diagonal paper crease + a low grid in the lower
+       band, reproduced at real strength so the surface doesn't read flat. ── */
+    .texture{position:absolute;inset:0;z-index:0;pointer-events:none;}
+    .texture::before{
+      content:'';position:absolute;inset:0;
+      background:
+        repeating-linear-gradient(115deg, rgba(255,255,255,.05) 0px, rgba(255,255,255,.05) 1px, transparent 1px, transparent 130px),
+        repeating-linear-gradient(25deg, rgba(0,0,0,.16) 0px, rgba(0,0,0,.16) 1px, transparent 1px, transparent 170px);
+    }
+    .texture::after{
+      content:'';position:absolute;left:0;right:0;bottom:0;height:620px;
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.09) 0px, rgba(255,255,255,.09) 1px, transparent 1px, transparent 92px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.09) 0px, rgba(255,255,255,.09) 1px, transparent 1px, transparent 92px);
+      -webkit-mask-image:linear-gradient(0deg, #000 62%, transparent 100%);
+      mask-image:linear-gradient(0deg, #000 62%, transparent 100%);
+    }
+
+    /* ── top row: brand lockup + page counter, every slide ── */
+    .foot-top{position:absolute;left:64px;right:64px;top:56px;z-index:4;display:flex;align-items:center;justify-content:space-between;}
+    .lockup{display:inline-flex;align-items:center;gap:12px;height:56px;padding:0 26px 0 16px;border:2px solid var(--border);border-radius:999px;}
+    .brand-mark-clip{flex:none;height:26px;display:flex;align-items:center;}
+    .brand-mark{height:26px;width:auto;max-width:100px;object-fit:contain;display:block;}
+    .brand-word{font-family:'Raleway',sans-serif;font-weight:800;font-size:22px;letter-spacing:.03em;color:var(--text-high);white-space:nowrap;text-transform:uppercase;}
+    .cg-slide-counter{font-family:'Raleway',sans-serif;font-weight:700;font-size:22px;letter-spacing:.14em;color:var(--text-low);}
+
+    /* ── kicker chip: the accent-filled device that carries the "pop" the
+       reference gets from colored headline text — here as a painted surface,
+       never as literal text color, so it stays AA-safe under every brand. ── */
+    .kicker-chip{position:absolute;left:64px;z-index:4;display:inline-flex;}
+    .kicker-chip span{
+      display:inline-block;background:var(--accent);color:var(--on-fill);
+      font-family:'Raleway',sans-serif;font-weight:800;font-size:25px;letter-spacing:.09em;
+      text-transform:uppercase;padding:17px 32px;border-radius:999px;white-space:nowrap;
+    }
+
+    /* ── numeral tab: bleeds off the left edge, accent-filled, never text-colored ── */
+    .num-tab{
+      position:absolute;left:-26px;top:452px;width:128px;height:182px;z-index:3;
+      background:var(--accent);border-radius:0 24px 24px 0;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .num-tab span{font-family:'Anton',sans-serif;font-size:98px;line-height:1;color:var(--on-fill);}
+
+    /* ── headline: one h1 per slide, fixed light ink, always legible on the
+       dark canvas regardless of brand ── */
+    .tn-title{position:absolute;left:150px;right:90px;top:462px;z-index:4;}
+    .cover .tn-title{left:64px;right:560px;}
+    .tn-title h1{
+      margin:0;font-family:'Anton',sans-serif;font-weight:400;font-size:98px;line-height:.96;
+      letter-spacing:-.005em;text-transform:uppercase;color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.16em;
+    }
+    .cover .tn-title h1{font-size:86px;-webkit-line-clamp:5;}
+
+    /* ── tagline (cover only) ── */
+    .tn-tagline{position:absolute;left:64px;right:560px;z-index:4;}
+    .tn-tagline div{
+      font-family:'Raleway',sans-serif;font-weight:600;font-size:33px;line-height:1.35;color:var(--text-low);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.2em;
+    }
+
+    /* ── body: exactly one <p> per slide ── */
+    .tn-message{position:absolute;left:64px;right:100px;top:764px;z-index:4;}
+    .tn-message p{
+      margin:0;font-family:'Raleway',sans-serif;font-weight:400;font-size:47px;line-height:1.4;color:var(--text-low);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.18em;
+    }
+
+    .title-rule{position:absolute;left:64px;top:1042px;width:110px;height:7px;border-radius:4px;background:var(--accent);z-index:4;}
+
+    /* ── CTA row: fixed cream pill (chrome, like a browser bar), never
+       brand-tied — mirrors the reference's search-bar device ── */
+    .cta-row{position:absolute;left:64px;right:64px;bottom:66px;z-index:4;}
+    .cta-label{font-family:'Raleway',sans-serif;font-weight:700;font-size:22px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-low);margin-bottom:18px;}
+    .cta-pill{
+      display:inline-flex;align-items:center;gap:16px;height:70px;padding:0 30px;
+      background:#FBF7EE;border-radius:999px;box-shadow:0 18px 34px rgba(6,10,8,.28);
+      overflow:hidden;
+    }
+    .cta-pill svg.search{width:24px;height:24px;color:var(--accent);flex:none;}
+    .cta-pill span{font-family:'Raleway',sans-serif;font-weight:700;font-size:27px;color:#22322E;white-space:nowrap;}
+    .cta-pill svg.cursor{width:22px;height:22px;color:#7C8F8A;flex:none;margin-left:4px;}
+
+    /* ── cover-only devices ── */
+    .cover-glow{position:absolute;right:-160px;bottom:-140px;width:900px;height:900px;border-radius:50%;z-index:1;
+      background:radial-gradient(circle at 60% 55%, color-mix(in srgb, var(--accent) 55%, transparent) 0%, transparent 70%);}
+    .cover-photo{position:absolute;right:-60px;bottom:0;width:560px;height:780px;z-index:2;}
+    .cover-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;
+      -webkit-mask-image:linear-gradient(180deg,#000 88%, transparent 100%);
+      mask-image:linear-gradient(180deg,#000 88%, transparent 100%);}
+
+    .arrow-btn{
+      position:absolute;left:64px;bottom:66px;width:86px;height:86px;border-radius:50%;z-index:4;
+      background:var(--primary);border:3px solid var(--accent);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .arrow-btn svg{width:34px;height:34px;color:var(--on-primary);}
+  </style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <!-- Cover -->
+    <section class="slide cover" data-cg-slide-type="text">
+      <div class="texture"></div>
+      <div class="cover-glow"></div>
+
+      <div class="foot-top">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">Coldstart</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">01 / 06</div>
+      </div>
+
+      <div class="kicker-chip" style="top:236px;"><span>5 Reasons To Start Cold</span></div>
+
+      <div class="tn-title" style="top:312px;"><h1 data-title="true">Why cold mornings build a sharper mind</h1></div>
+      <div class="tn-tagline" style="top:786px;"><div data-tagline="true">One deliberate plunge. A calmer, sharper day.</div></div>
+
+      <div class="cover-photo">
+        <img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="Flat vector illustration of a woman stepping into a wooden cold-plunge barrel at sunrise, one foot lifting over the rim, visible breath in the cold morning air, minimal flat geometric shapes, warm low sunlight, limited palette of deep teal, warm orange and cream, clean editorial poster illustration, no text" src="assets/images/cold-start-ritual/slide-01.png">
+      </div>
+
+      <div class="arrow-btn" aria-hidden="true">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-primary);--cg-stroke:var(--on-primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </div>
+    </section>
+
+    <!-- Reason 1 -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="texture"></div>
+      <div class="foot-top">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">Coldstart</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">02 / 06</div>
+      </div>
+
+      <div class="kicker-chip" style="top:392px;"><span>Instant Alertness</span></div>
+      <div class="num-tab"><span>1</span></div>
+      <div class="tn-title"><h1 data-title="true">Shocks your system fully awake</h1></div>
+
+      <div class="tn-message"><p data-message="true">The sudden cold spikes norepinephrine within seconds, so your brain snaps out of morning fog faster than caffeine ever could.</p></div>
+
+      <div class="title-rule" aria-hidden="true"></div>
+      <div class="cta-row">
+        <div class="cta-label">Ready to start?</div>
+        <div class="cta-pill">
+          <svg data-cg-svg="" data-cg-preserve="" class="search" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><circle cx="11" cy="11" r="7" stroke="var(--cg-stroke)" stroke-width="2.2"></circle><path d="M20 20L16.5 16.5" stroke="var(--cg-stroke)" stroke-width="2.2" stroke-linecap="round"></path></svg>
+          <span data-cta="true">coldstart.co/day-01</span>
+          <svg data-cg-svg="" data-cg-preserve="" class="cursor" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 3L18 12.5L12.2 13.6L15.5 20L12.8 21.3L9.5 15L5 18.5V3Z"></path></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reason 2 -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="texture"></div>
+      <div class="foot-top">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">Coldstart</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">03 / 06</div>
+      </div>
+
+      <div class="kicker-chip" style="top:392px;"><span>Stress Resilience</span></div>
+      <div class="num-tab"><span>2</span></div>
+      <div class="tn-title"><h1 data-title="true">Trains you to stay calm under pressure</h1></div>
+
+      <div class="tn-message"><p data-message="true">Choosing to breathe through discomfort every morning rewires how your nervous system reacts when the day actually gets hard.</p></div>
+
+      <div class="title-rule" aria-hidden="true"></div>
+      <div class="cta-row">
+        <div class="cta-label">Ready to start?</div>
+        <div class="cta-pill">
+          <svg data-cg-svg="" data-cg-preserve="" class="search" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><circle cx="11" cy="11" r="7" stroke="var(--cg-stroke)" stroke-width="2.2"></circle><path d="M20 20L16.5 16.5" stroke="var(--cg-stroke)" stroke-width="2.2" stroke-linecap="round"></path></svg>
+          <span data-cta="true">coldstart.co/day-02</span>
+          <svg data-cg-svg="" data-cg-preserve="" class="cursor" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 3L18 12.5L12.2 13.6L15.5 20L12.8 21.3L9.5 15L5 18.5V3Z"></path></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reason 3 -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="texture"></div>
+      <div class="foot-top">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">Coldstart</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">04 / 06</div>
+      </div>
+
+      <div class="kicker-chip" style="top:392px;"><span>Faster Recovery</span></div>
+      <div class="num-tab"><span>3</span></div>
+      <div class="tn-title"><h1 data-title="true">Speeds up muscle recovery overnight</h1></div>
+
+      <div class="tn-message"><p data-message="true">Cold exposure narrows blood vessels and flushes out inflammation, helping sore muscles bounce back well before your next session.</p></div>
+
+      <div class="title-rule" aria-hidden="true"></div>
+      <div class="cta-row">
+        <div class="cta-label">Ready to start?</div>
+        <div class="cta-pill">
+          <svg data-cg-svg="" data-cg-preserve="" class="search" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><circle cx="11" cy="11" r="7" stroke="var(--cg-stroke)" stroke-width="2.2"></circle><path d="M20 20L16.5 16.5" stroke="var(--cg-stroke)" stroke-width="2.2" stroke-linecap="round"></path></svg>
+          <span data-cta="true">coldstart.co/day-03</span>
+          <svg data-cg-svg="" data-cg-preserve="" class="cursor" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 3L18 12.5L12.2 13.6L15.5 20L12.8 21.3L9.5 15L5 18.5V3Z"></path></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reason 4 -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="texture"></div>
+      <div class="foot-top">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">Coldstart</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">05 / 06</div>
+      </div>
+
+      <div class="kicker-chip" style="top:392px;"><span>Sharper Focus</span></div>
+      <div class="num-tab"><span>4</span></div>
+      <div class="tn-title"><h1 data-title="true">Keeps your focus sharp for hours</h1></div>
+
+      <div class="tn-message"><p data-message="true">The dopamine surge from a cold plunge can stay elevated for hours, giving you a longer, steadier window of deep concentration.</p></div>
+
+      <div class="title-rule" aria-hidden="true"></div>
+      <div class="cta-row">
+        <div class="cta-label">Ready to start?</div>
+        <div class="cta-pill">
+          <svg data-cg-svg="" data-cg-preserve="" class="search" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><circle cx="11" cy="11" r="7" stroke="var(--cg-stroke)" stroke-width="2.2"></circle><path d="M20 20L16.5 16.5" stroke="var(--cg-stroke)" stroke-width="2.2" stroke-linecap="round"></path></svg>
+          <span data-cta="true">coldstart.co/day-04</span>
+          <svg data-cg-svg="" data-cg-preserve="" class="cursor" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 3L18 12.5L12.2 13.6L15.5 20L12.8 21.3L9.5 15L5 18.5V3Z"></path></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reason 5 -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="texture"></div>
+      <div class="foot-top">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">Coldstart</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">06 / 06</div>
+      </div>
+
+      <div class="kicker-chip" style="top:392px;"><span>A Habit That Sticks</span></div>
+      <div class="num-tab"><span>5</span></div>
+      <div class="tn-title"><h1 data-title="true">Builds a routine you actually keep</h1></div>
+
+      <div class="tn-message"><p data-message="true">Because the reward is immediate, cold mornings build the kind of consistency that willpower alone almost never manages.</p></div>
+
+      <div class="title-rule" aria-hidden="true"></div>
+      <div class="cta-row">
+        <div class="cta-label">Ready to start?</div>
+        <div class="cta-pill">
+          <svg data-cg-svg="" data-cg-preserve="" class="search" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><circle cx="11" cy="11" r="7" stroke="var(--cg-stroke)" stroke-width="2.2"></circle><path d="M20 20L16.5 16.5" stroke="var(--cg-stroke)" stroke-width="2.2" stroke-linecap="round"></path></svg>
+          <span data-cta="true">coldstart.co/day-05</span>
+          <svg data-cg-svg="" data-cg-preserve="" class="cursor" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 3L18 12.5L12.2 13.6L15.5 20L12.8 21.3L9.5 15L5 18.5V3Z"></path></svg>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+
+</body></html>

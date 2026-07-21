@@ -1,0 +1,211 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@400;600&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#1E4FC4);
+  --secondary:var(--brand-secondary,#241812);
+  --accent:var(--brand-accent,#1054ab);
+  --highlight:var(--brand-accent,#F3E9D2);
+  --bg:var(--brand-bg,#241812);
+  --surface:var(--brand-surface,#F2EECF);
+  --text-high:var(--brand-ink,var(--brand-text,#241812));
+  --text-low:var(--brand-text-muted,rgba(36,24,18,.7));
+  --border:var(--brand-border,rgba(36,24,18,.16));
+  --on-fill:var(--brand-on-accent,#F3E9D2);
+  --on-primary:var(--brand-on-primary,#F3E9D2);
+}
+
+*{box-sizing:border-box;}
+
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+.slide{
+  width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+  background:#241812;
+  font-family:'Playfair Display',serif;
+}
+
+.photo{position:absolute;inset:0;z-index:0;}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;background:#241812;}
+
+.scrim-top{position:absolute;left:0;right:0;top:0;height:520px;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(36,24,18,.72) 0%,rgba(36,24,18,.30) 60%,transparent 100%);}
+.scrim-bot{position:absolute;left:0;right:0;bottom:0;height:560px;z-index:1;pointer-events:none;
+  background:linear-gradient(0deg,rgba(11,7,4,.82) 0%,rgba(11,7,4,.30) 55%,transparent 100%);}
+
+/* daisy */
+.daisy{position:absolute;z-index:4;pointer-events:none;}
+.daisy svg{width:100%;height:100%;display:block;color:var(--highlight);}
+
+/* brand chrome */
+.handle{position:absolute;top:38px;left:0;right:0;z-index:5;text-align:center;}
+.handle .brand-word{font-family:'Dancing Script',cursive;font-weight:600;font-size:30px;color:var(--highlight);white-space:nowrap;}
+.foot{position:absolute;left:64px;right:64px;bottom:36px;z-index:6;display:flex;align-items:center;justify-content:space-between;}
+.lockup{display:inline-flex;align-items:center;gap:12px;}
+.brand-mark{height:28px;width:auto;max-width:110px;object-fit:contain;display:block;}
+.brand-word-f{font-family:'Dancing Script',cursive;font-weight:600;font-size:24px;color:var(--highlight);white-space:nowrap;}
+.cg-slide-counter{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;letter-spacing:.14em;color:var(--highlight);}
+
+.serif{font-family:'Playfair Display',serif;font-weight:700;color:var(--highlight);line-height:1.02;}
+.serif .it{font-style:italic;}
+.script{font-family:'Dancing Script',cursive;font-weight:600;color:var(--highlight);line-height:1.28;}
+
+.tw{position:absolute;}
+.tw *{margin:0;}
+
+.blue-border{position:absolute;inset:0;z-index:5;border:34px solid var(--accent);pointer-events:none;}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 : cover -->
+  <section class="slide" data-cg-slide-type="cover">
+    <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" src="assets/images/the-slow-morning/slide-01.png"></div>
+    <div class="scrim-top" aria-hidden="true"></div>
+    <div class="scrim-bot" aria-hidden="true"></div>
+
+    <div class="handle"><span class="brand-word">YOURBRAND</span></div>
+
+    <div class="tw" style="left:64px;top:120px;width:520px;height:170px;">
+      <h1 class="serif" data-title="true" style="font-size:120px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:8px;">Things</h1>
+    </div>
+    <div class="tw" style="left:120px;top:230px;width:820px;height:170px;">
+      <h1 class="serif" data-title="true" style="font-size:120px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:8px;">I’ve <span class="it">learned</span></h1>
+    </div>
+    <div class="tw" style="left:200px;top:340px;width:700px;height:170px;">
+      <h1 class="serif" data-title="true" style="font-size:120px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:8px;">in my 20s</h1>
+    </div>
+    <div class="tw" style="left:250px;top:500px;width:600px;height:150px;text-align:center;">
+      <p class="script" data-message="true" style="font-size:52px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:8px;">No one has it figured out, and that’s okay.</p>
+    </div>
+
+    <div class="daisy" style="left:770px;top:150px;width:44px;height:44px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23241812"></circle></svg></div>
+    <div class="daisy" style="left:70px;top:430px;width:38px;height:38px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23241812"></circle></svg></div>
+    <div class="daisy" style="left:840px;top:460px;width:40px;height:40px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23241812"></circle></svg></div>
+    <div class="daisy" style="left:340px;top:830px;width:42px;height:42px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23241812"></circle></svg></div>
+
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word-f">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">01 / 05</div>
+    </div>
+  </section>
+
+  <!-- Slide 2 : point, blue border -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" src="assets/images/the-slow-morning/slide-02.png"></div>
+    <div class="scrim-bot" aria-hidden="true"></div>
+    <div class="blue-border" aria-hidden="true"></div>
+
+    <div class="tw" style="left:120px;top:840px;width:850px;height:320px;text-align:center;">
+      <h1 class="serif" data-title="true" style="font-size:80px;line-height:1.02;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:10px;">Stop shrinking to make others comfortable.</h1>
+      <p class="script" data-message="true" style="font-size:40px;margin-top:24px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:8px;">You don’t have to dim your light for people who refuse to see you shine.</p>
+    </div>
+
+    <div class="daisy" style="left:120px;top:230px;width:40px;height:40px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%231054ab"></circle></svg></div>
+    <div class="daisy" style="left:120px;top:640px;width:38px;height:38px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%231054ab"></circle></svg></div>
+    <div class="daisy" style="left:870px;top:620px;width:40px;height:40px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%231054ab"></circle></svg></div>
+
+    <div class="foot" style="z-index:6;">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word-f">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">02 / 05</div>
+    </div>
+  </section>
+
+  <!-- Slide 3 : staggered indented -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" src="assets/images/the-slow-morning/slide-03.png"></div>
+    <div class="scrim-top" aria-hidden="true"></div>
+    <div class="scrim-bot" aria-hidden="true"></div>
+
+    <div class="tw" style="left:64px;top:230px;width:420px;height:130px;">
+      <h1 class="serif" data-title="true" style="font-size:88px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:8px;">Romanticize</h1>
+    </div>
+    <div class="tw" style="left:250px;top:350px;width:420px;height:130px;">
+      <h1 class="serif" data-title="true" style="font-size:88px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:8px;">the</h1>
+    </div>
+    <div class="tw" style="left:390px;top:470px;width:420px;height:130px;">
+      <h1 class="serif" data-title="true" style="font-size:88px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:8px;">tiny</h1>
+    </div>
+    <div class="tw" style="left:520px;top:590px;width:420px;height:130px;">
+      <h1 class="serif" data-title="true" style="font-size:88px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:8px;">wins.</h1>
+    </div>
+    <div class="tw" style="left:64px;top:790px;width:560px;height:180px;">
+      <p class="script" data-message="true" style="font-size:40px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:8px;">Survived the week? Laundry done? That’s growth &amp; power. That’s the main character arc.</p>
+    </div>
+
+    <div class="daisy" style="left:80px;top:140px;width:40px;height:40px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23241812"></circle></svg></div>
+    <div class="daisy" style="left:900px;top:170px;width:40px;height:40px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23241812"></circle></svg></div>
+    <div class="daisy" style="left:120px;top:470px;width:34px;height:34px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23241812"></circle></svg></div>
+    <div class="daisy" style="left:850px;top:520px;width:38px;height:38px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23241812"></circle></svg></div>
+    <div class="daisy" style="left:90px;top:960px;width:40px;height:40px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23241812"></circle></svg></div>
+
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word-f">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">03 / 05</div>
+    </div>
+  </section>
+
+  <!-- Slide 4 : twin photo + cream footer -->
+  <section class="slide" data-cg-slide-type="text" style="background:var(--surface);">
+    <div class="photo" style="inset:0 0 460px 0;"><img data-image="true" data-image-size="1024x1024" alt="" src="assets/images/the-slow-morning/slide-04.png"></div>
+
+    <div style="position:absolute;left:0;right:0;bottom:0;height:560px;z-index:2;background:var(--surface);border-radius:50% 50% 0 0 / 120px 120px 0 0;"></div>
+
+    <div class="tw" style="left:80px;top:940px;width:920px;height:210px;z-index:3;text-align:center;">
+      <h1 class="serif it" data-title="true" style="font-size:80px;line-height:1.02;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:10px;">You can outgrow people and still love them.</h1>
+    </div>
+    <div class="tw" style="left:130px;top:1160px;width:820px;height:130px;z-index:3;text-align:center;">
+      <p class="script" data-message="true" style="font-size:38px;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:8px;">Distance doesn’t mean drama. It just means you’re growing in different directions.</p>
+    </div>
+
+    <div class="daisy" style="left:490px;top:230px;width:42px;height:42px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23cbb896"></circle></svg></div>
+    <div class="daisy" style="left:250px;top:850px;width:44px;height:44px;z-index:3;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23241812"></circle></svg></div>
+
+    <div class="foot" style="z-index:4;">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word-f" style="color:var(--text-high);">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true" style="color:var(--text-high);">04 / 05</div>
+    </div>
+  </section>
+
+  <!-- Slide 5 : framed chalkboard, blue border -->
+  <section class="slide" data-cg-slide-type="closer" style="background:var(--accent);">
+    <div class="photo" style="inset:100px 260px 100px 100px;border:22px solid #6b4a2b;border-radius:8px;overflow:hidden;z-index:2;">
+      <img data-image="true" data-image-size="1024x1536" alt="" src="assets/images/the-slow-morning/slide-05.png">
+    </div>
+    <div class="blue-border" aria-hidden="true"></div>
+
+    <div class="tw" style="left:150px;top:180px;width:400px;height:290px;z-index:3;">
+      <p class="script" data-message="true" style="font-size:38px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;overflow:hidden;padding-bottom:8px;">Some days you’ll feel brand new, other days you’ll spiral over a 2018 memory. Keep showing up for yourself anyway.</p>
+    </div>
+
+    <div class="tw" style="left:150px;top:640px;width:400px;height:120px;z-index:3;">
+      <h1 class="serif" data-title="true" style="font-size:80px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:8px;">Healing</h1>
+    </div>
+    <div class="tw" style="left:250px;top:750px;width:400px;height:120px;z-index:3;">
+      <h1 class="serif" data-title="true" style="font-size:80px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:8px;">isn’t</h1>
+    </div>
+    <div class="tw" style="left:350px;top:860px;width:400px;height:120px;z-index:3;">
+      <h1 class="serif" data-title="true" style="font-size:80px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:8px;">linear.</h1>
+    </div>
+
+    <div class="daisy" style="left:340px;top:150px;width:36px;height:36px;z-index:4;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23241812"></circle></svg></div>
+    <div class="daisy" style="left:150px;top:560px;width:36px;height:36px;z-index:4;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23241812"></circle></svg></div>
+    <div class="daisy" style="left:420px;top:600px;width:34px;height:34px;z-index:4;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23241812"></circle></svg></div>
+    <div class="daisy" style="left:450px;top:1000px;width:36px;height:36px;z-index:4;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="5.5" r="3"></circle><circle cx="12" cy="18.5" r="3"></circle><circle cx="5.5" cy="12" r="3"></circle><circle cx="18.5" cy="12" r="3"></circle><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><circle cx="17" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="12" cy="12" r="2.6" fill="%23241812"></circle></svg></div>
+
+    <div class="foot" style="z-index:6;">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word-f">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">05 / 05</div>
+    </div>
+  </section>
+
+</div>
+
+</body></html>

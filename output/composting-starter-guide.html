@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
+      :root{
+        /* Brand role colors — only the accent trio (primary/secondary/accent)
+           is re-skinned by the brand preview. Canvas paper and body ink are
+           fixed literals so the editorial reading surface stays legible. */
+        --primary:var(--brand-primary,#2B2118);
+        --secondary:var(--brand-secondary,#6B4B37);
+        --accent:var(--brand-accent,#A9744F);
+        --highlight:var(--brand-accent,#A9744F);
+        --bg:var(--brand-bg,#FBF7F0);
+        --surface:var(--brand-surface,#F1E9DC);
+        --text-high:var(--brand-ink,#2B2118);
+        --text-low:var(--brand-text-muted,rgba(43,33,24,.6));
+        --border:var(--brand-border,rgba(43,33,24,.16));
+        --on-fill:var(--brand-on-accent,#FFFFFF);
+        --on-primary:var(--brand-on-primary,#FFFFFF);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);
+        font-family:'Montserrat',sans-serif;
+      }
+
+      /* ── left accent band — the deck's main brand device, present on every slide ── */
+      .band{position:absolute;left:0;top:0;bottom:0;width:330px;background:var(--accent);z-index:0;}
+
+      /* ── top-right bleed cluster: brand-filled circle + outline diamond ── */
+      .tr-circle{position:absolute;right:-90px;top:-90px;width:260px;height:260px;border-radius:50%;background:var(--accent);z-index:0;}
+      .tr-diamond{position:absolute;right:96px;top:56px;width:150px;height:150px;border:7px solid var(--secondary);transform:rotate(45deg);z-index:0;}
+      .tr-wave{position:absolute;right:6px;top:52px;width:120px;height:40px;z-index:1;}
+
+      /* ── bottom-left bleed cluster: cream circle + wave + dark diamond outline ── */
+      .bl-circle{position:absolute;left:-70px;bottom:150px;width:170px;height:170px;border-radius:50%;background:var(--surface);z-index:0;}
+      .bl-wave{position:absolute;left:6px;bottom:222px;width:120px;height:40px;z-index:1;}
+      .bl-diamond{position:absolute;left:78px;bottom:64px;width:66px;height:66px;border:5px solid var(--text-high);transform:rotate(45deg);z-index:0;}
+
+      /* ── photo card (cover only) ── */
+      .photo-card{position:absolute;left:60px;top:100px;width:640px;height:520px;border-radius:26px;overflow:hidden;z-index:1;box-shadow:0 24px 46px rgba(20,14,8,.28);}
+      .photo-card img{width:100%;height:100%;object-fit:cover;display:block;background:#cbb896;}
+
+      /* ── text nodes: each in its own absolutely-positioned wrapper ── */
+      .tn-eyebrow{position:absolute;left:400px;right:80px;z-index:2;}
+      .tn-eyebrow span{
+        display:block;font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;letter-spacing:.22em;
+        text-transform:uppercase;color:var(--secondary);
+      }
+
+      .tn-numeral{position:absolute;left:400px;z-index:2;}
+      .tn-numeral span{
+        display:block;font-family:'Playfair Display',serif;font-weight:700;font-size:92px;line-height:1;
+        color:var(--primary);padding-bottom:.12em;
+      }
+
+      .tn-title{position:absolute;left:400px;right:80px;z-index:2;}
+      .tn-title h1{
+        margin:0;font-family:'Playfair Display',serif;font-weight:700;font-size:78px;line-height:1.15;
+        color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;
+        overflow:hidden;padding-bottom:.18em;
+      }
+      .slide.cover .tn-title h1{font-size:66px;-webkit-line-clamp:2;}
+
+      .tn-message{position:absolute;left:400px;right:80px;z-index:2;}
+      .tn-message p{
+        margin:0;font-family:'Montserrat',sans-serif;font-weight:500;font-size:32px;line-height:1.55;
+        color:#3A5145;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;
+        overflow:hidden;padding-bottom:.15em;
+      }
+      .slide.cover .tn-message p{font-size:26px;}
+
+      .chevrons{position:absolute;left:400px;z-index:2;}
+      .spine{position:absolute;left:402px;width:4px;background:var(--accent);z-index:0;}
+
+      /* ── footer: brand lockup + folio counter ── */
+      .foot{position:absolute;left:400px;right:80px;bottom:56px;z-index:2;display:flex;align-items:center;justify-content:space-between;}
+      .lockup{display:inline-flex;align-items:center;gap:14px;}
+      .brand-mark-clip{flex:none;height:32px;display:flex;align-items:center;}
+      .brand-mark{height:32px;width:auto;max-width:110px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Montserrat',sans-serif;font-weight:700;font-size:24px;letter-spacing:.03em;color:var(--primary);white-space:nowrap;}
+      .cg-slide-counter{font-family:'Montserrat',sans-serif;font-weight:600;font-size:20px;letter-spacing:.14em;color:var(--text-low);}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Cover -->
+      <section class="slide cover" data-cg-slide-type="text">
+        <div class="band" aria-hidden="true"></div>
+        <div class="tr-circle" aria-hidden="true"></div>
+        <div class="tr-diamond" aria-hidden="true"></div>
+        <svg class="tr-wave" data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 40" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <path d="M2 20c8-14 16-14 24 0s16 14 24 0 16-14 24 0 16 14 24 0" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round" opacity=".85"></path>
+        </svg>
+
+        <div class="photo-card">
+          <img data-image="true" data-image-size="1024x1024" data-image-prompt="Close-up overhead shot of a wooden compost bin filled with kitchen scraps, dried autumn leaves and rich dark crumbly soil, warm natural light, minimalist editorial styling, earthy brown and green tones" alt="" src="assets/images/composting-starter-guide/slide-01.png">
+        </div>
+
+        <div class="bl-circle" aria-hidden="true"></div>
+        <svg class="bl-wave" data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 40" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <path d="M2 20c8-14 16-14 24 0s16 14 24 0 16-14 24 0 16 14 24 0" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+        </svg>
+        <div class="bl-diamond" aria-hidden="true"></div>
+
+        <div class="tn-title" style="top:660px;"><h1 data-title="true">Turn Scraps Into Garden Gold</h1></div>
+        <div class="tn-message" style="top:864px;"><p data-message="true">A simple weekly rhythm turns food scraps into rich, dark soil.</p></div>
+
+        <svg class="chevrons" style="top:1100px;width:220px;height:70px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" data-cg-svg="" data-cg-preserve="" viewBox="0 0 220 70" aria-hidden="true" focusable="false">
+          <path d="M4 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M56 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M108 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M160 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">GROUNDWORK</span></div>
+          <div class="cg-slide-counter" data-counter="true">01 / 06</div>
+        </div>
+      </section>
+
+      <!-- Tip 01 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="band" aria-hidden="true"></div>
+        <div class="tr-circle" aria-hidden="true"></div>
+        <div class="tr-diamond" aria-hidden="true"></div>
+        <svg class="tr-wave" data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 40" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <path d="M2 20c8-14 16-14 24 0s16 14 24 0 16-14 24 0 16 14 24 0" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round" opacity=".85"></path>
+        </svg>
+        <div class="bl-circle" aria-hidden="true"></div>
+        <svg class="bl-wave" data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 40" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <path d="M2 20c8-14 16-14 24 0s16 14 24 0 16-14 24 0 16 14 24 0" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+        </svg>
+        <div class="bl-diamond" aria-hidden="true"></div>
+
+        <div class="tn-numeral" style="top:220px;"><span>01</span></div>
+        <div class="tn-title" style="top:340px;"><h1 data-title="true">Choose Your Bin</h1></div>
+        <div class="tn-message" style="top:580px;"><p data-message="true">Pick a tumbler, wire bin, or open pile — whatever fits your space.</p></div>
+        <svg class="chevrons" style="top:790px;width:260px;height:82px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" data-cg-svg="" data-cg-preserve="" viewBox="0 0 220 70" aria-hidden="true" focusable="false">
+          <path d="M4 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M56 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M108 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M160 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <div class="spine" style="top:920px;height:320px;" aria-hidden="true"></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">GROUNDWORK</span></div>
+          <div class="cg-slide-counter" data-counter="true">02 / 06</div>
+        </div>
+      </section>
+
+      <!-- Tip 02 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="band" aria-hidden="true"></div>
+        <div class="tr-circle" aria-hidden="true"></div>
+        <div class="tr-diamond" aria-hidden="true"></div>
+        <svg class="tr-wave" data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 40" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <path d="M2 20c8-14 16-14 24 0s16 14 24 0 16-14 24 0 16 14 24 0" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round" opacity=".85"></path>
+        </svg>
+        <div class="bl-circle" aria-hidden="true"></div>
+        <svg class="bl-wave" data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 40" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <path d="M2 20c8-14 16-14 24 0s16 14 24 0 16-14 24 0 16 14 24 0" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+        </svg>
+        <div class="bl-diamond" aria-hidden="true"></div>
+
+        <div class="tn-numeral" style="top:220px;"><span>02</span></div>
+        <div class="tn-title" style="top:340px;"><h1 data-title="true">Balance the Mix</h1></div>
+        <div class="tn-message" style="top:580px;"><p data-message="true">Layer fresh scraps with dry leaves for a mix that breaks down clean.</p></div>
+        <svg class="chevrons" style="top:790px;width:260px;height:82px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" data-cg-svg="" data-cg-preserve="" viewBox="0 0 220 70" aria-hidden="true" focusable="false">
+          <path d="M4 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M56 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M108 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M160 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <div class="spine" style="top:920px;height:320px;" aria-hidden="true"></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">GROUNDWORK</span></div>
+          <div class="cg-slide-counter" data-counter="true">03 / 06</div>
+        </div>
+      </section>
+
+      <!-- Tip 03 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="band" aria-hidden="true"></div>
+        <div class="tr-circle" aria-hidden="true"></div>
+        <div class="tr-diamond" aria-hidden="true"></div>
+        <svg class="tr-wave" data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 40" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <path d="M2 20c8-14 16-14 24 0s16 14 24 0 16-14 24 0 16 14 24 0" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round" opacity=".85"></path>
+        </svg>
+        <div class="bl-circle" aria-hidden="true"></div>
+        <svg class="bl-wave" data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 40" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <path d="M2 20c8-14 16-14 24 0s16 14 24 0 16-14 24 0 16 14 24 0" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+        </svg>
+        <div class="bl-diamond" aria-hidden="true"></div>
+
+        <div class="tn-numeral" style="top:220px;"><span>03</span></div>
+        <div class="tn-title" style="top:340px;"><h1 data-title="true">Turn It Weekly</h1></div>
+        <div class="tn-message" style="top:580px;"><p data-message="true">A quick weekly stir feeds the pile oxygen and cuts the smell.</p></div>
+        <svg class="chevrons" style="top:790px;width:260px;height:82px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" data-cg-svg="" data-cg-preserve="" viewBox="0 0 220 70" aria-hidden="true" focusable="false">
+          <path d="M4 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M56 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M108 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M160 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <div class="spine" style="top:920px;height:320px;" aria-hidden="true"></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">GROUNDWORK</span></div>
+          <div class="cg-slide-counter" data-counter="true">04 / 06</div>
+        </div>
+      </section>
+
+      <!-- Tip 04 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="band" aria-hidden="true"></div>
+        <div class="tr-circle" aria-hidden="true"></div>
+        <div class="tr-diamond" aria-hidden="true"></div>
+        <svg class="tr-wave" data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 40" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <path d="M2 20c8-14 16-14 24 0s16 14 24 0 16-14 24 0 16 14 24 0" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round" opacity=".85"></path>
+        </svg>
+        <div class="bl-circle" aria-hidden="true"></div>
+        <svg class="bl-wave" data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 40" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <path d="M2 20c8-14 16-14 24 0s16 14 24 0 16-14 24 0 16 14 24 0" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+        </svg>
+        <div class="bl-diamond" aria-hidden="true"></div>
+
+        <div class="tn-numeral" style="top:220px;"><span>04</span></div>
+        <div class="tn-title" style="top:340px;"><h1 data-title="true">Keep It Just Damp</h1></div>
+        <div class="tn-message" style="top:580px;"><p data-message="true">Aim for the texture of a wrung-out sponge, never soggy or dry.</p></div>
+        <svg class="chevrons" style="top:790px;width:260px;height:82px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" data-cg-svg="" data-cg-preserve="" viewBox="0 0 220 70" aria-hidden="true" focusable="false">
+          <path d="M4 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M56 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M108 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M160 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <div class="spine" style="top:920px;height:320px;" aria-hidden="true"></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">GROUNDWORK</span></div>
+          <div class="cg-slide-counter" data-counter="true">05 / 06</div>
+        </div>
+      </section>
+
+      <!-- Tip 05 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="band" aria-hidden="true"></div>
+        <div class="tr-circle" aria-hidden="true"></div>
+        <div class="tr-diamond" aria-hidden="true"></div>
+        <svg class="tr-wave" data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 40" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <path d="M2 20c8-14 16-14 24 0s16 14 24 0 16-14 24 0 16 14 24 0" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round" opacity=".85"></path>
+        </svg>
+        <div class="bl-circle" aria-hidden="true"></div>
+        <svg class="bl-wave" data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 40" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <path d="M2 20c8-14 16-14 24 0s16 14 24 0 16-14 24 0 16 14 24 0" fill="none" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+        </svg>
+        <div class="bl-diamond" aria-hidden="true"></div>
+
+        <div class="tn-numeral" style="top:220px;"><span>05</span></div>
+        <div class="tn-title" style="top:340px;"><h1 data-title="true">Harvest the Dark Crumbs</h1></div>
+        <div class="tn-message" style="top:580px;"><p data-message="true">When it looks and smells like rich soil, it's ready for the garden.</p></div>
+        <svg class="chevrons" style="top:790px;width:260px;height:82px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" data-cg-svg="" data-cg-preserve="" viewBox="0 0 220 70" aria-hidden="true" focusable="false">
+          <path d="M4 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M56 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M108 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M160 6l24 29-24 29" fill="none" stroke="var(--cg-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <div class="spine" style="top:920px;height:320px;" aria-hidden="true"></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">GROUNDWORK</span></div>
+          <div class="cg-slide-counter" data-counter="true">06 / 06</div>
+        </div>
+      </section>
+
+    </div>
+  
+
+</body></html>

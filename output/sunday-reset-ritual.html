@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,700&family=Work+Sans:wght@600;700&display=swap');
+
+  :root{
+    /* Nine role tokens. Canvas (--bg) and ink (--text-*) stay fixed literals for
+       legibility; only --primary/--secondary/--accent move under a brand skin.
+       --primary carries branded TEXT (kicker, big display title) and stays dark
+       by construction. --accent is reserved for FILLED surfaces only: the numeral
+       tiles, the washi-tape strips, the vertical rules and the footer counter pill
+       — never used as text colour on the pale canvas. */
+    --primary:var(--brand-primary,#7a4a23);
+    --secondary:var(--brand-secondary,#5c3a1e);
+    --accent:var(--brand-accent,#8a5a2a);
+    --highlight:var(--brand-accent,#8a5a2a);
+    --bg:var(--brand-bg,#fefaf6);
+    --surface:var(--brand-surface,#f5ede1);
+    --text-high:var(--brand-ink,#4f4740);
+    --text-low:var(--brand-text-muted,rgba(79,71,64,.64));
+    --border:var(--brand-border,rgba(79,71,64,.16));
+    --on-fill:var(--brand-on-accent,#ffffff);
+    --on-primary:var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);font-family:'Playfair Display',serif;
+  }
+
+  /* ── framing rules ── */
+  .rule-v{position:absolute;width:2px;background:var(--accent);top:150px;height:900px;z-index:1;}
+  .rule-v.l{left:56px;}
+  .rule-v.r{left:1022px;}
+
+  /* ── kickers (branded text — dark --primary, never accent) ── */
+  .kicker{position:absolute;z-index:3;top:60px;width:400px;}
+  .kicker p{margin:0;font-family:'Playfair Display',serif;font-weight:700;font-style:normal;
+    font-size:34px;letter-spacing:.01em;line-height:1.15;color:var(--primary);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:6px;}
+  .kicker.l{left:90px;}
+  .kicker.r{left:590px;}
+  .kicker.r p{text-align:right;}
+
+  /* ── numeral tiles: filled accent surface, on-accent numeral text ── */
+  .numtile{position:absolute;width:150px;height:150px;border-radius:22px;background:var(--accent);
+    box-shadow:0 12px 26px rgba(50,32,12,.24);display:flex;align-items:center;justify-content:center;z-index:3;}
+  .numtile span{font-family:'Playfair Display',serif;font-weight:700;font-size:80px;line-height:1;color:var(--on-fill);}
+
+  /* ── item headings: plain ink, not branded ── */
+  .item-heading{position:absolute;width:340px;z-index:3;top:330px;}
+  .item-heading h2{margin:0;font-family:'Playfair Display',serif;font-weight:700;font-style:normal;
+    font-size:52px;line-height:1.12;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:10px;}
+  .item-heading.r h2{text-align:right;}
+
+  /* ── polaroid photo ── */
+  .polaroid{position:absolute;z-index:2;}
+  .polaroid .frame{background:var(--surface);padding:20px 20px 74px 20px;
+    box-shadow:0 30px 60px rgba(50,32,14,.30);border:1px solid rgba(50,32,14,.10);}
+  .polaroid .frame img{display:block;width:100%;height:100%;object-fit:cover;border:1px solid rgba(40,26,12,.25);}
+  .tape{position:absolute;background:var(--accent);opacity:.92;z-index:3;
+    box-shadow:0 6px 14px rgba(0,0,0,.16);}
+
+  /* ── decorative scribble marks (inline SVG, <250px, accent) ── */
+  .scribble{position:absolute;z-index:3;color:var(--accent);}
+
+  /* ── cover title / subtitle: branded (--primary), italic display serif ── */
+  .title-wrap{position:absolute;left:70px;top:60px;width:940px;z-index:3;}
+  .title-wrap h1{margin:0;font-family:'Playfair Display',serif;font-weight:700;font-style:italic;
+    font-size:84px;line-height:1.06;color:var(--primary);text-align:center;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:12px;}
+
+  .subtitle-wrap{position:absolute;left:90px;top:985px;width:900px;z-index:3;}
+  .subtitle-wrap h2{margin:0;font-family:'Playfair Display',serif;font-weight:700;font-style:italic;
+    font-size:60px;line-height:1.1;color:var(--primary);text-align:center;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:12px;}
+
+  /* ── CTA (closing slide) ── */
+  .cta-wrap{position:absolute;left:90px;top:900px;width:900px;z-index:3;}
+  .cta-wrap h1{margin:0;font-family:'Playfair Display',serif;font-weight:700;font-style:italic;
+    font-size:76px;line-height:1.14;color:var(--primary);text-align:center;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:12px;}
+
+  /* ── caption (the one body <p> per slide) ── */
+  .cap{position:absolute;left:90px;width:900px;z-index:3;}
+  .cap p{margin:0;font-family:'Playfair Display',serif;font-weight:600;font-style:italic;
+    font-size:32px;line-height:1.38;color:var(--text-low);text-align:center;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:8px;}
+
+  /* ── footer: brand lockup + accent counter pill ── */
+  .foot{position:absolute;left:90px;right:90px;bottom:56px;z-index:4;
+    display:flex;align-items:center;justify-content:space-between;}
+  .lockup{display:inline-flex;align-items:center;gap:12px;}
+  .brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+  .brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Work Sans',sans-serif;font-weight:700;font-size:24px;letter-spacing:.05em;color:var(--text-high);}
+  .counter{background:var(--accent);color:var(--on-fill);font-family:'Work Sans',sans-serif;
+    font-weight:700;font-size:22px;letter-spacing:.04em;padding:11px 24px;border-radius:999px;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — cover -->
+  <section class="slide" data-cg-slide-type="cover">
+    <div class="title-wrap"><h1 data-title="true">The Sunday Reset Ritual</h1></div>
+
+    <div class="scribble" style="left:812px;top:378px;width:96px;height:96px;">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 100 100" width="96" height="96" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <path d="M50 6 L58 40 L92 46 L58 54 L50 90 L44 56 L10 50 L44 42 Z" fill="var(--cg-fill)" opacity="0.9"></path>
+      </svg>
+    </div>
+    <div class="scribble" style="left:126px;top:898px;width:74px;height:74px;">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 100 100" width="74" height="74" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <path d="M50 6 L58 40 L92 46 L58 54 L50 90 L44 56 L10 50 L44 42 Z" fill="var(--cg-fill)" opacity="0.9"></path>
+      </svg>
+    </div>
+
+    <div class="tape" style="left:252px;top:382px;width:250px;height:70px;transform:rotate(-7deg);"></div>
+    <div class="polaroid" style="left:260px;top:416px;width:560px;transform:rotate(-5deg);">
+      <div class="frame" style="width:560px;height:574px;">
+        <img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="Overhead flat lay of a cozy Sunday morning table with a steaming mug of tea, an open journal and a soft blanket, warm natural window light, muted cream tones" src="assets/images/sunday-reset-ritual/slide-01.png" style="width:520px;height:480px;">
+      </div>
+    </div>
+
+    <div class="subtitle-wrap" style="top:1022px;"><h2>Four Habits for a Calmer Week</h2></div>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">YOURBRAND</span>
+      </div>
+      <div class="counter" data-counter="true">01 / 04</div>
+    </div>
+  </section>
+
+  <!-- Slide 2 — habits 01 / 02 -->
+  <section class="slide" data-cg-slide-type="content">
+    <div class="rule-v l"></div>
+    <div class="rule-v r"></div>
+
+    <div class="kicker l"><p class="kicker">Sunday Reset</p></div>
+    <div class="kicker r"><p class="kicker">Slow Living</p></div>
+
+    <div class="numtile" style="left:90px;top:170px;"><span>01</span></div>
+    <div class="item-heading" style="left:90px;"><h2>Clear the Counters</h2></div>
+
+    <div class="numtile" style="left:840px;top:170px;"><span>02</span></div>
+    <div class="item-heading r" style="left:650px;width:340px;"><h2>Prep Three Meals</h2></div>
+
+    <div class="tape" style="left:190px;top:474px;width:240px;height:64px;transform:rotate(-6deg);"></div>
+    <div class="polaroid" style="left:210px;top:502px;width:660px;transform:rotate(3deg);">
+      <div class="frame" style="width:660px;height:666px;">
+        <img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="Hands wiping down a clean tidy kitchen counter with folded linen napkins and a small vase of flowers, warm morning light, soft cream palette" src="assets/images/sunday-reset-ritual/slide-02.png" style="width:620px;height:572px;">
+      </div>
+    </div>
+
+    <div class="cap" style="top:1194px;"><p data-message="true">A five-minute reset now buys you a calmer Monday morning.</p></div>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">YOURBRAND</span>
+      </div>
+      <div class="counter" data-counter="true">02 / 04</div>
+    </div>
+  </section>
+
+  <!-- Slide 3 — habits 03 / 04 -->
+  <section class="slide" data-cg-slide-type="content">
+    <div class="rule-v l"></div>
+    <div class="rule-v r"></div>
+
+    <div class="kicker l"><p class="kicker">Sunday Reset</p></div>
+    <div class="kicker r"><p class="kicker">Slow Living</p></div>
+
+    <div class="numtile" style="left:90px;top:170px;"><span>03</span></div>
+    <div class="item-heading" style="left:90px;"><h2>Write Next Week’s List</h2></div>
+
+    <div class="numtile" style="left:840px;top:170px;"><span>04</span></div>
+    <div class="item-heading r" style="left:650px;width:340px;"><h2>Unplug by Eight</h2></div>
+
+    <div class="tape" style="left:650px;top:474px;width:240px;height:64px;transform:rotate(6deg);"></div>
+    <div class="polaroid" style="left:210px;top:502px;width:660px;transform:rotate(-3deg);">
+      <div class="frame" style="width:660px;height:666px;">
+        <img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="Flat lay of an open journal, a pen and a lit candle on a wooden table in the evening, warm cozy amber light, soft shadows" src="assets/images/sunday-reset-ritual/slide-03.png" style="width:620px;height:572px;">
+      </div>
+    </div>
+
+    <div class="cap" style="top:1194px;"><p data-message="true">The best rituals ask for five quiet minutes, not five hours.</p></div>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">YOURBRAND</span>
+      </div>
+      <div class="counter" data-counter="true">03 / 04</div>
+    </div>
+  </section>
+
+  <!-- Slide 4 — closing / CTA -->
+  <section class="slide" data-cg-slide-type="cta">
+    <div class="rule-v l"></div>
+    <div class="rule-v r"></div>
+
+    <div class="kicker l"><p class="kicker">Sunday Reset</p></div>
+    <div class="kicker r"><p class="kicker">Slow Living</p></div>
+
+    <div class="scribble" style="left:824px;top:190px;width:76px;height:76px;">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 100 100" width="76" height="76" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <path d="M50 6 L58 40 L92 46 L58 54 L50 90 L44 56 L10 50 L44 42 Z" fill="var(--cg-fill)" opacity="0.9"></path>
+      </svg>
+    </div>
+
+    <div class="tape" style="left:252px;top:186px;width:250px;height:70px;transform:rotate(-6deg);"></div>
+    <div class="polaroid" style="left:260px;top:220px;width:560px;transform:rotate(-3deg);">
+      <div class="frame" style="width:560px;height:574px;">
+        <img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="Person relaxing on a sofa by a window with a cup of tea and a soft blanket, warm golden afternoon light, cozy interior, muted cream tones" src="assets/images/sunday-reset-ritual/slide-04.png" style="width:520px;height:480px;">
+      </div>
+    </div>
+
+    <div class="cta-wrap"><h1 data-cta="true">Begin Again Every Sunday</h1></div>
+    <div class="cap" style="top:1090px;"><p data-message="true">Save this ritual and give next Sunday a slower start.</p></div>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">YOURBRAND</span>
+      </div>
+      <div class="counter" data-counter="true">04 / 04</div>
+    </div>
+  </section>
+
+</div>
+
+
+</body></html>

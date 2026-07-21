@@ -1,0 +1,215 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Arimo:wght@400;700&display=swap');
+
+      :root{
+        /* Brand role colors — the brand preview re-skins ONLY --primary/--secondary/
+           --accent(/--highlight, crosswalked to accent). Canvas photo, the cream
+           caption panel and ink are fixed literals so the deck stays AA-legible
+           under any palette. */
+        --primary:var(--brand-primary,#241a12);
+        --secondary:var(--brand-secondary,#6b4a2f);
+        --accent:var(--brand-accent,#b5601c);
+        --highlight:var(--brand-accent,#b5601c);
+        --bg:var(--brand-bg,#f5efe4);
+        --surface:var(--brand-surface,var(--brand-bg-alt,#ece0cf));
+        --text-high:var(--brand-ink,var(--brand-text,#241a12));
+        --text-low:var(--brand-text-muted,#5b4a3a);
+        --border:var(--brand-border,rgba(36,26,18,.16));
+        --on-fill:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:#3b2f22; /* fallback tone while a photo loads */
+        font-family:'Arimo',sans-serif;
+      }
+
+      /* ── full-bleed content photo ── */
+      .photo{position:absolute;inset:0;z-index:0;}
+      .photo img{width:100%;height:100%;object-fit:cover;display:block;background:#3b2f22;}
+
+      /* ── the flat cream caption panel — fixed literal, never re-skinned, crisp
+         flush-edge rectangle straight over the photo (no radius, no shadow) ── */
+      .panel{position:absolute;background:#EEE4D3;z-index:2;}
+      .panel--cover{right:0;bottom:0;width:620px;height:560px;}
+      .panel--bottom{left:0;right:0;bottom:0;height:420px;}
+      .panel--bottom.panel--cta{height:500px;}
+      .panel--top{left:0;right:0;top:0;height:420px;}
+
+      /* ── the accent swatch chip — a small filled square straddling the panel's
+         edge, the recurring brand device carried from slide to slide ── */
+      .chip{position:absolute;width:140px;height:140px;background:var(--accent);z-index:4;display:flex;align-items:center;justify-content:center;}
+      .chip svg{width:66px;height:66px;}
+      .chip--cover{left:460px;top:630px;}
+      .chip--bottom{left:80px;top:770px;}
+      .chip--bottom.chip--cta{top:690px;}
+      .chip--top{left:80px;top:440px;}
+
+      /* ── brand lockup row + folio counter, isolated absolute wrapper ── */
+      .lockup-row{position:absolute;display:flex;align-items:center;justify-content:space-between;z-index:3;}
+      .panel--cover .lockup-row{top:48px;left:56px;right:56px;}
+      .panel--bottom .lockup-row,.panel--top .lockup-row{top:44px;left:80px;right:80px;}
+
+      .lockup{display:inline-flex;align-items:center;gap:14px;}
+      .brand-mark-clip{flex:none;height:26px;display:flex;align-items:center;}
+      .brand-mark{height:26px;width:auto;max-width:110px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Arimo',sans-serif;font-weight:700;font-size:20px;letter-spacing:.05em;color:var(--primary);white-space:nowrap;text-transform:uppercase;}
+      .folio{font-family:'Arimo',sans-serif;font-weight:700;font-size:19px;letter-spacing:.08em;color:var(--text-low);white-space:nowrap;}
+
+      /* ── thin accent rule — a second, smaller brand-bound device per slide.
+         Sibling of .panel (not nested), so positions are canvas-absolute
+         (relative to .slide), matching each panel variant's own top edge. ── */
+      .rule{position:absolute;width:64px;height:5px;background:var(--highlight);z-index:3;}
+      .rule--cover{top:894px;left:516px;}
+      .rule--bottom{top:1026px;left:80px;}
+      .rule--bottom.rule--cta{top:946px;left:80px;}
+      .rule--top{top:96px;left:80px;}
+
+      /* ── seam — a bolder accent strip along the panel's photo-facing edge;
+         the deck's primary brand-recolor surface (visible on every slide). ── */
+      .seam{position:absolute;height:20px;background:var(--accent);z-index:3;}
+      .seam--cover{top:780px;left:460px;width:620px;}
+      .seam--bottom{top:920px;left:0;width:1080px;}
+      .seam--bottom.seam--cta{top:840px;}
+      .seam--top{top:410px;left:0;width:1080px;}
+
+      /* ── isolated positioned wrapper PER text node ── */
+      .tn-title{position:absolute;z-index:3;}
+      .tn-title h1{
+        margin:0;font-family:'Archivo',sans-serif;font-weight:900;text-transform:uppercase;
+        letter-spacing:-.02em;color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;
+      }
+      .panel--cover .tn-title{top:128px;left:56px;right:48px;}
+      .panel--cover .tn-title h1{font-size:78px;line-height:1.0;-webkit-line-clamp:2;padding-bottom:.18em;}
+      .panel--bottom .tn-title,.panel--top .tn-title{top:120px;left:80px;right:80px;}
+      .panel--bottom .tn-title h1,.panel--top .tn-title h1{font-size:68px;line-height:1.04;-webkit-line-clamp:2;padding-bottom:.18em;}
+
+      .tn-message{position:absolute;z-index:3;}
+      .tn-message p{
+        margin:0;font-family:'Arimo',sans-serif;font-weight:400;font-size:27px;line-height:1.35;
+        color:var(--text-low);
+        display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.25em;
+      }
+      .panel--cover .tn-message{top:332px;left:56px;right:56px;}
+      .panel--cover .tn-message p{-webkit-line-clamp:2;}
+      .panel--bottom .tn-message,.panel--top .tn-message{top:288px;left:80px;right:80px;}
+      .panel--bottom .tn-message p,.panel--top .tn-message p{-webkit-line-clamp:1;}
+
+      /* ── CTA pill — accent fill + on-accent ink, slide 4 only ── */
+      .cta-btn{
+        position:absolute;z-index:3;left:80px;top:352px;display:inline-flex;align-items:center;
+        background:var(--accent);color:var(--on-fill);padding:18px 32px;border-radius:999px;
+        font-family:'Arimo',sans-serif;font-weight:700;font-size:22px;letter-spacing:.05em;text-transform:uppercase;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Cover -->
+      <section class="slide" data-cg-slide-type="cover">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="Warm candid overhead photo of hands browsing a wooden crate of vinyl records at home, soft afternoon light, muted warm tones, documentary style, no text" src="assets/images/vinyl-listening-club/slide-01.png"></div>
+
+        <div class="panel panel--cover">
+          <div class="lockup-row">
+            <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></span>
+            <span class="folio" data-counter="true">01 / 04</span>
+          </div>
+          <div class="tn-title"><h1 data-title="true">Come spin with us</h1></div>
+          <div class="tn-message"><p data-message="true">A record club for slow, unhurried evenings.</p></div>
+        </div>
+
+        <div class="seam seam--cover" aria-hidden="true"></div>
+        <div class="rule rule--cover"></div>
+        <div class="chip chip--cover" aria-hidden="true">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+            <circle cx="32" cy="32" r="23" stroke="var(--cg-stroke)" stroke-width="4"></circle>
+            <circle cx="32" cy="32" r="5" fill="var(--cg-fill)"></circle>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Slide 2 -->
+      <section class="slide" data-cg-slide-type="content">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="Candid photo of two friends sitting close together on a rug, one holding a vinyl record sleeve, warm indoor lamp light, mid-century living room, genuine conversation, documentary style, no text" src="assets/images/vinyl-listening-club/slide-02.png"></div>
+
+        <div class="panel panel--bottom">
+          <div class="lockup-row">
+            <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></span>
+            <span class="folio" data-counter="true">02 / 04</span>
+          </div>
+          <div class="tn-title"><h1 data-title="true">Deep cuts, honest talk</h1></div>
+          <div class="tn-message"><p data-message="true">We play the songs everyone skips, then talk about why.</p></div>
+        </div>
+
+        <div class="seam seam--bottom" aria-hidden="true"></div>
+        <div class="rule rule--bottom"></div>
+        <div class="chip chip--bottom" aria-hidden="true">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+            <circle cx="32" cy="32" r="23" stroke="var(--cg-stroke)" stroke-width="4"></circle>
+            <circle cx="32" cy="32" r="5" fill="var(--cg-fill)"></circle>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Slide 3 -->
+      <section class="slide" data-cg-slide-type="content">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="Close-up candid photo of hands placing a vinyl record onto a turntable, morning sunlight through a window, cozy home setting, warm tones, documentary style, no text" src="assets/images/vinyl-listening-club/slide-03.png"></div>
+
+        <div class="panel panel--top">
+          <div class="lockup-row">
+            <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></span>
+            <span class="folio" data-counter="true">03 / 04</span>
+          </div>
+          <div class="tn-title"><h1 data-title="true">Sunday spin sessions</h1></div>
+          <div class="tn-message"><p data-message="true">Slow mornings, strong coffee, full album sides.</p></div>
+        </div>
+
+        <div class="seam seam--top" aria-hidden="true"></div>
+        <div class="rule rule--top"></div>
+        <div class="chip chip--top" aria-hidden="true">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+            <circle cx="32" cy="32" r="23" stroke="var(--cg-stroke)" stroke-width="4"></circle>
+            <circle cx="32" cy="32" r="5" fill="var(--cg-fill)"></circle>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Slide 4 -->
+      <section class="slide" data-cg-slide-type="content">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="Candid photo of a small group of friends flipping through vinyl records together in a cozy living room, warm natural light, genuine laughter, documentary style, no text" src="assets/images/vinyl-listening-club/slide-04.png"></div>
+
+        <div class="panel panel--bottom panel--cta">
+          <div class="lockup-row">
+            <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></span>
+            <span class="folio" data-counter="true">04 / 04</span>
+          </div>
+          <div class="tn-title"><h1 data-title="true">Find your fellow diggers</h1></div>
+          <div class="tn-message"><p data-message="true">Bring a favorite record, leave with three more.</p></div>
+          <div class="cta-btn" data-cta="true"><span>RSVP for the next night</span></div>
+        </div>
+
+        <div class="seam seam--bottom seam--cta" aria-hidden="true"></div>
+        <div class="rule rule--bottom rule--cta"></div>
+        <div class="chip chip--bottom chip--cta" aria-hidden="true">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+            <circle cx="32" cy="32" r="23" stroke="var(--cg-stroke)" stroke-width="4"></circle>
+            <circle cx="32" cy="32" r="5" fill="var(--cg-fill)"></circle>
+          </svg>
+        </div>
+      </section>
+
+    </div>
+  
+
+</body></html>

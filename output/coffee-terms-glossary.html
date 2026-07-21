@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Mulish:wght@400;600;700;800&display=swap');
+
+    :root{
+      /* Brand role tokens — accent roles are recolored by the brand preview;
+         canvas + ink stay fixed literals for legibility (see CLAUDE.md). */
+      --primary:var(--brand-primary,#0b6e5f);
+      --secondary:var(--brand-secondary,#e8a23c);
+      --accent:var(--brand-accent,#a8551a);
+      --highlight:var(--brand-accent,#a8551a);
+      --bg:var(--brand-bg,#eeeee6);
+      --surface:var(--brand-surface,#ffffff);
+      --text-high:var(--brand-ink,#2c2a25);
+      --text-low:var(--brand-text-muted,rgba(44,42,37,.68));
+      --border:var(--brand-border,rgba(44,42,37,.16));
+      --on-fill:var(--brand-on-accent,#ffffff);
+      --on-primary:var(--brand-on-primary,#ffffff);
+    }
+
+    *{box-sizing:border-box;}
+    .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+    .slide{width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;background:var(--bg);font-family:'Mulish',sans-serif;}
+
+    /* ── backdrop panels ── */
+    .panel-top{position:absolute;left:0;right:0;top:0;height:480px;background:var(--surface);z-index:0;}
+    .panel-top.tall{height:560px;}
+    .wave{position:absolute;left:0;width:1080px;height:90px;z-index:0;display:block;}
+    .panel-bottom{position:absolute;left:0;right:0;bottom:0;height:160px;background:var(--surface);z-index:0;}
+    .wave-bottom{position:absolute;left:0;width:1080px;height:90px;z-index:0;display:block;}
+
+    /* ── illustration slot ── */
+    .art{position:absolute;z-index:1;}
+    .art svg{display:block;width:100%;height:100%;overflow:visible;}
+
+    /* ── term badge (brand device) ── */
+    .term-badge{position:absolute;z-index:2;background:var(--accent);border-radius:44px;padding:14px 30px;display:inline-flex;align-items:center;}
+    .term-badge span{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;color:var(--on-fill);white-space:nowrap;}
+
+    .rule{position:absolute;z-index:2;height:14px;border-radius:8px;background:var(--accent);}
+
+    /* ── eyebrow pill ── */
+    .eyebrow-pill{position:absolute;z-index:2;background:var(--accent);border-radius:30px;padding:12px 26px;display:inline-flex;}
+    .eyebrow-pill span{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:24px;letter-spacing:.12em;color:var(--on-fill);white-space:nowrap;}
+
+    /* ── text wrappers — each text node isolated in its own absolute box ── */
+    .tn-title{position:absolute;z-index:2;}
+    .tn-title h1,.tn-title h2{
+      margin:0;font-family:'Baloo 2',sans-serif;font-weight:800;color:var(--primary);
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.18em;
+    }
+    .tn-message{position:absolute;z-index:2;}
+    .tn-message p{
+      margin:0;font-family:'Mulish',sans-serif;font-weight:400;color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.22em;
+    }
+    .tn-message p b{font-weight:800;color:var(--text-high);}
+    .tn-tagline{position:absolute;z-index:2;}
+    .tn-tagline p{
+      margin:0;font-family:'Mulish',sans-serif;font-weight:700;color:var(--text-low);
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;-webkit-line-clamp:2;padding-bottom:.2em;
+    }
+
+    .cta-pill{position:absolute;z-index:2;background:var(--accent);border-radius:20px;padding:22px 40px;max-width:820px;}
+    .cta-pill p{
+      margin:0;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:32px;line-height:1.25;color:var(--on-fill);
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;-webkit-line-clamp:2;padding-bottom:.15em;
+    }
+
+    .axis-labels{position:absolute;z-index:2;display:flex;justify-content:space-between;}
+    .axis-labels span{font-family:'Mulish',sans-serif;font-weight:800;font-size:22px;letter-spacing:.1em;color:var(--text-low);}
+
+    /* ── footer ── */
+    .foot{position:absolute;left:76px;right:76px;bottom:56px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+    .lockup{display:inline-flex;align-items:center;gap:14px;}
+    .brand-mark-clip{width:46px;height:46px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;}
+    .brand-mark{width:24px;height:24px;object-fit:contain;display:block;}
+    .brand-word{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:27px;color:var(--primary);white-space:nowrap;}
+    .cg-slide-counter{font-family:'Mulish',sans-serif;font-weight:800;font-size:22px;letter-spacing:.1em;color:var(--text-low);}
+  </style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <!-- 1. Cover -->
+    <section class="slide" data-cg-slide-type="cover">
+      <div class="panel-top tall"></div>
+      <svg class="wave" style="top:520px;--cg-fill:var(--surface);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" viewBox="0 0 1080 90" preserveAspectRatio="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M0,10 C160,80 320,0 480,45 C640,90 800,15 1080,50 L1080,90 L0,90 Z" fill="var(--cg-fill)"></path></svg>
+
+      <div class="art" style="left:66px;top:96px;width:330px;height:400px;">
+        <svg viewBox="0 0 260 320" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+          <path d="M40 90 L220 90 L200 300 Q200 316 184 316 L76 316 Q60 316 60 300 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6" stroke-linejoin="round"></path>
+          <path d="M30 90 L230 90 L214 50 Q206 34 186 34 L74 34 Q54 34 46 50 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6" stroke-linejoin="round"></path>
+          <circle cx="130" cy="62" r="20" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></circle>
+          <circle cx="96" cy="150" r="15" fill="var(--cg-fill)"></circle>
+          <circle cx="140" cy="175" r="15" fill="var(--cg-fill)"></circle>
+          <circle cx="110" cy="205" r="15" fill="var(--cg-fill)"></circle>
+          <circle cx="160" cy="140" r="15" fill="var(--cg-fill)"></circle>
+        </svg>
+      </div>
+
+      <div class="art" style="right:60px;top:110px;width:410px;height:410px;">
+        <svg viewBox="0 0 300 300" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+          <ellipse cx="150" cy="256" rx="112" ry="18" fill="var(--cg-fill)"></ellipse>
+          <path d="M64 116 L236 116 L214 232 Q210 254 186 254 L114 254 Q90 254 86 232 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7" stroke-linejoin="round"></path>
+          <path d="M236 132 Q288 132 288 172 Q288 210 240 210" fill="none" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round"></path>
+          <path d="M120 70 Q110 40 128 18" fill="none" stroke="var(--cg-stroke)" stroke-width="9" stroke-linecap="round"></path>
+          <path d="M154 70 Q144 34 164 8" fill="none" stroke="var(--cg-stroke)" stroke-width="9" stroke-linecap="round"></path>
+          <path d="M188 70 Q178 40 196 18" fill="none" stroke="var(--cg-stroke)" stroke-width="9" stroke-linecap="round"></path>
+        </svg>
+      </div>
+
+      <div class="rule" style="left:76px;top:928px;width:150px;"></div>
+      <div class="tn-title" style="left:76px;top:636px;width:760px;">
+        <h1 data-title="true" style="font-size:118px;line-height:1.0;-webkit-line-clamp:2;">Coffee, Decoded</h1>
+      </div>
+      <div class="tn-tagline" style="left:76px;top:966px;width:660px;">
+        <p data-tagline="true" style="font-size:30px;line-height:1.35;">Six words worth knowing before your next order.</p>
+      </div>
+
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">01 / 06</div>
+      </div>
+    </section>
+
+    <!-- 2. Bloom -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="panel-top"></div>
+      <svg class="wave" style="top:440px;--cg-fill:var(--surface);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" viewBox="0 0 1080 90" preserveAspectRatio="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M0,20 C200,80 400,0 600,40 C760,70 900,10 1080,45 L1080,90 L0,90 Z" fill="var(--cg-fill)"></path></svg>
+      <div class="panel-bottom" style="height:210px;"></div>
+      <svg class="wave-bottom" style="top:1080px;--cg-fill:var(--surface);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" viewBox="0 0 1080 90" preserveAspectRatio="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M0,50 C200,10 380,86 560,44 C740,4 900,70 1080,30 L1080,0 L0,0 Z" fill="var(--cg-fill)"></path></svg>
+
+      <div class="art" style="left:340px;top:56px;width:400px;height:390px;">
+        <svg viewBox="0 0 380 380" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+          <ellipse cx="190" cy="330" rx="120" ry="18" fill="var(--cg-fill)"></ellipse>
+          <path d="M96 220 L284 220 L262 320 Q258 340 236 340 L144 340 Q122 340 118 320 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7" stroke-linejoin="round"></path>
+          <path d="M74 130 L306 130 L262 220 L118 220 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7" stroke-linejoin="round"></path>
+          <circle cx="190" cy="175" r="8" fill="var(--cg-fill)"></circle>
+          <circle cx="150" cy="80" r="14" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></circle>
+          <circle cx="210" cy="55" r="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></circle>
+          <circle cx="180" cy="30" r="7" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4"></circle>
+        </svg>
+      </div>
+
+      <div class="term-badge" style="left:76px;top:544px;"><span>TERM 01</span></div>
+      <div class="tn-title" style="left:76px;top:626px;width:760px;">
+        <h2 data-title="true" style="font-size:172px;line-height:1.0;-webkit-line-clamp:1;">Bloom</h2>
+      </div>
+      <div class="tn-message" style="left:76px;top:878px;width:820px;">
+        <p data-message="true" style="font-size:40px;line-height:1.42;-webkit-line-clamp:4;">Bloom is the <b>first fizz</b> when hot water hits fresh grounds — coffee releasing trapped gas before real extraction even starts.</p>
+      </div>
+
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">02 / 06</div>
+      </div>
+    </section>
+
+    <!-- 3. Crema -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="panel-top"></div>
+      <svg class="wave" style="top:440px;--cg-fill:var(--surface);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" viewBox="0 0 1080 90" preserveAspectRatio="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M0,45 C180,10 340,80 520,42 C700,4 880,70 1080,20 L1080,90 L0,90 Z" fill="var(--cg-fill)"></path></svg>
+      <div class="panel-bottom" style="height:210px;"></div>
+      <svg class="wave-bottom" style="top:1080px;--cg-fill:var(--surface);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" viewBox="0 0 1080 90" preserveAspectRatio="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M0,30 C200,74 380,6 560,48 C740,84 900,20 1080,50 L1080,0 L0,0 Z" fill="var(--cg-fill)"></path></svg>
+
+      <div class="art" style="right:100px;top:68px;width:410px;height:370px;">
+        <svg viewBox="0 0 340 320" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+          <ellipse cx="170" cy="272" rx="112" ry="18" fill="var(--cg-fill)"></ellipse>
+          <path d="M96 150 L244 150 L228 244 Q224 262 204 262 L136 262 Q116 262 112 244 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7" stroke-linejoin="round"></path>
+          <path d="M244 162 Q286 162 286 194 Q286 222 250 222" fill="none" stroke="var(--cg-stroke)" stroke-width="14" stroke-linecap="round"></path>
+          <path d="M116 150 Q120 118 152 112 Q180 106 176 128 Q172 148 200 138 Q224 130 224 150" fill="none" stroke="var(--cg-stroke)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M150 96 Q142 66 158 44" fill="none" stroke="var(--cg-stroke)" stroke-width="8" stroke-linecap="round"></path>
+          <path d="M186 96 Q178 62 196 38" fill="none" stroke="var(--cg-stroke)" stroke-width="8" stroke-linecap="round"></path>
+        </svg>
+      </div>
+
+      <div class="term-badge" style="left:76px;top:544px;"><span>TERM 02</span></div>
+      <div class="tn-title" style="left:76px;top:626px;width:760px;">
+        <h2 data-title="true" style="font-size:172px;line-height:1.0;-webkit-line-clamp:1;">Crema</h2>
+      </div>
+      <div class="tn-message" style="left:76px;top:878px;width:820px;">
+        <p data-message="true" style="font-size:40px;line-height:1.42;-webkit-line-clamp:4;">Crema is the <b>golden foam</b> crowning a fresh shot, proof that the grind, dose and pressure all landed just right.</p>
+      </div>
+
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">03 / 06</div>
+      </div>
+    </section>
+
+    <!-- 4. Roast spectrum chart -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="panel-bottom"></div>
+      <svg class="wave-bottom" style="top:1060px;--cg-fill:var(--surface);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" viewBox="0 0 1080 90" preserveAspectRatio="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M0,45 C200,90 380,10 560,50 C740,90 900,20 1080,55 L1080,0 L0,0 Z" fill="var(--cg-fill)"></path></svg>
+
+      <div class="eyebrow-pill" style="left:76px;top:92px;"><span>ROAST SPECTRUM</span></div>
+      <div class="tn-title" style="left:76px;top:176px;width:920px;">
+        <h2 data-title="true" style="font-size:62px;line-height:1.1;-webkit-line-clamp:1;">Light Roast vs. Dark Roast</h2>
+      </div>
+      <div class="tn-message" style="left:76px;top:298px;width:860px;">
+        <p data-message="true" style="font-size:36px;line-height:1.4;-webkit-line-clamp:3;">Lighter roasts stay <b>bright and acidic</b>, full of origin flavor. Dark roasts trade brightness for a bold, bittersweet body.</p>
+      </div>
+
+      <div class="art" style="left:240px;top:500px;width:600px;height:394px;">
+        <svg viewBox="0 0 640 420" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--secondary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+          <path d="M50 20 L50 380 L620 380" fill="none" stroke="var(--cg-stroke)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path>
+          <rect x="96" y="140" width="66" height="240" rx="8" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+          <rect x="192" y="188" width="66" height="192" rx="8" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+          <rect x="288" y="226" width="66" height="154" rx="8" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+          <rect x="384" y="262" width="66" height="118" rx="8" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+          <rect x="480" y="292" width="66" height="88" rx="8" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+          <path d="M110 96 Q320 40 560 96" fill="none" stroke="var(--cg-stroke)" stroke-width="12" stroke-linecap="round"></path>
+          <polygon points="560,96 528,78 528,116" fill="var(--cg-fill)"></polygon>
+        </svg>
+      </div>
+      <div class="axis-labels" style="left:240px;top:912px;width:600px;">
+        <span>LIGHT</span><span>MEDIUM</span><span>DARK</span>
+      </div>
+
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">04 / 06</div>
+      </div>
+    </section>
+
+    <!-- 5. Extraction -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="panel-bottom" style="height:230px;"></div>
+      <svg class="wave-bottom" style="top:1090px;--cg-fill:var(--surface);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" viewBox="0 0 1080 90" preserveAspectRatio="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M0,40 C220,84 400,10 580,52 C760,90 920,20 1080,54 L1080,0 L0,0 Z" fill="var(--cg-fill)"></path></svg>
+
+      <div class="art" style="right:24px;bottom:150px;width:460px;height:460px;opacity:.16;z-index:0;">
+        <svg viewBox="0 0 200 200" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <circle cx="100" cy="100" r="96" fill="none" stroke="var(--cg-stroke)" stroke-width="10"></circle>
+          <circle cx="100" cy="100" r="66" fill="none" stroke="var(--cg-stroke)" stroke-width="10"></circle>
+          <circle cx="100" cy="100" r="36" fill="none" stroke="var(--cg-stroke)" stroke-width="10"></circle>
+        </svg>
+      </div>
+
+      <div class="term-badge" style="left:76px;top:96px;"><span>TERM 03</span></div>
+      <div class="tn-title" style="left:76px;top:190px;width:860px;">
+        <h2 data-title="true" style="font-size:150px;line-height:1.0;-webkit-line-clamp:1;">Extraction</h2>
+      </div>
+      <div class="tn-message" style="left:76px;top:396px;width:800px;">
+        <p data-message="true" style="font-size:40px;line-height:1.42;-webkit-line-clamp:4;">Extraction is how much flavor water pulls from the grounds. <b>Too little</b> tastes sour and thin; <b>too much</b> turns bitter and dry.</p>
+      </div>
+
+      <div class="art" style="right:96px;bottom:230px;width:340px;height:340px;">
+        <svg viewBox="0 0 260 260" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+          <path d="M30 30 L230 30 L150 150 L150 220 L110 220 L110 150 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="8" stroke-linejoin="round"></path>
+          <circle cx="130" cy="238" r="10" fill="var(--cg-fill)"></circle>
+        </svg>
+      </div>
+
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">05 / 06</div>
+      </div>
+    </section>
+
+    <!-- 6. Closing / CTA -->
+    <section class="slide" data-cg-slide-type="cta">
+      <div class="panel-top"></div>
+      <svg class="wave" style="top:420px;--cg-fill:var(--surface);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" viewBox="0 0 1080 90" preserveAspectRatio="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M0,30 C220,80 420,0 620,44 C780,78 920,14 1080,48 L1080,90 L0,90 Z" fill="var(--cg-fill)"></path></svg>
+
+      <div class="art" style="left:340px;top:56px;width:400px;height:370px;">
+        <svg viewBox="0 0 380 340" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+          <ellipse cx="130" cy="300" rx="90" ry="16" fill="var(--cg-fill)"></ellipse>
+          <path d="M74 190 L206 190 L192 288 Q188 306 168 306 L112 306 Q92 306 88 288 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6" stroke-linejoin="round"></path>
+          <ellipse cx="170" cy="230" rx="86" ry="15" fill="var(--cg-fill)"></ellipse>
+          <path d="M118 130 L252 130 L238 228 Q234 246 214 246 L156 246 Q136 246 132 228 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7" stroke-linejoin="round"></path>
+          <path d="M252 148 Q296 148 296 180 Q296 208 258 208" fill="none" stroke="var(--cg-stroke)" stroke-width="14" stroke-linecap="round"></path>
+          <path d="M296 40 Q356 40 356 90 Q356 132 316 140 L326 168 L288 138 Q262 130 262 90 Q262 40 296 40 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="7" stroke-linejoin="round"></path>
+          <circle cx="284" cy="90" r="7" fill="var(--cg-fill)"></circle>
+          <circle cx="306" cy="90" r="7" fill="var(--cg-fill)"></circle>
+          <circle cx="328" cy="90" r="7" fill="var(--cg-fill)"></circle>
+        </svg>
+      </div>
+
+      <div class="tn-title" style="left:76px;top:556px;width:760px;">
+        <h1 data-title="true" style="font-size:92px;line-height:1.12;-webkit-line-clamp:3;">Save it. Steep it. Share it.</h1>
+      </div>
+      <div class="cta-pill" style="left:76px;top:964px;">
+        <p data-cta="true">Follow for a new coffee term every Sunday.</p>
+      </div>
+
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">06 / 06</div>
+      </div>
+    </section>
+
+  </div>
+
+
+</body></html>

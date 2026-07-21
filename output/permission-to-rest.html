@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Dancing+Script:wght@600;700&family=EB+Garamond:wght@400;500&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#7A1F26);
+  --secondary:var(--brand-secondary,#5C1319);
+  --accent:var(--brand-accent,#9C3B42);
+  --bg:var(--brand-bg,#7A1F26);
+  --surface:var(--brand-surface,#FAF4DD);
+  --text-high:var(--brand-ink,#6E1B22);
+  --text-low:var(--brand-text-muted,rgba(110,27,34,.78));
+  --border:var(--brand-border,rgba(110,27,34,.28));
+  --highlight:var(--brand-accent,#9C3B42);
+  --on-accent:var(--brand-on-accent,#FAF4DD);
+  --on-primary:var(--brand-on-primary,#FAF4DD);
+}
+
+*{box-sizing:border-box;}
+
+.si-single{width:fit-content;margin:0;}
+
+.si-page{
+  position:relative;width:1080px;height:1350px;overflow:hidden;
+  container-type:inline-size;
+  background:var(--bg);
+  font-family:'EB Garamond',serif;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* plaid background */
+.plaid{position:absolute;inset:0;z-index:0;
+  background-color:var(--primary);
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb,var(--secondary) 70%, transparent) 0 46px, transparent 46px 92px),
+    linear-gradient(0deg, color-mix(in srgb,var(--secondary) 70%, transparent) 0 46px, transparent 46px 92px),
+    linear-gradient(90deg, color-mix(in srgb,var(--accent) 40%, transparent) 0 12px, transparent 12px 92px),
+    linear-gradient(0deg, color-mix(in srgb,var(--accent) 40%, transparent) 0 12px, transparent 12px 92px);
+  background-size:92px 92px,92px 92px,92px 92px,92px 92px;
+}
+.plaid::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 45%, transparent 40%, color-mix(in srgb,var(--secondary) 55%, transparent) 100%);}
+
+/* doodles */
+.doodle{position:absolute;z-index:1;stroke:color-mix(in srgb,var(--secondary) 85%, #000 15%);fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;opacity:.85;}
+.d-swirl{top:40px;left:30px;width:130px;height:120px;}
+.d-star1{top:30px;left:290px;width:110px;height:110px;}
+.d-star2{bottom:20px;right:120px;width:230px;height:230px;}
+.d-flower{bottom:30px;left:280px;width:120px;height:120px;}
+.d-yarn{bottom:220px;right:70px;width:150px;height:150px;}
+.d-line{top:120px;right:0;width:260px;height:340px;}
+
+/* scalloped card frame */
+.card-wrap{
+  position:relative;z-index:2;
+  width:820px;height:1040px;
+  filter:drop-shadow(0 24px 40px rgba(20,4,6,.42));
+}
+.scallop{
+  position:absolute;inset:0;z-index:0;
+  background:var(--surface);
+  -webkit-mask:radial-gradient(circle 20px at 20px 20px, transparent 0 19px, #000 20px) -20px -20px;
+  -webkit-mask-size:40px 40px;
+  mask:radial-gradient(circle 20px at 20px 20px, transparent 0 19px, #000 20px) -20px -20px;
+  mask-size:40px 40px;
+}
+.card{
+  position:relative;z-index:1;
+  width:100%;height:100%;
+  background:var(--surface);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:18px;
+  padding:80px 92px;
+}
+
+/* accent-filled eyebrow chip */
+.eyebrow{
+  margin:0;font-family:'EB Garamond',serif;font-weight:500;
+  font-size:clamp(18px,2.1cqw,23px);letter-spacing:.3em;text-transform:uppercase;
+  color:var(--on-accent);
+  background:var(--accent);
+  padding:9px 22px 7px;border-radius:999px;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+  line-height:1.3;
+}
+
+.title-serif{
+  margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:clamp(52px,7.2cqw,80px);letter-spacing:.05em;text-transform:uppercase;
+  color:var(--text-high);text-align:center;line-height:1.05;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:6px;
+}
+/* headline set inside an accent-filled banner */
+.headline{
+  margin:0;font-family:'Dancing Script',cursive;font-weight:700;
+  font-size:clamp(60px,8.6cqw,98px);
+  color:var(--on-primary);text-align:center;line-height:1.08;
+  background:var(--primary);
+  padding:8px 40px 20px;border-radius:16px;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
+
+.divider{width:120px;height:4px;background:var(--accent);margin:6px 0;position:relative;border-radius:4px;}
+.divider::before,.divider::after{content:'';position:absolute;top:-2px;width:8px;height:8px;border-radius:50%;background:var(--accent);}
+.divider::before{left:-16px;}
+.divider::after{right:-16px;}
+
+.body{
+  margin:0;font-family:'EB Garamond',serif;font-weight:400;
+  font-size:clamp(28px,3.6cqw,38px);line-height:1.42;
+  color:var(--text-low);text-align:center;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;overflow:hidden;padding-bottom:8px;
+}
+
+/* accent-filled brand band */
+.brand-lockup{
+  display:flex;align-items:center;gap:12px;margin-top:16px;
+  background:var(--accent);
+  padding:12px 26px;border-radius:999px;
+}
+.brand-mark{width:26px;height:26px;object-fit:contain;opacity:.9;}
+.brand-word{
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:clamp(19px,2.1cqw,25px);letter-spacing:.26em;text-transform:uppercase;
+  color:var(--on-accent);
+}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="si-single">
+  <div class="si-page">
+    <div class="plaid" aria-hidden="true"></div>
+
+    <svg class="doodle d-swirl" viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M50 50 C50 38 62 38 62 50 C62 66 42 66 42 48 C42 26 68 26 68 52 C68 82 32 82 32 48"></path></svg>
+    <svg class="doodle d-star1" viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M50 12 L61 40 L91 42 L67 60 L76 89 L50 71 L24 89 L33 60 L9 42 L39 40 Z"></path></svg>
+    <svg class="doodle d-star2" viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M50 8 L62 38 L94 40 L69 61 L78 92 L50 73 L22 92 L31 61 L6 40 L38 38 Z"></path></svg>
+    <svg class="doodle d-flower" viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M50 50 C40 30 60 30 50 50 C70 40 70 60 50 50 C60 70 40 70 50 50 C30 60 30 40 50 50"></path></svg>
+    <svg class="doodle d-yarn" viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="30"></circle><path d="M32 32 L68 68 M32 68 L68 32 M50 20 L50 80 M20 50 L80 50"></path></svg>
+    <svg class="doodle d-line" viewBox="0 0 100 130" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M90 4 C40 30 70 70 20 100 C0 112 10 126 30 126"></path></svg>
+
+    <div class="card-wrap">
+      <div class="scallop" aria-hidden="true"></div>
+      <div class="card">
+        <p class="eyebrow">A Soft Truth</p>
+        <p class="title-serif">Rest Is Not</p>
+        <h1 class="headline">a Reward</h1>
+        <div class="divider" aria-hidden="true"></div>
+        <p class="body">You do not have to earn stillness. Let your body soften, let your mind quiet, and trust that slowing down is enough.</p>
+        <div class="brand-lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml;utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ccircle%20cx='16'%20cy='16'%20r='14'%20fill='%23999'/%3E%3C/svg%3E">
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body></html>

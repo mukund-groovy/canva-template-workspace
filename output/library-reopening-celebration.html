@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Nunito:wght@600;700&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#E23B3B);
+  --secondary:var(--brand-secondary,#1E1E1E);
+  --accent:var(--brand-accent,#E23B3B);
+  --bg:var(--brand-bg,#B9A38C);
+  --surface:var(--brand-surface,#FCFCFA);
+  --text-high:var(--brand-ink,#1E1E1E);
+  --text-low:var(--brand-text-muted,rgba(30,30,30,.6));
+  --border:var(--brand-border,rgba(30,30,30,.55));
+  --highlight:var(--brand-accent,#E23B3B);
+}
+
+*{box-sizing:border-box;}
+
+.si-single{width:fit-content;margin:0;}
+
+.si-page{
+  position:relative;width:1080px;height:1080px;overflow:hidden;
+  container-type:inline-size;background:var(--bg);
+  font-family:'Nunito',sans-serif;
+}
+
+.bg-photo{position:absolute;inset:0;z-index:0;}
+.si-image{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;display:block;filter:blur(2px);}
+.bg-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(135deg,
+    color-mix(in srgb,var(--secondary) 30%, transparent) 0%,
+    transparent 45%,
+    color-mix(in srgb,var(--primary) 14%, transparent) 100%);}
+
+/* phone mockup */
+.phone{
+  position:absolute;z-index:2;top:70px;left:305px;width:470px;height:940px;
+  background:var(--secondary);border-radius:64px;
+  box-shadow:0 40px 80px rgba(12,8,4,.45);
+  padding:20px;
+}
+.screen{
+  width:100%;height:100%;background:var(--surface);border-radius:46px;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:64px 44px 56px;text-align:center;gap:28px;
+  container-type:inline-size;
+}
+
+.eyebrow{
+  font-family:'Nunito',sans-serif;font-weight:700;font-size:19px;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--primary);margin:0;line-height:1.2;padding-bottom:2px;
+}
+
+.headline{
+  margin:0;font-family:'Oswald',sans-serif;font-weight:700;
+  font-size:clamp(30px,10cqw,54px);line-height:1.12;letter-spacing:.01em;
+  text-transform:uppercase;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;
+  overflow-wrap:break-word;word-break:break-word;
+}
+
+.body{
+  margin:0;font-family:'Nunito',sans-serif;font-weight:600;font-size:22px;line-height:1.35;
+  color:var(--text-low);max-width:320px;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:4px;
+}
+
+.cta-row{position:relative;display:inline-flex;align-items:center;margin-top:6px;}
+.cta{
+  display:inline-flex;align-items:center;justify-content:center;
+  border:2px solid var(--border);border-radius:999px;
+  padding:18px 40px;font-family:'Nunito',sans-serif;font-weight:700;font-size:22px;
+  color:var(--text-high);text-decoration:none;white-space:nowrap;background:transparent;
+}
+.heart-chip{
+  position:absolute;top:-14px;right:-10px;width:44px;height:44px;border-radius:50%;
+  background:var(--surface);border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+}
+.heart-chip svg{width:20px;height:20px;color:var(--accent);}
+
+.brand-strip{
+  position:absolute;z-index:3;left:0;right:0;bottom:34px;display:flex;
+  align-items:center;justify-content:center;gap:12px;
+}
+.brand-word{font-family:'Oswald',sans-serif;font-weight:600;font-size:24px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--surface);white-space:nowrap;
+  text-shadow:0 2px 8px rgba(12,8,4,.6);}
+.brand-mark{height:30px;width:auto;max-width:100px;object-fit:contain;display:block;}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="si-single">
+  <div class="si-page">
+    <img class="si-image" data-image="true" data-image-size="1024x1024" data-image-prompt="Sunlit interior of a small community library, tall wooden bookshelves stacked with colorful books, warm afternoon light through large windows, cozy reading nook with an armchair, inviting and freshly renovated feel" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><rect width='100%25' height='100%25' fill='%23b9a38c'/></svg>">
+    <div class="bg-scrim" aria-hidden="true"></div>
+
+    <div class="phone">
+      <div class="screen">
+        <p class="eyebrow">The Doors Are Open</p>
+        <h1 class="headline">WE'RE OPEN AGAIN</h1>
+        <p class="body">Our community library is back — new shelves, new corners, same welcome.</p>
+        <div class="cta-row">
+          <a class="cta" href="#">visit us today</a>
+          <span class="heart-chip"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 21s-7.5-4.9-10-9.3C.4 8.5 2 5 5.3 5 7 5 8.4 6 12 8.4 15.6 6 17 5 18.7 5 22 5 23.6 8.5 22 11.7 19.5 16.1 12 21 12 21z"></path></svg></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-strip">
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+      <span class="brand-word">YOURBRAND</span>
+    </div>
+  </div>
+</div>
+
+</body></html>

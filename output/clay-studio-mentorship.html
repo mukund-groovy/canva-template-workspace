@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700;1,900&family=Inter:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+
+      :root{
+        /* Brand role colors — recolor targets only the filled accent surfaces
+           (tag pills, arrow/CTA chips) and the maroon display-serif ink. Canvas
+           and body ink stay fixed literals so the editorial, printed-page
+           reading surface stays AA-legible under any brand palette. */
+        --primary:var(--brand-primary,#7A2A21);
+        --secondary:var(--brand-secondary,#54180F);
+        --accent:var(--brand-accent,#B4451E);
+        --highlight:var(--brand-accent,#B4451E);
+        --bg:var(--brand-bg,#EDE8DF);
+        --surface:var(--brand-surface,#E2DBCC);
+        --text-high:var(--brand-ink,#241F19);
+        --text-low:var(--brand-text-muted,rgba(36,31,25,.64));
+        --border:var(--brand-border,rgba(36,31,25,.24));
+        --on-fill:var(--brand-on-accent,#FFFFFF);
+        --on-primary:var(--brand-on-primary,#FFFFFF);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);
+        font-family:'Inter',sans-serif;
+      }
+
+      /* ── top thin rule (module slides) ── */
+      .rule-top{position:absolute;left:124px;right:124px;top:186px;height:2px;background:var(--border);z-index:1;}
+
+      /* ── accent-filled tag pill: primary brand device on every slide ── */
+      .tag-pill{
+        position:absolute;display:inline-flex;align-items:center;
+        height:60px;padding:0 34px;border-radius:999px;background:var(--accent);
+        z-index:3;
+      }
+      .tag-pill span{
+        font-family:'Inter',sans-serif;font-weight:700;font-size:22px;letter-spacing:.14em;
+        color:var(--on-fill);white-space:nowrap;text-transform:uppercase;
+      }
+
+      /* ── arrow chip (top-right nav device) ── */
+      .chip-arrow{
+        position:absolute;top:64px;right:64px;width:74px;height:74px;border-radius:50%;
+        background:var(--accent);display:flex;align-items:center;justify-content:center;z-index:3;
+      }
+      .chip-arrow svg{width:28px;height:28px;color:var(--on-fill);}
+
+      /* ── text wrappers — one isolated absolutely-positioned box per node ── */
+      .tn-kicker{position:absolute;left:124px;right:124px;}
+      .tn-kicker p{
+        margin:0;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:44px;
+        color:var(--text-low);line-height:1.15;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:6px;
+      }
+
+      .tn-title{position:absolute;left:124px;right:124px;}
+      .tn-title h1{
+        margin:0;font-family:'Playfair Display',serif;font-style:italic;font-weight:900;
+        color:var(--primary);line-height:1.05;letter-spacing:-.01em;
+        display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.18em;
+      }
+      .slide.cover .tn-title h1{font-size:96px;-webkit-line-clamp:2;}
+      .slide.module .tn-title h1{font-size:62px;-webkit-line-clamp:2;}
+      .slide.closer .tn-title h1{font-size:96px;-webkit-line-clamp:1;text-align:center;}
+
+      .tn-message{position:absolute;left:124px;right:124px;}
+      .tn-message p{
+        margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:38px;line-height:1.4;
+        color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:8px;
+      }
+
+      .tn-accent{position:absolute;left:124px;right:124px;}
+      .tn-accent p{
+        margin:0;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:36px;
+        color:var(--text-high);line-height:1.3;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:6px;
+      }
+
+      /* ── cover-only stacked pretitle (regular sans) + closer stacked line ── */
+      .tn-pretitle{position:absolute;left:124px;right:124px;text-align:center;}
+      .tn-pretitle p{
+        margin:0;font-family:'Inter',sans-serif;font-weight:600;font-size:56px;line-height:1.15;
+        color:var(--text-high);letter-spacing:-.01em;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:6px;
+      }
+
+      .tn-cta{position:absolute;left:124px;right:124px;text-align:center;}
+      .tn-cta p{
+        margin:0;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:32px;
+        color:var(--text-low);line-height:1.3;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:6px;
+      }
+
+      /* ── device mockup: tilted tablet frame with content photo ── */
+      .tablet{position:absolute;width:452px;height:606px;z-index:2;}
+      .tablet-frame{
+        position:absolute;inset:0;background:#141210;border-radius:38px;padding:16px;
+        box-shadow:0 40px 70px rgba(20,14,8,.30);
+      }
+      .tablet-frame::after{content:'';position:absolute;top:26px;left:50%;transform:translateX(-50%);width:44px;height:6px;border-radius:4px;background:rgba(255,255,255,.16);}
+      .tablet-screen{position:relative;width:100%;height:100%;border-radius:24px;overflow:hidden;background:var(--surface);}
+      .tablet-screen img{width:100%;height:100%;object-fit:cover;display:block;}
+
+      .slide.cover .tablet{right:-96px;top:606px;transform:rotate(11deg);}
+      .slide.mod-a .tablet{left:-140px;top:210px;width:560px;height:910px;transform:rotate(-13deg);}
+      .slide.mod-b .tablet{right:-140px;top:210px;width:560px;height:910px;transform:rotate(13deg);}
+      .slide.closer .tablet{left:50%;top:474px;transform:translateX(-50%) rotate(0deg);width:392px;height:526px;}
+
+      /* ── footer: brand lockup + thin rule, always readable on the canvas ── */
+      .foot{position:absolute;left:124px;right:124px;bottom:56px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+      .foot.centered{justify-content:center;}
+      .brand-mark-clip{flex:none;height:32px;display:flex;align-items:center;}
+      .brand-mark{height:32px;width:auto;max-width:110px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Inter',sans-serif;font-weight:700;font-size:24px;letter-spacing:.08em;color:var(--text-high);white-space:nowrap;}
+      .lockup{display:inline-flex;align-items:center;gap:14px;}
+      .cg-slide-counter{font-family:'Inter',sans-serif;font-weight:600;font-size:22px;letter-spacing:.1em;color:var(--text-low);}
+      .foot-rule{position:absolute;left:124px;right:124px;bottom:108px;height:2px;background:var(--border);z-index:1;}
+      .foot-rule.split-left{right:auto;width:340px;}
+      .foot-rule.split-right{left:auto;width:340px;}
+
+      /* ── CTA pill on the closer — the strongest single accent surface ── */
+      .cta-pill{
+        position:absolute;left:50%;top:1074px;transform:translateX(-50%);
+        display:inline-flex;align-items:center;justify-content:center;gap:16px;
+        height:96px;padding:0 54px;border-radius:999px;background:var(--accent);z-index:3;
+        box-shadow:0 18px 30px rgba(120,60,20,.22);
+      }
+      .cta-pill span{font-family:'Inter',sans-serif;font-weight:700;font-size:28px;letter-spacing:.06em;color:var(--on-fill);white-space:nowrap;text-transform:uppercase;}
+      .cta-pill svg{width:26px;height:26px;color:var(--on-fill);}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Slide 1 — Cover -->
+      <section class="slide cover" data-cg-slide-type="cover">
+        <div class="tablet">
+          <div class="tablet-frame">
+            <div class="tablet-screen">
+              <img data-image="true" data-image-size="1024x1536" data-image-prompt="Overhead photo of a warm, sunlit pottery studio desk: a half-finished stoneware bowl on a wheel, wet clay tools, a linen apron, muted terracotta and cream tones" alt="" src="assets/images/clay-studio-mentorship/slide-01.png">
+            </div>
+          </div>
+        </div>
+
+        <div class="chip-arrow" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+
+        <div class="tn-kicker" style="top:140px;"><p class="kicker-text">What You'll Learn</p></div>
+        <div class="tn-title" style="top:210px;width:820px;"><h1 data-title="true">Slow Craft,<br>Steady Hands</h1></div>
+        <div class="tag-pill" style="top:466px;left:124px;"><span>Six Seats Only</span></div>
+        <div class="tn-message" style="top:552px;width:520px;"><p data-message="true">A six-week mentorship in slow, small-batch ceramics.</p></div>
+
+        <div class="foot-rule"></div>
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="cg-slide-counter" data-counter="true">01 / 05</div>
+        </div>
+      </section>
+
+      <!-- Slide 2 — Module: Centering -->
+      <section class="slide module mod-a" data-cg-slide-type="text">
+        <div class="rule-top"></div>
+        <div class="chip-arrow" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+
+        <div class="tablet">
+          <div class="tablet-frame">
+            <div class="tablet-screen">
+              <img data-image="true" data-image-size="1024x1536" data-image-prompt="Close-up photo of two hands centering wet grey clay on a spinning pottery wheel, water splashed, warm studio light, shallow depth of field" alt="" src="assets/images/clay-studio-mentorship/slide-02.png">
+            </div>
+          </div>
+        </div>
+
+        <div class="tag-pill" style="top:296px;left:480px;"><span>Week One</span></div>
+        <div class="tn-title" style="top:390px;left:480px;width:476px;"><h1 data-title="true">Centering &amp; Touch</h1></div>
+        <div class="tn-message" style="top:540px;left:480px;width:476px;"><p data-message="true">Learn to read the clay before you shape it — where the pressure goes.</p></div>
+        <div class="tn-accent" style="top:730px;left:480px;width:476px;"><p class="kicker-text">No wobble, no guessing.</p></div>
+
+        <div class="foot-rule"></div>
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="cg-slide-counter" data-counter="true">02 / 05</div>
+        </div>
+      </section>
+
+      <!-- Slide 3 — Module: Form -->
+      <section class="slide module mod-b" data-cg-slide-type="text">
+        <div class="rule-top"></div>
+        <div class="chip-arrow" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+
+        <div class="tablet">
+          <div class="tablet-frame">
+            <div class="tablet-screen">
+              <img data-image="true" data-image-size="1024x1536" data-image-prompt="Photo of a row of unglazed bisque-fired stoneware bowls with tall pulled walls, lined up on a wooden studio shelf, soft natural light" alt="" src="assets/images/clay-studio-mentorship/slide-03.png">
+            </div>
+          </div>
+        </div>
+
+        <div class="tag-pill" style="top:296px;left:124px;"><span>Week Three</span></div>
+        <div class="tn-title" style="top:390px;left:124px;width:476px;"><h1 data-title="true">Form Before Speed</h1></div>
+        <div class="tn-message" style="top:540px;left:124px;width:476px;"><p data-message="true">Build walls that hold their shape — pulled slow, one rib at a time.</p></div>
+        <div class="tn-accent" style="top:730px;left:124px;width:476px;"><p class="kicker-text">Steady beats fast.</p></div>
+
+        <div class="foot-rule"></div>
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="cg-slide-counter" data-counter="true">03 / 05</div>
+        </div>
+      </section>
+
+      <!-- Slide 4 — Module: Glaze -->
+      <section class="slide module mod-a" data-cg-slide-type="text">
+        <div class="rule-top"></div>
+        <div class="chip-arrow" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+
+        <div class="tablet">
+          <div class="tablet-frame">
+            <div class="tablet-screen">
+              <img data-image="true" data-image-size="1024x1536" data-image-prompt="Photo of terracotta glaze test tiles in muted rust, cream and moss tones drying on a studio table, small brush resting beside them" alt="" src="assets/images/clay-studio-mentorship/slide-04.png">
+            </div>
+          </div>
+        </div>
+
+        <div class="tag-pill" style="top:296px;left:480px;"><span>Week Five</span></div>
+        <div class="tn-title" style="top:390px;left:480px;width:476px;"><h1 data-title="true">Glaze With Intention</h1></div>
+        <div class="tn-message" style="top:540px;left:480px;width:476px;"><p data-message="true">Choose a palette that's yours, tested on tiles first.</p></div>
+        <div class="tn-accent" style="top:730px;left:480px;width:476px;"><p class="kicker-text">Colour is a decision.</p></div>
+
+        <div class="foot-rule"></div>
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="cg-slide-counter" data-counter="true">04 / 05</div>
+        </div>
+      </section>
+
+      <!-- Slide 5 — Closer / CTA -->
+      <section class="slide closer" data-cg-slide-type="cta">
+        <div class="foot-rule split-left" style="top:186px;bottom:auto;"></div>
+        <div class="foot-rule split-right" style="top:186px;bottom:auto;"></div>
+
+        <div class="tn-pretitle" style="top:96px;"><p class="kicker-text">Stop Scrolling</p></div>
+        <div class="tn-title" style="top:170px;"><h1 data-title="true">Start Shaping</h1></div>
+
+        <div class="tablet">
+          <div class="tablet-frame">
+            <div class="tablet-screen">
+              <img data-image="true" data-image-size="1024x1536" data-image-prompt="Photo of finished glazed stoneware mugs and bowls in warm terracotta and cream tones arranged on an open studio shelf, soft daylight" alt="" src="assets/images/clay-studio-mentorship/slide-05.png">
+            </div>
+          </div>
+        </div>
+
+        <div class="cta-pill">
+          <span>Seats Open — Enroll</span>
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+        <div class="tn-cta" style="top:1190px;"><p class="kicker-text">Six seats, every season.</p></div>
+
+        <div class="foot centered" style="bottom:44px;">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+        </div>
+      </section>
+
+    </div>
+  
+
+</body></html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Comic+Neue:wght@400;700&family=Caveat:wght@600;700&display=swap');
+
+  :root{
+    /* Brand roles — the brand preview re-skins primary/secondary/accent only.
+       Canvas paper + ink stay fixed literals so the grid-card reads legibly
+       under any palette. Headline + script ink route through --primary
+       (stays dark across brands); every filled surface (tape, numeral tab,
+       CTA pill, counter chip, top rule) routes through --accent. */
+    --primary:var(--brand-primary,#3A2A1E);
+    --secondary:var(--brand-secondary,#B5652E);
+    --accent:var(--brand-accent,#E8A33D);
+    --highlight:var(--brand-accent,#E8A33D);
+    --bg:var(--brand-bg,#F6E6CE);
+    --surface:var(--brand-surface,#FEFBF3);
+    --text-high:var(--brand-text,#33241A);
+    --text-low:var(--brand-text-muted,rgba(51,36,26,.62));
+    --border:var(--brand-border,rgba(51,36,26,.14));
+    --on-fill:var(--brand-on-accent,#33220F);
+    --on-primary:var(--brand-on-primary,#FFFDF6);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);
+    font-family:'Comic Neue',sans-serif;
+  }
+
+  /* ── diagonal color-block backdrop + soft blob shapes (fixed identity, decorative) ── */
+  .backdrop{position:absolute;inset:0;z-index:0;
+    background:linear-gradient(128deg,#EE6B45 0%,#EE6B45 44%,#F4926A 44%,#F4926A 100%);}
+  .blob{position:absolute;background:#fff;opacity:.92;}
+  .blob.b1{left:-90px;top:-70px;width:320px;height:300px;border-radius:46% 54% 60% 40%/56% 44% 58% 42%;}
+  .blob.b2{right:-110px;top:60px;width:280px;height:260px;border-radius:60% 40% 44% 56%/46% 54% 40% 60%;}
+  .blob.b3{left:-70px;bottom:-90px;width:300px;height:280px;border-radius:50% 50% 40% 60%/60% 40% 55% 45%;}
+  .blob.b4{right:-90px;bottom:-60px;width:260px;height:250px;border-radius:44% 56% 58% 42%/50% 50% 46% 54%;}
+
+  .topbar{position:absolute;left:0;right:0;top:0;height:16px;background:var(--accent);z-index:6;}
+
+  /* ── paper stack ── */
+  .kraft{position:absolute;left:108px;top:172px;width:864px;height:1028px;
+    background:#E8D2A0;border-radius:26px;box-shadow:0 22px 44px rgba(40,20,10,.28);
+    transform:rotate(-2.6deg);z-index:1;}
+  .card{position:absolute;left:130px;top:130px;width:820px;height:1030px;
+    background-color:var(--surface);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(120,88,150,.12) 0 1px, transparent 1px 34px),
+      repeating-linear-gradient(90deg, rgba(120,88,150,.12) 0 1px, transparent 1px 34px);
+    border-radius:20px;border:2px solid rgba(51,36,26,.08);
+    box-shadow:0 28px 54px rgba(40,20,10,.24);z-index:2;}
+
+  .tape{position:absolute;z-index:7;width:212px;height:74px;left:434px;top:96px;
+    transform:rotate(-5deg);border:2px solid rgba(40,20,10,.18);
+    background:repeating-linear-gradient(45deg, var(--accent) 0 11px, color-mix(in srgb, var(--accent) 62%, #201004) 11px 22px);
+    box-shadow:0 6px 10px rgba(40,20,10,.18);}
+
+  .num-badge{position:absolute;z-index:7;left:172px;top:90px;width:104px;height:104px;
+    border-radius:50%;background:var(--accent);border:4px solid var(--surface);
+    box-shadow:0 8px 16px rgba(40,20,10,.22);display:flex;align-items:center;justify-content:center;}
+  .num-badge span{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:44px;color:var(--on-fill);}
+
+  /* ── text roles ── */
+  .tn-title{position:absolute;left:210px;width:660px;text-align:center;z-index:5;}
+  .tn-title h1{margin:0;font-family:'Baloo 2',sans-serif;font-weight:800;color:var(--primary);
+    text-transform:uppercase;letter-spacing:.005em;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.16em;}
+  .slide--cover .tn-title h1,.slide--closing .tn-title h1{font-size:56px;line-height:1.18;}
+  .slide--tip .tn-title h1{font-size:60px;line-height:1.16;}
+  .slide--cover .tn-title,.slide--closing .tn-title{top:246px;}
+  .slide--tip .tn-title{top:282px;}
+
+  .tn-tagline{position:absolute;left:210px;width:660px;text-align:center;z-index:5;}
+  /* CSS-drawn ellipse ring (not an <svg>/<img>) so it can never register as a
+     "drawn object" occluder against the growth zone of the clamped title above it. */
+  .tagline-ring{position:relative;display:inline-block;}
+  .tagline-ring::before{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-4deg);
+    width:132%;height:180%;border:7px solid var(--accent);border-radius:50%;z-index:-1;pointer-events:none;}
+  .tagline-txt{font-family:'Caveat',cursive;font-weight:700;font-size:76px;line-height:1.05;color:var(--primary);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.22em;}
+
+  .tn-message{position:absolute;left:210px;width:660px;text-align:center;z-index:5;}
+  .tn-message p{margin:0;font-family:'Comic Neue',sans-serif;font-weight:700;font-size:27px;line-height:1.56;
+    color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;overflow:hidden;padding-bottom:.22em;}
+
+  .divider{position:absolute;left:210px;width:660px;text-align:center;z-index:5;}
+  .divider svg{width:280px;height:46px;}
+
+  .tip-rule{position:absolute;left:50%;top:706px;transform:translateX(-50%);width:130px;height:6px;
+    border-radius:5px;background:var(--accent);z-index:5;}
+
+  .cta-btn{position:absolute;left:50%;transform:translateX(-50%);z-index:6;top:836px;
+    display:inline-flex;align-items:center;background:var(--accent);color:var(--on-fill);
+    font-family:'Baloo 2',sans-serif;font-weight:700;font-size:29px;padding:20px 46px;border-radius:999px;
+    box-shadow:0 10px 0 rgba(40,20,10,.16);white-space:nowrap;}
+
+  /* ── stickers ── */
+  .sticker{position:absolute;z-index:4;filter:drop-shadow(0 8px 12px rgba(40,20,10,.22));}
+  .sticker svg{display:block;}
+
+  /* ── footer ── */
+  .foot{position:absolute;left:150px;right:150px;top:1250px;z-index:8;display:flex;align-items:center;justify-content:space-between;}
+  .lockup{display:inline-flex;align-items:center;gap:12px;background:rgba(255,253,246,.88);
+    padding:10px 20px 10px 12px;border-radius:999px;box-shadow:0 4px 10px rgba(40,20,10,.14);}
+  .brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+  .brand-mark{height:30px;width:auto;max-width:100px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:24px;color:var(--primary);white-space:nowrap;}
+  .cg-slide-counter{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:20px;color:var(--on-fill);
+    background:var(--accent);padding:10px 20px;border-radius:999px;box-shadow:0 4px 10px rgba(40,20,10,.16);}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+<!-- ============ SLIDE 1 — COVER ============ -->
+<section class="slide slide--cover" data-cg-slide-type="cover">
+  <div class="backdrop" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+  <div class="topbar" aria-hidden="true"></div>
+  <div class="kraft"></div>
+  <div class="card"></div>
+
+  <div class="tape"></div>
+
+  <!-- sparkle, top-right -->
+  <div class="sticker" style="right:118px;top:186px;width:66px;height:66px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 66 66" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" stroke-linejoin="round" d="M33 4c3 0 3 13 8 18s18 4 18 11-13 4-18 11-5 18-8 18-3-13-8-18-18-4-18-11 13-4 18-11 5-18 8-18Z"></path></svg>
+  </div>
+
+  <!-- wheat sprig, bottom-left -->
+  <div class="sticker" style="left:172px;bottom:140px;width:104px;height:132px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 118 150" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M59 146 L59 46" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round" fill="none"></path>
+      <ellipse cx="46" cy="60" rx="15" ry="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(-28 46 60)"></ellipse>
+      <ellipse cx="72" cy="60" rx="15" ry="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(28 72 60)"></ellipse>
+      <ellipse cx="43" cy="82" rx="15" ry="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(-28 43 82)"></ellipse>
+      <ellipse cx="75" cy="82" rx="15" ry="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(28 75 82)"></ellipse>
+      <ellipse cx="59" cy="38" rx="14" ry="20" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></ellipse></svg>
+  </div>
+
+  <!-- starter jar, bottom-right hero -->
+  <div class="sticker" style="right:150px;bottom:132px;width:158px;height:212px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 160" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <rect x="14" y="20" width="92" height="30" rx="9" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+      <rect x="20" y="46" width="80" height="100" rx="14" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+      <path d="M26 92 Q60 76 94 92 L94 138 Q60 148 26 138 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4"></path>
+      <circle cx="47" cy="98" r="4" fill="var(--cg-fill)"></circle><circle cx="70" cy="88" r="3" fill="var(--cg-fill)"></circle><circle cx="60" cy="110" r="3" fill="var(--cg-fill)"></circle>
+      <circle cx="40" cy="118" r="3" fill="var(--cg-fill)"></circle>
+    </svg>
+  </div>
+
+  <div class="tn-title"><h1 data-title="true">How To Keep Your Sourdough Starter</h1></div>
+
+  <div class="tn-tagline" style="top:432px;">
+    <span class="tagline-ring">
+      <span class="tagline-txt" data-tagline="true">Alive &amp; Bubbly</span>
+    </span>
+  </div>
+
+  <div class="tn-message" style="top:626px;">
+    <p data-message="true">Five easy habits that turn flour, water and a little patience into a starter you can actually trust.</p>
+  </div>
+
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">LOAFLY</span></div>
+    <div class="cg-slide-counter" data-counter="true">01 / 07</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 2 — TIP 1 ============ -->
+<section class="slide slide--tip" data-cg-slide-type="text">
+  <div class="backdrop" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+  <div class="topbar" aria-hidden="true"></div>
+  <div class="kraft"></div>
+  <div class="card"></div>
+
+  <div class="tape"></div>
+  <div class="num-badge"><span>1</span></div>
+
+  <!-- sparkle top-right -->
+  <div class="sticker" style="right:150px;top:172px;width:70px;height:70px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 70 70" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" stroke-linejoin="round" d="M35 4c3 0 3 14 8 19s19 4 19 12-14 4-19 12-5 19-8 19-3-14-8-19-19-4-19-12 14-4 19-12 5-19 8-19Z"></path></svg>
+  </div>
+
+  <!-- bread loaf bottom-left -->
+  <div class="sticker" style="left:172px;bottom:172px;width:150px;height:118px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 140 110" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M10 70 Q10 20 70 20 Q130 20 130 70 Q130 100 70 100 Q10 100 10 70Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></path>
+      <path d="M40 40 L60 80" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+      <path d="M65 34 L85 82" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+      <path d="M90 40 L104 78" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path></svg>
+  </div>
+
+  <!-- wheat bottom-right -->
+  <div class="sticker" style="right:180px;bottom:160px;width:98px;height:126px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 118 150" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M59 146 L59 46" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round" fill="none"></path>
+      <ellipse cx="46" cy="60" rx="15" ry="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(-28 46 60)"></ellipse>
+      <ellipse cx="72" cy="60" rx="15" ry="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(28 72 60)"></ellipse>
+      <ellipse cx="59" cy="38" rx="14" ry="20" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></ellipse></svg>
+  </div>
+
+  <div class="tn-title"><h1 data-title="true">Feed It On A Rhythm</h1></div>
+  <div class="tn-message" style="top:472px;">
+    <p data-message="true">Pick a feeding time and stick close to it. A starter fed at roughly the same hour each day learns the pattern, rises faster, and gets a lot less confusing to read.</p>
+  </div>
+  <div class="tip-rule" aria-hidden="true"></div>
+
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">LOAFLY</span></div>
+    <div class="cg-slide-counter" data-counter="true">02 / 07</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 3 — TIP 2 ============ -->
+<section class="slide slide--tip" data-cg-slide-type="text">
+  <div class="backdrop" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+  <div class="topbar" aria-hidden="true"></div>
+  <div class="kraft"></div>
+  <div class="card"></div>
+
+  <div class="tape"></div>
+  <div class="num-badge"><span>2</span></div>
+
+  <div class="sticker" style="right:150px;top:172px;width:70px;height:70px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 70 70" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" stroke-linejoin="round" d="M35 4c3 0 3 14 8 19s19 4 19 12-14 4-19 12-5 19-8 19-3-14-8-19-19-4-19-12 14-4 19-12 5-19 8-19Z"></path></svg>
+  </div>
+
+  <!-- rolling pin bottom-left -->
+  <div class="sticker" style="left:150px;bottom:198px;width:190px;height:60px;transform:rotate(-9deg);">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 170 50" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><rect x="30" y="16" width="110" height="18" rx="9" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></rect>
+      <rect x="8" y="18" width="26" height="14" rx="7" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></rect>
+      <rect x="136" y="18" width="26" height="14" rx="7" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></rect></svg>
+  </div>
+
+  <!-- jar bottom-right -->
+  <div class="sticker" style="right:168px;bottom:150px;width:120px;height:160px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 160" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <rect x="14" y="20" width="92" height="30" rx="9" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+      <rect x="20" y="46" width="80" height="100" rx="14" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+      <path d="M26 92 Q60 76 94 92 L94 138 Q60 148 26 138 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4"></path>
+      <circle cx="47" cy="98" r="4" fill="var(--cg-fill)"></circle><circle cx="70" cy="88" r="3" fill="var(--cg-fill)"></circle></svg>
+  </div>
+
+  <div class="tn-title"><h1 data-title="true">Skip The Fridge At First</h1></div>
+  <div class="tn-message" style="top:472px;">
+    <p data-message="true">For the first two weeks, keep your starter on the counter, not in the fridge. Room temperature keeps the yeast active while it is still building up its strength.</p>
+  </div>
+  <div class="tip-rule" aria-hidden="true"></div>
+
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">LOAFLY</span></div>
+    <div class="cg-slide-counter" data-counter="true">03 / 07</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 4 — TIP 3 ============ -->
+<section class="slide slide--tip" data-cg-slide-type="text">
+  <div class="backdrop" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+  <div class="topbar" aria-hidden="true"></div>
+  <div class="kraft"></div>
+  <div class="card"></div>
+
+  <div class="tape"></div>
+  <div class="num-badge"><span>3</span></div>
+
+  <div class="sticker" style="right:150px;top:172px;width:70px;height:70px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 70 70" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" stroke-linejoin="round" d="M35 4c3 0 3 14 8 19s19 4 19 12-14 4-19 12-5 19-8 19-3-14-8-19-19-4-19-12 14-4 19-12 5-19 8-19Z"></path></svg>
+  </div>
+
+  <!-- big bubbly jar bottom-left, hero -->
+  <div class="sticker" style="left:160px;bottom:130px;width:150px;height:200px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 160" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <rect x="14" y="20" width="92" height="30" rx="9" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+      <rect x="20" y="46" width="80" height="100" rx="14" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+      <path d="M26 80 Q60 62 94 80 L94 138 Q60 148 26 138 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4"></path>
+      <circle cx="42" cy="88" r="5" fill="var(--cg-fill)"></circle><circle cx="70" cy="76" r="4" fill="var(--cg-fill)"></circle><circle cx="58" cy="100" r="4" fill="var(--cg-fill)"></circle>
+      <circle cx="80" cy="98" r="3" fill="var(--cg-fill)"></circle><circle cx="38" cy="112" r="3" fill="var(--cg-fill)"></circle></svg>
+  </div>
+
+  <!-- small sparkle bottom-right -->
+  <div class="sticker" style="right:190px;bottom:180px;width:52px;height:52px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 52 52" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" stroke-linejoin="round" d="M26 3c2 0 2 10 6 14s14 4 14 9-10 4-14 9-4 14-6 14-2-10-6-14-14-4-14-9 10-4 14-9 4-14 6-14Z"></path></svg>
+  </div>
+
+  <div class="tn-title"><h1 data-title="true">Watch, Don’t Just Wait</h1></div>
+  <div class="tn-message" style="top:472px;">
+    <p data-message="true">Forget the clock. Look for a dome on top, bubbles through the sides, and a jiggle when you nudge the jar — that tells you far more than any timer will.</p>
+  </div>
+  <div class="tip-rule" aria-hidden="true"></div>
+
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">LOAFLY</span></div>
+    <div class="cg-slide-counter" data-counter="true">04 / 07</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 5 — TIP 4 ============ -->
+<section class="slide slide--tip" data-cg-slide-type="text">
+  <div class="backdrop" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+  <div class="topbar" aria-hidden="true"></div>
+  <div class="kraft"></div>
+  <div class="card"></div>
+
+  <div class="tape"></div>
+  <div class="num-badge"><span>4</span></div>
+
+  <div class="sticker" style="right:150px;top:172px;width:70px;height:70px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 70 70" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" stroke-linejoin="round" d="M35 4c3 0 3 14 8 19s19 4 19 12-14 4-19 12-5 19-8 19-3-14-8-19-19-4-19-12 14-4 19-12 5-19 8-19Z"></path></svg>
+  </div>
+
+  <!-- flour sack bottom-left -->
+  <div class="sticker" style="left:186px;bottom:158px;width:96px;height:118px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 120" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M30 24 Q30 10 55 10 Q80 10 80 24 L86 104 Q86 116 70 116 L40 116 Q24 116 24 104 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></path>
+      <path d="M34 30 L76 30" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+      <circle cx="46" cy="60" r="4" fill="var(--cg-fill)" opacity=".85"></circle><circle cx="62" cy="72" r="5" fill="var(--cg-fill)" opacity=".85"></circle><circle cx="52" cy="86" r="4" fill="var(--cg-fill)" opacity=".8"></circle></svg>
+  </div>
+
+  <!-- pancake stack bottom-right -->
+  <div class="sticker" style="right:170px;bottom:172px;width:130px;height:96px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 130 96" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><ellipse cx="65" cy="76" rx="56" ry="14" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></ellipse>
+      <ellipse cx="65" cy="54" rx="52" ry="13" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></ellipse>
+      <ellipse cx="65" cy="32" rx="48" ry="12" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></ellipse>
+      <path d="M65 12c14 4 22 12 20 18s-14 6-20 4-16 2-20-4 6-14 20-18Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></path></svg>
+  </div>
+
+  <div class="tn-title"><h1 data-title="true">Save The Discard</h1></div>
+  <div class="tn-message" style="top:472px;">
+    <p data-message="true">The starter you scoop out before feeding is not trash. Stir it into pancakes, crackers or flatbread so nothing good ever goes down the drain.</p>
+  </div>
+  <div class="tip-rule" aria-hidden="true"></div>
+
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">LOAFLY</span></div>
+    <div class="cg-slide-counter" data-counter="true">05 / 07</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 6 — TIP 5 ============ -->
+<section class="slide slide--tip" data-cg-slide-type="text">
+  <div class="backdrop" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+  <div class="topbar" aria-hidden="true"></div>
+  <div class="kraft"></div>
+  <div class="card"></div>
+
+  <div class="tape"></div>
+  <div class="num-badge"><span>5</span></div>
+
+  <div class="sticker" style="right:150px;top:172px;width:70px;height:70px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 70 70" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" stroke-linejoin="round" d="M35 4c3 0 3 14 8 19s19 4 19 12-14 4-19 12-5 19-8 19-3-14-8-19-19-4-19-12 14-4 19-12 5-19 8-19Z"></path></svg>
+  </div>
+
+  <!-- wheat bottom-left -->
+  <div class="sticker" style="left:180px;bottom:158px;width:100px;height:128px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 118 150" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M59 146 L59 46" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round" fill="none"></path>
+      <ellipse cx="46" cy="60" rx="15" ry="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(-28 46 60)"></ellipse>
+      <ellipse cx="72" cy="60" rx="15" ry="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(28 72 60)"></ellipse>
+      <ellipse cx="43" cy="82" rx="15" ry="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(-28 43 82)"></ellipse>
+      <ellipse cx="59" cy="38" rx="14" ry="20" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></ellipse></svg>
+  </div>
+
+  <!-- loaf bottom-right -->
+  <div class="sticker" style="right:160px;bottom:172px;width:150px;height:118px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 140 110" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M10 70 Q10 20 70 20 Q130 20 130 70 Q130 100 70 100 Q10 100 10 70Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></path>
+      <path d="M40 40 L60 80" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+      <path d="M65 34 L85 82" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path>
+      <path d="M90 40 L104 78" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round"></path></svg>
+  </div>
+
+  <div class="tn-title"><h1 data-title="true">Trust A Good Sour Smell</h1></div>
+  <div class="tn-message" style="top:472px;">
+    <p data-message="true">Sharp and tangy is healthy — that is just the yeast doing its job. Fuzzy spots or streaks of pink or orange are the only real reason to start over.</p>
+  </div>
+  <div class="tip-rule" aria-hidden="true"></div>
+
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">LOAFLY</span></div>
+    <div class="cg-slide-counter" data-counter="true">06 / 07</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 7 — CLOSING ============ -->
+<section class="slide slide--closing" data-cg-slide-type="text">
+  <div class="backdrop" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+  <div class="topbar" aria-hidden="true"></div>
+  <div class="kraft"></div>
+  <div class="card"></div>
+
+  <div class="tape"></div>
+
+  <!-- wheat top-left -->
+  <div class="sticker" style="left:168px;top:214px;width:96px;height:122px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 118 150" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M59 146 L59 46" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round" fill="none"></path>
+      <ellipse cx="46" cy="60" rx="15" ry="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(-28 46 60)"></ellipse>
+      <ellipse cx="72" cy="60" rx="15" ry="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(28 72 60)"></ellipse>
+      <ellipse cx="59" cy="38" rx="14" ry="20" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></ellipse></svg>
+  </div>
+
+  <!-- sparkle top-right -->
+  <div class="sticker" style="right:150px;top:186px;width:60px;height:60px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 60 60" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" stroke-linejoin="round" d="M30 4c3 0 3 12 7 17s17 4 17 11-12 4-17 11-4 17-7 17-3-12-7-17-17-4-17-11 12-4 17-11 4-17 7-17Z"></path></svg>
+  </div>
+
+  <!-- hero jar bottom-right -->
+  <div class="sticker" style="right:140px;bottom:96px;width:168px;height:224px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 160" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+      <rect x="14" y="20" width="92" height="30" rx="9" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+      <rect x="20" y="46" width="80" height="100" rx="14" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+      <path d="M26 78 Q60 60 94 78 L94 138 Q60 148 26 138 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4"></path>
+      <circle cx="42" cy="88" r="5" fill="var(--cg-fill)"></circle><circle cx="70" cy="76" r="4" fill="var(--cg-fill)"></circle><circle cx="58" cy="100" r="4" fill="var(--cg-fill)"></circle>
+      <circle cx="80" cy="98" r="3" fill="var(--cg-fill)"></circle></svg>
+  </div>
+
+  <div class="tn-title"><h1 data-title="true">Keep It Rising</h1></div>
+  <div class="tn-message" style="top:472px;">
+    <p data-message="true">Every loaf starts with a jar you kept alive one small feeding at a time. Save this guide, and let your starter do the rest.</p>
+  </div>
+
+  <div class="divider" style="top:756px;" aria-hidden="true">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 300 50" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M10 25 Q45 6 80 25 Q100 8 120 22 Q135 6 150 22 Q165 6 180 22 Q200 8 220 25 Q255 6 290 25" stroke="var(--cg-stroke)" stroke-width="5" fill="none" stroke-linecap="round"></path></svg>
+  </div>
+
+  <div class="cta-btn" data-cta="true">Save This Starter Guide</div>
+
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">LOAFLY</span></div>
+    <div class="cg-slide-counter" data-counter="true">07 / 07</div>
+  </div>
+</section>
+
+</div>
+
+
+</body></html>
