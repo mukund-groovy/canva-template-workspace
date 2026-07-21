@@ -21,6 +21,12 @@
  *   --force              clone even if designs/<id>/ already exists
  *   --action <a>         agent-canva-clone action (default run)
  *   --no-clone           capture only, skip the pipeline
+ *   --kind single-image  clone a ONE-PAGE post instead of a carousel: requires pageCount===1,
+ *                        allows 1:1/4:5/9:16/1.91:1 aspect (the only mode that allows landscape),
+ *                        and disables the photo cap by default (a full-bleed photo background
+ *                        is a normal single-image archetype, not a defect). Tags the dashboard
+ *                        entry with kind:'single-image' so generate-worker.mjs picks the matching
+ *                        authoring path. Default (omitted) = 'carousel', unchanged behavior.
  *
  * Capture reads the inline window['bootstrap'] JSON, which carries the FULL document
  * (all pages) independent of scroll — so no per-slide scrolling is needed for extraction.
@@ -52,9 +58,31 @@ const FORCE = args.force === 'true';
 
 const DID_RE = /\/design\/([A-Za-z0-9_-]+)\//;
 const ENGLISH_ONLY = args['english-only'] === 'true' || args.english === 'true';
-const MIN_PAGES = Number(args['min-pages'] || 2); // only keep multi-slide decks by default
-const MAX_IMAGES = args['max-images'] != null ? Number(args['max-images']) : 6; // photo cap (RASTER count); keeps decks fast+clean to generate. Pass a big number to disable.
+// KIND='single-image' flips this whole file's page/format/photo gates around: content-gen's
+// single-image format (.si-single > .si-page) wants EXACTLY one page, and — unlike a carousel —
+// a full-bleed background photo is a normal, common archetype (PHOTO-HERO), not a defect. See
+// SINGLE_IMAGE_ASPECTS below for the 4 aspect ratios content-gen actually supports for this kind.
+const KIND = args.kind === 'single-image' ? 'single-image' : 'carousel';
+const MIN_PAGES = Number(args['min-pages'] || 2); // only keep multi-slide decks by default (carousel mode only)
+const MAX_IMAGES = args['max-images'] != null
+  ? Number(args['max-images'])
+  : (KIND === 'single-image' ? Infinity : 6); // photo cap (RASTER count); disabled by default for single-image
 const log = (...m) => console.log(...m);
+
+// content-gen's supported single-image canvases (SINGLE_IMAGE_FALLBACKS in its slide-canvas.ts):
+// 1:1, 4:5, 9:16, and 1.91:1 (landscape — the one aspect ratio single-image allows that a
+// carousel never does). Tolerance is generous (~4%) since Canva page sizes aren't pixel-exact
+// to these.
+const SINGLE_IMAGE_ASPECTS = [
+  { name: '1:1', ratio: 1 },
+  { name: '4:5', ratio: 1080 / 1350 },
+  { name: '9:16', ratio: 1080 / 1920 },
+  { name: '1.91:1', ratio: 1200 / 628 },
+];
+function matchesSingleImageAspect(w, h) {
+  const r = w / h;
+  return SINGLE_IMAGE_ASPECTS.some((a) => Math.abs(r - a.ratio) / a.ratio < 0.04);
+}
 
 // Cheap language gate on a template title: reject accented/non-Latin letters and common
 // non-English function words. English Canva titles are plain ASCII (e.g. "Pink Modern
@@ -89,6 +117,15 @@ function imageCountOf(id) {
     return (j.media || []).filter((m) => m.type === 'RASTER').length;
   } catch {
     return 0;
+  }
+}
+
+function docSizeOf(id) {
+  try {
+    const j = JSON.parse(fs.readFileSync(path.join(WS, 'designs', id, 'extract', 'template-data.json'), 'utf8'));
+    return j.docSize || null;
+  } catch {
+    return null;
   }
 }
 
@@ -141,6 +178,24 @@ function rollback(id) {
   });
 }
 
+// Tag a dashboard-store entry with its template kind ('single-image' | 'carousel') so
+// generate-worker.mjs can pick the right authoring path without re-deriving it from page count
+// (a carousel could theoretically have 1 page mid-batch during rollback races; an explicit tag
+// is unambiguous). Absence of this field means 'carousel' — the default before this existed.
+function setKind(id, kind) {
+  const storePath = path.join(WS, 'dashboard-store.json');
+  withStoreLock(() => {
+    try {
+      const store = JSON.parse(fs.readFileSync(storePath, 'utf8'));
+      const e = Array.isArray(store.entries) && store.entries.find((x) => x.designId === id);
+      if (e) {
+        e.kind = kind;
+        fs.writeFileSync(storePath, JSON.stringify(store, null, 2) + '\n');
+      }
+    } catch {}
+  });
+}
+
 async function findEditor(ctx, id) {
   for (const p of ctx.pages()) {
     const m = p.url().match(DID_RE);
@@ -187,28 +242,61 @@ async function openFromTile(ctx, tile) {
   const search = ctx.pages().find((p) => /canva\.com\/templates\//.test(p.url())) || (await ctx.newPage());
   await search.goto(landing, { waitUntil: 'domcontentloaded', timeout: 90000 });
   await search.waitForTimeout(2000);
-  const createUrl = await search.evaluate(() => {
-    const a = [...document.querySelectorAll('a[href]')].find((x) => {
-      const h = x.getAttribute('href') || '';
-      return /\/design\?create/.test(h) && /template=/.test(h);
+  const findCreateUrl = () =>
+    search.evaluate(() => {
+      // Canva's "Customise this template" link path has moved around over time
+      // (`/design?create&template=...` -> `/design/editor/shell?create&type=...&template=...`);
+      // match loosely on a /design... href carrying a bare `create` flag + a template id.
+      const a = [...document.querySelectorAll('a[href]')].find((x) => {
+        const h = x.getAttribute('href') || '';
+        return /^\/design(\/|\?)/.test(h) && /[?&]create(&|$)/.test(h) && /template=/.test(h);
+      });
+      return a ? new URL(a.getAttribute('href'), location.origin).href : null;
     });
-    return a ? new URL(a.getAttribute('href'), location.origin).href : null;
-  });
+  // The landing page can render slower than 2s under load (many tiles cloned back to back) —
+  // poll a few more seconds before giving up, rather than a single flat-wait check.
+  let createUrl = await findCreateUrl();
+  for (let i = 0; i < 6 && !createUrl; i++) {
+    await search.waitForTimeout(1000);
+    createUrl = await findCreateUrl();
+  }
   if (!createUrl) throw new Error(`tile ${n}: no "Customize this template" link on the landing page.`);
   const page = await ctx.newPage();
   await page.goto(createUrl, { waitUntil: 'domcontentloaded', timeout: 90000 });
-  // Creating from a template redirects to /design/<newId>/edit — wait for that id.
-  for (let i = 0; i < 20 && !DID_RE.test(page.url()); i++) await page.waitForTimeout(1000);
+  // Creating from a template lands on /design/editor/shell?create... then client-side
+  // route-changes (no real navigation) to /design/<newId>/<token>/edit. DID_RE would also
+  // spuriously match the shell URL itself (captures "editor" as a fake id), so wait for a
+  // real id that isn't the shell/editor placeholder.
+  const realId = () => {
+    const m = page.url().match(DID_RE);
+    return m && m[1] !== 'editor' && m[1] !== 'shell' ? m[1] : null;
+  };
+  for (let i = 0; i < 20 && !realId(); i++) await page.waitForTimeout(1000);
   await page.waitForTimeout(2500);
-  const id = (page.url().match(DID_RE) || [])[1];
+  const id = realId();
   if (!id) throw new Error('Create-from-template did not land on /design/<id>/edit.');
   return { page, id, _closeAfter: true };
 }
 
+// Real document content check, not just marker presence: Canva's "create from template" flow
+// lands the browser (via client-side SPA route change, no real reload) on the final
+// /design/<id>/<token>/edit URL while the inline `window.bootstrap` script tag still holds the
+// data from the ORIGINAL /design/editor/shell?create... paint — a small shell/session bootstrap
+// with no document (page.Pm.E.draft.content.A is empty/absent), which silently produced
+// pageCount:0 clones. Check the live object for actual page data, not just the marker string.
 const hasBootstrap = (page) =>
-  page.evaluate(() =>
-    Array.from(document.scripts || []).some((s) => (s.textContent || '').includes("window['bootstrap'] = JSON.parse("))
-  );
+  page.evaluate(() => {
+    const hasMarker = Array.from(document.scripts || []).some((s) =>
+      (s.textContent || '').includes("window['bootstrap'] = JSON.parse(")
+    );
+    if (!hasMarker) return false;
+    try {
+      const pages = window.bootstrap?.page?.Pm?.E?.draft?.content?.A;
+      return Array.isArray(pages) && pages.length > 0;
+    } catch {
+      return false;
+    }
+  });
 
 /**
  * Grab the editor DOM into designs/<id>/capture/.
@@ -339,24 +427,66 @@ async function processEditor(ctx, ed) {
   const result = DO_CLONE ? clone(id, inputHtml) : { designId: id, status: 'captured', inputHtml };
   // Post-extract gates (page/image counts are only known after extraction):
   if (DO_CLONE && result.status === 'cloned') {
-    // Multi-slide gate.
-    if (MIN_PAGES > 1) {
-      const pc = pageCountOf(id);
-      if (pc < MIN_PAGES) {
+    const pc = pageCountOf(id);
+    if (KIND === 'single-image') {
+      // Single-image wants EXACTLY one page — a multi-page deck is a carousel, wrong kind.
+      if (pc !== 1) {
+        rollback(id);
+        log(`skip ${id}: ${pc} page(s) != 1 — not a single-image design, discarded`);
+        if (ed._closeAfter) await ed.page.close().catch(() => {});
+        return { designId: id, status: 'skipped-not-single-page', pages: pc };
+      }
+      // Format gate: single-image supports 1:1, 4:5, 9:16 AND 1.91:1 (the one landscape ratio
+      // this kind allows) — reject anything that matches none of those (e.g. a 16:9 "Presentation").
+      const doc = docSizeOf(id);
+      if (doc && doc.A && doc.B && !matchesSingleImageAspect(doc.A, doc.B)) {
+        rollback(id);
+        log(`skip ${id}: doc ${doc.A}x${doc.B} matches no single-image aspect ratio (1:1/4:5/9:16/1.91:1) — discarded`);
+        if (ed._closeAfter) await ed.page.close().catch(() => {});
+        return { designId: id, status: 'skipped-wrong-format', docSize: doc };
+      }
+      // No photo cap in single-image mode by default (PHOTO-HERO full-bleed backgrounds are
+      // a normal archetype here, not a defect) — MAX_IMAGES defaults to Infinity above, but
+      // still honor an explicit --max-images override if the caller passed one.
+      if (Number.isFinite(MAX_IMAGES)) {
+        const imgs = imageCountOf(id);
+        if (imgs > MAX_IMAGES) {
+          rollback(id);
+          log(`skip ${id}: ${imgs} photos > max ${MAX_IMAGES} — discarded (photo-heavy)`);
+          if (ed._closeAfter) await ed.page.close().catch(() => {});
+          return { designId: id, status: 'skipped-photo-heavy', images: imgs };
+        }
+      }
+      // Tag the entry so generate-worker.mjs knows to run the single-image authoring path.
+      setKind(id, 'single-image');
+    } else {
+      // Multi-slide gate.
+      if (MIN_PAGES > 1 && pc < MIN_PAGES) {
         rollback(id);
         log(`skip ${id}: ${pc} slide(s) < min ${MIN_PAGES} — discarded`);
         if (ed._closeAfter) await ed.page.close().catch(() => {});
         return { designId: id, status: 'skipped-single-slide', pages: pc };
       }
-    }
-    // Photo cap: skip photo-heavy decks so generation stays fast + clean.
-    if (Number.isFinite(MAX_IMAGES)) {
-      const imgs = imageCountOf(id);
-      if (imgs > MAX_IMAGES) {
+      // Photo cap: skip photo-heavy decks so generation stays fast + clean.
+      if (Number.isFinite(MAX_IMAGES)) {
+        const imgs = imageCountOf(id);
+        if (imgs > MAX_IMAGES) {
+          rollback(id);
+          log(`skip ${id}: ${imgs} photos > max ${MAX_IMAGES} — discarded (photo-heavy)`);
+          if (ed._closeAfter) await ed.page.close().catch(() => {});
+          return { designId: id, status: 'skipped-photo-heavy', images: imgs };
+        }
+      }
+      // Format gate: this pipeline only targets portrait/square carousel posts (Instagram/
+      // LinkedIn). Landscape docs (16:9 "Presentation", video, etc.) are a different design
+      // family entirely — wrong slide shape for every downstream gate/render. Reject anything
+      // wider than tall (small tolerance for float rounding).
+      const doc = docSizeOf(id);
+      if (doc && doc.A && doc.B && doc.A / doc.B > 1.05) {
         rollback(id);
-        log(`skip ${id}: ${imgs} photos > max ${MAX_IMAGES} — discarded (photo-heavy)`);
+        log(`skip ${id}: landscape doc ${doc.A}x${doc.B} (not a carousel post) — discarded`);
         if (ed._closeAfter) await ed.page.close().catch(() => {});
-        return { designId: id, status: 'skipped-photo-heavy', images: imgs };
+        return { designId: id, status: 'skipped-wrong-format', docSize: doc };
       }
     }
   }
@@ -443,6 +573,12 @@ async function main() {
     if (args['design-id']) {
       const ed = await findEditor(ctx, String(args['design-id']));
       if (!ed) throw new Error(`No open editor tab for /design/${args['design-id']}/`);
+      results.push(await processEditor(ctx, ed));
+    } else if (args.url && /\/templates\//.test(String(args.url))) {
+      // A template LANDING page (canva.com/templates/<TID>/...), not an editor URL — same
+      // click-through as a gallery tile ("Customize this template" -> fresh editor), just with
+      // a direct href instead of a discovered tile index.
+      const ed = await openFromTile(ctx, { index: 0, title: '(direct url)', pages: null, english: true, href: String(args.url) });
       results.push(await processEditor(ctx, ed));
     } else if (args.url) {
       const page = await ctx.newPage();
