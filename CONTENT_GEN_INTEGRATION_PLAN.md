@@ -143,7 +143,7 @@ outputs. Purely mechanical, zero visual/quality impact.
 from the rename via a placeholder swap — that one's the real content-gen var and must stay as-is).
 Verified: 0 bare `--on-accent` remain, `--on-fill` present, `--brand-on-accent` untouched.
 
-### B4. No seed metadata exists yet for any of the 40 (arguably the biggest gap, just not a code gap)
+### B4. No seed metadata exists yet for any of the 40 (arguably the biggest gap, just not a code gap) — ✅ RESOLVED (2026-07-21)
 
 content-gen does not scan a directory for templates at boot — it reads a hardcoded TypeScript
 array (`backend/database/seeds/seed-carousel-templates.ts:33-1444`), one object literal per
@@ -158,7 +158,18 @@ This is not a *quality* gap, but it is real work: 16 (soon ~55) templates × a d
 fields each. See Part D5 for a concrete templating approach to make this fast rather than
 tedious.
 
-### B5. `data-cg-slide-type` has no confirmed backend consumer — verify before treating it as load-bearing
+**Shipped**: `scripts/generate-seed-metadata.mjs` — end-to-end, no human input, per the user's
+call. Reads each template's actual copy (headline/body/eyebrow), asks the text model to draft the
+full entry (name, description, category from content-gen's real 4-category vocabulary,
+contentMode, full recommendationProfile), auto-detects `kind` (carousel vs single-image) and sets
+`slideCountSweet` correctly for each (1/1/1 for single-image). `order` is computed, not
+AI-guessed, since it's a position among the whole catalog, not a per-template property.
+Backfilled all 84 current templates into `seed-metadata.json` at the repo root (ready to fold
+into `seed-carousel-templates.ts` — drop the workspace-only `kind` bookkeeping key when pasting).
+Wired into `generate-worker.mjs`'s finalize step (both `processOne` and `processOneSI`) so every
+future ship drafts its own entry automatically — nothing ships without one going forward.
+
+### B5. `data-cg-slide-type` has no confirmed backend consumer — verify before treating it as load-bearing — ✅ RESOLVED (2026-07-21)
 
 It's present in every one of content-gen's own 39 seeded HTML files, and this workspace already
 writes it faithfully (`data-cg-slide-type="text"` etc.) — but a direct grep across
@@ -169,6 +180,12 @@ way it costs nothing to keep writing it (it's already correct), but it should no
 be functionally required without a maintainer confirming where (if anywhere) it's actually read
 — worth a 2-minute question to whoever owns the content-gen frontend rather than guessing further
 here.
+
+**Resolved (our side)**: since no runtime consumer was found, `check-template-contract.mjs`'s
+C3-SLIDES rule for `data-cg-slide-type` is downgraded from a violation to a warning — a template
+missing it no longer fails the gate over an unconfirmed requirement. Still written on every
+generated slide (costs nothing, may matter to a frontend feature outside the paths searched); the
+2-minute question to content-gen's frontend owner is still open, just no longer blocking.
 
 ### B6. This workspace has never produced a single-image (`si-*`) template — ✅ RESOLVED (2026-07-21)
 
