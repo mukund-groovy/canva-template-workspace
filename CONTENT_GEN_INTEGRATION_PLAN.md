@@ -223,6 +223,60 @@ as a scope note, not a defect.
   found and fixed along the way (image-gen API rejects the canvas's own pixel size as a
   `data-image-size` — needs `1024x1024`/`1024x1536` regardless of canvas dimensions).
 
+### B7. SVG decoration doesn't follow content-gen's real paint contract — confirmed across all 81 SVG-bearing outputs (2026-07-21, OPEN — not yet fixed)
+
+Our own gate (`check-template-contract.mjs` C9/C10) only checks 2 things: no readable text inside
+`<svg><text>`, and every root `<svg>` carries `data-cg-svg` + `data-cg-preserve`. That's a small
+fraction of content-gen's real, code-enforced SVG contract. Found the actual enforcement code
+(not just prompt text) and audited our own output against it:
+
+- **The sanitizer** (`shared`-equivalent module, `carousel-preserve-guard.ts`): hard-strips
+  `<script>`, `<image>`, `<a>`, `<animate*>`, `<foreignObject>`, `<filter>` (with contents), and
+  silently strips inline `style=` on any inner SVG node (style is only allowed on the outer
+  `<svg>`). Shared by both carousel and single-image pipelines.
+- **The paint-contract lint** (`svgEmitLint.ts`, `lintSvgEmit()`): requires inner geometry to
+  paint via `fill="var(--cg-fill)"` / `stroke="var(--cg-stroke)"` — never a literal hex/rgb/hsl,
+  never `currentColor`, never `var(--brand-*)` directly (brand isn't resolved at
+  template-creation time). Also requires the outer `<svg>` to carry `aria-hidden="true"
+  focusable="false"`. Wired into the carousel pipeline as **WARN + auto-correct at save**
+  (`CarouselSlideGenerationService.ts`) and **HARD-REJECT at seed/CI**
+  (`SystemTemplateBatchWorker.ts`) — a template failing this cannot be seeded as a system
+  template. **Not wired into the single-image code path at all** (a gap on content-gen's own
+  side, confirmed by grep — zero calls to `lintSvgEmit` from anything single-image-related).
+- Verified against real seeded templates (`glow-orbs.html`, `tech-futurist.html`,
+  `si-feature-cards.html`): they all use the `fill="var(--cg-fill)"` convention by hand. Two
+  templates the project's own ADR had flagged as violations (`swiss-rules.html`,
+  `bold-yellow-startup.html`) have since been fixed in the checked-in seed files — so this is a
+  live, enforced convention, not a dead rule.
+
+**Audit results across our 81 SVG-bearing output templates:**
+
+| Issue | Scope | Consequence on content-gen |
+|---|---|---|
+| `--cg-fill`/`--cg-stroke` convention used | **0 of 81** | This is the required mechanism — total non-adoption |
+| `currentColor` on fill/stroke | 42 of 81 files | HARD-REJECTED at seed/CI |
+| Hardcoded hex fill/stroke inside SVG | 39 of 81 files | HARD-REJECTED at seed/CI |
+| `<filter>` elements (blur/noise effects) | 5 files: `birdwatching-field-notes` (1), `breach-alert-briefing` (4), `cold-water-swimming` (1), `garden-year-recap` (1), `real-rest-rituals` (7) | Sanitizer **hard-strips the element and its contents** — silent visual breakage |
+| `aria-hidden="true"` present | 359 of 831 root SVGs (472 missing) | Auto-corrected by the lint, not a hard block |
+| `focusable="false"` present | **0 of 831** | Auto-corrected, but universal miss |
+| Inline `style=` on an inner node | 9 instances | Sanitizer silently strips it — paint vanishes, shape renders unstyled |
+| `var(--brand-*)` directly inside SVG | 0 | ✅ clean |
+| `<script>`/`<image>`/`<a>`/`<animate*>`/`<foreignObject>` | 0 (properly scoped check — nested inside `<svg>…</svg>` only, not matched against unrelated same-named HTML like a `<a class="cta">` button) | ✅ clean |
+
+**Net effect if seeded as-is**: every carousel template using `currentColor` or a hardcoded hex in
+its decorative SVGs (a large majority) would be **hard-rejected** by content-gen's own seed/CI
+lint, not just warned. The 5 templates using `<filter>` would seed "successfully" but silently
+lose that visual element entirely at runtime. Single-image templates would currently pass (no
+lint wired up on that path yet) despite the same convention gap.
+
+**Not yet fixed** — this needs: (1) rewrite the authoring prompt to emit `fill="var(--cg-fill)"` /
+`stroke="var(--cg-stroke)"` + `aria-hidden="true" focusable="false"` on every decorative SVG,
+matching content-gen's real convention exactly; (2) drop/rework the 5 `<filter>`-based effects
+into an allowed equivalent (e.g. a `color-mix()` gradient or blur simulated via layered shapes,
+since `filter: blur()` itself isn't in the allowed CSS either); (3) extend
+`check-template-contract.mjs` with the missing rules so this can't silently regress again — the
+gate should have caught this from the start, the same lesson as B1's derivation-check gap.
+
 ---
 
 ## Part C — Everything that needs **no** change
