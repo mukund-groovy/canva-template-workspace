@@ -339,19 +339,35 @@ session must call `agent-canva-clone.mjs --action claim --design-id <id> --stage
 check-and-set under one lock) and dispatch only if `claimed: true`. See the Concurrency section above for
 the shared-directory rules (never `rm -rf` a shared dir; scope deletes to your own slug).
 
-## Future improvement — automate the seed-time image upload
+## Publishing images to Azure Blob (`publish-images.mjs`)
 
-Photos ship as local relative paths (`assets/images/<slug>/slide-03.png`). At seed time they must
-live on Azure Blob and the HTML must point at the hosted URL instead. **Today that swap is manual**
-— deliberately, because the Blob container/credentials aren't wired into this workspace yet.
+Templates keep photos as LOCAL relative paths so the workspace renders offline. content-gen needs
+them on a URL. `scripts/publish-images.mjs` uploads the files and emits a **parallel** seed-ready
+copy of each template — `output/` is never mutated, so this stays re-runnable and offline-safe.
 
-When those details exist, automate it as a script that: uploads `output/assets/images/**` to the
-container preserving the `<slug>/<name>.png` layout (so the hosted path mirrors the local one
-1:1 — that symmetry is the whole point of the folder structure), then rewrites every
-`src="assets/images/…"` to `<blob-base-url>/assets/images/…`. Keep it a SEPARATE step that emits
-seed-ready copies rather than mutating `output/` in place, so the workspace stays renderable
-offline and re-runnable. Needs: container name, base URL, and a connection string or SAS token
-with write access.
+```bash
+node scripts/publish-images.mjs --probe        # verify write access (one tiny blob, then deleted)
+node scripts/publish-images.mjs --all --dry    # report what would upload, touch nothing
+node scripts/publish-images.mjs --all          # upload + write output/.seed/<slug>.html
+node scripts/publish-images.mjs --slug <slug>  # one template
+node scripts/publish-images.mjs --all --force  # re-upload even if the blob exists
+```
+
+- **Remote layout — under the `UPLOAD_DIR` prefix, NOT the container root.** The container is
+  SHARED with other services: it already carries an `assets/` prefix in active use plus many
+  UUID-named blobs. Mirroring our local `assets/images/…` path verbatim would drop our files into
+  someone else's namespace. So `assets/images/<slug>/x.png` → `<container>/social-templates/<slug>/x.png`.
+- **Auth is SharedKey (HMAC-SHA256) over the REST API** — no SDK, matching this repo's
+  playwright+cheerio-only dependency constraint. The `StringToSign` layout is positional and
+  unforgiving; note an empty `Content-Length` must be `''`, not `'0'`, on this API version, or
+  every request 403s with a signature mismatch.
+- **Idempotent**: HEADs each blob first and skips ones already uploaded (`--force` overrides), so
+  re-running after a partial failure only sends what's missing.
+- **`output/.seed/` is gitignored** — environment-specific (bakes in one account's public base
+  URL) and fully regenerable. `output/*.html` stays the source of truth.
+- Config lives in `.env` (see `.env.example`): `AZURE_STORAGE_ACCOUNT_NAME`, `_ACCESS_KEY`,
+  `_CONTAINER`, `_PUBLIC_BASE_URL`, `UPLOAD_DIR`. Container must allow public **blob** read for the
+  hosted URLs to resolve (verified by `--probe`, which fetches the blob back anonymously).
 
 ## Notes
 

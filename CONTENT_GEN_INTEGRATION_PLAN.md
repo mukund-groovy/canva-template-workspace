@@ -163,9 +163,19 @@ also keeps our art-directed image quality instead of falling back to a Pexels ke
   detect failure, but a *regenerated* slot resolves to the same filename, making the rewritten tag
   byte-identical and reporting a false failure on a successful write. Now asserts the tag ends up
   correct rather than that it changed.
-- **Still manual:** uploading `output/assets/images/**` to Azure Blob and swapping the relative
-  prefix for the hosted URL at seed time. Deliberate — the container/credentials aren't wired into
-  this workspace yet. Documented as a future improvement in `CLAUDE.md` with the exact requirements.
+- **Seed-time hosting is now automated too** (2026-07-22, once storage credentials landed in
+  `.env`): `scripts/publish-images.mjs` uploads the files to Azure Blob over the REST API with
+  SharedKey auth (no SDK — keeps the playwright+cheerio-only dependency constraint) and emits a
+  parallel seed-ready copy of each template at `output/.seed/<slug>.html` with the srcs rewritten
+  to hosted URLs. `output/` is never mutated, so the workspace stays renderable offline and the
+  script stays re-runnable; it HEADs each blob first so a re-run only sends what's missing.
+  - Uploads land under the `UPLOAD_DIR` prefix (`social-templates/`), **not** the container root:
+    the container is shared and already carries an `assets/` prefix in active use plus many
+    UUID-named blobs, so mirroring our local `assets/images/…` path verbatim would have dropped
+    our files into another service's namespace.
+  - Verified end-to-end before the bulk run: `--probe` writes one disposable blob, fetches it back
+    anonymously (confirming public read), and deletes it; then a single-template run was checked
+    byte-for-byte against the local file (2,890,931 bytes both sides, `content-type: image/png`).
 
 ### B3. `--on-accent` doesn't match content-gen's own on-pair naming convention — cosmetic, but causes false-positive warnings — ✅ RESOLVED (2026-07-21)
 
