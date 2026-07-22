@@ -15,7 +15,9 @@
     "gate:stress": "node scripts/stress-slots.mjs",
     "gate:brand": "node scripts/brand-audit.mjs",
     "score": "node scripts/score-template.mjs",
-    "comparison": "node scripts/build-comparison.mjs"
+    "comparison": "node scripts/build-comparison.mjs",
+    "publish:probe": "node scripts/publish-images.mjs --probe",
+    "publish:images": "node scripts/publish-images.mjs --all"
   },
   "dependencies": {
     "cheerio": "^1.0.0",

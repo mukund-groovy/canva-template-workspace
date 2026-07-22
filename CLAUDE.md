@@ -31,6 +31,8 @@ npm run gate:stress   <html>   # re-render with worst-case generated text; must 
 npm run gate:brand    <html>   # differential recolor coverage under brand palettes
 npm run score         <slug|path>   # combine all four gates → /10 into template-scores.json
 npm run comparison    --design-id <id>   # rebuild designs/<id>/comparison.html
+npm run publish:probe                    # verify Azure Blob write access (disposable probe blob)
+npm run publish:images                   # upload photos + emit seed-ready HTML to output/.seed/
 ```
 
 Other useful scripts: `remix-worker.mjs` (remix batch — the DEFAULT deliverable),
