@@ -1,196 +1,168 @@
 # Canva Template Workspace
 
-Portable, self-contained workflow folder for Canva template cloning.
+Standalone engine that clones Canva templates and authors brand-recolorable Instagram
+templates from them, ready to seed into `content-gen`.
 
-Use this when you want any AI/tool/person to follow one consistent structure with no path guessing.
-All required clone engine scripts now live inside `canva-template-workspace/scripts/canva/`.
+The repo root **is** the workspace — every script self-resolves it, so all paths below are
+plain `scripts/…` and every command runs from the root.
 
-## What You Need
+Checked in and ready to use out of the box:
 
-1. `editor-page.full.html` from Canva editor (captured after load; one reload strategy recommended when rate-limited).
-2. Design ID from Canva URL (`/design/<DESIGN_ID>/...`).
+| | |
+|---|---|
+| `output/*.html` | 95 finished templates (75 carousel, 20 single-image) |
+| `output/.seed/*.html` | the same templates with photo `src`s pointing at hosted blob URLs — this is what gets seeded |
+| `designs/<id>/` | the cloned Canva reference behind each one, with page thumbnails |
+| `dashboard.html` | open it in a browser; 93 success rows + 21 duplicates, no build step |
 
-If `editor-page.full.html` is truncated, keep `editor-page.reconstructed.html` in the same source folder; the runner auto-falls back to it.
-
-## Quick Start
-
-Run from repo root:
-
-```bash
-node canva-template-workspace/scripts/clone-workspace.mjs \
-  --design-id <DESIGN_ID> \
-  --input-html <PATH_TO_EDITOR_PAGE_FULL_HTML>
-```
-
-### One-Line Agent Command (Recommended)
-
-Use this when you do not want to pass long options each time:
+## Setup
 
 ```bash
-node canva-template-workspace/scripts/agent-canva-clone.mjs --design-id <DESIGN_ID>
+npm install          # just playwright + cheerio
+cp .env.example .env # then fill in the Azure keys
 ```
 
-Optional:
+There is **no build, no linter and no test runner**. The four gate scripts below are the
+test suite.
+
+You only need `.env` and Chrome if you plan to clone or generate. Browsing the existing 95
+templates and the dashboard needs neither.
+
+### Chrome (cloning + generating only)
+
+Both stages drive a debuggable Chrome logged into Canva on port **9222**, using a dedicated
+debug profile directory — never Chrome's own `User Data` dir, which Chrome 136+ blocks the
+debug port on. The directory is machine-specific, so it is not hardcoded anywhere:
 
 ```bash
-node canva-template-workspace/scripts/agent-canva-clone.mjs \
-  --url "https://www.canva.com/design/<DESIGN_ID>/..." \
-  --input-html <PATH_TO_EDITOR_PAGE_FULL_HTML>
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 \
+  --user-data-dir="<your debug profile dir>" \
+  --no-first-run --no-default-browser-check --new-window "https://www.canva.com/"
 ```
 
-Defaults come from:
+Log in once in that window; it persists.
 
-`canva-template-workspace/agent.config.json`
-
-### Staged Workflow Commands
-
-If you want manual stage control from chat:
-
-1. Add entry only (no clone yet):
+## Commands
 
 ```bash
-node canva-template-workspace/scripts/agent-canva-clone.mjs --action add --url "https://www.canva.com/design/<DESIGN_ID>/..."
+npm run dashboard        # rebuild dashboard-store.json + dashboard.html from disk
+npm run clone            # clone orchestrator + status
+npm run clone:browser    # Stage 1 — capture a Canva design over CDP
+npm run generate         # Stage 2 — faithful reproduction, batch
+npm run remix            # Stage 2 — remix (the default deliverable), batch
 ```
 
-2. Clone/extract only (downloads JSON/assets):
+Gate one template (`output/<slug>.html`):
 
 ```bash
-node canva-template-workspace/scripts/agent-canva-clone.mjs --action clone --design-id <DESIGN_ID> --input-html <PATH_TO_EDITOR_PAGE_FULL_HTML>
+npm run gate:contract <html>   # static contract — element and slot semantics
+npm run gate:verify   <html>   # render + measure: fonts, overflow, collision, contrast
+npm run gate:stress   <html>   # re-render with worst-case text; must still hold
+npm run gate:brand    <html>   # does the deck actually recolor under a brand palette
+npm run score  <slug|path>     # folds all four into a /10 in template-scores.json
 ```
 
-3. Generate only (from existing extracted data):
+Publishing and seeding:
 
 ```bash
-node canva-template-workspace/scripts/agent-canva-clone.mjs --action generate --design-id <DESIGN_ID>
+npm run publish:probe    # what would upload, without uploading
+npm run publish:images   # push local photos to Azure Blob, rewrite output/.seed/
+npm run seed:metadata    # AI-written title/useCases/tone for each template
+npm run seed:bundle      # emit the typed TS the content-gen seeder imports
 ```
 
-4. Full pipeline in one shot:
+`publish:images` skips anything already uploaded (it compares Content-MD5), so re-running it
+is cheap and safe.
+
+## The two stages
+
+**Stage 1 — clone.** Captures a Canva template's editor DOM into `designs/<id>/extract/`
+plus a dashboard preview. Dedupe is by **content fingerprint, not URL**, so a recolor of a
+base template is correctly flagged a duplicate.
 
 ```bash
-node canva-template-workspace/scripts/agent-canva-clone.mjs --action run --design-id <DESIGN_ID> --input-html <PATH_TO_EDITOR_PAGE_FULL_HTML>
+node scripts/clone-from-browser.mjs --search "<query>" --english-only
+node scripts/clone-from-browser.mjs --url "<editor url>"
+node scripts/clone-from-browser.mjs --search "<query>" --kind single-image
 ```
 
-### Dashboard
-
-Every agent run auto-updates:
-
-- `canva-template-workspace/dashboard.html`
-
-This single dashboard file shows all design entries with:
-- status (`pending`, `cloning`, `cloned`, `generating`, `success`, `failed`, `duplicate`)
-- source URL
-- input HTML path
-- weighted score/quality-gate result (global RMSE + edge-weighted RMSE)
-- output HTML path
-- workspace summary path
-- last error (if failed)
-
-Example:
+**Stage 2 — generate.** "Generate the template for `<id>`" means **remix** by default: keep
+the reference's craft and design language, invent the content. A faithful near-verbatim
+reproduction is opt-in only.
 
 ```bash
-node canva-template-workspace/scripts/clone-workspace.mjs \
-  --design-id DAHN7DOKt8M \
-  --input-html .tmp/canva-template-json/DAHN7DOKt8M/editor-page.full.html
+node scripts/remix-worker.mjs --design-id <id>     # remix — the default
+node scripts/generate-worker.mjs --design-id <id>  # faithful repro — opt in
 ```
 
-## What Runner Does
+Both ship a single self-contained `output/<slug>.html` with all CSS, fonts and photos
+inlined, so it renders offline.
 
-1. Copies the source HTML into `designs/<DESIGN_ID>/capture/`.
-2. Extracts JSON/assets into `designs/<DESIGN_ID>/extract/`.
-3. Checks duplicate fingerprints against `index/template-dedupe-index.json`.
-4. Generates final pure HTML:
-   - preferred: auto-tuned mode with reference-page scoring (global + edge-weighted RMSE)
-   - fallback: direct pure-HTML render from `template-data.json` when reference pages are missing
-5. Writes `designs/<DESIGN_ID>/workspace-summary.json`.
-6. Downloads local font files to `extract/assets/fonts/` and uses them in rendered HTML.
+## Two template kinds
 
-## Optional Flags
+Discriminated by a `kind` field, not a filename convention, and their contracts genuinely
+contradict each other:
 
-- `--workspace-root <path>`: override workspace root folder.
-- `--dedupe-mode skip|continue|off`:
-  - `skip` (default): if duplicate template is detected, skip heavy clone generation.
-  - `continue`: process even if duplicate is detected.
-  - `off`: disable dedupe.
-- `--target-rmse <number>`: quality gate for auto-tune (example: `0.16`).
-- `--stop-on-target true|false`:
-  - `true` (default): stop early once a candidate meets `target-rmse`.
-  - `false`: evaluate all candidate profiles and pick global best.
+- **`carousel`** — 2–12 slides, `.ig-carousel > .slide`, per-element absolute positioning
+  mirroring Canva's own geometry.
+- **`single-image`** — exactly one page, `.si-single > .si-page`, and **flow layout only**;
+  `position:absolute` is allowed for a full-bleed background photo and one corner decoration,
+  nothing else. Remix-only, because exact geometry cloning cannot satisfy a flow-layout
+  contract.
 
-## Folder Contract
+All four gates auto-detect which kind they are looking at.
 
-```text
-canva-template-workspace/
-  README.md
-  scripts/
-    agent-canva-clone.mjs
-    clone-workspace.mjs
-    prune-workspace.mjs
-    canva/
-      ...
-  index/
-    template-dedupe-index.json
-  designs/
-    <DESIGN_ID>/                  # single self-contained folder
-      capture/
-        editor-page.full.html
-      extract/
-        bootstrap.json
-        template-data.json
-        template-signature.json
-        assets/
-          fonts/
-            font-manifest.json
-      final/
-        template-clone-pure-html.html
-      index/
-        template-dedupe-index.json # snapshot copy
-      runs/
-        latest.json
-        index.json
-        <run-id>/
-          artifacts/
-          logs/
-          final/
-            template-clone-pure-html.html
-          report.json
-      workspace-summary.json
-```
+## Why four gates
 
-## How Duplicate Detection Works
+Each catches a defect class the others are blind to, and `score-template.mjs` folds them into
+one /10 (contract 4.0, verify 3.0, stress 1.5, brand 1.5):
 
-Duplicates are identified by template fingerprint, not URL.
+- **contract** — static semantics the runtime parser enforces. A body message stuffed into a
+  label slot is a real bug that no render can show you. Selectors are copied from content-gen's
+  parser so they cannot silently diverge.
+- **verify** — renders and measures actual pixels: font really loaded, no overflow, no
+  text/photo collision, WCAG-AA contrast.
+- **stress** — re-renders with worst-case generated copy, catching slots that only hold
+  because the author picked short text.
+- **brand** — a pixel counts as brand-driven only if it *changes* when the brand vars change.
 
-Each extracted template creates:
-- `exactHash`: strict signature including structure/style refs.
-- `layoutHash`: structural signature tolerant to ID-level differences.
+> **The score measures structure, not composition.** A 10/10 deck can still have colliding
+> tabs and shouty copy. Always look at `.renders/output/<slug>/slide-NN.png` before calling a
+> deck done.
 
-If either hash already exists in `index/template-dedupe-index.json` for another design ID, it is treated as duplicate.
+## Data files
 
-## Outputs You Usually Need
+All at the repo root, all checked in:
 
-1. Final clone HTML:  
-   `designs/<DESIGN_ID>/final/template-clone-pure-html.html`
-2. Run diagnostics:  
-   `runs/<DESIGN_ID>/runs/latest.json` and latest run `report.json`
-3. Extracted raw data:  
-   `designs/<DESIGN_ID>/extract/template-data.json`
-4. Duplicate mapping:  
-   `index/template-dedupe-index.json`
+- `dashboard-store.json` — source of truth for the dashboard, one entry per design.
+  **Every path in it is workspace-relative** (`designs/<id>/…`). This repo is worked on from
+  several machines; an absolute root bakes one box's layout into shared data and breaks every
+  thumbnail elsewhere. Repair a store written on another box with
+  `node scripts/fix-moved-paths.cjs` (idempotent, `--dry` to preview).
+- `archetype-map.json` — design id → slug for its faithful template.
+- `remix-map.json` — design id → slug for remixes.
+- `template-scores.json` — slug → gate breakdown and /10.
+- `index/template-dedupe-index.json` — the fingerprint index.
+- `seed-metadata.json` — per-template title, use cases and tone for seeding.
 
-## Workspace Hygiene
+## Several chats may be working at once
 
-Prune historical run folders while keeping the latest N per design:
+This workspace is routinely driven from more than one session at a time.
 
-```bash
-node canva-template-workspace/scripts/prune-workspace.mjs --keep-runs 2
-```
+- **Never `rm -rf` a shared directory** — `output/`, `output/.verify/`, `designs/`. Another
+  agent may be mid-run. This has actually happened.
+- Scope every delete to your own slug, and only for something this session created.
+- Need a clean render dir? `verify-slides.mjs <html> --out <scratch-dir>` — never wipe the
+  real one.
+- To take a design safely, claim it atomically:
+  `node scripts/agent-canva-clone.mjs --action claim --design-id <id> --stage authoring`,
+  and only proceed if it returns `claimed: true`. Status marking alone does not lock.
 
-## Handoff To Other AI
+## Seeding into content-gen
 
-Share only `canva-template-workspace/` and this command:
+`seed-bundle/` holds everything the other repo needs. `seed-bundle/README.md` has the full
+walkthrough; the short version is that the images are already hosted, so seeding uploads
+nothing.
 
-```bash
-node scripts/clone-workspace.mjs --design-id <DESIGN_ID> --input-html <editor-page.full.html>
-```
-
-That is enough context for another AI/tool to continue the same workflow.
+`CONTENT_GEN_INTEGRATION_PLAN.md` records the structural gaps found between this workspace's
+output and content-gen's validators, and how each was closed.
