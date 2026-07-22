@@ -54,3 +54,20 @@ output/hand-*.html
 .slot-images/
 .dashboard.lock
 .locks/
+
+# retired snapshots. `archive/` used to hold pre-regen copies of output/; it was 260 MB of
+# superseded templates that nothing reads (the dashboard derives its rows from output/).
+# Recover an old copy from git history if ever needed, don't re-add the folder.
+archive/
+output.zip
+
+# one-off scratch: compare boards, audit reports, throwaway scripts, dashboard screenshots
+/compare-*.html
+/*-report.json
+scripts/_tmp-*
+dashboard-preview.png
+*.stackdump
+
+# per-developer Claude Code config (plugins, marketplaces) — not a project setting
+.claude/settings.json
+.claude/settings.local.json
