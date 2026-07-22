@@ -173,6 +173,31 @@ if (isSingleImage) {
 // ── per-slide rules (carousel only) ───────────────────────────────────────────
 const slides = isSingleImage ? $() : $('.slide');
 if (!isSingleImage && !slides.length) v('C3-SLIDES', 'no .slide elements found');
+
+// C13. A carousel needs at least TWO slides. content-gen's parseCarouselTemplate throws
+// ("Template has too few slides") and enforceUniversalCarouselTemplateContract rejects it, so a
+// 1-slide carousel can never generate — it seeds and then fails at use. If the design really is
+// one page it belongs in the single-image kind (.si-single > .si-page), not here.
+if (!isSingleImage && slides.length === 1) {
+  v('C13-SLIDECOUNT', 'only 1 .slide — a carousel requires >=2 (content-gen\'s parser throws on this); if it is genuinely one page, author it as a single-image template instead');
+}
+
+// C14. Baked page-counter denominators must equal the real slide count. content-gen HARD-REJECTS
+// a mismatch ("baked slide-count denominator(s) [3] that disagree with the actual slide count
+// (5)") — which happens whenever a deck gains slides after its counters were written.
+// Regexes copied VERBATIM from carouselTemplateContract.ts. The zero-padded numerator is
+// deliberate on their side: it avoids matching prose like "Systems / 2025" or a semantic
+// "Tip 1 of 5", which counts tips rather than slides and may legitimately differ.
+if (!isSingleImage && slides.length >= 2) {
+  const rawHtml = html;
+  const totals = new Set();
+  for (const m of rawHtml.matchAll(/>(0\d+)(\s*(?:\/|of|—|–)\s*)(\d{1,3})</gi)) totals.add(Number(m[3]));
+  for (const m of rawHtml.matchAll(/>\s*(?:\/|of|—|–)\s*0*(\d{1,3})\s*</gi)) totals.add(Number(m[1]));
+  const wrong = [...totals].filter((t) => t !== slides.length);
+  if (wrong.length) {
+    v('C14-COUNTER', `baked counter total(s) [${wrong.join(', ')}] disagree with the actual slide count (${slides.length}) — content-gen hard-rejects this; fix with: node scripts/fix-slide-counters.mjs`);
+  }
+}
 slides.each((i, el) => {
   const n = i + 1;
   const $s = $(el);
@@ -327,6 +352,31 @@ $('svg').each((_j, root) => {
     else if (/var\(\s*--brand-/i.test(val)) v('C11-SVGPAINT', `<svg ${id}> --cg-${role} references --brand-* directly — use the ecosystem token (var(--primary) etc.) instead`);
   }
 });
+
+// ── C15. same-source token collision (text token == its background token) ─────
+// --accent and --highlight both derive from --brand-accent. Different FALLBACK hexes make them
+// look distinct in our own render, then collapse to the SAME colour the moment a real brand
+// supplies --brand-accent — 1.00:1, invisible text. This shipped in the-slow-morning and was
+// invisible to every check we had, because at the default palette the fallbacks differed.
+{
+  const styleAll = $('style').text();
+  const sourceOf = {};
+  for (const m of styleAll.matchAll(/--([a-z-]+)\s*:\s*var\(\s*(--brand-[a-z-]+)/g)) {
+    sourceOf[`--${m[1]}`] = m[2];
+  }
+  // Elements that set BOTH a background and a colour from tokens sharing one --brand-* source.
+  const declRe = /([.#][\w-]+(?:\s*[,.][\w\s.,#-]*)?)\s*\{([^}]*)\}/g;
+  for (const m of styleAll.matchAll(declRe)) {
+    const body = m[2];
+    const bg = (body.match(/background(?:-color)?\s*:\s*var\((--[a-z-]+)\)/) || [])[1];
+    const fg = (body.match(/(?:^|;)\s*color\s*:\s*var\((--[a-z-]+)\)/) || [])[1];
+    if (!bg || !fg) continue;
+    const sb = sourceOf[bg], sf = sourceOf[fg];
+    if (sb && sf && sb === sf) {
+      v('C15-TOKENCLASH', `"${m[1].trim().slice(0, 40)}" sets background:var(${bg}) and color:var(${fg}) — both derive from ${sb}, so they collapse to the SAME colour (1.00:1) once a brand supplies it; use var(--on-fill) for text on that fill`);
+    }
+  }
+}
 
 // ── C12. content photos live in files, never inlined as base64 ────────────────
 // A baked `data:…;base64` photo pushed templates to 16-21 MB (345 MB across output/).
