@@ -1190,49 +1190,6 @@
     "kind": "single-image",
     "order": 25
   },
-  "first-frost-morning": {
-    "name": "First Frost Morning",
-    "slug": "first-frost-morning",
-    "description": "A single-slide quote template for reflective seasonal messages.",
-    "category": "lifestyle",
-    "enabled": true,
-    "isSystem": false,
-    "contentMode": "text-only",
-    "recommendationProfile": {
-      "version": 1,
-      "title": "First Frost Morning",
-      "summary": "A quiet, single-slide template for sharing a reflective or poetic quote. Use it when you want to communicate a calm, contemplative mood.",
-      "tags": [
-        "quote",
-        "seasonal",
-        "reflective",
-        "poetic",
-        "calm",
-        "minimal",
-        "frost",
-        "nature"
-      ],
-      "useCases": [
-        "quote",
-        "story"
-      ],
-      "tone": "elegant",
-      "visualStyle": [
-        "minimal",
-        "serene",
-        "typographic"
-      ],
-      "slideCountSweet": {
-        "min": 1,
-        "ideal": 1,
-        "max": 1
-      },
-      "industries": [],
-      "audience": []
-    },
-    "kind": "carousel",
-    "order": 26
-  },
   "garden-year-recap": {
     "name": "My Year In The Garden",
     "slug": "garden-year-recap",

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-22T06:54:41.233Z",
-  "count": 96,
+  "generatedAt": "2026-07-22T08:26:33.424Z",
+  "count": 95,
   "templates": [
     {
       "slug": "ace-your-interview",
@@ -209,14 +209,6 @@
       "contentMode": "text-only",
       "images": 0,
       "name": "Mindset Shift Quote"
-    },
-    {
-      "slug": "first-frost-morning",
-      "kind": "carousel",
-      "category": "lifestyle",
-      "contentMode": "text-only",
-      "images": 0,
-      "name": "First Frost Morning"
     },
     {
       "slug": "garden-year-recap",

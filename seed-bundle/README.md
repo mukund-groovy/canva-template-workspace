@@ -1,9 +1,9 @@
-# Seed bundle — 96 templates for content-gen
+# Seed bundle — 95 templates for content-gen
 
 Everything needed to seed these into content-gen. Self-contained: copy this folder, follow the
 four steps, done.
 
-- **76** carousel, **20** single-image
+- **75** carousel, **20** single-image
 - **33** carry photos (**131** images total), already uploaded to Azure Blob
 - Generated 2026-07-22 by `canva-template-workspace`
 
@@ -11,7 +11,7 @@ four steps, done.
 
 | Path | What it is |
 |---|---|
-| `carousels/<slug>.html` | The 96 templates. Photo `src`s already point at hosted Azure Blob URLs — nothing else to upload. |
+| `carousels/<slug>.html` | The 95 templates. Photo `src`s already point at hosted Azure Blob URLs — nothing else to upload. |
 | `seed-carousel-templates.generated.ts` | Catalog entries in content-gen's own `carouselTemplates` array shape. |
 | `manifest.json` | Machine-readable index (slug, kind, category, contentMode, image count). |
 
@@ -28,7 +28,7 @@ The seeder reads `backend/database/carousels/<slug>.html` by slug, so filenames 
 **2. Register the entries**
 
 Open `<content-gen>/backend/database/seeds/seed-carousel-templates.ts`. It exports a
-`carouselTemplates` array. Add these 96 entries to it — either paste the contents of
+`carouselTemplates` array. Add these 95 entries to it — either paste the contents of
 `seed-carousel-templates.generated.ts`'s array, or drop the file in beside it and spread it:
 
 ```ts
@@ -58,7 +58,7 @@ It upserts by the composite unique `(kind, slug)`, so re-running is safe and ide
 SELECT kind, COUNT(*) FROM "CarouselTemplate" WHERE is_system = true GROUP BY kind;
 ```
 
-Expect **76 carousel** and **20 single-image**. Then open the template gallery —
+Expect **75 carousel** and **20 single-image**. Then open the template gallery —
 cards render live from the HTML, so photos loading confirms the blob URLs resolve.
 
 ## Things worth knowing before you seed
@@ -68,7 +68,7 @@ cards render live from the HTML, so photos loading confirms the blob URLs resolv
   be seeded, its photos would 404 for every user. This bundle is built only from the hosted set.
 - **The seeder prunes.** It deletes system rows whose slug is no longer in the array, so removing
   an entry and re-seeding removes it from the DB.
-- **Contract-verified.** All 96 pass this workspace's contract gate, which mirrors
+- **Contract-verified.** All 95 pass this workspace's contract gate, which mirrors
   content-gen's own `carousel-template-parser.ts` / `validateColorTokens.ts` /
   `svgEmitLint.ts` rules: 9-token `:root` deriving from the right `--brand-*` vars, SVG paint
   via `--cg-fill`/`--cg-stroke`, no `currentColor`, no inlined base64, no SVG `<filter>`.

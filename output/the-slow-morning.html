@@ -32,9 +32,9 @@
 .photo img{width:100%;height:100%;object-fit:cover;display:block;background:#241812;}
 
 .scrim-top{position:absolute;left:0;right:0;top:0;height:520px;z-index:1;pointer-events:none;
-  background:linear-gradient(180deg,rgba(36,24,18,.72) 0%,rgba(36,24,18,.30) 60%,transparent 100%);}
+  background:linear-gradient(180deg,rgba(36,24,18,.76) 0%,rgba(36,24,18,.56) 60%,rgba(36,24,18,.50) 100%);}
 .scrim-bot{position:absolute;left:0;right:0;bottom:0;height:560px;z-index:1;pointer-events:none;
-  background:linear-gradient(0deg,rgba(11,7,4,.82) 0%,rgba(11,7,4,.30) 55%,transparent 100%);}
+  background:linear-gradient(0deg,rgba(11,7,4,.86) 0%,rgba(11,7,4,.58) 55%,rgba(11,7,4,.50) 100%);}
 
 /* daisy */
 .daisy{position:absolute;z-index:4;pointer-events:none;}
@@ -47,7 +47,8 @@
 .lockup{display:inline-flex;align-items:center;gap:12px;}
 .brand-mark{height:28px;width:auto;max-width:110px;object-fit:contain;display:block;}
 .brand-word-f{font-family:'Dancing Script',cursive;font-weight:600;font-size:24px;color:var(--highlight);white-space:nowrap;}
-.cg-slide-counter{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;letter-spacing:.14em;color:var(--highlight);}
+.slide.on-accent .brand-word-f,.slide.on-accent .cg-slide-counter{color:var(--on-fill);}
+    .cg-slide-counter{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;letter-spacing:.14em;color:var(--highlight);}
 
 .serif{font-family:'Playfair Display',serif;font-weight:700;color:var(--highlight);line-height:1.02;}
 .serif .it{font-style:italic;}
@@ -175,7 +176,7 @@
   </section>
 
   <!-- Slide 5 : framed chalkboard, blue border -->
-  <section class="slide" data-cg-slide-type="closer" style="background:var(--accent);">
+  <section class="slide on-accent" data-cg-slide-type="closer" style="background:var(--accent);">
     <div class="photo" style="inset:100px 260px 100px 100px;border:22px solid #6b4a2b;border-radius:8px;overflow:hidden;z-index:2;">
       <img data-image="true" data-image-size="1024x1536" alt="" src="assets/images/the-slow-morning/slide-05.png">
     </div>
