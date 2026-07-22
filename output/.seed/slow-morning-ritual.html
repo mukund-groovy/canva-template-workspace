@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Mulish:wght@400;600&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#C98A8F);
+  --secondary:var(--brand-secondary,#8E86AE);
+  --accent:var(--brand-accent,#E0A98C);
+  --highlight:var(--brand-accent,#E0A98C);
+  --bg:var(--brand-bg,#D9B7B2);
+  --surface:var(--brand-surface,#E4C6BE);
+  --text-high:var(--brand-ink,var(--brand-text,#4A3B47));
+  --text-low:var(--brand-text-muted,rgba(74,59,71,.72));
+  --border:var(--brand-border,rgba(74,59,71,.18));
+}
+
+*{box-sizing:border-box;}
+
+.si-single{width:fit-content;margin:0;}
+
+.si-page{
+  position:relative;width:1080px;height:1080px;
+  container-type:inline-size;overflow:hidden;
+  background:var(--bg);
+  font-family:'Mulish',sans-serif;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.si-image{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;z-index:0;background:var(--bg);
+}
+
+.veil{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(62% 58% at 50% 51%, color-mix(in srgb, var(--surface) 88%, transparent) 0%, color-mix(in srgb, var(--surface) 78%, transparent) 42%, color-mix(in srgb, var(--surface) 35%, transparent) 68%, transparent 82%),
+    linear-gradient(180deg, color-mix(in srgb, var(--secondary) 22%, transparent) 0%, transparent 40%, transparent 60%, color-mix(in srgb, var(--accent) 24%, transparent) 100%);
+}
+
+.stage{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:24px;padding:70px 90px;text-align:center;
+  width:100%;height:100%;
+}
+
+.eyebrow{
+  margin:0;font-family:'Mulish',sans-serif;font-weight:600;
+  font-size:clamp(13px,1.55cqw,18px);letter-spacing:.42em;text-transform:uppercase;
+  color:var(--text-low);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:3px;
+}
+
+.headline{
+  margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;
+  font-size:clamp(44px,6.4cqw,74px);line-height:1.16;letter-spacing:.005em;
+  color:var(--text-high);
+  text-shadow:0 1px 22px color-mix(in srgb, var(--surface) 55%, transparent);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;
+  padding-bottom:10px;max-width:14ch;
+}
+
+.body{
+  margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+  font-size:clamp(20px,2.5cqw,30px);line-height:1.42;
+  color:var(--text-low);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;
+  padding-bottom:8px;max-width:26ch;
+}
+
+.hairline{width:64px;height:1px;background:var(--border);margin:2px 0;}
+
+.lockup{display:inline-flex;align-items:center;gap:12px;margin-top:8px;}
+.brand-mark-clip{flex:none;height:26px;display:flex;align-items:center;}
+.brand-mark{height:26px;width:auto;max-width:96px;object-fit:contain;display:block;opacity:.85;}
+.brand-word{
+  font-family:'Mulish',sans-serif;font-weight:600;font-size:clamp(14px,1.7cqw,19px);
+  letter-spacing:.28em;text-transform:uppercase;color:var(--text-high);white-space:nowrap;
+}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="si-single">
+  <div class="si-page">
+    <img class="si-image" data-image="true" data-image-size="1024x1024" data-image-prompt="Soft atmospheric dawn sky at sunrise, muted lavender and dusty rose clouds drifting over a warm peach horizon, gentle film-grain texture, calm and dreamy, no text, no people, no objects" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/slow-morning-ritual/page-01.png"/>
+    <div class="veil" aria-hidden="true"></div>
+
+    <div class="stage">
+      <p class="eyebrow">The Slow Morning Ritual</p>
+      <h1 class="headline">Sip Slowly. Breathe Deeply. Begin Gently.</h1>
+      <div class="hairline" aria-hidden="true"></div>
+      <p class="body">Let the first cup be unhurried — a small quiet before the day asks anything of you.</p>
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span>
+        <span class="brand-word">YOURBRAND</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

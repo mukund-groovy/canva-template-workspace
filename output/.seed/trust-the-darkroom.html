@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Arimo:wght@400;700;800&family=Lora:ital,wght@1,400;1,500&display=swap');
+
+      :root{
+        /* Brand role colors — the recolor preview re-skins ONLY the accent
+           roles (badge/pill fills + the scrim tint). The photo, the scrim's
+           near-black base and the on-photo ink are fixed literals so the
+           "darkroom" reading surface stays AA-legible under any palette. */
+        --primary:var(--brand-primary,#8a5a34);
+        --secondary:var(--brand-secondary,#5b3a22);
+        --accent:var(--brand-accent,#c0392b);
+        --highlight:var(--brand-highlight,var(--brand-accent,#c0392b));
+        --bg:var(--brand-bg,#2a2420);
+        --surface:var(--brand-surface,#3a322b);
+        --text-high:var(--brand-ink,#faf5ec);
+        --text-low:var(--brand-text-muted,rgba(250,245,236,.72));
+        --border:var(--brand-border,rgba(250,245,236,.28));
+        --on-fill:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:#2a2420;
+        font-family:'Arimo',sans-serif;
+      }
+
+      /* full-bleed photo */
+      .photo{position:absolute;inset:0;z-index:0;}
+      .photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9) contrast(1.28);background:#2a2420;}
+
+      /* protective scrims — carry real brand-tint coverage across a large
+         area (this, not the small badge, is what makes brand-audit's
+         differential pass) */
+      .scrim-top{position:absolute;left:0;right:0;top:0;height:620px;z-index:1;
+        background:linear-gradient(180deg, color-mix(in srgb, var(--primary) 22%, #0a0806 78%) 0%, transparent 100%);}
+      .scrim-bottom{position:absolute;left:0;right:0;bottom:0;z-index:1;
+        background:linear-gradient(0deg, color-mix(in srgb, var(--accent) 30%, #0a0806 70%) 0%, transparent 100%);}
+      .slide.step .scrim-bottom{height:460px;}
+      .slide.cover .scrim-bottom{height:800px;}
+
+      /* hairline frame lines — quiet, fixed, decorative echo of the reference */
+      .hline{position:absolute;background:rgba(250,245,236,.5);z-index:1;pointer-events:none;}
+      .hline.v{width:1px;}
+
+      /* filled accent devices — the brand's real paint */
+      .badge{position:absolute;width:84px;height:84px;border-radius:50%;z-index:3;
+        background:var(--accent);display:flex;align-items:center;justify-content:center;
+        box-shadow:0 10px 26px rgba(0,0,0,.35);}
+      .badge span{font-family:'Arimo',sans-serif;font-weight:800;font-size:34px;color:var(--on-fill);}
+
+      .pill{position:absolute;z-index:3;border-radius:999px;background:var(--accent);
+        padding:14px 26px;display:inline-flex;align-items:center;gap:10px;white-space:nowrap;}
+      .pill span{font-family:'Arimo',sans-serif;font-weight:800;font-size:22px;letter-spacing:.08em;
+        text-transform:uppercase;color:var(--on-fill);}
+      .pill svg{width:20px;height:20px;color:var(--on-fill);}
+
+      .counter{flex:none;z-index:3;border-radius:999px;background:var(--accent);
+        padding:10px 20px;}
+      .counter span{font-family:'Arimo',sans-serif;font-weight:800;font-size:20px;letter-spacing:.06em;
+        color:var(--on-fill);}
+
+      /* text nodes — each in its own absolutely-positioned wrapper, text in
+         normal flow, line-clamp on every run */
+      .tn-title{position:absolute;z-index:2;}
+      .tn-title h1{
+        margin:0;font-family:'Arimo',sans-serif;font-weight:800;line-height:1.08;
+        letter-spacing:-.02em;text-transform:uppercase;color:#faf5ec;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;
+        padding-bottom:.2em;max-height:3.6em;
+      }
+      .slide.cover .tn-title h1{font-size:88px;}
+      .slide.step .tn-title h1{font-size:74px;}
+
+      .tn-message{position:absolute;z-index:2;}
+      .tn-message p{
+        margin:0;font-family:'Lora',serif;font-style:italic;font-weight:400;font-size:30px;line-height:1.32;
+        color:rgba(250,245,236,.94);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;
+        padding-bottom:.15em;max-height:5.6em;
+      }
+
+      /* footer: brand lockup + folio counter */
+      .foot{position:absolute;left:90px;right:90px;bottom:44px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+      .brand-mark-clip{flex:none;height:32px;display:flex;align-items:center;}
+      .brand-mark{height:32px;width:auto;max-width:110px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Arimo',sans-serif;font-weight:800;font-size:24px;letter-spacing:.03em;color:#faf5ec;white-space:nowrap;}
+      .lockup{display:inline-flex;align-items:center;gap:12px;}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Slide 1 — Cover -->
+      <section class="slide cover" data-cg-slide-type="text">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="Moody, desaturated darkroom interior bathed in a dim red safelight glow, film reels and trays softly visible, empty lower-third for text overlay, portrait orientation" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/trust-the-darkroom/slide-01.png"></div>
+        <div class="scrim-bottom" aria-hidden="true"></div>
+
+        <div class="pill" style="left:90px;top:626px;"><span>Darkroom Ritual</span></div>
+
+        <div class="tn-title" style="left:90px;right:90px;top:700px;">
+          <h1 data-title="true">Trust the<br>Darkroom</h1>
+        </div>
+        <div class="tn-message" style="left:90px;right:150px;bottom:120px;">
+          <p data-message="true">A quiet four-step ritual for developing your own film by hand.</p>
+        </div>
+
+        <div class="hline v" style="right:64px;top:120px;height:640px;"></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="counter" data-counter="true"><span>01 / 05</span></div>
+        </div>
+      </section>
+
+      <!-- Slide 2 — Load the reel -->
+      <section class="slide step" data-cg-slide-type="text">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="Close-up of hands loading 35mm film onto a stainless steel developing reel in near total darkness, faint warm red safelight rim light, portrait orientation" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/trust-the-darkroom/slide-02.png"></div>
+        <div class="scrim-top" aria-hidden="true"></div>
+        <div class="scrim-bottom" aria-hidden="true"></div>
+
+        <div class="badge" style="left:90px;top:100px;"><span>1</span></div>
+        <div class="tn-title" style="left:90px;width:610px;top:206px;text-align:left;">
+          <h1 data-title="true">Load the<br>Reel</h1>
+        </div>
+        <div class="tn-message" style="left:90px;right:150px;bottom:130px;">
+          <p data-message="true">Do it by feel, in total darkness, before anything else begins.</p>
+        </div>
+
+        <div class="hline v" style="right:100px;top:140px;height:560px;"></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="counter" data-counter="true"><span>02 / 05</span></div>
+        </div>
+      </section>
+
+      <!-- Slide 3 — Agitate with care -->
+      <section class="slide step" data-cg-slide-type="text">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="Close-up of a hand gently inverting a stainless steel film developing tank under a dim red safelight, motion blur suggesting steady rhythm, portrait orientation" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/trust-the-darkroom/slide-03.png"></div>
+        <div class="scrim-top" aria-hidden="true"></div>
+        <div class="scrim-bottom" aria-hidden="true"></div>
+
+        <div class="badge" style="right:90px;top:100px;"><span>2</span></div>
+        <div class="tn-title" style="right:90px;width:610px;top:206px;text-align:right;">
+          <h1 data-title="true">Agitate<br>with Care</h1>
+        </div>
+        <div class="tn-message" style="left:90px;right:150px;bottom:130px;">
+          <p data-message="true">Steady inversions keep the developer working on every frame.</p>
+        </div>
+
+        <div class="hline v" style="left:100px;top:140px;height:560px;"></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="counter" data-counter="true"><span>03 / 05</span></div>
+        </div>
+      </section>
+
+      <!-- Slide 4 — Time the stop bath -->
+      <section class="slide step" data-cg-slide-type="text">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="Close-up of a hand pouring stop bath liquid into a film developing tank beside a mechanical darkroom timer, dim red safelight, portrait orientation" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/trust-the-darkroom/slide-04.png"></div>
+        <div class="scrim-top" aria-hidden="true"></div>
+        <div class="scrim-bottom" aria-hidden="true"></div>
+
+        <div class="badge" style="left:90px;top:100px;"><span>3</span></div>
+        <div class="tn-title" style="left:90px;width:610px;top:206px;text-align:left;">
+          <h1 data-title="true">Time the<br>Stop Bath</h1>
+        </div>
+        <div class="tn-message" style="left:90px;right:150px;bottom:130px;">
+          <p data-message="true">A few seconds too long and the image is gone for good.</p>
+        </div>
+
+        <div class="hline v" style="right:100px;top:140px;height:560px;"></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="counter" data-counter="true"><span>04 / 05</span></div>
+        </div>
+      </section>
+
+      <!-- Slide 5 — Hang to dry -->
+      <section class="slide step" data-cg-slide-type="text">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="Freshly developed 35mm film negatives hanging to dry from a line with clips in a dim darkroom, soft ambient light, portrait orientation" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/trust-the-darkroom/slide-05.png"></div>
+        <div class="scrim-top" aria-hidden="true"></div>
+        <div class="scrim-bottom" aria-hidden="true"></div>
+
+        <div class="badge" style="right:90px;top:100px;"><span>4</span></div>
+        <div class="tn-title" style="right:90px;width:610px;top:206px;text-align:right;">
+          <h1 data-title="true">Hang It<br>to Dry</h1>
+        </div>
+        <div class="tn-message" style="left:90px;right:150px;bottom:130px;">
+          <p data-message="true">The roll is finished when the last drop stops falling.</p>
+        </div>
+
+        <div class="pill" data-cta="true" style="left:90px;bottom:280px;">
+          <span>Start Your Roll</span>
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+
+        <div class="hline v" style="left:100px;top:140px;height:560px;"></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="counter" data-counter="true"><span>05 / 05</span></div>
+        </div>
+      </section>
+
+    </div>
+  
+
+</body></html>

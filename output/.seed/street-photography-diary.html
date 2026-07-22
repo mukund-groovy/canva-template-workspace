@@ -1,0 +1,351 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Imbue:opsz,wght@10..100,400;10..100,500&family=Poppins:wght@400;500;600;700&display=swap');
+
+  :root{
+    /* Nine role tokens. Default fallbacks reproduce the reference's true
+       palette: near-black geometric fills on a pale grey-blue grid canvas.
+       --bg/--text-* stay fixed for legibility; --primary/--secondary/--accent
+       are the only roles the brand preview re-skins. */
+    --primary:   var(--brand-primary,   #14171A);
+    --secondary: var(--brand-secondary, #3A3F44);
+    --accent:    var(--brand-accent,    #14171A);
+    --highlight: var(--brand-accent, #14171A);
+    --bg:        var(--brand-bg,        #EEF1F2);
+    --surface:   var(--brand-surface,   #E3E7E9);
+    --text-high: var(--brand-ink,       #15181B);
+    --text-low:  var(--brand-text-muted, rgba(21,24,27,.72));
+    --border:    var(--brand-border,    rgba(21,24,27,.14));
+    --on-fill: var(--brand-on-accent, #ffffff);
+    --on-primary:var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);font-family:'Poppins',sans-serif;
+  }
+
+  /* ── rotated graph-paper backdrop: the reference's signature texture ── */
+  .grid-bg{
+    position:absolute;inset:0;z-index:0;
+    background-color:var(--bg);
+    background-image:
+      repeating-linear-gradient(45deg,  var(--border) 0px, var(--border) 1.5px, transparent 1.5px, transparent 66px),
+      repeating-linear-gradient(-45deg, var(--border) 0px, var(--border) 1.5px, transparent 1.5px, transparent 66px);
+  }
+
+  /* ── header chrome: brand lockup + CTA pill, repeats every slide ── */
+  .hdr{position:absolute;top:64px;left:90px;right:90px;z-index:5;display:flex;align-items:center;justify-content:space-between;}
+  .lockup{display:inline-flex;align-items:center;gap:12px;}
+  .brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+  .brand-mark{height:30px;width:auto;max-width:120px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Poppins',sans-serif;font-weight:600;font-size:25px;color:var(--text-high);white-space:nowrap;}
+  .cta-pill{
+    display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 22px;border-radius:10px;
+    background:var(--accent);
+  }
+  .cta-pill span{font-family:'Poppins',sans-serif;font-weight:600;font-size:19px;color:var(--on-fill);white-space:nowrap;}
+  .cta-pill svg{width:18px;height:18px;flex:none;}
+
+  /* ── footer chrome: byline + slide counter, repeats every slide ── */
+  .ftr{position:absolute;bottom:56px;left:90px;right:90px;z-index:5;display:flex;align-items:flex-end;justify-content:space-between;}
+  .byline{display:flex;flex-direction:column;gap:4px;}
+  .byline-kicker{font-family:'Poppins',sans-serif;font-weight:500;font-size:17px;color:var(--text-low);}
+  .byline-name{font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;color:var(--text-high);}
+  .counter{font-family:'Poppins',sans-serif;font-weight:700;font-size:21px;letter-spacing:.14em;color:var(--primary);}
+
+  /* ── generic per-node positioned text wrappers (line-clamp everywhere) ── */
+  .tn{position:absolute;}
+  .tn h1,.tn p,.tn div{margin:0;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;}
+
+  /* ── COVER slide ── */
+  .cover-kicker{top:300px;left:90px;right:90px;text-align:center;}
+  .cover-kicker div{
+    font-family:'Imbue',serif;font-style:italic;font-weight:400;font-size:100px;line-height:1.0;
+    color:var(--text-high);-webkit-line-clamp:1;padding-bottom:.2em;
+  }
+  .cover-pill-wrap{top:410px;left:60px;right:60px;text-align:center;}
+  .cover-pill{
+    display:inline-block;background:var(--accent);border-radius:26px;padding:36px 56px;max-width:960px;
+  }
+  .cover-pill h1{
+    font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:118px;line-height:.96;
+    letter-spacing:.005em;text-transform:uppercase;color:var(--on-fill);
+    -webkit-line-clamp:2;padding-bottom:.14em;
+  }
+  .cover-badge{
+    position:absolute;top:-26px;right:-26px;width:64px;height:64px;border-radius:16px;background:var(--primary);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cover-badge svg{width:30px;height:30px;color:var(--on-primary);}
+  .cover-chip{
+    position:absolute;width:60px;height:60px;border-radius:14px;background:var(--primary);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cover-chip svg{width:28px;height:28px;color:var(--on-primary);}
+  .cover-msg{top:800px;left:110px;right:110px;text-align:center;}
+  .cover-msg p{
+    font-family:'Imbue',serif;font-style:italic;font-weight:400;font-size:86px;line-height:1.02;
+    color:var(--text-high);-webkit-line-clamp:1;padding-bottom:.2em;
+  }
+
+  /* ── INSIGHT slide (photo band + centered headline + body) ── */
+  .insight-photo{position:absolute;top:190px;left:110px;width:860px;height:300px;border-radius:20px;overflow:hidden;z-index:2;background:var(--surface);}
+  .insight-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .insight-head{top:548px;left:110px;right:110px;text-align:center;}
+  .insight-head h1{
+    font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:78px;line-height:1.04;
+    letter-spacing:.002em;color:var(--text-high);-webkit-line-clamp:2;padding-bottom:.18em;
+  }
+  .insight-msg{top:756px;left:190px;right:190px;text-align:center;}
+  .insight-msg p{
+    font-family:'Imbue',serif;font-style:normal;font-weight:400;font-size:42px;line-height:1.42;
+    color:var(--text-low);-webkit-line-clamp:4;padding-bottom:.15em;
+  }
+
+  /* ── TIP pill (small numbered chip, every tip slide) ── */
+  .tip-pill{
+    position:absolute;display:inline-flex;align-items:center;height:54px;padding:0 24px;border-radius:12px;
+    background:var(--accent);z-index:3;
+  }
+  .tip-pill span{font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;letter-spacing:.08em;color:var(--on-fill);white-space:nowrap;}
+
+  /* ── empty picture-frame outline: fills the text-only tip slides with a device that
+     echoes the photo slides' rounded-rect frame (an "unfilled frame" reads on-topic for
+     a photography brand), gives the coverage grid a real bordered surface to count, and
+     — carrying no text of its own — can never collide with copy that grows under
+     stress-testing. ── */
+  .frame-outline{position:absolute;border:3px solid var(--border);border-radius:24px;z-index:0;}
+
+  /* ── TIP slide, side photo (left text / right portrait) ── */
+  .tip-a-head{top:280px;left:110px;width:470px;}
+  .tip-a-head h1{
+    font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:80px;line-height:1.03;
+    color:var(--text-high);-webkit-line-clamp:3;padding-bottom:.18em;
+  }
+  .tip-a-msg{top:582px;left:110px;width:470px;}
+  .tip-a-msg p{
+    font-family:'Imbue',serif;font-weight:400;font-size:40px;line-height:1.42;color:var(--text-low);
+    -webkit-line-clamp:5;padding-bottom:.15em;
+  }
+  .tip-a-photo{position:absolute;top:200px;left:630px;width:360px;height:760px;border-radius:20px;overflow:hidden;z-index:2;background:var(--surface);}
+  .tip-a-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .bracket{position:absolute;width:36px;height:36px;z-index:3;color:var(--text-high);}
+
+  /* ── TIP slide, text only, right-aligned ── */
+  .tip-b-head{top:430px;left:430px;right:110px;text-align:right;}
+  .tip-b-head h1{
+    font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:80px;line-height:1.03;
+    color:var(--text-high);-webkit-line-clamp:3;padding-bottom:.18em;
+  }
+  .tip-b-msg{top:744px;left:430px;right:110px;text-align:right;}
+  .tip-b-msg p{
+    font-family:'Imbue',serif;font-weight:400;font-size:40px;line-height:1.42;color:var(--text-low);
+    -webkit-line-clamp:5;padding-bottom:.15em;text-align:right;
+  }
+
+  /* ── TIP slide, centered ── */
+  .tip-c-head{top:470px;left:140px;right:140px;text-align:center;}
+  .tip-c-head h1{
+    font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:80px;line-height:1.03;
+    color:var(--text-high);-webkit-line-clamp:2;padding-bottom:.18em;
+  }
+  .tip-c-msg{top:660px;left:220px;right:220px;text-align:center;}
+  .tip-c-msg p{
+    font-family:'Imbue',serif;font-weight:400;font-size:40px;line-height:1.42;color:var(--text-low);
+    -webkit-line-clamp:4;padding-bottom:.15em;text-align:center;
+  }
+
+  /* ── OUTRO slide ── */
+  .outro-kicker{top:472px;left:90px;right:90px;text-align:center;}
+  .outro-kicker div{
+    font-family:'Imbue',serif;font-style:italic;font-weight:400;font-size:92px;line-height:1.0;
+    color:var(--text-high);-webkit-line-clamp:1;padding-bottom:.2em;
+  }
+  .outro-head{top:600px;left:60px;right:60px;text-align:center;}
+  .outro-head h1{
+    font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:150px;line-height:.96;
+    letter-spacing:.005em;text-transform:uppercase;color:var(--primary);-webkit-line-clamp:1;padding-bottom:.16em;
+  }
+  .outro-msg{top:800px;left:200px;right:200px;text-align:center;}
+  .outro-msg p{
+    font-family:'Imbue',serif;font-style:italic;font-weight:400;font-size:44px;line-height:1.3;color:var(--text-high);
+    -webkit-line-clamp:2;padding-bottom:.18em;
+  }
+  .outro-dot{position:absolute;width:20px;height:20px;border-radius:50%;background:var(--highlight);}
+
+  /* ── footnote row: accent rule + caption, repeats above the footer on every slide (fills the lower band + extra brand-fill device) ── */
+  .footnote-rule{position:absolute;height:10px;border-radius:5px;background:var(--accent);}
+  .insight-pill{
+    position:absolute;display:inline-flex;align-items:center;height:54px;padding:0 24px;border-radius:12px;
+    background:var(--accent);z-index:3;
+  }
+  .insight-pill span{font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;letter-spacing:.08em;color:var(--on-fill);white-space:nowrap;}
+  .footnote-cap{
+    position:absolute;font-family:'Poppins',sans-serif;font-weight:500;font-size:21px;letter-spacing:.01em;
+    color:var(--text-low);text-align:center;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;
+    overflow:hidden;padding-bottom:.2em;
+  }
+</style>
+</head>
+
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — Cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="hdr">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Frame &amp; Co.</span></div>
+      <div class="cta-pill" data-cta="true"><span>See the Series</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12h13M13 6l6 6-6 6" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </div>
+
+    <div class="tn cover-kicker"><div data-tagline="true">How I Taught Myself</div></div>
+
+    <div class="tn cover-pill-wrap">
+      <div class="cover-pill" style="position:relative;">
+        <h1 data-title="true">Street Photography</h1>
+        <div class="cover-badge"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-primary);--cg-stroke:var(--on-primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><rect x="3" y="7.5" width="18" height="12.5" rx="2.4" stroke="var(--cg-stroke)" stroke-width="2"></rect><rect x="8.4" y="4.2" width="7.2" height="3.3" rx="1.2" stroke="var(--cg-stroke)" stroke-width="2"></rect><circle cx="12" cy="13.8" r="3.5" stroke="var(--cg-stroke)" stroke-width="2"></circle></svg></div>
+      </div>
+    </div>
+
+    <div class="cover-chip" style="top:326px;left:60px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-primary);--cg-stroke:var(--on-primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><circle cx="6" cy="6" r="1.6" fill="var(--cg-fill)"></circle><circle cx="12" cy="6" r="1.6" fill="var(--cg-fill)"></circle><circle cx="18" cy="6" r="1.6" fill="var(--cg-fill)"></circle><circle cx="6" cy="12" r="1.6" fill="var(--cg-fill)"></circle><circle cx="12" cy="12" r="1.6" fill="var(--cg-fill)"></circle><circle cx="18" cy="12" r="1.6" fill="var(--cg-fill)"></circle><circle cx="6" cy="18" r="1.6" fill="var(--cg-fill)"></circle><circle cx="12" cy="18" r="1.6" fill="var(--cg-fill)"></circle><circle cx="18" cy="18" r="1.6" fill="var(--cg-fill)"></circle></svg></div>
+
+    <div class="tn cover-msg"><p data-message="true">As a Total Beginner</p></div>
+
+    <div class="footnote-rule" style="top:1064px;left:290px;width:500px;"></div>
+    <div class="footnote-cap" style="top:1088px;left:110px;width:860px;">One roll of film a week, rain or shine.</div>
+
+    <div class="ftr">
+      <div class="byline"><span class="byline-kicker">A Photo Journal by</span><span class="byline-name">Maya Reyes</span></div>
+      <div class="counter" data-counter="true">01 / 06</div>
+    </div>
+  </section>
+
+  <!-- Slide 2 — Insight, photo band -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="hdr">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Frame &amp; Co.</span></div>
+      <div class="cta-pill" data-cta="true"><span>See the Series</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12h13M13 6l6 6-6 6" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </div>
+
+    <div class="insight-photo"><img data-image="true" data-image-size="1536x1024" data-image-prompt="Close-up of two hands holding a printed black-and-white photograph up toward bright window light, soft falling shadow, minimalist high-contrast monochrome documentary photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/street-photography-diary/slide-02.png"></div>
+    <div class="insight-pill" style="top:126px;left:110px;"><span>INSIGHT</span></div>
+
+    <div class="tn insight-head"><h1 data-title="true">The best photo is the one you actually take</h1></div>
+    <div class="tn insight-msg"><p data-message="true">I spent a year waiting for the right camera, the right light, the right moment. The right moment was always just outside my door.</p></div>
+
+    <div class="footnote-rule" style="top:1038px;left:340px;width:400px;"></div>
+    <div class="footnote-cap" style="top:1062px;left:110px;width:860px;">Shot handheld. No tripod, no plan.</div>
+
+    <div class="ftr">
+      <div class="byline"><span class="byline-kicker">A Photo Journal by</span><span class="byline-name">Maya Reyes</span></div>
+      <div class="counter" data-counter="true">02 / 06</div>
+    </div>
+  </section>
+
+  <!-- Slide 3 — Tip, side photo -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="hdr">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Frame &amp; Co.</span></div>
+      <div class="cta-pill" data-cta="true"><span>See the Series</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12h13M13 6l6 6-6 6" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </div>
+
+    <div class="tip-pill" style="top:208px;left:110px;"><span>TIP 01</span></div>
+    <div class="tn tip-a-head"><h1 data-title="true">I shoot the same corner every week</h1></div>
+    <div class="tn tip-a-msg"><p data-message="true">Revisiting one block taught me more about light than any tutorial. The scene doesn't change — your eye does.</p></div>
+
+    <div class="tip-a-photo">
+      <img data-image="true" data-image-size="1024x1536" data-image-prompt="Black and white portrait-orientation street photography, an old apartment building facade with a person's long shadow crossing a sunlit sidewalk corner, high contrast grain, urban minimalism" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/street-photography-diary/slide-03.png">
+      <svg data-cg-svg="" data-cg-preserve="" class="bracket" style="top:14px;left:14px;" viewBox="0 0 36 36" fill="none" aria-hidden="true" focusable="false"><path d="M2 14V4C2 2.9 2.9 2 4 2H14" stroke="white" stroke-width="3" stroke-linecap="round"></path></svg>
+      <svg data-cg-svg="" data-cg-preserve="" class="bracket" style="bottom:14px;right:14px;" viewBox="0 0 36 36" fill="none" aria-hidden="true" focusable="false"><path d="M34 22V32C34 33.1 33.1 34 32 34H22" stroke="white" stroke-width="3" stroke-linecap="round"></path></svg>
+    </div>
+
+    <div class="footnote-rule" style="top:1030px;left:110px;width:470px;"></div>
+    <div class="footnote-cap" style="top:1054px;left:110px;width:470px;text-align:left;">Fifth &amp; Main, every Sunday.</div>
+
+    <div class="ftr">
+      <div class="byline"><span class="byline-kicker">A Photo Journal by</span><span class="byline-name">Maya Reyes</span></div>
+      <div class="counter" data-counter="true">03 / 06</div>
+    </div>
+  </section>
+
+  <!-- Slide 4 — Tip, text only right-aligned -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="frame-outline" style="top:160px;left:64px;width:420px;height:864px;"></div>
+    <div class="hdr">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Frame &amp; Co.</span></div>
+      <div class="cta-pill" data-cta="true"><span>See the Series</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12h13M13 6l6 6-6 6" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </div>
+
+    <div class="tip-pill" style="top:352px;right:110px;z-index:2;"><span>TIP 02</span></div>
+    <div class="tn tip-b-head" style="top:460px;z-index:2;"><h1 data-title="true">I stopped chasing the perfect shot</h1></div>
+    <div class="tn tip-b-msg" style="top:766px;z-index:2;"><p data-message="true">Perfect is a moving target. I started keeping the almost-shots — the blurred, the crooked, the real.</p></div>
+
+    <div class="footnote-rule" style="top:1088px;left:530px;width:440px;"></div>
+    <div class="footnote-cap" style="top:1112px;left:220px;width:760px;">Film grain included, filters optional.</div>
+
+    <div class="ftr">
+      <div class="byline"><span class="byline-kicker">A Photo Journal by</span><span class="byline-name">Maya Reyes</span></div>
+      <div class="counter" data-counter="true">04 / 06</div>
+    </div>
+  </section>
+
+  <!-- Slide 5 — Tip, centered -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="frame-outline" style="top:150px;left:140px;width:800px;height:870px;"></div>
+    <div class="hdr">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Frame &amp; Co.</span></div>
+      <div class="cta-pill" data-cta="true"><span>See the Series</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12h13M13 6l6 6-6 6" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </div>
+
+    <div class="tip-pill" style="top:420px;left:50%;transform:translateX(-50%);z-index:2;"><span>TIP 03</span></div>
+    <div class="tn tip-c-head" style="top:504px;z-index:2;"><h1 data-title="true">I print one photo a month, no matter what</h1></div>
+    <div class="tn tip-c-msg" style="top:722px;z-index:2;"><p data-message="true">A file on a hard drive doesn't feel like proof. A print on my wall does.</p></div>
+
+    <div class="footnote-rule" style="top:1042px;left:340px;width:400px;"></div>
+    <div class="footnote-cap" style="top:1066px;left:110px;width:860px;">One print. One frame. Every month.</div>
+
+    <div class="ftr">
+      <div class="byline"><span class="byline-kicker">A Photo Journal by</span><span class="byline-name">Maya Reyes</span></div>
+      <div class="counter" data-counter="true">05 / 06</div>
+    </div>
+  </section>
+
+  <!-- Slide 6 — Outro / CTA -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="hdr">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Frame &amp; Co.</span></div>
+      <div class="cta-pill" data-cta="true"><span>See the Series</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12h13M13 6l6 6-6 6" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </div>
+
+    <div class="tn outro-kicker"><div data-tagline="true">Which habit will</div></div>
+    <div class="tn outro-head"><h1 data-title="true">You Try First?</h1></div>
+    <div class="outro-dot" style="top:806px;left:236px;"></div>
+    <div class="tn outro-msg"><p data-message="true">Tell me in your next frame.</p></div>
+    <div class="outro-dot" style="top:806px;right:236px;"></div>
+
+    <div class="footnote-rule" style="top:1064px;left:340px;width:400px;"></div>
+    <div class="footnote-cap" style="top:1088px;left:110px;width:860px;">Every frame is a rough draft. Take it anyway.</div>
+
+    <div class="ftr">
+      <div class="byline"><span class="byline-kicker">A Photo Journal by</span><span class="byline-name">Maya Reyes</span></div>
+      <div class="counter" data-counter="true">06 / 06</div>
+    </div>
+  </section>
+
+</div>
+
+
+</body></html>

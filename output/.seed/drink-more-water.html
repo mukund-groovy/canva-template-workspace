@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#0C7ABF);
+  --secondary:var(--brand-secondary,#0C7ABF);
+  --accent:var(--brand-accent,#0C7ABF);
+  --bg:var(--brand-bg,#E9E1D2);
+  --surface:var(--brand-surface,#FFFFFF);
+  --text-high:var(--brand-ink,var(--brand-text,#1A1A1A));
+  --text-low:var(--brand-text-muted,rgba(26,26,26,.55));
+  --border:var(--brand-border,rgba(26,26,26,.10));
+  --highlight:var(--brand-accent,#0C7ABF);
+  --on-fill:#FFFFFF;
+}
+
+*{box-sizing:border-box;}
+
+.si-single{width:fit-content;margin:0;}
+
+.si-page{
+  position:relative;
+  width:1080px;height:1080px;
+  container-type:inline-size;
+  overflow:hidden;
+  background:var(--bg);
+  font-family:'Inter',sans-serif;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* textured beige paper */
+.paper-tex{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 30%, color-mix(in srgb,var(--bg) 82%, #000 18%) 0%, transparent 42%),
+    radial-gradient(circle at 78% 68%, color-mix(in srgb,var(--bg) 84%, #fff 16%) 0%, transparent 48%),
+    repeating-linear-gradient(37deg, color-mix(in srgb,var(--bg) 93%, #000 7%) 0 2px, transparent 2px 5px),
+    var(--bg);
+}
+
+.tweet-card{
+  position:relative;z-index:2;
+  width:820px;
+  background:var(--surface);
+  border-radius:34px;
+  box-shadow:0 30px 60px rgba(30,24,14,.16);
+  padding:0 0 60px;
+  display:flex;flex-direction:column;gap:34px;
+  overflow:hidden;
+}
+
+/* accent header band — big brand-driven fill */
+.tw-band{
+  background:var(--accent);
+  padding:44px 60px 40px;
+  display:flex;flex-direction:column;gap:26px;
+}
+
+.tw-head{display:flex;align-items:flex-start;gap:22px;}
+.avatar{flex:none;width:88px;height:88px;border-radius:50%;overflow:hidden;background:color-mix(in srgb,var(--on-fill) 82%, var(--accent) 18%);}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block;}
+
+.tw-id{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;padding-top:10px;}
+.tw-name{display:flex;align-items:center;gap:10px;}
+.tw-name span{font-family:'Poppins',sans-serif;font-weight:700;font-size:34px;color:var(--on-fill);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.verified{flex:none;width:34px;height:34px;color:var(--on-fill);}
+.handle{font-family:'Inter',sans-serif;font-weight:400;font-size:26px;color:color-mix(in srgb,var(--on-fill) 78%, transparent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+.tw-menu{flex:none;color:color-mix(in srgb,var(--on-fill) 80%, transparent);width:40px;height:40px;padding-top:14px;}
+.tw-menu svg{width:40px;height:40px;}
+
+.eyebrow{font-family:'Inter',sans-serif;font-weight:600;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-fill);margin:0;}
+
+.tw-body{padding:0 60px;display:flex;flex-direction:column;gap:30px;}
+
+.headline{
+  margin:0;
+  font-family:'Poppins',sans-serif;font-weight:600;font-size:58px;line-height:1.18;letter-spacing:-.01em;
+  color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:6px;
+}
+
+.body{
+  margin:0;
+  font-family:'Inter',sans-serif;font-weight:400;font-size:30px;line-height:1.42;
+  color:color-mix(in srgb,var(--text-high) 78%, transparent);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:6px;
+}
+
+/* filled tag chips — brand-driven surface */
+.tags{display:flex;flex-wrap:wrap;gap:14px;}
+.tags span{font-family:'Inter',sans-serif;font-weight:600;font-size:26px;line-height:1;color:var(--on-fill);
+  background:var(--primary);border-radius:999px;padding:14px 24px;white-space:nowrap;}
+
+.tw-foot{margin:0 60px;display:flex;align-items:center;justify-content:space-between;border-top:2px solid var(--border);padding-top:26px;}
+.lockup{display:inline-flex;align-items:center;gap:14px;}
+.brand-mark{height:34px;width:auto;max-width:120px;object-fit:contain;display:block;}
+.brand-word{font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:var(--text-high);white-space:nowrap;}
+.tw-time{font-family:'Inter',sans-serif;font-weight:400;font-size:24px;color:var(--text-low);white-space:nowrap;}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="si-single">
+  <div class="si-page">
+    <div class="paper-tex" aria-hidden="true"></div>
+
+    <img class="si-image" data-image="true" data-image-size="1024x1024" alt="" style="display:none" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'><rect width='100%25' height='100%25' fill='%23c9c4bb'/></svg>">
+
+    <div class="tweet-card">
+      <div class="tw-band">
+        <div class="tw-head">
+          <span class="avatar"><img data-brand-logo="" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'><rect width='100%25' height='100%25' fill='%23c9c4bb'/></svg>"></span>
+          <div class="tw-id">
+            <span class="tw-name"><span>The Desk Hydro</span><svg class="verified" data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M12 2l2.4 1.7 2.9-.3 1.2 2.7 2.7 1.2-.3 2.9L22 12l-1.7 2.4.3 2.9-2.7 1.2-1.2 2.7-2.9-.3L12 22l-2.4-1.7-2.9.3-1.2-2.7-2.7-1.2.3-2.9L2 12l1.7-2.4-.3-2.9 2.7-1.2 1.2-2.7 2.9.3L12 2z" fill="var(--cg-fill)"></path><path d="M8.5 12.2l2.3 2.3 4.6-4.8" stroke="var(--cg-stroke)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+            <span class="handle">@thedeskhydro</span>
+          </div>
+          <span class="tw-menu"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="5" cy="12" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle></svg></span>
+        </div>
+        <p class="eyebrow">Workday reminder</p>
+      </div>
+
+      <div class="tw-body">
+        <h1 class="headline">Drink a glass before your first coffee</h1>
+        <p class="body">Small sips beat big gulps. Keep a bottle at your desk and refill it every time you stand up.</p>
+        <div class="tags"><span>#hydration</span><span>#wellness</span><span>#deskhabits</span></div>
+      </div>
+
+      <div class="tw-foot">
+        <span class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">YOURBRAND</span></span>
+        <span class="tw-time">9:14 AM · Mon</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body></html>

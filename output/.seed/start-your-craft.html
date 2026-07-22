@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#5C4E3D);
+  --secondary:var(--brand-secondary,#5C4E3D);
+  --accent:var(--brand-accent,#C9A37A);
+  --highlight:var(--brand-accent,#E8D9C4);
+  --bg:var(--brand-bg,#3E342A);
+  --surface:var(--brand-surface,#F3ECE2);
+  --text-high:var(--brand-ink,var(--brand-text,#2B2117));
+  --text-low:var(--brand-text-muted,rgba(43,33,23,.66));
+  --border:var(--brand-border,rgba(255,255,255,.35));
+  --on-fill:var(--brand-on-accent,#2B2117);
+  --on-primary:var(--brand-on-primary,#ffffff);
+}
+*{box-sizing:border-box;}
+.si-single{width:fit-content;margin:0;}
+.si-page{
+  position:relative;width:1080px;height:1080px;overflow:hidden;
+  container-type:inline-size;background:var(--bg);
+  font-family:'Jost',sans-serif;
+}
+.bg-photo{position:absolute;inset:0;z-index:0;}
+.bg-photo img{width:100%;height:100%;object-fit:cover;display:block;background:var(--primary);}
+.bg-tint{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(120% 90% at 88% 8%, color-mix(in srgb,var(--accent) 62%, transparent) 0%, transparent 46%),
+    linear-gradient(160deg,
+      color-mix(in srgb,var(--secondary) 34%, transparent) 0%,
+      color-mix(in srgb,var(--bg) 30%, transparent) 55%,
+      color-mix(in srgb,var(--accent) 30%, transparent) 100%);
+}
+
+.stage{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;padding:96px;}
+
+.card{
+  position:relative;width:100%;height:100%;border-radius:34px;
+  background:color-mix(in srgb, var(--surface) 60%, transparent);
+  border:1px solid var(--border);
+  backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+  box-shadow:0 30px 60px rgba(20,14,8,.30);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:120px 96px;overflow:hidden;
+}
+
+.mark{
+  position:absolute;font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:150px;line-height:1;color:var(--text-high);
+}
+.mark.tl{top:44px;left:64px;}
+.mark.br{bottom:34px;right:64px;}
+
+.eyebrow-pill{
+  display:inline-block;background:var(--accent);border-radius:999px;
+  padding:11px 22px 10px;margin:0 0 30px;
+}
+.eyebrow{
+  font-family:'Jost',sans-serif;font-weight:500;font-size:clamp(14px,1.6cqw,17px);
+  line-height:1;letter-spacing:.2em;text-transform:uppercase;color:var(--on-fill);
+  margin:0;white-space:nowrap;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+}
+.headline{
+  margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;
+  font-size:clamp(58px,8.4cqw,96px);line-height:1.14;text-align:center;
+  color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:12px;max-width:14ch;
+}
+.rule{width:72px;height:3px;background:var(--accent);margin:34px 0 24px;border-radius:2px;}
+.cta{
+  font-family:'Jost',sans-serif;font-weight:500;font-size:clamp(18px,2.1cqw,24px);
+  letter-spacing:.12em;color:var(--secondary);text-decoration:none;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:4px;
+}
+
+.lockup{
+  position:absolute;left:50%;bottom:34px;transform:translateX(-50%);z-index:3;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  background:rgba(20,14,8,.55);border-radius:999px;padding:10px 22px;
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+}
+.brand-mark{height:24px;width:auto;max-width:100px;object-fit:contain;display:block;}
+.brand-word{font-family:'Jost',sans-serif;font-weight:500;font-size:20px;letter-spacing:.22em;color:#F7F1E6;white-space:nowrap;}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="si-single">
+  <div class="si-page">
+    <img class="si-image" data-image="true" data-image-size="1024x1024" data-image-prompt="Sun-warmed artist's worktable shot from a low, close angle: a half-finished watercolor sketch, a jar of brushes, scattered pencil shavings and a cup of tea, golden late-afternoon light raking across the paper, soft shallow-focus background, warm brown and cream tones, documentary photography, no visible text" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><rect width='100%25' height='100%25' fill='%23c9c4bb'/></svg>" style="position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;">
+    <div class="bg-tint" aria-hidden="true"></div>
+
+    <div class="stage">
+      <div class="card">
+        <span class="mark tl" aria-hidden="true">“</span>
+        <span class="mark br" aria-hidden="true">”</span>
+        <span class="eyebrow-pill"><p class="eyebrow">A gentle nudge</p></span>
+        <h1 class="headline">Begin before you feel ready.</h1>
+        <span class="rule" aria-hidden="true"></span>
+        <a class="cta">Start something today</a>
+      </div>
+    </div>
+
+    <div class="lockup">
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+      <span class="brand-word">YOURBRAND</span>
+    </div>
+  </div>
+</div>
+
+</body></html>

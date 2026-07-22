@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Poppins:wght@400;500;600;700&display=swap');
+
+  :root{
+    /* Brand roles — the brand preview re-skins primary/secondary/accent only.
+       Canvas paper + the big gold reading card stay fixed literals so the
+       headline/body stay AA-legible under any palette. Headline ink routes
+       through --primary (stays dark across brands); every filled surface
+       (numeral badge, top rule, corner icon chip) routes through --accent. */
+    --primary:var(--brand-primary,#17130F);
+    --secondary:var(--brand-secondary,#33448C);
+    --accent:var(--brand-accent,#4C63A6);
+    --highlight:var(--brand-accent,#4C63A6);
+    --bg:var(--brand-bg,#F7F2E8);
+    --surface:var(--brand-surface,#FBD37E);
+    --text-high:var(--brand-text,#46403A);
+    --text-low:var(--brand-text-muted,rgba(70,64,58,.62));
+    --border:var(--brand-border,rgba(23,20,16,.12));
+    --on-fill:var(--brand-on-accent,#FFFFFF);
+    --on-primary:var(--brand-on-primary,#FFFFFF);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);
+    font-family:'Poppins',sans-serif;
+  }
+
+  /* ── layered "stacked card" backdrop: fixed gold reading surface on top of a
+     small blue reveal offset down-right, exactly the depth cue the reference
+     runs on every slide. Neither carries text, so neither risks legibility. ── */
+  .card-shadow{position:absolute;left:70px;top:82px;width:952px;height:1170px;
+    border-radius:36px;background:var(--secondary);z-index:1;}
+  .card{position:absolute;left:56px;top:68px;width:952px;height:1170px;
+    border-radius:36px;background:var(--surface);z-index:2;
+    box-shadow:0 10px 28px rgba(23,20,16,.10);}
+
+  .rule{position:absolute;left:36px;top:54px;width:992px;height:28px;border-radius:14px;
+    background:var(--accent);z-index:3;}
+
+  .badge{position:absolute;left:40px;top:36px;width:104px;height:104px;border-radius:24px;
+    background:var(--accent);z-index:5;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 18px rgba(23,20,16,.16);}
+  .badge span{font-family:'Montserrat',sans-serif;font-weight:800;font-size:48px;color:var(--on-fill);}
+
+  .chip{position:absolute;left:912px;top:1146px;width:132px;height:106px;border-radius:24px;
+    background:var(--accent);z-index:5;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 18px rgba(23,20,16,.16);}
+  .chip svg{width:52px;height:52px;}
+
+  /* ── isolated positioned wrapper PER text node ── */
+  .tn-title{position:absolute;left:112px;width:840px;z-index:4;}
+  .tn-title h1{
+    margin:0;font-family:'Montserrat',sans-serif;font-weight:800;font-size:112px;line-height:1.04;
+    letter-spacing:-.01em;color:var(--primary);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.2em;
+  }
+  .slide.cover .tn-title{top:230px;}
+  .slide.tip .tn-title,.slide.close .tn-title{top:258px;}
+
+  .tn-message{position:absolute;left:112px;width:800px;z-index:4;}
+  .tn-message p{
+    margin:0;font-family:'Poppins',sans-serif;font-weight:500;line-height:1.4;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.2em;
+  }
+  .slide.cover .tn-message{top:700px;height:150px;}
+  .slide.cover .tn-message p{font-size:42px;-webkit-line-clamp:2;}
+  .slide.close .tn-message{top:700px;height:150px;}
+  .slide.close .tn-message p{font-size:42px;-webkit-line-clamp:2;}
+  .slide.tip .tn-message{top:700px;height:320px;}
+  .slide.tip .tn-message p{font-size:40px;-webkit-line-clamp:5;}
+
+  /* ── footer: brand lockup, always inside the card, clear of the corner chip ── */
+  .foot{position:absolute;left:112px;top:1152px;width:700px;z-index:4;}
+  .brand-mark-clip{flex:none;height:34px;display:flex;align-items:center;}
+  .brand-mark{height:34px;width:auto;max-width:120px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Poppins',sans-serif;font-weight:600;font-size:28px;color:var(--text-high);white-space:nowrap;letter-spacing:.01em;}
+  .lockup{display:inline-flex;align-items:center;gap:14px;}
+</style>
+</head>
+
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — Cover -->
+  <section class="slide cover" data-cg-slide-type="text">
+    <div class="card-shadow" aria-hidden="true"></div>
+    <div class="card" aria-hidden="true"></div>
+    <div class="badge"><span>1</span></div>
+    <div class="chip" aria-hidden="true">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <path d="M8 28h48a24 24 0 0 1-48 0Z" fill="var(--cg-fill)"></path>
+        <rect x="25" y="6" width="5" height="15" rx="2.5" fill="var(--cg-fill)" transform="rotate(-14 27.5 13.5)"></rect>
+        <rect x="34" y="6" width="5" height="15" rx="2.5" fill="var(--cg-fill)" transform="rotate(14 36.5 13.5)"></rect>
+      </svg>
+    </div>
+    <div class="tn-title"><h1 data-title="true">Meal Prep Made Simple</h1></div>
+    <div class="tn-message"><p data-message="true">Five rules for easy, stress-free weeknights.</p></div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">PREPWELL</span></div>
+    </div>
+  </section>
+
+  <!-- Slide 2 — Tip 1 -->
+  <section class="slide tip" data-cg-slide-type="text">
+    <div class="card-shadow" aria-hidden="true"></div>
+    <div class="card" aria-hidden="true"></div>
+    <div class="rule" aria-hidden="true"></div>
+    <div class="badge"><span>2</span></div>
+    <div class="chip" aria-hidden="true">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <path d="M8 28h48a24 24 0 0 1-48 0Z" fill="var(--cg-fill)"></path>
+        <rect x="25" y="6" width="5" height="15" rx="2.5" fill="var(--cg-fill)" transform="rotate(-14 27.5 13.5)"></rect>
+        <rect x="34" y="6" width="5" height="15" rx="2.5" fill="var(--cg-fill)" transform="rotate(14 36.5 13.5)"></rect>
+      </svg>
+    </div>
+    <div class="tn-title"><h1 data-title="true">Pick One Protein, Three Ways</h1></div>
+    <div class="tn-message"><p data-message="true">Cook a single protein in bulk, then season it three different ways so weekday dinners never taste repeated.</p></div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">PREPWELL</span></div>
+    </div>
+  </section>
+
+  <!-- Slide 3 — Tip 2 -->
+  <section class="slide tip" data-cg-slide-type="text">
+    <div class="card-shadow" aria-hidden="true"></div>
+    <div class="card" aria-hidden="true"></div>
+    <div class="rule" aria-hidden="true"></div>
+    <div class="badge"><span>3</span></div>
+    <div class="chip" aria-hidden="true">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <path d="M8 28h48a24 24 0 0 1-48 0Z" fill="var(--cg-fill)"></path>
+        <rect x="25" y="6" width="5" height="15" rx="2.5" fill="var(--cg-fill)" transform="rotate(-14 27.5 13.5)"></rect>
+        <rect x="34" y="6" width="5" height="15" rx="2.5" fill="var(--cg-fill)" transform="rotate(14 36.5 13.5)"></rect>
+      </svg>
+    </div>
+    <div class="tn-title"><h1 data-title="true">Store Parts, Not Whole Plates</h1></div>
+    <div class="tn-message"><p data-message="true">Keep grains, vegetables and protein in separate containers. Assembling them fresh each day keeps every bite crisp.</p></div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">PREPWELL</span></div>
+    </div>
+  </section>
+
+  <!-- Slide 4 — Tip 3 -->
+  <section class="slide tip" data-cg-slide-type="text">
+    <div class="card-shadow" aria-hidden="true"></div>
+    <div class="card" aria-hidden="true"></div>
+    <div class="rule" aria-hidden="true"></div>
+    <div class="badge"><span>4</span></div>
+    <div class="chip" aria-hidden="true">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <path d="M8 28h48a24 24 0 0 1-48 0Z" fill="var(--cg-fill)"></path>
+        <rect x="25" y="6" width="5" height="15" rx="2.5" fill="var(--cg-fill)" transform="rotate(-14 27.5 13.5)"></rect>
+        <rect x="34" y="6" width="5" height="15" rx="2.5" fill="var(--cg-fill)" transform="rotate(14 36.5 13.5)"></rect>
+      </svg>
+    </div>
+    <div class="tn-title"><h1 data-title="true">Let The Fridge Do The Work</h1></div>
+    <div class="tn-message"><p data-message="true">Season proteins the night before prep day. A few extra hours resting means more flavor without more effort.</p></div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">PREPWELL</span></div>
+    </div>
+  </section>
+
+  <!-- Slide 5 — Closing -->
+  <section class="slide close" data-cg-slide-type="text">
+    <div class="card-shadow" aria-hidden="true"></div>
+    <div class="card" aria-hidden="true"></div>
+    <div class="rule" aria-hidden="true"></div>
+    <div class="badge"><span>5</span></div>
+    <div class="chip" aria-hidden="true">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <path d="M14 34 L26 46 L50 18 L44 12 L26 32 L20 26 Z" fill="var(--cg-fill)"></path>
+      </svg>
+    </div>
+    <div class="tn-title"><h1 data-title="true">Prep Once, Eat Well All Week</h1></div>
+    <div class="tn-message"><p data-message="true">One hour on Sunday buys five easy dinners.</p></div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">PREPWELL</span></div>
+    </div>
+  </section>
+
+</div>
+
+
+</body></html>

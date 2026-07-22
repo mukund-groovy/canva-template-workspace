@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Work+Sans:wght@400;500;600;700&display=swap');
+
+:root{
+  /* Brand role colors — the brand preview re-skins ONLY primary/secondary/accent.
+     The canvas (paper) and the ink stay fixed literals so the reading surface
+     never loses legibility, per the nine-token contract. */
+  --primary:var(--brand-primary,#4a3630);
+  --secondary:var(--brand-secondary,#7c6a5c);
+  --accent:var(--brand-accent,#c1552e);
+  --highlight:var(--brand-accent,#c1552e);
+  --bg:var(--brand-bg,#eae5dd);
+  --surface:var(--brand-surface,#f4efe7);
+  --text-high:var(--brand-ink,#362d28);
+  --text-low:var(--brand-text-muted,rgba(54,45,40,.62));
+  --border:var(--brand-border,rgba(54,45,40,.16));
+  --on-fill:var(--brand-on-accent,#fbf3ea);
+  --on-primary:var(--brand-on-primary,#fbf3ea);
+}
+
+*{box-sizing:border-box;}
+
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+.slide{
+  width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+  background:var(--bg);
+  font-family:'Work Sans',sans-serif;
+}
+
+/* ── paper grain — the reference's whole character rides on this texture;
+   soft fractal noise tiled over the flat paper tone, low alpha baked into
+   the filter itself so no extra blend mode is needed. ── */
+.slide::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat:repeat;
+}
+.slide::after{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 38%, rgba(54,45,40,0) 45%, rgba(54,45,40,.05) 100%);
+}
+
+/* ── kicker lockup: a filled accent pill, top-center, on every slide — the
+   deck's one recurring brand-bound device. ── */
+.kicker-wrap{position:absolute;left:50%;top:56px;transform:translateX(-50%);z-index:2;}
+.kicker-pill{display:inline-flex;align-items:center;gap:14px;padding:22px 42px;border-radius:999px;background:var(--accent);white-space:nowrap;}
+.brand-mark-clip{flex:none;width:26px;height:26px;display:flex;align-items:center;justify-content:center;}
+.brand-mark{width:26px;height:26px;border-radius:50%;display:block;object-fit:contain;}
+.brand-word{font-family:'Work Sans',sans-serif;font-weight:700;font-size:24px;letter-spacing:.09em;text-transform:uppercase;color:var(--on-fill);}
+.kicker-sub{font-family:'Work Sans',sans-serif;font-weight:700;font-size:22px;letter-spacing:.09em;text-transform:uppercase;color:var(--on-fill);}
+
+.divider{position:absolute;left:50%;top:150px;transform:translateX(-50%);width:5px;height:64px;border-radius:2px;background:var(--accent);z-index:1;}
+
+/* ── entry tag: a small bordered numeral pill above each tip's title — reads
+   as a dated journal-entry marker and gives the middle band real content. ── */
+.entry-tag{position:absolute;left:50%;top:242px;transform:translateX(-50%);z-index:1;display:inline-flex;align-items:center;padding:12px 26px;border-radius:999px;border:2px solid var(--accent);white-space:nowrap;}
+.entry-tag span{font-family:'Work Sans',sans-serif;font-weight:700;font-size:21px;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);}
+
+/* ── title / body text nodes — each in its own absolutely-positioned wrapper,
+   the text itself in normal flow so line-clamp always applies to the real
+   element the pipeline fills. ── */
+.tn-title{position:absolute;left:110px;right:110px;top:344px;text-align:center;z-index:1;}
+.tn-title h1{
+  margin:0;font-family:'PT Serif',serif;font-style:italic;font-weight:700;font-size:84px;line-height:1.15;
+  color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.18em;
+}
+
+.tn-message{position:absolute;left:158px;right:158px;top:576px;text-align:center;z-index:1;}
+.tn-message p{
+  margin:0;font-family:'Work Sans',sans-serif;font-weight:500;font-size:34px;line-height:1.56;letter-spacing:.025em;
+  text-transform:uppercase;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.22em;
+}
+
+/* ── cover title: larger, centered mid-page, no body copy beneath ── */
+.tn-cover{position:absolute;left:110px;right:110px;top:410px;text-align:center;z-index:1;}
+.tn-cover h1{
+  margin:0;font-family:'PT Serif',serif;font-style:italic;font-weight:400;font-size:96px;line-height:1.15;
+  color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.2em;
+}
+.tn-cover h1 b{font-weight:700;}
+
+/* ── CTA slide tagline: narrow box forces the short phrase to stack ── */
+.tn-tagline{position:absolute;left:300px;right:300px;top:360px;text-align:center;z-index:1;}
+.tn-tagline h1{
+  margin:0;font-family:'PT Serif',serif;font-style:italic;font-weight:700;font-size:76px;line-height:1.2;
+  color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.2em;
+}
+
+.cta-pill-wrap{position:absolute;left:50%;top:868px;transform:translateX(-50%);z-index:2;}
+.cta-pill{display:inline-flex;align-items:center;gap:14px;padding:24px 52px;border-radius:999px;background:var(--accent);white-space:nowrap;}
+.cta-pill span{font-family:'Work Sans',sans-serif;font-weight:700;font-size:27px;letter-spacing:.05em;text-transform:uppercase;color:var(--on-fill);}
+.cta-pill svg{width:22px;height:22px;color:var(--on-fill);}
+
+/* ── footer band: a full-width, softly accent-tinted strip along the bottom
+   of every slide. It is the deck's second brand-bound surface (after the
+   kicker pill) and it is what keeps the lower third of the frame from
+   reading as dead paper. ── */
+.foot-band{position:absolute;left:0;right:0;bottom:0;height:300px;z-index:1;pointer-events:none;
+  background:color-mix(in srgb, var(--accent) 13%, var(--surface) 87%);
+  border-top:1px solid var(--border);}
+
+/* ── footer ── */
+.foot-handle{position:absolute;left:96px;bottom:76px;font-family:'PT Serif',serif;font-style:italic;font-weight:400;font-size:27px;line-height:1.3;color:var(--text-low);z-index:2;overflow:hidden;padding-bottom:.14em;}
+.foot-handle.center{left:50%;transform:translateX(-50%);}
+
+.next-pill{position:absolute;right:80px;bottom:60px;display:inline-flex;align-items:center;gap:10px;padding:16px 26px 16px 30px;border-radius:999px;background:var(--accent);z-index:2;}
+.next-pill span{font-family:'Work Sans',sans-serif;font-weight:700;font-size:22px;letter-spacing:.05em;text-transform:uppercase;color:var(--on-fill);}
+.next-pill svg{width:18px;height:18px;color:var(--on-fill);}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+<!-- 1 · Cover -->
+<section class="slide" data-cg-slide-type="cover">
+  <div class="kicker-wrap"><div class="kicker-pill"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Aube</span><span class="kicker-sub">Journal</span></div></div>
+  <div class="divider" aria-hidden="true"></div>
+  <div class="tn-cover"><h1 data-title="true">Notes on Watching the <b>Sky</b></h1></div>
+  <div class="foot-band" aria-hidden="true"></div>
+  <div class="foot-handle">@aubejournal</div>
+  <div class="next-pill"><span>Next</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="kicker-wrap"><div class="kicker-pill"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Aube</span><span class="kicker-sub">Journal</span></div></div>
+  <div class="divider" aria-hidden="true"></div>
+  <div class="entry-tag"><span>Entry N° 01</span></div>
+  <div class="tn-title"><h1 data-title="true">Look Up First</h1></div>
+  <div class="tn-message"><p data-message="true">Before the news or the group chat, check what the sky is actually doing today.</p></div>
+  <div class="foot-band" aria-hidden="true"></div>
+  <div class="foot-handle">@aubejournal</div>
+  <div class="next-pill"><span>Next</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="kicker-wrap"><div class="kicker-pill"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Aube</span><span class="kicker-sub">Journal</span></div></div>
+  <div class="divider" aria-hidden="true"></div>
+  <div class="entry-tag"><span>Entry N° 02</span></div>
+  <div class="tn-title"><h1 data-title="true">Name What You See</h1></div>
+  <div class="tn-message"><p data-message="true">Cumulus, haze, a low grey ceiling — the vocabulary is what makes the noticing stick.</p></div>
+  <div class="foot-band" aria-hidden="true"></div>
+  <div class="foot-handle">@aubejournal</div>
+  <div class="next-pill"><span>Next</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="kicker-wrap"><div class="kicker-pill"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Aube</span><span class="kicker-sub">Journal</span></div></div>
+  <div class="divider" aria-hidden="true"></div>
+  <div class="entry-tag"><span>Entry N° 03</span></div>
+  <div class="tn-title"><h1 data-title="true">Log the Small Details</h1></div>
+  <div class="tn-message"><p data-message="true">Wind direction, the smell of rain, how the light changes by four o'clock.</p></div>
+  <div class="foot-band" aria-hidden="true"></div>
+  <div class="foot-handle">@aubejournal</div>
+  <div class="next-pill"><span>Next</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="kicker-wrap"><div class="kicker-pill"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Aube</span><span class="kicker-sub">Journal</span></div></div>
+  <div class="divider" aria-hidden="true"></div>
+  <div class="entry-tag"><span>Entry N° 04</span></div>
+  <div class="tn-title"><h1 data-title="true">Sketch the Horizon</h1></div>
+  <div class="tn-message"><p data-message="true">A rough pencil line of clouds teaches you more than a photo ever will.</p></div>
+  <div class="foot-band" aria-hidden="true"></div>
+  <div class="foot-handle">@aubejournal</div>
+  <div class="next-pill"><span>Next</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="kicker-wrap"><div class="kicker-pill"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Aube</span><span class="kicker-sub">Journal</span></div></div>
+  <div class="divider" aria-hidden="true"></div>
+  <div class="entry-tag"><span>Entry N° 05</span></div>
+  <div class="tn-title"><h1 data-title="true">Compare Across Seasons</h1></div>
+  <div class="tn-message"><p data-message="true">One year of entries turns a diary into a record of how your own sky behaves.</p></div>
+  <div class="foot-band" aria-hidden="true"></div>
+  <div class="foot-handle">@aubejournal</div>
+  <div class="next-pill"><span>Next</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+</section>
+
+<!-- 7 · CTA -->
+<section class="slide" data-cg-slide-type="cta">
+  <div class="kicker-wrap"><div class="kicker-pill"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Aube</span><span class="kicker-sub">Journal</span></div></div>
+  <div class="divider" aria-hidden="true"></div>
+  <div class="tn-tagline"><h1 data-title="true">Watch. Note. Repeat.</h1></div>
+  <div class="cta-pill-wrap"><div class="cta-pill"><span data-cta="true">Start Your Journal</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div>
+  <div class="foot-band" aria-hidden="true"></div>
+  <div class="foot-handle center">@aubejournal</div>
+</section>
+
+</div>
+
+
+</body></html>

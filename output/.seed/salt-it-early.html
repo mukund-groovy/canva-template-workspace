@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Tinos:wght@400;700&family=Radley&family=Jost:wght@400;500;600;700&display=swap");
+
+      :root{
+        /* Brand role tokens — the recolor preview re-skins only the accent
+           roles (primary/secondary/accent); the cream canvas and dark ink
+           stay fixed literals so the card stays AA-legible under any brand. */
+        --primary:var(--brand-primary,#2B1710);
+        --secondary:var(--brand-secondary,#EFC24C);
+        --accent:var(--brand-accent,#F5B921);
+        --bg:var(--brand-bg,#FCF7EA);
+        --surface:var(--brand-surface,#FFFDF6);
+        --text-high:var(--brand-ink,#2B1710);
+        --text-low:var(--brand-text-muted,#4A3424);
+        --border:var(--brand-border,rgba(43,23,16,.14));
+        --highlight:var(--brand-highlight,var(--brand-accent,#D98A12));
+        --on-fill:var(--brand-on-accent,#2B1710);
+        --on-primary:var(--brand-on-primary,#FCF7EA);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        font-family:"Jost",sans-serif;
+        background-color:var(--accent);
+        /* ── organic two-tone speckle painted directly on the accent fill, so the
+           whole frame ring re-tints with the brand. Pure CSS (no DOM elements),
+           which keeps it out of the editor's autofit/overflow probes entirely. ── */
+        background-image:
+radial-gradient(ellipse 29px 36px at 6px 11px, color-mix(in srgb, var(--secondary) 73%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 47px 34px at 58px 25px, color-mix(in srgb, var(--secondary) 81%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 33px 36px at 110px 20px, color-mix(in srgb, var(--bg) 62%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 39px 37px at 162px 24px, color-mix(in srgb, var(--bg) 89%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 66px 45px at 214px 20px, color-mix(in srgb, var(--bg) 60%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 51px 55px at 266px 21px, color-mix(in srgb, var(--bg) 87%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 55px 56px at 318px 31px, color-mix(in srgb, var(--secondary) 77%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 64px 37px at 370px 44px, color-mix(in srgb, var(--bg) 67%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 27px 16px at 422px 26px, color-mix(in srgb, var(--secondary) 68%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 48px 58px at 474px 26px, color-mix(in srgb, var(--secondary) 79%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 42px 27px at 526px 23px, color-mix(in srgb, var(--bg) 87%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 35px 34px at 578px 22px, color-mix(in srgb, var(--bg) 57%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 68px 64px at 630px 35px, color-mix(in srgb, var(--secondary) 78%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 31px 29px at 682px 44px, color-mix(in srgb, var(--secondary) 86%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 65px 62px at 734px 45px, color-mix(in srgb, var(--secondary) 89%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 64px 35px at 786px 31px, color-mix(in srgb, var(--bg) 66%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 51px 55px at 838px 37px, color-mix(in srgb, var(--secondary) 75%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 46px 46px at 890px 40px, color-mix(in srgb, var(--secondary) 74%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 37px 21px at 942px 22px, color-mix(in srgb, var(--bg) 88%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 55px 31px at 994px 41px, color-mix(in srgb, var(--secondary) 76%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 72px 53px at 1046px 37px, color-mix(in srgb, var(--secondary) 78%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 55px 62px at 16px 82px, color-mix(in srgb, var(--bg) 90%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 52px 35px at 74px 74px, color-mix(in srgb, var(--bg) 62%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 66px 70px at 132px 82px, color-mix(in srgb, var(--secondary) 90%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 60px 73px at 190px 77px, color-mix(in srgb, var(--bg) 63%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 63px 72px at 248px 76px, color-mix(in srgb, var(--bg) 74%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 50px 34px at 306px 73px, color-mix(in srgb, var(--bg) 70%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 34px 19px at 364px 73px, color-mix(in srgb, var(--bg) 56%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 66px 82px at 422px 64px, color-mix(in srgb, var(--bg) 61%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 49px 52px at 480px 71px, color-mix(in srgb, var(--bg) 68%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 59px 65px at 538px 81px, color-mix(in srgb, var(--bg) 83%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 52px 39px at 596px 72px, color-mix(in srgb, var(--bg) 82%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 38px 42px at 654px 63px, color-mix(in srgb, var(--secondary) 82%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 42px 51px at 712px 72px, color-mix(in srgb, var(--bg) 68%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 64px 53px at 770px 73px, color-mix(in srgb, var(--secondary) 74%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 42px 38px at 828px 72px, color-mix(in srgb, var(--bg) 86%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 71px 81px at 886px 76px, color-mix(in srgb, var(--bg) 70%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 69px 64px at 944px 79px, color-mix(in srgb, var(--secondary) 61%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 44px 43px at 1002px 79px, color-mix(in srgb, var(--secondary) 68%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 30px 31px at 1060px 68px, color-mix(in srgb, var(--secondary) 89%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 38px 23px at 6px 1315px, color-mix(in srgb, var(--secondary) 87%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 64px 78px at 58px 1331px, color-mix(in srgb, var(--bg) 89%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 51px 42px at 110px 1313px, color-mix(in srgb, var(--secondary) 82%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 59px 58px at 162px 1326px, color-mix(in srgb, var(--secondary) 65%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 48px 31px at 214px 1333px, color-mix(in srgb, var(--secondary) 71%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 51px 60px at 266px 1323px, color-mix(in srgb, var(--secondary) 60%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 39px 36px at 318px 1307px, color-mix(in srgb, var(--bg) 87%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 50px 60px at 370px 1334px, color-mix(in srgb, var(--bg) 72%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 57px 63px at 422px 1337px, color-mix(in srgb, var(--bg) 87%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 65px 36px at 474px 1338px, color-mix(in srgb, var(--bg) 81%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 30px 35px at 526px 1307px, color-mix(in srgb, var(--bg) 76%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 63px 66px at 578px 1313px, color-mix(in srgb, var(--bg) 71%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 30px 18px at 630px 1338px, color-mix(in srgb, var(--bg) 83%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 39px 35px at 682px 1328px, color-mix(in srgb, var(--bg) 72%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 51px 34px at 734px 1319px, color-mix(in srgb, var(--secondary) 66%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 64px 37px at 786px 1328px, color-mix(in srgb, var(--bg) 80%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 39px 44px at 838px 1335px, color-mix(in srgb, var(--secondary) 66%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 31px 38px at 890px 1307px, color-mix(in srgb, var(--secondary) 64%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 29px 27px at 942px 1322px, color-mix(in srgb, var(--bg) 82%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 60px 40px at 994px 1309px, color-mix(in srgb, var(--bg) 62%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 27px 16px at 1046px 1335px, color-mix(in srgb, var(--secondary) 87%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 52px 55px at 16px 1276px, color-mix(in srgb, var(--bg) 73%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 53px 56px at 74px 1265px, color-mix(in srgb, var(--secondary) 57%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 43px 25px at 132px 1278px, color-mix(in srgb, var(--secondary) 65%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 39px 31px at 190px 1267px, color-mix(in srgb, var(--secondary) 84%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 62px 64px at 248px 1286px, color-mix(in srgb, var(--secondary) 77%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 58px 44px at 306px 1281px, color-mix(in srgb, var(--bg) 78%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 37px 33px at 364px 1272px, color-mix(in srgb, var(--secondary) 79%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 59px 42px at 422px 1274px, color-mix(in srgb, var(--secondary) 73%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 44px 49px at 480px 1275px, color-mix(in srgb, var(--bg) 74%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 56px 56px at 538px 1277px, color-mix(in srgb, var(--bg) 70%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 59px 53px at 596px 1288px, color-mix(in srgb, var(--secondary) 66%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 29px 31px at 654px 1289px, color-mix(in srgb, var(--bg) 63%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 36px 42px at 712px 1276px, color-mix(in srgb, var(--secondary) 74%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 34px 30px at 770px 1288px, color-mix(in srgb, var(--bg) 56%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 61px 43px at 828px 1281px, color-mix(in srgb, var(--bg) 72%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 40px 37px at 886px 1280px, color-mix(in srgb, var(--secondary) 65%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 58px 44px at 944px 1278px, color-mix(in srgb, var(--bg) 77%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 51px 44px at 1002px 1266px, color-mix(in srgb, var(--secondary) 84%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 52px 57px at 1060px 1282px, color-mix(in srgb, var(--bg) 81%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 54px 53px at 32px 90px, color-mix(in srgb, var(--secondary) 82%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 66px 76px at 35px 144px, color-mix(in srgb, var(--secondary) 77%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 38px 47px at 20px 198px, color-mix(in srgb, var(--bg) 87%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 60px 55px at 17px 252px, color-mix(in srgb, var(--secondary) 64%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 41px 43px at 21px 306px, color-mix(in srgb, var(--secondary) 66%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 40px 49px at 19px 360px, color-mix(in srgb, var(--bg) 60%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 60px 33px at 22px 414px, color-mix(in srgb, var(--secondary) 55%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 49px 61px at 41px 468px, color-mix(in srgb, var(--secondary) 69%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 39px 31px at 36px 522px, color-mix(in srgb, var(--secondary) 82%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 60px 49px at 30px 576px, color-mix(in srgb, var(--secondary) 64%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 44px 31px at 17px 630px, color-mix(in srgb, var(--secondary) 61%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 30px 24px at 24px 684px, color-mix(in srgb, var(--secondary) 86%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 60px 69px at 31px 738px, color-mix(in srgb, var(--bg) 62%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 45px 39px at 21px 792px, color-mix(in srgb, var(--bg) 71%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 26px 15px at 25px 846px, color-mix(in srgb, var(--secondary) 70%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 28px 24px at 24px 900px, color-mix(in srgb, var(--secondary) 85%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 59px 73px at 30px 954px, color-mix(in srgb, var(--secondary) 67%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 64px 70px at 38px 1008px, color-mix(in srgb, var(--secondary) 79%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 41px 31px at 34px 1062px, color-mix(in srgb, var(--secondary) 67%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 29px 27px at 36px 1116px, color-mix(in srgb, var(--secondary) 63%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 56px 67px at 28px 1170px, color-mix(in srgb, var(--bg) 55%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 48px 28px at 31px 1224px, color-mix(in srgb, var(--bg) 69%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 57px 61px at 68px 50px, color-mix(in srgb, var(--secondary) 82%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 49px 59px at 79px 110px, color-mix(in srgb, var(--secondary) 73%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 69px 54px at 82px 170px, color-mix(in srgb, var(--secondary) 83%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 44px 33px at 74px 230px, color-mix(in srgb, var(--bg) 89%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 42px 45px at 78px 290px, color-mix(in srgb, var(--secondary) 77%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 55px 61px at 78px 350px, color-mix(in srgb, var(--bg) 83%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 34px 29px at 81px 410px, color-mix(in srgb, var(--secondary) 82%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 46px 55px at 74px 470px, color-mix(in srgb, var(--secondary) 60%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 37px 35px at 77px 530px, color-mix(in srgb, var(--bg) 74%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 57px 56px at 72px 590px, color-mix(in srgb, var(--secondary) 58%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 66px 39px at 68px 650px, color-mix(in srgb, var(--secondary) 66%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 42px 47px at 76px 710px, color-mix(in srgb, var(--bg) 60%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 54px 34px at 73px 770px, color-mix(in srgb, var(--secondary) 57%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 50px 33px at 76px 830px, color-mix(in srgb, var(--secondary) 88%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 27px 19px at 77px 890px, color-mix(in srgb, var(--secondary) 63%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 46px 31px at 70px 950px, color-mix(in srgb, var(--bg) 72%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 70px 70px at 77px 1010px, color-mix(in srgb, var(--secondary) 71%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 30px 23px at 71px 1070px, color-mix(in srgb, var(--secondary) 77%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 29px 21px at 81px 1130px, color-mix(in srgb, var(--bg) 72%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 69px 42px at 78px 1190px, color-mix(in srgb, var(--secondary) 88%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 67px 76px at 73px 1250px, color-mix(in srgb, var(--bg) 57%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 63px 41px at 1045px 90px, color-mix(in srgb, var(--bg) 83%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 45px 41px at 1056px 144px, color-mix(in srgb, var(--secondary) 79%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 39px 27px at 1055px 198px, color-mix(in srgb, var(--secondary) 84%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 49px 48px at 1048px 252px, color-mix(in srgb, var(--secondary) 58%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 38px 45px at 1040px 306px, color-mix(in srgb, var(--secondary) 89%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 47px 37px at 1059px 360px, color-mix(in srgb, var(--bg) 58%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 35px 22px at 1051px 414px, color-mix(in srgb, var(--bg) 74%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 55px 67px at 1045px 468px, color-mix(in srgb, var(--secondary) 58%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 64px 67px at 1062px 522px, color-mix(in srgb, var(--secondary) 71%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 68px 77px at 1059px 576px, color-mix(in srgb, var(--bg) 60%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 29px 16px at 1049px 630px, color-mix(in srgb, var(--secondary) 58%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 46px 33px at 1044px 684px, color-mix(in srgb, var(--secondary) 80%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 71px 55px at 1047px 738px, color-mix(in srgb, var(--bg) 76%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 70px 78px at 1051px 792px, color-mix(in srgb, var(--bg) 85%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 63px 35px at 1063px 846px, color-mix(in srgb, var(--bg) 63%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 29px 19px at 1051px 900px, color-mix(in srgb, var(--secondary) 60%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 52px 60px at 1042px 954px, color-mix(in srgb, var(--bg) 86%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 42px 23px at 1062px 1008px, color-mix(in srgb, var(--bg) 71%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 66px 58px at 1063px 1062px, color-mix(in srgb, var(--bg) 80%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 44px 27px at 1058px 1116px, color-mix(in srgb, var(--secondary) 61%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 49px 46px at 1042px 1170px, color-mix(in srgb, var(--bg) 64%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 53px 58px at 1064px 1224px, color-mix(in srgb, var(--secondary) 79%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 65px 57px at 1005px 50px, color-mix(in srgb, var(--secondary) 69%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 64px 42px at 999px 110px, color-mix(in srgb, var(--bg) 62%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 63px 36px at 1001px 170px, color-mix(in srgb, var(--bg) 67%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 31px 19px at 1007px 230px, color-mix(in srgb, var(--bg) 81%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 39px 39px at 1002px 290px, color-mix(in srgb, var(--secondary) 65%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 44px 30px at 1006px 350px, color-mix(in srgb, var(--secondary) 66%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 48px 48px at 1011px 410px, color-mix(in srgb, var(--secondary) 86%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 61px 58px at 1003px 470px, color-mix(in srgb, var(--secondary) 90%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 55px 44px at 1012px 530px, color-mix(in srgb, var(--bg) 84%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 64px 47px at 1013px 590px, color-mix(in srgb, var(--secondary) 73%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 42px 36px at 1002px 650px, color-mix(in srgb, var(--secondary) 87%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 60px 49px at 1007px 710px, color-mix(in srgb, var(--secondary) 58%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 57px 45px at 1000px 770px, color-mix(in srgb, var(--secondary) 80%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 60px 34px at 1001px 830px, color-mix(in srgb, var(--secondary) 73%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 53px 57px at 1004px 890px, color-mix(in srgb, var(--bg) 78%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 35px 28px at 1005px 950px, color-mix(in srgb, var(--bg) 59%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 53px 56px at 1001px 1010px, color-mix(in srgb, var(--bg) 58%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 69px 45px at 1011px 1070px, color-mix(in srgb, var(--secondary) 60%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 34px 38px at 1011px 1130px, color-mix(in srgb, var(--bg) 90%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 53px 41px at 1006px 1190px, color-mix(in srgb, var(--bg) 77%, transparent) 62%, transparent 64%),
+radial-gradient(ellipse 67px 43px at 1007px 1250px, color-mix(in srgb, var(--bg) 67%, transparent) 62%, transparent 64%);
+      }
+
+      /* ── the floating cream card — fixed literal, never re-skinned ── */
+      .card{
+        position:absolute;left:64px;top:68px;width:952px;height:1214px;z-index:2;
+        background:var(--bg);border-radius:34px;overflow:hidden;
+        box-shadow:0 24px 54px rgba(20,12,4,.22);
+      }
+
+      .card-head{position:absolute;top:44px;left:56px;right:56px;display:flex;align-items:center;justify-content:space-between;}
+      .lockup{display:inline-flex;align-items:center;gap:12px;}
+      .brand-mark{height:26px;width:26px;object-fit:contain;display:block;border-radius:50%;}
+      .brand-word{font-family:"Jost",sans-serif;font-weight:700;font-size:30px;letter-spacing:.07em;color:var(--primary);white-space:nowrap;}
+      .menu-dots{display:flex;align-items:center;gap:9px;}
+      .menu-dots span{width:9px;height:9px;border-radius:50%;background:var(--primary);display:block;}
+
+      .kicker-rule{position:absolute;top:96px;left:56px;width:56px;height:7px;border-radius:4px;background:var(--highlight);}
+
+      /* ── isolated positioned wrapper per text node ── */
+      .tn-title{position:absolute;left:56px;right:56px;top:246px;}
+      .tn-title h1{
+        margin:0;font-family:"Tinos",serif;font-weight:700;font-size:112px;line-height:1.06;
+        color:var(--text-high);text-transform:none;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.18em;
+      }
+      .tn-title h1.caps{text-transform:uppercase;font-size:100px;}
+
+      .tn-message{position:absolute;left:56px;right:76px;top:660px;}
+      .tn-message p{
+        margin:0;font-family:"Radley",serif;font-weight:400;font-size:40px;line-height:1.42;
+        color:var(--text-low);text-align:left;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.2em;
+      }
+
+      .card-foot{position:absolute;left:56px;right:56px;bottom:44px;display:flex;align-items:center;justify-content:space-between;}
+      .tagline{font-family:"Jost",sans-serif;font-weight:500;font-size:28px;color:var(--text-low);letter-spacing:.01em;}
+      .counter{font-family:"Jost",sans-serif;font-weight:700;font-size:28px;color:var(--primary);letter-spacing:.03em;}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <section class="slide" data-cg-slide-type="text">
+        <div class="card">
+          <div class="card-head">
+            <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Ccircle%20cx=%2212%22%20cy=%2212%22%20r=%2211%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">SEASONED</span></div>
+            <div class="menu-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <div class="kicker-rule" aria-hidden="true"></div>
+          <div class="tn-title"><h1 data-title="true" class="caps">SALT EARLY, SALT OFTEN</h1></div>
+          <div class="tn-message"><p data-message="true">Seasoning at the end only coats the surface. Build flavor while you cook, not after.</p></div>
+          <div class="card-foot">
+            <span class="tagline" data-tagline="true">seasoned.kitchen</span>
+            <span class="counter" data-counter="true">1/6</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-cg-slide-type="text">
+        <div class="card">
+          <div class="card-head">
+            <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Ccircle%20cx=%2212%22%20cy=%2212%22%20r=%2211%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">SEASONED</span></div>
+            <div class="menu-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <div class="kicker-rule" aria-hidden="true"></div>
+          <div class="tn-title"><h1 data-title="true">Taste As You Go</h1></div>
+          <div class="tn-message"><p data-message="true">The recipe is a guide, not a guarantee. Your tongue makes the final call.</p></div>
+          <div class="card-foot">
+            <span class="tagline" data-tagline="true">seasoned.kitchen</span>
+            <span class="counter" data-counter="true">2/6</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-cg-slide-type="text">
+        <div class="card">
+          <div class="card-head">
+            <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Ccircle%20cx=%2212%22%20cy=%2212%22%20r=%2211%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">SEASONED</span></div>
+            <div class="menu-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <div class="kicker-rule" aria-hidden="true"></div>
+          <div class="tn-title"><h1 data-title="true">Let the Pan Get Hot First</h1></div>
+          <div class="tn-message"><p data-message="true">A cold pan steals your sear. Wait for the shimmer before anything touches it.</p></div>
+          <div class="card-foot">
+            <span class="tagline" data-tagline="true">seasoned.kitchen</span>
+            <span class="counter" data-counter="true">3/6</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-cg-slide-type="text">
+        <div class="card">
+          <div class="card-head">
+            <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Ccircle%20cx=%2212%22%20cy=%2212%22%20r=%2211%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">SEASONED</span></div>
+            <div class="menu-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <div class="kicker-rule" aria-hidden="true"></div>
+          <div class="tn-title"><h1 data-title="true">Rest the Meat Before You Cut It</h1></div>
+          <div class="tn-message"><p data-message="true">Cutting too soon lets the juices run onto the board instead of staying in the bite.</p></div>
+          <div class="card-foot">
+            <span class="tagline" data-tagline="true">seasoned.kitchen</span>
+            <span class="counter" data-counter="true">4/6</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-cg-slide-type="text">
+        <div class="card">
+          <div class="card-head">
+            <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Ccircle%20cx=%2212%22%20cy=%2212%22%20r=%2211%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">SEASONED</span></div>
+            <div class="menu-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <div class="kicker-rule" aria-hidden="true"></div>
+          <div class="tn-title"><h1 data-title="true">Read the Whole Recipe First</h1></div>
+          <div class="tn-message"><p data-message="true">Half the kitchen disasters start at step six, when step two was the one that mattered.</p></div>
+          <div class="card-foot">
+            <span class="tagline" data-tagline="true">seasoned.kitchen</span>
+            <span class="counter" data-counter="true">5/6</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-cg-slide-type="text">
+        <div class="card">
+          <div class="card-head">
+            <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Ccircle%20cx=%2212%22%20cy=%2212%22%20r=%2211%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/><span class="brand-word">SEASONED</span></div>
+            <div class="menu-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <div class="kicker-rule" aria-hidden="true"></div>
+          <div class="tn-title"><h1 data-title="true" class="caps">COOK IT AGAIN UNTIL IT IS YOURS</h1></div>
+          <div class="tn-message"><p data-message="true">Every dish worth keeping was made wrong at least once. Repetition is the actual recipe.</p></div>
+          <div class="card-foot">
+            <span class="tagline" data-tagline="true">seasoned.kitchen</span>
+            <span class="counter" data-counter="true">6/6</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

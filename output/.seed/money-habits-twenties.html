@@ -1,0 +1,547 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    /* Brand role colors. --primary stays a guaranteed-dark navy across every brand
+       palette (also doubles as the alternating slide's filled backdrop), --accent is
+       the bright fill used for the numeral badges, illustration blocks, squiggles and
+       the CTA pill. Canvas (--bg) and ink (--text-*) are fixed literals so the white
+       slides and their copy stay AA-legible under any brand. */
+    --primary:var(--brand-primary,#0e4679);
+    --secondary:var(--brand-secondary,#123f6b);
+    --accent:var(--brand-accent,#1e81dd);
+    --highlight:var(--brand-accent,#1e81dd);
+    --bg:var(--brand-bg,#ffffff);
+    --surface:var(--brand-surface,#eaf3fc);
+    --text-high:var(--brand-ink,#132436);
+    --text-low:var(--brand-text-muted,#4b6076);
+    --border:var(--brand-border,#d7e6f2);
+    --on-fill:var(--brand-on-accent,#ffffff);
+    --on-primary:var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);font-family:'Inter',sans-serif;
+  }
+  .slide.dark{background:var(--primary);}
+
+  /* ── decorations ── */
+  .ring{position:absolute;border-radius:50%;box-sizing:border-box;border-style:solid;pointer-events:none;}
+  .squiggle{position:absolute;pointer-events:none;}
+  .dots{position:absolute;display:flex;gap:12px;pointer-events:none;}
+  .dots.vert{flex-direction:column;}
+  .dots span{width:13px;height:13px;border-radius:50%;background:var(--accent);display:block;}
+  .dots.on-dark span{background:var(--accent);}
+
+  /* ── numbered badge ── */
+  .badge{position:absolute;left:90px;top:88px;width:112px;height:104px;z-index:5;}
+  .badge svg{width:100%;height:100%;display:block;}
+  .badge-num{position:absolute;left:90px;top:88px;width:112px;height:104px;z-index:6;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Poppins',sans-serif;font-weight:800;font-size:46px;color:var(--on-fill);}
+
+  /* ── text wrappers (each node isolated, in normal flow inside) ── */
+  .tn-title{position:absolute;left:90px;right:90px;top:248px;z-index:5;}
+  .tn-title h1{
+    margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:78px;line-height:1.07;
+    letter-spacing:-.01em;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.18em;
+  }
+  .tn-msg{position:absolute;left:90px;right:90px;top:578px;z-index:5;}
+  .tn-msg p{
+    margin:0;font-family:'Inter',sans-serif;font-weight:500;font-size:38px;line-height:1.3;
+    color:var(--text-low);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.16em;
+  }
+  .slide.dark .tn-title h1{color:var(--on-primary);}
+  .slide.dark .tn-msg p{color:color-mix(in srgb, var(--on-primary) 82%, var(--primary) 18%);}
+  .align-r .tn-title,.align-r .tn-msg{text-align:right;}
+
+  /* ── illustration scene ── */
+  .scene{position:absolute;left:90px;top:760px;width:900px;height:480px;z-index:4;}
+  .scene svg,.scene .person{position:absolute;display:block;}
+  .scene-bg{position:absolute;inset:0;border-radius:44px;}
+  .slide:not(.dark) .scene-bg{background:color-mix(in srgb, var(--accent) 9%, var(--bg));}
+  .slide.dark .scene-bg{background:color-mix(in srgb, var(--accent) 15%, var(--primary));}
+
+  /* ── footer: brand lockup + counter, on every slide ── */
+  .foot{position:absolute;left:90px;right:90px;bottom:46px;z-index:8;display:flex;align-items:center;justify-content:space-between;}
+  .brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+  .brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Poppins',sans-serif;font-weight:700;font-size:23px;color:var(--text-high);white-space:nowrap;}
+  .slide.dark .brand-word{color:var(--on-primary);}
+  .lockup{display:inline-flex;align-items:center;gap:12px;}
+  .cg-slide-counter{font-family:'Inter',sans-serif;font-weight:600;font-size:24px;letter-spacing:.08em;color:var(--text-low);}
+  .slide.dark .cg-slide-counter{color:color-mix(in srgb, var(--on-primary) 84%, var(--primary) 16%);}
+
+  /* ── cover slide ── */
+  .cov-scene{position:absolute;left:190px;top:96px;width:700px;height:534px;z-index:4;}
+  .cov-scene svg,.cov-scene .person{position:absolute;display:block;}
+  .cov-num{position:absolute;left:0;right:0;top:606px;text-align:center;z-index:5;
+    font-family:'Poppins',sans-serif;font-weight:900;font-size:250px;line-height:1;color:var(--text-high);}
+  .cov-title{position:absolute;left:60px;right:60px;top:858px;text-align:center;z-index:5;}
+  .cov-title h1{margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:74px;line-height:1.05;
+    letter-spacing:-.01em;color:var(--primary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.15em;}
+  .cov-msg{position:absolute;left:60px;right:60px;top:1074px;text-align:center;z-index:5;}
+  .cov-msg p{margin:0;font-family:'Inter',sans-serif;font-weight:500;font-size:38px;line-height:1.28;color:var(--text-low);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.14em;}
+
+  /* ── closer slide ── */
+  .cta-title{position:absolute;left:110px;right:110px;top:128px;text-align:center;z-index:5;}
+  .cta-title h1{margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:66px;line-height:1.12;color:var(--on-primary);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.16em;}
+  .cta-msg{position:absolute;left:150px;right:150px;top:382px;text-align:center;z-index:5;}
+  .cta-msg p{margin:0;font-family:'Inter',sans-serif;font-weight:500;font-size:36px;line-height:1.3;color:color-mix(in srgb, var(--on-primary) 82%, var(--primary) 18%);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.14em;}
+  .cta-pill{position:absolute;left:0;right:0;top:548px;display:flex;justify-content:center;z-index:6;}
+  .cta-pill .btn{background:var(--accent);border-radius:999px;padding:26px 64px;display:inline-flex;align-items:center;gap:16px;}
+  .cta-pill span{font-family:'Poppins',sans-serif;font-weight:700;font-size:36px;color:var(--on-fill);white-space:nowrap;}
+  .cta-url{position:absolute;left:0;right:0;top:664px;text-align:center;z-index:6;
+    font-family:'Inter',sans-serif;font-weight:600;font-size:28px;letter-spacing:.03em;color:color-mix(in srgb, var(--on-primary) 84%, var(--primary) 16%);}
+  .cta-scene{position:absolute;left:140px;top:714px;width:800px;height:534px;z-index:4;}
+  .cta-scene svg,.cta-scene .person{position:absolute;display:block;}
+</style>
+</head>
+
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — Cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="ring" style="width:260px;height:260px;top:-108px;right:-108px;border-width:20px;border-color:var(--accent);opacity:.85;"></div>
+    <div class="ring" style="width:300px;height:300px;bottom:-140px;left:-140px;border-width:22px;border-color:var(--accent);opacity:.7;"></div>
+    <svg class="squiggle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 26" width="110" height="26" style="left:64px;top:150px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false"><path d="M2 13 Q16 2 30 13 T58 13 T86 13 T108 13" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></path></svg>
+    <div class="dots vert" style="left:1000px;top:470px;"><span></span><span></span><span></span></div>
+
+    <div class="cov-scene">
+      <!-- growth chart, upper right -->
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 180 160" style="left:480px;top:0px;width:220px;height:196px;--cg-fill:var(--accent);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false">
+        <line x1="8" y1="150" x2="172" y2="150" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></line>
+        <rect x="28" y="112" width="26" height="38" rx="6" fill="var(--cg-fill)"></rect>
+        <rect x="74" y="82" width="26" height="68" rx="6" fill="var(--cg-fill)"></rect>
+        <rect x="120" y="48" width="26" height="102" rx="6" fill="var(--cg-fill)"></rect>
+        <path d="M30 100 L80 60 L126 30" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M104 26 L130 28 L124 54" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+      </svg>
+      <!-- piggy bank, center -->
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 160" style="left:100px;top:150px;width:430px;height:344px;--cg-fill:var(--accent);--cg-stroke:var(--primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false">
+        <ellipse cx="102" cy="94" rx="84" ry="58" fill="var(--cg-fill)"></ellipse>
+        <ellipse cx="134" cy="72" rx="38" ry="24" fill="var(--cg-fill)" opacity=".16"></ellipse>
+        <circle cx="24" cy="96" r="21" fill="var(--cg-fill)"></circle>
+        <circle cx="17" cy="92" r="4" fill="var(--cg-fill)"></circle>
+        <circle cx="31" cy="92" r="4" fill="var(--cg-fill)"></circle>
+        <path d="M56 36 L76 10 L88 44 Z" fill="var(--cg-fill)"></path>
+        <circle cx="72" cy="74" r="7" fill="var(--cg-fill)"></circle>
+        <rect x="46" y="144" width="18" height="22" rx="7" fill="var(--cg-fill)"></rect>
+        <rect x="144" y="144" width="18" height="22" rx="7" fill="var(--cg-fill)"></rect>
+        <rect x="86" y="22" width="48" height="11" rx="5.5" fill="var(--cg-fill)" transform="rotate(-8 110 27)"></rect>
+        <path d="M182 96 Q200 90 194 110 Q186 118 178 108" fill="none" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></path>
+        <circle cx="150" cy="18" r="21" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></circle>
+        <rect x="145" y="7" width="8" height="22" rx="2" fill="var(--cg-fill)"></rect>
+      </svg>
+      <!-- person, right, pointing at piggy bank -->
+      <div class="person" style="left:552px;top:198px;width:172px;height:296px;">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 140 240" width="100%" height="100%" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+          <rect x="48" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="74" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="44" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <rect x="70" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <path d="M40 92 Q40 60 70 60 Q100 60 100 92 L100 162 L40 162 Z" fill="var(--cg-fill)"></path>
+          <rect x="100" y="70" width="18" height="62" rx="9" fill="var(--cg-fill)" transform="rotate(-42 109 70)"></rect>
+          <rect x="20" y="96" width="18" height="64" rx="9" fill="var(--cg-fill)" transform="rotate(16 29 96)"></rect>
+          <circle cx="70" cy="29" r="29" fill="var(--cg-fill)"></circle>
+          <circle cx="70" cy="40" r="26" fill="var(--cg-fill)"></circle>
+        </svg>
+      </div>
+    </div>
+
+    <div class="cov-num">6</div>
+    <div class="cov-title"><h1 data-title="true">Money Habits</h1></div>
+    <div class="cov-msg"><p data-message="true">to build in your twenties</p></div>
+
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">WALLETWISE</span></div>
+      <div class="cg-slide-counter" data-counter="true">01 / 08</div>
+    </div>
+  </section>
+
+  <!-- Slide 2 — Tip 1 (dark) -->
+  <section class="slide dark align-r" data-cg-slide-type="text">
+    <div class="ring" style="width:240px;height:240px;bottom:-100px;right:-100px;border-width:18px;border-color:var(--accent);opacity:.7;"></div>
+    <svg class="squiggle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 26" width="110" height="26" style="left:64px;top:520px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false"><path d="M2 13 Q16 2 30 13 T58 13 T86 13 T108 13" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></path></svg>
+    <div class="dots" style="right:90px;top:120px;"><span></span><span></span><span></span></div>
+
+    <div class="badge"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 128" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M55 0L110 32V96L55 128L0 96V32L55 0Z" fill="var(--cg-fill)"></path></svg></div>
+    <div class="badge-num">1</div>
+
+    <div class="tn-title"><h1 data-title="true">Track Every Dollar</h1></div>
+    <div class="tn-msg"><p data-message="true">Know exactly where your money goes before you try to grow it.</p></div>
+
+    <div class="scene">
+      <div class="scene-bg"></div>
+      <!-- magnifying glass over statement -->
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 180 190" style="left:56px;top:36px;width:300px;height:317px;--cg-fill:var(--bg);--cg-stroke:var(--on-primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false">
+        <rect x="20" y="14" width="120" height="150" rx="12" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="0"></rect>
+        <rect x="20" y="14" width="120" height="150" rx="12" fill="var(--cg-fill)"></rect>
+        <rect x="38" y="38" width="84" height="9" rx="4.5" fill="var(--cg-fill)"></rect>
+        <rect x="38" y="60" width="70" height="9" rx="4.5" fill="var(--cg-fill)"></rect>
+        <rect x="38" y="82" width="84" height="9" rx="4.5" fill="var(--cg-fill)"></rect>
+        <rect x="38" y="104" width="56" height="9" rx="4.5" fill="var(--cg-fill)"></rect>
+        <rect x="38" y="126" width="76" height="9" rx="4.5" fill="var(--cg-fill)"></rect>
+        <circle cx="118" cy="130" r="36" fill="var(--cg-fill)"></circle>
+        <circle cx="118" cy="130" r="36" fill="none" stroke="var(--cg-stroke)" stroke-width="11"></circle>
+        <line x1="144" y1="156" x2="172" y2="184" stroke="var(--cg-stroke)" stroke-width="13" stroke-linecap="round"></line>
+      </svg>
+      <!-- person, right, examining -->
+      <div class="person" style="left:452px;top:70px;width:236px;height:392px;">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 140 240" width="100%" height="100%" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-primary);--cg-stroke:var(--on-primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+          <rect x="48" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="74" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="44" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <rect x="70" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <path d="M40 92 Q40 60 70 60 Q100 60 100 92 L100 162 L40 162 Z" fill="var(--cg-fill)"></path>
+          <rect x="98" y="86" width="18" height="58" rx="9" fill="var(--cg-fill)" transform="rotate(-14 107 86)"></rect>
+          <rect x="22" y="96" width="18" height="60" rx="9" fill="var(--cg-fill)" transform="rotate(20 31 96)"></rect>
+          <circle cx="70" cy="29" r="29" fill="var(--cg-fill)"></circle>
+          <circle cx="70" cy="40" r="26" fill="var(--cg-fill)"></circle>
+        </svg>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">WALLETWISE</span></div>
+      <div class="cg-slide-counter" data-counter="true">02 / 08</div>
+    </div>
+  </section>
+
+  <!-- Slide 3 — Tip 2 (light) -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="ring" style="width:260px;height:260px;bottom:-120px;left:-120px;border-width:20px;border-color:var(--accent);opacity:.8;"></div>
+    <svg class="squiggle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 26" width="110" height="26" style="right:70px;top:120px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false"><path d="M2 13 Q16 2 30 13 T58 13 T86 13 T108 13" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></path></svg>
+    <div class="dots vert" style="left:56px;top:520px;"><span></span><span></span><span></span></div>
+
+    <div class="badge"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 128" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M55 0L110 32V96L55 128L0 96V32L55 0Z" fill="var(--cg-fill)"></path></svg></div>
+    <div class="badge-num">2</div>
+
+    <div class="tn-title"><h1 data-title="true">Automate Your Savings</h1></div>
+    <div class="tn-msg"><p data-message="true">Pay your future self first, before the month gets a vote.</p></div>
+
+    <div class="scene">
+      <div class="scene-bg"></div>
+      <!-- piggy bank -->
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 160" style="left:80px;top:70px;width:360px;height:288px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" fill="none" aria-hidden="true" focusable="false">
+        <ellipse cx="102" cy="94" rx="84" ry="58" fill="var(--cg-fill)"></ellipse>
+        <ellipse cx="134" cy="72" rx="38" ry="24" fill="var(--cg-fill)" opacity=".16"></ellipse>
+        <circle cx="24" cy="96" r="21" fill="var(--cg-fill)"></circle>
+        <circle cx="17" cy="92" r="4" fill="var(--cg-fill)"></circle>
+        <circle cx="31" cy="92" r="4" fill="var(--cg-fill)"></circle>
+        <path d="M56 36 L76 10 L88 44 Z" fill="var(--cg-fill)"></path>
+        <circle cx="72" cy="74" r="7" fill="var(--cg-fill)"></circle>
+        <rect x="46" y="144" width="18" height="22" rx="7" fill="var(--cg-fill)"></rect>
+        <rect x="144" y="144" width="18" height="22" rx="7" fill="var(--cg-fill)"></rect>
+        <rect x="86" y="22" width="48" height="11" rx="5.5" fill="var(--cg-fill)" transform="rotate(-8 110 27)"></rect>
+      </svg>
+      <!-- falling coin -->
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 60 60" style="left:280px;top:6px;width:64px;height:64px;--cg-fill:var(--bg);--cg-stroke:var(--primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false">
+        <circle cx="30" cy="30" r="27" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></circle>
+        <rect x="25" y="14" width="10" height="32" rx="3" fill="var(--cg-fill)"></rect>
+      </svg>
+      <!-- person, right -->
+      <div class="person flip" style="left:470px;top:40px;width:236px;height:396px;transform:scaleX(-1);">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 140 240" width="100%" height="100%" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+          <rect x="48" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="74" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="44" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <rect x="70" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <path d="M40 92 Q40 60 70 60 Q100 60 100 92 L100 162 L40 162 Z" fill="var(--cg-fill)"></path>
+          <rect x="100" y="70" width="18" height="62" rx="9" fill="var(--cg-fill)" transform="rotate(-42 109 70)"></rect>
+          <rect x="20" y="96" width="18" height="64" rx="9" fill="var(--cg-fill)" transform="rotate(16 29 96)"></rect>
+          <circle cx="70" cy="29" r="29" fill="var(--cg-fill)"></circle>
+          <circle cx="70" cy="40" r="26" fill="var(--cg-fill)"></circle>
+        </svg>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">WALLETWISE</span></div>
+      <div class="cg-slide-counter" data-counter="true">03 / 08</div>
+    </div>
+  </section>
+
+  <!-- Slide 4 — Tip 3 (dark) -->
+  <section class="slide dark align-r" data-cg-slide-type="text">
+    <div class="ring" style="width:240px;height:240px;top:-100px;right:-100px;border-width:18px;border-color:var(--accent);opacity:.75;"></div>
+    <svg class="squiggle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 26" width="110" height="26" style="left:70px;top:560px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false"><path d="M2 13 Q16 2 30 13 T58 13 T86 13 T108 13" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></path></svg>
+    <div class="dots" style="left:230px;top:120px;"><span></span><span></span><span></span></div>
+
+    <div class="badge"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 128" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M55 0L110 32V96L55 128L0 96V32L55 0Z" fill="var(--cg-fill)"></path></svg></div>
+    <div class="badge-num">3</div>
+
+    <div class="tn-title"><h1 data-title="true">Clear High-Interest Debt First</h1></div>
+    <div class="tn-msg"><p data-message="true">Every dollar of interest you kill works for you instead.</p></div>
+
+    <div class="scene">
+      <div class="scene-bg"></div>
+      <!-- credit card, slashed -->
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 140" style="left:90px;top:80px;width:400px;height:280px;--cg-fill:var(--accent);--cg-stroke:var(--primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false">
+        <rect x="10" y="10" width="180" height="120" rx="18" fill="var(--cg-fill)"></rect>
+        <rect x="10" y="40" width="180" height="20" fill="var(--cg-fill)"></rect>
+        <rect x="30" y="82" width="32" height="24" rx="5" fill="var(--cg-fill)" opacity=".9"></rect>
+        <rect x="30" y="114" width="80" height="8" rx="4" fill="var(--cg-fill)" opacity=".65"></rect>
+        <line x1="14" y1="12" x2="186" y2="128" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round"></line>
+        <line x1="14" y1="12" x2="186" y2="128" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></line>
+      </svg>
+      <!-- person, right -->
+      <div class="person" style="left:540px;top:36px;width:210px;height:360px;">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 140 240" width="100%" height="100%" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-primary);--cg-stroke:var(--on-primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+          <rect x="48" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="74" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="44" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <rect x="70" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <path d="M40 92 Q40 60 70 60 Q100 60 100 92 L100 162 L40 162 Z" fill="var(--cg-fill)"></path>
+          <rect x="96" y="80" width="18" height="60" rx="9" fill="var(--cg-fill)" transform="rotate(-58 105 80)"></rect>
+          <rect x="22" y="96" width="18" height="60" rx="9" fill="var(--cg-fill)" transform="rotate(18 31 96)"></rect>
+          <circle cx="70" cy="29" r="29" fill="var(--cg-fill)"></circle>
+          <circle cx="70" cy="40" r="26" fill="var(--cg-fill)"></circle>
+        </svg>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">WALLETWISE</span></div>
+      <div class="cg-slide-counter" data-counter="true">04 / 08</div>
+    </div>
+  </section>
+
+  <!-- Slide 5 — Tip 4 (light) -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="ring" style="width:250px;height:250px;bottom:-110px;right:-110px;border-width:20px;border-color:var(--accent);opacity:.8;"></div>
+    <svg class="squiggle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 26" width="110" height="26" style="left:64px;top:216px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false"><path d="M2 13 Q16 2 30 13 T58 13 T86 13 T108 13" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></path></svg>
+    <div class="dots vert" style="right:70px;top:480px;"><span></span><span></span><span></span></div>
+
+    <div class="badge"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 128" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M55 0L110 32V96L55 128L0 96V32L55 0Z" fill="var(--cg-fill)"></path></svg></div>
+    <div class="badge-num">4</div>
+
+    <div class="tn-title"><h1 data-title="true">Build a Real Emergency Fund</h1></div>
+    <div class="tn-msg"><p data-message="true">Three months of expenses turns a crisis into an inconvenience.</p></div>
+
+    <div class="scene">
+      <div class="scene-bg"></div>
+      <!-- shield with coin -->
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 160 190" style="left:110px;top:14px;width:296px;height:352px;--cg-fill:var(--accent);--cg-stroke:var(--primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false">
+        <path d="M80 6 L150 34 V96 C150 146 118 176 80 186 C42 176 10 146 10 96 V34 Z" fill="var(--cg-fill)"></path>
+        <circle cx="80" cy="92" r="36" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></circle>
+        <path d="M64 92 L76 106 L100 76" stroke="var(--cg-stroke)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <!-- coin jar -->
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 120 150" style="left:404px;top:150px;width:150px;height:188px;--cg-fill:var(--surface);--cg-stroke:var(--primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false">
+        <path d="M14 44 L106 44 L96 140 Q94 148 82 148 L38 148 Q26 148 24 140 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></path>
+        <rect x="8" y="26" width="104" height="20" rx="8" fill="var(--cg-fill)"></rect>
+        <rect x="30" y="86" width="60" height="16" rx="8" fill="var(--cg-fill)"></rect>
+        <rect x="34" y="112" width="52" height="16" rx="8" fill="var(--cg-fill)"></rect>
+      </svg>
+      <!-- person, right -->
+      <div class="person flip" style="left:560px;top:56px;width:196px;height:334px;transform:scaleX(-1);">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 140 240" width="100%" height="100%" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+          <rect x="48" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="74" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="44" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <rect x="70" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <path d="M40 92 Q40 60 70 60 Q100 60 100 92 L100 162 L40 162 Z" fill="var(--cg-fill)"></path>
+          <rect x="98 " y="86" width="18" height="58" rx="9" fill="var(--cg-fill)" transform="rotate(-14 107 86)"></rect>
+          <rect x="22" y="96" width="18" height="60" rx="9" fill="var(--cg-fill)" transform="rotate(20 31 96)"></rect>
+          <circle cx="70" cy="29" r="29" fill="var(--cg-fill)"></circle>
+          <circle cx="70" cy="40" r="26" fill="var(--cg-fill)"></circle>
+        </svg>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">WALLETWISE</span></div>
+      <div class="cg-slide-counter" data-counter="true">05 / 08</div>
+    </div>
+  </section>
+
+  <!-- Slide 6 — Tip 5 (dark) -->
+  <section class="slide dark align-r" data-cg-slide-type="text">
+    <div class="ring" style="width:260px;height:260px;top:-110px;left:-110px;border-width:20px;border-color:var(--accent);opacity:.75;"></div>
+    <svg class="squiggle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 26" width="110" height="26" style="right:64px;top:560px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false"><path d="M2 13 Q16 2 30 13 T58 13 T86 13 T108 13" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></path></svg>
+    <div class="dots" style="right:230px;top:120px;"><span></span><span></span><span></span></div>
+
+    <div class="badge"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 128" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M55 0L110 32V96L55 128L0 96V32L55 0Z" fill="var(--cg-fill)"></path></svg></div>
+    <div class="badge-num">5</div>
+
+    <div class="tn-title"><h1 data-title="true">Start Investing Before You Feel Ready</h1></div>
+    <div class="tn-msg"><p data-message="true">Time in the market beats waiting for the perfect moment.</p></div>
+
+    <div class="scene">
+      <div class="scene-bg"></div>
+      <!-- growth chart -->
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 180 160" style="left:110px;top:60px;width:340px;height:302px;--cg-fill:var(--accent);--cg-stroke:var(--on-primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false">
+        <line x1="8" y1="150" x2="172" y2="150" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></line>
+        <rect x="28" y="112" width="26" height="38" rx="6" fill="var(--cg-fill)"></rect>
+        <rect x="74" y="82" width="26" height="68" rx="6" fill="var(--cg-fill)"></rect>
+        <rect x="120" y="48" width="26" height="102" rx="6" fill="var(--cg-fill)"></rect>
+        <path d="M30 100 L80 60 L126 30" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M104 26 L130 28 L124 54" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+      </svg>
+      <!-- coin -->
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 60 60" style="left:452px;top:280px;width:70px;height:70px;--cg-fill:var(--primary);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false">
+        <circle cx="30" cy="30" r="27" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></circle>
+        <rect x="25" y="14" width="10" height="32" rx="3" fill="var(--cg-fill)"></rect>
+      </svg>
+      <!-- person, right -->
+      <div class="person" style="left:520px;top:24px;width:226px;height:388px;">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 140 240" width="100%" height="100%" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-primary);--cg-stroke:var(--on-primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+          <rect x="48" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="74" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="44" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <rect x="70" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <path d="M40 92 Q40 60 70 60 Q100 60 100 92 L100 162 L40 162 Z" fill="var(--cg-fill)"></path>
+          <rect x="100" y="46" width="18" height="72" rx="9" fill="var(--cg-fill)" transform="rotate(-62 109 46)"></rect>
+          <rect x="22" y="96" width="18" height="60" rx="9" fill="var(--cg-fill)" transform="rotate(18 31 96)"></rect>
+          <circle cx="70" cy="29" r="29" fill="var(--cg-fill)"></circle>
+          <circle cx="70" cy="40" r="26" fill="var(--cg-fill)"></circle>
+        </svg>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">WALLETWISE</span></div>
+      <div class="cg-slide-counter" data-counter="true">06 / 08</div>
+    </div>
+  </section>
+
+  <!-- Slide 7 — Tip 6 (light) -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="ring" style="width:250px;height:250px;bottom:-110px;left:-110px;border-width:20px;border-color:var(--accent);opacity:.8;"></div>
+    <svg class="squiggle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 26" width="110" height="26" style="right:70px;top:150px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false"><path d="M2 13 Q16 2 30 13 T58 13 T86 13 T108 13" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></path></svg>
+    <div class="dots vert" style="left:56px;top:500px;"><span></span><span></span><span></span></div>
+
+    <div class="badge"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 128" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M55 0L110 32V96L55 128L0 96V32L55 0Z" fill="var(--cg-fill)"></path></svg></div>
+    <div class="badge-num">6</div>
+
+    <div class="tn-title"><h1 data-title="true">Review Your Spending Every Week</h1></div>
+    <div class="tn-msg"><p data-message="true">A five-minute check-in catches small leaks before they sink the budget.</p></div>
+
+    <div class="scene">
+      <div class="scene-bg"></div>
+      <!-- calendar with check badge -->
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 180 170" style="left:100px;top:66px;width:340px;height:321px;--cg-fill:var(--surface);--cg-stroke:var(--primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false">
+        <rect x="10" y="24" width="160" height="136" rx="16" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="6"></rect>
+        <rect x="10" y="24" width="160" height="36" rx="16" fill="var(--cg-fill)"></rect>
+        <rect x="46" y="6" width="10" height="30" rx="5" fill="var(--cg-fill)"></rect>
+        <rect x="124" y="6" width="10" height="30" rx="5" fill="var(--cg-fill)"></rect>
+        <rect x="28" y="78" width="24" height="18" rx="4" fill="var(--cg-fill)"></rect>
+        <rect x="60" y="78" width="24" height="18" rx="4" fill="var(--cg-fill)"></rect>
+        <rect x="92" y="78" width="24" height="18" rx="4" fill="var(--cg-fill)"></rect>
+        <rect x="28" y="104" width="24" height="18" rx="4" fill="var(--cg-fill)"></rect>
+        <rect x="60" y="104" width="24" height="18" rx="4" fill="var(--cg-fill)"></rect>
+        <circle cx="150" cy="132" r="30" fill="var(--cg-fill)"></circle>
+        <path d="M137 132 L147 142 L164 120" stroke="var(--cg-stroke)" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <!-- person with clipboard, right -->
+      <div class="person flip" style="left:530px;top:44px;width:210px;height:358px;transform:scaleX(-1);">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 140 240" width="100%" height="100%" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+          <rect x="48" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="74" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="44" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <rect x="70" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <path d="M40 92 Q40 60 70 60 Q100 60 100 92 L100 162 L40 162 Z" fill="var(--cg-fill)"></path>
+          <rect x="20" y="86" width="18" height="60" rx="9" fill="var(--cg-fill)" transform="rotate(-8 29 86)"></rect>
+          <rect x="96" y="96" width="18" height="60" rx="9" fill="var(--cg-fill)" transform="rotate(24 105 96)"></rect>
+          <rect x="6" y="90" width="46" height="60" rx="6" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></rect>
+          <circle cx="70" cy="29" r="29" fill="var(--cg-fill)"></circle>
+          <circle cx="70" cy="40" r="26" fill="var(--cg-fill)"></circle>
+        </svg>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">WALLETWISE</span></div>
+      <div class="cg-slide-counter" data-counter="true">07 / 08</div>
+    </div>
+  </section>
+
+  <!-- Slide 8 — Closer (dark) -->
+  <section class="slide dark" data-cg-slide-type="text">
+    <div class="ring" style="width:260px;height:260px;top:-110px;left:-110px;border-width:20px;border-color:var(--accent);opacity:.75;"></div>
+    <svg class="squiggle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 26" width="110" height="26" style="left:60px;top:1250px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false"><path d="M2 13 Q16 2 30 13 T58 13 T86 13 T108 13" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></path></svg>
+    <svg class="squiggle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 26" width="110" height="26" style="right:60px;top:1250px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false"><path d="M2 13 Q16 2 30 13 T58 13 T86 13 T108 13" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></path></svg>
+    <div class="dots" style="left:0;right:0;top:70px;justify-content:center;margin:0 auto;width:60px;"><span></span><span></span><span></span></div>
+
+    <div class="cta-title"><h1 data-title="true">Ready to Take Control of Your Money?</h1></div>
+    <div class="cta-msg"><p data-message="true">Small habits, repeated weekly, turn into real financial freedom.</p></div>
+    <div class="cta-pill"><div class="btn"><span data-cta="true">Start Today</span></div></div>
+    <div class="cta-url">walletwise.co</div>
+
+    <div class="cta-scene">
+      <!-- piggy bank, back, behind target -->
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 160" style="left:284px;top:352px;width:230px;height:184px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" fill="none" aria-hidden="true" focusable="false">
+        <ellipse cx="102" cy="94" rx="84" ry="58" fill="var(--cg-fill)"></ellipse>
+        <ellipse cx="134" cy="72" rx="38" ry="24" fill="var(--cg-fill)" opacity=".16"></ellipse>
+        <circle cx="24" cy="96" r="21" fill="var(--cg-fill)"></circle>
+        <circle cx="17" cy="92" r="4" fill="var(--cg-fill)"></circle>
+        <circle cx="31" cy="92" r="4" fill="var(--cg-fill)"></circle>
+        <path d="M56 36 L76 10 L88 44 Z" fill="var(--cg-fill)"></path>
+        <circle cx="72" cy="74" r="7" fill="var(--cg-fill)"></circle>
+        <rect x="46" y="144" width="18" height="22" rx="7" fill="var(--cg-fill)"></rect>
+        <rect x="144" y="144" width="18" height="22" rx="7" fill="var(--cg-fill)"></rect>
+        <rect x="86" y="22" width="48" height="11" rx="5.5" fill="var(--cg-fill)" transform="rotate(-8 110 27)"></rect>
+      </svg>
+      <!-- target / bullseye, center -->
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" style="left:260px;top:16px;width:280px;height:280px;--cg-fill:var(--accent);--cg-stroke:var(--on-primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false">
+        <circle cx="100" cy="100" r="92" fill="var(--cg-fill)"></circle>
+        <circle cx="100" cy="100" r="64" fill="var(--cg-fill)"></circle>
+        <circle cx="100" cy="100" r="36" fill="var(--cg-fill)"></circle>
+        <circle cx="100" cy="100" r="11" fill="var(--cg-fill)"></circle>
+        <path d="M172 30 L106 96" stroke="var(--cg-stroke)" stroke-width="9" stroke-linecap="round"></path>
+        <path d="M150 20 L180 16 L184 46 Z" fill="var(--cg-fill)"></path>
+      </svg>
+      <!-- person left -->
+      <div class="person" style="left:20px;top:6px;width:196px;height:334px;">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 140 240" width="100%" height="100%" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-primary);--cg-stroke:var(--on-primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+          <rect x="48" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="74" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="44" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <rect x="70" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <path d="M40 92 Q40 60 70 60 Q100 60 100 92 L100 162 L40 162 Z" fill="var(--cg-fill)"></path>
+          <rect x="100" y="70" width="18" height="62" rx="9" fill="var(--cg-fill)" transform="rotate(-42 109 70)"></rect>
+          <rect x="22" y="96" width="18" height="60" rx="9" fill="var(--cg-fill)" transform="rotate(18 31 96)"></rect>
+          <circle cx="70" cy="29" r="29" fill="var(--cg-fill)"></circle>
+          <circle cx="70" cy="40" r="26" fill="var(--cg-fill)"></circle>
+        </svg>
+      </div>
+      <!-- person right, mirrored -->
+      <div class="person flip" style="left:580px;top:44px;width:196px;height:334px;transform:scaleX(-1);">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 140 240" width="100%" height="100%" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-primary);--cg-stroke:var(--on-primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+          <rect x="48" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="74" y="156" width="18" height="58" rx="9" fill="var(--cg-fill)"></rect>
+          <rect x="44" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <rect x="70" y="208" width="26" height="14" rx="7" fill="var(--cg-fill)"></rect>
+          <path d="M40 92 Q40 60 70 60 Q100 60 100 92 L100 162 L40 162 Z" fill="var(--cg-fill)"></path>
+          <rect x="98" y="86" width="18" height="58" rx="9" fill="var(--cg-fill)" transform="rotate(-14 107 86)"></rect>
+          <rect x="22" y="96" width="18" height="60" rx="9" fill="var(--cg-fill)" transform="rotate(20 31 96)"></rect>
+          <circle cx="70" cy="29" r="29" fill="var(--cg-fill)"></circle>
+          <circle cx="70" cy="40" r="26" fill="var(--cg-fill)"></circle>
+        </svg>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">WALLETWISE</span></div>
+      <div class="cg-slide-counter" data-counter="true">08 / 08</div>
+    </div>
+  </section>
+
+</div>
+
+
+</body></html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Montserrat:wght@500;600;700&display=swap');
+
+    :root{
+      /* Brand roles. Canvas + ink stay fixed literals for legibility; --primary
+         carries the branded DARK text (kicker, headline, badge numerals) and
+         --accent carries the two painted devices (badge-oval stroke, nav pill
+         fill) — never the reverse. */
+      --primary:var(--brand-primary,#242118);
+      --secondary:var(--brand-secondary,#5b5648);
+      --accent:var(--brand-accent,#c7f28a);
+      --highlight:var(--brand-accent,#c7f28a);
+      --bg:var(--brand-bg,#faf9f6);
+      --surface:var(--brand-surface,#ffffff);
+      --text-high:var(--brand-ink,#333333);
+      --text-low:var(--brand-text-muted,#79746a);
+      --border:var(--brand-border,#1c1a15);
+      --on-fill:var(--brand-on-accent,#14150f);
+      --on-primary:var(--brand-on-primary,#ffffff);
+    }
+
+    *{box-sizing:border-box;}
+
+    .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+    .slide{
+      width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+      background:var(--bg);font-family:'Montserrat',sans-serif;
+    }
+
+    /* ── corner wash: a soft accent-tinted disc bleeding off the bottom-right
+       edge. Gives the lower half of every slide real visual body instead of a
+       dead band of bare paper, and it's brand-reactive (tinted from --accent)
+       without ever sitting under the headline or body lane. ── */
+    .corner-wash{position:absolute;right:-220px;bottom:-250px;width:760px;height:760px;border-radius:50%;
+      background:color-mix(in srgb, var(--accent) 16%, var(--bg) 84%);z-index:0;}
+
+    /* ── kicker ── */
+    .kicker-wrap{position:absolute;top:96px;left:0;right:0;text-align:center;z-index:2;}
+    .kicker{display:inline-block;font-family:'Montserrat',sans-serif;font-weight:700;font-size:24px;
+      letter-spacing:.24em;text-transform:uppercase;color:var(--primary);}
+
+    /* ── badge: hand-drawn oval + fixed chrome label (never a stress-tested slot) ── */
+    .badge-wrap{position:absolute;top:170px;left:50%;transform:translateX(-50%);width:272px;height:144px;z-index:2;}
+    .badge-wrap.tilt-a{transform:translateX(-50%) rotate(-2.4deg);}
+    .badge-wrap.tilt-b{transform:translateX(-50%) rotate(2.1deg);}
+    .badge-oval{position:absolute;inset:0;width:100%;height:100%;}
+    .badge-oval path{fill:none;stroke:var(--accent);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;}
+    .badge-oval path.echo{opacity:.5;stroke-width:5;}
+    .badge-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+      font-family:'Montserrat',sans-serif;font-weight:700;color:var(--primary);text-transform:uppercase;}
+
+    /* ── title / message: each in its own absolute lane so the editor and the
+       collision probe both see a dedicated growth zone that art never enters.
+       Titles clamp to 2 lines (every authored headline here IS 2 lines) so the
+       zone can stay compact and the message lane can start close behind it. ── */
+    .tn-title{position:absolute;left:112px;right:112px;top:432px;z-index:2;}
+    .tn-title h1{
+      margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:112px;line-height:1.06;
+      letter-spacing:-.01em;color:var(--primary);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.16em;
+    }
+    .slide--center h1{text-align:center;}
+    .slide--cta .tn-title h1{font-size:78px;text-align:center;letter-spacing:-.005em;-webkit-line-clamp:3;}
+    /* every authored TIP headline is exactly two words-pair lines — clamp tight
+       so the message lane can start close behind it instead of leaving a dead gap */
+    .slide--tip .tn-title h1{-webkit-line-clamp:2;}
+
+    .tn-message{position:absolute;left:112px;right:112px;top:850px;z-index:2;}
+    .tn-message p{
+      margin:0;font-family:'Montserrat',sans-serif;font-weight:500;font-size:35px;line-height:1.52;
+      color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.2em;
+    }
+    .tn-message p.tagline{font-weight:700;font-size:28px;letter-spacing:.1em;text-transform:uppercase;
+      line-height:1.5;-webkit-line-clamp:2;text-align:center;color:var(--text-high);}
+    .slide--cta .tn-message p{text-align:center;font-size:30px;-webkit-line-clamp:2;}
+    .slide--tip .tn-message{top:706px;}
+
+    /* ── nav pill: the recurring "next" device, bottom-right on every content
+       slide; centered + rotated 90deg on the closing slide ── */
+    .nav-pill{position:absolute;right:76px;bottom:104px;width:190px;height:84px;border-radius:42px;z-index:3;
+      background:var(--accent);border:3px solid var(--border);display:flex;align-items:center;justify-content:center;}
+    .nav-pill svg{width:36px;height:36px;}
+    .nav-pill svg path{stroke:var(--on-fill);}
+    .nav-pill.down{right:auto;left:50%;transform:translateX(-50%);}
+    .nav-pill.down svg{transform:rotate(90deg);}
+
+    /* ── brand lockup: small, bottom-left, mirrors the pill for symmetry ── */
+    .lockup{position:absolute;left:80px;top:1190px;height:28px;display:flex;align-items:center;gap:10px;z-index:3;}
+    .brand-mark{height:26px;width:26px;display:block;object-fit:contain;}
+    .brand-word{font-family:'Montserrat',sans-serif;font-weight:700;font-size:19px;letter-spacing:.08em;
+      text-transform:uppercase;color:var(--text-low);white-space:nowrap;display:inline-block;
+      max-width:180px;overflow:hidden;text-overflow:ellipsis;vertical-align:middle;}
+
+    /* ── folio: fixed chrome, centered between the lockup and the pill ── */
+    .folio{position:absolute;left:50%;top:1198px;transform:translateX(-50%);width:max-content;z-index:3;
+      font-family:'Montserrat',sans-serif;font-weight:600;font-size:21px;letter-spacing:.16em;color:var(--text-high);}
+  </style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <!-- 1. Cover -->
+    <section class="slide slide--center" data-cg-slide-type="cover">
+      <div class="corner-wash" aria-hidden="true"></div>
+      <div class="kicker-wrap"><span class="kicker">Career Focus</span></div>
+
+      <div class="badge-wrap tilt-a">
+        <svg class="badge-oval" data-cg-svg="" data-cg-preserve="" viewBox="0 0 272 144" aria-hidden="true" focusable="false">
+          <path class="echo" d="M47 16 C108 -4 184 -2 234 23 C265 39 261 80 222 102 C166 132 92 134 46 114 C8 98 0 59 23 37 C29 29 38 22 47 16 Z"></path>
+          <path d="M44 14 C104 -6 180 -4 236 21 C267 37 263 80 222 103 C164 134 88 136 43 115 C4 98 -4 57 21 34 C27 27 36 20 44 14 Z"></path>
+        </svg>
+        <span class="badge-num" style="font-size:45px;letter-spacing:.04em;">MYTH</span>
+      </div>
+
+      <div class="tn-title"><h1 data-title="true">Busy Doesn’t Mean Productive</h1></div>
+      <div class="tn-message"><p class="tagline" data-tagline="true">Four shifts that actually move the needle</p></div>
+
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">yourbrand</span></div>
+      <div class="folio">01 · 06</div>
+      <div class="nav-pill"><svg viewBox="0 0 40 40" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M14 8 L28 20 L14 32" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </section>
+
+    <!-- 2. Tip 01 -->
+    <section class="slide slide--tip" data-cg-slide-type="tip">
+      <div class="corner-wash" aria-hidden="true"></div>
+      <div class="kicker-wrap"><span class="kicker">Career Focus</span></div>
+
+      <div class="badge-wrap tilt-b">
+        <svg class="badge-oval" data-cg-svg="" data-cg-preserve="" viewBox="0 0 272 144" aria-hidden="true" focusable="false">
+          <path class="echo" d="M47 16 C108 -4 184 -2 234 23 C265 39 261 80 222 102 C166 132 92 134 46 114 C8 98 0 59 23 37 C29 29 38 22 47 16 Z"></path>
+          <path d="M44 14 C104 -6 180 -4 236 21 C267 37 263 80 222 103 C164 134 88 136 43 115 C4 98 -4 57 21 34 C27 27 36 20 44 14 Z"></path>
+        </svg>
+        <span class="badge-num" style="font-size:60px;">01</span>
+      </div>
+
+      <div class="tn-title"><h1 data-title="true">Protect Deep Work</h1></div>
+      <div class="tn-message"><p data-message="true">Block two uninterrupted hours before opening your inbox — real progress happens in focus, not in fragments.</p></div>
+
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">yourbrand</span></div>
+      <div class="folio">02 · 06</div>
+      <div class="nav-pill"><svg viewBox="0 0 40 40" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M14 8 L28 20 L14 32" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </section>
+
+    <!-- 3. Tip 02 -->
+    <section class="slide slide--tip" data-cg-slide-type="tip">
+      <div class="corner-wash" aria-hidden="true"></div>
+      <div class="kicker-wrap"><span class="kicker">Career Focus</span></div>
+
+      <div class="badge-wrap tilt-a">
+        <svg class="badge-oval" data-cg-svg="" data-cg-preserve="" viewBox="0 0 272 144" aria-hidden="true" focusable="false">
+          <path class="echo" d="M47 16 C108 -4 184 -2 234 23 C265 39 261 80 222 102 C166 132 92 134 46 114 C8 98 0 59 23 37 C29 29 38 22 47 16 Z"></path>
+          <path d="M44 14 C104 -6 180 -4 236 21 C267 37 263 80 222 103 C164 134 88 136 43 115 C4 98 -4 57 21 34 C27 27 36 20 44 14 Z"></path>
+        </svg>
+        <span class="badge-num" style="font-size:60px;">02</span>
+      </div>
+
+      <div class="tn-title"><h1 data-title="true">Say No On Purpose</h1></div>
+      <div class="tn-message"><p data-message="true">Every yes to a low-value ask is a no to your priorities. Guard your calendar like it’s your most valuable asset.</p></div>
+
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">yourbrand</span></div>
+      <div class="folio">03 · 06</div>
+      <div class="nav-pill"><svg viewBox="0 0 40 40" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M14 8 L28 20 L14 32" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </section>
+
+    <!-- 4. Tip 03 -->
+    <section class="slide slide--tip" data-cg-slide-type="tip">
+      <div class="corner-wash" aria-hidden="true"></div>
+      <div class="kicker-wrap"><span class="kicker">Career Focus</span></div>
+
+      <div class="badge-wrap tilt-b">
+        <svg class="badge-oval" data-cg-svg="" data-cg-preserve="" viewBox="0 0 272 144" aria-hidden="true" focusable="false">
+          <path class="echo" d="M47 16 C108 -4 184 -2 234 23 C265 39 261 80 222 102 C166 132 92 134 46 114 C8 98 0 59 23 37 C29 29 38 22 47 16 Z"></path>
+          <path d="M44 14 C104 -6 180 -4 236 21 C267 37 263 80 222 103 C164 134 88 136 43 115 C4 98 -4 57 21 34 C27 27 36 20 44 14 Z"></path>
+        </svg>
+        <span class="badge-num" style="font-size:60px;">03</span>
+      </div>
+
+      <div class="tn-title"><h1 data-title="true">Ship Before It’s Perfect</h1></div>
+      <div class="tn-message"><p data-message="true">Waiting for flawless work delays feedback and momentum. Release early, then refine once you have real signal.</p></div>
+
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">yourbrand</span></div>
+      <div class="folio">04 · 06</div>
+      <div class="nav-pill"><svg viewBox="0 0 40 40" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M14 8 L28 20 L14 32" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </section>
+
+    <!-- 5. Tip 04 -->
+    <section class="slide slide--tip" data-cg-slide-type="tip">
+      <div class="corner-wash" aria-hidden="true"></div>
+      <div class="kicker-wrap"><span class="kicker">Career Focus</span></div>
+
+      <div class="badge-wrap tilt-a">
+        <svg class="badge-oval" data-cg-svg="" data-cg-preserve="" viewBox="0 0 272 144" aria-hidden="true" focusable="false">
+          <path class="echo" d="M47 16 C108 -4 184 -2 234 23 C265 39 261 80 222 102 C166 132 92 134 46 114 C8 98 0 59 23 37 C29 29 38 22 47 16 Z"></path>
+          <path d="M44 14 C104 -6 180 -4 236 21 C267 37 263 80 222 103 C164 134 88 136 43 115 C4 98 -4 57 21 34 C27 27 36 20 44 14 Z"></path>
+        </svg>
+        <span class="badge-num" style="font-size:60px;">04</span>
+      </div>
+
+      <div class="tn-title"><h1 data-title="true">Measure What Moved</h1></div>
+      <div class="tn-message"><p data-message="true">Hours logged mean nothing if nothing changed. Track outcomes, not the time you spent sitting at your desk.</p></div>
+
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">yourbrand</span></div>
+      <div class="folio">05 · 06</div>
+      <div class="nav-pill"><svg viewBox="0 0 40 40" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M14 8 L28 20 L14 32" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </section>
+
+    <!-- 6. Close / CTA -->
+    <section class="slide slide--center slide--cta" data-cg-slide-type="cta">
+      <div class="corner-wash" aria-hidden="true"></div>
+      <div class="kicker-wrap"><span class="kicker">Career Focus</span></div>
+
+      <div class="badge-wrap tilt-b">
+        <svg class="badge-oval" data-cg-svg="" data-cg-preserve="" viewBox="0 0 272 144" aria-hidden="true" focusable="false">
+          <path class="echo" d="M47 16 C108 -4 184 -2 234 23 C265 39 261 80 222 102 C166 132 92 134 46 114 C8 98 0 59 23 37 C29 29 38 22 47 16 Z"></path>
+          <path d="M44 14 C104 -6 180 -4 236 21 C267 37 263 80 222 103 C164 134 88 136 43 115 C4 98 -4 57 21 34 C27 27 36 20 44 14 Z"></path>
+        </svg>
+        <span class="badge-num" style="font-size:56px;">?</span>
+      </div>
+
+      <div class="tn-title"><h1 data-title="true">Want The Weekly Planner That Protects These Blocks?</h1></div>
+      <div class="tn-message"><p data-message="true">Save this post and build your first focus block today.</p></div>
+
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">yourbrand</span></div>
+      <div class="nav-pill down"><svg viewBox="0 0 40 40" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false"><path d="M14 8 L28 20 L14 32" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </section>
+
+  </div>
+
+
+</body></html>

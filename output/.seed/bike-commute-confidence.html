@@ -1,0 +1,368 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    /* Nine role tokens. bg/text-* stay fixed (pure-black canvas is the reference's whole
+       identity — recoloring it would kill the design), the accent roles are what the brand
+       preview actually re-skins: the kicker pill, the numeral badge, the sparks and the
+       keyword-circle stroke. */
+    --primary:var(--brand-primary,#14181c);
+    --secondary:var(--brand-secondary,#9aa0a6);
+    --accent:var(--brand-accent,#E4FF3D);
+    --bg:var(--brand-bg,#0A0A0A);
+    --surface:var(--brand-surface,#161616);
+    --text-high:var(--brand-text-high,#FFFFFF);
+    --text-low:var(--brand-text-muted,rgba(255,255,255,.74));
+    --border:var(--brand-border,rgba(255,255,255,.16));
+    --highlight:var(--brand-accent,#E4FF3D);
+    --on-fill:var(--brand-on-accent,#0A0A0A);
+    --on-primary:var(--brand-on-primary,#FFFFFF);
+  }
+
+  *{box-sizing:border-box;}
+
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#050505;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);font-family:'Inter',sans-serif;
+  }
+
+  /* ── decorative sunburst / ray wheel — fixed grey, bleeds off a corner or edge ── */
+  .sunburst{
+    position:absolute;border-radius:50%;pointer-events:none;z-index:1;
+    background:repeating-conic-gradient(var(--secondary) 0deg 7deg, transparent 7deg 20deg);
+    opacity:.9;
+  }
+
+  /* ── small filled accent spark (asterisk) — genuine brand-bound fill, always visible ── */
+  .spark{position:absolute;z-index:4;}
+
+  /* ── brand lockup, top-left on every slide ── */
+  .lockup{position:absolute;top:56px;left:92px;display:flex;align-items:center;gap:12px;z-index:6;}
+  .brand-mark{width:30px;height:30px;object-fit:contain;display:block;border-radius:7px;}
+  .brand-word{font-family:'Inter',sans-serif;font-weight:800;font-size:26px;letter-spacing:.02em;color:var(--text-high);white-space:nowrap;}
+
+  /* ── kicker pill, top-right — filled accent surface, on-accent ink ── */
+  .kicker{
+    position:absolute;top:48px;right:92px;z-index:6;background:var(--accent);color:var(--on-fill);
+    font-family:'Inter',sans-serif;font-weight:800;font-size:21px;letter-spacing:.09em;text-transform:uppercase;
+    padding:18px 30px;border-radius:999px;white-space:nowrap;
+  }
+
+  /* ── numeral badge — filled accent circle, on-accent ink ── */
+  .badge{position:absolute;z-index:6;width:120px;height:120px;border-radius:50%;background:var(--accent);
+    display:flex;align-items:center;justify-content:center;}
+  .badge span{font-family:'Inter',sans-serif;font-weight:800;font-size:40px;color:var(--on-fill);}
+
+  /* ── hand-circled keyword — decorative accent stroke, scales with its own word box ── */
+  .hl{position:relative;display:inline-block;}
+  .hl::after{
+    content:'';position:absolute;inset:-.12em -.18em -.26em -.18em;
+    border:9px solid var(--highlight);border-radius:50%;transform:rotate(-3deg);pointer-events:none;
+  }
+
+  /* ── text nodes: own absolutely-positioned wrapper, content in normal flow ── */
+  .tn-title{position:absolute;z-index:3;}
+  .tn-title h1{
+    margin:0;font-size:1em;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;color:var(--text-high);
+    line-height:.97;padding-bottom:.16em;letter-spacing:.001em;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+  }
+
+  .tn-message{position:absolute;z-index:3;}
+  .tn-message p{
+    margin:0;font-family:'Inter',sans-serif;font-weight:500;color:var(--text-low);
+    line-height:1.46;padding-bottom:.2em;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;
+  }
+
+  /* ── CTA — filled accent pill, on-accent ink (same brand-fill family as the kicker) ── */
+  .cta{
+    position:absolute;z-index:6;background:var(--accent);color:var(--on-fill);
+    font-family:'Inter',sans-serif;font-weight:800;font-size:24px;letter-spacing:.04em;
+    padding:20px 36px;border-radius:999px;white-space:nowrap;
+  }
+
+  /* ── oval-cropped photo, white rim, matches the reference's signature blob-photo ── */
+  .photo-wrap{
+    position:absolute;border-radius:50%;overflow:hidden;z-index:2;
+    border:7px solid rgba(255,255,255,.92);box-shadow:0 30px 70px rgba(0,0,0,.6);
+  }
+  .photo-wrap img{width:100%;height:100%;object-fit:cover;display:block;background:#3a3a3a;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- ============ 1. COVER ============ -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="sunburst" style="width:560px;height:560px;top:-230px;right:-230px;"></div>
+    <div class="sunburst" style="width:560px;height:560px;bottom:-230px;left:-230px;"></div>
+
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:512px;top:142px;width:86px;height:86px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:854px;top:324px;width:72px;height:72px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+
+    <div class="lockup">
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+      <span class="brand-word">SPOKEWORKS</span>
+    </div>
+
+    <div class="tn-title" style="left:88px;right:80px;top:440px;font-size:108px;">
+      <h1 data-title="true">RIDE LIKE <span class="hl">YOU MEAN IT</span></h1>
+    </div>
+    <div class="tn-message" style="left:92px;right:150px;top:706px;font-size:32px;">
+      <p data-message="true">Bike commuting isn't about being fearless. These five habits turn traffic anxiety into quiet, confident momentum on every street you ride.</p>
+    </div>
+
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:806px;top:940px;width:90px;height:90px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+    <div class="cta" data-cta="true" style="right:92px;bottom:64px;">SPOKEWORKS.CC</div>
+  </section>
+
+  <!-- ============ 2. TIP 01 — typographic, centered ============ -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="sunburst" style="width:560px;height:560px;top:50%;left:-280px;transform:translateY(-50%);"></div>
+    <div class="sunburst" style="width:560px;height:560px;top:50%;right:-280px;transform:translateY(-50%);"></div>
+
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:500px;top:424px;width:92px;height:92px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:500px;top:1032px;width:92px;height:92px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+
+    <div class="lockup">
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+      <span class="brand-word">SPOKEWORKS</span>
+    </div>
+    <div class="kicker" data-tagline="true">Bike Commute Habits</div>
+
+    <div class="tn-title" style="left:96px;right:96px;top:540px;text-align:center;font-size:136px;">
+      <h1 data-title="true">KNOW YOUR <span class="hl">ROUTE COLD</span></h1>
+    </div>
+    <div class="tn-message" style="left:170px;right:170px;top:860px;text-align:center;font-size:31px;">
+      <p data-message="true">Scout your commute on a slow Sunday. Learn where the bike lane vanishes, where drivers cut the corner, and where to merge before rush hour makes you improvise.</p>
+    </div>
+
+    <div class="badge" style="left:480px;bottom:56px;"><span>01</span></div>
+  </section>
+
+  <!-- ============ 3. TIP 02 — photo, left-aligned ============ -->
+  <section class="slide" data-cg-slide-type="photo">
+    <div class="lockup">
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+      <span class="brand-word">SPOKEWORKS</span>
+    </div>
+    <div class="kicker" data-tagline="true">Bike Commute Habits</div>
+
+    <div class="tn-title" style="left:88px;right:80px;top:160px;font-size:156px;">
+      <h1 data-title="true">BE <span class="hl">SEEN</span> BEFORE YOU'RE NEAR</h1>
+    </div>
+
+    <div class="photo-wrap" style="left:260px;top:412px;width:560px;height:560px;">
+      <img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="cyclist commuting through a city street at dusk with bike lights on and reflective gear, editorial photography, high contrast" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/bike-commute-confidence/slide-03.png">
+    </div>
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:206px;top:444px;width:92px;height:92px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:784px;top:874px;width:92px;height:92px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+
+    <div class="tn-message" style="left:130px;right:130px;top:1030px;text-align:center;font-size:29px;">
+      <p data-message="true">Run a front light and a rear light, even at noon. Reflective gear and a raised hand at the intersection do more for your safety than speed ever will.</p>
+    </div>
+
+    <div class="badge" style="right:92px;bottom:56px;"><span>02</span></div>
+  </section>
+
+  <!-- ============ 4. TIP 03 — photo, left-aligned ============ -->
+  <section class="slide" data-cg-slide-type="photo">
+    <div class="lockup">
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+      <span class="brand-word">SPOKEWORKS</span>
+    </div>
+    <div class="kicker" data-tagline="true">Bike Commute Habits</div>
+
+    <div class="tn-title" style="left:88px;right:80px;top:118px;font-size:156px;">
+      <h1 data-title="true">DRESS FOR THE <span class="hl">RIDE</span></h1>
+    </div>
+
+    <div class="photo-wrap" style="left:260px;top:412px;width:560px;height:560px;">
+      <img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="commuter cyclist in business-casual clothing with a backpack riding a bike through a downtown street in morning light, editorial photography" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/bike-commute-confidence/slide-04.png">
+    </div>
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:206px;top:444px;width:92px;height:92px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:784px;top:874px;width:92px;height:92px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+
+    <div class="tn-message" style="left:130px;right:130px;top:1030px;text-align:center;font-size:29px;">
+      <p data-message="true">Pack a change of clothes and a rain shell instead of riding in your meeting clothes. Let the commute build the day's first win instead of something to survive.</p>
+    </div>
+
+    <div class="badge" style="right:92px;bottom:56px;"><span>03</span></div>
+  </section>
+
+  <!-- ============ 5. TIP 04 — photo, centered ============ -->
+  <section class="slide" data-cg-slide-type="photo">
+    <div class="sunburst" style="width:420px;height:420px;bottom:-200px;left:-200px;"></div>
+    <div class="sunburst" style="width:420px;height:420px;bottom:-200px;right:-200px;"></div>
+
+    <div class="lockup">
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+      <span class="brand-word">SPOKEWORKS</span>
+    </div>
+    <div class="kicker" data-tagline="true">Bike Commute Habits</div>
+
+    <div class="tn-title" style="left:96px;right:96px;top:158px;text-align:center;font-size:152px;">
+      <h1 data-title="true">MAINTAIN YOUR <span class="hl">RIDE</span></h1>
+    </div>
+
+    <div class="photo-wrap" style="left:260px;top:412px;width:560px;height:560px;">
+      <img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="close-up of hands checking a bicycle chain and tire pressure in a garage with natural light, editorial photography" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/bike-commute-confidence/slide-05.png">
+    </div>
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:206px;top:444px;width:92px;height:92px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:784px;top:874px;width:92px;height:92px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+
+    <div class="tn-message" style="left:130px;right:130px;top:1030px;text-align:center;font-size:29px;">
+      <p data-message="true">Check tire pressure weekly and oil the chain once a month. A five-minute check on Sunday beats a walk-of-shame commute on Monday.</p>
+    </div>
+
+    <div class="badge" style="left:480px;bottom:40px;"><span>04</span></div>
+  </section>
+
+  <!-- ============ 6. TIP 05 — photo, left-aligned ============ -->
+  <section class="slide" data-cg-slide-type="photo">
+    <div class="lockup">
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+      <span class="brand-word">SPOKEWORKS</span>
+    </div>
+    <div class="kicker" data-tagline="true">Bike Commute Habits</div>
+
+    <div class="tn-title" style="left:88px;right:80px;top:160px;font-size:156px;">
+      <h1 data-title="true">RIDE WITH <span class="hl">OTHERS</span></h1>
+    </div>
+
+    <div class="photo-wrap" style="left:260px;top:412px;width:560px;height:560px;">
+      <img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="two cyclists riding side by side in a city bike lane during morning commute, editorial photography" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/bike-commute-confidence/slide-06.png">
+    </div>
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:206px;top:530px;width:92px;height:92px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:784px;top:874px;width:92px;height:92px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+
+    <div class="tn-message" style="left:130px;right:130px;top:1030px;text-align:center;font-size:29px;">
+      <p data-message="true">A commute partner makes you more visible, more accountable, and a lot more likely to actually get on the bike on a grey Tuesday morning.</p>
+    </div>
+
+    <div class="badge" style="right:92px;bottom:56px;"><span>05</span></div>
+  </section>
+
+  <!-- ============ 7. OUTRO ============ -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="sunburst" style="width:560px;height:560px;bottom:-230px;left:-230px;"></div>
+    <div class="sunburst" style="width:560px;height:560px;bottom:-230px;right:-230px;"></div>
+
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:500px;top:142px;width:92px;height:92px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+
+    <div class="lockup">
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+      <span class="brand-word">SPOKEWORKS</span>
+    </div>
+
+    <div class="tn-title" style="left:80px;right:80px;top:520px;text-align:center;font-size:118px;">
+      <h1 data-title="true">RIDE INTO <span class="hl">CONFIDENCE</span></h1>
+    </div>
+    <div class="tn-message" style="left:150px;right:150px;top:812px;text-align:center;font-size:31px;">
+      <p data-message="true">Route, visibility, gear, maintenance, company — stack these five habits and the ride into work stops being a hurdle and starts being the best part of your day.</p>
+    </div>
+
+    <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" style="left:196px;top:950px;width:90px;height:90px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)">
+        <rect x="27" y="2" width="10" height="60" rx="5"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(60 32 32)"></rect>
+        <rect x="27" y="2" width="10" height="60" rx="5" transform="rotate(120 32 32)"></rect>
+      </g>
+    </svg>
+    <div class="cta" data-cta="true" style="left:50%;bottom:76px;transform:translateX(-50%);">SPOKEWORKS.CC</div>
+  </section>
+
+</div>
+
+
+</body></html>

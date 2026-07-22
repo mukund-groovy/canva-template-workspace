@@ -1,0 +1,385 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  :root{
+    /* Canvas is a fixed near-black crumpled-paper slab and ink is fixed off-white
+       for legibility (per the recolor contract, --bg/--text-* never move). Brand
+       identity lives ONLY in filled surfaces — the asterisk badge, the underline
+       bar, the tag chip, the CTA block, the counter pill — all --accent /
+       --primary. Nothing routes branded colour into bare text sitting directly on
+       the black canvas: a dark brand primary/accent would vanish there, so canvas
+       text always stays --text-high/--text-low. */
+    --primary:var(--brand-primary,#6b4423);
+    --secondary:var(--brand-secondary,#8a7a5c);
+    --accent:var(--brand-accent,#c9e21c);
+    --highlight:var(--brand-accent,#c9e21c);
+    --bg:var(--brand-bg,#121110);
+    --surface:var(--brand-surface,#1c1a15);
+    --text-high:var(--brand-ink,#f7f4ea);
+    --text-low:var(--brand-text-muted,rgba(247,244,234,.62));
+    --border:var(--brand-border,rgba(247,244,234,.16));
+    --on-fill:var(--brand-on-accent,#0a0a0a);
+    --on-primary:var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#000;}
+
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#000;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);
+    font-family:'Inter',sans-serif;
+  }
+
+  /* ───────── crumpled dark paper backdrop, built in CSS (no photo) ───────── */
+  .paper{position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(1000px 760px at 4% -8%, rgba(255,255,255,.16), transparent 52%),
+      radial-gradient(820px 720px at 108% 14%, rgba(255,255,255,.12), transparent 55%),
+      radial-gradient(900px 780px at 8% 116%, rgba(255,255,255,.10), transparent 52%),
+      radial-gradient(760px 820px at 100% 104%, rgba(255,255,255,.09), transparent 50%),
+      radial-gradient(620px 560px at 60% 50%, rgba(0,0,0,.5), transparent 68%),
+      radial-gradient(900px 700px at 30% 70%, color-mix(in srgb, var(--secondary) 16%, transparent), transparent 72%),
+      linear-gradient(162deg, color-mix(in srgb, var(--secondary) 12%, #1b170f) 0%, #100e0b 54%, #080706 100%);
+  }
+  .paper::after{content:'';position:absolute;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:260px 260px; mix-blend-mode:overlay; opacity:.55;
+  }
+  .creases{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:
+      linear-gradient(97deg, transparent 0%, rgba(0,0,0,.4) 9%, transparent 19%),
+      linear-gradient(63deg, transparent 22%, rgba(255,255,255,.14) 30%, transparent 40%),
+      linear-gradient(152deg, transparent 38%, rgba(0,0,0,.34) 47%, transparent 58%),
+      linear-gradient(12deg, transparent 52%, rgba(255,255,255,.10) 58%, transparent 68%),
+      linear-gradient(-158deg, transparent 62%, rgba(0,0,0,.3) 71%, transparent 82%),
+      linear-gradient(41deg, transparent 78%, rgba(255,255,255,.11) 85%, transparent 95%),
+      repeating-linear-gradient(105deg, rgba(255,255,255,.025) 0 2px, transparent 2px 22px);
+  }
+
+  /* ───────── recurring devices ───────── */
+  .ast-wrap{position:absolute;z-index:2;}
+  .ast-circle{position:absolute;inset:0;border-radius:50%;background:var(--primary);opacity:.38;}
+  .ast-svg{position:absolute;left:22%;top:22%;width:56%;height:56%;}
+
+  .doodle{position:absolute;z-index:1;opacity:.94;}
+  .doodle svg{position:absolute;inset:0;width:100%;height:100%;display:block;}
+  .doodle svg *{position:absolute;}
+  .ast-svg *{position:absolute;}
+
+  /* decorative numeral watermark — CSS generated content (::before), not a real text
+     node, so it is invisible to the DOM-walking text checks (verify/stress). This is
+     purely a background flourish: never real, replaceable content. */
+  .num-wm{position:absolute;z-index:1;pointer-events:none;user-select:none;}
+  .num-wm::before{content:attr(data-n);display:block;font-family:'Anton',sans-serif;font-weight:400;
+    line-height:1.1;color:transparent;-webkit-text-stroke:3px rgba(247,244,234,.16);
+    text-transform:uppercase;white-space:nowrap;}
+
+  /* torn-card grounding panel behind the numeral — a real painted surface (counts as
+     visual body, not text), gives the lower-empty corner some physical weight. */
+  .corner-card{position:absolute;z-index:0;border-radius:28px;background:var(--surface);
+    opacity:.6;border:1px solid var(--border);}
+
+  .kicker{margin:0;font-family:'Inter',sans-serif;font-weight:700;font-size:24px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--text-low);white-space:nowrap;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;}
+
+  .ttl{margin:0;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
+    color:var(--text-high);letter-spacing:-.005em;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.16em;}
+
+  .msg{margin:0;font-family:'Inter',sans-serif;font-weight:500;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;padding-bottom:.22em;}
+
+  .hl-block{display:inline-block;background:var(--accent);color:var(--on-fill);
+    font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;line-height:1.08;
+    padding:16px 30px 20px;border-radius:8px;white-space:nowrap;}
+
+  .tagline{margin:0;font-family:'Inter',sans-serif;font-weight:600;font-size:30px;line-height:1.42;
+    color:var(--text-high);opacity:.92;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.2em;}
+
+  .rule{position:absolute;height:16px;background:var(--highlight);border-radius:4px;z-index:2;}
+  .rule-thin{position:absolute;height:4px;background:var(--highlight);border-radius:2px;z-index:2;}
+
+  .counter{position:absolute;right:96px;bottom:80px;z-index:6;
+    background:var(--accent);color:var(--on-fill);font-family:'Inter',sans-serif;font-weight:800;
+    font-size:22px;letter-spacing:.08em;padding:11px 22px;border-radius:999px;white-space:nowrap;}
+
+  .lockup{position:absolute;z-index:6;display:inline-flex;align-items:center;gap:12px;}
+  .brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+  .brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Inter',sans-serif;font-weight:800;font-size:24px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--text-high);white-space:nowrap;}
+
+  .tag{position:absolute;z-index:2;background:var(--primary);color:var(--on-primary);
+    font-family:'Inter',sans-serif;font-weight:700;font-size:22px;letter-spacing:.14em;text-transform:uppercase;
+    padding:9px 20px;border-radius:999px;white-space:nowrap;}
+</style>
+</head>
+
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — Cover -->
+  <section class="slide" data-cg-slide-type="cover">
+    <div class="paper"></div><div class="creases"></div>
+
+    <div class="lockup" style="left:100px;top:80px;">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">Offerline</span>
+    </div>
+    <div class="rule-thin" style="left:100px;top:130px;width:52px;"></div>
+
+    <div class="ast-wrap" style="right:96px;top:88px;width:160px;height:160px;transform:rotate(-9deg);">
+      <div class="ast-circle"></div>
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 100 100" class="ast-svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <g fill="var(--cg-fill)">
+          <rect x="41" y="4" width="18" height="92" rx="9"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(45 50 50)"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(90 50 50)"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(135 50 50)"></rect>
+        </g>
+      </svg>
+    </div>
+
+    <div style="position:absolute;left:100px;top:540px;width:820px;z-index:3;">
+      <h1 class="ttl" data-title="true" style="font-size:114px;line-height:.94;">Ace your next interview</h1>
+    </div>
+
+    <div style="position:absolute;left:100px;top:825px;z-index:3;">
+      <h2 class="hl-block" style="font-size:92px;">Nail it.</h2>
+    </div>
+
+    <div style="position:absolute;left:100px;top:1065px;width:660px;z-index:3;">
+      <p class="tagline" data-tagline="true">Five sharp moves before you walk in the room.</p>
+    </div>
+
+    <div class="doodle" style="right:-230px;bottom:32px;width:560px;height:308px;transform:rotate(7deg);">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 400 220" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M18 190 C 90 232, 150 58, 232 40 C 272 30, 300 46, 330 72" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+        <path d="M330 72 L294 55 M330 72 L306 106" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+      </svg>
+    </div>
+
+    <div class="counter" data-counter="true">01 / 06</div>
+  </section>
+
+  <!-- Slide 2 — Tip 1 (left) -->
+  <section class="slide" data-cg-slide-type="tip">
+    <div class="paper"></div><div class="creases"></div>
+
+    <div class="tag" style="left:100px;top:104px;">Tip 01</div>
+
+    <div class="ast-wrap" style="right:110px;top:96px;width:150px;height:150px;transform:rotate(11deg);">
+      <div class="ast-circle"></div>
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 100 100" class="ast-svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <g fill="var(--cg-fill)">
+          <rect x="41" y="4" width="18" height="92" rx="9"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(45 50 50)"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(90 50 50)"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(135 50 50)"></rect>
+        </g>
+      </svg>
+    </div>
+
+    <div style="position:absolute;left:100px;top:420px;width:860px;z-index:3;">
+      <h1 class="ttl" data-title="true" style="font-size:104px;line-height:1.0;">Research like a detective</h1>
+    </div>
+
+    <div class="rule" style="left:100px;top:665px;width:270px;height:26px;"></div>
+
+    <div style="position:absolute;left:100px;top:730px;width:780px;z-index:3;">
+      <p class="msg" data-message="true" style="font-size:35px;line-height:1.44;">Read their latest news, product launches, and reviews — one sharp detail beats ten generic compliments.</p>
+    </div>
+
+    <div class="doodle" style="right:-50px;top:1030px;width:500px;height:280px;transform:rotate(-13deg);">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 400 220" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M18 190 C 90 232, 150 58, 232 40 C 272 30, 300 46, 330 72" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+        <path d="M330 72 L294 55 M330 72 L306 106" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+      </svg>
+    </div>
+
+    <div class="corner-card" style="left:10px;bottom:20px;width:440px;height:400px;"></div>
+    <div class="num-wm" data-n="01" style="left:40px;bottom:55px;font-size:310px;"></div>
+
+    <div class="counter" data-counter="true">02 / 06</div>
+  </section>
+
+  <!-- Slide 3 — Tip 2 (right) -->
+  <section class="slide" data-cg-slide-type="tip">
+    <div class="paper"></div><div class="creases"></div>
+
+    <div class="tag" style="right:100px;top:104px;">Tip 02</div>
+
+    <div class="ast-wrap" style="left:110px;top:96px;width:150px;height:150px;transform:rotate(-8deg);">
+      <div class="ast-circle"></div>
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 100 100" class="ast-svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <g fill="var(--cg-fill)">
+          <rect x="41" y="4" width="18" height="92" rx="9"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(45 50 50)"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(90 50 50)"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(135 50 50)"></rect>
+        </g>
+      </svg>
+    </div>
+
+    <div style="position:absolute;right:100px;top:420px;width:860px;z-index:3;text-align:right;">
+      <h1 class="ttl" data-title="true" style="font-size:104px;line-height:1.0;">Build three story beats</h1>
+    </div>
+
+    <div class="rule" style="right:100px;top:665px;width:270px;height:26px;"></div>
+
+    <div style="position:absolute;right:100px;top:730px;width:780px;z-index:3;text-align:right;">
+      <p class="msg" data-message="true" style="font-size:35px;line-height:1.44;">Pick three wins you can explain in under ninety seconds each — structure beats memory when nerves kick in.</p>
+    </div>
+
+    <div class="doodle" style="left:-50px;top:1030px;width:500px;height:280px;transform:rotate(13deg) scaleX(-1);">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 400 220" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M18 190 C 90 232, 150 58, 232 40 C 272 30, 300 46, 330 72" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+        <path d="M330 72 L294 55 M330 72 L306 106" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+      </svg>
+    </div>
+
+    <div class="corner-card" style="right:230px;bottom:20px;width:440px;height:400px;"></div>
+    <div class="num-wm" data-n="02" style="right:260px;bottom:55px;font-size:310px;"></div>
+
+    <div class="counter" data-counter="true">03 / 06</div>
+  </section>
+
+  <!-- Slide 4 — Tip 3 (left) -->
+  <section class="slide" data-cg-slide-type="tip">
+    <div class="paper"></div><div class="creases"></div>
+
+    <div class="tag" style="left:100px;top:104px;">Tip 03</div>
+
+    <div class="ast-wrap" style="right:110px;top:96px;width:150px;height:150px;transform:rotate(6deg);">
+      <div class="ast-circle"></div>
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 100 100" class="ast-svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <g fill="var(--cg-fill)">
+          <rect x="41" y="4" width="18" height="92" rx="9"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(45 50 50)"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(90 50 50)"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(135 50 50)"></rect>
+        </g>
+      </svg>
+    </div>
+
+    <div style="position:absolute;left:100px;top:420px;width:860px;z-index:3;">
+      <h1 class="ttl" data-title="true" style="font-size:104px;line-height:1.0;">Ask questions that bite back</h1>
+    </div>
+
+    <div class="rule" style="left:100px;top:665px;width:270px;height:26px;"></div>
+
+    <div style="position:absolute;left:100px;top:730px;width:780px;z-index:3;">
+      <p class="msg" data-message="true" style="font-size:35px;line-height:1.44;">Skip "what's the culture like." Ask what success looks like in ninety days, and what tripped up the last hire.</p>
+    </div>
+
+    <div class="doodle" style="right:-50px;top:1030px;width:500px;height:280px;transform:rotate(-13deg);">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 300 300" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M40 60 C 160 -6, 260 88, 190 168 C 140 226, 60 190, 90 130 C 108 92, 168 100, 168 138" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round" fill="none"></path>
+        <path d="M168 138 L143 116 M168 138 L198 126" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+      </svg>
+    </div>
+
+    <div class="corner-card" style="left:10px;bottom:20px;width:440px;height:400px;"></div>
+    <div class="num-wm" data-n="03" style="left:40px;bottom:55px;font-size:310px;"></div>
+
+    <div class="counter" data-counter="true">04 / 06</div>
+  </section>
+
+  <!-- Slide 5 — Tip 4 (right) -->
+  <section class="slide" data-cg-slide-type="tip">
+    <div class="paper"></div><div class="creases"></div>
+
+    <div class="tag" style="right:100px;top:104px;">Tip 04</div>
+
+    <div class="ast-wrap" style="left:110px;top:96px;width:150px;height:150px;transform:rotate(-11deg);">
+      <div class="ast-circle"></div>
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 100 100" class="ast-svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <g fill="var(--cg-fill)">
+          <rect x="41" y="4" width="18" height="92" rx="9"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(45 50 50)"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(90 50 50)"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(135 50 50)"></rect>
+        </g>
+      </svg>
+    </div>
+
+    <div style="position:absolute;right:100px;top:420px;width:860px;z-index:3;text-align:right;">
+      <h1 class="ttl" data-title="true" style="font-size:104px;line-height:1.0;">Follow up within one day</h1>
+    </div>
+
+    <div class="rule" style="right:100px;top:665px;width:270px;height:26px;"></div>
+
+    <div style="position:absolute;right:100px;top:730px;width:780px;z-index:3;text-align:right;">
+      <p class="msg" data-message="true" style="font-size:35px;line-height:1.44;">Send a short note that references something specific from the chat — timing shows you actually want it.</p>
+    </div>
+
+    <div class="doodle" style="left:-50px;top:1030px;width:500px;height:280px;transform:rotate(13deg) scaleX(-1);">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 300 300" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M40 60 C 160 -6, 260 88, 190 168 C 140 226, 60 190, 90 130 C 108 92, 168 100, 168 138" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round" fill="none"></path>
+        <path d="M168 138 L143 116 M168 138 L198 126" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+      </svg>
+    </div>
+
+    <div class="corner-card" style="right:230px;bottom:20px;width:440px;height:400px;"></div>
+    <div class="num-wm" data-n="04" style="right:260px;bottom:55px;font-size:310px;"></div>
+
+    <div class="counter" data-counter="true">05 / 06</div>
+  </section>
+
+  <!-- Slide 6 — CTA / closing -->
+  <section class="slide" data-cg-slide-type="cta">
+    <div class="paper"></div><div class="creases"></div>
+
+    <p class="kicker" style="position:absolute;left:100px;top:110px;z-index:3;">Share your story</p>
+
+    <div class="ast-wrap" style="left:96px;top:220px;width:150px;height:150px;transform:rotate(8deg);">
+      <div class="ast-circle"></div>
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 100 100" class="ast-svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <g fill="var(--cg-fill)">
+          <rect x="41" y="4" width="18" height="92" rx="9"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(45 50 50)"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(90 50 50)"></rect>
+          <rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(135 50 50)"></rect>
+        </g>
+      </svg>
+    </div>
+
+    <div style="position:absolute;left:100px;top:430px;width:850px;z-index:3;">
+      <h1 class="ttl" data-title="true" style="font-size:92px;line-height:.96;">What's your best interview win?</h1>
+    </div>
+
+    <div style="position:absolute;left:100px;top:690px;z-index:3;">
+      <p class="hl-block cta-btn" data-cta="true" style="font-size:68px;">Tell us below</p>
+    </div>
+
+    <div style="position:absolute;left:100px;top:880px;width:660px;z-index:3;">
+      <p class="tagline" style="font-size:32px;">Every answer helps someone else prep smarter.</p>
+    </div>
+
+    <div class="doodle" style="right:-64px;bottom:36px;width:500px;height:280px;transform:rotate(-8deg) scaleX(-1);">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 400 220" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M18 190 C 90 232, 150 58, 232 40 C 272 30, 300 46, 330 72" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+        <path d="M330 72 L294 55 M330 72 L306 106" stroke="var(--cg-stroke)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+      </svg>
+    </div>
+
+    <div class="lockup" style="left:100px;bottom:84px;">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">Offerline</span>
+    </div>
+
+    <div class="counter" data-counter="true">06 / 06</div>
+  </section>
+
+</div>
+
+
+</body></html>

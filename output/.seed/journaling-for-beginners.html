@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+      :root{
+        /* Brand role tokens. The right-panel/full-bleed fills route through --accent
+           (the paint) and every branded WORD — title, numeral, kicker, lockup — routes
+           through --primary (which the test palettes keep dark), so type stays AA-legible
+           no matter how light a brand's accent is. Canvas (grid paper) and ink are fixed
+           literals so the reading surface never washes out. */
+        --primary:var(--brand-primary,#146b63);
+        --secondary:var(--brand-secondary,#0d443f);
+        --accent:var(--brand-accent,#1f998f);
+        --highlight:var(--brand-accent,#1f998f);
+        --bg:var(--brand-bg,#faf9f3);
+        --surface:var(--brand-surface,#eef4f1);
+        --text-high:var(--brand-ink,#16211d);
+        --text-low:var(--brand-text-muted,rgba(22,33,29,.62));
+        --border:var(--brand-border,rgba(20,107,99,.2));
+        --on-fill:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);
+        font-family:'Inter',sans-serif;
+      }
+
+      /* ── grid-paper backdrop: the reference's defining surface, kept at full
+         strength on every slide (not softened to a hint) ── */
+      .backdrop{
+        position:absolute;inset:0;z-index:0;background:var(--bg);
+        background-image:
+          repeating-linear-gradient(0deg, var(--border) 0 2px, transparent 2px 68px),
+          repeating-linear-gradient(90deg, var(--border) 0 2px, transparent 2px 68px);
+      }
+
+      /* ── brand lockup, reused across every slide footer ── */
+      .lockup{display:inline-flex;align-items:center;gap:14px;}
+      .brand-mark-clip{flex:none;height:34px;display:flex;align-items:center;}
+      .brand-mark{height:34px;width:auto;max-width:120px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;white-space:nowrap;}
+
+      /* ══════════════ COVER ══════════════ */
+      .cov-kicker-wrap{position:absolute;left:90px;right:90px;top:300px;text-align:center;z-index:2;}
+      .kicker{
+        margin:0;font-family:'Poppins',sans-serif;font-weight:600;font-size:34px;letter-spacing:.3em;
+        text-transform:uppercase;color:var(--primary);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:8px;
+      }
+
+      .cov-title-wrap{position:absolute;left:50px;right:50px;top:362px;text-align:center;z-index:2;}
+      .cov-title-wrap h1{
+        margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:196px;line-height:.92;
+        letter-spacing:.006em;text-transform:uppercase;color:var(--primary);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.14em;
+      }
+
+      .cov-card{
+        position:absolute;left:140px;right:140px;top:606px;height:342px;z-index:1;
+        background:var(--surface);border:2px solid var(--border);border-radius:32px;
+      }
+
+      .cov-sub-wrap{position:absolute;left:220px;right:220px;top:654px;text-align:center;z-index:2;}
+      .cov-sub-wrap p{
+        margin:0;font-family:'Inter',sans-serif;font-weight:500;font-size:32px;line-height:1.42;color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:6px;
+      }
+
+      .pill-wrap{position:absolute;left:0;right:0;top:812px;display:flex;justify-content:center;z-index:2;}
+      .cta-pill{
+        display:inline-block;max-width:860px;background:var(--accent);border-radius:999px;
+        padding:24px 56px 26px;
+      }
+      .cta-btn{
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+        color:var(--on-fill);font-family:'Poppins',sans-serif;font-weight:700;
+        font-size:30px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;
+      }
+
+      .cov-foot{position:absolute;left:0;right:0;bottom:104px;display:flex;flex-direction:column;align-items:center;gap:12px;z-index:2;}
+      .cov-foot .brand-word{color:var(--primary);}
+      .cov-tag-wrap{}
+      .cov-tag.eyebrow{
+        margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:24px;color:var(--text-low);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:6px;
+      }
+
+      /* ══════════════ TIP SLIDES ══════════════ */
+      .panel-accent{position:absolute;left:432px;top:0;right:0;bottom:0;background:var(--accent);z-index:1;}
+
+      .tip-num-wrap{position:absolute;left:48px;width:388px;top:140px;z-index:2;}
+      .tip-num{
+        margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:300px;line-height:.86;color:var(--primary);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.1em;
+      }
+      .tip-num-label{
+        position:absolute;left:52px;top:462px;width:360px;margin:0;font-family:'Poppins',sans-serif;font-weight:600;
+        font-size:26px;letter-spacing:.26em;text-transform:uppercase;color:var(--text-low);z-index:2;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:4px;
+      }
+
+      .tip-title-wrap{position:absolute;left:494px;right:66px;top:150px;z-index:2;}
+      .tip-title-wrap h1{
+        margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:78px;line-height:1.03;
+        letter-spacing:.004em;text-transform:uppercase;color:var(--on-fill);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.16em;
+      }
+
+      .tip-body-wrap{position:absolute;left:494px;right:66px;top:472px;z-index:2;}
+      .tip-body-wrap p{
+        margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:32px;line-height:1.56;color:var(--on-fill);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:7;overflow:hidden;padding-bottom:.12em;
+      }
+
+      .tip-foot{position:absolute;left:494px;right:66px;bottom:90px;display:flex;align-items:center;justify-content:space-between;z-index:2;}
+      .tip-foot .brand-word{color:var(--on-fill);font-size:26px;}
+      .tip-foot .brand-mark{height:30px;}
+      .tip-counter{font-family:'Inter',sans-serif;font-weight:600;font-size:24px;letter-spacing:.16em;color:var(--on-fill);opacity:.78;}
+
+      /* ══════════════ CLOSING / CTA ══════════════ */
+      .close-fill{position:absolute;inset:0;background:var(--accent);z-index:0;}
+
+      .close-kicker-wrap{position:absolute;left:90px;right:90px;top:96px;z-index:2;}
+      .close-kicker-wrap .kicker{color:var(--on-fill);text-align:left;letter-spacing:.28em;}
+
+      .hl-wrap{position:absolute;left:84px;right:90px;top:266px;z-index:2;}
+      .hl-line.accent{
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+        width:max-content;max-width:100%;
+        margin:0;background:var(--bg);color:var(--primary);font-family:'Bebas Neue',sans-serif;font-weight:400;
+        font-size:76px;line-height:1;text-transform:uppercase;padding:16px 28px 22px;
+      }
+
+      .cta-wrap{position:absolute;left:84px;right:96px;top:414px;z-index:2;}
+      .cta-wrap h1{
+        margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:76px;line-height:1.1;
+        letter-spacing:.004em;text-transform:uppercase;color:var(--on-fill);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.16em;
+      }
+
+      .support-wrap{position:absolute;left:84px;right:96px;top:726px;z-index:2;}
+      .support-card{background:var(--bg);border-radius:26px;padding:42px 50px 46px;}
+      .support-wrap p{
+        margin:0;color:var(--primary);font-family:'Poppins',sans-serif;font-weight:600;
+        font-size:30px;line-height:1.42;letter-spacing:.002em;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:8px;
+      }
+
+      .close-foot{position:absolute;left:84px;right:84px;bottom:100px;display:flex;align-items:flex-end;justify-content:space-between;z-index:2;}
+      .close-name{display:flex;flex-direction:column;gap:8px;}
+      .close-foot .brand-word{color:var(--on-fill);font-size:32px;}
+      .close-handle.eyebrow{
+        margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:26px;color:var(--on-fill);opacity:.86;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:6px;
+      }
+      .close-icons{display:flex;align-items:center;gap:26px;}
+      .close-icons svg{width:36px;height:36px;color:var(--on-fill);}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Cover -->
+      <section class="slide" data-cg-slide-type="cover">
+        <div class="backdrop" aria-hidden="true"></div>
+
+        <div class="cov-kicker-wrap"><p class="kicker" data-tagline="true">Tips to Start</p></div>
+        <div class="cov-title-wrap"><h1 data-title="true">Journaling</h1></div>
+        <div class="cov-card" aria-hidden="true"></div>
+        <div class="cov-sub-wrap"><p data-message="true">Three tiny habits that make the blank page a lot less scary.</p></div>
+
+        <div class="pill-wrap"><span class="cta-pill"><span class="cta-btn" data-cta="true">Swipe for the tips</span></span></div>
+
+        <div class="cov-foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <p class="cov-tag eyebrow">a five-minute daily practice</p>
+        </div>
+      </section>
+
+      <!-- Tip 01 -->
+      <section class="slide" data-cg-slide-type="tip">
+        <div class="backdrop" aria-hidden="true"></div>
+        <div class="panel-accent" aria-hidden="true"></div>
+
+        <div class="tip-num-wrap"><p class="tip-num">01</p></div>
+        <p class="tip-num-label">Step one</p>
+
+        <div class="tip-title-wrap"><h1 data-title="true">Pick One Honest Line</h1></div>
+        <div class="tip-body-wrap"><p data-message="true">Skip the perfect opening. Write the truest sentence you can manage right now — what happened, what you noticed, or what you're avoiding — and let that one honest line pull the next one out of you.</p></div>
+
+        <div class="tip-foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <span class="tip-counter" data-counter="true">01 / 03</span>
+        </div>
+      </section>
+
+      <!-- Tip 02 -->
+      <section class="slide" data-cg-slide-type="tip">
+        <div class="backdrop" aria-hidden="true"></div>
+        <div class="panel-accent" aria-hidden="true"></div>
+
+        <div class="tip-num-wrap"><p class="tip-num">02</p></div>
+        <p class="tip-num-label">Step two</p>
+
+        <div class="tip-title-wrap"><h1 data-title="true">Set A Five-Minute Timer</h1></div>
+        <div class="tip-body-wrap"><p data-message="true">A blank page feels like homework, so keep the bar low. Open the notebook, start a five-minute timer, and write until it rings. Momentum comes from repetition, never from one perfect session.</p></div>
+
+        <div class="tip-foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <span class="tip-counter" data-counter="true">02 / 03</span>
+        </div>
+      </section>
+
+      <!-- Tip 03 -->
+      <section class="slide" data-cg-slide-type="tip">
+        <div class="backdrop" aria-hidden="true"></div>
+        <div class="panel-accent" aria-hidden="true"></div>
+
+        <div class="tip-num-wrap"><p class="tip-num">03</p></div>
+        <p class="tip-num-label">Step three</p>
+
+        <div class="tip-title-wrap"><h1 data-title="true">Leave The Notebook In Sight</h1></div>
+        <div class="tip-body-wrap"><p data-message="true">A journal buried in a drawer never gets opened. Keep it on the nightstand, the desk, or the bag, so reaching for it takes zero willpower — the habit sticks once the friction disappears.</p></div>
+
+        <div class="tip-foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <span class="tip-counter" data-counter="true">03 / 03</span>
+        </div>
+      </section>
+
+      <!-- Closing / CTA -->
+      <section class="slide" data-cg-slide-type="cta">
+        <div class="close-fill" aria-hidden="true"></div>
+
+        <div class="close-kicker-wrap"><p class="kicker" data-tagline="true">Journaling Tips</p></div>
+
+        <div class="hl-wrap"><p class="hl-line accent" data-tagline="true">Ready to start?</p></div>
+        <div class="cta-wrap"><h1 data-title="true">Grab a notebook and write one honest line today.</h1></div>
+        <div class="support-wrap"><div class="support-card"><p data-message="true">One honest line still counts as journaling — no minimum word count.</p></div></div>
+
+        <div class="close-foot">
+          <div class="close-name">
+            <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+            <p class="close-handle eyebrow">@yourbrand</p>
+          </div>
+          <div class="close-icons">
+            <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M6 3H18C18.5523 3 19 3.44772 19 4V21L12 17L5 21V4C5 3.44772 5.44772 3 6 3Z" stroke="var(--cg-stroke)" stroke-width="2" stroke-linejoin="round"></path></svg>
+            <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M12 20.5C12 20.5 3.5 15.4 3.5 9.5C3.5 6.7 5.7 4.5 8.5 4.5C10 4.5 11.3 5.2 12 6.3C12.7 5.2 14 4.5 15.5 4.5C18.3 4.5 20.5 6.7 20.5 9.5C20.5 15.4 12 20.5 12 20.5Z" stroke="var(--cg-stroke)" stroke-width="2" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  
+
+</body></html>

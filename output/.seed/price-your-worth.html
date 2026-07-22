@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#3B36D6);
+  --secondary:var(--brand-secondary,#5651E0);
+  --accent:var(--brand-accent,#C9C4F0);
+  --highlight:var(--brand-accent,#B7CBEE);
+  --bg:var(--brand-bg,#F6F1EC);
+  --surface:var(--brand-surface,#FFF8F1);
+  --text-high:var(--brand-ink,#111111);
+  --text-low:var(--brand-text-muted,rgba(17,17,17,.66));
+  --border:var(--brand-border,rgba(17,17,17,.12));
+  --on-fill:var(--brand-on-accent,#111111);
+  --on-primary:var(--brand-on-primary,#ffffff);
+}
+
+*{box-sizing:border-box;}
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+.slide{width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;background:var(--surface,#FFF8F1);font-family:'Poppins',sans-serif;}
+
+/* gradient corner blooms */
+.bloom{position:absolute;z-index:0;pointer-events:none;filter:blur(10px);border-radius:50%;opacity:.85;}
+.bloom-a{width:620px;height:620px;left:-220px;top:-160px;background:radial-gradient(circle at 40% 40%,var(--accent) 0%,rgba(201,196,240,0) 68%);}
+.bloom-b{width:640px;height:640px;right:-240px;top:60px;background:radial-gradient(circle at 55% 45%,var(--highlight) 0%,rgba(183,203,238,0) 66%);}
+.bloom-c{width:660px;height:660px;left:-200px;bottom:-220px;background:radial-gradient(circle at 50% 50%,var(--accent) 0%,rgba(201,196,240,0) 66%);}
+.bloom-d{width:640px;height:640px;right:-240px;bottom:-200px;background:radial-gradient(circle at 50% 50%,var(--highlight) 0%,rgba(183,203,238,0) 66%);}
+
+/* header lockup */
+.hdr{position:absolute;top:44px;left:64px;z-index:5;display:flex;align-items:center;gap:12px;}
+.hdr .brand-mark-clip{height:26px;display:flex;align-items:center;}
+.brand-mark{height:26px;width:auto;max-width:34px;object-fit:contain;display:block;}
+.brand-word{font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;line-height:1.3;padding-bottom:6px;color:var(--text-high);white-space:nowrap;}
+.aster{position:absolute;top:38px;right:64px;z-index:5;font-family:'Poppins',sans-serif;font-weight:700;font-size:56px;line-height:1;color:var(--primary);}
+
+/* footer pill + glyphs */
+.urlpill{position:absolute;left:64px;bottom:44px;z-index:6;display:flex;align-items:center;gap:12px;height:52px;padding:0 26px;border-radius:26px;background:var(--accent);}
+.urlpill span{font-family:'Poppins',sans-serif;font-weight:500;font-size:22px;color:var(--on-fill);white-space:nowrap;}
+.urlpill svg{width:19px;height:19px;color:var(--on-fill);}
+.glyphs{position:absolute;right:64px;bottom:48px;z-index:6;display:flex;align-items:center;gap:22px;}
+.glyphs svg{width:34px;height:34px;color:var(--text-high);}
+
+/* ellipse scribble wrapper */
+.scribble{position:absolute;}
+.scribble svg{position:absolute;left:-6%;top:-30%;width:112%;height:160%;color:var(--primary);pointer-events:none;overflow:visible;}
+
+.h-blk{position:absolute;z-index:4;}
+.h-blk h1{margin:0;font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-.02em;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:10px;line-height:1.06;}
+.script{font-family:'Caveat',cursive;font-weight:700;color:var(--primary);}
+.b-blk{position:absolute;z-index:4;}
+.b-blk p{margin:0;font-family:'Poppins',sans-serif;font-weight:400;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:8px;}
+.lead{position:absolute;z-index:4;}
+.lead h2{margin:0;font-family:'Poppins',sans-serif;font-weight:700;color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:8px;line-height:1.2;}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+<!-- Slide 1 cover -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-a"></div><div class="bloom bloom-b"></div><div class="bloom bloom-c"></div><div class="bloom bloom-d"></div>
+  <div class="hdr">
+    <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+    <span class="brand-word" data-tagline="true">Prime Ledger Studio</span>
+  </div>
+  <div class="aster">✱</div>
+
+  <div class="h-blk" style="left:64px;top:392px;width:900px;">
+    <h1 data-title="true" style="font-size:98px;-webkit-line-clamp:4;">Charge What Your Creative Work Is Actually Worth</h1>
+  </div>
+  <div class="scribble" style="left:64px;top:1010px;width:640px;height:130px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 640 130" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><ellipse cx="320" cy="65" rx="300" ry="52" stroke="var(--cg-stroke)" stroke-width="3" opacity="0.55"></ellipse></svg>
+    <div style="position:absolute;left:30px;top:6px;font-family:'Caveat',cursive;font-weight:700;font-size:96px;line-height:1;color:var(--primary);">Worth It.</div>
+  </div>
+
+  <div class="urlpill"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M10 14a5 5 0 007.07 0l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 10a5 5 0 00-7.07 0l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-cta="true">www.primeledger.studio</span></div>
+  <div class="glyphs">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 21s-7.5-4.6-10-9C.5 8.5 2 4.5 5.7 4.5c2 0 3.3 1.2 4.3 2.6C11 5.7 12.3 4.5 14.3 4.5 18 4.5 19.5 8.5 22 12c-2.5 4.4-10 9-10 9z"></path></svg>
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4 4h16a1 1 0 011 1v12a1 1 0 01-1 1H8l-5 4V5a1 1 0 011-1z"></path></svg>
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="var(--cg-stroke)" stroke-width="1.6" fill="none" stroke-linejoin="round"></path></svg>
+  </div>
+</section>
+
+<!-- Slide 2 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-a"></div><div class="bloom bloom-b"></div><div class="bloom bloom-c"></div><div class="bloom bloom-d"></div>
+  <div class="hdr"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">Prime Ledger Studio</span></div>
+  <div class="aster">✱</div>
+
+  <div class="scribble" style="left:250px;top:530px;width:400px;height:110px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 400 110" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><ellipse cx="200" cy="55" rx="188" ry="44" stroke="var(--cg-stroke)" stroke-width="3" opacity="0.5"></ellipse></svg>
+  </div>
+  <div class="h-blk" style="left:64px;top:340px;width:720px;">
+    <h1 data-title="true" style="font-size:64px;-webkit-line-clamp:4;">Are you undercharging just to feel safe, or pricing like you mean it?</h1>
+  </div>
+  <div class="b-blk" style="left:64px;top:720px;width:660px;">
+    <p data-message="true" style="font-size:27px;line-height:1.4;-webkit-line-clamp:6;">Fair pricing is not a lucky guess. It comes from knowing your value and stating it plainly. Here is how to quote rates that respect your time and still win the work.</p>
+  </div>
+
+  <div class="urlpill"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M10 14a5 5 0 007.07 0l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 10a5 5 0 00-7.07 0l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-cta="true">www.primeledger.studio</span></div>
+  <div class="glyphs"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 21s-7.5-4.6-10-9C.5 8.5 2 4.5 5.7 4.5c2 0 3.3 1.2 4.3 2.6C11 5.7 12.3 4.5 14.3 4.5 18 4.5 19.5 8.5 22 12c-2.5 4.4-10 9-10 9z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4 4h16a1 1 0 011 1v12a1 1 0 01-1 1H8l-5 4V5a1 1 0 011-1z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="var(--cg-stroke)" stroke-width="1.6" stroke-linejoin="round"></path></svg></div>
+</section>
+
+<!-- Slide 3 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-a"></div><div class="bloom bloom-b"></div><div class="bloom bloom-c"></div><div class="bloom bloom-d"></div>
+  <div class="hdr"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">Prime Ledger Studio</span></div>
+
+  <div class="scribble" style="left:44px;top:560px;width:440px;height:110px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 440 110" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><ellipse cx="220" cy="55" rx="208" ry="44" stroke="var(--cg-stroke)" stroke-width="3" opacity="0.5"></ellipse></svg>
+  </div>
+  <div class="h-blk" style="left:56px;top:540px;width:470px;">
+    <h1 data-title="true" style="font-size:74px;color:var(--primary);-webkit-line-clamp:4;">Price The Outcome</h1>
+  </div>
+
+  <div class="lead" style="left:560px;top:360px;width:440px;">
+    <h2 data-cta="true" style="font-size:40px;-webkit-line-clamp:3;">Clients pay for results, not hours.</h2>
+  </div>
+  <div class="b-blk" style="left:560px;top:520px;width:450px;">
+    <p data-message="true" style="font-size:40px;line-height:1.32;-webkit-line-clamp:7;">What does your work save or earn them? Anchor your fee to that impact, not to the minutes you spent making it look easy.</p>
+  </div>
+
+  <div class="urlpill"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M10 14a5 5 0 007.07 0l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 10a5 5 0 00-7.07 0l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>www.primeledger.studio</span></div>
+  <div class="glyphs"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 21s-7.5-4.6-10-9C.5 8.5 2 4.5 5.7 4.5c2 0 3.3 1.2 4.3 2.6C11 5.7 12.3 4.5 14.3 4.5 18 4.5 19.5 8.5 22 12c-2.5 4.4-10 9-10 9z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4 4h16a1 1 0 011 1v12a1 1 0 01-1 1H8l-5 4V5a1 1 0 011-1z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="var(--cg-stroke)" stroke-width="1.6" stroke-linejoin="round"></path></svg></div>
+</section>
+
+<!-- Slide 4 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-a"></div><div class="bloom bloom-b"></div><div class="bloom bloom-c"></div><div class="bloom bloom-d"></div>
+  <div class="hdr"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">Prime Ledger Studio</span></div>
+  <div class="aster">✱</div>
+
+  <div class="scribble" style="left:56px;top:260px;width:400px;height:110px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 400 110" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><ellipse cx="200" cy="55" rx="188" ry="44" stroke="var(--cg-stroke)" stroke-width="3" opacity="0.5"></ellipse></svg>
+  </div>
+  <div class="h-blk" style="left:64px;top:270px;width:820px;">
+    <h1 data-title="true" style="font-size:92px;color:var(--primary);-webkit-line-clamp:2;">Stop Discounting</h1>
+  </div>
+  <div class="b-blk" style="left:64px;top:520px;width:840px;">
+    <p data-message="true" style="font-size:40px;line-height:1.34;-webkit-line-clamp:8;">Every discount you give without a reason teaches clients your rate is negotiable. If you must lower a price, cut the scope too, so the number always maps to the value delivered.</p>
+  </div>
+
+  <div class="urlpill"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M10 14a5 5 0 007.07 0l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 10a5 5 0 00-7.07 0l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-cta="true">www.primeledger.studio</span></div>
+  <div class="glyphs"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 21s-7.5-4.6-10-9C.5 8.5 2 4.5 5.7 4.5c2 0 3.3 1.2 4.3 2.6C11 5.7 12.3 4.5 14.3 4.5 18 4.5 19.5 8.5 22 12c-2.5 4.4-10 9-10 9z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4 4h16a1 1 0 011 1v12a1 1 0 01-1 1H8l-5 4V5a1 1 0 011-1z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="var(--cg-stroke)" stroke-width="1.6" stroke-linejoin="round"></path></svg></div>
+</section>
+
+<!-- Slide 5 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-a"></div><div class="bloom bloom-b"></div><div class="bloom bloom-c"></div><div class="bloom bloom-d"></div>
+  <div class="hdr"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">Prime Ledger Studio</span></div>
+
+  <div class="scribble" style="left:290px;top:290px;width:500px;height:150px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 500 150" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><ellipse cx="250" cy="75" rx="238" ry="62" stroke="var(--cg-stroke)" stroke-width="3" opacity="0.5"></ellipse></svg>
+  </div>
+  <div class="h-blk" style="left:140px;top:300px;width:800px;text-align:center;">
+    <h1 data-title="true" style="font-size:66px;color:var(--primary);-webkit-line-clamp:2;">Quote With Confidence</h1>
+  </div>
+  <div class="lead" style="left:140px;top:530px;width:800px;text-align:center;">
+    <h2 data-cta="true" style="font-size:44px;-webkit-line-clamp:2;">How you say the number matters.</h2>
+  </div>
+  <div class="b-blk" style="left:140px;top:670px;width:800px;text-align:center;">
+    <p data-message="true" style="font-size:44px;line-height:1.32;-webkit-line-clamp:6;">State the rate clearly and stop talking. Silence is not rejection. Let the client respond instead of rushing to justify yourself.</p>
+  </div>
+
+  <div class="urlpill"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M10 14a5 5 0 007.07 0l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 10a5 5 0 00-7.07 0l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>www.primeledger.studio</span></div>
+  <div class="glyphs"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 21s-7.5-4.6-10-9C.5 8.5 2 4.5 5.7 4.5c2 0 3.3 1.2 4.3 2.6C11 5.7 12.3 4.5 14.3 4.5 18 4.5 19.5 8.5 22 12c-2.5 4.4-10 9-10 9z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4 4h16a1 1 0 011 1v12a1 1 0 01-1 1H8l-5 4V5a1 1 0 011-1z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="var(--cg-stroke)" stroke-width="1.6" stroke-linejoin="round"></path></svg></div>
+</section>
+
+<!-- Slide 6 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-a"></div><div class="bloom bloom-b"></div><div class="bloom bloom-c"></div><div class="bloom bloom-d"></div>
+  <div class="hdr"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">Prime Ledger Studio</span></div>
+  <div class="aster">✱</div>
+
+  <div class="lead" style="left:64px;top:250px;width:640px;">
+    <h2 data-cta="true" style="font-size:42px;-webkit-line-clamp:2;">Naming your services as tiers removes the guesswork.</h2>
+  </div>
+  <div class="b-blk" style="left:64px;top:400px;width:840px;">
+    <p data-message="true" style="font-size:42px;line-height:1.34;-webkit-line-clamp:6;">Give clients good, better, and best options so they choose a version instead of debating whether to hire you at all.</p>
+  </div>
+
+  <div class="scribble" style="left:56px;top:900px;width:560px;height:130px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 560 130" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><ellipse cx="280" cy="65" rx="264" ry="54" stroke="var(--cg-stroke)" stroke-width="3" opacity="0.5"></ellipse></svg>
+  </div>
+  <div class="h-blk" style="left:64px;top:900px;width:820px;">
+    <h1 data-title="true" style="font-size:92px;color:var(--primary);-webkit-line-clamp:2;">Package Your Offers</h1>
+  </div>
+
+  <div class="urlpill"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M10 14a5 5 0 007.07 0l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 10a5 5 0 00-7.07 0l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>www.primeledger.studio</span></div>
+  <div class="glyphs"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 21s-7.5-4.6-10-9C.5 8.5 2 4.5 5.7 4.5c2 0 3.3 1.2 4.3 2.6C11 5.7 12.3 4.5 14.3 4.5 18 4.5 19.5 8.5 22 12c-2.5 4.4-10 9-10 9z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4 4h16a1 1 0 011 1v12a1 1 0 01-1 1H8l-5 4V5a1 1 0 011-1z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="var(--cg-stroke)" stroke-width="1.6" stroke-linejoin="round"></path></svg></div>
+</section>
+
+<!-- Slide 7 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-a"></div><div class="bloom bloom-b"></div><div class="bloom bloom-c"></div><div class="bloom bloom-d"></div>
+  <div class="hdr"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">Prime Ledger Studio</span></div>
+  <div class="aster">✱</div>
+
+  <div class="b-blk" style="left:140px;top:330px;width:800px;text-align:center;">
+    <p data-message="true" style="font-size:46px;line-height:1.32;-webkit-line-clamp:6;">Your skills grow every year, so your prices should too. Review your rate each quarter and lift it for new clients first. Waiting for permission only keeps you underpaid longer.</p>
+  </div>
+
+  <div class="scribble" style="left:230px;top:830px;width:620px;height:130px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 620 130" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><ellipse cx="310" cy="65" rx="292" ry="54" stroke="var(--cg-stroke)" stroke-width="3" opacity="0.5"></ellipse></svg>
+  </div>
+  <div class="h-blk" style="left:140px;top:830px;width:800px;text-align:center;">
+    <h1 data-title="true" style="font-size:78px;color:var(--primary);-webkit-line-clamp:2;">Raise Your Rates</h1>
+  </div>
+
+  <div class="urlpill"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M10 14a5 5 0 007.07 0l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 10a5 5 0 00-7.07 0l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span data-cta="true">www.primeledger.studio</span></div>
+  <div class="glyphs"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 21s-7.5-4.6-10-9C.5 8.5 2 4.5 5.7 4.5c2 0 3.3 1.2 4.3 2.6C11 5.7 12.3 4.5 14.3 4.5 18 4.5 19.5 8.5 22 12c-2.5 4.4-10 9-10 9z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4 4h16a1 1 0 011 1v12a1 1 0 01-1 1H8l-5 4V5a1 1 0 011-1z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="var(--cg-stroke)" stroke-width="1.6" stroke-linejoin="round"></path></svg></div>
+</section>
+
+<!-- Slide 8 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-a"></div><div class="bloom bloom-b"></div><div class="bloom bloom-c"></div><div class="bloom bloom-d"></div>
+  <div class="hdr"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">Prime Ledger Studio</span></div>
+
+  <div class="scribble" style="left:56px;top:250px;width:420px;height:110px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 420 110" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><ellipse cx="210" cy="55" rx="198" ry="44" stroke="var(--cg-stroke)" stroke-width="3" opacity="0.5"></ellipse></svg>
+  </div>
+  <div class="h-blk" style="left:64px;top:250px;width:820px;">
+    <h1 data-title="true" style="font-size:88px;color:var(--primary);-webkit-line-clamp:2;">Write It Down</h1>
+  </div>
+
+  <div style="position:absolute;left:64px;top:520px;z-index:4;font-family:'Poppins',sans-serif;font-weight:700;font-size:52px;color:var(--primary);">✱</div>
+  <div class="lead" style="left:130px;top:512px;width:790px;">
+    <h2 data-cta="true" style="font-size:44px;-webkit-line-clamp:2;">A clear contract protects the price you agreed on.</h2>
+  </div>
+  <div class="b-blk" style="left:64px;top:700px;width:840px;">
+    <p data-message="true" style="font-size:40px;line-height:1.34;-webkit-line-clamp:6;">Spell out scope, revisions, and payment terms before you start. Written terms stop the slow creep that quietly erases your profit.</p>
+  </div>
+
+  <div class="urlpill"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M10 14a5 5 0 007.07 0l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 10a5 5 0 00-7.07 0l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>www.primeledger.studio</span></div>
+  <div class="glyphs"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 21s-7.5-4.6-10-9C.5 8.5 2 4.5 5.7 4.5c2 0 3.3 1.2 4.3 2.6C11 5.7 12.3 4.5 14.3 4.5 18 4.5 19.5 8.5 22 12c-2.5 4.4-10 9-10 9z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4 4h16a1 1 0 011 1v12a1 1 0 01-1 1H8l-5 4V5a1 1 0 011-1z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="var(--cg-stroke)" stroke-width="1.6" stroke-linejoin="round"></path></svg></div>
+</section>
+
+<!-- Slide 9 -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-a"></div><div class="bloom bloom-b"></div><div class="bloom bloom-c"></div><div class="bloom bloom-d"></div>
+  <div class="hdr"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">Prime Ledger Studio</span></div>
+  <div class="aster">✱</div>
+
+  <div class="scribble" style="left:56px;top:420px;width:420px;height:110px;">
+    <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 420 110" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><ellipse cx="210" cy="55" rx="198" ry="44" stroke="var(--cg-stroke)" stroke-width="3" opacity="0.5"></ellipse></svg>
+  </div>
+  <div class="h-blk" style="left:64px;top:420px;width:600px;">
+    <h1 data-title="true" style="font-size:90px;color:var(--primary);-webkit-line-clamp:2;">Value Yourself</h1>
+  </div>
+  <div class="lead" style="left:64px;top:640px;width:700px;">
+    <h2 data-cta="true" style="font-size:44px;-webkit-line-clamp:2;">Real worth reflects the number you believe.</h2>
+  </div>
+  <div class="b-blk" style="left:64px;top:770px;width:800px;">
+    <p data-message="true" style="font-size:40px;line-height:1.34;-webkit-line-clamp:5;">Track your wins and reread them before every quote. When you trust your worth, clients find it far easier to trust it too.</p>
+  </div>
+
+  <div class="urlpill"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M10 14a5 5 0 007.07 0l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 10a5 5 0 00-7.07 0l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>www.primeledger.studio</span></div>
+  <div class="glyphs"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 21s-7.5-4.6-10-9C.5 8.5 2 4.5 5.7 4.5c2 0 3.3 1.2 4.3 2.6C11 5.7 12.3 4.5 14.3 4.5 18 4.5 19.5 8.5 22 12c-2.5 4.4-10 9-10 9z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4 4h16a1 1 0 011 1v12a1 1 0 01-1 1H8l-5 4V5a1 1 0 011-1z"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="var(--cg-stroke)" stroke-width="1.6" stroke-linejoin="round"></path></svg></div>
+</section>
+
+<!-- Slide 10 closer -->
+<section class="slide" data-cg-slide-type="text">
+  <div class="bloom bloom-a"></div><div class="bloom bloom-b"></div><div class="bloom bloom-c"></div><div class="bloom bloom-d"></div>
+  <div class="hdr"><span class="brand-mark-clip"></span></div></section></div></body></html>

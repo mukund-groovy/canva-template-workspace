@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Nunito+Sans:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#3C6B4F);
+  --secondary:var(--brand-secondary,#8FB9A0);
+  --accent:var(--brand-accent,#B8D6C4);
+  --highlight:var(--brand-accent,#D6E8DC);
+  --bg:var(--brand-bg,#C7E0D2);
+  --surface:var(--brand-surface,#FFFFFF);
+  --text-high:var(--brand-ink,var(--brand-text,#1E2622));
+  --text-low:var(--brand-text-muted,rgba(30,38,34,.55));
+  --border:var(--brand-border,rgba(30,38,34,.12));
+  --on-accent:#FFFFFF;
+}
+
+*{box-sizing:border-box;}
+
+.si-single{width:fit-content;margin:0;}
+
+.si-page{
+  position:relative;width:1080px;height:1080px;overflow:hidden;
+  container-type:inline-size;
+  background:var(--accent);
+  font-family:'Nunito Sans',sans-serif;
+  display:flex;align-items:center;justify-content:center;
+  padding:150px 130px;
+}
+
+.card{
+  position:relative;
+  width:100%;
+  background:var(--surface);
+  border-radius:40px;
+  box-shadow:0 40px 90px rgba(30,38,34,.20);
+  padding:70px 66px 56px;
+  display:flex;flex-direction:column;gap:40px;
+  overflow:hidden;
+}
+/* accent bar down the left edge of the card */
+.card::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:16px;
+  background:var(--primary);
+}
+
+/* header: portrait + name stack */
+.who{display:flex;align-items:center;gap:28px;}
+.portrait{
+  flex:none;width:120px;height:120px;border-radius:50%;overflow:hidden;
+  background:var(--primary);border:3px solid var(--primary);
+  position:relative;
+}
+.si-image{
+  position:absolute;top:8px;left:8px;
+  width:120px;height:120px;border-radius:50%;
+  object-fit:cover;display:block;
+}
+.who-stack{display:flex;flex-direction:column;gap:6px;min-width:0;}
+.who-name{
+  margin:0;font-family:'Poppins',sans-serif;font-weight:600;
+  font-size:clamp(28px,3.4cqw,38px);line-height:1.14;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:2px;
+}
+.who-role{
+  margin:0;font-family:'Nunito Sans',sans-serif;font-weight:600;
+  font-size:clamp(18px,2cqw,22px);line-height:1.2;color:var(--text-low);
+  letter-spacing:.02em;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:2px;
+}
+
+/* quote badge */
+.quote-badge{
+  align-self:flex-start;
+  display:inline-flex;align-items:center;justify-content:center;
+  width:72px;height:72px;border-radius:20px;
+  background:var(--primary);color:var(--on-accent);
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:56px;line-height:1;
+  margin-bottom:-16px;
+}
+
+/* quote */
+.headline{
+  margin:0;font-family:'Poppins',sans-serif;font-weight:500;
+  font-size:clamp(36px,4.7cqw,52px);line-height:1.24;letter-spacing:-.01em;
+  color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:6px;
+}
+.body{
+  margin:0;font-family:'Nunito Sans',sans-serif;font-weight:400;
+  font-size:clamp(22px,2.5cqw,28px);line-height:1.42;color:var(--text-low);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:4px;
+}
+
+/* divider + footer */
+.divider{height:1px;background:var(--border);width:100%;margin-top:4px;}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.lockup{display:inline-flex;align-items:center;gap:14px;min-width:0;}
+.brand-mark{height:40px;width:auto;max-width:56px;object-fit:contain;display:block;opacity:.55;}
+.brand-word{
+  font-family:'Poppins',sans-serif;font-weight:600;font-size:clamp(18px,2cqw,22px);
+  color:var(--primary);white-space:nowrap;
+}
+.cta{
+  display:inline-flex;align-items:center;
+  font-family:'Nunito Sans',sans-serif;font-weight:600;font-size:clamp(18px,2cqw,22px);
+  color:var(--on-accent);background:var(--primary);
+  padding:12px 26px;border-radius:999px;white-space:nowrap;text-decoration:none;
+}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="si-single">
+  <div class="si-page">
+    <div class="card">
+
+      <div class="who">
+        <span class="portrait"></span>
+        <span class="who-stack">
+          <span class="who-name">Priya Menon</span>
+          <span class="who-role">Night-Shift Nurse, Portland</span>
+        </span>
+      </div>
+
+      <span class="quote-badge" aria-hidden="true">“</span>
+      <h1 class="headline">This service gave me back my weeknights.</h1>
+      <p class="body">I used to dread cooking after long shifts. Now dinner is ready in minutes, the portions are perfect, and nothing goes to waste anymore.</p>
+
+      <div class="divider" aria-hidden="true"></div>
+      <div class="foot">
+        <span class="lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+          <span class="brand-word">YOURBRAND</span>
+        </span>
+        <a class="cta" href="#">Read more stories</a>
+      </div>
+
+    </div>
+    <img class="si-image" data-image="true" data-image-size="1024x1024" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><rect width='100%25' height='100%25' fill='%23555b52'/></svg>">
+  </div>
+</div>
+
+</body></html>

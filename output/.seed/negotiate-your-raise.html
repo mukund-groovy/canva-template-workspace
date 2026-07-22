@@ -1,0 +1,256 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#b3872f);
+  --secondary:var(--brand-secondary,#8a6420);
+  --accent:var(--brand-accent,#b3872f);
+  --highlight:var(--brand-accent,#b3872f);
+  --bg:var(--brand-bg,#1a130d);
+  --surface:var(--brand-surface,#2a1f14);
+  --text-high:var(--brand-ink,#f4e6bf);
+  --text-low:var(--brand-text-muted,#f5f3ee);
+  --border:var(--brand-border,rgba(244,230,191,.5));
+  --on-fill:var(--brand-on-accent,#fff);
+  --on-primary:var(--brand-on-primary,#fff);
+}
+*{box-sizing:border-box;}
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+.slide{
+  width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+  background:#1a130d;font-family:'EB Garamond',serif;
+}
+/* full-bleed photo underlay */
+.photo{position:absolute;inset:0;z-index:0;}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;background:#241a10;}
+/* darkening scrim over photo for legibility */
+.scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(20,14,8,.55) 0%,rgba(20,14,8,.30) 40%,rgba(20,14,8,.72) 100%);}
+/* inner cream border frame */
+.frame{position:absolute;left:40px;top:40px;right:40px;bottom:40px;z-index:3;
+  border:2px solid var(--border);pointer-events:none;}
+/* accent band device for area coverage */
+.band{position:absolute;z-index:2;background:color-mix(in srgb,var(--primary) 82%,#1a130d 18%);}
+
+/* header row */
+.hdr-l{position:absolute;left:72px;top:56px;z-index:4;display:inline-flex;align-items:center;gap:12px;}
+.brand-mark-clip{flex:none;height:26px;display:flex;align-items:center;}
+.brand-mark{height:26px;width:auto;max-width:90px;object-fit:contain;display:block;}
+.brand-word{font-family:'Playfair Display',serif;font-weight:700;font-size:30px;color:var(--text-high);white-space:nowrap;}
+.hdr-r{position:absolute;right:72px;top:48px;z-index:4;font-family:'Playfair Display',serif;font-weight:700;font-size:28px;letter-spacing:.02em;color:var(--text-high);background:rgba(20,16,8,.4);padding:8px 18px;border-radius:20px;}
+
+/* footer */
+.foot-btn{position:absolute;right:72px;bottom:44px;z-index:4;width:56px;height:56px;border-radius:50%;border:2px solid var(--primary);display:flex;align-items:center;justify-content:center;}
+.foot-btn svg{width:26px;height:26px;color:var(--primary);}
+
+/* title */
+.tn-title{position:absolute;z-index:4;min-height:1000px;}
+.tn-title h1{
+  margin:0;font-family:'Playfair Display',serif;font-weight:600;line-height:1.02;
+  color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:12px;
+}
+.tn-title .it{font-style:italic;display:block;}
+/* gold ellipse loop */
+.loop{position:absolute;z-index:4;pointer-events:none;}
+.loop svg{width:100%;height:100%;}
+.loop ellipse{fill:none;stroke:var(--primary);stroke-width:2.4;}
+
+/* notes */
+.tn-note{position:absolute;z-index:4;}
+.tn-note p{
+  margin:0;font-family:'EB Garamond',serif;font-weight:500;font-size:40px;line-height:1.18;
+  color:var(--text-low);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:8px;
+}
+.tn-note.rt p{text-align:right;}
+
+/* subtitle body block */
+.tn-body{position:absolute;z-index:4;min-height:500px;}
+.tn-body p{
+  margin:0;font-family:'EB Garamond',serif;font-weight:500;font-size:44px;line-height:1.2;
+  color:var(--text-low);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:8px;
+}
+
+/* hand-drawn arrows */
+.arrow{position:absolute;z-index:4;pointer-events:none;}
+.arrow svg{width:100%;height:100%;color:var(--text-high);}
+.arrow path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/negotiate-your-raise/slide-01.png"></div>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="band" style="left:0;right:0;bottom:0;height:210px;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--primary) 55%,#120c07 45%));"></div>
+    <div class="frame" aria-hidden="true"></div>
+
+    <div class="hdr-l"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">Studio &amp; Co.</span></div>
+    <div class="hdr-r">Slide 01</div>
+
+    <div class="tn-title" style="left:72px;top:190px;width:660px;">
+      <h1 data-title="true" style="font-size:118px;">5 Moves to Win Your <span class="it">Raise</span></h1>
+    </div>
+    <div class="loop" style="left:60px;top:520px;width:560px;height:150px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 560 150" preserveAspectRatio="none" aria-hidden="true" focusable="false"><ellipse cx="280" cy="75" rx="270" ry="60"></ellipse></svg></div>
+
+    <div class="arrow" style="left:210px;top:690px;width:80px;height:70px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 80 70" aria-hidden="true" focusable="false"><path d="M60 8C42 20 26 34 22 58"></path><path d="M10 44L22 60L38 52"></path></svg></div>
+    <div class="tn-body" style="left:72px;top:770px;width:420px;">
+      <p data-message="true">Small conversations that get you paid what you are worth.</p>
+    </div>
+
+    <div class="foot-btn" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+  </section>
+
+  <!-- Slide 2 — headline left, two notes -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/negotiate-your-raise/slide-02.png"></div>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="band" style="left:0;top:150px;width:640px;height:280px;background:linear-gradient(90deg,color-mix(in srgb,var(--primary) 50%,#120c07 50%),transparent);"></div>
+    <div class="frame" aria-hidden="true"></div>
+
+    <div class="hdr-l"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">Studio &amp; Co.</span></div>
+    <div class="hdr-r">Slide 02</div>
+
+    <div class="tn-title" style="left:72px;top:200px;width:640px;">
+      <h1 data-title="true" style="font-size:104px;">Know Your <span class="it">Number</span></h1>
+    </div>
+    <div class="loop" style="left:60px;top:330px;width:520px;height:130px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 520 130" preserveAspectRatio="none" aria-hidden="true" focusable="false"><ellipse cx="260" cy="65" rx="250" ry="52"></ellipse></svg></div>
+
+    <div class="arrow" style="left:200px;top:500px;width:80px;height:70px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 80 70" aria-hidden="true" focusable="false"><path d="M8 10C26 16 44 24 50 54"></path><path d="M64 40L52 56L38 48"></path></svg></div>
+    <div class="tn-note" style="left:72px;top:600px;width:400px;">
+      <p data-message="true">Research market pay for your role before you ever ask.</p>
+    </div>
+
+    <div class="arrow" style="left:660px;top:920px;width:80px;height:70px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 80 70" aria-hidden="true" focusable="false"><path d="M8 10C26 16 44 24 50 54"></path><path d="M64 40L52 56L38 48"></path></svg></div>
+    <div class="tn-note rt" style="right:72px;top:1000px;width:440px;">
+      <p class="cta-line" data-cta="true">Walking in with data beats guessing every time.</p>
+    </div>
+
+    <div class="foot-btn" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+  </section>
+
+  <!-- Slide 3 — headline right, two notes -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/negotiate-your-raise/slide-03.png"></div>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="band" style="right:0;top:150px;width:640px;height:280px;background:linear-gradient(270deg,color-mix(in srgb,var(--primary) 50%,#120c07 50%),transparent);"></div>
+    <div class="frame" aria-hidden="true"></div>
+
+    <div class="hdr-l"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">Studio &amp; Co.</span></div>
+    <div class="hdr-r">Slide 03</div>
+
+    <div class="tn-title" style="right:72px;left:auto;top:200px;width:560px;text-align:right;">
+      <h1 data-title="true" style="font-size:104px;">Track Your <span class="it">Wins</span></h1>
+    </div>
+    <div class="loop" style="right:60px;top:330px;width:500px;height:130px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 500 130" preserveAspectRatio="none" aria-hidden="true" focusable="false"><ellipse cx="250" cy="65" rx="240" ry="52"></ellipse></svg></div>
+
+    <div class="arrow" style="right:400px;top:920px;width:80px;height:70px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 80 70" aria-hidden="true" focusable="false"><path d="M60 8C42 20 26 34 22 58"></path><path d="M10 44L22 60L38 52"></path></svg></div>
+    <div class="tn-note rt" style="right:72px;top:1000px;width:420px;">
+      <p data-message="true">Keep a running list of results, numbers, and praise.</p>
+    </div>
+
+    <div class="arrow" style="left:180px;top:840px;width:80px;height:70px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 80 70" aria-hidden="true" focusable="false"><path d="M8 10C26 16 44 24 50 54"></path><path d="M64 40L52 56L38 48"></path></svg></div>
+    <div class="tn-note" style="left:72px;top:930px;width:400px;">
+      <p class="cta-line" data-cta="true">Evidence turns a request into an easy yes.</p>
+    </div>
+
+    <div class="foot-btn" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+  </section>
+
+  <!-- Slide 4 — headline mid-left, two notes -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/negotiate-your-raise/slide-04.png"></div>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="band" style="left:0;top:300px;width:620px;height:270px;background:linear-gradient(90deg,color-mix(in srgb,var(--primary) 50%,#120c07 50%),transparent);"></div>
+    <div class="frame" aria-hidden="true"></div>
+
+    <div class="hdr-l"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">Studio &amp; Co.</span></div>
+    <div class="hdr-r">Slide 04</div>
+
+    <div class="tn-title" style="left:72px;top:330px;width:600px;">
+      <h1 data-title="true" style="font-size:104px;">Pick the <span class="it">Moment</span></h1>
+    </div>
+    <div class="loop" style="left:60px;top:460px;width:520px;height:130px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 520 130" preserveAspectRatio="none" aria-hidden="true" focusable="false"><ellipse cx="260" cy="65" rx="250" ry="52"></ellipse></svg></div>
+
+    <div class="arrow" style="left:140px;top:830px;width:80px;height:70px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 80 70" aria-hidden="true" focusable="false"><path d="M8 10C26 16 44 24 50 54"></path><path d="M64 40L52 56L38 48"></path></svg></div>
+    <div class="tn-note" style="left:72px;top:920px;width:400px;">
+      <p data-message="true">Ask after a big result or during a review cycle.</p>
+    </div>
+
+    <div class="arrow" style="right:400px;top:990px;width:80px;height:70px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 80 70" aria-hidden="true" focusable="false"><path d="M60 8C42 20 26 34 22 58"></path><path d="M10 44L22 60L38 52"></path></svg></div>
+    <div class="tn-note rt" style="right:72px;top:1080px;width:430px;">
+      <p class="cta-line" data-cta="true">Timing shapes how your case is heard.</p>
+    </div>
+
+    <div class="foot-btn" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+  </section>
+
+  <!-- Slide 5 — headline upper-right, two notes -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/negotiate-your-raise/slide-05.png"></div>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="band" style="right:0;top:150px;width:660px;height:270px;background:linear-gradient(270deg,color-mix(in srgb,var(--primary) 50%,#120c07 50%),transparent);"></div>
+    <div class="frame" aria-hidden="true"></div>
+
+    <div class="hdr-l"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">Studio &amp; Co.</span></div>
+    <div class="hdr-r">Slide 05</div>
+
+    <div class="tn-title" style="right:72px;left:auto;top:200px;width:580px;text-align:right;">
+      <h1 data-title="true" style="font-size:100px;">Practice the <span class="it">Ask</span></h1>
+    </div>
+    <div class="loop" style="right:60px;top:330px;width:520px;height:130px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 520 130" preserveAspectRatio="none" aria-hidden="true" focusable="false"><ellipse cx="260" cy="65" rx="250" ry="52"></ellipse></svg></div>
+
+    <div class="arrow" style="right:420px;top:520px;width:80px;height:70px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 80 70" aria-hidden="true" focusable="false"><path d="M60 8C42 20 26 34 22 58"></path><path d="M10 44L22 60L38 52"></path></svg></div>
+    <div class="tn-note rt" style="right:72px;top:600px;width:420px;">
+      <p data-message="true">Rehearse your number out loud until it feels calm.</p>
+    </div>
+
+    <div class="arrow" style="left:300px;top:960px;width:80px;height:70px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 80 70" aria-hidden="true" focusable="false"><path d="M8 10C26 16 44 24 50 54"></path><path d="M64 40L52 56L38 48"></path></svg></div>
+    <div class="tn-note" style="left:72px;top:1050px;width:470px;">
+      <p class="cta-line" data-cta="true">Confidence in delivery makes the figure stick.</p>
+    </div>
+
+    <div class="foot-btn" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+  </section>
+
+  <!-- Slide 6 — closer, headline mid-left, two notes -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/negotiate-your-raise/slide-06.png"></div>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="band" style="left:0;top:280px;width:640px;height:280px;background:linear-gradient(90deg,color-mix(in srgb,var(--primary) 50%,#120c07 50%),transparent);"></div>
+    <div class="frame" aria-hidden="true"></div>
+
+    <div class="hdr-l"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word" data-tagline="true">Studio &amp; Co.</span></div>
+    <div class="hdr-r">Slide 06</div>
+
+    <div class="tn-title" style="left:72px;top:310px;width:600px;">
+      <h1 data-title="true" style="font-size:104px;">Hold Your <span class="it">Ground</span></h1>
+    </div>
+    <div class="loop" style="left:60px;top:440px;width:520px;height:130px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 520 130" preserveAspectRatio="none" aria-hidden="true" focusable="false"><ellipse cx="260" cy="65" rx="250" ry="52"></ellipse></svg></div>
+
+    <div class="arrow" style="left:150px;top:730px;width:80px;height:70px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 80 70" aria-hidden="true" focusable="false"><path d="M8 10C26 16 44 24 50 54"></path><path d="M64 40L52 56L38 48"></path></svg></div>
+    <div class="tn-note" style="left:72px;top:820px;width:400px;">
+      <p data-message="true">Pause after you state the number and let it land.</p>
+    </div>
+
+    <div class="arrow" style="right:400px;top:990px;width:80px;height:70px;"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 80 70" aria-hidden="true" focusable="false"><path d="M60 8C42 20 26 34 22 58"></path><path d="M10 44L22 60L38 52"></path></svg></div>
+    <div class="tn-note rt" style="right:72px;top:1080px;width:430px;">
+      <p class="cta-line" data-cta="true">Silence often does the negotiating for you.</p>
+    </div>
+
+    <div class="foot-btn" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+  </section>
+
+</div>
+
+</body></html>

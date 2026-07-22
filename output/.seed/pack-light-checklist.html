@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+  :root{
+    /* Brand role colors — accent/primary/secondary are the only re-skinned roles.
+       bg + ink stay fixed literals so the cream "paper" reading surface stays
+       AA-legible under any brand palette. */
+    --primary:var(--brand-primary,#A8430C);
+    --secondary:var(--brand-secondary,#C1662B);
+    --accent:var(--brand-accent,#FF8210);
+    --highlight:var(--brand-highlight,var(--brand-accent,#FF8210));
+    --bg:var(--brand-bg,#FEFBF8);
+    --surface:var(--brand-surface,var(--brand-bg-alt,#F5EEE1));
+    --text-high:var(--brand-ink,var(--brand-text,#26201B));
+    --text-low:var(--brand-text-muted,rgba(38,32,27,.64));
+    --border:var(--brand-border,rgba(38,32,27,.2));
+    /* on-fill tokens: our default accent (#FF8210) is too light for white text
+       (≈2.5:1) — dark ink on it clears AA (≈6.5:1). The skinner overrides both
+       per real brand. */
+    --on-fill:var(--brand-on-accent,#26201B);
+    --on-primary:var(--brand-on-primary,#FFFFFF);
+  }
+
+  *{box-sizing:border-box;}
+
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);
+    font-family:'Poppins',sans-serif;
+  }
+
+  /* ── barely-there paper texture: two faint creases + a soft vignette.
+     The reference's backdrop genuinely IS this subtle — a scan of blank
+     cream paper, not a bold pattern — so a faint treatment is the honest
+     read of it, not a cop-out. ── */
+  .slide::before{
+    content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:
+      linear-gradient(90deg, transparent 26.6%, rgba(38,32,27,.035) 27%, transparent 27.6%),
+      linear-gradient(90deg, transparent 78.6%, rgba(38,32,27,.035) 79%, transparent 79.6%),
+      radial-gradient(ellipse 900px 700px at 50% 0%, rgba(38,32,27,.03), transparent 62%),
+      radial-gradient(ellipse 900px 700px at 50% 100%, rgba(38,32,27,.025), transparent 62%);
+  }
+
+  /* ── kicker ── */
+  .tn-kicker{position:absolute;left:80px;right:80px;top:98px;text-align:center;z-index:2;}
+  .kicker{
+    margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:25px;letter-spacing:.34em;
+    text-transform:uppercase;color:var(--primary);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+  }
+
+  /* ── title ── */
+  .tn-title{position:absolute;left:120px;right:120px;text-align:center;z-index:2;}
+  .tn-title h1{
+    margin:0;font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-.02em;
+    color:var(--text-high);display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;
+    padding-bottom:.18em;
+  }
+
+  /* ── message (single body paragraph) ── */
+  .tn-message{position:absolute;left:150px;right:150px;text-align:center;z-index:2;}
+  .tn-message p{
+    margin:0;font-family:'Poppins',sans-serif;font-weight:400;font-size:40px;line-height:1.42;
+    color:var(--text-low);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;
+    overflow:hidden;padding-bottom:.15em;
+  }
+  .tn-message.checklist p{color:var(--text-high);font-weight:600;font-size:40px;line-height:1.3;text-align:left;-webkit-line-clamp:1;}
+  .tn-message.checklist{left:230px;right:230px;text-align:left;}
+
+  /* ── checklist rows (slide 3) — each row its own leaf text node ── */
+  .check-list{position:absolute;left:190px;right:190px;top:648px;z-index:2;}
+  .check-item{display:flex;align-items:center;gap:22px;margin-bottom:24px;}
+  .check-item .box{width:36px;height:36px;flex:none;border-radius:8px;border:3px solid var(--secondary);background:var(--surface);}
+  .check-item .check-text{display:-webkit-box;font-family:'Poppins',sans-serif;font-weight:500;font-size:36px;line-height:1.25;color:var(--text-high);
+    -webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;}
+
+  /* ── cover CTA pill (marker-stroke, accent fill) ── */
+  .cta-wrap{position:absolute;left:50%;top:602px;transform:translateX(-50%);width:440px;height:120px;z-index:3;}
+  .cta-wrap svg{position:absolute;inset:0;width:100%;height:100%;}
+  .tn-cta{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;z-index:4;}
+  .cta-label{
+    margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-style:italic;font-size:34px;
+    color:var(--on-fill);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+  }
+
+  /* ── hand-drawn arrow (cover only) ── */
+  .arrow-wrap{position:absolute;left:770px;top:556px;width:190px;height:150px;z-index:3;}
+  .arrow-wrap svg{width:100%;height:100%;}
+
+  /* ── numeral pill (marker-stroke, accent fill) — doubles as the step badge ── */
+  .pill-wrap{position:absolute;left:50%;bottom:110px;transform:translateX(-50%);width:190px;height:106px;z-index:3;}
+  .pill-wrap svg{position:absolute;inset:0;width:100%;height:100%;}
+  .pill-num{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:4;
+    margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:40px;color:var(--on-fill);
+  }
+
+  /* ── slide-5 save chip (marker-stroke, accent fill) ── */
+  .chip-wrap{position:absolute;left:50%;top:880px;transform:translateX(-50%);width:400px;height:104px;z-index:3;}
+  .chip-wrap svg{position:absolute;inset:0;width:100%;height:100%;}
+  .chip-label{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:4;
+    margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;letter-spacing:.02em;
+    color:var(--on-fill);
+  }
+
+  /* ── gap shelf: a wide soft panel that carries the composition all the way
+     to the numeral pill instead of leaving a dead band of paper, and gives
+     the topic icon a surface to sit on. Used on the single-column interior
+     slides (2, 3). A rectangle reaches every column of the coverage grid far
+     more efficiently than a circle would in the same vertical space. ── */
+  .gap-shelf{
+    position:absolute;left:130px;right:130px;top:862px;height:368px;
+    border-radius:44px;border:4px solid var(--secondary);
+    background:color-mix(in srgb, var(--accent) 16%, var(--surface) 84%);z-index:1;
+  }
+  /* accent-filled badge (not just an outline icon) — this is the real brand
+     surface on these two slides, sized to actually move the needle under a
+     brand skin rather than leaning on the numeral pill alone. */
+  .shelf-icon{
+    position:absolute;left:50%;top:906px;transform:translateX(-50%);width:186px;height:186px;
+    border-radius:50%;background:var(--accent);z-index:2;display:flex;align-items:center;justify-content:center;
+  }
+  .shelf-icon svg{width:104px;height:104px;}
+
+  /* ── two-block comparison (slide 4) ── */
+  .blocks{position:absolute;left:0;right:0;top:560px;height:400px;z-index:2;display:flex;justify-content:center;gap:60px;}
+  .block{width:390px;height:390px;border-radius:50%;border:4px solid var(--secondary);
+    background:color-mix(in srgb, var(--accent) 22%, var(--surface) 78%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 46px;position:relative;}
+  .block-dot{width:104px;height:104px;border-radius:50%;background:var(--accent);margin-bottom:14px;flex:none;}
+  .block-label{margin:0 0 14px;font-family:'Poppins',sans-serif;font-weight:700;font-size:34px;color:var(--text-high);
+    text-align:center;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;}
+  .block-desc{margin:0;font-family:'Poppins',sans-serif;font-weight:400;font-size:25px;line-height:1.4;color:var(--text-low);
+    text-align:center;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.1em;}
+
+  /* ── footer brand lockup (cover + closing only) ── */
+  .foot{position:absolute;left:0;right:0;bottom:76px;z-index:3;display:flex;align-items:center;justify-content:center;gap:14px;}
+  .brand-mark{height:32px;width:auto;max-width:110px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Poppins',sans-serif;font-weight:700;font-size:32px;color:var(--text-high);white-space:nowrap;}
+  .foot.close .brand-word{color:var(--primary);}
+  .lockup{display:inline-flex;align-items:center;gap:14px;}
+</style>
+</head>
+
+<body>
+<div class="ig-carousel">
+
+  <!-- 1 — Cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="tn-kicker"><p class="kicker">Travel</p></div>
+    <div class="tn-title" style="top:246px;">
+      <h1 data-title="true" style="font-size:82px;line-height:1.1;-webkit-line-clamp:4;">The Packing Checklist Every Solo Traveler Swears By</h1>
+    </div>
+
+    <div class="arrow-wrap" aria-hidden="true">
+      <svg viewBox="0 0 190 150" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M10,14 C6,58 22,108 70,128 C100,140 130,128 146,100" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round" fill="none"></path>
+        <path d="M120,94 L146,100 L142,72" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+      </svg>
+    </div>
+
+    <div class="cta-wrap">
+      <svg viewBox="0 0 440 120" data-cg-svg="" data-cg-preserve="" preserveAspectRatio="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <path d="M30,8 C12,6 3,32 5,60 C2,90 15,112 38,110 L402,116 C424,118 438,94 436,64 C439,34 426,7 400,5 Z" fill="var(--cg-fill)"></path>
+      </svg>
+      <div class="tn-cta"><p class="cta-label" data-cta="true">See the list</p></div>
+    </div>
+
+    <div class="foot">
+      <span class="lockup">
+        <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+        <span class="brand-word">Roam Weekly</span>
+      </span>
+    </div>
+  </section>
+
+  <!-- 2 — Why this matters -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="tn-kicker"><p class="kicker">Travel</p></div>
+    <div class="tn-title" style="top:320px;">
+      <h1 data-title="true" style="font-size:104px;line-height:1.08;-webkit-line-clamp:2;">Stop Winging It</h1>
+    </div>
+    <div class="tn-message" style="top:576px;">
+      <p data-message="true">Packing at midnight means forgotten chargers and last-minute stress — this checklist keeps you calm, quick, and actually ready to go.</p>
+    </div>
+
+    <div class="gap-shelf" aria-hidden="true"></div>
+    <div class="shelf-icon" aria-hidden="true">
+      <svg viewBox="0 0 100 100" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <circle cx="50" cy="46" r="32" stroke="var(--cg-stroke)" stroke-width="7"></circle>
+        <path d="M50,46 L50,26" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></path>
+        <path d="M50,46 L65,54" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></path>
+        <path d="M22,12 L32,21" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></path>
+        <path d="M78,12 L68,21" stroke="var(--cg-stroke)" stroke-width="7" stroke-linecap="round"></path>
+      </svg>
+    </div>
+
+    <div class="pill-wrap">
+      <svg viewBox="0 0 150 88" data-cg-svg="" data-cg-preserve="" preserveAspectRatio="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <path d="M22,7 C9,5 2,26 4,45 C1,66 12,84 27,82 L124,86 C140,88 148,64 146,42 C148,20 138,4 122,3 Z" fill="var(--cg-fill)"></path>
+      </svg>
+      <p class="pill-num">2</p>
+    </div>
+  </section>
+
+  <!-- 3 — The checklist -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="tn-kicker"><p class="kicker">Travel</p></div>
+    <div class="tn-title" style="left:150px;right:150px;top:296px;">
+      <h1 data-title="true" style="font-size:100px;line-height:1.1;-webkit-line-clamp:1;">Night Before</h1>
+    </div>
+    <div class="tn-message checklist" style="top:576px;">
+      <p data-message="true">Before you zip the bag:</p>
+    </div>
+    <div class="check-list">
+      <div class="check-item"><span class="box" aria-hidden="true"></span><span class="check-text">Charge every device fully</span></div>
+      <div class="check-item"><span class="box" aria-hidden="true"></span><span class="check-text">Screenshot boarding pass</span></div>
+      <div class="check-item"><span class="box" aria-hidden="true"></span><span class="check-text">Lay out tomorrow's outfit</span></div>
+    </div>
+
+    <div class="gap-shelf" style="top:894px;height:336px;" aria-hidden="true"></div>
+    <div class="shelf-icon" style="top:930px;" aria-hidden="true">
+      <svg viewBox="0 0 100 100" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)">
+        <path d="M58,16 C36,16 22,34 22,58 C22,84 44,100 66,95 C48,90 38,76 38,58 C38,40 46,26 60,18 Z" stroke="var(--cg-stroke)" stroke-width="6" stroke-linejoin="round"></path>
+        <path d="M78,24 L82,33 L91,36 L82,39 L78,48 L74,39 L65,36 L74,33 Z" fill="var(--cg-fill)"></path>
+      </svg>
+    </div>
+
+    <div class="pill-wrap">
+      <svg viewBox="0 0 150 88" data-cg-svg="" data-cg-preserve="" preserveAspectRatio="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <path d="M22,7 C9,5 2,26 4,45 C1,66 12,84 27,82 L124,86 C140,88 148,64 146,42 C148,20 138,4 122,3 Z" fill="var(--cg-fill)"></path>
+      </svg>
+      <p class="pill-num">3</p>
+    </div>
+  </section>
+
+  <!-- 4 — Carry-on vs checked -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="tn-kicker"><p class="kicker">Travel</p></div>
+    <div class="tn-title" style="left:190px;right:190px;top:264px;">
+      <h1 data-title="true" style="font-size:84px;line-height:1.14;-webkit-line-clamp:2;">Carry-On or Checked?</h1>
+    </div>
+
+    <div class="blocks">
+      <div class="block">
+        <div class="block-dot" aria-hidden="true"></div>
+        <div class="block-label">Carry-On</div>
+        <div class="block-desc">Passport, meds, charger, and one full outfit</div>
+      </div>
+      <div class="block">
+        <div class="block-dot" aria-hidden="true"></div>
+        <div class="block-label">Checked Bag</div>
+        <div class="block-desc">Everything else — rolled loose and light</div>
+      </div>
+    </div>
+
+    <div class="pill-wrap">
+      <svg viewBox="0 0 150 88" data-cg-svg="" data-cg-preserve="" preserveAspectRatio="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <path d="M22,7 C9,5 2,26 4,45 C1,66 12,84 27,82 L124,86 C140,88 148,64 146,42 C148,20 138,4 122,3 Z" fill="var(--cg-fill)"></path>
+      </svg>
+      <p class="pill-num">4</p>
+    </div>
+  </section>
+
+  <!-- 5 — Closing CTA -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="tn-kicker"><p class="kicker">Travel</p></div>
+    <div class="tn-title" style="top:290px;">
+      <h1 data-title="true" style="font-size:80px;line-height:1.14;-webkit-line-clamp:3;">Want The Full Printable Packing List?</h1>
+    </div>
+    <div class="tn-message" style="top:600px;">
+      <p data-message="true" style="-webkit-line-clamp:3;">Comment “LIST” and I’ll send it your way, or save this for your next trip.</p>
+    </div>
+
+    <div class="chip-wrap">
+      <svg viewBox="0 0 340 84" data-cg-svg="" data-cg-preserve="" preserveAspectRatio="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <path d="M24,7 C10,5 2,26 4,43 C1,62 11,80 25,78 L316,82 C332,84 338,62 336,42 C338,22 330,4 314,3 Z" fill="var(--cg-fill)"></path>
+      </svg>
+      <div class="chip-label" data-tagline="true">Save &amp; share this</div>
+    </div>
+
+    <div class="foot close">
+      <span class="lockup">
+        <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+        <span class="brand-word">Roam Weekly</span>
+      </span>
+    </div>
+  </section>
+
+</div>
+
+
+</body></html>

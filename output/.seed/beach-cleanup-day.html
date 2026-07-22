@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500;1,600&family=Nunito+Sans:wght@400;600&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#3E5C3A);
+  --secondary:var(--brand-secondary,#2C4429);
+  --accent:var(--brand-accent,#7C9A6E);
+  --highlight:var(--brand-accent,#A9C298);
+  --bg:var(--brand-bg,#E7E4D6);
+  --surface:var(--brand-surface,#F3F1E6);
+  --text-high:var(--brand-ink,var(--brand-text,#23301F));
+  --text-low:var(--brand-text-muted,rgba(35,48,31,.66));
+  --border:var(--brand-border,rgba(35,48,31,.30));
+  --on-primary:#FFFFFF;
+}
+
+*{box-sizing:border-box;}
+
+.si-single{width:fit-content;margin:0;background:#0c0c0c;}
+
+.si-page{
+  position:relative;width:1080px;height:1350px;overflow:hidden;
+  container-type:inline-size;background:var(--bg);
+  font-family:'Nunito Sans',sans-serif;
+}
+
+.photo{position:absolute;inset:0;z-index:0;}
+.si-image{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;display:block;background:#8ba06f;}
+
+.haze{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,
+    color-mix(in srgb, var(--secondary) 30%, transparent) 0%,
+    color-mix(in srgb, var(--secondary) 18%, transparent) 40%,
+    color-mix(in srgb, var(--secondary) 34%, transparent) 72%,
+    color-mix(in srgb, var(--secondary) 68%, transparent) 100%);
+}
+
+.footscrim{
+  position:absolute;left:0;right:0;bottom:0;height:280px;z-index:1;pointer-events:none;
+  background:linear-gradient(0deg,
+    color-mix(in srgb, var(--secondary) 72%, transparent) 0%,
+    transparent 100%);
+}
+
+.content{
+  position:absolute;inset:0;z-index:2;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:140px 96px 200px;text-align:center;
+}
+
+.eyebrow-pill{
+  display:inline-flex;margin:0 0 32px;
+  background:color-mix(in srgb, var(--primary) 88%, black 12%);
+  border:1px solid color-mix(in srgb, var(--secondary) 70%, black 30%);
+  border-radius:100px;padding:12px 30px;
+}
+.eyebrow{
+  font-family:'Nunito Sans',sans-serif;font-weight:600;
+  font-size:clamp(16px,2cqw,22px);letter-spacing:.3em;text-transform:uppercase;
+  color:var(--on-primary);margin:0;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:4px;
+}
+
+.quote-card{
+  background:color-mix(in srgb, var(--primary) 78%, transparent);
+  border-top:4px solid var(--accent);
+  border-radius:26px;padding:44px 52px 40px;margin:0 0 30px;
+  max-width:820px;
+}
+
+.headline{
+  margin:0;font-family:'Playfair Display',serif;font-weight:600;font-style:italic;
+  font-size:clamp(42px,5.8cqw,72px);line-height:1.16;letter-spacing:-.005em;
+  color:var(--on-primary);max-width:16ch;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:12px;
+}
+
+.rule{width:96px;height:3px;background:var(--accent);margin:0 0 30px;}
+
+.cta-pill{
+  display:inline-flex;
+  background:color-mix(in srgb, var(--primary) 88%, black 12%);
+  border:1.5px solid var(--accent);
+  border-radius:100px;padding:14px 36px;
+}
+.cta{
+  font-family:'Nunito Sans',sans-serif;font-weight:600;font-style:italic;
+  font-size:clamp(19px,2.2cqw,26px);letter-spacing:.02em;color:var(--on-primary);
+  text-decoration:none;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:4px;
+}
+
+.lockup{
+  position:absolute;left:0;right:0;bottom:56px;z-index:2;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+}
+.brand-mark{height:32px;width:auto;max-width:120px;object-fit:contain;display:block;}
+.brand-word{
+  font-family:'Playfair Display',serif;font-weight:600;font-style:italic;
+  font-size:26px;color:#FFFFFF;white-space:nowrap;
+  text-shadow:0 2px 10px rgba(12,16,8,.85);
+}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+
+<body>
+<div class="si-single">
+  <div class="si-page">
+    <img class="si-image" data-image="true" data-image-size="1024x1536" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/beach-cleanup-day/page-01.png"/>
+    <div class="haze" aria-hidden="true"></div>
+    <div class="footscrim" aria-hidden="true"></div>
+
+    <div class="content">
+      <div class="eyebrow-pill"><p class="eyebrow">Community Beach Cleanup</p></div>
+      <div class="quote-card">
+        <h1 class="headline">"Every small tide starts with one hand."</h1>
+      </div>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="cta-pill"><a class="cta" href="#">www.example-org.com</a></div>
+    </div>
+
+    <div class="lockup">
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23ffffff%22%20fill-opacity=%220.55%22/%3E%3C/svg%3E"/>
+      <span class="brand-word">YOURBRAND</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

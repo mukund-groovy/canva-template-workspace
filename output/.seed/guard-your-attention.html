@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;700&display=swap');
+
+  :root{
+    /* Brand role colors — applied ONLY to filled accent surfaces (the tag
+       pill, the footer accent chip, the closing CTA button). The two-tone
+       canvas (pink cover/outro, charcoal tip slides) and all title/body ink
+       are FIXED literals so the bold two-tone reading stays AA-legible under
+       any brand palette. */
+    --primary:var(--brand-primary,#1F1A22);
+    --secondary:var(--brand-secondary,#8A6B82);
+    --accent:var(--brand-accent,#D6447A);
+    --highlight:var(--brand-accent,#D6447A);
+    --bg:var(--brand-bg,#241F27);
+    --surface:var(--brand-surface,#332B37);
+    --text-high:var(--brand-text-high,#F7F1F5);
+    --text-low:var(--brand-text-muted,rgba(247,241,245,.72));
+    --border:var(--brand-border,rgba(247,241,245,.2));
+    --on-fill:var(--brand-on-accent,#ffffff);
+    --on-primary:var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#111;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    font-family:'DM Sans',sans-serif;
+  }
+  .slide.light{background:#EAC1DD;}
+  .slide.dark{background:#241F27;}
+
+  /* ── signature device: a bold diagonal-striped teardrop bleeding off the
+     canvas edge, inverting stripe color against the slide's own two-tone
+     background — the thing that gives this family its energy. ── */
+  .blob{position:absolute;z-index:0;pointer-events:none;border-radius:50% 50% 0 50%;}
+  .slide.dark .blob{background:repeating-linear-gradient(45deg,#EAC1DD 0 15px,transparent 15px 32px);}
+  .slide.light .blob{background:repeating-linear-gradient(45deg,#241F27 0 15px,transparent 15px 32px);}
+  .blob.circle{border-radius:50%;}
+
+  .header{position:absolute;top:58px;left:72px;right:72px;z-index:3;display:flex;align-items:center;justify-content:space-between;overflow:hidden;}
+  .lockup{display:flex;align-items:center;gap:12px;}
+  .brand-mark{width:32px;height:32px;display:block;object-fit:contain;}
+  .brand-word{font-family:'DM Sans',sans-serif;font-weight:700;font-size:30px;line-height:1.3;display:inline-block;overflow:hidden;}
+  .slide.light .brand-word{color:#1F1A22;}
+  .slide.dark .brand-word{color:#F7F1F5;}
+
+  .tag-pill{background:var(--accent);color:var(--on-fill);font-family:'DM Sans',sans-serif;font-weight:700;font-size:26px;line-height:1.3;letter-spacing:.05em;text-transform:uppercase;padding:18px 40px;border-radius:999px;white-space:nowrap;overflow:hidden;}
+
+  .footer{position:absolute;bottom:56px;left:72px;right:72px;z-index:3;display:flex;align-items:center;justify-content:space-between;overflow:hidden;}
+  .counter{font-family:'DM Sans',sans-serif;font-weight:700;font-size:24px;line-height:1.3;letter-spacing:.04em;}
+  .slide.light .counter{color:#1F1A22;}
+  .slide.dark .counter{color:#F7F1F5;}
+
+  .accent-chip{width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;}
+  .accent-chip .dot{width:16px;height:16px;background:var(--on-fill);border-radius:3px;transform:rotate(45deg);}
+
+  .cta-btn{background:var(--accent);color:var(--on-fill);font-family:'DM Sans',sans-serif;font-weight:700;font-size:32px;line-height:1.3;padding:28px 60px;border-radius:999px;display:inline-block;white-space:nowrap;overflow:hidden;}
+
+  /* ── step badge: a bold filled numeral — the deck's biggest brand-bound
+     surface, and a storytelling device (cover = "3 rules", tips = step N) ── */
+  .step-badge{position:absolute;left:72px;width:170px;height:170px;border-radius:36px;
+    background:var(--accent);z-index:2;display:flex;align-items:center;justify-content:center;}
+  .step-badge span{font-family:'Archivo Black',sans-serif;font-weight:400;font-size:82px;
+    color:var(--on-fill);line-height:1;padding-bottom:.08em;}
+  .s1 .step-badge{top:150px;}
+  .tip .step-badge{top:150px;}
+
+  /* text nodes: each in its own absolutely-positioned wrapper */
+  .tn-title{position:absolute;left:72px;z-index:2;}
+  .tn-title h1{
+    margin:0;font-family:'Archivo Black',sans-serif;font-weight:400;line-height:1.08;
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.22em;
+  }
+  .slide.light .tn-title h1{color:#1F1A22;}
+  .slide.dark .tn-title h1{color:#F7F1F5;}
+
+  .tn-message{position:absolute;left:72px;z-index:2;}
+  .tn-message p{
+    margin:0;font-family:'DM Sans',sans-serif;font-weight:400;font-size:34px;line-height:1.42;
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.15em;
+  }
+  .slide.light .tn-message p{color:rgba(31,26,34,.72);}
+  .slide.dark .tn-message p{color:rgba(247,241,245,.76);}
+
+  /* per-slide geometry — message tops sit clear of a FULL 3-line title
+     (worst-case generated copy), not just the short line the author wrote */
+  .s1 .blob.main{width:760px;height:760px;top:150px;left:840px;transform:rotate(135deg);}
+  .s1 .tn-title{top:470px;width:700px;}
+  .s1 .tn-title h1{font-size:88px;text-transform:uppercase;-webkit-line-clamp:3;}
+  .s1 .tn-message{top:900px;width:560px;}
+  .s1 .tn-message p{-webkit-line-clamp:2;}
+
+  .tip .blob.main{width:680px;height:680px;top:230px;left:820px;transform:rotate(135deg);}
+  .tip .blob.peek{width:340px;height:340px;bottom:-190px;left:-190px;transform:rotate(-45deg);}
+  .tip .tn-title{width:660px;top:350px;}
+  .tip .tn-title h1{font-size:74px;-webkit-line-clamp:3;}
+  .tip .tn-message{width:560px;top:640px;}
+  .tip .tn-message p{-webkit-line-clamp:3;}
+
+  .s5 .blob.main{width:640px;height:640px;top:660px;left:800px;transform:rotate(135deg);}
+  .s5 .blob.circle{width:230px;height:230px;top:170px;left:830px;}
+  .s5 .tn-title{top:400px;width:660px;}
+  .s5 .tn-title h1{font-size:80px;-webkit-line-clamp:2;}
+  .s5 .tn-message{top:650px;width:560px;}
+  .s5 .tn-message p{-webkit-line-clamp:2;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — Cover -->
+  <section class="slide light s1" data-cg-slide-type="text">
+    <div class="blob main"></div>
+    <div class="header">
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"/><span class="brand-word">Focusly</span></div>
+      <div class="tag-pill">Focus Tips</div>
+    </div>
+    <div class="step-badge"><span>3</span></div>
+    <div class="tn-title"><h1 data-title="true">3 rules to protect your focus</h1></div>
+    <div class="tn-message"><p data-message="true">Small shifts that guard deep, uninterrupted work.</p></div>
+    <div class="footer">
+      <div class="counter" data-counter="true">01 / 05</div>
+      <div class="accent-chip"><div class="dot"></div></div>
+    </div>
+  </section>
+
+  <!-- Slide 2 — Tip 1 -->
+  <section class="slide dark tip s2" data-cg-slide-type="text">
+    <div class="blob main"></div>
+    <div class="blob peek"></div>
+    <div class="header">
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"/><span class="brand-word">Focusly</span></div>
+      <div class="tag-pill">Focus Tips</div>
+    </div>
+    <div class="step-badge"><span>1</span></div>
+    <div class="tn-title"><h1 data-title="true">Name your deep work block</h1></div>
+    <div class="tn-message"><p data-message="true">Pick one recurring window each day and protect it like a meeting you can't skip.</p></div>
+    <div class="footer">
+      <div class="counter" data-counter="true">02 / 05</div>
+      <div class="accent-chip"><div class="dot"></div></div>
+    </div>
+  </section>
+
+  <!-- Slide 3 — Tip 2 -->
+  <section class="slide dark tip s3" data-cg-slide-type="text">
+    <div class="blob main"></div>
+    <div class="blob peek"></div>
+    <div class="header">
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"/><span class="brand-word">Focusly</span></div>
+      <div class="tag-pill">Focus Tips</div>
+    </div>
+    <div class="step-badge"><span>2</span></div>
+    <div class="tn-title"><h1 data-title="true">Silence every ping</h1></div>
+    <div class="tn-message"><p data-message="true">Notifications don't announce urgency, they interrupt it — turn them off before you start.</p></div>
+    <div class="footer">
+      <div class="counter" data-counter="true">03 / 05</div>
+      <div class="accent-chip"><div class="dot"></div></div>
+    </div>
+  </section>
+
+  <!-- Slide 4 — Tip 3 -->
+  <section class="slide dark tip s4" data-cg-slide-type="text">
+    <div class="blob main"></div>
+    <div class="blob peek"></div>
+    <div class="header">
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"/><span class="brand-word">Focusly</span></div>
+      <div class="tag-pill">Focus Tips</div>
+    </div>
+    <div class="step-badge"><span>3</span></div>
+    <div class="tn-title"><h1 data-title="true">Rest before you crash</h1></div>
+    <div class="tn-message"><p data-message="true">A five-minute break every hour keeps focus sharper longer than one long slump ever will.</p></div>
+    <div class="footer">
+      <div class="counter" data-counter="true">04 / 05</div>
+      <div class="accent-chip"><div class="dot"></div></div>
+    </div>
+  </section>
+
+  <!-- Slide 5 — Outro / CTA -->
+  <section class="slide light s5" data-cg-slide-type="text">
+    <div class="blob circle"></div>
+    <div class="blob main"></div>
+    <div class="header">
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"/><span class="brand-word">Focusly</span></div>
+      <div class="tag-pill">Focus Tips</div>
+    </div>
+    <div class="tn-title"><h1 data-title="true">Ready to focus better?</h1></div>
+    <div class="tn-message"><p data-message="true">Save these three rules and build a calmer, sharper workday.</p></div>
+    <div class="footer">
+      <div class="counter" data-counter="true">05 / 05</div>
+      <div class="cta-btn" data-cta="true">Start Today</div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&display=swap');
+
+    :root{
+      /* Brand role colors — accent roles are re-skinned; canvas + ink are
+         fixed literals so the minimalist cream/black reading surface stays
+         AA-legible under any brand palette. */
+      --primary:var(--brand-primary,#1A191A);
+      --secondary:var(--brand-secondary,#3F3B36);
+      --accent:var(--brand-accent,#C1502C);
+      --highlight:var(--brand-accent,#C1502C);
+      --bg:var(--brand-bg,#FBF0DE);
+      --surface:var(--brand-surface,#F3E4C8);
+      --text-high:var(--brand-ink,#1A191A);
+      --text-low:var(--brand-text-muted,rgba(26,25,26,.66));
+      --border:var(--brand-border,#1A191A);
+      --on-fill:var(--brand-on-accent,#ffffff);
+      --on-primary:var(--brand-on-primary,#ffffff);
+    }
+
+    *{box-sizing:border-box;}
+
+    .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+    .slide{
+      width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+      background:
+        radial-gradient(1100px 820px at 80% 6%, #fff8ea 0%, rgba(255,248,234,0) 60%),
+        var(--bg);
+      font-family:'Inter',sans-serif;
+    }
+
+    /* ── left-edge accent spine — a consistent full-height brand-filled band
+       present on every slide, so the brand pass always has a large, reliable
+       painted surface to re-skin regardless of what else is on the slide ── */
+    .edge-spine{position:absolute;left:0;top:0;bottom:0;width:22px;background:var(--accent);}
+
+    /* ── header rule + decorative mark (fixed, structural — same on every slide) ── */
+    .rule{position:absolute;left:90px;right:90px;top:90px;height:3px;background:var(--text-high);}
+    .mark{position:absolute;top:32px;right:90px;width:46px;height:46px;color:var(--text-high);}
+    .mark-row{position:absolute;top:32px;right:90px;display:flex;gap:16px;}
+    .mark-row svg{width:38px;height:38px;color:var(--text-high);}
+
+    /* ── routine-tracker card: a surface panel that hosts the dots row ── */
+    .routine-card{position:absolute;left:90px;width:900px;height:230px;border-radius:24px;background:var(--surface);}
+    .routine-card.small{left:126px;width:740px;height:150px;}
+
+    /* ── kicker pill — the accent-filled brand device present on every slide ── */
+    .kicker{position:absolute;display:inline-flex;align-items:center;padding:12px 26px;border-radius:999px;background:var(--accent);}
+    .kicker span{font-family:'Inter',sans-serif;font-weight:800;font-size:22px;letter-spacing:.14em;color:var(--on-fill);white-space:nowrap;}
+
+    /* ── accent rule beside the headline (second brand-filled surface) ── */
+    .accent-bar{position:absolute;width:14px;border-radius:7px;background:var(--accent);}
+
+    /* ── isolated positioned wrapper per text node ── */
+    .tn-title{position:absolute;}
+    .tn-title h1{
+      margin:0;font-family:'Anton',sans-serif;font-weight:400;font-size:100px;line-height:1.06;
+      letter-spacing:0;text-transform:uppercase;color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.18em;
+    }
+    .tn-title.cover h1,.tn-title.close h1{font-size:112px;}
+
+    .tn-message{position:absolute;}
+    .tn-message p{
+      margin:0;font-family:'Inter',sans-serif;font-weight:600;font-size:42px;line-height:1.32;
+      letter-spacing:.001em;color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.15em;
+    }
+    .tn-message.cover p,.tn-message.close p{font-size:44px;-webkit-line-clamp:2;}
+
+    /* ── bookend frame box (cover + closing only) ── */
+    .frame{position:absolute;left:90px;top:170px;width:900px;height:920px;border:3px solid var(--border);border-radius:28px;}
+
+    /* ── five-step routine tracker — recurring device that fills the lower
+       band on every slide and doubles as a progress read of the whole deck ── */
+    .routine{position:absolute;left:126px;width:760px;display:flex;justify-content:space-between;}
+    .r-item{display:flex;flex-direction:column;align-items:center;width:132px;}
+    .r-dot{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--surface);border:2px solid var(--border);opacity:.55;}
+    .r-dot svg{width:26px;height:26px;color:var(--text-low);}
+    .r-item.active .r-dot{background:var(--accent);border-color:var(--accent);opacity:1;}
+    .r-item.active .r-dot svg{color:var(--on-fill);}
+    .r-item span{margin-top:14px;font-family:'Inter',sans-serif;font-weight:700;font-size:18px;letter-spacing:.02em;color:var(--text-low);text-align:center;}
+    .r-item.active span{color:var(--text-high);}
+
+    /* ── footer: brand lockup + accent-filled folio pill, always outside the frame ── */
+    .foot{position:absolute;left:90px;right:90px;bottom:44px;display:flex;align-items:center;justify-content:space-between;}
+    .lockup{display:inline-flex;align-items:center;gap:14px;}
+    .brand-mark{height:32px;width:auto;max-width:110px;object-fit:contain;display:block;}
+    .brand-word{font-family:'Inter',sans-serif;font-weight:800;font-size:26px;letter-spacing:.01em;color:var(--text-high);white-space:nowrap;}
+    .folio{display:flex;align-items:center;justify-content:center;min-width:118px;height:60px;padding:0 24px;border-radius:999px;background:var(--accent);}
+    .folio span{font-family:'Inter',sans-serif;font-weight:800;font-size:24px;color:var(--on-fill);white-space:nowrap;}
+  </style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <!-- Slide 1 — Cover -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="edge-spine"></div>
+      <div class="rule"></div>
+      <svg class="mark" viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12 2 5 11.5 5 16.2C5 20 8.13 23 12 23C15.87 23 19 20 19 16.2C19 11.5 12 2 12 2Z" fill="var(--cg-fill)"></path></svg>
+
+      <div class="frame"></div>
+
+      <div class="kicker" style="left:126px;top:212px;"><span>SKINCARE RESET</span></div>
+
+      <div class="tn-title cover" style="left:126px;top:296px;width:760px;">
+        <h1 data-title="true">Skin Barrier Reset</h1>
+      </div>
+
+      <div class="tn-message cover" style="left:126px;top:630px;width:700px;">
+        <p data-message="true">Five gentle habits your skin will thank you for.</p>
+      </div>
+
+      <div class="routine-card small" style="top:920px;"></div>
+      <div class="routine" style="top:960px;">
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12 2 5 11.5 5 16.2C5 20 8.13 23 12 23C15.87 23 19 20 19 16.2C19 11.5 12 2 12 2Z" fill="var(--cg-fill)"></path></svg></div><span>Cleanse</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2L13.8 9.2 21 11 13.8 12.8 12 20 10.2 12.8 3 11 10.2 9.2Z" fill="var(--cg-fill)"></path></svg></div><span>Treat</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 21s-7-4.35-9.5-8.5C.5 8 3 4 7 4c2 0 4 1.5 5 3 1-1.5 3-3 5-3 4 0 6.5 4 4.5 8.5C19 16.65 12 21 12 21z" fill="var(--cg-fill)"></path></svg></div><span>Moisturize</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><circle cx="12" cy="12" r="5" fill="var(--cg-fill)"></circle><path d="M12 1V4M12 20V23M23 12H20M4 12H1M19.07 4.93L16.95 7.05M7.05 16.95L4.93 19.07M19.07 19.07L16.95 16.95M7.05 7.05L4.93 4.93" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg></div><span>Protect</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M20 12.5A8.5 8.5 0 1111.5 4 6.5 6.5 0 0020 12.5Z" fill="var(--cg-fill)"></path></svg></div><span>Rest</span></div>
+      </div>
+
+      <div class="foot">
+        <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">YOURBRAND</span></div>
+        <div class="folio"><span data-counter="true">01/06</span></div>
+      </div>
+    </section>
+
+    <!-- Slide 2 — Tip 1 -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="edge-spine"></div>
+      <div class="rule"></div>
+      <svg class="mark" viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12 2 5 11.5 5 16.2C5 20 8.13 23 12 23C15.87 23 19 20 19 16.2C19 11.5 12 2 12 2Z" fill="var(--cg-fill)"></path></svg>
+      <div class="kicker" style="left:126px;top:236px;"><span>TIP 01</span></div>
+      <div class="accent-bar" style="left:90px;top:318px;height:224px;"></div>
+
+      <div class="tn-title" style="left:126px;top:308px;width:790px;">
+        <h1 data-title="true">Cleanse Gently</h1>
+      </div>
+
+      <div class="tn-message" style="left:126px;top:610px;width:760px;">
+        <p data-message="true">Skip the hot water and harsh scrubs — a gentle, fragrance-free cleanser keeps your barrier intact.</p>
+      </div>
+
+      <div class="routine-card" style="top:820px;"></div>
+      <div class="routine" style="top:860px;">
+        <div class="r-item active"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12 2 5 11.5 5 16.2C5 20 8.13 23 12 23C15.87 23 19 20 19 16.2C19 11.5 12 2 12 2Z" fill="var(--cg-fill)"></path></svg></div><span>Cleanse</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2L13.8 9.2 21 11 13.8 12.8 12 20 10.2 12.8 3 11 10.2 9.2Z" fill="var(--cg-fill)"></path></svg></div><span>Treat</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 21s-7-4.35-9.5-8.5C.5 8 3 4 7 4c2 0 4 1.5 5 3 1-1.5 3-3 5-3 4 0 6.5 4 4.5 8.5C19 16.65 12 21 12 21z" fill="var(--cg-fill)"></path></svg></div><span>Moisturize</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><circle cx="12" cy="12" r="5" fill="var(--cg-fill)"></circle><path d="M12 1V4M12 20V23M23 12H20M4 12H1M19.07 4.93L16.95 7.05M7.05 16.95L4.93 19.07M19.07 19.07L16.95 16.95M7.05 7.05L4.93 4.93" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg></div><span>Protect</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M20 12.5A8.5 8.5 0 1111.5 4 6.5 6.5 0 0020 12.5Z" fill="var(--cg-fill)"></path></svg></div><span>Rest</span></div>
+      </div>
+
+      <div class="foot">
+        <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">YOURBRAND</span></div>
+        <div class="folio"><span data-counter="true">02/06</span></div>
+      </div>
+    </section>
+
+    <!-- Slide 3 — Tip 2 -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="edge-spine"></div>
+      <div class="rule"></div>
+      <svg class="mark" viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12 2 5 11.5 5 16.2C5 20 8.13 23 12 23C15.87 23 19 20 19 16.2C19 11.5 12 2 12 2Z" fill="var(--cg-fill)"></path></svg>
+      <div class="kicker" style="left:126px;top:236px;"><span>TIP 02</span></div>
+      <div class="accent-bar" style="left:90px;top:318px;height:224px;"></div>
+
+      <div class="tn-title" style="left:126px;top:308px;width:800px;">
+        <h1 data-title="true">Layer Thin To Thick</h1>
+      </div>
+
+      <div class="tn-message" style="left:126px;top:610px;width:760px;">
+        <p data-message="true">Apply products from lightest to heaviest texture so every layer actually gets to absorb.</p>
+      </div>
+
+      <div class="routine-card" style="top:820px;"></div>
+      <div class="routine" style="top:860px;">
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12 2 5 11.5 5 16.2C5 20 8.13 23 12 23C15.87 23 19 20 19 16.2C19 11.5 12 2 12 2Z" fill="var(--cg-fill)"></path></svg></div><span>Cleanse</span></div>
+        <div class="r-item active"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2L13.8 9.2 21 11 13.8 12.8 12 20 10.2 12.8 3 11 10.2 9.2Z" fill="var(--cg-fill)"></path></svg></div><span>Treat</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 21s-7-4.35-9.5-8.5C.5 8 3 4 7 4c2 0 4 1.5 5 3 1-1.5 3-3 5-3 4 0 6.5 4 4.5 8.5C19 16.65 12 21 12 21z" fill="var(--cg-fill)"></path></svg></div><span>Moisturize</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><circle cx="12" cy="12" r="5" fill="var(--cg-fill)"></circle><path d="M12 1V4M12 20V23M23 12H20M4 12H1M19.07 4.93L16.95 7.05M7.05 16.95L4.93 19.07M19.07 19.07L16.95 16.95M7.05 7.05L4.93 4.93" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg></div><span>Protect</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M20 12.5A8.5 8.5 0 1111.5 4 6.5 6.5 0 0020 12.5Z" fill="var(--cg-fill)"></path></svg></div><span>Rest</span></div>
+      </div>
+
+      <div class="foot">
+        <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">YOURBRAND</span></div>
+        <div class="folio"><span data-counter="true">03/06</span></div>
+      </div>
+    </section>
+
+    <!-- Slide 4 — Tip 3 -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="edge-spine"></div>
+      <div class="rule"></div>
+      <svg class="mark" viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12 2 5 11.5 5 16.2C5 20 8.13 23 12 23C15.87 23 19 20 19 16.2C19 11.5 12 2 12 2Z" fill="var(--cg-fill)"></path></svg>
+      <div class="kicker" style="left:126px;top:236px;"><span>TIP 03</span></div>
+      <div class="accent-bar" style="left:90px;top:318px;height:224px;"></div>
+
+      <div class="tn-title" style="left:126px;top:308px;width:800px;">
+        <h1 data-title="true">Never Skip SPF</h1>
+      </div>
+
+      <div class="tn-message" style="left:126px;top:610px;width:760px;">
+        <p data-message="true">Sunscreen is the one habit that protects every other step in your routine.</p>
+      </div>
+
+      <div class="routine-card" style="top:820px;"></div>
+      <div class="routine" style="top:860px;">
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12 2 5 11.5 5 16.2C5 20 8.13 23 12 23C15.87 23 19 20 19 16.2C19 11.5 12 2 12 2Z" fill="var(--cg-fill)"></path></svg></div><span>Cleanse</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2L13.8 9.2 21 11 13.8 12.8 12 20 10.2 12.8 3 11 10.2 9.2Z" fill="var(--cg-fill)"></path></svg></div><span>Treat</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 21s-7-4.35-9.5-8.5C.5 8 3 4 7 4c2 0 4 1.5 5 3 1-1.5 3-3 5-3 4 0 6.5 4 4.5 8.5C19 16.65 12 21 12 21z" fill="var(--cg-fill)"></path></svg></div><span>Moisturize</span></div>
+        <div class="r-item active"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><circle cx="12" cy="12" r="5" fill="var(--cg-fill)"></circle><path d="M12 1V4M12 20V23M23 12H20M4 12H1M19.07 4.93L16.95 7.05M7.05 16.95L4.93 19.07M19.07 19.07L16.95 16.95M7.05 7.05L4.93 4.93" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg></div><span>Protect</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M20 12.5A8.5 8.5 0 1111.5 4 6.5 6.5 0 0020 12.5Z" fill="var(--cg-fill)"></path></svg></div><span>Rest</span></div>
+      </div>
+
+      <div class="foot">
+        <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">YOURBRAND</span></div>
+        <div class="folio"><span data-counter="true">04/06</span></div>
+      </div>
+    </section>
+
+    <!-- Slide 5 — Tip 4 -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="edge-spine"></div>
+      <div class="rule"></div>
+      <svg class="mark" viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12 2 5 11.5 5 16.2C5 20 8.13 23 12 23C15.87 23 19 20 19 16.2C19 11.5 12 2 12 2Z" fill="var(--cg-fill)"></path></svg>
+      <div class="kicker" style="left:126px;top:236px;"><span>TIP 04</span></div>
+      <div class="accent-bar" style="left:90px;top:318px;height:224px;"></div>
+
+      <div class="tn-title" style="left:126px;top:308px;width:800px;">
+        <h1 data-title="true">Let Actives Rest</h1>
+      </div>
+
+      <div class="tn-message" style="left:126px;top:610px;width:760px;">
+        <p data-message="true">Retinol and acids need recovery nights — more isn't faster, it's just more irritation.</p>
+      </div>
+
+      <div class="routine-card" style="top:820px;"></div>
+      <div class="routine" style="top:860px;">
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12 2 5 11.5 5 16.2C5 20 8.13 23 12 23C15.87 23 19 20 19 16.2C19 11.5 12 2 12 2Z" fill="var(--cg-fill)"></path></svg></div><span>Cleanse</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2L13.8 9.2 21 11 13.8 12.8 12 20 10.2 12.8 3 11 10.2 9.2Z" fill="var(--cg-fill)"></path></svg></div><span>Treat</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 21s-7-4.35-9.5-8.5C.5 8 3 4 7 4c2 0 4 1.5 5 3 1-1.5 3-3 5-3 4 0 6.5 4 4.5 8.5C19 16.65 12 21 12 21z" fill="var(--cg-fill)"></path></svg></div><span>Moisturize</span></div>
+        <div class="r-item"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><circle cx="12" cy="12" r="5" fill="var(--cg-fill)"></circle><path d="M12 1V4M12 20V23M23 12H20M4 12H1M19.07 4.93L16.95 7.05M7.05 16.95L4.93 19.07M19.07 19.07L16.95 16.95M7.05 7.05L4.93 4.93" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg></div><span>Protect</span></div>
+        <div class="r-item active"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M20 12.5A8.5 8.5 0 1111.5 4 6.5 6.5 0 0020 12.5Z" fill="var(--cg-fill)"></path></svg></div><span>Rest</span></div>
+      </div>
+
+      <div class="foot">
+        <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">YOURBRAND</span></div>
+        <div class="folio"><span data-counter="true">05/06</span></div>
+      </div>
+    </section>
+
+    <!-- Slide 6 — Closing -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="edge-spine"></div>
+      <div class="rule"></div>
+      <div class="mark-row" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12 2 5 11.5 5 16.2C5 20 8.13 23 12 23C15.87 23 19 20 19 16.2C19 11.5 12 2 12 2Z" fill="var(--cg-fill)"></path></svg>
+        <svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><circle cx="12" cy="12" r="5" fill="var(--cg-fill)"></circle><path d="M12 1V4M12 20V23M23 12H20M4 12H1M19.07 4.93L16.95 7.05M7.05 16.95L4.93 19.07M19.07 19.07L16.95 16.95M7.05 7.05L4.93 4.93" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg>
+        <svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C6 6 6 10 6 13C6 17.4 8.7 21 12 22C15.3 21 18 17.4 18 13C18 10 18 6 12 2Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+
+      <div class="frame"></div>
+
+      <div class="kicker" style="left:126px;top:212px;"><span>STAY CONSISTENT</span></div>
+
+      <div class="tn-title close" style="left:126px;top:296px;width:780px;">
+        <h1 data-title="true">Consistency Wins</h1>
+      </div>
+
+      <div class="tn-message close" style="left:126px;top:600px;width:700px;">
+        <p data-message="true">Small steps, repeated daily, beat any overnight fix.</p>
+      </div>
+
+      <div class="routine-card small" style="top:920px;"></div>
+      <div class="routine" style="top:960px;">
+        <div class="r-item active"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12 2 5 11.5 5 16.2C5 20 8.13 23 12 23C15.87 23 19 20 19 16.2C19 11.5 12 2 12 2Z" fill="var(--cg-fill)"></path></svg></div><span>Cleanse</span></div>
+        <div class="r-item active"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2L13.8 9.2 21 11 13.8 12.8 12 20 10.2 12.8 3 11 10.2 9.2Z" fill="var(--cg-fill)"></path></svg></div><span>Treat</span></div>
+        <div class="r-item active"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 21s-7-4.35-9.5-8.5C.5 8 3 4 7 4c2 0 4 1.5 5 3 1-1.5 3-3 5-3 4 0 6.5 4 4.5 8.5C19 16.65 12 21 12 21z" fill="var(--cg-fill)"></path></svg></div><span>Moisturize</span></div>
+        <div class="r-item active"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><circle cx="12" cy="12" r="5" fill="var(--cg-fill)"></circle><path d="M12 1V4M12 20V23M23 12H20M4 12H1M19.07 4.93L16.95 7.05M7.05 16.95L4.93 19.07M19.07 19.07L16.95 16.95M7.05 7.05L4.93 4.93" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg></div><span>Protect</span></div>
+        <div class="r-item active"><div class="r-dot"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-low);--cg-stroke:var(--text-low);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M20 12.5A8.5 8.5 0 1111.5 4 6.5 6.5 0 0020 12.5Z" fill="var(--cg-fill)"></path></svg></div><span>Rest</span></div>
+      </div>
+
+      <div class="foot">
+        <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">YOURBRAND</span></div>
+        <div class="folio"><span data-counter="true">06/06</span></div>
+      </div>
+    </section>
+
+  </div>
+
+
+</body></html>

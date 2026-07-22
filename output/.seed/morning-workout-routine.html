@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Mulish:wght@400;600;700&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#E11B2C);
+  --secondary:var(--brand-secondary,#B01020);
+  --accent:var(--brand-accent,#E11B2C);
+  --bg:var(--brand-bg,#0a0708);
+  --surface:var(--brand-surface,#ffffff);
+  --text-high:var(--brand-ink,#1a1618);
+  --text-low:var(--brand-text-muted,rgba(255,255,255,.72));
+  --border:var(--brand-border,rgba(255,255,255,.35));
+  --highlight:var(--brand-accent,#E11B2C);
+}
+
+*{box-sizing:border-box;}
+
+.si-single{width:fit-content;margin:0;}
+
+.si-page{
+  position:relative;width:1080px;height:1350px;overflow:hidden;
+  container-type:inline-size;
+  background:
+    radial-gradient(120% 80% at 90% 42%, color-mix(in srgb,var(--primary) 55%, transparent) 0%, transparent 46%),
+    radial-gradient(90% 70% at 6% 62%, color-mix(in srgb,var(--secondary) 42%, transparent) 0%, transparent 44%),
+    var(--bg);
+  font-family:'Mulish',sans-serif;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:70px;
+}
+
+.smoke{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.85;}
+.smoke svg{width:100%;height:100%;display:block;}
+
+/* phone frame */
+.phone{
+  position:relative;z-index:1;
+  width:840px;
+  background:linear-gradient(145deg,#5a5a5c,#2b2b2d);
+  border-radius:52px;
+  padding:22px;
+  box-shadow:0 40px 80px rgba(0,0,0,.55), inset 0 2px 4px rgba(255,255,255,.18);
+}
+.screen{
+  border-radius:34px;
+  background:linear-gradient(160deg, rgba(120,120,122,.55), rgba(70,70,72,.55));
+  backdrop-filter:blur(2px);
+  padding:44px 46px 60px;
+  display:flex;flex-direction:column;gap:32px;
+}
+
+/* top message bar */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-bottom:14px;border-bottom:3px solid var(--surface);
+}
+.topbar .x{font-family:'Poppins',sans-serif;font-weight:700;font-size:34px;color:var(--surface);line-height:1;}
+.topbar .ttl{font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;letter-spacing:.14em;color:var(--surface);}
+
+/* messages */
+.msg{display:flex;flex-direction:column;gap:12px;}
+.msg.you{align-items:flex-end;}
+.sender{
+  font-family:'Mulish',sans-serif;font-weight:700;font-size:22px;letter-spacing:.02em;
+  color:color-mix(in srgb,var(--accent) 40%, #ffffff);padding:0 8px;
+}
+.bubble{
+  background:var(--surface);border-radius:14px;
+  padding:24px 26px;max-width:96%;
+}
+.msg.you .bubble{max-width:80%;}
+.bubble h1{
+  margin:0;font-family:'Mulish',sans-serif;font-weight:700;
+  font-size:clamp(24px,3cqw,33px);line-height:1.25;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:4px;
+}
+.bubble p{
+  margin:0;font-family:'Mulish',sans-serif;font-weight:400;
+  font-size:clamp(21px,2.7cqw,30px);line-height:1.32;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:4px;
+}
+.bubble.short p{font-weight:600;-webkit-line-clamp:2;}
+
+/* footer handle */
+.foot{
+  position:relative;z-index:1;margin-top:30px;
+  display:inline-flex;align-items:center;gap:12px;
+}
+.brand-mark{height:26px;width:auto;object-fit:contain;display:block;}
+.brand-word{
+  font-family:'Mulish',sans-serif;font-weight:700;font-size:22px;letter-spacing:.14em;
+  color:var(--surface);white-space:nowrap;
+}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="si-single">
+  <div class="si-page">
+
+    <div class="smoke" aria-hidden="true">
+      <svg viewBox="0 0 1080 1350" preserveAspectRatio="xMidYMid slice" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false">
+        <defs>
+          <radialGradient id="sm" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.55"></stop>
+            <stop offset="100%" stop-color="var(--primary)" stop-opacity="0"></stop>
+          </radialGradient>
+        </defs>
+        <path d="M-40 720 C 200 560, 380 640, 560 500 C 760 350, 900 500, 1120 300" stroke="url(#sm)" stroke-width="220" fill="none" opacity="0.5"></path>
+        <path d="M-60 900 C 240 820, 420 760, 620 640 C 820 520, 1000 640, 1160 460" stroke="url(#sm)" stroke-width="160" fill="none" opacity="0.45"></path>
+        <ellipse cx="880" cy="420" rx="360" ry="520" fill="url(#sm)" opacity="0.6"></ellipse>
+        <ellipse cx="120" cy="820" rx="300" ry="440" fill="url(#sm)" opacity="0.4"></ellipse>
+      </svg>
+    </div>
+
+    <div class="phone">
+      <div class="screen">
+
+        <div class="topbar">
+          <span class="x">X</span>
+          <span class="ttl">MESSAGE</span>
+        </div>
+
+        <div class="msg them">
+          <span class="sender">Coach Riley :</span>
+          <div class="bubble">
+            <h1 class="headline">How do you actually stick to morning workouts?</h1>
+          </div>
+        </div>
+
+        <div class="msg you">
+          <span class="sender">You :</span>
+          <div class="bubble">
+            <p class="body">Prep clothes the night before, keep it short, and set one clear goal. Consistency beats intensity when you're just starting out.</p>
+          </div>
+        </div>
+
+        <div class="msg them">
+          <span class="sender">Coach Riley :</span>
+          <div class="bubble short">
+            <p>Love it — starting tomorrow!</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="foot">
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+      <span class="brand-word">YOURBRAND</span>
+    </div>
+
+  </div>
+</div>
+
+</body></html>

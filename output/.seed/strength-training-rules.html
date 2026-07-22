@@ -1,0 +1,259 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    /* Brand role colors. Canvas is a fixed near-black slab and ink is fixed
+       off-white for legibility (per the recolor contract, --bg/--text-* never
+       move). Brand identity lives ONLY in filled surfaces: the nav chip, the
+       photo-frame card, and the cover CTA disc — all --accent. Nothing routes
+       branded colour into text sitting directly on the black canvas, because
+       --primary's only guarantee is "stays dark", which is invisible on black
+       regardless of brand — so canvas text stays --text-high/--text-low. */
+    --primary:var(--brand-primary,#171310);
+    --secondary:var(--brand-secondary,#6b4b2f);
+    --accent:var(--brand-accent,#F2622C);
+    --highlight:var(--brand-accent,#F2622C);
+    --bg:var(--brand-bg,#050505);
+    --surface:var(--brand-surface,#141414);
+    --text-high:var(--brand-ink,#F7F4EE);
+    --text-low:var(--brand-text-muted,rgba(247,244,238,.64));
+    --border:var(--brand-border,rgba(247,244,238,.22));
+    --on-fill:var(--brand-on-accent,#ffffff);
+    --on-primary:var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#000;}
+
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#000;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);
+    font-family:'Manrope',sans-serif;
+  }
+
+  /* ───────── pill nav (brand lockup + accent chip + counter) ───────── */
+  .pill-nav{
+    position:absolute;left:53px;right:53px;height:60px;border-radius:30px;z-index:6;
+    border:1.5px solid var(--border);
+    display:flex;align-items:center;justify-content:space-between;padding:0 12px 0 20px;
+    background:rgba(255,255,255,.02);
+  }
+  .pill-nav--top{top:52px;}
+  .pill-nav--bottom{bottom:52px;}
+  .pn-lockup{display:inline-flex;align-items:center;gap:10px;}
+  .brand-mark-clip{flex:none;height:26px;display:flex;align-items:center;}
+  .brand-mark{height:26px;width:auto;max-width:96px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;letter-spacing:.02em;color:var(--text-high);white-space:nowrap;}
+  .pn-chip{
+    background:var(--accent);color:var(--on-fill);border-radius:20px;padding:8px 20px;
+    font-family:'Manrope',sans-serif;font-weight:700;font-size:20px;letter-spacing:.06em;text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .pn-counter{font-family:'Manrope',sans-serif;font-weight:700;font-size:17px;letter-spacing:.12em;color:var(--text-low);white-space:nowrap;padding-right:6px;}
+
+  /* ───────── photo card + accent-frame device (fill role) ───────── */
+  .photo-frame{position:absolute;z-index:1;border-radius:30px;background:var(--accent);}
+  .photo-card{position:absolute;z-index:2;border-radius:30px;overflow:hidden;background:#1a1a1a;}
+  .photo-card img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* ───────── hollow numeral device — HTML text w/ CSS stroke, never SVG text ───────── */
+  .numeral{
+    position:absolute;z-index:3;
+    font-family:'Archivo Black',sans-serif;
+    color:transparent;-webkit-text-stroke:3px rgba(247,244,238,.94);
+    text-transform:uppercase;letter-spacing:-.01em;line-height:1;white-space:nowrap;
+    filter:drop-shadow(0 4px 18px rgba(0,0,0,.55));
+  }
+  .numeral-scrim{position:absolute;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center, rgba(0,0,0,.5) 0%, transparent 72%);}
+
+  /* ───────── text wrappers — one node per run, clamp everywhere ───────── */
+  .tn{position:absolute;}
+  .tn h1,.tn h2{
+    margin:0;font-family:'Manrope',sans-serif;font-weight:800;color:var(--text-high);
+    text-transform:uppercase;letter-spacing:-.01em;
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.18em;
+  }
+  .tn p{
+    margin:0;font-family:'Manrope',sans-serif;font-weight:500;color:var(--text-low);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.2em;
+  }
+  .kicker{
+    font-family:'Manrope',sans-serif;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--text-high);white-space:nowrap;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+  }
+
+  /* ───────── cover hero ───────── */
+  .cover-hero{position:absolute;left:0;right:0;top:262px;text-align:center;z-index:4;}
+  .cover-hero h1{
+    margin:0 auto;max-width:100%;font-family:'Archivo Black',sans-serif;font-size:150px;line-height:1.02;letter-spacing:-.01em;
+    color:var(--text-high);text-transform:uppercase;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-bottom:.12em;
+  }
+  .cover-arc{position:absolute;z-index:5;pointer-events:none;}
+
+  /* ───────── CTA disc (accent fill) ───────── */
+  .cta-disc{
+    width:76px;height:76px;border-radius:50%;background:var(--accent);
+    display:flex;align-items:center;justify-content:center;flex:none;
+    box-shadow:0 10px 26px rgba(0,0,0,.4);
+  }
+  .cta-disc svg{width:30px;height:30px;color:var(--on-fill);}
+</style>
+</head>
+
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — Cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="pill-nav pill-nav--top">
+      <span class="pn-lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">YOURBRAND</span>
+      </span>
+      <span class="pn-chip">Strength Talk</span>
+      <span class="pn-counter" data-counter="true">01 / 05</span>
+    </div>
+
+    <div class="tn" style="left:96px;top:170px;width:520px;"><span class="kicker" data-tagline="true" style="font-size:26px;">Training for</span></div>
+
+    <div class="cover-hero">
+      <h1 data-title="true">Strength</h1>
+    </div>
+    <svg class="cover-arc" data-cg-svg="" data-cg-preserve="" viewBox="0 0 720 300" style="left:186px;top:210px;width:708px;height:295px;--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" fill="none" aria-hidden="true" focusable="false">
+      <path d="M40 250 C 220 40, 480 30, 560 150 C 610 220, 500 260, 470 190 C 445 130, 560 90, 660 60" stroke="var(--cg-stroke)" stroke-width="15" stroke-linecap="round" fill="none"></path>
+      <path d="M660 60 L 622 46 M660 60 L 638 100" stroke="var(--cg-stroke)" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+    </svg>
+
+    <div class="tn" style="left:96px;right:96px;top:492px;">
+      <p data-message="true" style="font-size:30px;line-height:1.28;color:var(--text-high);text-align:right;text-transform:uppercase;font-weight:600;-webkit-line-clamp:1;">that outlasts the gym</p>
+    </div>
+
+    <div class="photo-frame" style="left:190px;top:760px;width:740px;height:430px;"></div>
+    <div class="photo-card" style="left:160px;top:730px;width:740px;height:430px;">
+      <img data-image="true" data-image-size="1536x1024" data-image-prompt="editorial studio product photo of a chrome barbell resting diagonally across stacked black weight plates, single hard dramatic side light, deep charcoal backdrop, high-contrast commercial fitness photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/strength-training-rules/slide-01.png">
+    </div>
+
+    <div style="position:absolute;left:96px;right:96px;bottom:78px;z-index:6;display:flex;align-items:center;justify-content:space-between;">
+      <span data-cta="true" style="font-family:'Manrope',sans-serif;font-weight:700;font-size:20px;letter-spacing:.09em;text-transform:uppercase;color:var(--text-high);">Swipe for the 4 rules</span>
+      <div class="cta-disc"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+    </div>
+  </section>
+
+  <!-- Slide 2 — ONE -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="pill-nav pill-nav--top">
+      <span class="pn-lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">YOURBRAND</span>
+      </span>
+      <span class="pn-chip">Rule 01</span>
+      <span class="pn-counter" data-counter="true">02 / 05</span>
+    </div>
+
+    <div class="tn" style="right:90px;top:176px;width:640px;">
+      <h2 data-title="true" style="font-size:58px;line-height:1.04;text-align:right;-webkit-line-clamp:2;">Rest is part of the program</h2>
+    </div>
+    <div class="tn" style="right:90px;top:352px;width:640px;">
+      <p data-message="true" style="font-size:31px;line-height:1.4;text-align:right;-webkit-line-clamp:3;">Muscle rebuilds in the 48 hours after training, not during the set. Program recovery like it's the workout.</p>
+    </div>
+
+    <div class="photo-frame" style="left:100px;top:592px;width:930px;height:658px;"></div>
+    <div class="photo-card" style="left:70px;top:562px;width:930px;height:658px;">
+      <img data-image="true" data-image-size="1536x1024" data-image-prompt="close-up editorial studio photo of stacked cast-iron weight plates and a barbell end, warm rim light, dark moody backdrop, high-contrast commercial fitness photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/strength-training-rules/slide-02.png">
+    </div>
+
+    <div class="numeral-scrim" style="left:830px;top:790px;width:320px;height:520px;"></div>
+    <div class="numeral" style="left:945px;top:1030px;font-size:200px;transform:translate(-50%,-50%) rotate(-90deg);">One</div>
+  </section>
+
+  <!-- Slide 3 — TWO -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="photo-frame" style="left:100px;top:100px;width:930px;height:640px;"></div>
+    <div class="photo-card" style="left:70px;top:70px;width:930px;height:640px;">
+      <img data-image="true" data-image-size="1536x1024" data-image-prompt="pair of matte black kettlebells on a raw concrete plinth, dramatic raking side light, dark backdrop, editorial commercial fitness photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/strength-training-rules/slide-03.png">
+    </div>
+    <div class="numeral-scrim" style="left:830px;top:190px;width:320px;height:480px;"></div>
+    <div class="numeral" style="left:945px;top:430px;font-size:185px;transform:translate(-50%,-50%) rotate(-90deg);">Two</div>
+
+    <div class="tn" style="left:130px;right:130px;top:810px;text-align:center;">
+      <h2 data-title="true" style="font-size:54px;line-height:1.06;text-align:center;-webkit-line-clamp:2;">Chase progress, not soreness</h2>
+    </div>
+    <div class="tn" style="left:170px;right:170px;top:1000px;text-align:center;">
+      <p data-message="true" style="font-size:29px;line-height:1.36;text-align:center;-webkit-line-clamp:2;">A sore muscle isn't a productive one — the plates on the bar are the only scoreboard.</p>
+    </div>
+
+    <div class="pill-nav pill-nav--bottom">
+      <span class="pn-lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">YOURBRAND</span>
+      </span>
+      <span class="pn-chip">Rule 02</span>
+      <span class="pn-counter" data-counter="true">03 / 05</span>
+    </div>
+  </section>
+
+  <!-- Slide 4 — THREE -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="pill-nav pill-nav--top">
+      <span class="pn-lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">YOURBRAND</span>
+      </span>
+      <span class="pn-chip">Rule 03</span>
+      <span class="pn-counter" data-counter="true">04 / 05</span>
+    </div>
+
+    <div class="tn" style="left:90px;top:270px;width:440px;">
+      <h2 data-title="true" style="font-size:54px;line-height:1.08;text-align:left;-webkit-line-clamp:3;">Fuel before you feel empty</h2>
+    </div>
+    <div class="tn" style="left:90px;top:536px;width:440px;">
+      <p data-message="true" style="font-size:30px;line-height:1.42;text-align:left;-webkit-line-clamp:5;">Waiting until you're starving is waiting too long to recover. Put protein and carbs on a schedule, not on willpower.</p>
+    </div>
+
+    <div class="photo-frame" style="left:590px;top:200px;width:430px;height:870px;"></div>
+    <div class="photo-card" style="left:560px;top:170px;width:430px;height:870px;">
+      <img data-image="true" data-image-size="1024x1536" data-image-prompt="tall editorial studio photo of a protein shake in a glass beside almonds and a folded gym towel on a dark stone surface, dramatic top light, dark backdrop, commercial food photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/strength-training-rules/slide-04.png">
+    </div>
+
+    <div class="numeral-scrim" style="left:190px;top:960px;width:900px;height:300px;"></div>
+    <div class="numeral" style="left:560px;top:1170px;font-size:224px;transform:translate(-50%,-50%);">Three</div>
+  </section>
+
+  <!-- Slide 5 — FOUR -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="tn" style="left:140px;right:140px;top:70px;text-align:center;">
+      <h2 data-title="true" style="font-size:50px;line-height:1.08;text-align:center;-webkit-line-clamp:2;">Show up on the heavy days too</h2>
+    </div>
+    <div class="tn" style="left:170px;right:170px;top:266px;text-align:center;">
+      <p data-message="true" style="font-size:28px;line-height:1.38;text-align:center;-webkit-line-clamp:3;">Discipline isn't the days you feel strong. It's the ones you show up anyway — that's where strength actually gets built.</p>
+    </div>
+
+    <div class="photo-frame" style="left:140px;top:460px;width:860px;height:560px;"></div>
+    <div class="photo-card" style="left:110px;top:430px;width:860px;height:560px;">
+      <img data-image="true" data-image-size="1536x1024" data-image-prompt="close-up editorial photo of chalked hands gripping a barbell bar, dramatic raking side light, dark backdrop, high-contrast commercial fitness photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/strength-training-rules/slide-05.png">
+    </div>
+
+    <div class="numeral-scrim" style="left:190px;top:850px;width:900px;height:300px;"></div>
+    <div class="numeral" style="left:610px;top:1058px;font-size:260px;transform:translate(-50%,-50%);">Four</div>
+
+    <div class="pill-nav pill-nav--bottom">
+      <span class="pn-lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.4%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">YOURBRAND</span>
+      </span>
+      <span class="pn-chip">Rule 04</span>
+      <span class="pn-counter" data-counter="true">05 / 05</span>
+    </div>
+  </section>
+
+</div>
+
+
+</body></html>

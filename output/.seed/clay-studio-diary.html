@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+      :root{
+        /* Brand role colors — accent roles only re-skin under the brand preview; canvas
+           (--bg/--surface) and ink (--text-*) stay fixed literals so the diary paper and
+           its type stay AA-legible under any palette. */
+        --primary:var(--brand-primary,#3E2A2E);
+        --secondary:var(--brand-secondary,#8B93A6);
+        --accent:var(--brand-accent,#C97B84);
+        --highlight:var(--brand-accent,#C97B84);
+        --bg:var(--brand-bg,#F6EDE6);
+        --surface:var(--brand-surface,var(--brand-bg-alt,#E8DED3));
+        --text-high:var(--brand-ink,var(--brand-text,#3A2C2C));
+        --text-low:var(--brand-text-muted,rgba(58,44,44,.62));
+        --border:var(--brand-border,rgba(58,44,44,.18));
+        --on-accent:var(--brand-on-accent,#FFF8F3);
+        --on-primary:var(--brand-on-primary,#FFF8F3);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);font-family:'IBM Plex Mono',monospace;
+      }
+      .slide.tone-b{background:var(--surface);}
+
+      /* ── cover: full-bleed photo ── */
+      .photo{position:absolute;inset:0;z-index:0;}
+      .photo img{width:100%;height:100%;object-fit:cover;display:block;background:#cbb8ae;}
+
+      .scrim-top{
+        position:absolute;left:0;right:0;top:0;height:800px;z-index:1;pointer-events:none;
+        background:linear-gradient(180deg, rgba(20,12,12,.82) 0%, rgba(20,12,12,.82) 78%, rgba(20,12,12,0) 100%);
+      }
+      .scrim-bottom{
+        position:absolute;left:0;right:0;bottom:0;height:280px;z-index:1;pointer-events:none;
+        background:linear-gradient(0deg, rgba(18,12,12,.72) 0%, rgba(18,12,12,0) 100%);
+      }
+
+      /* ── accent-filled devices (the visible brand device on every slide) ── */
+      .badge{
+        position:absolute;left:72px;top:140px;width:320px;height:60px;border-radius:30px;
+        background:var(--accent);display:flex;align-items:center;justify-content:center;z-index:3;
+      }
+      .badge span{font-weight:700;font-size:24px;letter-spacing:.09em;color:var(--on-accent);text-transform:uppercase;white-space:nowrap;}
+
+      .tab{
+        position:absolute;left:96px;top:96px;width:124px;height:124px;border-radius:30px;
+        background:var(--accent);display:flex;align-items:center;justify-content:center;z-index:4;
+        box-shadow:0 10px 22px rgba(20,12,12,.28);
+      }
+      .tab span{font-weight:700;font-size:42px;color:var(--on-accent);}
+
+      /* ── the floating "diary page" card — fixed cream literal, never re-skinned ── */
+      .page-card{
+        position:absolute;left:72px;top:644px;width:936px;height:560px;border-radius:28px;z-index:1;
+        background:#FFFDF8;box-shadow:0 20px 44px rgba(58,44,44,.16);overflow:hidden;
+      }
+      .page-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:16px;background:var(--accent);}
+
+      .counter{
+        position:absolute;right:72px;bottom:40px;width:230px;height:72px;border-radius:36px;
+        background:var(--accent);display:flex;align-items:center;justify-content:center;z-index:3;
+      }
+      .counter span{font-weight:700;font-size:26px;letter-spacing:.06em;color:var(--on-accent);white-space:nowrap;}
+
+      .cta-pill{
+        position:absolute;left:104px;top:1004px;height:56px;padding:0 30px;border-radius:28px;
+        background:var(--accent);display:inline-flex;align-items:center;z-index:3;max-width:760px;
+      }
+      .cta-pill span{font-weight:700;font-size:24px;color:var(--on-accent);}
+
+      /* ── sparkle mark (cover only) ── */
+      .sparkle{position:absolute;left:952px;top:150px;width:48px;height:48px;z-index:3;}
+
+      /* ── content photo (entries) ── */
+      .entry-photo{
+        position:absolute;left:72px;top:72px;width:936px;height:540px;border-radius:28px;
+        overflow:hidden;z-index:2;box-shadow:0 20px 40px rgba(58,44,44,.22);
+      }
+      .entry-photo img{width:100%;height:100%;object-fit:cover;display:block;background:#d8cabf;}
+
+      /* ── isolated positioned wrapper PER text node — text stays in normal flow inside
+         its own absolute box, so autofit/collision tooling sees each node independently. ── */
+      .tn-title-cover{position:absolute;left:72px;top:230px;width:900px;z-index:3;}
+      .tn-title-cover h1{
+        margin:0;font-weight:700;font-size:70px;line-height:1.08;letter-spacing:-.01em;color:#FFF8F3;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.22em;
+      }
+
+      .tn-kicker{position:absolute;left:72px;top:590px;width:640px;z-index:3;}
+      .tn-kicker p{
+        margin:0;font-weight:500;font-size:27px;letter-spacing:.05em;text-transform:uppercase;
+        color:#FFF3EC;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.15em;
+      }
+
+      .tn-title-entry{position:absolute;left:104px;top:700px;width:840px;z-index:3;}
+      .tn-title-entry h1{
+        margin:0;font-weight:700;font-size:58px;line-height:1.08;letter-spacing:-.005em;color:var(--primary);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.2em;
+      }
+
+      .rule{position:absolute;left:104px;top:864px;width:240px;height:3px;background:var(--border);z-index:2;}
+
+      .tn-message-entry{position:absolute;left:104px;top:896px;width:760px;z-index:3;}
+      .tn-message-entry p{
+        margin:0;font-weight:400;font-size:26px;line-height:1.35;color:var(--text-low);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.2em;
+      }
+
+      /* ── brand lockup ── */
+      .lockup{position:absolute;left:72px;bottom:46px;display:flex;align-items:center;gap:14px;z-index:3;}
+      .brand-mark-clip{height:34px;display:flex;align-items:center;}
+      .brand-mark{height:34px;width:auto;max-width:120px;object-fit:contain;display:block;}
+      .brand-word{font-weight:700;font-size:26px;white-space:nowrap;}
+      .lockup.on-light .brand-word{color:#FFF8F3;}
+      .lockup.on-paper .brand-word{color:var(--text-high);}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Cover -->
+      <section class="slide cover" data-cg-slide-type="cover">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="close-up of hands centering a lump of wet clay on a spinning pottery wheel, warm terracotta and dusty rose studio light, shallow depth of field" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/clay-studio-diary/slide-01.png"/></div>
+        <div class="scrim-top" aria-hidden="true"></div>
+        <div class="scrim-bottom" aria-hidden="true"></div>
+
+        <div class="badge"><span>Studio Notes</span></div>
+        <svg class="sparkle" data-cg-svg data-cg-preserve aria-hidden="true" focusable="false" viewBox="0 0 40 40" style="--cg-fill:var(--accent)"><path d="M20 2 L23 17 L38 20 L23 23 L20 38 L17 23 L2 20 L17 17 Z" fill="var(--cg-fill)"/></svg>
+
+        <div class="tn-title-cover"><h1 data-title="true">the wheel taught me patience</h1></div>
+        <div class="tn-kicker"><p class="kicker" data-tagline="true">nadia voss &middot; a studio diary, october</p></div>
+
+        <div class="lockup on-light"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="counter"><span data-counter="true">01 / 05</span></div>
+      </section>
+
+      <!-- Entry 1 -->
+      <section class="slide entry tone-a" data-cg-slide-type="entry">
+        <div class="tab"><span>01</span></div>
+        <div class="entry-photo"><img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="close-up of hands centering a lump of wet clay on a pottery wheel, dusty rose and terracotta tones, warm side light" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/clay-studio-diary/slide-02.png"/></div>
+        <div class="page-card"></div>
+
+        <div class="tn-title-entry"><h1 data-title="true">the first pull</h1></div>
+        <div class="rule"></div>
+        <div class="tn-message-entry"><p data-message="true">centering the clay took more patience than strength today.</p></div>
+
+        <div class="lockup on-paper"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="counter"><span data-counter="true">02 / 05</span></div>
+      </section>
+
+      <!-- Entry 2 -->
+      <section class="slide entry tone-b" data-cg-slide-type="entry">
+        <div class="tab"><span>02</span></div>
+        <div class="entry-photo"><img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="rows of ceramic glaze test tiles in a soft green-to-cream gradient, arranged on a linen cloth, natural daylight" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/clay-studio-diary/slide-03.png"/></div>
+        <div class="page-card"></div>
+
+        <div class="tn-title-entry"><h1 data-title="true">glaze day</h1></div>
+        <div class="rule"></div>
+        <div class="tn-message-entry"><p data-message="true">matched five glaze tiles to the sage green from the garden.</p></div>
+
+        <div class="lockup on-paper"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="counter"><span data-counter="true">03 / 05</span></div>
+      </section>
+
+      <!-- Entry 3 -->
+      <section class="slide entry tone-a" data-cg-slide-type="entry">
+        <div class="tab"><span>03</span></div>
+        <div class="entry-photo"><img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="glowing orange peephole of a pottery kiln in a dim studio at night, warm ember light, close crop" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/clay-studio-diary/slide-04.png"/></div>
+        <div class="page-card"></div>
+
+        <div class="tn-title-entry"><h1 data-title="true">kiln watch</h1></div>
+        <div class="rule"></div>
+        <div class="tn-message-entry"><p data-message="true">stayed past midnight watching the kiln climb to cone six.</p></div>
+
+        <div class="lockup on-paper"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="counter"><span data-counter="true">04 / 05</span></div>
+      </section>
+
+      <!-- Entry 4 -->
+      <section class="slide entry tone-b" data-cg-slide-type="entry">
+        <div class="tab"><span>04</span></div>
+        <div class="entry-photo"><img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="finished glazed ceramic mugs in dusty rose and cream tones cooling on a wooden shelf, soft daylight" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/clay-studio-diary/slide-05.png"/></div>
+        <div class="page-card"></div>
+
+        <div class="tn-title-entry"><h1 data-title="true">what survived</h1></div>
+        <div class="rule"></div>
+        <div class="tn-message-entry"><p data-message="true">eleven pieces went in, eight came out whole and taught me plenty.</p></div>
+
+        <div class="cta-pill"><span data-cta="true">keep your own studio notes, one page at a time.</span></div>
+        <div class="lockup on-paper"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="counter"><span data-counter="true">05 / 05</span></div>
+      </section>
+
+    </div>
+  </body>
+</html>

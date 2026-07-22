@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;600;700&family=Arimo:wght@400;700&display=swap');
+
+  :root{
+    /* Brand roles — accent/primary/secondary re-skin under a brand palette;
+       canvas + ink stay fixed literals so the quiet white "quote card"
+       reading surface stays AA-legible under any palette. */
+    --primary:var(--brand-primary,#1c1a28);
+    --secondary:var(--brand-secondary,#6b5f78);
+    --accent:var(--brand-accent,#6b3fa0);
+    --bg:var(--brand-bg,#ffffff);
+    --surface:var(--brand-surface,#faf7fb);
+    --text-high:var(--brand-text-high,#15131c);
+    --text-low:var(--brand-text-muted,#5c5566);
+    --border:var(--brand-border,#e7e0eb);
+    --highlight:var(--brand-accent,#f3c988);
+    --on-fill:var(--brand-on-accent,#ffffff);
+    --on-primary:var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);
+    font-family:'Arimo',sans-serif;
+  }
+
+  /* ── soft pastel gradient blob backdrop — the design's signature glow.
+     Blended from --accent and --highlight so it visibly moves under a
+     brand recolor even though no text ever sits on it. ── */
+  .blob{position:absolute;z-index:0;filter:blur(60px);opacity:.55;pointer-events:none;border-radius:50%;}
+
+  /* ── decorative oversized quotation mark, corner motif (SVG, decorative-only) ── */
+  .quote-glyph{position:absolute;z-index:0;pointer-events:none;user-select:none;}
+
+  /* ── sparkle accents (small hand-drawn stars) ── */
+  .sparkle{position:absolute;z-index:1;pointer-events:none;}
+
+  /* ── thin rule with arrowhead — the design's recurring divider ── */
+  .rule{position:absolute;z-index:1;height:2px;background:var(--text-high);pointer-events:none;}
+  .rule::after{
+    content:'';position:absolute;right:-2px;top:50%;transform:translateY(-50%);
+    width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;
+    border-left:12px solid var(--text-high);
+  }
+
+  /* ── kicker pill — the visible brand-bound filled surface on every slide ── */
+  .kicker{
+    position:absolute;z-index:3;display:inline-flex;align-items:center;
+    padding:14px 30px;border-radius:999px;background:var(--accent);
+  }
+  .kicker span{
+    font-family:'Arimo',sans-serif;font-weight:700;font-size:24px;letter-spacing:.16em;
+    color:var(--on-fill);white-space:nowrap;text-transform:uppercase;
+  }
+
+  /* ── isolated positioned wrappers, one per text node ── */
+  .tn-title{position:absolute;z-index:2;}
+  .tn-title h1{
+    margin:0;font-family:'Cormorant SC',serif;font-weight:700;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.2em;
+  }
+  .tn-message{position:absolute;z-index:2;}
+  .tn-message p{
+    margin:0;font-family:'Cormorant SC',serif;font-weight:400;color:var(--text-low);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.2em;
+  }
+  .tn-cta{position:absolute;z-index:2;}
+  .tn-cta p{
+    margin:0;font-family:'Arimo',sans-serif;font-weight:700;font-size:28px;letter-spacing:.02em;
+    color:var(--primary);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.15em;
+  }
+
+  /* ── numeral (cover only) ── */
+  .numeral{
+    position:absolute;z-index:2;font-family:'Cormorant SC',serif;font-weight:700;
+    color:var(--text-high);line-height:.78;
+  }
+
+  /* ── footer: brand lockup + folio counter ── */
+  .foot{position:absolute;left:90px;right:90px;bottom:56px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+  .brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+  .brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Arimo',sans-serif;font-weight:700;font-size:22px;letter-spacing:.06em;color:var(--text-low);white-space:nowrap;text-transform:uppercase;}
+  .lockup{display:inline-flex;align-items:center;gap:12px;}
+  .cg-slide-counter{font-family:'Arimo',sans-serif;font-weight:700;font-size:22px;letter-spacing:.16em;color:var(--text-low);}
+</style>
+</head>
+
+<body>
+<div class="ig-carousel">
+
+  <!-- Cover -->
+  <section class="slide" data-cg-slide-type="cover">
+    <div class="blob" style="left:560px;top:120px;width:640px;height:640px;background:radial-gradient(circle at 35% 35%, var(--accent) 0%, var(--highlight) 55%, transparent 78%);"></div>
+    <svg class="quote-glyph" style="right:96px;top:52px;--cg-fill:var(--border);--cg-stroke:var(--border);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" width="248" height="205" viewBox="0 0 200 170" fill="none" aria-hidden="true" data-cg-svg="" data-cg-preserve="" focusable="false">
+      <path d="M60,10 C90,10 100,40 100,70 C100,100 80,120 55,125 C50,126 45,124 42,120 C60,112 68,95 68,78 C50,75 38,60 38,42 C38,22 46,10 60,10 Z" fill="var(--cg-fill)"></path>
+      <path d="M150,10 C180,10 190,40 190,70 C190,100 170,120 145,125 C140,126 135,124 132,120 C150,112 158,95 158,78 C140,75 128,60 128,42 C128,22 136,10 150,10 Z" fill="var(--cg-fill)"></path>
+    </svg>
+
+    <svg class="sparkle" style="left:876px;top:330px;--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" width="60" height="60" viewBox="0 0 60 60" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false">
+      <path d="M30 2C31 16 34 26 58 30C34 34 31 44 30 58C29 44 26 34 2 30C26 26 29 16 30 2Z" fill="var(--cg-fill)"></path>
+    </svg>
+    <svg class="sparkle" style="left:940px;top:392px;--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" width="30" height="30" viewBox="0 0 30 30" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false">
+      <path d="M15 1C15.6 8 17.3 13.4 29 15C17.3 16.6 15.6 22 15 29C14.4 22 12.7 16.6 1 15C12.7 13.4 14.4 8 15 1Z" fill="var(--cg-fill)"></path>
+    </svg>
+
+    <div class="kicker" style="left:96px;top:96px;"><span data-tagline="true">4 mindset shifts</span></div>
+
+    <div class="numeral" style="left:94px;top:210px;font-size:236px;">4</div>
+    <div class="tn-title" style="left:296px;top:236px;width:520px;">
+      <h1 data-title="true" style="font-size:104px;line-height:.94;-webkit-line-clamp:2;">Confidence Mindsets</h1>
+    </div>
+
+    <div class="rule" style="left:96px;top:598px;width:830px;"></div>
+
+    <div class="tn-message" style="left:96px;top:660px;width:830px;">
+      <p data-message="true" style="font-size:150px;line-height:.98;-webkit-line-clamp:2;">Worth practicing.</p>
+    </div>
+
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">01 / 04</div>
+    </div>
+  </section>
+
+  <!-- Shift 1 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="blob" style="left:-220px;top:520px;width:720px;height:720px;background:radial-gradient(circle at 60% 40%, var(--highlight) 0%, var(--accent) 55%, transparent 78%);"></div>
+    <svg class="quote-glyph" style="left:80px;top:40px;--cg-fill:var(--border);--cg-stroke:var(--border);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" width="220" height="182" viewBox="0 0 200 170" fill="none" aria-hidden="true" data-cg-svg="" data-cg-preserve="" focusable="false">
+      <path d="M60,10 C90,10 100,40 100,70 C100,100 80,120 55,125 C50,126 45,124 42,120 C60,112 68,95 68,78 C50,75 38,60 38,42 C38,22 46,10 60,10 Z" fill="var(--cg-fill)"></path>
+      <path d="M150,10 C180,10 190,40 190,70 C190,100 170,120 145,125 C140,126 135,124 132,120 C150,112 158,95 158,78 C140,75 128,60 128,42 C128,22 136,10 150,10 Z" fill="var(--cg-fill)"></path>
+    </svg>
+
+    <svg class="sparkle" style="left:900px;top:120px;--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" width="54" height="54" viewBox="0 0 60 60" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false">
+      <path d="M30 2C31 16 34 26 58 30C34 34 31 44 30 58C29 44 26 34 2 30C26 26 29 16 30 2Z" fill="var(--cg-fill)"></path>
+    </svg>
+
+    <div class="kicker" style="right:96px;top:96px;"><span data-tagline="true">Shift 01</span></div>
+
+    <div class="tn-title" style="right:96px;top:300px;width:820px;text-align:right;">
+      <h1 data-title="true" style="font-size:138px;line-height:.96;-webkit-line-clamp:2;text-align:right;">Confidence is a skill</h1>
+    </div>
+
+    <div class="rule" style="right:96px;top:684px;width:520px;transform:scaleX(-1);"></div>
+
+    <div class="tn-message" style="right:96px;top:748px;width:820px;text-align:right;">
+      <p data-message="true" style="font-size:80px;line-height:1.1;-webkit-line-clamp:2;text-align:right;">not a personality trait.</p>
+    </div>
+
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">02 / 04</div>
+    </div>
+  </section>
+
+  <!-- Shift 2 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="blob" style="left:400px;top:-180px;width:900px;height:900px;background:radial-gradient(circle at 40% 60%, var(--accent) 0%, var(--highlight) 55%, transparent 78%);"></div>
+    <div class="blob" style="left:-260px;top:900px;width:560px;height:560px;background:radial-gradient(circle at 50% 50%, var(--highlight) 0%, var(--accent) 55%, transparent 78%);opacity:.4;"></div>
+    <svg class="quote-glyph" style="right:80px;top:900px;--cg-fill:var(--border);--cg-stroke:var(--border);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" width="220" height="182" viewBox="0 0 200 170" fill="none" aria-hidden="true" data-cg-svg="" data-cg-preserve="" focusable="false">
+      <path d="M60,10 C90,10 100,40 100,70 C100,100 80,120 55,125 C50,126 45,124 42,120 C60,112 68,95 68,78 C50,75 38,60 38,42 C38,22 46,10 60,10 Z" fill="var(--cg-fill)"></path>
+      <path d="M150,10 C180,10 190,40 190,70 C190,100 170,120 145,125 C140,126 135,124 132,120 C150,112 158,95 158,78 C140,75 128,60 128,42 C128,22 136,10 150,10 Z" fill="var(--cg-fill)"></path>
+    </svg>
+
+    <svg class="sparkle" style="left:120px;top:940px;--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" width="48" height="48" viewBox="0 0 60 60" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false">
+      <path d="M30 2C31 16 34 26 58 30C34 34 31 44 30 58C29 44 26 34 2 30C26 26 29 16 30 2Z" fill="var(--cg-fill)"></path>
+    </svg>
+
+    <div class="kicker" style="left:96px;top:96px;"><span data-tagline="true">Shift 02</span></div>
+
+    <div class="tn-title" style="left:96px;top:266px;width:840px;">
+      <h1 data-title="true" style="font-size:138px;line-height:.96;-webkit-line-clamp:2;">Doubt is not proof</h1>
+    </div>
+
+    <div class="rule" style="left:96px;top:650px;width:520px;"></div>
+
+    <div class="tn-message" style="left:96px;top:714px;width:820px;">
+      <p data-message="true" style="font-size:80px;line-height:1.1;-webkit-line-clamp:2;">just noise passing by.</p>
+    </div>
+
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">03 / 04</div>
+    </div>
+  </section>
+
+  <!-- Shift 3 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="blob" style="left:280px;top:340px;width:760px;height:760px;background:radial-gradient(circle at 50% 50%, var(--highlight) 0%, var(--accent) 55%, transparent 78%);"></div>
+    <svg class="quote-glyph" style="left:80px;top:40px;--cg-fill:var(--border);--cg-stroke:var(--border);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" width="220" height="182" viewBox="0 0 200 170" fill="none" aria-hidden="true" data-cg-svg="" data-cg-preserve="" focusable="false">
+      <path d="M60,10 C90,10 100,40 100,70 C100,100 80,120 55,125 C50,126 45,124 42,120 C60,112 68,95 68,78 C50,75 38,60 38,42 C38,22 46,10 60,10 Z" fill="var(--cg-fill)"></path>
+      <path d="M150,10 C180,10 190,40 190,70 C190,100 170,120 145,125 C140,126 135,124 132,120 C150,112 158,95 158,78 C140,75 128,60 128,42 C128,22 136,10 150,10 Z" fill="var(--cg-fill)"></path>
+    </svg>
+
+    <svg class="sparkle" style="right:130px;top:150px;--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" width="54" height="54" viewBox="0 0 60 60" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false">
+      <path d="M30 2C31 16 34 26 58 30C34 34 31 44 30 58C29 44 26 34 2 30C26 26 29 16 30 2Z" fill="var(--cg-fill)"></path>
+    </svg>
+    <svg class="sparkle" style="right:80px;top:220px;--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" width="28" height="28" viewBox="0 0 30 30" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false">
+      <path d="M15 1C15.6 8 17.3 13.4 29 15C17.3 16.6 15.6 22 15 29C14.4 22 12.7 16.6 1 15C12.7 13.4 14.4 8 15 1Z" fill="var(--cg-fill)"></path>
+    </svg>
+
+    <div class="kicker" style="left:96px;top:96px;"><span data-tagline="true">Shift 03</span></div>
+
+    <div class="tn-title" style="left:96px;top:300px;width:880px;">
+      <h1 data-title="true" style="font-size:138px;line-height:.96;-webkit-line-clamp:2;">Bold isn't loud</h1>
+    </div>
+
+    <div class="rule" style="left:96px;top:684px;width:520px;"></div>
+
+    <div class="tn-message" style="left:96px;top:748px;width:820px;">
+      <p data-message="true" style="font-size:80px;line-height:1.1;-webkit-line-clamp:2;">it's showing up, scared.</p>
+    </div>
+
+    <div class="tn-cta" style="left:96px;top:1146px;width:640px;">
+      <p class="cta" data-cta="true">Practice one shift today →</p>
+    </div>
+
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+      <div class="cg-slide-counter" data-counter="true">04 / 04</div>
+    </div>
+  </section>
+
+</div>
+
+
+</body></html>
