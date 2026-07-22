@@ -1,0 +1,4743 @@
+{
+  "designId": "DAHP_PObnPk",
+  "extensionId": "cr2uUIuAXEpoLNVraaX-nQ",
+  "title": "Red and White Minimalist Headline Writing LinkedIn Carousel",
+  "docSize": {
+    "A": 1200,
+    "B": 1500,
+    "C": "D"
+  },
+  "pageCount": 5,
+  "pages": [
+    {
+      "A?": "i",
+      "a": "PBM6brvwfDCWllTx",
+      "G": {
+        "A": "EAGqwqBlN18",
+        "B": 1,
+        "C": 1
+      },
+      "D": {
+        "C": "#ffffff"
+      },
+      "E": [
+        {
+          "A?": "K",
+          "A": 47.5,
+          "B": -52.89880192415848,
+          "D": 772.7903737994134,
+          "C": 1405,
+          "N": "title",
+          "_": "LBBK8KrqJrjPg0lX",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "3\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ff5757"
+                  },
+                  "font-family": {
+                    "B": "YACgEZulLoA,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "1171.18"
+                  },
+                  "leading": {
+                    "B": "1200.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "tracking": {
+                    "B": "20.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "J",
+          "A": 1272.7432883817078,
+          "B": 120.00000000000014,
+          "D": 107.25714064685447,
+          "C": 107.2567116182919,
+          "_": "LBtYGkXth8F2ynw4",
+          "a": {
+            "D": 500,
+            "C": 499.998
+          },
+          "b": [
+            {
+              "A": "M500 250.002c0 138.065-111.931 249.996-250 249.996-138.071 0-250-111.931-250-249.996C0 111.93 111.929 0 250 0s250 111.93 250 250.002z",
+              "B": {
+                "A": true,
+                "C": "#ff5757"
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 500,
+              "C": 499.998
+            },
+            "B": 500,
+            "C": 499.998,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {}
+        },
+        {
+          "A?": "J",
+          "A": 1278.6926647377488,
+          "B": 125.94940015364196,
+          "D": 95.35834033957082,
+          "C": 95.35795890620948,
+          "_": "LBJDX1d9C2N1y8ct",
+          "a": {
+            "D": 500,
+            "C": 499.998
+          },
+          "b": [
+            {
+              "A": "M500 250.002c0 138.065-111.931 249.996-250 249.996-138.071 0-250-111.931-250-249.996C0 111.93 111.929 0 250 0s250 111.93 250 250.002z",
+              "B": {
+                "A": true,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAF_iR0W7n0",
+                    "B": 1
+                  },
+                  "B": {
+                    "A": -3.546477737837108,
+                    "D": 500,
+                    "C": 750.46904315197
+                  }
+                }
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 500,
+              "C": 499.998
+            },
+            "B": 500,
+            "C": 499.998,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {}
+        },
+        {
+          "A?": "J",
+          "A": 1326.3716441908537,
+          "B": 1035.022969058216,
+          "D": 70.15923262811208,
+          "C": 77.41708427929609,
+          "_": "LBll7z6GRfg156CW",
+          "a": {
+            "D": 58,
+            "C": 64
+          },
+          "b": [
+            {
+              "A": "M58 0V64L29 54L0 64L0 0H58Z",
+              "B": {
+                "A": false,
+                "C": "#ff5757"
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 58,
+              "C": 54
+            },
+            "B": 58,
+            "C": 54,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {},
+          "f": [
+            {
+              "A": {
+                "A": [
+                  {
+                    "A?": "A",
+                    "A": "\n"
+                  }
+                ],
+                "B": [
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {
+                        "B": "#ffffff"
+                      },
+                      "font-family": {
+                        "B": "YAFdJjTk5UU,0"
+                      },
+                      "font-kerning": {
+                        "B": "normal"
+                      },
+                      "font-size": {
+                        "B": "28.0108"
+                      },
+                      "font-style": {
+                        "B": "normal"
+                      },
+                      "font-weight": {
+                        "B": "normal"
+                      },
+                      "leading": {
+                        "B": "1400.0"
+                      },
+                      "text-align": {
+                        "B": "center"
+                      },
+                      "text-transform": {
+                        "B": "none"
+                      },
+                      "tracking": {
+                        "B": "0.0"
+                      }
+                    }
+                  },
+                  {
+                    "A?": "B",
+                    "A": 1
+                  },
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {},
+                      "font-family": {},
+                      "font-kerning": {},
+                      "font-size": {},
+                      "font-style": {},
+                      "font-weight": {},
+                      "leading": {},
+                      "text-align": {},
+                      "text-transform": {},
+                      "tracking": {}
+                    }
+                  }
+                ]
+              },
+              "B": {
+                "A": [
+                  0
+                ]
+              },
+              "D": {
+                "D": 58,
+                "C": 54
+              },
+              "E": [
+                4
+              ],
+              "F": "B"
+            }
+          ],
+          "h": {
+            "A?": "H",
+            "A": 77.41708427929609
+          }
+        },
+        {
+          "A?": "K",
+          "A": 703.7736651506007,
+          "B": 532.2287689527429,
+          "D": 612.3620070537063,
+          "C": 380,
+          "N": "heading",
+          "_": "LBdYzPcGt5bYCcNz",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "The Secret to Successful Headline Writing\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#2b2024"
+                  },
+                  "font-family": {
+                    "B": "YAFdJjTk5UU,0"
+                  },
+                  "font-size": {
+                    "B": "79.9997"
+                  },
+                  "font-weight": {
+                    "B": "bold"
+                  },
+                  "leading": {
+                    "B": "1200.0"
+                  },
+                  "tracking": {
+                    "B": "20.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 42
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 119.99999999999999,
+          "B": 120,
+          "D": 345.49345351105694,
+          "C": 33.390897250976565,
+          "N": "heading",
+          "_": "LBVBYCqrBRbLCBCJ",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "www.reallygreatsite.com\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "font-family": {
+                    "B": "YAFdJjTk5UU,0"
+                  },
+                  "font-size": {
+                    "B": "28.0108"
+                  },
+                  "leading": {
+                    "B": "1400.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 24
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1285.1849960667485,
+          "B": 240.59003387419438,
+          "D": 255.0380427467269,
+          "C": 43.986872,
+          "N": "heading",
+          "_": "LBlhhymMSJ8TBbF5",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Claudia Alves\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "37.3359"
+                  },
+                  "font-weight": {
+                    "B": "bold"
+                  },
+                  "leading": {
+                    "B": "1120.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 13
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1333.8438685805017,
+          "B": 244.5900338741944,
+          "D": 224.90341963686257,
+          "C": 33.240224,
+          "N": "paragraph",
+          "_": "LB1lGvn2HMTt19d9",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "@reallygreatsite\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "28.0028"
+                  },
+                  "leading": {
+                    "B": "1120.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 17
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 120.00000000000001,
+          "B": 1035.022969058216,
+          "D": 44.97703094178382,
+          "C": 33.39998,
+          "N": "paragraph",
+          "_": "LBj8lYzshwxlYchT",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "1/5\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "font-family": {
+                    "B": "YAFdJjTk5UU,0"
+                  },
+                  "font-size": {
+                    "B": "28.0001"
+                  },
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "leading": {
+                    "B": "1400.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 4
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        }
+      ]
+    },
+    {
+      "A?": "i",
+      "a": "PBr8zkQb46szkMPS",
+      "G": {
+        "A": "EAGqwqBlN18",
+        "B": 1,
+        "C": 2
+      },
+      "D": {
+        "C": "#ff5757"
+      },
+      "E": [
+        {
+          "A?": "K",
+          "A": 14.88873148987409,
+          "B": 518.6280766209213,
+          "D": 772.7903737994134,
+          "C": 1405,
+          "N": "do-not-change",
+          "_": "LBljLjlHsHSctPmt",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "1\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YACgEZulLoA,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "1171.18"
+                  },
+                  "leading": {
+                    "B": "1200.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "tracking": {
+                    "B": "20.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "J",
+          "A": 1272.7432883817078,
+          "B": 120.00000000000014,
+          "D": 107.25714064685447,
+          "C": 107.2567116182919,
+          "_": "LBnGtdWvLkrmrRsS",
+          "a": {
+            "D": 500,
+            "C": 499.998
+          },
+          "b": [
+            {
+              "A": "M500 250.002c0 138.065-111.931 249.996-250 249.996-138.071 0-250-111.931-250-249.996C0 111.93 111.929 0 250 0s250 111.93 250 250.002z",
+              "B": {
+                "A": true,
+                "C": "#ffffff"
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 500,
+              "C": 499.998
+            },
+            "B": 500,
+            "C": 499.998,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {}
+        },
+        {
+          "A?": "J",
+          "A": 1278.6926647377488,
+          "B": 125.94940015364196,
+          "D": 95.35834033957082,
+          "C": 95.35795890620948,
+          "_": "LBzJMsywWnYCgRz2",
+          "a": {
+            "D": 500,
+            "C": 499.998
+          },
+          "b": [
+            {
+              "A": "M500 250.002c0 138.065-111.931 249.996-250 249.996-138.071 0-250-111.931-250-249.996C0 111.93 111.929 0 250 0s250 111.93 250 250.002z",
+              "B": {
+                "A": true,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAF_iR0W7n0",
+                    "B": 1
+                  },
+                  "B": {
+                    "A": -3.546477737837108,
+                    "D": 500,
+                    "C": 750.46904315197
+                  }
+                }
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 500,
+              "C": 499.998
+            },
+            "B": 500,
+            "C": 499.998,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {}
+        },
+        {
+          "A?": "J",
+          "A": 1326.3716441908537,
+          "B": 1035.022969058216,
+          "D": 70.15923262811208,
+          "C": 77.41708427929609,
+          "_": "LBlKTMhJG0DxbnXf",
+          "a": {
+            "D": 58,
+            "C": 64
+          },
+          "b": [
+            {
+              "A": "M58 0V64L29 54L0 64L0 0H58Z",
+              "B": {
+                "A": false,
+                "C": "#ffffff"
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 58,
+              "C": 54
+            },
+            "B": 58,
+            "C": 54,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {},
+          "f": [
+            {
+              "A": {
+                "A": [
+                  {
+                    "A?": "A",
+                    "A": "\n"
+                  }
+                ],
+                "B": [
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {
+                        "B": "#ffffff"
+                      },
+                      "font-family": {
+                        "B": "YAFdJjTk5UU,0"
+                      },
+                      "font-kerning": {
+                        "B": "normal"
+                      },
+                      "font-size": {
+                        "B": "28.0108"
+                      },
+                      "font-style": {
+                        "B": "normal"
+                      },
+                      "font-weight": {
+                        "B": "normal"
+                      },
+                      "leading": {
+                        "B": "1400.0"
+                      },
+                      "text-align": {
+                        "B": "center"
+                      },
+                      "text-transform": {
+                        "B": "none"
+                      },
+                      "tracking": {
+                        "B": "0.0"
+                      }
+                    }
+                  },
+                  {
+                    "A?": "B",
+                    "A": 1
+                  },
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {},
+                      "font-family": {},
+                      "font-kerning": {},
+                      "font-size": {},
+                      "font-style": {},
+                      "font-weight": {},
+                      "leading": {},
+                      "text-align": {},
+                      "text-transform": {},
+                      "tracking": {}
+                    }
+                  }
+                ]
+              },
+              "B": {
+                "A": [
+                  0
+                ]
+              },
+              "D": {
+                "D": 58,
+                "C": 54
+              },
+              "E": [
+                4
+              ],
+              "F": "B"
+            }
+          ],
+          "h": {
+            "A?": "H",
+            "A": 77.41708427929609
+          }
+        },
+        {
+          "A?": "K",
+          "A": 504.9698203104116,
+          "B": 120.00000000000011,
+          "D": 612.3620070537063,
+          "C": 134,
+          "N": "heading",
+          "_": "LBJ4ZkDXqkL9WTbl",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Focus on Benefits, Not Just Features\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#2b2024"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "55.9995"
+                  },
+                  "font-weight": {
+                    "B": "bold"
+                  },
+                  "leading": {
+                    "B": "1200.0"
+                  },
+                  "tracking": {
+                    "B": "20.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 37
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 694.2213422909919,
+          "B": 120,
+          "D": 612.3620070537063,
+          "C": 342,
+          "N": "heading",
+          "_": "LBg2hqzKhd0RRVy4",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "The first secret is to shift your focus from merely describing what you offer to highlighting what the reader will gain or what problem will be solved for them.\n\nYour audience cares about how your product or service can make their lives easier, solve their issues, or help them achieve their goals. \n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#2b2024"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "32.0"
+                  },
+                  "leading": {
+                    "B": "1200.0"
+                  },
+                  "tracking": {
+                    "B": "20.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 300
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "leading": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 119.99999999999999,
+          "B": 120,
+          "D": 345.49345351105694,
+          "C": 33.390897250976565,
+          "N": "heading",
+          "_": "LBH6qXH4XK6w5TGJ",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "www.reallygreatsite.com\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFdJjTk5UU,0"
+                  },
+                  "font-size": {
+                    "B": "28.0108"
+                  },
+                  "leading": {
+                    "B": "1400.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 24
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1285.1849960667485,
+          "B": 240.59003387419438,
+          "D": 255.0380427467269,
+          "C": 43.986872,
+          "N": "heading",
+          "_": "LB1GQckw385k2HQ1",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Claudia Alves\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "37.3359"
+                  },
+                  "font-weight": {
+                    "B": "bold"
+                  },
+                  "leading": {
+                    "B": "1120.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 13
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1333.8438685805017,
+          "B": 244.5900338741944,
+          "D": 224.90341963686257,
+          "C": 33.240224,
+          "N": "paragraph",
+          "_": "LB07KMrhjP3LVPY7",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "@reallygreatsite\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "28.0028"
+                  },
+                  "leading": {
+                    "B": "1120.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 17
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 120.00000000000001,
+          "B": 1035.022969058216,
+          "D": 44.97703094178382,
+          "C": 33.39998,
+          "N": "paragraph",
+          "_": "LByFCy0z7WrxKwcP",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "2/5\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFdJjTk5UU,0"
+                  },
+                  "font-size": {
+                    "B": "28.0001"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "leading": {
+                    "B": "1400.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 3
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        }
+      ]
+    },
+    {
+      "A?": "i",
+      "a": "PBmHMnYRdwB2BhFz",
+      "G": {
+        "A": "EAGqwqBlN18",
+        "B": 1,
+        "C": 3
+      },
+      "D": {
+        "C": "#ff5757"
+      },
+      "E": [
+        {
+          "A?": "K",
+          "A": 14.88873148987409,
+          "B": 518.6280766209213,
+          "D": 772.7903737994134,
+          "C": 1405,
+          "N": "do-not-change",
+          "_": "LBHtV8hd5t861Bhb",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "2\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YACgEZulLoA,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "1171.18"
+                  },
+                  "leading": {
+                    "B": "1200.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "tracking": {
+                    "B": "20.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "J",
+          "A": 1272.7432883817078,
+          "B": 120.00000000000014,
+          "D": 107.25714064685447,
+          "C": 107.2567116182919,
+          "_": "LBklxYXR17wTLmBb",
+          "a": {
+            "D": 500,
+            "C": 499.998
+          },
+          "b": [
+            {
+              "A": "M500 250.002c0 138.065-111.931 249.996-250 249.996-138.071 0-250-111.931-250-249.996C0 111.93 111.929 0 250 0s250 111.93 250 250.002z",
+              "B": {
+                "A": true,
+                "C": "#ffffff"
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 500,
+              "C": 499.998
+            },
+            "B": 500,
+            "C": 499.998,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {}
+        },
+        {
+          "A?": "J",
+          "A": 1278.6926647377488,
+          "B": 125.94940015364196,
+          "D": 95.35834033957082,
+          "C": 95.35795890620948,
+          "_": "LB0fysjz57G0rVtP",
+          "a": {
+            "D": 500,
+            "C": 499.998
+          },
+          "b": [
+            {
+              "A": "M500 250.002c0 138.065-111.931 249.996-250 249.996-138.071 0-250-111.931-250-249.996C0 111.93 111.929 0 250 0s250 111.93 250 250.002z",
+              "B": {
+                "A": true,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAF_iR0W7n0",
+                    "B": 1
+                  },
+                  "B": {
+                    "A": -3.546477737837108,
+                    "D": 500,
+                    "C": 750.46904315197
+                  }
+                }
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 500,
+              "C": 499.998
+            },
+            "B": 500,
+            "C": 499.998,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {}
+        },
+        {
+          "A?": "J",
+          "A": 1326.3716441908537,
+          "B": 1035.022969058216,
+          "D": 70.15923262811208,
+          "C": 77.41708427929609,
+          "_": "LBBRK7Wk5Z3RnQkX",
+          "a": {
+            "D": 58,
+            "C": 64
+          },
+          "b": [
+            {
+              "A": "M58 0V64L29 54L0 64L0 0H58Z",
+              "B": {
+                "A": false,
+                "C": "#ffffff"
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 58,
+              "C": 54
+            },
+            "B": 58,
+            "C": 54,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {},
+          "f": [
+            {
+              "A": {
+                "A": [
+                  {
+                    "A?": "A",
+                    "A": "\n"
+                  }
+                ],
+                "B": [
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {
+                        "B": "#ffffff"
+                      },
+                      "font-family": {
+                        "B": "YAFdJjTk5UU,0"
+                      },
+                      "font-kerning": {
+                        "B": "normal"
+                      },
+                      "font-size": {
+                        "B": "28.0108"
+                      },
+                      "font-style": {
+                        "B": "normal"
+                      },
+                      "font-weight": {
+                        "B": "normal"
+                      },
+                      "leading": {
+                        "B": "1400.0"
+                      },
+                      "text-align": {
+                        "B": "center"
+                      },
+                      "text-transform": {
+                        "B": "none"
+                      },
+                      "tracking": {
+                        "B": "0.0"
+                      }
+                    }
+                  },
+                  {
+                    "A?": "B",
+                    "A": 1
+                  },
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {},
+                      "font-family": {},
+                      "font-kerning": {},
+                      "font-size": {},
+                      "font-style": {},
+                      "font-weight": {},
+                      "leading": {},
+                      "text-align": {},
+                      "text-transform": {},
+                      "tracking": {}
+                    }
+                  }
+                ]
+              },
+              "B": {
+                "A": [
+                  0
+                ]
+              },
+              "D": {
+                "D": 58,
+                "C": 54
+              },
+              "E": [
+                4
+              ],
+              "F": "B"
+            }
+          ],
+          "h": {
+            "A?": "H",
+            "A": 77.41708427929609
+          }
+        },
+        {
+          "A?": "K",
+          "A": 458.9698203104116,
+          "B": 120.00000000000011,
+          "D": 673.499554074592,
+          "C": 134,
+          "N": "heading",
+          "_": "LBGS4Xg1HRZy3z0P",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Use Numbers and Emotional Power Words\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#2b2024"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "55.9995"
+                  },
+                  "font-weight": {
+                    "B": "bold"
+                  },
+                  "leading": {
+                    "B": "1200.0"
+                  },
+                  "tracking": {
+                    "B": "20.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 38
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 653.2213422909919,
+          "B": 120,
+          "D": 612.3620070537063,
+          "C": 418,
+          "N": "heading",
+          "_": "LBWbxyYlydXZ3RPL",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "The second secret is to combine numbers with words that evoke emotion or curiosity. Numbers provide specificity and make headlines feel more concrete and trustworthy (e.g., \"7 Proven Ways\").\n\nMeanwhile, emotional power words like \"secret,\" \"proven,\" \"amazing,\" \"free,\" \"quick,\" or \"shocking\" can spark curiosity or urgency. Combining these elements creates maximum impact. \n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#2b2024"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "32.0"
+                  },
+                  "leading": {
+                    "B": "1200.0"
+                  },
+                  "tracking": {
+                    "B": "20.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 374
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "leading": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 119.99999999999999,
+          "B": 120,
+          "D": 345.49345351105694,
+          "C": 33.390897250976565,
+          "N": "heading",
+          "_": "LB3N4sxvzp0qYp1W",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "www.reallygreatsite.com\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFdJjTk5UU,0"
+                  },
+                  "font-size": {
+                    "B": "28.0108"
+                  },
+                  "leading": {
+                    "B": "1400.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 24
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1285.1849960667485,
+          "B": 240.59003387419438,
+          "D": 255.0380427467269,
+          "C": 43.986872,
+          "N": "heading",
+          "_": "LBclbgpG1v20XpjT",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Claudia Alves\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "37.3359"
+                  },
+                  "font-weight": {
+                    "B": "bold"
+                  },
+                  "leading": {
+                    "B": "1120.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 13
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1333.8438685805017,
+          "B": 244.5900338741944,
+          "D": 224.90341963686257,
+          "C": 33.240224,
+          "N": "paragraph",
+          "_": "LBgy6Vn2p82r1LTT",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "@reallygreatsite\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "28.0028"
+                  },
+                  "leading": {
+                    "B": "1120.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 17
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 120.00000000000001,
+          "B": 1035.022969058216,
+          "D": 44.97703094178382,
+          "C": 33.39998,
+          "N": "paragraph",
+          "_": "LB0X7PNKrLNVbDj9",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "3/5\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFdJjTk5UU,0"
+                  },
+                  "font-size": {
+                    "B": "28.0001"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "leading": {
+                    "B": "1400.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 3
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        }
+      ]
+    },
+    {
+      "A?": "i",
+      "a": "PBhVsGc9p0d4gTDb",
+      "G": {
+        "A": "EAGqwqBlN18",
+        "B": 1,
+        "C": 4
+      },
+      "D": {
+        "C": "#ff5757"
+      },
+      "E": [
+        {
+          "A?": "K",
+          "A": 14.88873148987409,
+          "B": 518.6280766209213,
+          "D": 772.7903737994134,
+          "C": 1405,
+          "N": "do-not-change",
+          "_": "LBmy9HNq9LPtbtPP",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "3\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YACgEZulLoA,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "1171.18"
+                  },
+                  "leading": {
+                    "B": "1200.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "tracking": {
+                    "B": "20.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "J",
+          "A": 1272.7432883817078,
+          "B": 120.00000000000014,
+          "D": 107.25714064685447,
+          "C": 107.2567116182919,
+          "_": "LBvLPDm6jgYQpyxc",
+          "a": {
+            "D": 500,
+            "C": 499.998
+          },
+          "b": [
+            {
+              "A": "M500 250.002c0 138.065-111.931 249.996-250 249.996-138.071 0-250-111.931-250-249.996C0 111.93 111.929 0 250 0s250 111.93 250 250.002z",
+              "B": {
+                "A": true,
+                "C": "#ffffff"
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 500,
+              "C": 499.998
+            },
+            "B": 500,
+            "C": 499.998,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {}
+        },
+        {
+          "A?": "J",
+          "A": 1278.6926647377488,
+          "B": 125.94940015364196,
+          "D": 95.35834033957082,
+          "C": 95.35795890620948,
+          "_": "LBfYqrXwRBvPQssz",
+          "a": {
+            "D": 500,
+            "C": 499.998
+          },
+          "b": [
+            {
+              "A": "M500 250.002c0 138.065-111.931 249.996-250 249.996-138.071 0-250-111.931-250-249.996C0 111.93 111.929 0 250 0s250 111.93 250 250.002z",
+              "B": {
+                "A": true,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAF_iR0W7n0",
+                    "B": 1
+                  },
+                  "B": {
+                    "A": -3.546477737837108,
+                    "D": 500,
+                    "C": 750.46904315197
+                  }
+                }
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 500,
+              "C": 499.998
+            },
+            "B": 500,
+            "C": 499.998,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {}
+        },
+        {
+          "A?": "J",
+          "A": 1326.3716441908537,
+          "B": 1035.022969058216,
+          "D": 70.15923262811208,
+          "C": 77.41708427929609,
+          "_": "LB3GWlPJWm05ydN1",
+          "a": {
+            "D": 58,
+            "C": 64
+          },
+          "b": [
+            {
+              "A": "M58 0V64L29 54L0 64L0 0H58Z",
+              "B": {
+                "A": false,
+                "C": "#ffffff"
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 58,
+              "C": 54
+            },
+            "B": 58,
+            "C": 54,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {},
+          "f": [
+            {
+              "A": {
+                "A": [
+                  {
+                    "A?": "A",
+                    "A": "\n"
+                  }
+                ],
+                "B": [
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {
+                        "B": "#ffffff"
+                      },
+                      "font-family": {
+                        "B": "YAFdJjTk5UU,0"
+                      },
+                      "font-kerning": {
+                        "B": "normal"
+                      },
+                      "font-size": {
+                        "B": "28.0108"
+                      },
+                      "font-style": {
+                        "B": "normal"
+                      },
+                      "font-weight": {
+                        "B": "normal"
+                      },
+                      "leading": {
+                        "B": "1400.0"
+                      },
+                      "text-align": {
+                        "B": "center"
+                      },
+                      "text-transform": {
+                        "B": "none"
+                      },
+                      "tracking": {
+                        "B": "0.0"
+                      }
+                    }
+                  },
+                  {
+                    "A?": "B",
+                    "A": 1
+                  },
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {},
+                      "font-family": {},
+                      "font-kerning": {},
+                      "font-size": {},
+                      "font-style": {},
+                      "font-weight": {},
+                      "leading": {},
+                      "text-align": {},
+                      "text-transform": {},
+                      "tracking": {}
+                    }
+                  }
+                ]
+              },
+              "B": {
+                "A": [
+                  0
+                ]
+              },
+              "D": {
+                "D": 58,
+                "C": 54
+              },
+              "E": [
+                4
+              ],
+              "F": "B"
+            }
+          ],
+          "h": {
+            "A?": "H",
+            "A": 77.41708427929609
+          }
+        },
+        {
+          "A?": "K",
+          "A": 443.9698203104116,
+          "B": 119.00000000000014,
+          "D": 673.499554074592,
+          "C": 134,
+          "N": "heading",
+          "_": "LB6hb78YcBxfvShH",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Create Urgency or Exclusivity\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#2b2024"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "55.9995"
+                  },
+                  "font-weight": {
+                    "B": "bold"
+                  },
+                  "leading": {
+                    "B": "1200.0"
+                  },
+                  "tracking": {
+                    "B": "20.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 30
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 623.2213422909919,
+          "B": 120,
+          "D": 612.3620070537063,
+          "C": 456,
+          "N": "paragraph",
+          "_": "LBksqt7RpWgLw6h9",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "The third secret is to make readers feel like they're going to miss out (FOMO - Fear of Missing Out) or gain access to something special. Urgency can be created by including time limitations (\"Limited Time Offer,\" \"Expires Soon\") or emphasizing a limited opportunity.\n\nExclusivity can be conveyed by implying that the information isn't widely known or is only for a select group (\"The Unrevealed Secret,\" \"Expert-Only Guide\").\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#2b2024"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "32.0"
+                  },
+                  "leading": {
+                    "B": "1200.0"
+                  },
+                  "tracking": {
+                    "B": "20.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 427
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "leading": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 119.99999999999999,
+          "B": 120,
+          "D": 345.49345351105694,
+          "C": 33.390897250976565,
+          "N": "heading",
+          "_": "LBd1r0cZnf2ZPwkZ",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "www.reallygreatsite.com\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFdJjTk5UU,0"
+                  },
+                  "font-size": {
+                    "B": "28.0108"
+                  },
+                  "leading": {
+                    "B": "1400.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 24
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1285.1849960667485,
+          "B": 240.59003387419438,
+          "D": 255.0380427467269,
+          "C": 43.986872,
+          "N": "heading",
+          "_": "LBthqdwVqSMYhqTM",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Claudia Alves\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "37.3359"
+                  },
+                  "font-weight": {
+                    "B": "bold"
+                  },
+                  "leading": {
+                    "B": "1120.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 13
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1333.8438685805017,
+          "B": 244.5900338741944,
+          "D": 224.90341963686257,
+          "C": 33.240224,
+          "N": "paragraph",
+          "_": "LB1l48gdXlMmHWV1",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "@reallygreatsite\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "28.0028"
+                  },
+                  "leading": {
+                    "B": "1120.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 17
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 120.00000000000001,
+          "B": 1035.022969058216,
+          "D": 44.97703094178382,
+          "C": 33.39998,
+          "N": "paragraph",
+          "_": "LB61zRhjLvZprtQw",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "3/5\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFdJjTk5UU,0"
+                  },
+                  "font-size": {
+                    "B": "28.0001"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "leading": {
+                    "B": "1400.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 3
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        }
+      ]
+    },
+    {
+      "A?": "i",
+      "a": "PB2Qh0G5j1fYNfBT",
+      "G": {
+        "A": "EAGqwqBlN18",
+        "B": 1,
+        "C": 5
+      },
+      "D": {
+        "C": "#ffffff"
+      },
+      "E": [
+        {
+          "A?": "K",
+          "A": 312.15735700808443,
+          "B": 120,
+          "D": 1056.397933367953,
+          "C": 422.24849,
+          "N": "title",
+          "_": "LB8CNflRQlpcNfn4",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Find this useful? \n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ff5757"
+                  },
+                  "font-family": {
+                    "B": "YACgEZulLoA,0"
+                  },
+                  "font-kerning": {
+                    "B": "normal"
+                  },
+                  "font-size": {
+                    "B": "189.697"
+                  },
+                  "leading": {
+                    "B": "1030.0"
+                  },
+                  "tracking": {
+                    "B": "20.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 18
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "text-transform": {
+                    "B": "none"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-kerning": {},
+                  "font-size": {},
+                  "leading": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "J",
+          "A": 1272.7432883817078,
+          "B": 120.00000000000014,
+          "D": 107.25714064685447,
+          "C": 107.2567116182919,
+          "_": "LBLD0V0xsdqFsmgX",
+          "a": {
+            "D": 500,
+            "C": 499.998
+          },
+          "b": [
+            {
+              "A": "M500 250.002c0 138.065-111.931 249.996-250 249.996-138.071 0-250-111.931-250-249.996C0 111.93 111.929 0 250 0s250 111.93 250 250.002z",
+              "B": {
+                "A": true,
+                "C": "#ff5757"
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 500,
+              "C": 499.998
+            },
+            "B": 500,
+            "C": 499.998,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {}
+        },
+        {
+          "A?": "J",
+          "A": 1278.6926647377488,
+          "B": 125.94940015364196,
+          "D": 95.35834033957082,
+          "C": 95.35795890620948,
+          "_": "LBTqv1vCxsG3pNTW",
+          "a": {
+            "D": 500,
+            "C": 499.998
+          },
+          "b": [
+            {
+              "A": "M500 250.002c0 138.065-111.931 249.996-250 249.996-138.071 0-250-111.931-250-249.996C0 111.93 111.929 0 250 0s250 111.93 250 250.002z",
+              "B": {
+                "A": true,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAF_iR0W7n0",
+                    "B": 1
+                  },
+                  "B": {
+                    "A": -3.546477737837108,
+                    "D": 500,
+                    "C": 750.46904315197
+                  }
+                }
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 500,
+              "C": 499.998
+            },
+            "B": 500,
+            "C": 499.998,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {}
+        },
+        {
+          "A?": "J",
+          "A": 1326.3716441908537,
+          "B": 1035.022969058216,
+          "D": 70.15923262811208,
+          "C": 77.41708427929609,
+          "_": "LBh6DnPx8fr61mqB",
+          "a": {
+            "D": 58,
+            "C": 64
+          },
+          "b": [
+            {
+              "A": "M58 0V64L29 54L0 64L0 0H58Z",
+              "B": {
+                "A": false,
+                "C": "#ff5757"
+              }
+            }
+          ],
+          "c": {
+            "A": {
+              "D": 58,
+              "C": 54
+            },
+            "B": 58,
+            "C": 54,
+            "D": "A",
+            "E": "A"
+          },
+          "e": {},
+          "f": [
+            {
+              "A": {
+                "A": [
+                  {
+                    "A?": "A",
+                    "A": "\n"
+                  }
+                ],
+                "B": [
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {
+                        "B": "#ffffff"
+                      },
+                      "font-family": {
+                        "B": "YAFdJjTk5UU,0"
+                      },
+                      "font-kerning": {
+                        "B": "normal"
+                      },
+                      "font-size": {
+                        "B": "28.0108"
+                      },
+                      "font-style": {
+                        "B": "normal"
+                      },
+                      "font-weight": {
+                        "B": "normal"
+                      },
+                      "leading": {
+                        "B": "1400.0"
+                      },
+                      "text-align": {
+                        "B": "center"
+                      },
+                      "text-transform": {
+                        "B": "none"
+                      },
+                      "tracking": {
+                        "B": "0.0"
+                      }
+                    }
+                  },
+                  {
+                    "A?": "B",
+                    "A": 1
+                  },
+                  {
+                    "A?": "A",
+                    "A": {
+                      "color": {},
+                      "font-family": {},
+                      "font-kerning": {},
+                      "font-size": {},
+                      "font-style": {},
+                      "font-weight": {},
+                      "leading": {},
+                      "text-align": {},
+                      "text-transform": {},
+                      "tracking": {}
+                    }
+                  }
+                ]
+              },
+              "B": {
+                "A": [
+                  0
+                ]
+              },
+              "D": {
+                "D": 58,
+                "C": 54
+              },
+              "E": [
+                4
+              ],
+              "F": "B"
+            }
+          ],
+          "h": {
+            "A?": "H",
+            "A": 77.41708427929609
+          }
+        },
+        {
+          "A?": "K",
+          "A": 764,
+          "B": 125.94940015364193,
+          "D": 783.9131149879449,
+          "C": 285,
+          "N": "subtitle",
+          "_": "LB49z0RpMCpWyWfz",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "helpful, please like and share it with your friends\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#2b2024"
+                  },
+                  "font-family": {
+                    "B": "YAFdJjTk5UU,0"
+                  },
+                  "font-size": {
+                    "B": "79.9997"
+                  },
+                  "font-weight": {
+                    "B": "bold"
+                  },
+                  "leading": {
+                    "B": "1200.0"
+                  },
+                  "tracking": {
+                    "B": "20.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 52
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 119.99999999999999,
+          "B": 120,
+          "D": 345.49345351105694,
+          "C": 33.390897250976565,
+          "N": "pretitle",
+          "_": "LBmT2vcwYJjT0N2S",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "www.reallygreatsite.com\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "font-family": {
+                    "B": "YAFdJjTk5UU,0"
+                  },
+                  "font-size": {
+                    "B": "28.0108"
+                  },
+                  "leading": {
+                    "B": "1400.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 24
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1285.1849960667485,
+          "B": 240.59003387419438,
+          "D": 255.0380427467269,
+          "C": 43.986872,
+          "N": "heading",
+          "_": "LB0nhJGGgn4sKLxx",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Claudia Alves\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "37.3359"
+                  },
+                  "font-weight": {
+                    "B": "bold"
+                  },
+                  "leading": {
+                    "B": "1120.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 13
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 1333.8438685805017,
+          "B": 244.5900338741944,
+          "D": 224.90341963686257,
+          "C": 33.240224,
+          "N": "paragraph",
+          "_": "LBlqpdMzS37TsHVY",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "@reallygreatsite\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "font-family": {
+                    "B": "YACgEev4gKc,0"
+                  },
+                  "font-size": {
+                    "B": "28.0028"
+                  },
+                  "leading": {
+                    "B": "1120.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 17
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 120.00000000000001,
+          "B": 1035.022969058216,
+          "D": 44.97703094178382,
+          "C": 33.39998,
+          "N": "paragraph",
+          "_": "LBrRxKvm3xsc644Q",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "1/5\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#000000"
+                  },
+                  "font-family": {
+                    "B": "YAFdJjTk5UU,0"
+                  },
+                  "font-size": {
+                    "B": "28.0001"
+                  },
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  },
+                  "leading": {
+                    "B": "1400.0"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  },
+                  "text-align": {
+                    "B": "center"
+                  },
+                  "text-transform": {
+                    "B": "none"
+                  },
+                  "tracking": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 4
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "leading": {},
+                  "spacing": {},
+                  "text-align": {},
+                  "text-transform": {},
+                  "tracking": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "g": true,
+          "h": "A"
+        }
+      ]
+    }
+  ],
+  "media": [
+    {
+      "type": "RASTER",
+      "id": "MAF_iR0W7n0",
+      "version": 1,
+      "brand": "BAD6901U-Ao",
+      "user": "UADl5rPi2_4",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BRl9pUjBXN24wUgAAAZ-DSKqFvSgY_soYvN92_h6IOGGxyzdpyPwrJhea4XlJMqjdAP4",
+        "expiry": 1784614005381
+      },
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Studio Portrait of a Japanese Woman",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/0W7n0/MAF_iR0W7n0/1/t.jpg",
+          "width": 133,
+          "height": 200,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/jpeg",
+          "fileSizeBytes": 4268
+        },
+        {
+          "url": "https://media-public.canva.com/0W7n0/MAF_iR0W7n0/1/s.jpg",
+          "width": 533,
+          "height": 800,
+          "quality": "SCREEN",
+          "mimeType": "image/jpeg",
+          "fileSizeBytes": 81119
+        },
+        {
+          "url": "https://media-public.canva.com/0W7n0/MAF_iR0W7n0/1/s2.jpg",
+          "width": 1067,
+          "height": 1600,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/jpeg",
+          "fileSizeBytes": 294810
+        },
+        {
+          "url": "https://media-public.canva.com/0W7n0/MAF_iR0W7n0/1/s3.jpg",
+          "width": 1600,
+          "height": 2400,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/jpeg",
+          "fileSizeBytes": 718337
+        }
+      ]
+    }
+  ],
+  "fonts": [
+    {
+      "A": "YACgEZ1cb1Q",
+      "C": "Arimo",
+      "D": [
+        {
+          "style": "BOLD_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBoldItalic.08fb930e5cf38bab811efa91f368b248.ttf",
+              "format": "OTF",
+              "sizeBytes": 435028
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBoldItalic.c7a16bdf2cea8da7d5accf8369441561.woff",
+              "format": "WOFF",
+              "sizeBytes": 237660
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBoldItalic.08fb930e5cf38bab811efa91.1060345c54d396e76d73f1da7ee200bd.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 203232
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBoldItalic.08fb930e5cf38bab811efa91.adcf6c0d2912ad56524ac49fd0f4814.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 35704
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBoldItalic.08fb930e5cf38bab811efa91.3cde0ee1a0a114e576617800f5b4025f.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 44940
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBoldItalic.08fb930e5cf38bab811efa91.88fe25390ee059f620d40ee4e07eba73.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 82788
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -771,
+              "yMax": 2109
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -431,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 33
+            }
+          }
+        },
+        {
+          "style": "ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoItalic.fa87472a877e70c5bce22e42be5c25a9.ttf",
+              "format": "OTF",
+              "sizeBytes": 440740
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoItalic.bafbbb513c11845057f9358ac3efa073.woff",
+              "format": "WOFF",
+              "sizeBytes": 240632
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoItalic.fa87472a877e70c5bce22e42be5c.d257a7100844bc3f98c9021168b6249e.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 201132
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoItalic.fa87472a877e70c5bce22e42be5c.1bd55f3610e33ea0ddc29625337cfe5.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 36704
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoItalic.fa87472a877e70c5bce22e42be5c.85054e431a9f5a044d28aa5ae02096c9.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 45628
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoItalic.fa87472a877e70c5bce22e42be5c.e6711c21e2ed6fc79ec9ee042dd7636b.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 82348
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -621,
+              "yMax": 2077
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -425,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 1
+            }
+          }
+        },
+        {
+          "style": "REGULAR",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/Arimo.7ac02a544211773d9636e056e9da6c35.ttf",
+              "format": "OTF",
+              "sizeBytes": 436180
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/Arimo.1c8ab6ba5931166f629c6d814d3580b2.woff",
+              "format": "WOFF",
+              "sizeBytes": 234380
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/Arimo.7ac02a544211773d9636e056e9da6c35.7.f8f199f09526f79e87644ed227e0f651.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 194188
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/Arimo.7ac02a544211773d9636e056e9da6c35.7.3062704d78e4a6a3b3f1dbd88a190e4.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 36648
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/Arimo.7ac02a544211773d9636e056e9da6c35.7.98908797bcdc875f4306c5a4ae04708a.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 45912
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/Arimo.7ac02a544211773d9636e056e9da6c35.7.f153ae24bfeae042c40e10cc50bbf9d9.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 85712
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -621,
+              "yMax": 2007
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -431,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 64
+            }
+          }
+        },
+        {
+          "style": "BOLD",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBold.927b7dca5b947f69cb8e835f7f743d15.ttf",
+              "format": "OTF",
+              "sizeBytes": 438516
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBold.68670fffa1a87fb970dc63f26d8cc0fc.woff",
+              "format": "WOFF",
+              "sizeBytes": 234696
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBold.927b7dca5b947f69cb8e835f7f743d.98c4d2c0223fc8474641c77f923528e9.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 194064
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBold.927b7dca5b947f69cb8e835f7f743d.f033e4c1331a6e2eec13dcf8a45dbcf.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 35468
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBold.927b7dca5b947f69cb8e835f7f743d.5841aaf5f5c182d32ee229514397ec0c.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 44416
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBold.927b7dca5b947f69cb8e835f7f743d.0c7cfe36fd13e7196de3016bc8e8950b.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 83456
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -771,
+              "yMax": 2116
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -431,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 32
+            }
+          }
+        }
+      ]
+    },
+    {
+      "A": "YACgEZulLoA",
+      "C": "Archivo Black",
+      "D": [
+        {
+          "style": "REGULAR",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZulLoA/0/ArchivoBlack.070d925f3e4f6d2fcf9d04767cf6cebf.ttf",
+              "format": "OTF",
+              "sizeBytes": 90988
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZulLoA/0/ArchivoBlack.4c40e73a5e623515ef824fcba136b747.woff",
+              "format": "WOFF",
+              "sizeBytes": 40708
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZulLoA/0/ArchivoBlack.070d925f3e4f6d2fcf9d04767cf.0f08785b1afcac54573a110a7a6093b4.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 36888
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZulLoA/0/subsets/ArchivoBlack.070d925f3e4f6d2fcf9d04767cf.198f6f14130b271e4e689643a8dac77.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 24120
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZulLoA/0/subsets/ArchivoBlack.070d925f3e4f6d2fcf9d04767cf.233e287855ffae0b42fa387bc29080bc.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 31364
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZulLoA/0/subsets/ArchivoBlack.070d925f3e4f6d2fcf9d04767cf.c991808cd1b5c9f4eba2937fb71a6f60.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 72528
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -267,
+              "yMax": 957
+            },
+            "hhea": {
+              "ascender": 878,
+              "descender": -210
+            },
+            "os2": {
+              "sTypoAscender": 878,
+              "sTypoDescender": -210,
+              "usWinAscent": 1035,
+              "usWinDescent": 312,
+              "fsSelection": 64
+            }
+          }
+        }
+      ]
+    },
+    {
+      "A": "YAFdJjTk5UU",
+      "C": "Canva Sans",
+      "D": [
+        {
+          "style": "ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-RegularItalic16711881996774813.8dbae49e1280328b442be6dfff163124.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 42500
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-RegularItalic17743241118991377.9908e382b6cacac06c41f2338221730b.woff",
+              "format": "WOFF",
+              "sizeBytes": 56120
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-RegularItalic18430763290797908.267ce2bbd62c7b3a6ed10e033935dda6.ttf",
+              "format": "OTF",
+              "sizeBytes": 124432
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -485,
+              "yMax": 1953
+            },
+            "hhea": {
+              "ascender": 2189,
+              "descender": -600
+            },
+            "os2": {
+              "sTypoAscender": 1567,
+              "sTypoDescender": -492,
+              "sTypoLineGap": 132,
+              "usWinAscent": 2189,
+              "usWinDescent": 600,
+              "fsSelection": 1
+            }
+          }
+        },
+        {
+          "style": "REGULAR",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Regular15263162195051178836.f4.f4a4890561b3fddfd1fd9a1b27b6d4a4.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 40708
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Regular13501930200023714920.52.524aad5b2fc603ca22e7683fe2bd57ad.woff",
+              "format": "WOFF",
+              "sizeBytes": 53272
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Regular9755562880743818424.2de.2de498afbe8ce167560d5df6489c2042.ttf",
+              "format": "OTF",
+              "sizeBytes": 120996
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -485,
+              "yMax": 1953
+            },
+            "hhea": {
+              "ascender": 2189,
+              "descender": -600
+            },
+            "os2": {
+              "sTypoAscender": 1567,
+              "sTypoDescender": -492,
+              "sTypoLineGap": 132,
+              "usWinAscent": 2189,
+              "usWinDescent": 600,
+              "fsSelection": 64
+            }
+          }
+        },
+        {
+          "style": "BOLD_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-BoldItalic12646845404018590449.625cf32ea46ae48b58ebd3ff993de469.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 42876
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-BoldItalic15827235955313088116.8df989c19bad0ae48899c160edc848cc.woff",
+              "format": "WOFF",
+              "sizeBytes": 56332
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-BoldItalic9422701879008791752..e4bfa1ce4b7289012a75164e31bf53cb.ttf",
+              "format": "OTF",
+              "sizeBytes": 124480
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -543,
+              "yMax": 1965
+            },
+            "hhea": {
+              "ascender": 2189,
+              "descender": -600
+            },
+            "os2": {
+              "sTypoAscender": 1567,
+              "sTypoDescender": -492,
+              "sTypoLineGap": 132,
+              "usWinAscent": 2189,
+              "usWinDescent": 600,
+              "fsSelection": 33
+            }
+          }
+        },
+        {
+          "style": "BOLD",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Bold13644182954117137290.33696.33696a29f45c1b554a4c12443b998d21.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 41456
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Bold66750305961478980.99b501a0.99b501a05417cbc1b5836408f47cbf38.woff",
+              "format": "WOFF",
+              "sizeBytes": 54600
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Bold12338993995495434039.af71a.af71aaddb4396e5f746d513b7b12c6be.ttf",
+              "format": "OTF",
+              "sizeBytes": 122344
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -543,
+              "yMax": 1965
+            },
+            "hhea": {
+              "ascender": 2189,
+              "descender": -600
+            },
+            "os2": {
+              "sTypoAscender": 1567,
+              "sTypoDescender": -492,
+              "sTypoLineGap": 132,
+              "usWinAscent": 2189,
+              "usWinDescent": 600,
+              "fsSelection": 32
+            }
+          }
+        },
+        {
+          "style": "MEDIUM_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-MediumItalic.2114be9bf82cd092e.0f2e328113d2888dabe9fb7ff4e2e5bf.ttf",
+              "format": "OTF",
+              "sizeBytes": 125252
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-MediumItalic.2114be9bf82cd092e.e5e43f51d6d7939d8911c861efa5f9b7.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 43356
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-MediumItalic.2114be9bf82cd092e.2de4b160c4d61a6fd6031079a50ec067.woff",
+              "format": "WOFF",
+              "sizeBytes": 56892
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -514,
+              "yMax": 1959
+            },
+            "hhea": {
+              "ascender": 2189,
+              "descender": -600
+            },
+            "os2": {
+              "sTypoAscender": 1567,
+              "sTypoDescender": -492,
+              "sTypoLineGap": 132,
+              "usWinAscent": 2189,
+              "usWinDescent": 600,
+              "fsSelection": 1
+            }
+          }
+        },
+        {
+          "style": "MEDIUM",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Medium.95291d1cd5c6185e00ba590.118364a24c6803ae4026cdb1539432fd.ttf",
+              "format": "OTF",
+              "sizeBytes": 122064
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Medium.95291d1cd5c6185e00ba590.c69c23593c9bd5705c7780a200f2a6db.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 41508
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJjTk5UU/0/CanvaSans-Medium.95291d1cd5c6185e00ba590.8d9764193508af6a6217424b6142276e.woff",
+              "format": "WOFF",
+              "sizeBytes": 54632
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -514,
+              "yMax": 1959
+            },
+            "hhea": {
+              "ascender": 2189,
+              "descender": -600
+            },
+            "os2": {
+              "sTypoAscender": 1567,
+              "sTypoDescender": -492,
+              "sTypoLineGap": 132,
+              "usWinAscent": 2189,
+              "usWinDescent": 600,
+              "fsSelection": 64
+            }
+          }
+        }
+      ]
+    },
+    {
+      "A": "YACgEev4gKc",
+      "C": "Roboto",
+      "D": [
+        {
+          "style": "BOLD_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/Roboto-BoldItalic.1eb7a893589ddce89d81cdb22a356660.ttf",
+              "format": "OTF",
+              "sizeBytes": 174952
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/Roboto-BoldItalic.207be099b41912d7f487852930f43805.woff",
+              "format": "WOFF",
+              "sizeBytes": 96244
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/Roboto-BoldItalic.1eb7a893589ddce89d81cd.6c1a5314b777a3d520ba3da12df32cc9.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 81448
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/subsets/Roboto-BoldItalic.1eb7a893589ddce89d81cd.057731b80bb1081f38e306b541e4625.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 22340
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/subsets/Roboto-BoldItalic.1eb7a893589ddce89d81cd.83ebe2cb1f15b3f746ea684f599626a6.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 29444
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/subsets/Roboto-BoldItalic.1eb7a893589ddce89d81cd.52953b1b9dea14351c5b785d855df83c.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 55444
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -555,
+              "yMax": 2163
+            },
+            "hhea": {
+              "ascender": 1900,
+              "descender": -500
+            },
+            "os2": {
+              "sTypoAscender": 1536,
+              "sTypoDescender": -512,
+              "sTypoLineGap": 102,
+              "usWinAscent": 1946,
+              "usWinDescent": 512,
+              "fsSelection": 33
+            }
+          }
+        },
+        {
+          "style": "BOLD",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/Roboto-Bold.ee7b96fa85d8fdb8c126409326ac2d2b.ttf",
+              "format": "OTF",
+              "sizeBytes": 170760
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/Roboto-Bold.2f51b6ba1564a1c14026787d9d19eeaf.woff",
+              "format": "WOFF",
+              "sizeBytes": 90308
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/Roboto-Bold.ee7b96fa85d8fdb8c126409326ac.58b393ddd1cfd8653a34e37082411b9d.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 75324
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/subsets/Roboto-Bold.ee7b96fa85d8fdb8c126409326ac.ef5958956eb0379859d6101eba3368e.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 20648
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/subsets/Roboto-Bold.ee7b96fa85d8fdb8c126409326ac.7b2a9a746645ffc7047e6508a2a9cd8d.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 27604
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/subsets/Roboto-Bold.ee7b96fa85d8fdb8c126409326ac.2dd810f018f00a32068bf0028e034a1a.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 53484
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -555,
+              "yMax": 2163
+            },
+            "hhea": {
+              "ascender": 1900,
+              "descender": -500
+            },
+            "os2": {
+              "sTypoAscender": 1536,
+              "sTypoDescender": -512,
+              "sTypoLineGap": 102,
+              "usWinAscent": 1946,
+              "usWinDescent": 512,
+              "fsSelection": 32
+            }
+          }
+        },
+        {
+          "style": "ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/Roboto-Italic.42bbe4eefcde1297b11dc4b6491e9746.ttf",
+              "format": "OTF",
+              "sizeBytes": 173932
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/Roboto-Italic.6121a7de3171974618249eeab131c20f.woff",
+              "format": "WOFF",
+              "sizeBytes": 95740
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/Roboto-Italic.42bbe4eefcde1297b11dc4b649.b18c1bcf0315436f8e5d8a5f861f701e.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 81364
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/subsets/Roboto-Italic.42bbe4eefcde1297b11dc4b649.d352b8b61418ebf02f56a96d6ae53be.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 22552
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/subsets/Roboto-Italic.42bbe4eefcde1297b11dc4b649.99cbe9792a80c0ecbf91d52b885af458.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 29680
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/subsets/Roboto-Italic.42bbe4eefcde1297b11dc4b649.747c8b47cfb082913e8a63f73723534e.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 54940
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -555,
+              "yMax": 2163
+            },
+            "hhea": {
+              "ascender": 1900,
+              "descender": -500
+            },
+            "os2": {
+              "sTypoAscender": 1536,
+              "sTypoDescender": -512,
+              "sTypoLineGap": 102,
+              "usWinAscent": 1946,
+              "usWinDescent": 512,
+              "fsSelection": 1
+            }
+          }
+        },
+        {
+          "style": "REGULAR",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/Roboto-Regular.3e1af3ef546b9e6ecef9f3ba197bf7d2.ttf",
+              "format": "OTF",
+              "sizeBytes": 171676
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/Roboto-Regular.669126c044019df625eb1d44e8017a55.woff",
+              "format": "WOFF",
+              "sizeBytes": 89828
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/Roboto-Regular.3e1af3ef546b9e6ecef9f3ba1.254a21cb559da08565d4a9c0c0b84a36.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 75176
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/subsets/Roboto-Regular.3e1af3ef546b9e6ecef9f3ba1.4dda8fbd85f02e155f0b128fa06a666.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 20728
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/subsets/Roboto-Regular.3e1af3ef546b9e6ecef9f3ba1.61b0e09058540499d50b0e75730b9201.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 27828
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEev4gKc/0/subsets/Roboto-Regular.3e1af3ef546b9e6ecef9f3ba1.aecdbe0bf6a3b3db0dd358da5c5d22e7.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 54348
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -555,
+              "yMax": 2163
+            },
+            "hhea": {
+              "ascender": 1900,
+              "descender": -500
+            },
+            "os2": {
+              "sTypoAscender": 1536,
+              "sTypoDescender": -512,
+              "sTypoLineGap": 102,
+              "usWinAscent": 1946,
+              "usWinDescent": 512,
+              "fsSelection": 64
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1619 @@
+{
+  "designId": "DAHP7LxOtT8",
+  "extensionId": "YPKm_QmwljsX94sQEKnUmg",
+  "title": "Post Instagram Motivational Tweet Quote",
+  "docSize": {
+    "A": 1080,
+    "B": 1080,
+    "C": "D"
+  },
+  "pageCount": 1,
+  "pages": [
+    {
+      "A?": "i",
+      "a": "PBKGtYkVFtCJTQ81",
+      "G": {
+        "A": "EAE2N850FJc",
+        "B": 1,
+        "C": 1
+      },
+      "D": {
+        "B": {
+          "A": {
+            "A?": "d",
+            "A": "MADnx5skL80",
+            "B": 5
+          },
+          "B": {
+            "A": -227.31793960923608,
+            "D": 1080,
+            "C": 1534.6358792184722
+          }
+        },
+        "C": "#ffffff"
+      },
+      "E": [
+        {
+          "A?": "J",
+          "A": 137.27711944748268,
+          "B": 271.51807963165504,
+          "D": 536.9638407366899,
+          "C": 805.4457611050348,
+          "E": 90,
+          "F": 0.78,
+          "_": "LBPfLkYLvXXMvXln",
+          "a": {
+            "D": 500,
+            "C": 750
+          },
+          "b": [
+            {
+              "A": "M0,712V38C0,17,17,0,38,0h424c21,0,38,17.1,38,38v674c0,21-17,38-38,38H38C17.1,750,0,733,0,712z",
+              "B": {
+                "A": true,
+                "C": "#ffffff",
+                "G": true
+              }
+            }
+          ]
+        },
+        {
+          "A?": "J",
+          "A": 146.84878841636777,
+          "B": 277.8991922775785,
+          "D": 524.201615444843,
+          "C": 786.3024231672646,
+          "E": 90,
+          "_": "LBB4XJcQcF57LjXQ",
+          "a": {
+            "D": 500,
+            "C": 750
+          },
+          "b": [
+            {
+              "A": "M0,712V38C0,17,17,0,38,0h424c21,0,38,17.1,38,38v674c0,21-17,38-38,38H38C17.1,750,0,733,0,712z",
+              "B": {
+                "A": true,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MADnx5skL80",
+                    "B": 5
+                  },
+                  "B": {
+                    "A": -517.2547136216496,
+                    "B": -201.08318365582784,
+                    "D": 1180.529328561723,
+                    "C": 1677.483948222697
+                  },
+                  "D": {
+                    "A": -42,
+                    "E": 50,
+                    "F": 93
+                  }
+                },
+                "G": true
+              }
+            }
+          ]
+        },
+        {
+          "A?": "J",
+          "A": 329.5261573534633,
+          "B": 190.58244696845335,
+          "D": 101.25428423571684,
+          "C": 101.25387921857994,
+          "_": "LBGYRyGX5d3LgwKw",
+          "a": {
+            "D": 500,
+            "C": 499.998
+          },
+          "b": [
+            {
+              "A": "M500 250.002c0 138.065-111.931 249.996-250 249.996-138.071 0-250-111.931-250-249.996C0 111.93 111.929 0 250 0s250 111.93 250 250.002z",
+              "B": {
+                "A": true,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MADyRX0Yecg",
+                    "B": 1
+                  },
+                  "B": {
+                    "A": 2.842170943040401e-14,
+                    "B": -83.332,
+                    "D": 666.664,
+                    "C": 499.998
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "A?": "K",
+          "A": 472.1973450239683,
+          "B": 190.58244696845335,
+          "D": 708.2985692171701,
+          "C": 163.84512761912833,
+          "N": "heading",
+          "_": "LBZdcVCYFtpDf3mT",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Don't stop until you're proud of yourself. You can do anything you want to.\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFdJi-0PQg,0"
+                  },
+                  "font-size": {
+                    "B": "53.228"
+                  },
+                  "leading": {
+                    "B": "1150.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 75
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "font-weight": {
+                    "B": "normal"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "leading": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "e": 802.6097931001526,
+          "f": 185.6614,
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "H",
+          "A": 691.0219600162884,
+          "B": 262.8533615415503,
+          "D": 554.2932769168993,
+          "C": 63.178135385613565,
+          "_": "LBMBRGGbyZzGS5fV",
+          "b": 628.0984201263776,
+          "a": 71.59041733819095,
+          "c": [
+            {
+              "A?": "I",
+              "A": 4.334310688136611e-13,
+              "B": 259.14448872712967,
+              "D": 107.87597133152,
+              "C": 71.59041733819053,
+              "_": "LByrQtDPg4GJ0yCJ",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEvNubA7b4",
+                    "B": 1
+                  },
+                  "B": {
+                    "D": 107.87597133152,
+                    "C": 71.59041733819053
+                  },
+                  "C": {
+                    "#000000": "#ffffff"
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": 2.842170943040401e-14,
+              "B": 5.684341886080802e-14,
+              "D": 72.7813854639644,
+              "C": 71.59041733819043,
+              "_": "LBlx0tD6v109G6xT",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEvNsiRN70",
+                    "B": 1
+                  },
+                  "B": {
+                    "D": 72.7813854639644,
+                    "C": 71.59041733819043
+                  },
+                  "C": {
+                    "#000000": "#ffffff"
+                  }
+                }
+              }
+            },
+            {
+              "A?": "I",
+              "A": 3.1974423109204513e-13,
+              "B": 553.3835633218147,
+              "D": 74.71485680456294,
+              "C": 71.5904173381903,
+              "_": "LBy9q0kPMm1Pb94W",
+              "a": {
+                "A": false,
+                "B": {
+                  "A": {
+                    "A?": "d",
+                    "A": "MAEvNjuVEgw",
+                    "B": 1
+                  },
+                  "B": {
+                    "D": 74.71485680456294,
+                    "C": 71.5904173381903
+                  },
+                  "C": {
+                    "#000000": "#ffffff"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "A?": "K",
+          "A": 324.2308459860401,
+          "B": 323.4060483540245,
+          "D": 510.0673231271509,
+          "C": 70.33996729364519,
+          "N": "heading",
+          "_": "LBpVGClWhJhdlRrQ",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "Dani Martinez\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFdJi-0PQg,0"
+                  },
+                  "font-size": {
+                    "B": "66.4707"
+                  },
+                  "font-weight": {
+                    "B": "bold"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 13
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-style": {},
+                  "font-weight": {},
+                  "spacing": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "e": 577.9837013290796,
+          "f": 79.70586,
+          "g": true,
+          "h": "A"
+        },
+        {
+          "A?": "K",
+          "A": 394.12805338283096,
+          "B": 323.40604835402434,
+          "D": 382.51382447318053,
+          "C": 41.47878538847408,
+          "N": "subtitle",
+          "_": "LB9MJW9K9t3TFDBK",
+          "a": {
+            "A": [
+              {
+                "A?": "A",
+                "A": "@reallygreatsite\n"
+              }
+            ],
+            "B": [
+              {
+                "A?": "A",
+                "A": {
+                  "color": {
+                    "B": "#ffffff"
+                  },
+                  "font-family": {
+                    "B": "YAFdJi-0PQg,0"
+                  },
+                  "font-size": {
+                    "B": "39.9912"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 16
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "font-style": {
+                    "B": "normal"
+                  },
+                  "spacing": {
+                    "B": "0.0"
+                  }
+                }
+              },
+              {
+                "A?": "B",
+                "A": 1
+              },
+              {
+                "A?": "A",
+                "A": {
+                  "color": {},
+                  "font-family": {},
+                  "font-size": {},
+                  "font-style": {},
+                  "spacing": {}
+                }
+              }
+            ]
+          },
+          "b": {},
+          "d": "A",
+          "e": 433.4462257317309,
+          "f": 47.00176,
+          "g": true,
+          "h": "A"
+        }
+      ]
+    }
+  ],
+  "media": [
+    {
+      "type": "RASTER",
+      "id": "MADnx5skL80",
+      "version": 5,
+      "brand": "BADeGVMPgRk",
+      "user": "UAAXF-1ykBU",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BRG54NXNrTDgwUgAAAZ9_8nMV5SuGEx5G8bUW7EvxdUHF1ywAmmMmr8LPPxVlOINIuac",
+        "expiry": 1784558023445
+      },
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Hologram Texture",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/MADnx5skL80/5/thumbnail.png",
+          "width": 141,
+          "height": 200,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/MADnx5skL80/5/screen.png",
+          "width": 563,
+          "height": 800,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        }
+      ]
+    },
+    {
+      "type": "RASTER",
+      "id": "MADyRX0Yecg",
+      "version": 1,
+      "brand": "BADGSk3Wwk0",
+      "user": "UAAjE2rxZBc",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BRHlSWDBZZWNnUgAAAZ9_8nMVlswsFedxaCSd7X9z7Gm4IPai272N1qHpxNKFUm6Iwes",
+        "expiry": 1784558023445
+      },
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Woman Smiling Holding Camera",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/0Yecg/MADyRX0Yecg/1/t.jpg",
+          "width": 200,
+          "height": 150,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/jpeg"
+        },
+        {
+          "url": "https://media-public.canva.com/0Yecg/MADyRX0Yecg/1/s.jpg",
+          "width": 800,
+          "height": 600,
+          "quality": "SCREEN",
+          "mimeType": "image/jpeg"
+        },
+        {
+          "url": "https://media-public.canva.com/0Yecg/MADyRX0Yecg/1/s2.jpg",
+          "width": 1600,
+          "height": 1200,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/jpeg"
+        },
+        {
+          "url": "https://media-public.canva.com/0Yecg/MADyRX0Yecg/1/s3.jpg",
+          "width": 2400,
+          "height": 1800,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/jpeg"
+        }
+      ]
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAEvNubA7b4",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UADl5nbeq90",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BRXZOdWJBN2I0UgAAAZ9_8nMVa7PXXPZ3jRKErgaFj6kCUNssW2fqBPT83n4luRfAu_s",
+        "expiry": 1784558023445
+      },
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Buildable Twitter UI Retweet Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/bA7b4/MAEvNubA7b4/1/t.png",
+          "width": 200,
+          "height": 133,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/bA7b4/MAEvNubA7b4/1/s.svg",
+          "width": 487,
+          "height": 323,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/bA7b4/MAEvNubA7b4/1/s2-1.svg",
+          "width": 487,
+          "height": 323,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/bA7b4/MAEvNubA7b4/1/s3-1.svg",
+          "width": 487,
+          "height": 323,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/bA7b4/MAEvNubA7b4/1/ss_s-1.png",
+          "width": 800,
+          "height": 531,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/bA7b4/MAEvNubA7b4/1/ss_s2.png",
+          "width": 1600,
+          "height": 1061,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/bA7b4/MAEvNubA7b4/1/ss_s3.png",
+          "width": 2400,
+          "height": 1592,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 3,
+        "spritesHigh": 2,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_R"
+          },
+          {
+            "type": "BACKGROUND_G"
+          },
+          {
+            "type": "BACKGROUND_B"
+          },
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAEvNsiRN70",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UADl5nbeq90",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BRXZOc2lSTjcwUgAAAZ9_8nMVVEsyAacYk_TOhVcQZrAWPTlZ6mBNb6w-rAAd-xG6yWQ",
+        "expiry": 1784558023445
+      },
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Buildable Twitter UI Outlined Reply Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/iRN70/MAEvNsiRN70/1/t.png",
+          "width": 200,
+          "height": 197,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/iRN70/MAEvNsiRN70/1/s.svg",
+          "width": 482,
+          "height": 474,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/iRN70/MAEvNsiRN70/1/s2-1.svg",
+          "width": 482,
+          "height": 474,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/iRN70/MAEvNsiRN70/1/s3-1.svg",
+          "width": 482,
+          "height": 474,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/iRN70/MAEvNsiRN70/1/ss_s-1.png",
+          "width": 800,
+          "height": 787,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/iRN70/MAEvNsiRN70/1/ss_s2.png",
+          "width": 1600,
+          "height": 1573,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/iRN70/MAEvNsiRN70/1/ss_s3.png",
+          "width": 2400,
+          "height": 2360,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 3,
+        "spritesHigh": 2,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_R"
+          },
+          {
+            "type": "BACKGROUND_G"
+          },
+          {
+            "type": "BACKGROUND_B"
+          },
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "VECTOR",
+      "id": "MAEvNjuVEgw",
+      "version": 1,
+      "brand": "BADeGZOX6Sc",
+      "user": "UADl5nbeq90",
+      "licensing": "FREE",
+      "licensingInfo": {
+        "A?": "A"
+      },
+      "transformationRestrictions": {},
+      "importStatus": "IMPORTED",
+      "accessToken": {
+        "token": "AAIAC01BRXZOanVWRWd3UgAAAZ9_8nMVQ8xJYk6FYNMstlzHwEv5xYRz_oS5Yoie2DSjsB5m83s",
+        "expiry": 1784558023445
+      },
+      "licenseScope": {
+        "B": true
+      },
+      "title": "Buildable Twitter UI Filled Like Heart Icon",
+      "files": [
+        {
+          "url": "https://media-public.canva.com/uVEgw/MAEvNjuVEgw/1/t.png",
+          "width": 200,
+          "height": 191,
+          "quality": "THUMBNAIL",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/uVEgw/MAEvNjuVEgw/1/s.svg",
+          "width": 492,
+          "height": 471,
+          "quality": "SCREEN",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/uVEgw/MAEvNjuVEgw/1/s2-1.svg",
+          "width": 492,
+          "height": 471,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/uVEgw/MAEvNjuVEgw/1/s3-1.svg",
+          "width": 492,
+          "height": 471,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "url": "https://media-public.canva.com/uVEgw/MAEvNjuVEgw/1/ss_s-1.png",
+          "width": 800,
+          "height": 766,
+          "spritesheet": true,
+          "quality": "SCREEN",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/uVEgw/MAEvNjuVEgw/1/ss_s2.png",
+          "width": 1600,
+          "height": 1532,
+          "spritesheet": true,
+          "quality": "SCREEN_2X",
+          "mimeType": "image/png"
+        },
+        {
+          "url": "https://media-public.canva.com/uVEgw/MAEvNjuVEgw/1/ss_s3.png",
+          "width": 2400,
+          "height": 2298,
+          "spritesheet": true,
+          "quality": "SCREEN_3X",
+          "mimeType": "image/png"
+        }
+      ],
+      "spritesheetMetadata": {
+        "spritesWide": 3,
+        "spritesHigh": 2,
+        "fullyRecolorable": true,
+        "layers": [
+          {
+            "type": "BACKGROUND_R"
+          },
+          {
+            "type": "BACKGROUND_G"
+          },
+          {
+            "type": "BACKGROUND_B"
+          },
+          {
+            "type": "BACKGROUND_A"
+          },
+          {
+            "type": "RECOLORABLE",
+            "color": "rgb(0, 0, 0)"
+          }
+        ]
+      }
+    }
+  ],
+  "fonts": [
+    {
+      "A": "YACgEZ1cb1Q",
+      "C": "Arimo",
+      "D": [
+        {
+          "style": "BOLD_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBoldItalic.08fb930e5cf38bab811efa91f368b248.ttf",
+              "format": "OTF",
+              "sizeBytes": 435028
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBoldItalic.c7a16bdf2cea8da7d5accf8369441561.woff",
+              "format": "WOFF",
+              "sizeBytes": 237660
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBoldItalic.08fb930e5cf38bab811efa91.1060345c54d396e76d73f1da7ee200bd.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 203232
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBoldItalic.08fb930e5cf38bab811efa91.adcf6c0d2912ad56524ac49fd0f4814.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 35704
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBoldItalic.08fb930e5cf38bab811efa91.3cde0ee1a0a114e576617800f5b4025f.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 44940
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBoldItalic.08fb930e5cf38bab811efa91.88fe25390ee059f620d40ee4e07eba73.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 82788
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -771,
+              "yMax": 2109
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -431,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 33
+            }
+          }
+        },
+        {
+          "style": "ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoItalic.fa87472a877e70c5bce22e42be5c25a9.ttf",
+              "format": "OTF",
+              "sizeBytes": 440740
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoItalic.bafbbb513c11845057f9358ac3efa073.woff",
+              "format": "WOFF",
+              "sizeBytes": 240632
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoItalic.fa87472a877e70c5bce22e42be5c.d257a7100844bc3f98c9021168b6249e.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 201132
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoItalic.fa87472a877e70c5bce22e42be5c.1bd55f3610e33ea0ddc29625337cfe5.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 36704
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoItalic.fa87472a877e70c5bce22e42be5c.85054e431a9f5a044d28aa5ae02096c9.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 45628
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoItalic.fa87472a877e70c5bce22e42be5c.e6711c21e2ed6fc79ec9ee042dd7636b.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 82348
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -621,
+              "yMax": 2077
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -425,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 1
+            }
+          }
+        },
+        {
+          "style": "REGULAR",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/Arimo.7ac02a544211773d9636e056e9da6c35.ttf",
+              "format": "OTF",
+              "sizeBytes": 436180
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/Arimo.1c8ab6ba5931166f629c6d814d3580b2.woff",
+              "format": "WOFF",
+              "sizeBytes": 234380
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/Arimo.7ac02a544211773d9636e056e9da6c35.7.f8f199f09526f79e87644ed227e0f651.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 194188
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/Arimo.7ac02a544211773d9636e056e9da6c35.7.3062704d78e4a6a3b3f1dbd88a190e4.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 36648
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/Arimo.7ac02a544211773d9636e056e9da6c35.7.98908797bcdc875f4306c5a4ae04708a.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 45912
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/Arimo.7ac02a544211773d9636e056e9da6c35.7.f153ae24bfeae042c40e10cc50bbf9d9.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 85712
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -621,
+              "yMax": 2007
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -431,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 64
+            }
+          }
+        },
+        {
+          "style": "BOLD",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBold.927b7dca5b947f69cb8e835f7f743d15.ttf",
+              "format": "OTF",
+              "sizeBytes": 438516
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBold.68670fffa1a87fb970dc63f26d8cc0fc.woff",
+              "format": "WOFF",
+              "sizeBytes": 234696
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/ArimoBold.927b7dca5b947f69cb8e835f7f743d.98c4d2c0223fc8474641c77f923528e9.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 194064
+            }
+          ],
+          "subsettedFiles": [
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBold.927b7dca5b947f69cb8e835f7f743d.f033e4c1331a6e2eec13dcf8a45dbcf.woff2",
+              "format": "WOFF2",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 35468
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBold.927b7dca5b947f69cb8e835f7f743d.5841aaf5f5c182d32ee229514397ec0c.woff",
+              "format": "WOFF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 44416
+            },
+            {
+              "url": "https://font-public.canva.com/YACgEZ1cb1Q/0/subsets/ArimoBold.927b7dca5b947f69cb8e835f7f743d.0c7cfe36fd13e7196de3016bc8e8950b.ttf",
+              "format": "OTF",
+              "unicodeRanges": [
+                {
+                  "start": "0000",
+                  "end": "007F"
+                },
+                {
+                  "start": "0080",
+                  "end": "00FF"
+                },
+                {
+                  "start": "0100",
+                  "end": "017F"
+                },
+                {
+                  "start": "1E00",
+                  "end": "1EFF"
+                }
+              ],
+              "sizeBytes": 83456
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 2048,
+              "yMin": -771,
+              "yMax": 2116
+            },
+            "hhea": {
+              "ascender": 1854,
+              "descender": -434,
+              "lineGap": 67
+            },
+            "os2": {
+              "sTypoAscender": 1491,
+              "sTypoDescender": -431,
+              "sTypoLineGap": 307,
+              "usWinAscent": 1854,
+              "usWinDescent": 434,
+              "fsSelection": 32
+            }
+          }
+        }
+      ]
+    },
+    {
+      "A": "YAFdJi-0PQg",
+      "C": "Garet",
+      "D": [
+        {
+          "style": "REGULAR",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-Regular.026b1d7ff12d809c3e8a84bed1.d648f3ac5d9fdc35dfb1afcda2b8403d.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 100900
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-Regular.026b1d7ff12d809c3e8a84bed1.8f620ff1528bc774884168ad49f7d54e.woff",
+              "format": "WOFF",
+              "sizeBytes": 56356
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-Regular.026b1d7ff12d809c3e8a84bed1.0d6b73825ffb53723442c5660e87b4d4.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 48428
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -328,
+              "yMax": 965
+            },
+            "hhea": {
+              "ascender": 1070,
+              "descender": -380
+            },
+            "os2": {
+              "sTypoAscender": 1070,
+              "sTypoDescender": -380,
+              "usWinAscent": 1070,
+              "usWinDescent": 380,
+              "fsSelection": 192
+            }
+          }
+        },
+        {
+          "style": "ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-RegularItalic15681328946949529740..c82410ef3725a1a75f07e3c8fbc9e797.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 52096
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-RegularItalic15681328946949529740..163089a6e476facd3acc90f87b01e295.woff",
+              "format": "WOFF",
+              "sizeBytes": 60500
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-RegularItalic15681328946949529740..e68c5632bc8c4985d316740eee657d9b.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 104984
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -328,
+              "yMax": 965
+            },
+            "hhea": {
+              "ascender": 1070,
+              "descender": -380
+            },
+            "os2": {
+              "sTypoAscender": 1070,
+              "sTypoDescender": -380,
+              "usWinAscent": 1070,
+              "usWinDescent": 380,
+              "fsSelection": 129
+            }
+          }
+        },
+        {
+          "style": "BOLD",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-Bold.6086fe0b22642fe6ba7de76edbe7c.e4dde0d35a02a11733bcd0eb97b05094.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 103496
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-Bold.6086fe0b22642fe6ba7de76edbe7c.57301275340309ed9f677d6a1ef23d6e.woff",
+              "format": "WOFF",
+              "sizeBytes": 58332
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-Bold.6086fe0b22642fe6ba7de76edbe7c.d769594df7501703a01b15c58fc23317.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 50016
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -342,
+              "yMax": 972
+            },
+            "hhea": {
+              "ascender": 1069,
+              "descender": -379
+            },
+            "os2": {
+              "sTypoAscender": 1070,
+              "sTypoDescender": -380,
+              "usWinAscent": 1070,
+              "usWinDescent": 380,
+              "fsSelection": 160
+            }
+          }
+        },
+        {
+          "style": "BOLD_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-BoldItalic7964498021488194011.4816.481684bc8bccbe79b185f8f85ec43cf8.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 53696
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-BoldItalic7964498021488194011.64c6.64c61557a0a17ba715a0b2fcf643bc89.woff",
+              "format": "WOFF",
+              "sizeBytes": 62476
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-BoldItalic7964498021488194011.55e2.55e204de66f8587e7174d04eabeeade0.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 107772
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -342,
+              "yMax": 972
+            },
+            "hhea": {
+              "ascender": 1070,
+              "descender": -380
+            },
+            "os2": {
+              "sTypoAscender": 1070,
+              "sTypoDescender": -380,
+              "usWinAscent": 1070,
+              "usWinDescent": 380,
+              "fsSelection": 161
+            }
+          }
+        },
+        {
+          "style": "LIGHT",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-Book.4f30e57c281085e7cfdd1beece5cc.1efc87aa07b68941c07c74b9ee195776.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 100640
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-Book.4f30e57c281085e7cfdd1beece5cc.ba7dab456450c7439ae6c6a5909f6cdb.woff",
+              "format": "WOFF",
+              "sizeBytes": 56524
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-Book.4f30e57c281085e7cfdd1beece5cc.7f46ce5d6d4841cf4dd806bf715d4ba3.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 48596
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -324,
+              "yMax": 961
+            },
+            "hhea": {
+              "ascender": 1070,
+              "descender": -380
+            },
+            "os2": {
+              "sTypoAscender": 1070,
+              "sTypoDescender": -380,
+              "usWinAscent": 1070,
+              "usWinDescent": 380,
+              "fsSelection": 192
+            }
+          }
+        },
+        {
+          "style": "ULTRA_BOLD",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-ExtraBold.b347d466a244dbd8ef57a908.31d3c83b97b7861484fdfd4df84bd8b5.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 103692
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-ExtraBold.b347d466a244dbd8ef57a908.117c15abc042d5f2d70c8b99a2da1926.woff",
+              "format": "WOFF",
+              "sizeBytes": 58444
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-ExtraBold.b347d466a244dbd8ef57a908.b0a9862e93ef02d7afd3b1c487412293.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 49804
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -351,
+              "yMax": 976
+            },
+            "hhea": {
+              "ascender": 1069,
+              "descender": -379
+            },
+            "os2": {
+              "sTypoAscender": 1070,
+              "sTypoDescender": -380,
+              "usWinAscent": 1070,
+              "usWinDescent": 380,
+              "fsSelection": 192
+            }
+          }
+        },
+        {
+          "style": "ULTRA_BOLD_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-ExtraBoldItalic1532179175734200584.b895e0d2924ace30612d69b3bd9866dd.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 53732
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-ExtraBoldItalic1532179175734200584.24826920080c05b94f43f02dacf5d7df.woff",
+              "format": "WOFF",
+              "sizeBytes": 62644
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-ExtraBoldItalic1532179175734200584.e4d72d09dd17d6c5231f00be31267484.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 108512
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -351,
+              "yMax": 976
+            },
+            "hhea": {
+              "ascender": 1070,
+              "descender": -380
+            },
+            "os2": {
+              "sTypoAscender": 1070,
+              "sTypoDescender": -380,
+              "usWinAscent": 1070,
+              "usWinDescent": 380,
+              "fsSelection": 129
+            }
+          }
+        },
+        {
+          "style": "HEAVY",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-Black.eaab9f72d58fe0a3ffe14145f114.ffe2f254953850150337b80ccc0c39e2.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 106152
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-Black.eaab9f72d58fe0a3ffe14145f114.3c35e613ab01c3f6711431a478c275af.woff",
+              "format": "WOFF",
+              "sizeBytes": 59932
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-Black.eaab9f72d58fe0a3ffe14145f114.635c2ee4a202b007ba619dc8edd4f387.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 51632
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -364,
+              "yMax": 1036
+            },
+            "hhea": {
+              "ascender": 1070,
+              "descender": -380
+            },
+            "os2": {
+              "sTypoAscender": 1070,
+              "sTypoDescender": -380,
+              "usWinAscent": 1070,
+              "usWinDescent": 380,
+              "fsSelection": 192
+            }
+          }
+        },
+        {
+          "style": "HEAVY_ITALICS",
+          "files": [
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-BlackItalic15696130575473839224.f8.f85ea0fa03cfc21f16905e03595b94fa.woff2",
+              "format": "WOFF2",
+              "sizeBytes": 55152
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-BlackItalic15696130575473839224.e7.e703ac61b60f4959f2d9d7155dc14c9e.woff",
+              "format": "WOFF",
+              "sizeBytes": 64320
+            },
+            {
+              "url": "https://font-public.canva.com/YAFdJi-0PQg/0/Garet-BlackItalic15696130575473839224.c7.c7447da3bd98d8116d88f3091b520fe9.otf",
+              "format": "OTF_CFF",
+              "sizeBytes": 111100
+            }
+          ],
+          "metadata": {
+            "head": {
+              "unitsPerEm": 1000,
+              "yMin": -364,
+              "yMax": 1024
+            },
+            "hhea": {
+              "ascender": 1070,
+              "descender": -380
+            },
+            "os2": {
+              "sTypoAscender": 1070,
+              "sTypoDescender": -380,
+              "usWinAscent": 1070,
+              "usWinDescent": 380,
+              "fsSelection": 129
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

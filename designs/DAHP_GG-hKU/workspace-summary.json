@@ -1,0 +1,63 @@
+{
+  "designId": "DAHP_GG-hKU",
+  "startedAt": "2026-07-21T04:14:24.036Z",
+  "finishedAt": "2026-07-21T04:14:27.346Z",
+  "workspaceRoot": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace",
+  "cloneProfile": "minimal",
+  "clone": {
+    "designId": "DAHP_GG-hKU",
+    "outDir": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP_GG-hKU\\extract",
+    "cloneProfile": "minimal",
+    "duplicate": true,
+    "duplicateOf": {
+      "designId": "DAHP5toF51s",
+      "outDir": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP5toF51s\\extract",
+      "exactHash": "84469263c2c0f063909c143e8a05371b72f4298891374ec183625d9a767452c0",
+      "layoutHash": "5b1f0d7f66652d0bf909d6874af08dd83a2652437149629033a6b9f2be31c583"
+    },
+    "outputs": {
+      "templateData": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP_GG-hKU\\extract\\template-data.json",
+      "signature": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP_GG-hKU\\extract\\template-signature.json",
+      "dedupeIndex": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\index\\template-dedupe-index.json",
+      "assets": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP_GG-hKU\\extract\\assets",
+      "pages": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP_GG-hKU\\extract\\assets\\pages"
+    },
+    "stats": {
+      "pagesDetected": 6,
+      "slidesInHtmlClone": 0,
+      "promotedActualPages": 0,
+      "fallbackPageAssets": 0,
+      "downloaded": 7,
+      "failed": 0
+    }
+  },
+  "quality": {
+    "targetRmse": null,
+    "stopOnTarget": null,
+    "gate": null
+  },
+  "runTracking": {
+    "runId": null,
+    "runDir": null,
+    "report": null,
+    "output": null,
+    "createdAt": "2026-07-21T04:14:27.346Z",
+    "source": "clone-only",
+    "duplicate": true
+  },
+  "final": {
+    "duplicate": true,
+    "output": null,
+    "duplicateOf": {
+      "designId": "DAHP5toF51s",
+      "outDir": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP5toF51s\\extract",
+      "exactHash": "84469263c2c0f063909c143e8a05371b72f4298891374ec183625d9a767452c0",
+      "layoutHash": "5b1f0d7f66652d0bf909d6874af08dd83a2652437149629033a6b9f2be31c583"
+    }
+  },
+  "paths": {
+    "inputHtml": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP_GG-hKU\\capture\\editor-page.full.html",
+    "extractDir": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP_GG-hKU\\extract",
+    "pagesDir": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP_GG-hKU\\extract\\assets\\pages"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "designId": "DAHP69d6PBw",
+  "startedAt": "2026-07-20T11:34:25.521Z",
+  "finishedAt": "2026-07-20T11:34:29.301Z",
+  "workspaceRoot": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace",
+  "cloneProfile": "minimal",
+  "clone": {
+    "designId": "DAHP69d6PBw",
+    "outDir": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP69d6PBw\\extract",
+    "cloneProfile": "minimal",
+    "duplicate": false,
+    "duplicateOf": null,
+    "outputs": {
+      "templateData": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP69d6PBw\\extract\\template-data.json",
+      "signature": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP69d6PBw\\extract\\template-signature.json",
+      "dedupeIndex": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\index\\template-dedupe-index.json",
+      "assets": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP69d6PBw\\extract\\assets",
+      "pages": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP69d6PBw\\extract\\assets\\pages"
+    },
+    "stats": {
+      "pagesDetected": 8,
+      "slidesInHtmlClone": 0,
+      "promotedActualPages": 0,
+      "fallbackPageAssets": 0,
+      "downloaded": 9,
+      "failed": 0
+    }
+  },
+  "quality": {
+    "targetRmse": null,
+    "stopOnTarget": null,
+    "gate": null
+  },
+  "runTracking": {
+    "runId": null,
+    "runDir": null,
+    "report": null,
+    "output": null,
+    "createdAt": "2026-07-20T11:34:29.301Z",
+    "source": "clone-only",
+    "duplicate": false
+  },
+  "final": {
+    "duplicate": false,
+    "output": null,
+    "duplicateOf": null
+  },
+  "paths": {
+    "inputHtml": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP69d6PBw\\capture\\editor-page.full.html",
+    "extractDir": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP69d6PBw\\extract",
+    "pagesDir": "C:\\Users\\admin\\Desktop\\dprajapati\\github\\canva-template-workspace\\designs\\DAHP69d6PBw\\extract\\assets\\pages"
+  }
+}
