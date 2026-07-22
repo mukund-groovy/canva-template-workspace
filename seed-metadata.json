@@ -69,13 +69,10 @@
         "reflective"
       ],
       "useCases": [
-        "diary",
-        "progress update",
-        "personal story",
-        "reflection",
+        "story",
         "announcement"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "narrative",
         "cozy",
@@ -119,10 +116,9 @@
       ],
       "useCases": [
         "announcement",
-        "event promotion",
-        "community call-to-action"
+        "promotional"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "coastal",
         "natural",
@@ -167,7 +163,7 @@
         "how-to",
         "educational"
       ],
-      "tone": "energetic",
+      "tone": "playful",
       "visualStyle": [
         "clean",
         "motivational",
@@ -214,7 +210,7 @@
         "tips",
         "listicle"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "earthy",
         "minimal",
@@ -261,7 +257,7 @@
         "listicle",
         "educational"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "minimal",
         "editorial",
@@ -304,7 +300,6 @@
       "useCases": [
         "educational",
         "tips",
-        "awareness",
         "how-to"
       ],
       "tone": "bold",
@@ -352,7 +347,7 @@
         "educational",
         "how-to"
       ],
-      "tone": "minimal",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "editorial",
@@ -399,7 +394,7 @@
         "listicle",
         "educational"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "bright",
         "fresh",
@@ -441,13 +436,11 @@
         "studio"
       ],
       "useCases": [
-        "diary",
-        "process",
-        "behind-the-scenes",
-        "storytelling",
+        "story",
+        "how-to",
         "educational"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "editorial",
         "serene",
@@ -493,7 +486,7 @@
         "announcement",
         "how-to"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "earthy tones",
         "clean typography",
@@ -535,12 +528,11 @@
       ],
       "useCases": [
         "educational",
-        "glossary",
         "tips",
         "listicle",
         "how-to"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "clean",
         "text-forward",
@@ -588,7 +580,7 @@
         "tips",
         "how-to"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "text-focused",
@@ -631,10 +623,10 @@
       "useCases": [
         "how-to",
         "tips",
-        "personal story",
+        "story",
         "educational"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean text layout",
         "reflective",
@@ -675,11 +667,9 @@
       ],
       "useCases": [
         "announcement",
-        "event promo",
-        "call to action",
-        "community outreach"
+        "promotional"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "friendly",
         "natural",
@@ -720,11 +710,10 @@
       ],
       "useCases": [
         "announcement",
-        "event promotion",
-        "educational",
-        "invitation"
+        "promotional",
+        "educational"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "earthy",
         "natural",
@@ -770,7 +759,7 @@
         "tips",
         "listicle"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "clean",
         "earthy",
@@ -813,7 +802,7 @@
       "useCases": [
         "tips",
         "educational",
-        "motivational",
+        "quote",
         "listicle"
       ],
       "tone": "bold",
@@ -862,7 +851,7 @@
         "how-to",
         "educational"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "text-forward",
@@ -904,10 +893,10 @@
       "useCases": [
         "educational",
         "tips",
-        "testimonial",
+        "quote",
         "announcement"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "soft",
         "text-forward",
@@ -953,7 +942,7 @@
         "educational",
         "how-to"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "minimal",
@@ -999,7 +988,7 @@
         "educational",
         "how-to"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "text-forward",
@@ -1047,7 +1036,7 @@
         "listicle",
         "educational"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "hand-drawn",
@@ -1094,7 +1083,7 @@
         "listicle",
         "educational"
       ],
-      "tone": "minimal",
+      "tone": "elegant",
       "visualStyle": [
         "clean layout",
         "typographic",
@@ -1136,11 +1125,11 @@
       ],
       "useCases": [
         "tips",
-        "reminder",
+        "quote",
         "educational",
         "announcement"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "minimal",
@@ -1181,11 +1170,10 @@
       ],
       "useCases": [
         "quote",
-        "testimonial",
         "educational",
         "tips"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "text-forward",
         "clean",
@@ -1226,10 +1214,9 @@
       ],
       "useCases": [
         "quote",
-        "inspirational",
-        "reflection"
+        "story"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "minimal",
         "serene",
@@ -1270,12 +1257,11 @@
         "warm"
       ],
       "useCases": [
-        "recap",
-        "storytelling",
-        "testimonial",
+        "story",
+        "quote",
         "announcement"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "photo-forward",
         "personal",
@@ -1321,7 +1307,7 @@
         "educational",
         "how-to"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "text-forward",
@@ -1367,7 +1353,7 @@
         "educational",
         "listicle"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "text-forward",
         "editorial",
@@ -1415,7 +1401,7 @@
         "how-to",
         "educational"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "clean text-forward",
         "editorial",
@@ -1460,7 +1446,7 @@
         "tips",
         "educational"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "cozy",
         "editorial",
@@ -1506,7 +1492,7 @@
         "how-to",
         "educational"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "editorial",
         "clean",
@@ -1552,7 +1538,7 @@
         "listicle",
         "educational"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "minimal",
         "numbered",
@@ -1597,7 +1583,7 @@
         "educational",
         "listicle"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "fresh",
@@ -1643,7 +1629,7 @@
         "how-to",
         "educational"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "minimal",
@@ -1684,11 +1670,11 @@
       ],
       "useCases": [
         "announcement",
-        "promotion",
+        "promotional",
         "educational",
-        "feature highlight"
+        "product-showcase"
       ],
-      "tone": "energetic",
+      "tone": "playful",
       "visualStyle": [
         "clean",
         "modern",
@@ -1728,12 +1714,11 @@
         "warm"
       ],
       "useCases": [
-        "motivational quote",
+        "quote",
         "tips",
-        "educational",
-        "encouragement"
+        "educational"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "clean",
         "text-forward",
@@ -1780,7 +1765,7 @@
         "educational",
         "how-to"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "text-forward",
         "minimal",
@@ -1821,10 +1806,9 @@
       ],
       "useCases": [
         "announcement",
-        "reopening",
-        "community update"
+        "promotional"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "clean",
         "inviting",
@@ -1919,7 +1903,7 @@
         "listicle",
         "educational"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "clean layout",
         "text-focused",
@@ -1960,12 +1944,10 @@
         "trust"
       ],
       "useCases": [
-        "testimonial",
-        "social proof",
-        "review highlight",
+        "quote",
         "announcement"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "quote-focused",
         "clean",
@@ -2055,10 +2037,9 @@
       "useCases": [
         "quote",
         "announcement",
-        "testimonial",
         "educational"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "photo-led",
         "warm-tones",
@@ -2104,7 +2085,7 @@
         "how-to",
         "announcement"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "minimal",
         "text-forward",
@@ -2145,10 +2126,9 @@
       ],
       "useCases": [
         "tips",
-        "educational",
-        "q&a"
+        "educational"
       ],
-      "tone": "energetic",
+      "tone": "playful",
       "visualStyle": [
         "text-forward",
         "clean",
@@ -2236,10 +2216,10 @@
       "useCases": [
         "tips",
         "educational",
-        "motivational",
-        "community-building"
+        "quote",
+        "promotional"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "botanical",
         "cozy",
@@ -2287,7 +2267,7 @@
         "tips",
         "educational"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean layout",
         "numbered steps",
@@ -2332,7 +2312,7 @@
         "educational",
         "how-to"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean typography",
         "text-forward",
@@ -2377,7 +2357,7 @@
         "how-to",
         "educational"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "checklist-driven",
@@ -2417,12 +2397,9 @@
         "gentle"
       ],
       "useCases": [
-        "affirmation",
-        "quote",
-        "wellness reminder",
-        "self-care tip"
+        "quote"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "soft",
         "minimal",
@@ -2462,12 +2439,11 @@
         "social"
       ],
       "useCases": [
-        "testimonial",
+        "quote",
         "announcement",
-        "engagement",
-        "promotion"
+        "promotional"
       ],
-      "tone": "energetic",
+      "tone": "playful",
       "visualStyle": [
         "chat-bubble",
         "clean",
@@ -2559,9 +2535,9 @@
         "listicle",
         "tips",
         "educational",
-        "storytelling"
+        "story"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "clean text-forward",
         "note-style",
@@ -2605,8 +2581,7 @@
         "how-to",
         "listicle",
         "tips",
-        "educational",
-        "checklist"
+        "educational"
       ],
       "tone": "bold",
       "visualStyle": [
@@ -2748,7 +2723,7 @@
         "how-to",
         "educational"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "cozy",
         "clean",
@@ -2795,7 +2770,7 @@
         "educational",
         "how-to"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "minimal",
         "serene",
@@ -2843,7 +2818,7 @@
         "educational",
         "how-to"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "text-forward",
         "minimal",
@@ -2929,9 +2904,9 @@
         "typography"
       ],
       "useCases": [
-        "motivational quotes",
+        "quote",
         "tips",
-        "engagement",
+        "promotional",
         "educational"
       ],
       "tone": "bold",
@@ -2981,7 +2956,7 @@
         "listicle",
         "educational"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "text-forward",
         "clean",
@@ -3024,13 +2999,10 @@
         "charming"
       ],
       "useCases": [
-        "haul",
         "listicle",
-        "roundup",
-        "behind-the-scenes",
-        "recap"
+        "story"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "photo-forward",
         "cozy",
@@ -3078,7 +3050,7 @@
         "educational",
         "listicle"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "text-forward",
         "clean",
@@ -3124,7 +3096,7 @@
         "educational",
         "listicle"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "clean",
         "instructional",
@@ -3169,7 +3141,7 @@
         "educational",
         "how-to"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "text-focused",
@@ -3215,7 +3187,7 @@
         "educational",
         "how-to"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "minimal",
@@ -3261,7 +3233,7 @@
         "educational",
         "listicle"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "minimal",
         "editorial",
@@ -3309,7 +3281,7 @@
         "tips",
         "how-to"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "minimal",
@@ -3355,7 +3327,7 @@
         "educational",
         "announcement"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "minimal",
         "soft",
@@ -3397,11 +3369,9 @@
       ],
       "useCases": [
         "quote",
-        "inspiration",
-        "lifestyle",
-        "self-care"
+        "tips"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "minimal",
         "soft",
@@ -3446,7 +3416,7 @@
         "educational",
         "how-to"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "text-forward",
         "clean layout",
@@ -3489,9 +3459,9 @@
         "listicle",
         "tips",
         "educational",
-        "storytelling"
+        "story"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "text-forward",
         "clean layout",
@@ -3537,7 +3507,7 @@
         "tips",
         "educational"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "clean",
         "approachable",
@@ -3582,10 +3552,9 @@
         "how-to",
         "tips",
         "educational",
-        "listicle",
-        "routine"
+        "listicle"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "clean typography",
         "editorial",
@@ -3631,7 +3600,7 @@
         "how-to",
         "educational"
       ],
-      "tone": "minimal",
+      "tone": "elegant",
       "visualStyle": [
         "text-forward",
         "clean layout",
@@ -3671,12 +3640,12 @@
         "typography"
       ],
       "useCases": [
-        "motivational quote",
+        "quote",
         "announcement",
         "tips",
         "educational"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "minimal",
         "clean typography",
@@ -3761,12 +3730,10 @@
         "encouragement"
       ],
       "useCases": [
-        "motivational quote",
-        "affirmation",
-        "social share",
-        "encouragement"
+        "quote",
+        "promotional"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "text-forward",
         "clean",
@@ -3811,7 +3778,7 @@
         "tips",
         "educational"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "minimal",
         "clean",
@@ -3854,11 +3821,10 @@
       "useCases": [
         "tips",
         "educational",
-        "storytelling",
-        "personal journey",
-        "engagement prompt"
+        "story",
+        "promotional"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "editorial",
         "minimal",
@@ -3901,7 +3867,7 @@
         "tips",
         "listicle",
         "educational",
-        "motivational"
+        "quote"
       ],
       "tone": "bold",
       "visualStyle": [
@@ -3945,11 +3911,9 @@
       ],
       "useCases": [
         "announcement",
-        "invitation",
-        "event promo",
-        "community outreach"
+        "promotional"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "clean",
         "minimal",
@@ -3991,10 +3955,9 @@
       "useCases": [
         "tips",
         "how-to",
-        "educational",
-        "routine"
+        "educational"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "minimal",
         "serene",
@@ -4039,7 +4002,7 @@
         "how-to",
         "listicle"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "clean typography",
         "text-forward",
@@ -4080,12 +4043,11 @@
         "craft"
       ],
       "useCases": [
-        "product showcase",
-        "brand story",
-        "behind-the-scenes",
+        "product-showcase",
+        "story",
         "educational"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "rustic",
         "editorial",
@@ -4172,12 +4134,12 @@
         "introspective"
       ],
       "useCases": [
-        "affirmations",
+        "quote",
         "educational",
         "tips",
         "listicle"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "minimal",
         "soft",
@@ -4220,11 +4182,11 @@
       ],
       "useCases": [
         "listicle",
-        "recommendation",
-        "storytelling",
+        "quote",
+        "story",
         "educational"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "retro",
         "warm",
@@ -4269,7 +4231,7 @@
         "tips",
         "educational"
       ],
-      "tone": "minimal",
+      "tone": "elegant",
       "visualStyle": [
         "clean",
         "text-forward",
@@ -4314,7 +4276,7 @@
         "educational",
         "listicle"
       ],
-      "tone": "energetic",
+      "tone": "playful",
       "visualStyle": [
         "bold text",
         "clean layout",
@@ -4356,11 +4318,9 @@
       "useCases": [
         "how-to",
         "educational",
-        "tutorial",
-        "step-by-step guide",
         "listicle"
       ],
-      "tone": "calm",
+      "tone": "elegant",
       "visualStyle": [
         "minimal",
         "editorial",
@@ -4404,11 +4364,9 @@
       ],
       "useCases": [
         "announcement",
-        "invitation",
-        "event promo",
-        "community building"
+        "promotional"
       ],
-      "tone": "warm",
+      "tone": "friendly",
       "visualStyle": [
         "retro-analog",
         "cozy",

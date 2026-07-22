@@ -89,6 +89,71 @@ async function respond(instructions, text) {
 // catalog instead of introducing categories content-gen doesn't recognize.
 const KNOWN_CATEGORIES = ['general', 'business', 'lifestyle', 'tech'];
 
+// CLOSED sets in content-gen's shared/constants/carousel-recommendation.ts. A value outside them
+// is a TypeScript compile error at seed time (TS2322), not a soft data issue — so the model's
+// output is coerced to them here rather than trusted. Copied from CarouselUseCase / CarouselTone.
+const USE_CASES = ['tips', 'how-to', 'listicle', 'thought-leadership', 'case-study', 'announcement',
+  'product-showcase', 'story', 'stats', 'comparison', 'quote', 'educational', 'promotional'];
+const TONES = ['professional', 'bold', 'friendly', 'elegant', 'playful'];
+
+// Nearest legal value for the things the model reaches for most often.
+const USE_CASE_ALIAS = {
+  // → story
+  diary: 'story', 'personal story': 'story', reflection: 'story', storytelling: 'story',
+  'behind-the-scenes': 'story', journal: 'story', 'progress update': 'story', recap: 'story',
+  'personal journey': 'story', 'brand story': 'story',
+  // → promotional
+  'event promotion': 'promotional', 'community call-to-action': 'promotional', event: 'promotional',
+  'event promo': 'promotional', promo: 'promotional', promotion: 'promotional',
+  invitation: 'promotional', reopening: 'promotional', 'call to action': 'promotional',
+  'community outreach': 'promotional', 'community-building': 'promotional',
+  'community building': 'promotional', engagement: 'promotional',
+  'engagement prompt': 'promotional', 'social share': 'promotional',
+  // → educational
+  awareness: 'educational', glossary: 'educational', 'q&a': 'educational',
+  // → how-to
+  guide: 'how-to', tutorial: 'how-to', process: 'how-to', 'step-by-step guide': 'how-to',
+  // → listicle
+  checklist: 'listicle', list: 'listicle', haul: 'listicle', roundup: 'listicle',
+  // → quote
+  testimonial: 'quote', review: 'quote', motivation: 'quote', inspiration: 'quote',
+  motivational: 'quote', inspirational: 'quote', 'motivational quote': 'quote',
+  'motivational quotes': 'quote', affirmation: 'quote', affirmations: 'quote',
+  encouragement: 'quote', reminder: 'quote', 'wellness reminder': 'quote',
+  'self-care tip': 'quote', 'social proof': 'quote', 'review highlight': 'quote',
+  recommendation: 'quote',
+  // → tips
+  tip: 'tips', advice: 'tips', lifestyle: 'tips', 'self-care': 'tips', routine: 'tips',
+  // → product-showcase
+  showcase: 'product-showcase', 'feature highlight': 'product-showcase',
+  'product showcase': 'product-showcase',
+  // → other
+  facts: 'stats', 'myth-busting': 'comparison', 'community update': 'announcement',
+};
+const TONE_ALIAS = {
+  warm: 'friendly', calm: 'elegant', minimal: 'elegant', energetic: 'playful',
+  quiet: 'elegant', serious: 'professional', confident: 'bold', gentle: 'friendly',
+  reflective: 'elegant', encouraging: 'friendly', practical: 'professional', punchy: 'bold',
+  informative: 'professional', authoritative: 'professional', nostalgic: 'elegant',
+  upbeat: 'playful', soothing: 'elegant', direct: 'bold', supportive: 'friendly',
+};
+
+const norm = (s) => String(s || '').toLowerCase().trim();
+
+function coerceUseCases(list) {
+  const out = [];
+  for (const raw of Array.isArray(list) ? list : []) {
+    const v = norm(raw);
+    const mapped = USE_CASES.includes(v) ? v : USE_CASE_ALIAS[v];
+    if (mapped && !out.includes(mapped)) out.push(mapped);
+  }
+  return out.length ? out.slice(0, 5) : ['educational'];
+}
+function coerceTone(t) {
+  const v = norm(t);
+  return TONES.includes(v) ? v : (TONE_ALIAS[v] || 'professional');
+}
+
 function extractDeckText(html, isSI) {
   const $ = cheerio.load(html);
   if (isSI) {
@@ -113,7 +178,7 @@ function detectKind(html) {
 }
 
 const SYSTEM = `You are cataloging a social-media post template for a content-generation platform's template gallery. Given the template's actual copy (transcribed from the design), write ONE catalog entry as STRICT minified JSON, no prose, no markdown fences, matching exactly this shape:
-{"name":"<Title Case display name, 2-5 words>","description":"<one line, what the template is for>","category":"<one of: general, business, lifestyle, tech — pick the closest fit, do not invent a new one>","contentMode":"<text-only | text-images | background-images — text-only if no photo slot, text-images if it has one or more photo slots as an accent, background-images if a photo IS the canvas/background>","recommendationProfile":{"version":1,"title":"<same as name or a short variant>","summary":"<1-2 sentences: what this template communicates and when to use it>","tags":["<6-10 lowercase tags: visual style, motifs, mood>"],"useCases":["<2-5 short use-case phrases like 'how-to','listicle','tips','announcement','testimonial','educational'>"],"tone":"<one word: professional | playful | elegant | bold | calm | warm | minimal | energetic>","visualStyle":["<2-4 short style descriptors>"],"slideCountSweet":{"min":<int>,"ideal":<int>,"max":<int>},"industries":[],"audience":[]}}
+{"name":"<Title Case display name, 2-5 words>","description":"<one line, what the template is for>","category":"<one of: general, business, lifestyle, tech — pick the closest fit, do not invent a new one>","contentMode":"<text-only | text-images | background-images — text-only if no photo slot, text-images if it has one or more photo slots as an accent, background-images if a photo IS the canvas/background>","recommendationProfile":{"version":1,"title":"<same as name or a short variant>","summary":"<1-2 sentences: what this template communicates and when to use it>","tags":["<6-10 lowercase tags: visual style, motifs, mood>"],"useCases":["<2-5 values, EACH EXACTLY one of: tips, how-to, listicle, thought-leadership, case-study, announcement, product-showcase, story, stats, comparison, quote, educational, promotional — these are a closed set in the target system's CarouselUseCase type; anything else fails to compile, so never invent one>"],"tone":"<EXACTLY one of: professional, bold, friendly, elegant, playful — closed set (CarouselTone); never invent one>","visualStyle":["<2-4 short style descriptors>"],"slideCountSweet":{"min":<int>,"ideal":<int>,"max":<int>},"industries":[],"audience":[]}}
 Base slideCountSweet on the ACTUAL slide count given (min = actual-1 or 2 whichever is higher, ideal = actual, max = actual+3). For a single-image template, slideCountSweet is {"min":1,"ideal":1,"max":1}. Never fabricate facts about the topic; describe the TEMPLATE (its design/purpose), not the placeholder copy's subject.`;
 
 async function draftOne(slug, html) {
@@ -126,6 +191,12 @@ async function draftOne(slug, html) {
   if (!m) throw new Error(`no JSON in model reply for ${slug}: ${raw.slice(0, 200)}`);
   const j = JSON.parse(m[0]);
   if (!KNOWN_CATEGORIES.includes(j.category)) j.category = 'general';
+  // Coerce the closed-set fields even when the model followed instructions — cheap, and the
+  // failure mode otherwise is a compile error 96 entries deep at seed time.
+  if (j.recommendationProfile) {
+    j.recommendationProfile.useCases = coerceUseCases(j.recommendationProfile.useCases);
+    j.recommendationProfile.tone = coerceTone(j.recommendationProfile.tone);
+  }
   return {
     name: j.name || slug,
     slug,
