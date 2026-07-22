@@ -55,20 +55,21 @@
     }
   },
   "white-and-black": {
-    "score": 8.5,
+    "score": 5.5,
     "breakdown": {
       "contract": 4,
-      "verify": 3,
+      "verify": 0,
       "stress": 1.5,
       "brand": 0,
       "raw": {
         "cViol": 0,
         "cWarn": 0,
-        "vFail": 0,
-        "vWarn": 0,
+        "vFail": 5,
+        "vWarn": 1,
         "stFail": 0,
-        "deckAvg": 0,
-        "brandPass": false
+        "deckAvg": 8.49,
+        "brandPass": true,
+        "brandFail": 5
       }
     }
   },
@@ -163,57 +164,59 @@
     }
   },
   "white-purple-gradient": {
-    "score": 9.3,
+    "score": 10,
     "breakdown": {
-      "contract": 3.3,
+      "contract": 4,
       "verify": 3,
       "stress": 1.5,
       "brand": 1.5,
       "raw": {
         "cViol": 0,
-        "cWarn": 5,
+        "cWarn": 0,
         "vFail": 0,
         "vWarn": 0,
         "stFail": 0,
-        "deckAvg": 12.05,
-        "brandPass": true
-      }
-    }
-  },
-  "brown-and-cream": {
-    "score": 9.7,
-    "breakdown": {
-      "contract": 4,
-      "verify": 2.7,
-      "stress": 1.5,
-      "brand": 1.5,
-      "raw": {
-        "cViol": 0,
-        "cWarn": 0,
-        "vFail": 0,
-        "vWarn": 1,
-        "stFail": 0,
-        "deckAvg": 27.41,
+        "deckAvg": 18.02,
         "brandPass": true,
         "brandFail": 0
       }
     }
   },
-  "purple-minimalist": {
-    "score": 6.9,
+  "brown-and-cream": {
+    "score": 4,
     "breakdown": {
       "contract": 4,
-      "verify": 1.4,
+      "verify": 0,
       "stress": 0,
-      "brand": 1.5,
+      "brand": 0,
       "raw": {
         "cViol": 0,
         "cWarn": 0,
-        "vFail": 1,
-        "vWarn": 2,
-        "stFail": 12,
-        "deckAvg": 4.53,
-        "brandPass": false
+        "vFail": 3,
+        "vWarn": 0,
+        "stFail": 18,
+        "deckAvg": 10.97,
+        "brandPass": false,
+        "brandFail": 8
+      }
+    }
+  },
+  "purple-minimalist": {
+    "score": 5.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 0,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 6,
+        "vWarn": 7,
+        "stFail": 0,
+        "deckAvg": 3.61,
+        "brandPass": true,
+        "brandFail": 12
       }
     }
   },
@@ -290,20 +293,21 @@
     }
   },
   "black-and-white": {
-    "score": 6.4,
+    "score": 8.2,
     "breakdown": {
-      "contract": 3.1,
-      "verify": 1.8,
+      "contract": 4,
+      "verify": 2.7,
       "stress": 1.5,
       "brand": 0,
       "raw": {
         "cViol": 0,
-        "cWarn": 6,
+        "cWarn": 0,
         "vFail": 0,
-        "vWarn": 4,
+        "vWarn": 1,
         "stFail": 0,
-        "deckAvg": 0,
-        "brandPass": false
+        "deckAvg": 0.81,
+        "brandPass": false,
+        "brandFail": 2
       }
     }
   },
@@ -1287,16 +1291,2068 @@
     "score": 7.6,
     "breakdown": {
       "contract": 4,
-      "verify": 0.6,
+      "verify": 2.1,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 3,
+        "stFail": 0,
+        "deckAvg": 2.99,
+        "brandPass": false,
+        "brandFail": 0
+      }
+    }
+  },
+  "price-your-worth": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
       "stress": 1.5,
       "brand": 1.5,
       "raw": {
         "cViol": 0,
         "cWarn": 0,
         "vFail": 0,
-        "vWarn": 8,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 18.02,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "the-feedback-loop": {
+    "score": 8.1,
+    "breakdown": {
+      "contract": 3.9,
+      "verify": 1.2,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 1,
+        "vFail": 0,
+        "vWarn": 6,
+        "stFail": 0,
+        "deckAvg": 5.03,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "start-freelancing-now": {
+    "score": 4.2,
+    "breakdown": {
+      "contract": 0,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 37,
+        "cWarn": 24,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 8.59,
+        "brandPass": true,
+        "brandFail": 1
+      }
+    }
+  },
+  "brown-and-yellow": {
+    "score": 4.8,
+    "breakdown": {
+      "contract": 3.3,
+      "verify": 0,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 5,
+        "vFail": 10,
+        "vWarn": 6,
+        "stFail": 0,
+        "deckAvg": 10.31,
+        "brandPass": true,
+        "brandFail": 32
+      }
+    }
+  },
+  "negotiate-your-raise": {
+    "score": 4.2,
+    "breakdown": {
+      "contract": 0,
+      "verify": 1.2,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 6,
+        "cWarn": 46,
+        "vFail": 0,
+        "vWarn": 6,
+        "stFail": 0,
+        "deckAvg": 9.95,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "purrfect-cat-care": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 13.28,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "money-habits-twenties": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 51.66,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "protect-your-focus": {
+    "score": 8.8,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.8,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 4,
+        "stFail": 0,
+        "deckAvg": 20.04,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "guard-your-attention": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 3.12,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "the-attention-diet": {
+    "score": 8.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.2,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 6,
+        "stFail": 0,
+        "deckAvg": 4.62,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "the-slow-morning": {
+    "score": 4,
+    "breakdown": {
+      "contract": 4,
+      "verify": 0,
+      "stress": 0,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 3,
+        "vWarn": 0,
+        "stFail": 18,
+        "deckAvg": 10.97,
+        "brandPass": false,
+        "brandFail": 8
+      }
+    }
+  },
+  "si-photo-hero-test": {
+    "score": 7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 0,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 3,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 7.32,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "home-brew-ritual": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 15.92,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "sourdough-starter-week": {
+    "score": 9.4,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.4,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 2,
+        "stFail": 0,
+        "deckAvg": 13.92,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "sourdough-starter-guide": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 5.03,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "green-natural-motivational": {
+    "score": 6.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 0.7,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 2,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 0,
+        "brandPass": false,
+        "brandFail": 4
+      }
+    }
+  },
+  "kitchen-herb-garden": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 5.61,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "beach-cleanup-day": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 15.14,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "white-modern-interface": {
+    "score": 4,
+    "breakdown": {
+      "contract": 4,
+      "verify": 0,
+      "stress": 0,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 9,
+        "vWarn": 2,
+        "stFail": 53,
+        "deckAvg": 0.52,
+        "brandPass": false,
+        "brandFail": 16
+      }
+    }
+  },
+  "meal-prep-simple": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 8.22,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "night-sky-guide": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 21.21,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "salt-it-early": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 16.46,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "own-the-room": {
+    "score": 8.8,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.8,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 4,
+        "stFail": 0,
+        "deckAvg": 14.6,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "pre-ride-checklist": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 9.92,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "vinyl-listening-club": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 3.43,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "handwritten-letter-ritual": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 3.02,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "the-daily-crumb": {
+    "score": 4,
+    "breakdown": {
+      "contract": 4,
+      "verify": 0,
+      "stress": 0,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 9,
+        "vWarn": 2,
+        "stFail": 53,
+        "deckAvg": 0.52,
+        "brandPass": false,
+        "brandFail": 16
+      }
+    }
+  },
+  "the-vinyl-side": {
+    "score": 9.4,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.4,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 2,
+        "stFail": 0,
+        "deckAvg": 42.68,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "pink-modern-photo": {
+    "score": 4,
+    "breakdown": {
+      "contract": 4,
+      "verify": 0,
+      "stress": 0,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 3,
+        "vWarn": 5,
+        "stFail": 5,
+        "deckAvg": 12.46,
+        "brandPass": true,
+        "brandFail": 6
+      }
+    }
+  },
+  "confidence-mindset-shifts": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 25.16,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "coffee-terms-glossary": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 5.84,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "skin-barrier-basics": {
+    "score": 8.8,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.8,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 4,
+        "stFail": 0,
+        "deckAvg": 3.84,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "trail-running-guide": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 10.88,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "birdwatching-field-notes": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 4.17,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "draw-every-day": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 43.47,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "host-with-warmth": {
+    "score": 9.1,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.1,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 3,
+        "stFail": 0,
+        "deckAvg": 3.19,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "clay-studio-mentorship": {
+    "score": 9.1,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.1,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 3,
+        "stFail": 0,
+        "deckAvg": 3.26,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "speak-so-listen": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 20.73,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "season-your-skillet": {
+    "score": 9.1,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.1,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 3,
+        "stFail": 0,
+        "deckAvg": 10.23,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "sharpen-your-memory": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 10.97,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "smart-study-habits": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 3.48,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "desk-break-reset": {
+    "score": 9.1,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.1,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 3,
+        "stFail": 0,
+        "deckAvg": 30.02,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "deeper-sleep-habits": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.5,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 5,
+        "stFail": 0,
+        "deckAvg": 3.82,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "cold-start-ritual": {
+    "score": 9.4,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.4,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 2,
+        "stFail": 0,
+        "deckAvg": 3.26,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "real-rest-rituals": {
+    "score": 8.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.2,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 6,
+        "stFail": 0,
+        "deckAvg": 3.47,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "sleep-habits-break": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 35.02,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "read-without-rushing": {
+    "score": 9.1,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.1,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 3,
+        "stFail": 0,
+        "deckAvg": 40.12,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "learn-smarter-habits": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.5,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 5,
+        "stFail": 0,
+        "deckAvg": 16.29,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "cold-water-swimming": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 11.69,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "citrus-season-baking": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 4.59,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "home-barista-rituals": {
+    "score": 9.4,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.4,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 2,
+        "stFail": 0,
+        "deckAvg": 7.46,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "sunday-reset-ritual": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 5.17,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "trust-the-darkroom": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.5,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 5,
+        "stFail": 0,
+        "deckAvg": 45.25,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "run-motivation-quotes": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 43.92,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "sky-watching-journal": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 24.16,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "time-blocking-habits": {
+    "score": 8.8,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.8,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 4,
+        "stFail": 0,
+        "deckAvg": 4.37,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "knife-care-habits": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 11.46,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "composting-starter-guide": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 32.04,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "journaling-for-beginners": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 55.22,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "daily-hydration-habits": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 5.31,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "bookbinding-by-hand": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 15.18,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "capsule-wardrobe-rules": {
+    "score": 8.8,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.8,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 4,
+        "stFail": 0,
+        "deckAvg": 59.11,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "dress-with-less": {
+    "score": 9.4,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.4,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 2,
+        "stFail": 0,
+        "deckAvg": 5.86,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "ace-your-interview": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 3.11,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "bike-commute-confidence": {
+    "score": 8.8,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.8,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 4,
         "stFail": 0,
         "deckAvg": 3.05,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "blue-pink-aesthetic": {
+    "score": 8.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 28.99,
+        "brandPass": true,
+        "brandFail": 1
+      }
+    }
+  },
+  "showing-up-anyway": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 40.96,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "client-results-quote": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 4.45,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "slow-morning-ritual": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 14.45,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "brown-and-gray": {
+    "score": 7.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.7,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 1,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 2.13,
+        "brandPass": false,
+        "brandFail": 2
+      }
+    }
+  },
+  "beige-reminder-notification": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 18.17,
+        "brandPass": true,
+        "brandFail": 2
+      }
+    }
+  },
+  "start-your-craft": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 18.83,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "drink-more-water": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 18.17,
+        "brandPass": true,
+        "brandFail": 2
+      }
+    }
+  },
+  "client-love-note": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 3.19,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "ai-studio-spotlight": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 32.2,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "still-hours-note": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 4.98,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "motivational-tweet-quote": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 84.45,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "purple-blur-gradient": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 43.79,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "aesthetic-sunset-quote": {
+    "score": 7.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.7,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 1,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 0,
+        "brandPass": false,
+        "brandFail": 2
+      }
+    }
+  },
+  "language-learning-encouragement": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 43.79,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "morning-coffee-ritual": {
+    "score": 7.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.7,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 1,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 0,
+        "brandPass": false,
+        "brandFail": 2
+      }
+    }
+  },
+  "black-marble-elegant": {
+    "score": 8.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 0.23,
+        "brandPass": false,
+        "brandFail": 1
+      }
+    }
+  },
+  "morning-journaling-habit": {
+    "score": 8.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 0.23,
+        "brandPass": false,
+        "brandFail": 1
+      }
+    }
+  },
+  "blue-minimalist-social": {
+    "score": 9,
+    "breakdown": {
+      "contract": 3,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 1,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 49.81,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "red-and-black": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 15.09,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "morning-workout-routine": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 15.09,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "red-and-cream": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 36.21,
+        "brandPass": true,
+        "brandFail": 2
+      }
+    }
+  },
+  "permission-to-rest": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 36.21,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "beige-pink-minimalist": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 1.97,
+        "brandPass": false,
+        "brandFail": 0
+      }
+    }
+  },
+  "aesthetic-phone-focus": {
+    "score": 6.2,
+    "breakdown": {
+      "contract": 2,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 2,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 0,
+        "brandPass": false,
+        "brandFail": 0
+      }
+    }
+  },
+  "yellow-and-white": {
+    "score": 7.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 1,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 5.49,
+        "brandPass": true,
+        "brandFail": 2
+      }
+    }
+  },
+  "community-garden-workshop": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 4.33,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "cream-and-white": {
+    "score": 7.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 0.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 2,
+        "deckAvg": 0.23,
+        "brandPass": false,
+        "brandFail": 1
+      }
+    }
+  },
+  "study-group-planning": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 5.49,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "dark-minimalistic-message": {
+    "score": 7.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 1.7,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 1,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 7.79,
+        "brandPass": true,
+        "brandFail": 1
+      }
+    }
+  },
+  "bold-mobile-phone": {
+    "score": 9,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 0.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 2,
+        "deckAvg": 8.54,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "meal-prep-testimonial": {
+    "score": 9,
+    "breakdown": {
+      "contract": 3,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 1,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 49.81,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "library-reopening-celebration": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 8.54,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "beige-aesthetic-quote": {
+    "score": 8.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 2.34,
+        "brandPass": false,
+        "brandFail": 1
+      }
+    }
+  },
+  "blue-purple-hologram": {
+    "score": 8.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 11.57,
+        "brandPass": true,
+        "brandFail": 2
+      }
+    }
+  },
+  "er-mindset-shift": {
+    "score": 10,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 0,
+        "deckAvg": 11.25,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "start-creative-hobby": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 71.94,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "language-exchange-app": {
+    "score": 7.5,
+    "breakdown": {
+      "contract": 4,
+      "verify": 3,
+      "stress": 0.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 0,
+        "stFail": 2,
+        "deckAvg": 0.23,
+        "brandPass": false,
+        "brandFail": 1
+      }
+    }
+  },
+  "slow-morning-ritual-2": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 19.87,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "personal-fitness-coaching": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 7.75,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "community-garden-volunteer": {
+    "score": 8.2,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 0,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 2.34,
+        "brandPass": false,
+        "brandFail": 1
+      }
+    }
+  },
+  "start-over-today": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 39.49,
+        "brandPass": true,
+        "brandFail": 0
+      }
+    }
+  },
+  "clay-studio-diary": {
+    "score": 9.7,
+    "breakdown": {
+      "contract": 4,
+      "verify": 2.7,
+      "stress": 1.5,
+      "brand": 1.5,
+      "raw": {
+        "cViol": 0,
+        "cWarn": 0,
+        "vFail": 0,
+        "vWarn": 1,
+        "stFail": 0,
+        "deckAvg": 3.62,
         "brandPass": true,
         "brandFail": 0
       }
