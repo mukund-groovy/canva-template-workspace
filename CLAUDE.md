@@ -355,6 +355,26 @@ node scripts/publish-images.mjs --slug <slug>  # one template
 node scripts/publish-images.mjs --all --force  # re-upload even if the blob exists
 ```
 
+**Where do seed-ready templates come from? It is AUTOMATIC — no separate step to remember.**
+`generate-worker.mjs` calls `publish-images.mjs --slug <slug>` in its finalize step (both the
+carousel and single-image paths), right after scoring and seed-metadata drafting. So every newly
+cloned+generated template lands in `output/.seed/` already pointing at hosted URLs. The manual
+`npm run publish:images` is only for **backfilling** (templates made before this existed) or
+**re-publishing** after editing a template or regenerating a photo by hand.
+
+- **`output/.seed/` holds ALL 96 templates, not just the 33 with photos.** A text-only template is
+  copied through unchanged. If only image-bearing templates were seeded there, seeding would mean
+  taking some files from `.seed/` and the rest from `output/` — an easy way to accidentally ship a
+  template whose photo srcs are still relative. **Seed from `.seed/`, always, for everything.**
+- **`output/.seed/` is TRACKED in git** (not ignored) so the exact bytes that get seeded are
+  reviewable and diffable.
+- **Uploads never repeat, and never go stale.** Each file is compared against the blob before
+  sending: `Content-MD5` when the blob has one, byte length otherwise. Identical → skipped (a HEAD
+  request, no transfer). Existence alone is deliberately NOT the test — image filenames are
+  deterministic (`slide-01.png`), so a REGENERATED photo reuses its name, and a skip-if-exists
+  check would leave the stale image hosted forever while the local one silently diverged. Every
+  upload records `x-ms-blob-content-md5` so future runs can tell "changed" from "missing".
+  `--force` re-uploads regardless.
 - **Remote layout — under the `UPLOAD_DIR` prefix, NOT the container root.** The container is
   SHARED with other services: it already carries an `assets/` prefix in active use plus many
   UUID-named blobs. Mirroring our local `assets/images/…` path verbatim would drop our files into

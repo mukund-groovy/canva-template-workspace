@@ -35,11 +35,10 @@ designs/*/extract/assets/download-manifest.json
 output/.slot-images/
 *.imagelock
 
-# seed-ready copies emitted by publish-images.mjs — same HTML as output/*.html but with
-# photo srcs rewritten to the hosted blob URLs. Environment-specific (they bake in one
-# account's public base URL) and fully regenerable, so they are a build artefact, not a
-# deliverable. output/*.html stays the source of truth.
-output/.seed/
+# NOTE: output/.seed/ is deliberately TRACKED, not ignored — it is the seed-ready deliverable
+# (same HTML as output/*.html but with photo srcs pointing at the hosted blob URLs), and having
+# it in the repo means the exact bytes that get seeded are reviewable and diffable. It is
+# regenerable at any time with `npm run publish:images`.
 
 # session render artifacts + comparison boards (temp)
 output/.agent/

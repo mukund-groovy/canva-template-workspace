@@ -1116,6 +1116,12 @@ async function processOneSI(entry) {
   // ships without one going forward. Non-fatal: a metadata-draft hiccup must never fail a ship
   // that already succeeded.
   try { execSync(`node "${path.join(SCRIPTS, 'generate-seed-metadata.mjs')}" --slug ${shipSlug}`, { cwd: WORKSPACE, stdio: 'ignore' }); } catch {}
+  // Publish photos to blob storage + emit the seed-ready copy at output/.seed/<slug>.html, so a
+  // freshly generated template is immediately seedable without a separate manual step. Skips any
+  // image already uploaded with identical content, so re-runs cost only HEAD requests.
+  // Non-fatal for the same reason as above — and specifically so a machine WITHOUT storage
+  // credentials in .env still generates templates fine, it just doesn't publish them.
+  try { execSync(`node "${path.join(SCRIPTS, 'publish-images.mjs')}" --slug ${shipSlug}`, { cwd: WORKSPACE, stdio: 'ignore' }); } catch {}
   setGenMetrics(designId, {
     genDurationMs: Date.now() - t0, genRetries, genProvider: PROVIDER, genStage: '',
     status: 'success', lastError: '', belowThreshold, score, detScore: score, premiumScore: 0,
@@ -1312,6 +1318,12 @@ async function processOne(entry) {
   // ships without one going forward. Non-fatal: a metadata-draft hiccup must never fail a ship
   // that already succeeded.
   try { execSync(`node "${path.join(SCRIPTS, 'generate-seed-metadata.mjs')}" --slug ${shipSlug}`, { cwd: WORKSPACE, stdio: 'ignore' }); } catch {}
+  // Publish photos to blob storage + emit the seed-ready copy at output/.seed/<slug>.html, so a
+  // freshly generated template is immediately seedable without a separate manual step. Skips any
+  // image already uploaded with identical content, so re-runs cost only HEAD requests.
+  // Non-fatal for the same reason as above — and specifically so a machine WITHOUT storage
+  // credentials in .env still generates templates fine, it just doesn't publish them.
+  try { execSync(`node "${path.join(SCRIPTS, 'publish-images.mjs')}" --slug ${shipSlug}`, { cwd: WORKSPACE, stdio: 'ignore' }); } catch {}
   // Record generation metrics (shown in the dashboard) before the refresh regenerates the HTML.
   // Mark success explicitly on the entry BEFORE the refresh — the ship already happened, so
   // status must not depend on the refresh succeeding.

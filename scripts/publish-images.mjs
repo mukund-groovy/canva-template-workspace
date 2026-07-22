@@ -103,19 +103,47 @@ const blobUrl = (blobPath, query = {}) => {
   return `https://${ACCOUNT}.blob.core.windows.net/${CONTAINER}/${blobPath}${q ? '?' + q : ''}`;
 };
 
-async function blobExists(blobPath) {
+const md5b64 = (buf) => crypto.createHash('md5').update(buf).digest('base64');
+
+/** { exists, md5, size } — md5 is null for blobs uploaded without a recorded Content-MD5. */
+async function blobStatus(blobPath) {
   const headers = signedHeaders({ method: 'HEAD', blobPath });
   const r = await fetch(blobUrl(blobPath), { method: 'HEAD', headers });
-  return r.status === 200;
+  if (r.status !== 200) return { exists: false, md5: null, size: null };
+  return {
+    exists: true,
+    md5: r.headers.get('content-md5'),
+    size: Number(r.headers.get('content-length') || 0),
+  };
+}
+
+/**
+ * Decide whether a local file needs uploading. Existence alone is NOT enough: image filenames
+ * are deterministic (slide-01.png), so a REGENERATED photo reuses its name — skipping on
+ * existence would leave the stale image hosted forever while the local one silently diverges.
+ *
+ * Compare content instead: Content-MD5 when the blob has one, else byte length. Blobs uploaded
+ * before this check existed carry no MD5, so they fall back to a size comparison rather than
+ * forcing a full re-upload of everything.
+ */
+async function needsUpload(blobPath, buf) {
+  const st = await blobStatus(blobPath);
+  if (!st.exists) return { upload: true, why: 'new' };
+  if (st.md5) return st.md5 === md5b64(buf) ? { upload: false, why: 'identical (md5)' } : { upload: true, why: 'changed (md5)' };
+  if (st.size !== buf.length) return { upload: true, why: `changed (size ${st.size} -> ${buf.length})` };
+  return { upload: false, why: 'same size, no md5 recorded' };
 }
 
 async function putBlob(blobPath, buf, contentType) {
+  const contentMD5 = md5b64(buf);
   const headers = signedHeaders({
     method: 'PUT',
     blobPath,
     contentLength: buf.length,
     contentType,
-    extraHeaders: { 'x-ms-blob-type': 'BlockBlob' },
+    // Recording the hash on the blob is what makes future runs able to detect a CHANGED image
+    // rather than just a missing one.
+    extraHeaders: { 'x-ms-blob-type': 'BlockBlob', 'x-ms-blob-content-md5': contentMD5 },
   });
   headers['Content-Type'] = contentType;
   headers['Content-Length'] = String(buf.length);
@@ -171,7 +199,18 @@ async function publishOne(fileName) {
   const file = path.join(OUTPUT, fileName);
   let html = fs.readFileSync(file, 'utf8');
   const refs = [...new Set([...html.matchAll(/src="(assets\/images\/[^"]+)"/g)].map((m) => m[1]))];
-  if (!refs.length) return { slug, images: 0, skipped: 0, uploaded: 0, seeded: false };
+
+  // A text-only template has nothing to upload, but it STILL gets a seed copy. Otherwise
+  // output/.seed/ holds only the image-bearing templates and seeding means pulling some files
+  // from .seed/ and the rest from output/ — an easy way to accidentally ship a template whose
+  // photo srcs are still relative. .seed/ is the complete, unambiguous seed-ready set.
+  if (!refs.length) {
+    if (!DRY) {
+      fs.mkdirSync(SEED_DIR, { recursive: true });
+      fs.writeFileSync(path.join(SEED_DIR, fileName), html);
+    }
+    return { slug, images: 0, skipped: 0, uploaded: 0, seeded: true, textOnly: true };
+  }
 
   let uploaded = 0, skipped = 0;
   for (const rel of refs) {
@@ -184,12 +223,16 @@ async function publishOne(fileName) {
     const contentType = MIME[ext] || 'application/octet-stream';
 
     if (!DRY) {
-      const exists = FORCE ? false : await withRetry(`HEAD ${blobPath}`, () => blobExists(blobPath));
-      if (exists) { skipped++; }
-      else {
-        const buf = fs.readFileSync(localPath);
+      const buf = fs.readFileSync(localPath);
+      const decision = FORCE
+        ? { upload: true, why: '--force' }
+        : await withRetry(`HEAD ${blobPath}`, () => needsUpload(blobPath, buf));
+      if (decision.upload) {
         await withRetry(`PUT ${blobPath}`, () => putBlob(blobPath, buf, contentType));
         uploaded++;
+        if (decision.why.startsWith('changed')) console.log(`    re-uploaded ${tail} — ${decision.why}`);
+      } else {
+        skipped++;
       }
     }
     html = html.split(`src="${rel}"`).join(`src="${PUBLIC_BASE}/${blobPath}"`);
@@ -217,17 +260,18 @@ async function main() {
   const files = templatesToPublish();
   if (!files.length) { console.log('no matching template.'); return; }
 
-  let tImgs = 0, tUp = 0, tSkip = 0, tSeed = 0, withImages = 0;
+  let tImgs = 0, tUp = 0, tSkip = 0, tSeed = 0, withImages = 0, textOnly = 0;
   for (const f of files) {
     const r = await publishOne(f);
-    if (!r.images) continue;
-    withImages++; tImgs += r.images; tUp += r.uploaded; tSkip += r.skipped; if (r.seeded) tSeed++;
+    if (r.seeded) tSeed++;
+    if (!r.images) { textOnly++; continue; } // text-only: seeded, nothing to upload, not worth a line
+    withImages++; tImgs += r.images; tUp += r.uploaded; tSkip += r.skipped;
     console.log(`${r.slug}: ${r.images} image(s)` + (DRY ? '' : ` — ${r.uploaded} uploaded, ${r.skipped} already present`));
   }
-  console.log(`\n${withImages} template(s) with images, ${tImgs} image ref(s).`);
-  if (DRY) { console.log('--dry: nothing uploaded, no seed HTML written.'); return; }
+  console.log(`\n${withImages} template(s) with images (${tImgs} image ref(s)), ${textOnly} text-only.`);
+  if (DRY) { console.log(`--dry: nothing uploaded; ${tSeed} seed HTML file(s) would be written.`); return; }
   console.log(`uploaded ${tUp}, skipped ${tSkip} (already in blob storage).`);
-  console.log(`seed-ready HTML -> ${SEED_DIR}`);
+  console.log(`seed-ready HTML -> ${SEED_DIR} (${tSeed} file(s) — the COMPLETE set, seed from here)`);
   console.log(`\noutput/*.html is UNCHANGED (still relative paths, still renders offline).`);
 }
 
