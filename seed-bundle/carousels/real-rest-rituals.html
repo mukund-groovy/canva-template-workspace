@@ -1,0 +1,394 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+    :root{
+      /* Brand role tokens — only the accent surfaces (top pill, number badges,
+         the next-button, the closer CTA) re-skin. Canvas + ink stay fixed
+         literals so the calm, high-contrast reading surface never breaks. */
+      --primary:var(--brand-primary,#22301E);
+      --secondary:var(--brand-secondary,#46593D);
+      --accent:var(--brand-accent,#3F5B44);
+      --highlight:var(--brand-accent,#3F5B44);
+      --bg:var(--brand-bg,#EDE7DC);
+      --surface:var(--brand-surface,var(--brand-bg-alt,#F5F1E8));
+      --text-high:var(--brand-ink,var(--brand-text,#201C15));
+      --text-low:var(--brand-text-muted,rgba(32,28,21,.64));
+      --border:var(--brand-border,rgba(32,28,21,.16));
+      --on-fill:var(--brand-on-accent,#ffffff);
+      --on-primary:var(--brand-on-primary,#ffffff);
+    }
+
+    *{box-sizing:border-box;}
+
+    .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+    .slide{
+      width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+      background:var(--bg);font-family:'Poppins',sans-serif;
+    }
+
+    /* ── backdrop: soft tonal wash + a dappled foliage-shadow cluster,
+       confined to the upper-right so it never sits under the type ── */
+    .bg-scene{position:absolute;inset:0;z-index:0;background:linear-gradient(158deg,#fbf9f4 0%,#eee8db 52%,var(--bg) 100%);}
+    .leaf-shadow{position:absolute;left:0;top:0;width:1080px;height:1350px;z-index:1;pointer-events:none;mix-blend-mode:multiply;}
+
+    .arc-deco{position:absolute;left:0;top:0;width:1080px;height:1350px;z-index:1;pointer-events:none;}
+    .ring-deco{position:absolute;border-radius:50%;border:2px solid var(--border);z-index:1;pointer-events:none;}
+
+    /* ── top wayfinding row ── */
+    .top-row{position:absolute;left:64px;right:64px;top:64px;height:64px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+    .pill{display:inline-flex;align-items:center;height:68px;padding:0 42px;border-radius:34px;background:var(--accent);}
+    .pill span{font-family:'Poppins',sans-serif;font-weight:700;font-size:23px;letter-spacing:.09em;text-transform:uppercase;color:var(--on-fill);white-space:nowrap;}
+    .top-label{font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;letter-spacing:.07em;text-transform:uppercase;color:var(--text-high);white-space:nowrap;}
+
+    /* ── number badge (tip slides) ── */
+    .badge{position:absolute;left:64px;width:168px;height:168px;border-radius:50%;background:var(--accent);z-index:3;display:flex;align-items:center;justify-content:center;}
+    .badge span{font-family:'Poppins',sans-serif;font-weight:800;font-size:64px;color:var(--on-fill);}
+
+    /* ── small outline pill: tip progress ── */
+    .meta-pill{position:absolute;left:64px;height:56px;display:inline-flex;align-items:center;justify-content:center;padding:0 26px;border-radius:28px;border:2px solid var(--border);z-index:3;}
+    .meta-pill span{font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;letter-spacing:.07em;text-transform:uppercase;color:var(--text-high);white-space:nowrap;}
+    .meta-right{position:absolute;right:64px;font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;letter-spacing:.07em;text-transform:uppercase;color:var(--text-high);z-index:3;white-space:nowrap;}
+
+    /* ── filled read-time pill (cover) ── */
+    .meta-pill--fill{display:inline-flex;align-items:center;justify-content:center;height:64px;padding:0 34px;border-radius:32px;border:none;background:var(--accent);}
+    .meta-pill--fill span{color:var(--on-fill);}
+
+    /* ── isolated positioned wrapper per text node ── */
+    .tn-title{position:absolute;left:64px;right:64px;z-index:3;}
+    .tn-title h1{
+      margin:0;font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-.01em;
+      text-transform:uppercase;color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.2em;
+    }
+    .title-cover h1{font-size:104px;line-height:1.06;-webkit-line-clamp:3;}
+    .title-tip h1{font-size:98px;line-height:1.06;-webkit-line-clamp:2;}
+    .title-close h1{font-size:88px;line-height:1.1;-webkit-line-clamp:3;}
+
+    .tn-tagline{position:absolute;left:64px;right:64px;z-index:3;}
+    .tn-tagline p{
+      margin:0;font-family:'Poppins',sans-serif;font-weight:600;font-size:32px;letter-spacing:.04em;
+      text-transform:uppercase;color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.2em;
+    }
+
+    .tn-message{position:absolute;left:64px;right:64px;z-index:3;}
+    .tn-message p{
+      margin:0;font-family:'Poppins',sans-serif;font-weight:400;font-size:34px;line-height:1.42;color:var(--text-low);
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.15em;
+    }
+    .msg-tip p{font-size:38px;line-height:1.5;-webkit-line-clamp:4;}
+    .msg-close p{width:760px;-webkit-line-clamp:3;}
+
+    /* ── footer: brand lockup + next / CTA ── */
+    .foot{position:absolute;left:64px;right:64px;bottom:56px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+    .lockup{display:inline-flex;align-items:center;gap:16px;}
+    .brand-mark{height:34px;width:auto;max-width:120px;object-fit:contain;display:block;}
+    .brand-word{font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;color:var(--text-high);letter-spacing:.02em;white-space:nowrap;}
+
+    .next-btn{width:132px;height:132px;flex:none;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;}
+    .next-btn svg{width:48px;height:48px;}
+
+    .cta-btn{display:inline-flex;align-items:center;justify-content:center;padding:0 52px;height:108px;border-radius:54px;background:var(--accent);}
+    .cta-btn span{font-family:'Poppins',sans-serif;font-weight:800;font-size:28px;letter-spacing:.07em;text-transform:uppercase;color:var(--on-fill);white-space:nowrap;}
+  </style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <!-- 1: Cover -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="bg-scene"></div>
+      <svg class="leaf-shadow" data-cg-svg="" data-cg-preserve="" viewBox="0 0 1080 1350" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);filter:blur(22px);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <defs></defs>
+        <g fill="var(--cg-fill)">
+          <ellipse cx="820" cy="55" rx="230" ry="65" transform="rotate(-25 820 55)"></ellipse>
+          <ellipse cx="980" cy="145" rx="190" ry="55" transform="rotate(15 980 145)"></ellipse>
+          <ellipse cx="700" cy="180" rx="165" ry="48" transform="rotate(-48 700 180)"></ellipse>
+          <ellipse cx="1010" cy="270" rx="205" ry="58" transform="rotate(38 1010 270)"></ellipse>
+          <ellipse cx="840" cy="320" rx="150" ry="44" transform="rotate(-8 840 320)"></ellipse>
+          <ellipse cx="560" cy="120" rx="135" ry="40" transform="rotate(-60 560 120)"></ellipse>
+        </g>
+      </svg>
+      <svg class="arc-deco" data-cg-svg="" data-cg-preserve="" viewBox="0 0 1080 1350" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M -60 780 C 60 180, 700 100, 900 480 C 1010 690, 990 980, 990 1260" fill="none" stroke="var(--cg-stroke)" stroke-width="2.5"></path>
+      </svg>
+
+      <div class="top-row">
+        <div class="pill"><span>Recovery</span></div>
+        <div class="top-label">Rest Tips</div>
+      </div>
+
+      <div class="tn-title title-cover" style="top:480px;">
+        <h1 data-title="true">5 ways to rest like you mean it</h1>
+      </div>
+      <div class="tn-tagline" style="top:900px;">
+        <p data-tagline="true">By Mara Okafor</p>
+      </div>
+      <div class="meta-pill meta-pill--fill" style="top:980px;"><span>5 min read</span></div>
+
+      <div class="foot">
+        <div class="lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+        <div class="next-btn">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="var(--cg-stroke)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2: Tip 01 -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="bg-scene"></div>
+      <svg class="leaf-shadow" data-cg-svg="" data-cg-preserve="" viewBox="0 0 1080 1350" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);filter:blur(22px);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <defs></defs>
+        <g fill="var(--cg-fill)">
+          <ellipse cx="820" cy="55" rx="230" ry="65" transform="rotate(-25 820 55)"></ellipse>
+          <ellipse cx="980" cy="145" rx="190" ry="55" transform="rotate(15 980 145)"></ellipse>
+          <ellipse cx="700" cy="180" rx="165" ry="48" transform="rotate(-48 700 180)"></ellipse>
+          <ellipse cx="1010" cy="270" rx="205" ry="58" transform="rotate(38 1010 270)"></ellipse>
+          <ellipse cx="840" cy="320" rx="150" ry="44" transform="rotate(-8 840 320)"></ellipse>
+          <ellipse cx="560" cy="120" rx="135" ry="40" transform="rotate(-60 560 120)"></ellipse>
+        </g>
+      </svg>
+
+      <div class="top-row">
+        <div class="pill"><span>Recovery</span></div>
+        <div class="top-label">Rest Tips</div>
+      </div>
+
+      <div class="badge" style="top:215px;"><span>01</span></div>
+      <div class="tn-title title-tip" style="top:420px;">
+        <h1 data-title="true">Protect your evenings</h1>
+      </div>
+      <div class="tn-message msg-tip" style="top:685px;width:920px;">
+        <p data-message="true">Treat the hours after work like a meeting you can't move. A boundary is what makes rest actually happen.</p>
+      </div>
+      <div class="meta-pill" style="top:960px;width:360px;"><span>01 of 05</span></div>
+      <div class="meta-right" style="top:978px;">Try it today</div>
+
+      <div class="foot">
+        <div class="lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+        <div class="next-btn">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="var(--cg-stroke)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3: Tip 02 -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="bg-scene"></div>
+      <svg class="leaf-shadow" data-cg-svg="" data-cg-preserve="" viewBox="0 0 1080 1350" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);filter:blur(22px);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <defs></defs>
+        <g fill="var(--cg-fill)">
+          <ellipse cx="820" cy="55" rx="230" ry="65" transform="rotate(-25 820 55)"></ellipse>
+          <ellipse cx="980" cy="145" rx="190" ry="55" transform="rotate(15 980 145)"></ellipse>
+          <ellipse cx="700" cy="180" rx="165" ry="48" transform="rotate(-48 700 180)"></ellipse>
+          <ellipse cx="1010" cy="270" rx="205" ry="58" transform="rotate(38 1010 270)"></ellipse>
+          <ellipse cx="840" cy="320" rx="150" ry="44" transform="rotate(-8 840 320)"></ellipse>
+          <ellipse cx="560" cy="120" rx="135" ry="40" transform="rotate(-60 560 120)"></ellipse>
+        </g>
+      </svg>
+
+      <div class="top-row">
+        <div class="pill"><span>Recovery</span></div>
+        <div class="top-label">Rest Tips</div>
+      </div>
+
+      <div class="badge" style="top:215px;"><span>02</span></div>
+      <div class="tn-title title-tip" style="top:420px;">
+        <h1 data-title="true">Move without a goal</h1>
+      </div>
+      <div class="tn-message msg-tip" style="top:685px;width:920px;">
+        <p data-message="true">A walk with no destination resets your nervous system faster than a workout with a scoreboard.</p>
+      </div>
+      <div class="meta-pill" style="top:960px;width:360px;"><span>02 of 05</span></div>
+      <div class="meta-right" style="top:978px;">Try it today</div>
+
+      <div class="foot">
+        <div class="lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+        <div class="next-btn">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="var(--cg-stroke)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4: Tip 03 -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="bg-scene"></div>
+      <svg class="leaf-shadow" data-cg-svg="" data-cg-preserve="" viewBox="0 0 1080 1350" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);filter:blur(22px);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <defs></defs>
+        <g fill="var(--cg-fill)">
+          <ellipse cx="820" cy="55" rx="230" ry="65" transform="rotate(-25 820 55)"></ellipse>
+          <ellipse cx="980" cy="145" rx="190" ry="55" transform="rotate(15 980 145)"></ellipse>
+          <ellipse cx="700" cy="180" rx="165" ry="48" transform="rotate(-48 700 180)"></ellipse>
+          <ellipse cx="1010" cy="270" rx="205" ry="58" transform="rotate(38 1010 270)"></ellipse>
+          <ellipse cx="840" cy="320" rx="150" ry="44" transform="rotate(-8 840 320)"></ellipse>
+          <ellipse cx="560" cy="120" rx="135" ry="40" transform="rotate(-60 560 120)"></ellipse>
+        </g>
+      </svg>
+
+      <div class="top-row">
+        <div class="pill"><span>Recovery</span></div>
+        <div class="top-label">Rest Tips</div>
+      </div>
+
+      <div class="badge" style="top:215px;"><span>03</span></div>
+      <div class="tn-title title-tip" style="top:420px;">
+        <h1 data-title="true">Let boredom happen</h1>
+      </div>
+      <div class="tn-message msg-tip" style="top:685px;width:920px;">
+        <p data-message="true">Idle minutes aren't wasted time. They're where your best ideas quietly show up.</p>
+      </div>
+      <div class="meta-pill" style="top:960px;width:360px;"><span>03 of 05</span></div>
+      <div class="meta-right" style="top:978px;">Try it today</div>
+
+      <div class="foot">
+        <div class="lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+        <div class="next-btn">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="var(--cg-stroke)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5: Tip 04 -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="bg-scene"></div>
+      <svg class="leaf-shadow" data-cg-svg="" data-cg-preserve="" viewBox="0 0 1080 1350" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);filter:blur(22px);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <defs></defs>
+        <g fill="var(--cg-fill)">
+          <ellipse cx="820" cy="55" rx="230" ry="65" transform="rotate(-25 820 55)"></ellipse>
+          <ellipse cx="980" cy="145" rx="190" ry="55" transform="rotate(15 980 145)"></ellipse>
+          <ellipse cx="700" cy="180" rx="165" ry="48" transform="rotate(-48 700 180)"></ellipse>
+          <ellipse cx="1010" cy="270" rx="205" ry="58" transform="rotate(38 1010 270)"></ellipse>
+          <ellipse cx="840" cy="320" rx="150" ry="44" transform="rotate(-8 840 320)"></ellipse>
+          <ellipse cx="560" cy="120" rx="135" ry="40" transform="rotate(-60 560 120)"></ellipse>
+        </g>
+      </svg>
+
+      <div class="top-row">
+        <div class="pill"><span>Recovery</span></div>
+        <div class="top-label">Rest Tips</div>
+      </div>
+
+      <div class="badge" style="top:215px;"><span>04</span></div>
+      <div class="tn-title title-tip" style="top:420px;">
+        <h1 data-title="true">Guard the wind-down hour</h1>
+      </div>
+      <div class="tn-message msg-tip" style="top:685px;width:920px;">
+        <p data-message="true">The sixty minutes before bed decide the quality of the eight after it. Protect it like a deadline.</p>
+      </div>
+      <div class="meta-pill" style="top:960px;width:360px;"><span>04 of 05</span></div>
+      <div class="meta-right" style="top:978px;">Try it today</div>
+
+      <div class="foot">
+        <div class="lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+        <div class="next-btn">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="var(--cg-stroke)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6: Tip 05 -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="bg-scene"></div>
+      <svg class="leaf-shadow" data-cg-svg="" data-cg-preserve="" viewBox="0 0 1080 1350" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);filter:blur(22px);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <defs></defs>
+        <g fill="var(--cg-fill)">
+          <ellipse cx="820" cy="55" rx="230" ry="65" transform="rotate(-25 820 55)"></ellipse>
+          <ellipse cx="980" cy="145" rx="190" ry="55" transform="rotate(15 980 145)"></ellipse>
+          <ellipse cx="700" cy="180" rx="165" ry="48" transform="rotate(-48 700 180)"></ellipse>
+          <ellipse cx="1010" cy="270" rx="205" ry="58" transform="rotate(38 1010 270)"></ellipse>
+          <ellipse cx="840" cy="320" rx="150" ry="44" transform="rotate(-8 840 320)"></ellipse>
+          <ellipse cx="560" cy="120" rx="135" ry="40" transform="rotate(-60 560 120)"></ellipse>
+        </g>
+      </svg>
+
+      <div class="top-row">
+        <div class="pill"><span>Recovery</span></div>
+        <div class="top-label">Rest Tips</div>
+      </div>
+
+      <div class="badge" style="top:215px;"><span>05</span></div>
+      <div class="tn-title title-tip" style="top:420px;">
+        <h1 data-title="true">Disconnect on purpose</h1>
+      </div>
+      <div class="tn-message msg-tip" style="top:685px;width:920px;">
+        <p data-message="true">Turn it off before it turns you off. A planned break beats a forced one every time.</p>
+      </div>
+      <div class="meta-pill" style="top:960px;width:360px;"><span>05 of 05</span></div>
+      <div class="meta-right" style="top:978px;">Try it today</div>
+
+      <div class="foot">
+        <div class="lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+        <div class="next-btn">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="var(--cg-stroke)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7: Closer -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="bg-scene"></div>
+      <svg class="leaf-shadow" data-cg-svg="" data-cg-preserve="" viewBox="0 0 1080 1350" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);filter:blur(22px);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <defs></defs>
+        <g fill="var(--cg-fill)">
+          <ellipse cx="820" cy="55" rx="230" ry="65" transform="rotate(-25 820 55)"></ellipse>
+          <ellipse cx="980" cy="145" rx="190" ry="55" transform="rotate(15 980 145)"></ellipse>
+          <ellipse cx="700" cy="180" rx="165" ry="48" transform="rotate(-48 700 180)"></ellipse>
+          <ellipse cx="1010" cy="270" rx="205" ry="58" transform="rotate(38 1010 270)"></ellipse>
+          <ellipse cx="840" cy="320" rx="150" ry="44" transform="rotate(-8 840 320)"></ellipse>
+          <ellipse cx="560" cy="120" rx="135" ry="40" transform="rotate(-60 560 120)"></ellipse>
+        </g>
+      </svg>
+      <div class="ring-deco" style="width:760px;height:760px;right:-260px;bottom:-260px;"></div>
+
+      <div class="top-row">
+        <div class="pill"><span>Recovery</span></div>
+        <div class="top-label">Rest Tips</div>
+      </div>
+
+      <div class="tn-title title-close" style="top:520px;">
+        <h1 data-title="true">Save this for your next slow evening</h1>
+      </div>
+      <div class="tn-message msg-close" style="top:850px;">
+        <p data-message="true">One small rule a week beats five you'll drop by Friday.</p>
+      </div>
+
+      <div class="cta-btn" style="position:absolute;left:64px;top:1020px;" data-cta="true"><span>Save the guide</span></div>
+
+      <div class="foot">
+        <div class="lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+          <span class="brand-word">YOURBRAND</span>
+        </div>
+        <div class="next-btn">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M12 4V16M12 16L7 11M12 16L17 11M5 20H19" stroke="var(--cg-stroke)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+
+</body></html>

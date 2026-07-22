@@ -1,0 +1,193 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+      :root{
+        /* Brand role colors — accent (--primary/--secondary/--accent) is what the brand
+           preview re-skins. Canvas and ink are fixed literals so the editorial reading
+           surface stays AA-legible under any palette. */
+        --primary:var(--brand-primary,#33302E);
+        --secondary:var(--brand-secondary,#B98CA0);
+        --accent:var(--brand-accent,#7ECC25);
+        --highlight:var(--brand-accent,#7ECC25);
+        --bg:var(--brand-bg,#F9EDE5);
+        --surface:var(--brand-surface,#FFFDF8);
+        --text-high:var(--brand-ink,#33302E);
+        --text-low:var(--brand-text-muted,rgba(51,48,46,.72));
+        --border:var(--brand-border,rgba(51,48,46,.14));
+        --on-fill:var(--brand-on-accent,#151a08);
+        --on-primary:var(--brand-on-primary,#ffffff);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);font-family:'Playfair Display',serif;
+      }
+
+      /* ── soft brand halo behind every slide's hero art — the deck's main brand
+         device: a real filled surface, never fully hidden behind the photo/illustration
+         (the art is smaller than the disc so a ring of accent always shows). ── */
+      .halo{position:absolute;top:70px;left:270px;width:540px;height:540px;border-radius:50%;
+        background:color-mix(in srgb, var(--accent) 26%, var(--bg) 74%);z-index:0;}
+
+      .hero{position:absolute;top:130px;left:330px;width:420px;height:420px;border-radius:32px;
+        overflow:hidden;z-index:1;box-shadow:0 24px 46px rgba(51,48,46,.18);background:#cbb896;}
+      .hero img{width:100%;height:100%;object-fit:cover;display:block;}
+
+      /* ── reading panel: a soft, faintly accent-tinted surface that unifies the
+         kicker/headline/body/CTA into one visual body and fills the lower frame
+         (the reference's own whitespace-heavy DNA reads as unfinished at feed
+         thumbnail size without something to anchor the type to). ── */
+      .panel{position:absolute;top:630px;left:90px;right:90px;bottom:158px;z-index:1;
+        border-radius:40px;background:color-mix(in srgb, var(--accent) 6%, var(--surface) 94%);
+        box-shadow:0 20px 50px rgba(51,48,46,.10);}
+
+      /* ── per-tip kicker chip: filled accent pill, on-accent text/icon ── */
+      .kicker{position:absolute;top:670px;left:50%;transform:translateX(-50%);height:70px;z-index:2;
+        display:inline-flex;align-items:center;gap:12px;padding:0 30px;border-radius:999px;
+        background:var(--accent);white-space:nowrap;}
+      .kicker svg{width:22px;height:22px;flex:none;color:var(--on-fill);}
+      .kicker span{font-family:'Playfair Display',serif;font-weight:700;font-style:italic;
+        font-size:25px;letter-spacing:.05em;text-transform:uppercase;color:var(--on-fill);}
+
+      /* ── headline: single h1, mixed regular / bold-italic serif words, own absolute
+         wrapper, text in normal flow inside it, clamped so stress copy never spills. ── */
+      .tn-title{position:absolute;left:140px;right:140px;z-index:2;}
+      .slide.has-kicker .tn-title{top:770px;}
+      .slide.no-kicker .tn-title{top:685px;}
+      .tn-title h1{
+        margin:0;font-family:'Playfair Display',serif;font-weight:400;font-style:normal;
+        font-size:80px;line-height:1.08;letter-spacing:-.01em;color:var(--text-high);
+        text-align:center;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;
+        overflow:hidden;padding-bottom:.18em;
+      }
+      .tn-title h1 .em{font-weight:700;font-style:italic;}
+
+      .tn-message{position:absolute;left:170px;right:170px;z-index:2;}
+      .slide.has-kicker .tn-message{top:983px;}
+      .slide.no-kicker .tn-message{top:898px;}
+      .tn-message p{
+        margin:0;font-family:'Playfair Display',serif;font-weight:400;font-size:29px;line-height:1.45;
+        color:var(--text-high);text-align:center;display:-webkit-box;-webkit-box-orient:vertical;
+        -webkit-line-clamp:3;overflow:hidden;padding-bottom:.15em;
+      }
+      .tn-message p em{font-style:italic;font-weight:400;}
+
+      /* ── CTA pill: cover + closing only, filled accent, on-accent text/icon ── */
+      .cta{position:absolute;top:1059px;left:50%;transform:translateX(-50%);height:88px;z-index:2;
+        display:inline-flex;align-items:center;gap:16px;padding:0 52px;border-radius:999px;
+        background:var(--accent);white-space:nowrap;}
+      .cta span{font-family:'Playfair Display',serif;font-weight:700;font-style:italic;
+        font-size:30px;line-height:1.3;color:var(--on-fill);overflow:hidden;padding-bottom:.1em;}
+      .cta svg{width:26px;height:26px;flex:none;color:var(--on-fill);}
+
+      /* ── footer: brand lockup + folio counter ── */
+      .foot{position:absolute;left:90px;right:90px;bottom:54px;z-index:2;
+        display:flex;align-items:center;justify-content:space-between;}
+      .brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+      .brand-mark{height:30px;width:auto;max-width:108px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Playfair Display',serif;font-weight:700;font-style:italic;
+        font-size:24px;letter-spacing:.01em;color:var(--primary);white-space:nowrap;}
+      .lockup{display:inline-flex;align-items:center;gap:14px;}
+      .cg-slide-counter{font-family:'Playfair Display',serif;font-weight:700;font-size:23px;
+        letter-spacing:.1em;color:var(--text-low);}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Cover -->
+      <section class="slide no-kicker" data-cg-slide-type="text">
+        <div class="halo" aria-hidden="true"></div>
+        <div class="panel" aria-hidden="true"></div>
+        <div class="hero"><img data-image="true" data-image-size="1024x1536" data-image-prompt="warm editorial photograph of a hand pouring water from a glass carafe into a clear glass on a dark wooden table, dramatic morning side-light casting long shadows, rich contrast between sunlit highlights and shaded background, cream and sage tones, minimal still life styling, shallow depth of field" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/daily-hydration-habits/slide-01.png"></div>
+        <div class="tn-title"><h1 data-title="true"><span class="em">Drink Water</span><br>On Purpose</h1></div>
+        <div class="tn-message"><p data-message="true">Most of us walk around a little bit thirsty. These <em>five small habits</em> can help you feel clearer, calmer, and more awake, starting today.</p></div>
+        <div class="cta" data-cta="true"><span>Swipe to see how</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12h14M13 6l6 6-6 6" stroke="var(--cg-stroke)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="cg-slide-counter" data-counter="true">01 / 06</div>
+        </div>
+      </section>
+
+      <!-- Tip 1 -->
+      <section class="slide has-kicker" data-cg-slide-type="text">
+        <div class="halo" aria-hidden="true"></div>
+        <div class="panel" aria-hidden="true"></div>
+        <div class="hero"><img data-image="true" data-image-size="1024x1024" data-image-prompt="flat vector illustration icon of a glass of water beside a rising sun, bold cel-shaded gradients from deep forest green shadow to bright sage highlight, strong directional light, charcoal outline, cream background, minimal geometric style" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/daily-hydration-habits/slide-02.png"></div>
+        <div class="kicker"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2C12 2 4 12 4 17a8 8 0 0 0 16 0C20 12 12 2 12 2Z"></path></svg><span>Tip 01</span></div>
+        <div class="tn-title"><h1 data-title="true"><span class="em">Start</span> your<br>Morning Right</h1></div>
+        <div class="tn-message"><p data-message="true">Drink a full glass of water before your <em>first coffee</em>. Your body's been fasting all night, this is how it wakes up.</p></div>
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="cg-slide-counter" data-counter="true">02 / 06</div>
+        </div>
+      </section>
+
+      <!-- Tip 2 -->
+      <section class="slide has-kicker" data-cg-slide-type="text">
+        <div class="halo" aria-hidden="true"></div>
+        <div class="panel" aria-hidden="true"></div>
+        <div class="hero"><img data-image="true" data-image-size="1024x1024" data-image-prompt="flat vector illustration icon of a reusable water bottle with a leaf sticker beside a small potted plant, bold cel-shaded gradients from deep forest green shadow to bright sage highlight, strong directional light, charcoal outline, cream background, minimal geometric style" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/daily-hydration-habits/slide-03.png"></div>
+        <div class="kicker"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2C12 2 4 12 4 17a8 8 0 0 0 16 0C20 12 12 2 12 2Z"></path></svg><span>Tip 02</span></div>
+        <div class="tn-title"><h1 data-title="true"><span class="em">Keep</span> it<br>Within Reach</h1></div>
+        <div class="tn-message"><p data-message="true">Carry a bottle you actually like. If water is always <em>an arm's length</em> away, you'll drink it without thinking twice.</p></div>
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="cg-slide-counter" data-counter="true">03 / 06</div>
+        </div>
+      </section>
+
+      <!-- Tip 3 -->
+      <section class="slide has-kicker" data-cg-slide-type="text">
+        <div class="halo" aria-hidden="true"></div>
+        <div class="panel" aria-hidden="true"></div>
+        <div class="hero"><img data-image="true" data-image-size="1024x1024" data-image-prompt="flat vector illustration icon of a glass pitcher of water with citrus slices and mint leaves floating inside, bold cel-shaded gradients from deep forest green shadow to bright sage highlight, strong directional light, charcoal outline, cream background, minimal geometric style" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/daily-hydration-habits/slide-04.png"></div>
+        <div class="kicker"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2C12 2 4 12 4 17a8 8 0 0 0 16 0C20 12 12 2 12 2Z"></path></svg><span>Tip 03</span></div>
+        <div class="tn-title"><h1 data-title="true"><span class="em">Make It</span><br>Something Good</h1></div>
+        <div class="tn-message"><p data-message="true">Add a slice of citrus or a few mint leaves. A little flavor makes plain water <em>easy to finish</em>, glass after glass.</p></div>
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="cg-slide-counter" data-counter="true">04 / 06</div>
+        </div>
+      </section>
+
+      <!-- Tip 4 -->
+      <section class="slide has-kicker" data-cg-slide-type="text">
+        <div class="halo" aria-hidden="true"></div>
+        <div class="panel" aria-hidden="true"></div>
+        <div class="hero"><img data-image="true" data-image-size="1024x1024" data-image-prompt="flat vector illustration icon of a wall clock with a water droplet and a small checkmark, simple flat design, muted sage green and charcoal linework, cream background, minimal geometric style" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/daily-hydration-habits/slide-05.png"></div>
+        <div class="kicker"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2C12 2 4 12 4 17a8 8 0 0 0 16 0C20 12 12 2 12 2Z"></path></svg><span>Tip 04</span></div>
+        <div class="tn-title"><h1 data-title="true"><span class="em">Check</span><br>In by Noon</h1></div>
+        <div class="tn-message"><p data-message="true">Notice how much you've had by midday. If you're behind, just catch up slowly, <em>sipping steadily</em> beats one big gulp at night.</p></div>
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="cg-slide-counter" data-counter="true">05 / 06</div>
+        </div>
+      </section>
+
+      <!-- Closing -->
+      <section class="slide no-kicker" data-cg-slide-type="text">
+        <div class="halo" aria-hidden="true"></div>
+        <div class="panel" aria-hidden="true"></div>
+        <div class="hero"><img data-image="true" data-image-size="1024x1024" data-image-prompt="flat vector illustration icon of a tall glass of water glowing softly with a small upward arrow beside it, bold cel-shaded gradients from deep forest green shadow to bright sage highlight, strong directional light, charcoal outline, cream background, minimal geometric style" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/daily-hydration-habits/slide-06.png"></div>
+        <div class="tn-title"><h1 data-title="true"><span class="em">Feel Clearer</span><br>Starting Today</h1></div>
+        <div class="tn-message"><p data-message="true">You don't need a perfect routine, just <em>one more glass</em> than yesterday.</p></div>
+        <div class="cta" data-cta="true"><span>Start sipping now</span><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12h14M13 6l6 6-6 6" stroke="var(--cg-stroke)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">YOURBRAND</span></div>
+          <div class="cg-slide-counter" data-counter="true">06 / 06</div>
+        </div>
+      </section>
+
+    </div>
+  
+
+</body></html>

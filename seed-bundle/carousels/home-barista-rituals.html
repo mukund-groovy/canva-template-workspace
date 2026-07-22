@@ -1,0 +1,275 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+    :root{
+      /* Brand roles. Canvas (near-black plum) and ink (warm white) stay fixed
+         literals so the "late-night espresso bar" reading surface holds AA
+         legibility under any brand palette. --accent carries every FILLED
+         device (top rail, kicker rule, step badges, folio pill, bullet marks,
+         numeral stamp, corner sparks) — never text. Branded text has nowhere
+         safe to live on a dark canvas (a dark --primary would vanish), so no
+         text anywhere routes through --primary or --accent; it's always the
+         fixed --text-high/--text-low pair, exactly like the reference's own
+         white-on-near-black hierarchy. */
+      --primary:var(--brand-primary,#1b1720);
+      --secondary:var(--brand-secondary,#3a2f28);
+      --accent:var(--brand-accent,#a8703f);
+      --highlight:var(--brand-accent,#a8703f);
+      --bg:var(--brand-bg,#221f29);
+      --surface:var(--brand-surface,#2c2833);
+      --text-high:var(--brand-text,#f7f2ea);
+      --text-low:var(--brand-text-muted,rgba(247,242,234,.72));
+      --border:var(--brand-border,rgba(247,242,234,.20));
+      --on-fill:var(--brand-on-accent,#ffffff);
+      --on-primary:var(--brand-on-primary,#ffffff);
+    }
+
+    *{box-sizing:border-box;}
+
+    .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0a0a0a;}
+
+    .slide{
+      width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+      background:var(--bg);font-family:'Roboto',sans-serif;
+    }
+
+    /* ── top rail: the reference's signature hairline band, reproduced at full
+       strength as a real brand fill (not a hint) ── */
+    .top-bar{position:absolute;top:0;left:0;right:0;height:28px;background:var(--accent);z-index:5;}
+
+    /* ── lockup + folio row, sits just under the rail on every slide ── */
+    .foot{position:absolute;left:80px;right:80px;top:58px;z-index:6;display:flex;align-items:center;justify-content:space-between;}
+    .brand-mark-clip{flex:none;height:26px;display:flex;align-items:center;}
+    .brand-mark{height:26px;width:auto;max-width:100px;object-fit:contain;display:block;}
+    .brand-word{font-family:'Roboto',sans-serif;font-weight:700;font-size:20px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-low);white-space:nowrap;}
+    .lockup{display:inline-flex;align-items:center;gap:12px;}
+    .folio{background:var(--accent);color:var(--on-fill);font-family:'Roboto',sans-serif;font-weight:700;font-size:20px;letter-spacing:.05em;padding:7px 18px;border-radius:999px;}
+
+    /* ── decorative asterisk / sparkle — the reference's recurring motif,
+       reused everywhere it plays a decoration (never as readable text) ── */
+    .spark{display:block;}
+    .spark path{fill:currentColor;}
+
+    /* ── large low-opacity corner spark on every tip slide, echoing the
+       reference's bottom-left watermark. Sits BELOW text (z-index 0), so a
+       stress-test text run that grows over it still reads clean. ── */
+    .corner-spark{position:absolute;left:-70px;bottom:0;width:420px;height:420px;color:var(--accent);opacity:.15;z-index:0;}
+    .corner-spark svg{position:absolute;inset:0;}
+
+    /* ── cover: numeral stamp ── */
+    .cov-num-wrap{position:absolute;left:80px;top:150px;width:340px;height:420px;z-index:2;}
+    .num-stamp{position:absolute;left:34px;top:96px;width:236px;height:236px;background:var(--accent);border-radius:26px;transform:rotate(-7deg);z-index:0;}
+    .num-figure{position:relative;z-index:1;display:block;font-family:'Anton',sans-serif;font-size:352px;line-height:.84;color:var(--text-high);letter-spacing:-.01em;}
+
+    .cover .spark-pair{position:absolute;left:452px;top:542px;display:flex;gap:18px;z-index:2;}
+    .cover .spark-pair .spark{width:42px;height:42px;color:var(--accent);}
+
+    /* ── title / message: each in its own absolute lane ── */
+    .tn-title{position:absolute;z-index:2;}
+    .tn-title h1{
+      margin:0;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
+      letter-spacing:-.005em;color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;
+    }
+    .cover .tn-title{left:452px;top:176px;width:548px;height:300px;overflow:hidden;}
+    .cover .tn-title h1{font-size:86px;line-height:1.02;-webkit-line-clamp:3;padding-bottom:.18em;max-height:3.14em;}
+
+    .tip .tn-title{left:80px;right:80px;top:186px;height:290px;overflow:hidden;}
+    .tip .tn-title h1{font-size:84px;line-height:1.03;-webkit-line-clamp:3;padding-bottom:.2em;max-height:3.2em;}
+
+    .tn-tagline{position:absolute;left:80px;right:80px;top:664px;z-index:2;}
+    .tn-tagline p{margin:0;font-family:'Roboto',sans-serif;font-weight:400;font-style:italic;font-size:39px;line-height:1.42;color:var(--text-low);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.16em;}
+
+    /* ── kicker row: eyebrow + accent rule, tip slides only ── */
+    .kicker-row{position:absolute;left:80px;right:80px;top:132px;z-index:2;display:flex;align-items:center;gap:22px;}
+    .kicker{flex:none;font-family:'Roboto',sans-serif;font-weight:700;font-style:italic;font-size:22px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-low);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:420px;}
+    .kicker-rule{flex:1;height:3px;background:var(--accent);border-radius:2px;}
+
+    /* ── cover photo strip ── */
+    .cover-photo{position:absolute;left:80px;right:80px;bottom:120px;height:346px;border:4px solid var(--border);border-radius:8px;overflow:hidden;z-index:1;background:#3a3441;}
+    .cover-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+
+    /* ── two-column tip body: photo lane + text lane, sides alternate via
+       .side-l / .side-r so the columns never move, only which content fills
+       which side ── */
+    .photo-col{position:absolute;top:520px;width:420px;height:660px;z-index:1;}
+    .photo-col.side-l{left:80px;}
+    .photo-col.side-r{right:80px;}
+    .photo-frame{position:relative;width:100%;height:100%;border:4px solid var(--border);border-radius:8px;overflow:hidden;background:#3a3441;}
+    .photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+
+    /* ── step badge: accent-filled circle stamped on the photo's outer top
+       corner — the numeral is decorative, never a copy-carrying slot ── */
+    .step-badge{position:absolute;top:-24px;width:76px;height:76px;border-radius:50%;background:var(--accent);
+      display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 6px 16px rgba(0,0,0,.35);}
+    .photo-col.side-l .step-badge{left:-24px;}
+    .photo-col.side-r .step-badge{right:-24px;}
+    .step-badge span{font-family:'Anton',sans-serif;font-size:32px;color:var(--on-fill);}
+
+    .text-col{position:absolute;top:520px;width:460px;z-index:2;}
+    .text-col.side-l{left:80px;}
+    .text-col.side-r{right:80px;}
+
+    .tn-message{margin-bottom:30px;}
+    .tn-message p{margin:0;font-family:'Roboto',sans-serif;font-weight:400;font-style:italic;font-size:31px;line-height:1.5;text-align:justify;color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;padding-bottom:.18em;}
+
+    .tip-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:16px;}
+    .tip-list li{display:flex;align-items:flex-start;gap:13px;}
+    .tip-list .spark{width:18px;height:18px;color:var(--accent);flex:none;margin-top:6px;}
+    .tip-list span{font-family:'Roboto',sans-serif;font-weight:400;font-style:italic;font-size:23px;line-height:1.42;color:var(--text-low);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;}
+  </style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <!-- 1. Cover -->
+    <section class="slide cover" data-cg-slide-type="cover">
+      <div class="top-bar" aria-hidden="true"></div>
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='6'%20fill='%23808080'%20fill-opacity='0.35'/%3E%3C/svg%3E"></span><span class="brand-word">Brewfolk</span></div>
+        <div class="folio">01 / 05</div>
+      </div>
+
+      <div class="cov-num-wrap" aria-hidden="true">
+        <div class="num-stamp"></div>
+        <span class="num-figure">5</span>
+      </div>
+
+      <div class="tn-title"><h1 data-title="true">Home Barista Rituals</h1></div>
+      <div class="spark-pair" aria-hidden="true">
+        <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg>
+        <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg>
+      </div>
+
+      <div class="tn-tagline"><p data-tagline="true">Five small habits that turn your kitchen counter into a proper coffee bar.</p></div>
+
+      <div class="cover-photo"><img data-image="true" data-image-size="1024x1024" data-image-prompt="Close-up of pour-over coffee streaming from a gooseneck kettle into a dripper on a wooden kitchen counter, warm morning light, steam rising, moody editorial photo" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/home-barista-rituals/slide-01.png"></div>
+    </section>
+
+    <!-- 2. Ritual 01 -->
+    <section class="slide tip" data-cg-slide-type="tip">
+      <div class="top-bar" aria-hidden="true"></div>
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='6'%20fill='%23808080'%20fill-opacity='0.35'/%3E%3C/svg%3E"></span><span class="brand-word">Brewfolk</span></div>
+        <div class="folio">02 / 05</div>
+      </div>
+      <div class="corner-spark" aria-hidden="true">
+        <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" width="100%" height="100%" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg>
+      </div>
+
+      <div class="kicker-row"><span class="kicker">Home Barista Rituals</span><div class="kicker-rule" aria-hidden="true"></div></div>
+      <div class="tn-title"><h1 data-title="true">Grind Right Before You Brew</h1></div>
+
+      <div class="photo-col side-l">
+        <div class="step-badge" aria-hidden="true"><span>01</span></div>
+        <div class="photo-frame"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Close-up of dark roasted coffee beans falling into a burr grinder hopper, moody warm kitchen light, shallow depth of field" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/home-barista-rituals/slide-02.png"></div>
+      </div>
+
+      <div class="text-col side-r">
+        <div class="tn-message"><p data-message="true">Ground coffee starts losing its aroma within minutes, so a pre-ground bag is already behind before the first pour.</p></div>
+        <ul class="tip-list">
+          <li><svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg><span>Grind only the beans you'll brew today.</span></li>
+          <li><svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg><span>A burr grinder keeps every particle even.</span></li>
+          <li><svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg><span>Match the grind size to your brew method.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3. Ritual 02 -->
+    <section class="slide tip" data-cg-slide-type="tip">
+      <div class="top-bar" aria-hidden="true"></div>
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='6'%20fill='%23808080'%20fill-opacity='0.35'/%3E%3C/svg%3E"></span><span class="brand-word">Brewfolk</span></div>
+        <div class="folio">03 / 05</div>
+      </div>
+      <div class="corner-spark" aria-hidden="true">
+        <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" width="100%" height="100%" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg>
+      </div>
+
+      <div class="kicker-row"><span class="kicker">Home Barista Rituals</span><div class="kicker-rule" aria-hidden="true"></div></div>
+      <div class="tn-title"><h1 data-title="true">Weigh Your Water, Not Just Your Beans</h1></div>
+
+      <div class="photo-col side-r">
+        <div class="step-badge" aria-hidden="true"><span>02</span></div>
+        <div class="photo-frame"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Pour-over coffee dripper sitting on a digital kitchen scale, coffee streaming down, steam rising, moody warm kitchen counter" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/home-barista-rituals/slide-03.png"></div>
+      </div>
+
+      <div class="text-col side-l">
+        <div class="tn-message"><p data-message="true">A kitchen scale turns guesswork into a repeatable ratio, so every cup tastes the way the last one did.</p></div>
+        <ul class="tip-list">
+          <li><svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg><span>Start with a 1:16 coffee-to-water ratio.</span></li>
+          <li><svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg><span>Time your pour, don't just eyeball it.</span></li>
+          <li><svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg><span>Write down what worked and repeat it.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. Ritual 03 -->
+    <section class="slide tip" data-cg-slide-type="tip">
+      <div class="top-bar" aria-hidden="true"></div>
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='6'%20fill='%23808080'%20fill-opacity='0.35'/%3E%3C/svg%3E"></span><span class="brand-word">Brewfolk</span></div>
+        <div class="folio">04 / 05</div>
+      </div>
+      <div class="corner-spark" aria-hidden="true">
+        <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" width="100%" height="100%" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg>
+      </div>
+
+      <div class="kicker-row"><span class="kicker">Home Barista Rituals</span><div class="kicker-rule" aria-hidden="true"></div></div>
+      <div class="tn-title"><h1 data-title="true">Warm The Cup Before You Pour</h1></div>
+
+      <div class="photo-col side-l">
+        <div class="step-badge" aria-hidden="true"><span>03</span></div>
+        <div class="photo-frame"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Close-up of two hands wrapped around a warm ceramic mug of coffee, gentle steam rising, soft warm morning light, cozy kitchen" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/home-barista-rituals/slide-04.png"></div>
+      </div>
+
+      <div class="text-col side-r">
+        <div class="tn-message"><p data-message="true">A cold mug pulls heat straight out of your coffee, so a quick rinse with hot water keeps the first sip as good as the last.</p></div>
+        <ul class="tip-list">
+          <li><svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg><span>Rinse the mug with hot water first.</span></li>
+          <li><svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg><span>Preheat your dripper or press too.</span></li>
+          <li><svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg><span>Serve right away, coffee cools fast.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. Ritual 04 -->
+    <section class="slide tip" data-cg-slide-type="tip">
+      <div class="top-bar" aria-hidden="true"></div>
+      <div class="foot">
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='6'%20fill='%23808080'%20fill-opacity='0.35'/%3E%3C/svg%3E"></span><span class="brand-word">Brewfolk</span></div>
+        <div class="folio">05 / 05</div>
+      </div>
+      <div class="corner-spark" aria-hidden="true">
+        <svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" width="100%" height="100%" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg>
+      </div>
+
+      <div class="kicker-row"><span class="kicker">Home Barista Rituals</span><div class="kicker-rule" aria-hidden="true"></div></div>
+      <div class="tn-title"><h1 data-title="true">Sit With The First Sip Before You Scroll</h1></div>
+
+      <div class="photo-col side-r">
+        <div class="step-badge" aria-hidden="true"><span>04</span></div>
+        <div class="photo-frame"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Person sitting quietly by a sunlit window holding a mug of coffee with both hands, soft morning light, calm contemplative mood, no phone in view" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/home-barista-rituals/slide-05.png"></div>
+      </div>
+
+      <div class="text-col side-l">
+        <div class="tn-message"><p data-message="true">The ritual isn't finished until you actually taste it, so put the phone down for the first three sips.</p></div>
+        <ul class="tip-list">
+          <li><svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg><span>No screens for the first three sips.</span></li>
+          <li><svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg><span>Notice the aroma before you drink.</span></li>
+          <li><svg class="spark" data-cg-svg="" data-cg-preserve="" viewBox="0 0 53 53" aria-hidden="true" focusable="false"><path d="M41.8 4.4 37.1 15.9 48.6 11.1 53 21.7 41.5 26.5 53 31.3 48.6 41.9 37.1 37.1 41.8 48.6 31.2 53 26.5 41.5 21.7 53 11.1 48.6 15.9 37.1 4.4 41.9 0 31.3 11.5 26.5 0 21.7 4.4 11.1 15.9 15.9 11.1 4.4 21.7 0 26.5 11.5 31.2 0 41.8 4.4Z"></path></svg><span>Let the ritual end the rush, not start it.</span></li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+
+
+</body></html>

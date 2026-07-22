@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Nunito:wght@400;600;700&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#8A7B3F);
+  --secondary:var(--brand-secondary,#5A5040);
+  --accent:var(--brand-accent,#8A7B3F);
+  --bg:var(--brand-bg,#D4CD98);
+  --surface:var(--brand-surface,#5A5040);
+  --text-high:var(--brand-ink,#3A342A);
+  --text-low:var(--brand-text-muted,rgba(58,52,42,.6));
+  --border:var(--brand-border,rgba(58,52,42,.14));
+  --highlight:var(--brand-accent,#8A7B3F);
+}
+
+*{box-sizing:border-box;}
+
+.si-single{width:fit-content;margin:0;background:#0c0c0c;}
+
+.si-page{
+  position:relative;width:1080px;height:1080px;overflow:hidden;
+  container-type:inline-size;background:var(--bg);
+  font-family:'Nunito',sans-serif;
+  display:flex;flex-direction:column;
+  padding:90px 90px 76px;
+}
+
+/* full-bleed background photo */
+.si-image{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:0;opacity:.42;
+  filter:saturate(1.05) contrast(1.08);
+}
+.si-page::before{content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 62%,transparent),var(--bg) 78%);}
+
+/* chat window */
+.chat{
+  position:relative;z-index:2;
+  flex:1;display:flex;flex-direction:column;
+  background:var(--surface);border-radius:24px;overflow:hidden;
+  box-shadow:0 30px 60px rgba(20,16,8,.34);
+}
+
+/* header */
+.chat-head{
+  display:flex;align-items:center;gap:22px;
+  background:#F5F5F0;padding:24px 34px;
+}
+.ch-back{width:36px;height:36px;flex:none;color:var(--text-high);}
+.ch-avatar{
+  width:70px;height:70px;border-radius:50%;flex:none;overflow:hidden;
+  border:3px solid color-mix(in srgb,var(--accent) 55%,#F5F5F0);
+  position:relative;background:color-mix(in srgb,var(--secondary) 30%,#F5F5F0);
+}
+.ch-avatar svg{width:100%;height:100%;display:block;color:color-mix(in srgb,var(--secondary) 55%,#F5F5F0);}
+.ch-avatar::after{content:'';position:absolute;left:6px;bottom:6px;width:18px;height:18px;border-radius:50%;background:#5c8a1e;border:3px solid #F5F5F0;}
+.ch-meta{flex:1;min-width:0;}
+.ch-name{font-family:'Poppins',sans-serif;font-weight:600;font-size:32px;color:var(--text-high);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ch-status{font-family:'Nunito',sans-serif;font-weight:600;font-size:22px;color:var(--text-low);}
+.ch-icons{display:flex;align-items:center;gap:26px;flex:none;color:var(--text-high);}
+.ch-icons svg{width:34px;height:34px;}
+.dots{display:flex;flex-direction:column;gap:5px;}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--text-high);}
+
+/* messages */
+.chat-body{flex:1;display:flex;flex-direction:column;padding:38px 38px;gap:26px;}
+
+.bubble{max-width:82%;padding:26px 30px;border-radius:26px;position:relative;}
+.bubble .time{font-family:'Nunito',sans-serif;font-weight:700;font-size:19px;margin-top:10px;text-align:right;}
+
+.b-out{
+  align-self:flex-end;background:var(--secondary);border-bottom-right-radius:6px;
+}
+.b-out .msg{font-family:'Nunito',sans-serif;font-weight:700;font-size:27px;line-height:1.32;color:#FFFFFF;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:2px;}
+.b-out .meta{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:10px;}
+.b-out .time{margin:0;color:rgba(255,255,255,.85);}
+.b-out .check{width:30px;height:20px;color:#FFFFFF;}
+
+.b-in{
+  align-self:flex-start;background:#F5F5F0;border-bottom-left-radius:6px;
+}
+.b-in .msg{font-family:'Nunito',sans-serif;font-weight:600;font-size:27px;line-height:1.32;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:2px;}
+.b-in .time{color:var(--text-low);}
+
+/* headline bubble — the main hero message */
+.b-hero{align-self:flex-start;max-width:92%;background:#F5F5F0;border-bottom-left-radius:6px;padding:30px 32px;}
+.b-hero .eyebrow{font-family:'Nunito',sans-serif;font-weight:700;font-size:19px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.b-hero .headline{margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:46px;line-height:1.14;letter-spacing:-.01em;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:6px;}
+.b-hero .body{margin:14px 0 0;font-family:'Nunito',sans-serif;font-weight:600;font-size:24px;line-height:1.36;color:var(--text-low);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:4px;}
+.b-hero .time{color:var(--text-low);}
+
+.spacer{flex:1;}
+
+/* input bar as CTA */
+.chat-input{padding:0 38px 38px;display:flex;justify-content:center;}
+.cta{
+  display:flex;align-items:center;gap:20px;width:100%;
+  background:#FFFFFF;border-radius:48px;padding:18px 24px;text-decoration:none;
+  box-shadow:0 8px 20px rgba(20,16,8,.16);
+}
+.ci-emoji{width:42px;height:42px;flex:none;color:var(--accent);}
+.cta-text{flex:1;font-family:'Nunito',sans-serif;font-weight:700;font-size:28px;color:var(--text-high);}
+.ci-icons{display:flex;align-items:center;gap:20px;flex:none;color:color-mix(in srgb,var(--secondary) 60%,#FFFFFF);}
+.ci-icons svg{width:38px;height:38px;}
+
+/* footer lockup */
+.foot{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:14px;padding-top:22px;}
+.brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+.brand-word{font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;color:var(--text-high);letter-spacing:-.01em;}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="si-single">
+  <div class="si-page">
+    <img class="si-image" data-image="true" data-image-size="1024x1024" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'><rect width='100%25' height='100%25' fill='%23c9c4bb'/></svg>">
+    <div class="chat">
+      <div class="chat-head">
+        <svg class="ch-back" data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M15 5L8 12L15 19" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span class="ch-avatar"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="12" cy="9" r="4"></circle><path d="M4 20C4 16 7.6 14 12 14C16.4 14 20 16 20 20V22H4V20Z"></path></svg></span>
+        <div class="ch-meta">
+          <div class="ch-name">Sofia Marchetti</div>
+          <div class="ch-status">Online now</div>
+        </div>
+        <div class="ch-icons">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4.5 5.5C4.5 4.7 5.2 4 6 4H8L9.5 8L7.8 9.4C8.7 11.3 10.7 13.3 12.6 14.2L14 12.5L18 14V16C18 16.8 17.3 17.5 16.5 17.5C10.4 17.5 4.5 11.6 4.5 5.5Z" stroke="var(--cg-stroke)" stroke-width="2" stroke-linejoin="round"></path></svg>
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        </div>
+      </div>
+
+      <div class="chat-body">
+        <div class="bubble b-hero">
+          <div class="eyebrow">Language Exchange</div>
+          <h1 class="headline">Chat your way to a new language</h1>
+          <p class="body">Match with a native speaker, swap voice notes, and practice daily conversations that actually stick.</p>
+          <div class="time">9.14</div>
+        </div>
+
+        <div class="bubble b-in">
+          <div class="msg">Ciao! Ready for your first voice note?</div>
+          <div class="time">9.15</div>
+        </div>
+
+        <div class="bubble b-out">
+          <div class="msg">Sì! Let's practice today's phrases</div>
+          <div class="meta">
+            <span class="time">9.16</span>
+            <svg class="check" data-cg-svg="" data-cg-preserve="" viewBox="0 0 30 22" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M2 12L8 18L18 4" stroke="var(--cg-stroke)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 18L22 4" stroke="var(--cg-stroke)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+
+        <div class="spacer"></div>
+      </div>
+
+      <div class="chat-input">
+        <a class="cta" href="#">
+          <svg class="ci-emoji" data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><circle cx="12" cy="12" r="9" stroke="var(--cg-stroke)" stroke-width="2"></circle><circle cx="9" cy="10" r="1.2" fill="var(--cg-fill)"></circle><circle cx="15" cy="10" r="1.2" fill="var(--cg-fill)"></circle><path d="M8.5 14.5C9.5 16 14.5 16 15.5 14.5" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg>
+          <span class="cta-text">Find a partner</span>
+          <span class="ci-icons">
+            <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><rect x="9" y="3" width="6" height="12" rx="3" stroke="var(--cg-stroke)" stroke-width="2"></rect><path d="M5 11C5 15 8 17 12 17C16 17 19 15 19 11M12 17V21" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg>
+            <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 8C4 6.9 4.9 6 6 6H8L9.5 4H14.5L16 6H18C19.1 6 20 6.9 20 8V17C20 18.1 19.1 19 18 19H6C4.9 19 4 18.1 4 17V8Z" stroke="var(--cg-stroke)" stroke-width="2" stroke-linejoin="round"></path><circle cx="12" cy="12.5" r="3" stroke="var(--cg-stroke)" stroke-width="2"></circle></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="foot">
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+      <span class="brand-word">YOURBRAND</span>
+    </div>
+  </div>
+</div>
+
+</body></html>

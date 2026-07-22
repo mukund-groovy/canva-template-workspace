@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,600;1,700&family=Work+Sans:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    /* Brand role tokens. The quilt/patchwork background is decorative fixed art (like
+       the reference's illustration collage) and never re-skins. The two devices that DO
+       carry the brand are the top kicker/lockup chip (--primary fill) and the CTA pill
+       (--accent fill) — present on every slide. Canvas card + ink stay fixed literals. */
+    --primary:var(--brand-primary,#2E3560);
+    --secondary:var(--brand-secondary,#8C4A33);
+    --accent:var(--brand-accent,#BF4B2E);
+    --highlight:var(--brand-accent,#E7A537);
+    --bg:var(--brand-bg,#FBF3E4);
+    --surface:var(--brand-surface,#F3E2C8);
+    --text-high:var(--brand-ink,#241F33);
+    --text-low:var(--brand-text-muted,rgba(36,31,51,.62));
+    --border:var(--brand-border,rgba(36,31,51,.14));
+    --on-fill:var(--brand-on-accent,#ffffff);
+    --on-primary:var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:#EFDCC0;
+    font-family:'Work Sans',sans-serif;
+  }
+
+  /* ── quilt / patchwork backdrop (fixed decorative art, mostly hidden behind the
+     floating card — only the border strips + corners actually show, exactly the way
+     the reference's illustration collage peeks around its card) ── */
+  .quilt{position:absolute;inset:0;z-index:0;}
+  .tile{position:absolute;}
+  .doodle{position:absolute;color:#000;}
+  .doodle svg{display:block;width:100%;height:100%;position:absolute;inset:0;}
+
+  /* ── the floating card (fixed cream literal, never re-skinned) ── */
+  .card{
+    position:absolute;left:130px;top:124px;width:820px;height:1080px;z-index:2;
+    background:var(--bg);border-radius:40px;border:1px solid var(--border);
+    box-shadow:0 34px 64px rgba(20,14,10,.34), 0 6px 18px rgba(20,14,10,.18);
+  }
+
+  .chip{
+    position:absolute;left:50%;top:56px;transform:translateX(-50%);
+    display:inline-flex;align-items:center;gap:10px;max-width:680px;
+    padding:16px 32px;border-radius:999px;background:var(--primary);white-space:nowrap;
+  }
+  .chip .brand-mark-clip{flex:none;height:20px;width:20px;display:flex;align-items:center;}
+  .chip .brand-mark{height:20px;width:20px;display:block;object-fit:contain;}
+  .chip .brand-word,.chip .kicker{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:26px;
+    color:var(--on-primary);letter-spacing:.01em;white-space:nowrap;overflow:hidden;
+    text-overflow:ellipsis;max-width:540px;display:inline-block;
+  }
+
+  .rule{position:absolute;left:50%;top:146px;transform:translateX(-50%);width:56px;height:4px;border-radius:2px;background:var(--secondary);}
+
+  .tn-title{position:absolute;left:70px;right:70px;top:190px;}
+  .tn-title--lg{height:308px;}
+  .tn-title--md{height:212px;}
+  .tn-title h1{
+    margin:0;font-family:'Fraunces',serif;font-weight:600;font-style:normal;font-size:84px;
+    line-height:1.14;letter-spacing:-.01em;text-align:center;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.2em;
+  }
+  .tn-title--lg h1{-webkit-line-clamp:3;}
+  .tn-title--md h1{-webkit-line-clamp:2;}
+
+  .tn-message{position:absolute;left:70px;right:70px;}
+  .tn-message--lg{top:526px;height:104px;}
+  .tn-message--md{top:428px;height:242px;}
+  .tn-message p{
+    margin:0;font-family:'Work Sans',sans-serif;font-weight:400;font-size:32px;line-height:1.45;
+    text-align:center;color:var(--text-low);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.2em;
+  }
+  .tn-message--lg p{-webkit-line-clamp:2;}
+  .tn-message--md p{-webkit-line-clamp:5;}
+
+  .cta{position:absolute;left:50%;top:760px;transform:translateX(-50%);}
+  .cta--hi{top:660px;}
+  .cta-btn{display:inline-flex;align-items:center;gap:12px;padding:22px 46px;border-radius:999px;background:var(--accent);}
+  .cta-btn .dot{width:9px;height:9px;border-radius:50%;background:var(--highlight);display:inline-block;}
+  .cta-btn span[data-cta]{
+    font-family:'Work Sans',sans-serif;font-weight:700;font-size:28px;letter-spacing:.01em;
+    color:var(--on-fill);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:520px;display:inline-block;
+  }
+
+  .foot{position:absolute;left:70px;right:70px;bottom:28px;display:flex;align-items:center;justify-content:space-between;}
+  .foot [data-tagline]{
+    margin:0;font-family:'Work Sans',sans-serif;font-weight:600;font-size:15px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--text-low);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:380px;
+  }
+  .foot .counter{font-family:'Work Sans',sans-serif;font-weight:600;font-size:15px;letter-spacing:.12em;color:var(--text-low);white-space:nowrap;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — Cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="quilt" aria-hidden="true">
+      <div class="tile" style="left:0;top:0;width:540px;height:620px;background:#2E3560;"></div>
+      <div class="tile" style="left:540px;top:0;width:540px;height:620px;background:#B5472E;"></div>
+      <div class="tile" style="left:0;top:620px;width:540px;height:730px;background:#93AEC4;"></div>
+      <div class="tile" style="left:540px;top:620px;width:540px;height:730px;background:#CE9A2E;"></div>
+      <div class="tile" style="left:640px;top:0;width:220px;height:150px;background:var(--accent);"></div>
+      <div class="tile" style="left:210px;top:1230px;width:220px;height:120px;background:var(--primary);"></div>
+
+      <div class="doodle" style="left:20px;top:14px;width:120px;height:120px;color:#CE9A2E;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M50 90 C48 60 52 30 50 10" stroke="var(--cg-stroke)" stroke-width="6" fill="none" stroke-linecap="round"></path><path d="M50 30 C40 24 32 26 26 34 C36 38 44 36 50 30Z" fill="var(--cg-fill)"></path><path d="M50 46 C60 40 68 42 74 50 C64 54 56 52 50 46Z" fill="var(--cg-fill)"></path><path d="M50 62 C40 56 32 58 26 66 C36 70 44 68 50 62Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+      <div class="doodle" style="left:930px;top:8px;width:150px;height:150px;color:#F3E2C8;">
+        <svg viewBox="0 0 120 120" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M60 20C82 20 96 36 92 56C88 78 66 92 46 84C28 76 22 54 34 38C40 30 50 22 60 20Z" fill="none" stroke="var(--cg-stroke)" stroke-width="5"></path><circle cx="60" cy="54" r="8" fill="var(--cg-fill)"></circle><path d="M60 54C68 44 78 42 86 48" stroke="var(--cg-stroke)" stroke-width="4" fill="none" stroke-linecap="round"></path></svg>
+      </div>
+      <div class="doodle" style="left:16px;top:1210px;width:140px;height:140px;color:#B5472E;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M50 6C68 34 82 54 82 70A32 32 0 0 1 18 70C18 54 32 34 50 6Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+      <div class="doodle" style="left:920px;top:1200px;width:150px;height:150px;color:#2E3560;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M28 46H72L66 88H34Z" fill="var(--cg-fill)"></path><rect x="24" y="38" width="52" height="10" rx="4" fill="var(--cg-fill)"></rect><path d="M50 38C50 20 40 14 32 10" stroke="var(--cg-stroke)" stroke-width="5" fill="none" stroke-linecap="round"></path><path d="M50 38C50 18 60 12 70 10" stroke="var(--cg-stroke)" stroke-width="5" fill="none" stroke-linecap="round"></path><circle cx="32" cy="10" r="6" fill="var(--cg-fill)"></circle><circle cx="70" cy="10" r="6" fill="var(--cg-fill)"></circle></svg>
+      </div>
+      <div class="doodle" style="left:993px;top:520px;width:70px;height:220px;color:#2E3560;">
+        <svg viewBox="0 0 60 160" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><ellipse cx="30" cy="26" rx="20" ry="24" fill="var(--cg-fill)"></ellipse><ellipse cx="30" cy="80" rx="20" ry="24" fill="var(--cg-fill)"></ellipse><ellipse cx="30" cy="134" rx="20" ry="24" fill="var(--cg-fill)"></ellipse></svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chip">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">YOURBRAND</span>
+      </div>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="tn-title tn-title--lg"><h1 data-title="true">Start a Kitchen Herb Garden</h1></div>
+      <div class="tn-message tn-message--lg"><p data-message="true">Five easy habits for basil, mint and thyme that actually thrive.</p></div>
+      <div class="cta cta--hi"><div class="cta-btn"><span class="dot" aria-hidden="true"></span><span data-cta="true">Next Slide</span></div></div>
+      <div class="foot">
+        <div data-tagline="true">Kitchen Herb Guide</div>
+        <div class="counter" data-counter="true">01 / 05</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 2 — Tip 1 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="quilt" aria-hidden="true">
+      <div class="tile" style="left:0;top:0;width:540px;height:620px;background:#E7A98A;"></div>
+      <div class="tile" style="left:540px;top:0;width:540px;height:620px;background:#93AEC4;"></div>
+      <div class="tile" style="left:0;top:620px;width:540px;height:730px;background:#CE9A2E;"></div>
+      <div class="tile" style="left:540px;top:620px;width:540px;height:730px;background:#2E3560;"></div>
+      <div class="tile" style="left:300px;top:0;width:210px;height:150px;background:var(--accent);"></div>
+      <div class="tile" style="left:250px;top:1250px;width:210px;height:100px;background:var(--primary);"></div>
+
+      <div class="doodle" style="left:22px;top:16px;width:120px;height:120px;color:#74804A;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M50 50C50 38 40 32 30 38C18 46 22 66 38 72C58 80 78 62 70 40C60 14 26 12 14 34" stroke="var(--cg-stroke)" stroke-width="6" fill="none" stroke-linecap="round"></path></svg>
+      </div>
+      <div class="doodle" style="left:935px;top:10px;width:135px;height:135px;color:#2E3560;">
+        <svg viewBox="0 0 60 160" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><ellipse cx="30" cy="26" rx="20" ry="24" fill="var(--cg-fill)"></ellipse><ellipse cx="30" cy="80" rx="20" ry="24" fill="var(--cg-fill)"></ellipse><ellipse cx="30" cy="134" rx="20" ry="24" fill="var(--cg-fill)"></ellipse></svg>
+      </div>
+      <div class="doodle" style="left:18px;top:1206px;width:140px;height:140px;color:#B5472E;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><circle cx="50" cy="50" r="20" fill="var(--cg-fill)"></circle><g stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"><line x1="50" y1="6" x2="50" y2="20"></line><line x1="50" y1="80" x2="50" y2="94"></line><line x1="6" y1="50" x2="20" y2="50"></line><line x1="80" y1="50" x2="94" y2="50"></line><line x1="18" y1="18" x2="28" y2="28"></line><line x1="72" y1="72" x2="82" y2="82"></line><line x1="18" y1="82" x2="28" y2="72"></line><line x1="72" y1="28" x2="82" y2="18"></line></g></svg>
+      </div>
+      <div class="doodle" style="left:918px;top:1198px;width:150px;height:150px;color:#E7A98A;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M50 6C68 34 82 54 82 70A32 32 0 0 1 18 70C18 54 32 34 50 6Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+      <div class="doodle" style="left:38px;top:560px;width:90px;height:90px;color:#CE9A2E;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M50 8C72 22 84 46 62 78C46 92 28 84 20 62C12 40 24 16 50 8Z" fill="var(--cg-fill)" opacity=".92"></path></svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chip"><span class="kicker">Tips 01</span></div>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="tn-title tn-title--md"><h1 data-title="true">Pick a Sunny Spot</h1></div>
+      <div class="tn-message tn-message--md"><p data-message="true">Most cooking herbs want six hours of bright light a day. A south-facing sill or a sunny patio corner keeps basil, thyme and mint content all season long.</p></div>
+      <div class="cta"><div class="cta-btn"><span class="dot" aria-hidden="true"></span><span data-cta="true">Next Slide</span></div></div>
+      <div class="foot">
+        <div data-tagline="true">Kitchen Herb Guide</div>
+        <div class="counter" data-counter="true">02 / 05</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 3 — Tip 2 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="quilt" aria-hidden="true">
+      <div class="tile" style="left:0;top:0;width:540px;height:620px;background:#CE9A2E;"></div>
+      <div class="tile" style="left:540px;top:0;width:540px;height:620px;background:#74804A;"></div>
+      <div class="tile" style="left:0;top:620px;width:540px;height:730px;background:#2E3560;"></div>
+      <div class="tile" style="left:540px;top:620px;width:540px;height:730px;background:#E7A98A;"></div>
+      <div class="tile" style="left:690px;top:0;width:200px;height:150px;background:var(--accent);"></div>
+      <div class="tile" style="left:190px;top:1240px;width:210px;height:110px;background:var(--primary);"></div>
+
+      <div class="doodle" style="left:24px;top:18px;width:115px;height:115px;color:#2E3560;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M28 46H72L66 88H34Z" fill="var(--cg-fill)"></path><rect x="24" y="38" width="52" height="10" rx="4" fill="var(--cg-fill)"></rect><path d="M50 38C50 20 40 14 32 10" stroke="var(--cg-stroke)" stroke-width="5" fill="none" stroke-linecap="round"></path><path d="M50 38C50 18 60 12 70 10" stroke="var(--cg-stroke)" stroke-width="5" fill="none" stroke-linecap="round"></path><circle cx="32" cy="10" r="6" fill="var(--cg-fill)"></circle><circle cx="70" cy="10" r="6" fill="var(--cg-fill)"></circle></svg>
+      </div>
+      <div class="doodle" style="left:938px;top:12px;width:132px;height:132px;color:#F3E2C8;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M50 6C68 34 82 54 82 70A32 32 0 0 1 18 70C18 54 32 34 50 6Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+      <div class="doodle" style="left:14px;top:1202px;width:145px;height:145px;color:#CE9A2E;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M50 90 C48 60 52 30 50 10" stroke="var(--cg-stroke)" stroke-width="6" fill="none" stroke-linecap="round"></path><path d="M50 30 C40 24 32 26 26 34 C36 38 44 36 50 30Z" fill="var(--cg-fill)"></path><path d="M50 46 C60 40 68 42 74 50 C64 54 56 52 50 46Z" fill="var(--cg-fill)"></path><path d="M50 62 C40 56 32 58 26 66 C36 70 44 68 50 62Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+      <div class="doodle" style="left:922px;top:1196px;width:150px;height:150px;color:#2E3560;">
+        <svg viewBox="0 0 60 160" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><ellipse cx="30" cy="26" rx="20" ry="24" fill="var(--cg-fill)"></ellipse><ellipse cx="30" cy="80" rx="20" ry="24" fill="var(--cg-fill)"></ellipse><ellipse cx="30" cy="134" rx="20" ry="24" fill="var(--cg-fill)"></ellipse></svg>
+      </div>
+      <div class="doodle" style="left:1000px;top:540px;width:65px;height:200px;color:#B5472E;">
+        <svg viewBox="0 0 60 160" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><ellipse cx="30" cy="26" rx="20" ry="24" fill="var(--cg-fill)"></ellipse><ellipse cx="30" cy="80" rx="20" ry="24" fill="var(--cg-fill)"></ellipse><ellipse cx="30" cy="134" rx="20" ry="24" fill="var(--cg-fill)"></ellipse></svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chip"><span class="kicker">Tips 02</span></div>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="tn-title tn-title--md"><h1 data-title="true">Water Only When Dry</h1></div>
+      <div class="tn-message tn-message--md"><p data-message="true">Overwatering kills more herbs than drought ever does. Press a finger an inch into the soil — dry means pour, damp means wait one more day.</p></div>
+      <div class="cta"><div class="cta-btn"><span class="dot" aria-hidden="true"></span><span data-cta="true">Next Slide</span></div></div>
+      <div class="foot">
+        <div data-tagline="true">Kitchen Herb Guide</div>
+        <div class="counter" data-counter="true">03 / 05</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 4 — Tip 3 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="quilt" aria-hidden="true">
+      <div class="tile" style="left:0;top:0;width:540px;height:620px;background:#74804A;"></div>
+      <div class="tile" style="left:540px;top:0;width:540px;height:620px;background:#CE9A2E;"></div>
+      <div class="tile" style="left:0;top:620px;width:540px;height:730px;background:#E7A98A;"></div>
+      <div class="tile" style="left:540px;top:620px;width:540px;height:730px;background:#93AEC4;"></div>
+      <div class="tile" style="left:660px;top:0;width:210px;height:150px;background:var(--accent);"></div>
+      <div class="tile" style="left:220px;top:1245px;width:210px;height:105px;background:var(--primary);"></div>
+
+      <div class="doodle" style="left:20px;top:14px;width:120px;height:120px;color:#CE9A2E;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><circle cx="50" cy="50" r="20" fill="var(--cg-fill)"></circle><g stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"><line x1="50" y1="6" x2="50" y2="20"></line><line x1="50" y1="80" x2="50" y2="94"></line><line x1="6" y1="50" x2="20" y2="50"></line><line x1="80" y1="50" x2="94" y2="50"></line><line x1="18" y1="18" x2="28" y2="28"></line><line x1="72" y1="72" x2="82" y2="82"></line><line x1="18" y1="82" x2="28" y2="72"></line><line x1="72" y1="28" x2="82" y2="18"></line></g></svg>
+      </div>
+      <div class="doodle" style="left:932px;top:8px;width:140px;height:140px;color:#2E3560;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M50 50C50 38 40 32 30 38C18 46 22 66 38 72C58 80 78 62 70 40C60 14 26 12 14 34" stroke="var(--cg-stroke)" stroke-width="6" fill="none" stroke-linecap="round"></path></svg>
+      </div>
+      <div class="doodle" style="left:16px;top:1208px;width:140px;height:140px;color:#2E3560;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M50 8C72 22 84 46 62 78C46 92 28 84 20 62C12 40 24 16 50 8Z" fill="var(--cg-fill)" opacity=".92"></path></svg>
+      </div>
+      <div class="doodle" style="left:920px;top:1200px;width:150px;height:150px;color:#6B3F52;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M28 46H72L66 88H34Z" fill="var(--cg-fill)"></path><rect x="24" y="38" width="52" height="10" rx="4" fill="var(--cg-fill)"></rect><path d="M50 38C50 20 40 14 32 10" stroke="var(--cg-stroke)" stroke-width="5" fill="none" stroke-linecap="round"></path><path d="M50 38C50 18 60 12 70 10" stroke="var(--cg-stroke)" stroke-width="5" fill="none" stroke-linecap="round"></path><circle cx="32" cy="10" r="6" fill="var(--cg-fill)"></circle><circle cx="70" cy="10" r="6" fill="var(--cg-fill)"></circle></svg>
+      </div>
+      <div class="doodle" style="left:36px;top:600px;width:88px;height:88px;color:#B5472E;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M50 8C72 22 84 46 62 78C46 92 28 84 20 62C12 40 24 16 50 8Z" fill="var(--cg-fill)" opacity=".92"></path></svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chip"><span class="kicker">Tips 03</span></div>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="tn-title tn-title--md"><h1 data-title="true">Snip Often, Grow Fuller</h1></div>
+      <div class="tn-message tn-message--md"><p data-message="true">Regular harvesting beats leggy stems every time. Pinch just above a leaf pair and the plant branches out thicker with every single cut.</p></div>
+      <div class="cta"><div class="cta-btn"><span class="dot" aria-hidden="true"></span><span data-cta="true">Next Slide</span></div></div>
+      <div class="foot">
+        <div data-tagline="true">Kitchen Herb Guide</div>
+        <div class="counter" data-counter="true">04 / 05</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 5 — Outro -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="quilt" aria-hidden="true">
+      <div class="tile" style="left:0;top:0;width:540px;height:620px;background:#B5472E;"></div>
+      <div class="tile" style="left:540px;top:0;width:540px;height:620px;background:#2E3560;"></div>
+      <div class="tile" style="left:0;top:620px;width:540px;height:730px;background:#CE9A2E;"></div>
+      <div class="tile" style="left:540px;top:620px;width:540px;height:730px;background:#74804A;"></div>
+      <div class="tile" style="left:650px;top:0;width:220px;height:150px;background:var(--accent);"></div>
+      <div class="tile" style="left:230px;top:1235px;width:220px;height:115px;background:var(--primary);"></div>
+
+      <div class="doodle" style="left:18px;top:12px;width:130px;height:130px;color:#CE9A2E;">
+        <svg viewBox="0 0 60 160" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><ellipse cx="30" cy="26" rx="20" ry="24" fill="var(--cg-fill)"></ellipse><ellipse cx="30" cy="80" rx="20" ry="24" fill="var(--cg-fill)"></ellipse><ellipse cx="30" cy="134" rx="20" ry="24" fill="var(--cg-fill)"></ellipse></svg>
+      </div>
+      <div class="doodle" style="left:928px;top:6px;width:150px;height:150px;color:#E7A98A;">
+        <svg viewBox="0 0 120 120" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M60 20C82 20 96 36 92 56C88 78 66 92 46 84C28 76 22 54 34 38C40 30 50 22 60 20Z" fill="none" stroke="var(--cg-stroke)" stroke-width="5"></path><circle cx="60" cy="54" r="8" fill="var(--cg-fill)"></circle><path d="M60 54C68 44 78 42 86 48" stroke="var(--cg-stroke)" stroke-width="4" fill="none" stroke-linecap="round"></path></svg>
+      </div>
+      <div class="doodle" style="left:16px;top:1206px;width:140px;height:140px;color:#B5472E;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)"><path d="M50 90 C48 60 52 30 50 10" stroke="var(--cg-stroke)" stroke-width="6" fill="none" stroke-linecap="round"></path><path d="M50 30 C40 24 32 26 26 34 C36 38 44 36 50 30Z" fill="var(--cg-fill)"></path><path d="M50 46 C60 40 68 42 74 50 C64 54 56 52 50 46Z" fill="var(--cg-fill)"></path><path d="M50 62 C40 56 32 58 26 66 C36 70 44 68 50 62Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+      <div class="doodle" style="left:918px;top:1198px;width:150px;height:150px;color:#2E3560;">
+        <svg viewBox="0 0 100 100" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M50 6C68 34 82 54 82 70A32 32 0 0 1 18 70C18 54 32 34 50 6Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+      <div class="doodle" style="left:995px;top:560px;width:70px;height:210px;color:#CE9A2E;">
+        <svg viewBox="0 0 60 160" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><ellipse cx="30" cy="26" rx="20" ry="24" fill="var(--cg-fill)"></ellipse><ellipse cx="30" cy="80" rx="20" ry="24" fill="var(--cg-fill)"></ellipse><ellipse cx="30" cy="134" rx="20" ry="24" fill="var(--cg-fill)"></ellipse></svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chip">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">YOURBRAND</span>
+      </div>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="tn-title tn-title--lg"><h1 data-title="true">Happy Growing</h1></div>
+      <div class="tn-message tn-message--lg"><p data-message="true">Save this guide and start your first pot this weekend.</p></div>
+      <div class="cta cta--hi"><div class="cta-btn"><span class="dot" aria-hidden="true"></span><span data-cta="true">Follow Us</span></div></div>
+      <div class="foot">
+        <div data-tagline="true">Kitchen Herb Guide</div>
+        <div class="counter" data-counter="true">05 / 05</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+</body></html>

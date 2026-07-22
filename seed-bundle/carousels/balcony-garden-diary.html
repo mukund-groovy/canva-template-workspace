@@ -1,0 +1,314 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,700&display=swap');
+
+    :root{
+      /* Brand role colours — accent roles (primary/secondary/accent) are what the brand
+         preview re-skins. Canvas (--bg/--surface) and body ink (--text-*) are FIXED
+         literals so the diary page always stays legible; --on-dark is a second fixed
+         literal reserved for the cover, where text sits on a dark photo scrim instead
+         of the pale canvas and needs light ink regardless of brand. */
+      --primary:var(--brand-primary,#35262B);
+      --secondary:var(--brand-secondary,#7C8F6E);
+      --accent:var(--brand-accent,#B03D70);
+      --highlight:var(--brand-accent,#B03D70);
+      --bg:var(--brand-bg,#EFE9DE);
+      --surface:var(--brand-surface,var(--brand-bg-alt,#DCE4D2));
+      --text-high:var(--brand-ink,var(--brand-text,#241B1D));
+      --text-low:var(--brand-text-muted,rgba(36,27,29,.62));
+      --border:var(--brand-border,rgba(36,27,29,.14));
+      --on-accent:var(--brand-on-accent,#ffffff);
+      --on-primary:var(--brand-on-primary,#ffffff);
+      --on-dark:#FBF2EA;
+    }
+
+    *{box-sizing:border-box;}
+
+    .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+    .slide{
+      width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+      background:var(--bg);
+      font-family:'IBM Plex Mono',monospace;
+    }
+    .slide.tone-b{background:var(--surface);}
+
+    /* ── shared: single-line-clamp isolated text wrappers ── */
+    .kicker{
+      display:inline-flex;align-items:center;gap:10px;
+      background:var(--accent);color:var(--on-accent);
+      font-weight:700;font-size:24px;letter-spacing:.09em;text-transform:uppercase;
+      padding:15px 28px 15px 22px;border-radius:999px;white-space:nowrap;
+    }
+    .kicker svg{width:20px;height:20px;flex:none;}
+
+    /* ── COVER ── */
+    .cover-photo{position:absolute;inset:0;z-index:0;}
+    .cover-photo img{width:100%;height:100%;object-fit:cover;display:block;background:#b9ad9d;}
+
+    .cover-scrim{
+      position:absolute;left:56px;top:88px;right:204px;height:580px;z-index:1;
+      border-radius:40px;
+      background:linear-gradient(150deg, rgba(26,16,20,.90) 0%, rgba(26,16,20,.70) 60%, rgba(26,16,20,.55) 100%);
+    }
+
+    .tn-kicker{position:absolute;left:104px;right:260px;top:140px;z-index:2;}
+
+    .tn-title{position:absolute;left:104px;right:260px;top:196px;z-index:2;}
+    .tn-title h1{
+      margin:0;font-family:'IBM Plex Mono',monospace;font-weight:700;font-style:italic;
+      font-size:56px;line-height:1.15;letter-spacing:-.01em;color:var(--on-dark);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.18em;
+    }
+
+    .tn-message{position:absolute;left:104px;right:260px;top:480px;z-index:2;}
+    .tn-message p{
+      margin:0;font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:26px;line-height:1.4;
+      color:var(--on-dark);opacity:.92;
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;overflow:hidden;padding-bottom:.2em;
+    }
+
+    .cover-ribbon{
+      position:absolute;right:-8px;top:64px;z-index:2;width:236px;height:96px;
+      background:var(--accent);border-radius:16px;transform:rotate(7deg);
+      box-shadow:0 14px 26px rgba(20,10,14,.30);
+      display:flex;align-items:center;justify-content:center;gap:10px;
+    }
+    .cover-ribbon svg{width:26px;height:26px;color:var(--on-accent);}
+    .cover-ribbon span{font-weight:700;font-size:24px;letter-spacing:.08em;color:var(--on-accent);text-transform:uppercase;}
+
+    .cover-foot-scrim{
+      position:absolute;left:0;right:0;bottom:0;height:290px;z-index:1;pointer-events:none;
+      background:linear-gradient(180deg, rgba(20,12,14,0) 0%, rgba(20,12,14,.78) 100%);
+    }
+
+    /* ── shared footer (brand lockup + counter) ── */
+    .foot{position:absolute;left:72px;right:72px;bottom:56px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+    .brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+    .brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+    .brand-word{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:24px;letter-spacing:.03em;white-space:nowrap;}
+    .lockup{display:inline-flex;align-items:center;gap:13px;}
+    .cg-slide-counter{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:21px;letter-spacing:.12em;white-space:nowrap;}
+
+    .foot.on-dark .brand-word{color:var(--on-dark);}
+    .foot.on-dark .cg-slide-counter{color:var(--on-dark);opacity:.85;}
+    .foot.on-light .brand-word{color:var(--primary);}
+    .foot.on-light .cg-slide-counter{color:var(--text-low);}
+
+    /* ── ENTRY slides ── */
+    .entry-kicker-wrap{position:absolute;top:72px;z-index:3;}
+    .entry-kicker-wrap.side-l{left:72px;}
+    .entry-kicker-wrap.side-r{right:72px;}
+
+    .ghost-num{position:absolute;top:26px;z-index:0;width:320px;font-size:200px;font-weight:700;
+      line-height:1;color:transparent;-webkit-text-stroke:2px var(--primary);opacity:.15;user-select:none;}
+    .ghost-num.side-l{left:20px;text-align:left;}
+    .ghost-num.side-r{right:20px;text-align:right;}
+
+    .entry-frame{position:absolute;top:260px;width:400px;height:420px;border-radius:28px;z-index:0;
+      background:color-mix(in srgb, var(--accent) 60%, white 40%);}
+    .entry-frame.side-l{left:60px;transform:rotate(-3deg);}
+    .entry-frame.side-r{right:60px;transform:rotate(3deg);}
+
+    .entry-photo{position:absolute;top:300px;width:560px;height:700px;border-radius:26px;overflow:hidden;
+      z-index:1;box-shadow:0 26px 46px rgba(24,16,12,.28);}
+    .entry-photo.side-l{left:70px;transform:rotate(-2deg);}
+    .entry-photo.side-r{right:70px;transform:rotate(2deg);}
+    .entry-photo img{width:100%;height:100%;object-fit:cover;display:block;background:#c9c4bb;}
+
+    .tn-entry-message{position:absolute;top:772px;z-index:2;width:336px;}
+    .tn-entry-message.side-l{left:72px;}
+    .tn-entry-message.side-r{right:72px;}
+    .tn-entry-message p{
+      margin:0;font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:25px;line-height:1.48;
+      color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:9;overflow:hidden;padding-bottom:.2em;
+    }
+
+    /* ── CTA slide ── */
+    .cta-kicker-wrap{position:absolute;left:72px;top:72px;z-index:2;}
+
+    .cta-illustration{position:absolute;left:50%;top:110px;transform:translateX(-50%);width:320px;height:320px;z-index:1;}
+    .cta-illustration svg{position:absolute;inset:0;}
+
+    .tn-cta-title{position:absolute;left:110px;right:110px;top:472px;z-index:2;text-align:center;}
+    .tn-cta-title h1{
+      margin:0;font-family:'IBM Plex Mono',monospace;font-weight:700;font-style:italic;font-size:58px;line-height:1.16;
+      color:var(--primary);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.18em;
+    }
+
+    .tn-cta-message{position:absolute;left:150px;right:150px;top:790px;z-index:2;text-align:center;}
+    .tn-cta-message p{
+      margin:0 auto;font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:27px;line-height:1.46;
+      color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:7;overflow:hidden;padding-bottom:.2em;
+    }
+
+    .cta-btn-wrap{position:absolute;left:50%;top:1078px;transform:translateX(-50%);z-index:2;}
+    .cta-btn{
+      display:inline-flex;align-items:center;gap:14px;background:var(--accent);color:var(--on-accent);
+      font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:26px;letter-spacing:.04em;text-transform:uppercase;
+      padding:24px 46px;border-radius:999px;white-space:nowrap;box-shadow:0 16px 30px rgba(24,16,12,.22);
+    }
+    .cta-btn svg{width:24px;height:24px;}
+
+    .cta-rule{position:absolute;left:50%;top:1050px;transform:translateX(-50%);width:64px;height:4px;
+      border-radius:4px;background:var(--highlight);z-index:2;display:none;}
+  </style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <!-- Slide 1 — Cover -->
+    <section class="slide" data-cg-slide-type="cover">
+      <div class="cover-photo">
+        <img data-image="true" data-image-size="1024x1536" data-image-prompt="warm golden-hour photograph of a small crowded apartment balcony garden, terracotta pots overflowing with tomato vines, basil, and marigolds, a rusty watering can, string lights, cozy plant-lover mood, shot on 35mm film, no visible text, no people" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='5'><rect width='100%25' height='100%25' fill='%23b9ad9d'/></svg>">
+      </div>
+      <div class="cover-foot-scrim" aria-hidden="true"></div>
+      <div class="cover-scrim" aria-hidden="true"></div>
+
+      <div class="tn-kicker"><span class="kicker"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-stroke:var(--on-accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><g stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="3.5" y1="7" x2="20.5" y2="17"></line><line x1="20.5" y1="7" x2="3.5" y2="17"></line></g></svg>GROWNOTES · PHOTO DIARY</span></div>
+
+      <div class="tn-title"><h1 data-title="true">thirty days on one small balcony</h1></div>
+      <div class="tn-message"><p data-message="true">pots, propagation, and a very persistent aphid war — my june in bloom, kept by mira chen.</p></div>
+
+      <div class="cover-ribbon">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-stroke:var(--on-accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><g stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="3.5" y1="7" x2="20.5" y2="17"></line><line x1="20.5" y1="7" x2="3.5" y2="17"></line></g></svg>
+        <span>June</span>
+      </div>
+
+      <div class="foot on-dark">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">GROWNOTES</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">01 / 06</div>
+      </div>
+    </section>
+
+    <!-- Slide 2 — Week One -->
+    <section class="slide" data-cg-slide-type="content">
+      <div class="ghost-num side-r"><span>01</span></div>
+      <div class="entry-kicker-wrap side-l"><span class="kicker"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-stroke:var(--on-accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><g stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="3.5" y1="7" x2="20.5" y2="17"></line><line x1="20.5" y1="7" x2="3.5" y2="17"></line></g></svg>WEEK ONE · SOWING</span></div>
+
+      <div class="entry-frame side-l"></div>
+      <div class="entry-photo side-r">
+        <img data-image="true" data-image-size="1024x1536" data-image-prompt="close-up photo of hands pressing seeds into small brown paper seed pots lined up on a sunny windowsill, potting soil scattered around, warm natural light, cozy diary aesthetic, no text" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='5'><rect width='100%25' height='100%25' fill='%23c9c4bb'/></svg>">
+      </div>
+
+      <div class="tn-entry-message side-l"><p data-message="true">Six seed trays lined up on the windowsill, dirt under every fingernail. Half of these probably won't make it — and somehow that's fine.</p></div>
+
+      <div class="foot on-light">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">GROWNOTES</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">02 / 06</div>
+      </div>
+    </section>
+
+    <!-- Slide 3 — Week Two -->
+    <section class="slide tone-b" data-cg-slide-type="content">
+      <div class="ghost-num side-l"><span>02</span></div>
+      <div class="entry-kicker-wrap side-r"><span class="kicker"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-stroke:var(--on-accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><g stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="3.5" y1="7" x2="20.5" y2="17"></line><line x1="20.5" y1="7" x2="3.5" y2="17"></line></g></svg>WEEK TWO · FIRST SPROUTS</span></div>
+
+      <div class="entry-frame side-r"></div>
+      <div class="entry-photo side-l">
+        <img data-image="true" data-image-size="1024x1536" data-image-prompt="macro photograph of tiny basil and tomato seedlings sprouting from dark soil in terracotta pots, morning dew, soft natural light, shallow depth of field, no text" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='5'><rect width='100%25' height='100%25' fill='%23c9c4bb'/></svg>">
+      </div>
+
+      <div class="tn-entry-message side-r"><p data-message="true">The basil beat everyone to it, pushing up crooked and eager. I check the pots before coffee now, like they might have news.</p></div>
+
+      <div class="foot on-light">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">GROWNOTES</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">03 / 06</div>
+      </div>
+    </section>
+
+    <!-- Slide 4 — Week Three -->
+    <section class="slide" data-cg-slide-type="content">
+      <div class="ghost-num side-r"><span>03</span></div>
+      <div class="entry-kicker-wrap side-l"><span class="kicker"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-stroke:var(--on-accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><g stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="3.5" y1="7" x2="20.5" y2="17"></line><line x1="20.5" y1="7" x2="3.5" y2="17"></line></g></svg>WEEK THREE · TROUBLE</span></div>
+
+      <div class="entry-frame side-l"></div>
+      <div class="entry-photo side-r">
+        <img data-image="true" data-image-size="1024x1536" data-image-prompt="photo of a tomato plant leaf being sprayed with soapy water from a small glass spray bottle, close up on leaves and stems, balcony garden setting, natural light, no text" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='5'><rect width='100%25' height='100%25' fill='%23c9c4bb'/></svg>">
+      </div>
+
+      <div class="tn-entry-message side-l"><p data-message="true">Aphids found the tomatoes before I did. Three nights of soapy water and a stern talking-to seem to have worked, mostly.</p></div>
+
+      <div class="foot on-light">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">GROWNOTES</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">04 / 06</div>
+      </div>
+    </section>
+
+    <!-- Slide 5 — Week Four -->
+    <section class="slide tone-b" data-cg-slide-type="content">
+      <div class="ghost-num side-l"><span>04</span></div>
+      <div class="entry-kicker-wrap side-r"><span class="kicker"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-stroke:var(--on-accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><g stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="3.5" y1="7" x2="20.5" y2="17"></line><line x1="20.5" y1="7" x2="3.5" y2="17"></line></g></svg>WEEK FOUR · HARVEST</span></div>
+
+      <div class="entry-frame side-r"></div>
+      <div class="entry-photo side-l">
+        <img data-image="true" data-image-size="1024x1536" data-image-prompt="photo of a hand holding a single ripe red tomato just picked from the vine, balcony railing and potted plants blurred in background, warm afternoon light, no text" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='5'><rect width='100%25' height='100%25' fill='%23c9c4bb'/></svg>">
+      </div>
+
+      <div class="tn-entry-message side-r"><p data-message="true">Picked the first tomato still warm from the sun and ate it standing at the railing. Nothing from a store has come close since.</p></div>
+
+      <div class="foot on-light">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">GROWNOTES</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">05 / 06</div>
+      </div>
+    </section>
+
+    <!-- Slide 6 — Closing / CTA -->
+    <section class="slide" data-cg-slide-type="cta">
+      <div class="cta-kicker-wrap"><span class="kicker"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-stroke:var(--on-accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><g stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="3.5" y1="7" x2="20.5" y2="17"></line><line x1="20.5" y1="7" x2="3.5" y2="17"></line></g></svg>COMING IN JULY</span></div>
+
+      <div class="cta-illustration">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" width="320" height="320" aria-hidden="true" focusable="false" style="position:absolute;inset:0;--cg-fill:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+          <path d="M60 140 L140 140 L128 190 L72 190 Z" fill="var(--cg-fill)"></path>
+          <path d="M100 68 C130 63 145 38 140 13 C110 18 95 38 100 68Z" fill="var(--cg-fill)"></path>
+        </svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" width="320" height="320" aria-hidden="true" focusable="false" style="position:absolute;inset:0;--cg-fill:var(--secondary);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+          <rect x="53" y="126" width="94" height="18" rx="7" fill="var(--cg-fill)"></rect>
+          <path d="M100 88 C70 83 55 58 60 33 C90 38 105 58 100 88Z" fill="var(--cg-fill)"></path>
+        </svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 200 200" width="320" height="320" aria-hidden="true" focusable="false" style="position:absolute;inset:0;--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+          <path d="M100 126 C100 90 100 70 100 40" stroke="var(--cg-stroke)" stroke-width="5" stroke-linecap="round" fill="none"></path>
+        </svg>
+      </div>
+
+      <div class="tn-cta-title"><h1 data-title="true">same balcony, more chaos next month</h1></div>
+      <div class="tn-cta-message"><p data-message="true">Cucumbers, a bigger trellis, and whatever the aphids try next — new entries every week.</p></div>
+
+      <div class="cta-btn-wrap">
+        <span class="cta-btn" data-cta="true">Follow along <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-stroke:var(--on-accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+      </div>
+
+      <div class="foot on-light">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+          <span class="brand-word">GROWNOTES</span>
+        </div>
+        <div class="cg-slide-counter" data-counter="true">06 / 06</div>
+      </div>
+    </section>
+
+  </div>
+
+
+</body></html>

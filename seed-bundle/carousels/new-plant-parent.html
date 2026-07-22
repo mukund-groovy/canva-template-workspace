@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,600;1,700&family=Space+Mono:wght@400;700&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#2E4A38);
+  --secondary:var(--brand-secondary,#C7C0E8);
+  --accent:var(--brand-accent,#E2572A);
+  --bg:var(--brand-bg,#EFEEDA);
+  --surface:var(--brand-surface,#FFFFFF);
+  --text-high:var(--brand-ink,#26301F);
+  --text-low:var(--brand-text-muted,rgba(38,48,31,.62));
+  --border:var(--brand-border,#F1B49B);
+  --highlight:var(--brand-accent,#E2572A);
+  --on-fill:var(--brand-on-accent,#FFFFFF);
+  --on-primary:var(--brand-on-primary,#FFFFFF);
+}
+
+*{box-sizing:border-box;}
+
+.ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+.slide{
+  width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+  background:var(--bg);
+  font-family:'Space Mono',monospace;
+}
+
+/* graph-paper grid backdrop */
+.grid-bg{
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 63px, var(--border) 63px 65px),
+    repeating-linear-gradient(90deg, transparent 0 63px, var(--border) 63px 65px);
+  opacity:.55;
+}
+
+/* kicker */
+.kicker{position:absolute;left:72px;top:56px;z-index:3;}
+.kicker span{font-family:'Space Mono',monospace;font-weight:700;font-size:24px;letter-spacing:.02em;color:var(--text-low);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;}
+
+/* dot progress — brand device */
+.dots{position:absolute;right:64px;top:58px;z-index:3;display:flex;gap:10px;}
+.dot{width:18px;height:18px;border-radius:50%;background:var(--secondary);}
+.dot.on{background:var(--accent);}
+
+/* headline block */
+.tn-title{position:absolute;left:72px;}
+.tn-title h1{
+  margin:0;font-family:'Fraunces',serif;font-weight:600;font-size:108px;line-height:1.05;
+  color:var(--primary);letter-spacing:-.01em;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.2em;
+}
+
+.tn-sub{position:absolute;left:72px;right:72px;}
+.tn-sub p{
+  margin:0;font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:108px;line-height:1.05;
+  color:var(--primary);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.2em;
+}
+
+/* footer */
+.foot{position:absolute;left:72px;right:72px;bottom:52px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+.brand-mark-clip{flex:none;height:28px;display:flex;align-items:center;}
+.brand-mark{height:28px;width:auto;max-width:110px;object-fit:contain;display:block;}
+.brand-word{font-family:'Space Mono',monospace;font-weight:700;font-size:22px;letter-spacing:.04em;color:var(--text-low);white-space:nowrap;}
+.lockup{display:inline-flex;align-items:center;gap:12px;}
+.arrow{width:56px;height:32px;color:var(--accent);}
+
+/* polaroid photo */
+.polaroid{position:absolute;background:var(--surface);padding:16px 16px 60px 16px;box-shadow:0 18px 34px rgba(20,20,10,.22);z-index:2;}
+.polaroid .photo{width:100%;height:100%;overflow:hidden;background:#cbb896;}
+.polaroid .photo img{width:100%;height:100%;object-fit:cover;display:block;}
+
+/* flower-smiley sticker */
+.sticker-flower{position:absolute;z-index:3;filter:drop-shadow(0 6px 10px rgba(20,20,10,.18));}
+
+/* ticket/tag sticker */
+.sticker-tag{position:absolute;z-index:3;display:flex;align-items:center;justify-content:center;
+  filter:drop-shadow(0 6px 10px rgba(20,20,10,.18));}
+.sticker-tag .tag-label{position:relative;font-family:'Space Mono',monospace;font-weight:700;font-size:30px;letter-spacing:.04em;
+  color:var(--on-fill);text-transform:uppercase;padding-bottom:.1em;}
+
+/* speech-bubble sticker */
+.sticker-bubble{position:absolute;z-index:3;filter:drop-shadow(0 6px 10px rgba(20,20,10,.18));}
+.bub-label{position:absolute;z-index:4;font-family:'Fraunces',serif;font-weight:700;font-style:italic;font-size:32px;
+  color:var(--accent);text-align:center;line-height:1.05;padding-bottom:.12em;pointer-events:none;}
+
+/* stylised bubble-text sticker (HTML, not svg text) */
+.sticker-word{position:absolute;z-index:3;font-family:'Fraunces',serif;font-weight:700;font-style:italic;
+  font-size:52px;line-height:1;color:var(--secondary);
+  text-shadow:3px 3px 0 var(--accent);padding-bottom:.15em;}
+
+/* washi-tape strip — fills the lower band + carries brand accent */
+.washi{position:absolute;z-index:2;display:flex;align-items:center;
+  background:var(--accent);border-top:4px dashed var(--on-fill);border-bottom:4px dashed var(--on-fill);
+  box-shadow:0 10px 22px rgba(20,20,10,.16);}
+.washi span{font-family:'Space Mono',monospace;font-weight:700;font-size:26px;letter-spacing:.04em;
+  color:var(--on-fill);text-transform:uppercase;padding-left:34px;padding-right:24px;padding-bottom:.05em;white-space:nowrap;}
+
+</style>
+</head>
+
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — Cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="kicker"><span>(plant parent)</span></div>
+    <div class="dots" aria-hidden="true">
+      <div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+
+    <div class="tn-title" style="top:186px;width:700px;">
+      <h1 data-title="true" style="font-size:92px;">Your Weekly Pep Talk for Plant Parents</h1>
+    </div>
+
+    <svg data-cg-svg="" data-cg-preserve="" class="sticker-flower" style="left:820px;top:100px;width:150px;height:150px;--cg-fill:var(--surface);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 150 150" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4">
+        <ellipse cx="75" cy="26" rx="26" ry="30"></ellipse>
+        <ellipse cx="75" cy="124" rx="26" ry="30"></ellipse>
+        <ellipse cx="26" cy="75" rx="30" ry="26"></ellipse>
+        <ellipse cx="124" cy="75" rx="30" ry="26"></ellipse>
+        <ellipse cx="41" cy="41" rx="24" ry="27" transform="rotate(-45 41 41)"></ellipse>
+        <ellipse cx="109" cy="41" rx="24" ry="27" transform="rotate(45 109 41)"></ellipse>
+        <ellipse cx="41" cy="109" rx="24" ry="27" transform="rotate(45 41 109)"></ellipse>
+        <ellipse cx="109" cy="109" rx="24" ry="27" transform="rotate(-45 109 109)"></ellipse>
+      </g>
+      <circle cx="75" cy="75" r="32" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4"></circle>
+      <circle cx="63" cy="70" r="4.5" fill="var(--cg-fill)"></circle>
+      <circle cx="87" cy="70" r="4.5" fill="var(--cg-fill)"></circle>
+      <path d="M60 85 Q75 96 90 85" stroke="var(--cg-stroke)" stroke-width="4" fill="none" stroke-linecap="round"></path>
+    </svg>
+
+    <div class="polaroid" style="left:636px;top:566px;width:346px;height:410px;transform:rotate(4deg);">
+      <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="close-up photo of a hand watering a small potted monstera plant on a sunny windowsill, warm natural light, cozy home interior" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/new-plant-parent/slide-01.png"></div>
+    </div>
+
+    <svg data-cg-svg="" data-cg-preserve="" class="sticker-bubble" style="left:352px;top:748px;width:250px;height:150px;--cg-fill:var(--surface);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 250 150" aria-hidden="true" focusable="false">
+      <rect x="10" y="10" width="230" height="108" rx="34" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></rect>
+      <path d="M56 112 L38 146 L92 116 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5" stroke-linejoin="round"></path>
+    </svg>
+    <div class="bub-label" style="left:352px;top:762px;width:250px;">GROW<br>ON!</div>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">ROOTNOTE</span>
+      </div>
+      <svg data-cg-svg="" data-cg-preserve="" class="arrow" viewBox="0 0 56 32" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M2 16H50M50 16L36 4M50 16L36 28" stroke="var(--cg-stroke)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </div>
+  </section>
+
+  <!-- Slide 2 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="kicker"><span>(plant parent)</span></div>
+    <div class="dots" aria-hidden="true">
+      <div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+
+    <div class="tn-title" style="top:370px;width:760px;">
+      <h1 data-title="true">Brown tips don't mean</h1>
+    </div>
+    <div class="tn-sub" style="top:760px;">
+      <p data-message="true">you failed.</p>
+    </div>
+
+    <svg data-cg-svg="" data-cg-preserve="" class="sticker-tag" style="left:712px;top:150px;width:230px;height:130px;transform:rotate(8deg);--cg-fill:var(--accent);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 230 130" aria-hidden="true" focusable="false">
+      <path d="M20 10H210 A14 14 0 0 1 210 38 A14 14 0 0 0 210 92 A14 14 0 0 1 210 120 H20 A14 14 0 0 1 20 92 A14 14 0 0 0 20 38 A14 14 0 0 1 20 10 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></path>
+    </svg>
+    <div class="sticker-tag" style="left:712px;top:150px;width:230px;height:130px;transform:rotate(8deg);">
+      <span class="tag-label">NOTED</span>
+    </div>
+
+    <div class="washi" style="left:72px;top:1050px;width:460px;height:96px;transform:rotate(-2deg);">
+      <span>soil over schedule</span>
+    </div>
+
+    <svg data-cg-svg="" data-cg-preserve="" class="sticker-flower" style="left:840px;top:1060px;width:120px;height:120px;--cg-fill:var(--secondary);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 150 150" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4">
+        <ellipse cx="75" cy="26" rx="26" ry="30"></ellipse>
+        <ellipse cx="75" cy="124" rx="26" ry="30"></ellipse>
+        <ellipse cx="26" cy="75" rx="30" ry="26"></ellipse>
+        <ellipse cx="124" cy="75" rx="30" ry="26"></ellipse>
+        <ellipse cx="41" cy="41" rx="24" ry="27" transform="rotate(-45 41 41)"></ellipse>
+        <ellipse cx="109" cy="41" rx="24" ry="27" transform="rotate(45 109 41)"></ellipse>
+        <ellipse cx="41" cy="109" rx="24" ry="27" transform="rotate(45 41 109)"></ellipse>
+        <ellipse cx="109" cy="109" rx="24" ry="27" transform="rotate(-45 109 109)"></ellipse>
+      </g>
+      <circle cx="75" cy="75" r="32" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4"></circle>
+      <circle cx="63" cy="70" r="4.5" fill="var(--cg-fill)"></circle>
+      <circle cx="87" cy="70" r="4.5" fill="var(--cg-fill)"></circle>
+      <path d="M60 85 Q75 96 90 85" stroke="var(--cg-stroke)" stroke-width="4" fill="none" stroke-linecap="round"></path>
+    </svg>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">ROOTNOTE</span>
+      </div>
+      <svg data-cg-svg="" data-cg-preserve="" class="arrow" viewBox="0 0 56 32" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M2 16H50M50 16L36 4M50 16L36 28" stroke="var(--cg-stroke)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </div>
+  </section>
+
+  <!-- Slide 3 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="kicker"><span>(plant parent)</span></div>
+    <div class="dots" aria-hidden="true">
+      <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+
+    <div class="tn-title" style="top:370px;width:760px;">
+      <h1 data-title="true">Some plants take forever</h1>
+    </div>
+    <div class="tn-sub" style="top:760px;">
+      <p data-message="true">and that's the point.</p>
+    </div>
+
+    <svg data-cg-svg="" data-cg-preserve="" class="sticker-flower" style="left:820px;top:120px;width:150px;height:150px;--cg-fill:var(--accent);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 150 150" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4">
+        <ellipse cx="75" cy="26" rx="26" ry="30"></ellipse>
+        <ellipse cx="75" cy="124" rx="26" ry="30"></ellipse>
+        <ellipse cx="26" cy="75" rx="30" ry="26"></ellipse>
+        <ellipse cx="124" cy="75" rx="30" ry="26"></ellipse>
+        <ellipse cx="41" cy="41" rx="24" ry="27" transform="rotate(-45 41 41)"></ellipse>
+        <ellipse cx="109" cy="41" rx="24" ry="27" transform="rotate(45 109 41)"></ellipse>
+        <ellipse cx="41" cy="109" rx="24" ry="27" transform="rotate(45 41 109)"></ellipse>
+        <ellipse cx="109" cy="109" rx="24" ry="27" transform="rotate(-45 109 109)"></ellipse>
+      </g>
+      <circle cx="75" cy="75" r="32" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4"></circle>
+      <circle cx="63" cy="70" r="4.5" fill="var(--cg-fill)"></circle>
+      <circle cx="87" cy="70" r="4.5" fill="var(--cg-fill)"></circle>
+      <path d="M60 85 Q75 96 90 85" stroke="var(--cg-stroke)" stroke-width="4" fill="none" stroke-linecap="round"></path>
+    </svg>
+
+    <div class="washi" style="left:72px;top:1050px;width:560px;height:96px;transform:rotate(2deg);">
+      <span>patience is a growing skill</span>
+    </div>
+
+    <svg data-cg-svg="" data-cg-preserve="" class="sticker-tag" style="left:760px;top:1050px;width:210px;height:118px;transform:rotate(-6deg);--cg-fill:var(--accent);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 230 130" aria-hidden="true" focusable="false">
+      <path d="M20 10H210 A14 14 0 0 1 210 38 A14 14 0 0 0 210 92 A14 14 0 0 1 210 120 H20 A14 14 0 0 1 20 92 A14 14 0 0 0 20 38 A14 14 0 0 1 20 10 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></path>
+    </svg>
+    <div class="sticker-tag" style="left:760px;top:1050px;width:210px;height:118px;transform:rotate(-6deg);">
+      <span class="tag-label" style="font-size:26px;">SLOW</span>
+    </div>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">ROOTNOTE</span>
+      </div>
+      <svg data-cg-svg="" data-cg-preserve="" class="arrow" viewBox="0 0 56 32" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M2 16H50M50 16L36 4M50 16L36 28" stroke="var(--cg-stroke)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </div>
+  </section>
+
+  <!-- Slide 4 -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="kicker"><span>(plant parent)</span></div>
+    <div class="dots" aria-hidden="true">
+      <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div>
+    </div>
+
+    <div class="tn-title" style="top:370px;width:760px;">
+      <h1 data-title="true">New growth is slow,</h1>
+    </div>
+    <div class="tn-sub" style="top:760px;">
+      <p data-message="true">and that's okay.</p>
+    </div>
+
+    <div class="sticker-word" style="left:760px;top:150px;transform:rotate(-6deg);">Take<br>root.</div>
+
+    <svg data-cg-svg="" data-cg-preserve="" class="sticker-tag" style="left:760px;top:1050px;width:220px;height:118px;transform:rotate(6deg);--cg-fill:var(--accent);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 230 130" aria-hidden="true" focusable="false">
+      <path d="M20 10H210 A14 14 0 0 1 210 38 A14 14 0 0 0 210 92 A14 14 0 0 1 210 120 H20 A14 14 0 0 1 20 92 A14 14 0 0 0 20 38 A14 14 0 0 1 20 10 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></path>
+    </svg>
+    <div class="sticker-tag" style="left:760px;top:1050px;width:220px;height:118px;transform:rotate(6deg);">
+      <span class="tag-label" style="font-size:24px;">STEADY</span>
+    </div>
+
+    <div class="washi" style="left:72px;top:1060px;width:640px;height:96px;transform:rotate(-2deg);">
+      <span>new roots don't rush</span>
+    </div>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">ROOTNOTE</span>
+      </div>
+      <svg data-cg-svg="" data-cg-preserve="" class="arrow" viewBox="0 0 56 32" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M2 16H50M50 16L36 4M50 16L36 28" stroke="var(--cg-stroke)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </div>
+  </section>
+
+  <!-- Slide 5 — Closing -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="kicker"><span>(plant parent)</span></div>
+    <div class="dots" aria-hidden="true">
+      <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div>
+    </div>
+
+    <div class="tn-title" style="top:230px;width:560px;">
+      <h1 data-title="true">Follow for more grow talks!</h1>
+    </div>
+
+    <div class="polaroid" style="left:640px;top:540px;width:346px;height:410px;transform:rotate(-5deg);">
+      <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="cheerful person holding a small potted succulent plant up to the light, smiling, cozy plant-filled apartment background" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/new-plant-parent/slide-05.png"></div>
+    </div>
+
+    <svg data-cg-svg="" data-cg-preserve="" class="sticker-flower" style="left:240px;top:900px;width:150px;height:150px;--cg-fill:var(--surface);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 150 150" aria-hidden="true" focusable="false">
+      <g fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4">
+        <ellipse cx="75" cy="26" rx="26" ry="30"></ellipse>
+        <ellipse cx="75" cy="124" rx="26" ry="30"></ellipse>
+        <ellipse cx="26" cy="75" rx="30" ry="26"></ellipse>
+        <ellipse cx="124" cy="75" rx="30" ry="26"></ellipse>
+        <ellipse cx="41" cy="41" rx="24" ry="27" transform="rotate(-45 41 41)"></ellipse>
+        <ellipse cx="109" cy="41" rx="24" ry="27" transform="rotate(45 109 41)"></ellipse>
+        <ellipse cx="41" cy="109" rx="24" ry="27" transform="rotate(45 41 109)"></ellipse>
+        <ellipse cx="109" cy="109" rx="24" ry="27" transform="rotate(-45 109 109)"></ellipse>
+      </g>
+      <circle cx="75" cy="75" r="32" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4"></circle>
+      <circle cx="63" cy="70" r="4.5" fill="var(--cg-fill)"></circle>
+      <circle cx="87" cy="70" r="4.5" fill="var(--cg-fill)"></circle>
+      <path d="M60 85 Q75 96 90 85" stroke="var(--cg-stroke)" stroke-width="4" fill="none" stroke-linecap="round"></path>
+    </svg>
+
+    <svg data-cg-svg="" data-cg-preserve="" class="sticker-bubble" style="left:648px;top:150px;width:250px;height:150px;--cg-fill:var(--surface);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 250 150" aria-hidden="true" focusable="false">
+      <rect x="10" y="10" width="230" height="108" rx="34" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5"></rect>
+      <path d="M56 112 L38 146 L92 116 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="5" stroke-linejoin="round"></path>
+    </svg>
+    <div class="bub-label" style="left:648px;top:164px;width:250px;">GROW<br>ON!</div>
+
+    <div class="washi" style="left:72px;top:1030px;width:500px;height:88px;transform:rotate(-2deg);">
+      <span>new post every sunday</span>
+    </div>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+        <span class="brand-word">ROOTNOTE</span>
+      </div>
+      <svg data-cg-svg="" data-cg-preserve="" class="arrow" viewBox="0 0 56 32" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M2 16H50M50 16L36 4M50 16L36 28" stroke="var(--cg-stroke)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </div>
+  </section>
+
+</div>
+
+
+</body></html>

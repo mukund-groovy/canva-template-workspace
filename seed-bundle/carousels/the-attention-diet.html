@@ -1,0 +1,346 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,600;1,700&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@700&display=swap');
+
+  :root{
+    /* Brand role colours. Fills (--accent) paint solid surfaces; branded TEXT
+       (headline word, folio numeral, CTA) routes through --primary, which the
+       production skinner always keeps dark/AA-safe on the cream canvas. Canvas
+       (--bg) and ink (--text-*) are fixed literals — the brand preview never
+       touches them, which is what keeps every slide legible under any palette. */
+    --primary:var(--brand-primary,#B7370E);
+    --secondary:var(--brand-secondary,#7A2408);
+    --accent:var(--brand-accent,#FF5A1F);
+    --bg:var(--brand-bg,#F5EFE2);
+    --surface:var(--brand-surface,#FFFFFF);
+    --text-high:var(--brand-ink,#1B1712);
+    --text-low:var(--brand-text-muted,rgba(27,23,18,.64));
+    --border:var(--brand-border,rgba(27,23,18,.18));
+    --highlight:var(--brand-accent,#FF5A1F);
+    --on-fill:var(--brand-on-accent,#ffffff);
+    --on-primary:var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);
+    font-family:'Inter',sans-serif;color:var(--text-high);
+  }
+
+  /* ── fine paper grain, reproduced at true strength (matches the reference's
+     flecked-paper surface, not softened to a hint) ── */
+  .grain{
+    position:absolute;inset:-2px;z-index:0;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity:.5;mix-blend-mode:multiply;
+  }
+  .speck{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background-image:radial-gradient(rgba(27,23,18,.10) 1.4px, transparent 1.6px);
+    background-size:34px 34px;background-position:6px 12px;opacity:.5;
+  }
+
+  /* ── brand lockup, top right, every slide ── */
+  .lockup{position:absolute;top:58px;right:74px;z-index:5;display:flex;flex-direction:column;align-items:center;gap:9px;}
+  .brand-mark-clip{width:52px;height:52px;display:flex;align-items:center;justify-content:center;}
+  .brand-mark{width:52px;height:52px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Inter',sans-serif;font-weight:800;font-size:15px;letter-spacing:.22em;color:var(--text-high);}
+
+  /* ── oversized folio numeral, bottom-left, every slide — the deck's one
+     load-bearing brand device: big enough to clear brand-audit on its own,
+     restrained enough to read as a design signature, not clutter ── */
+  .folio{
+    position:absolute;left:64px;bottom:20px;z-index:1;
+    font-family:'Playfair Display',serif;font-weight:800;font-size:330px;line-height:.78;
+    letter-spacing:-.03em;color:var(--primary);
+    -webkit-text-stroke:0px;padding-bottom:.16em;
+  }
+
+  /* ── shared text primitives ── */
+  .tn{position:absolute;}
+  h1{
+    margin:0;font-family:'Playfair Display',serif;font-weight:700;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.16em;
+  }
+  .ink{color:var(--text-high);}
+  .accent-ink{color:var(--primary);font-style:italic;font-weight:600;}
+
+  /* running head — small, quiet, repeats on every slide (magazine folio device);
+     also does real work bridging the otherwise-empty band under the lockup */
+  .eyebrow{
+    position:absolute;left:96px;top:264px;z-index:2;
+    font-family:'Inter',sans-serif;font-weight:800;font-size:20px;letter-spacing:.26em;
+    text-transform:uppercase;color:var(--text-low);
+  }
+
+  .kicker{
+    font-family:'Inter',sans-serif;font-weight:800;font-size:22px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.2em;
+  }
+  .kicker.on-accent-ink{color:var(--primary);}
+
+  p.msg{
+    margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:30px;line-height:1.42;
+    color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.25em;
+  }
+
+  .cta{position:absolute;display:flex;align-items:center;gap:18px;z-index:3;}
+  .cta span{font-family:'Inter',sans-serif;font-weight:800;font-size:26px;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);}
+  .cta .ring{width:56px;height:56px;border-radius:50%;border:2.5px solid var(--primary);display:flex;align-items:center;justify-content:center;flex:none;}
+  .cta svg{width:24px;height:24px;}
+
+  /* ---- slide 1 : cover ---- */
+  .s1 h1{position:absolute;left:96px;top:392px;width:840px;font-size:124px;line-height:1.02;-webkit-line-clamp:2;padding-bottom:.14em;}
+  .s1 h1 .l1{display:block;color:var(--primary);font-style:italic;font-weight:600;}
+  .s1 h1 .l2{display:block;color:var(--text-high);}
+  .s1 .tn-msg{left:98px;top:766px;width:660px;}
+  .s1 p.msg{font-size:30px;-webkit-line-clamp:3;}
+  .s1 .cta{left:98px;top:942px;}
+  .s1 .folio{opacity:.9;}
+
+  /* ---- slide 2 : statement ---- */
+  .s2 h1{position:absolute;left:96px;top:384px;width:880px;font-size:94px;line-height:1.08;-webkit-line-clamp:2;padding-bottom:.14em;}
+  .s2 .tn-msg{left:98px;top:702px;width:760px;}
+  .s2 p.msg{font-size:33px;-webkit-line-clamp:4;}
+
+  /* ---- slide 3 : list ---- */
+  .s3 h1{position:absolute;left:96px;top:322px;width:860px;font-size:90px;line-height:1.06;-webkit-line-clamp:2;padding-bottom:.14em;}
+  .s3 h1 .l1{display:block;color:var(--primary);font-style:italic;font-weight:600;}
+  .s3 h1 .l2{display:block;color:var(--text-high);}
+  .s3 .list{position:absolute;left:98px;top:596px;width:860px;z-index:2;}
+  .s3 .li{display:flex;align-items:flex-start;gap:24px;margin-bottom:26px;}
+  .s3 .dot{width:13px;height:13px;border-radius:50%;background:var(--text-high);flex:none;margin-top:19px;}
+  .s3 .li .item-text{
+    margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:37px;line-height:1.32;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.2em;
+  }
+  .s3 .ring-motif{position:absolute;left:830px;top:470px;width:390px;height:390px;border-radius:50%;border:2.5px solid var(--accent);z-index:1;}
+
+  /* ---- slide 4 : big two-line statement ---- */
+  .s4 h1{position:absolute;left:96px;top:414px;width:944px;font-size:102px;line-height:1.08;-webkit-line-clamp:2;padding-bottom:.14em;}
+  .s4 h1 .l1{display:block;color:var(--primary);font-style:italic;font-weight:600;}
+  .s4 h1 .l2{display:block;color:var(--text-high);}
+  .s4 .tn-msg{left:98px;top:722px;width:760px;}
+  .s4 p.msg{font-size:34px;-webkit-line-clamp:2;color:var(--text-low);}
+
+  /* ---- slide 5 : diagram ---- */
+  .s5 .kicker-wrap{position:absolute;left:96px;top:150px;width:600px;}
+  .s5 .kicker{font-size:26px;-webkit-line-clamp:3;}
+  .circ{position:absolute;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;z-index:2;}
+  .circ .circ-text{margin:0;font-family:'Playfair Display',serif;font-weight:700;font-size:35px;line-height:1.16;padding:0 20px;}
+  .circ.outline{border:3px solid var(--text-high);background:transparent;}
+  .circ.outline .circ-text{color:var(--text-high);}
+  .circ.fill{background:var(--accent);}
+  .circ.fill .circ-text{color:var(--on-fill);}
+  .c1{left:546px;top:302px;width:308px;height:308px;}
+  .c2{left:326px;top:556px;width:340px;height:340px;}
+  .c3{left:600px;top:648px;width:312px;height:312px;}
+
+  /* ---- slide 6 : illustration + statement ---- */
+  .s6 h1{position:absolute;left:96px;top:394px;width:640px;font-size:74px;line-height:1.12;-webkit-line-clamp:3;padding-bottom:.14em;}
+  .s6 .tn-msg{left:98px;top:706px;width:620px;}
+  .s6 p.msg{font-size:31px;-webkit-line-clamp:3;}
+  .note{
+    position:absolute;left:706px;top:378px;width:290px;height:290px;
+    background:var(--surface);border:5px solid var(--accent);
+    transform:rotate(6deg);box-shadow:10px 14px 0 rgba(27,23,18,.08);z-index:2;
+    display:flex;align-items:center;justify-content:center;padding:26px;
+  }
+  .note .tape{position:absolute;top:-16px;left:50%;transform:translateX(-50%) rotate(-3deg);width:96px;height:34px;background:rgba(27,23,18,.12);}
+  .note .note-text{margin:0;font-family:'Caveat',cursive;font-weight:700;font-size:44px;line-height:1.12;color:var(--primary);text-align:center;transform:rotate(-6deg);}
+
+  /* ---- slide 7 : share / cta ---- */
+  .s7 h1{position:absolute;left:96px;top:452px;width:660px;font-size:86px;line-height:1.08;-webkit-line-clamp:3;padding-bottom:.14em;}
+  .s7 h1 .l1{display:block;color:var(--primary);font-style:italic;font-weight:600;}
+  .s7 h1 .l2{display:block;color:var(--text-high);}
+  .s7 .cta{left:98px;top:846px;}
+  .s7 .share-btn{
+    position:absolute;right:110px;top:512px;width:236px;height:236px;border-radius:50%;
+    background:var(--accent);display:flex;align-items:center;justify-content:center;z-index:2;
+  }
+  .s7 .share-btn svg{width:90px;height:90px;}
+</style>
+</head>
+
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — Cover -->
+  <section class="slide s1" data-cg-slide-type="cover">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="speck" aria-hidden="true"></div>
+
+    <div class="lockup">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">ANCHOR</span>
+    </div>
+
+    <div class="eyebrow">The Attention Diet</div>
+
+    <h1 data-title="true"><span class="l1">Guard Your</span><span class="l2">Attention</span></h1>
+
+    <div class="tn tn-msg">
+      <p class="msg" data-message="true">You don't need more willpower to focus. You need a better filter for what gets in.</p>
+    </div>
+
+    <div class="cta" data-cta="true">
+      <span>Read More</span>
+      <span class="ring"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+    </div>
+
+    <div class="folio">01</div>
+  </section>
+
+  <!-- Slide 2 — statement + body -->
+  <section class="slide s2" data-cg-slide-type="text">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="speck" aria-hidden="true"></div>
+
+    <div class="lockup">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">ANCHOR</span>
+    </div>
+
+    <div class="eyebrow">The Attention Diet</div>
+
+    <h1 class="ink" data-title="true">Focus is a filter, not a fight</h1>
+
+    <div class="tn tn-msg">
+      <p class="msg" data-message="true">You don't need to block every notification to think clearly. Real focus comes from choosing fewer inputs on purpose, before the day starts.</p>
+    </div>
+
+    <div class="folio">02</div>
+  </section>
+
+  <!-- Slide 3 — headline + list -->
+  <section class="slide s3" data-cg-slide-type="text">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="speck" aria-hidden="true"></div>
+
+    <div class="lockup">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">ANCHOR</span>
+    </div>
+
+    <div class="eyebrow">The Attention Diet</div>
+
+    <h1 data-title="true"><span class="l1">The Diet</span><span class="l2">Looks Like This</span></h1>
+
+    <div class="list">
+      <div class="li"><span class="dot"></span><div class="item-text">One inbox check before noon</div></div>
+      <div class="li"><span class="dot"></span><div class="item-text">Phone in another room while you work</div></div>
+      <div class="li"><span class="dot"></span><div class="item-text">One open tab at a time</div></div>
+      <div class="li"><span class="dot"></span><div class="item-text">Notifications batched, not live</div></div>
+      <div class="li"><span class="dot"></span><div class="item-text">A single true priority, not five</div></div>
+    </div>
+
+    <div class="ring-motif" aria-hidden="true"></div>
+
+    <div class="folio">03</div>
+  </section>
+
+  <!-- Slide 4 — big two-line statement -->
+  <section class="slide s4" data-cg-slide-type="text">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="speck" aria-hidden="true"></div>
+
+    <div class="lockup">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">ANCHOR</span>
+    </div>
+
+    <div class="eyebrow">The Attention Diet</div>
+
+    <h1 data-title="true"><span class="l1">Busy isn't the goal.</span><span class="l2">Deliberate is.</span></h1>
+
+    <div class="tn tn-msg">
+      <p class="msg" data-message="true">Not louder days. Days that are better defended, on purpose.</p>
+    </div>
+
+    <div class="folio">04</div>
+  </section>
+
+  <!-- Slide 5 — 3-circle diagram -->
+  <section class="slide s5" data-cg-slide-type="text">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="speck" aria-hidden="true"></div>
+
+    <div class="lockup">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">ANCHOR</span>
+    </div>
+
+    <div class="kicker-wrap">
+      <h1 class="kicker on-accent-ink" data-title="true">How to build a distraction-proof day</h1>
+    </div>
+
+    <div class="circ outline c1"><div class="circ-text">Protect<br>one hour</div></div>
+    <div class="circ fill c2"><div class="circ-text">Batch the<br>noise</div></div>
+    <div class="circ outline c3"><div class="circ-text">Close<br>one loop</div></div>
+
+    <div class="folio">05</div>
+  </section>
+
+  <!-- Slide 6 — illustration + statement -->
+  <section class="slide s6" data-cg-slide-type="text">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="speck" aria-hidden="true"></div>
+
+    <div class="lockup">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">ANCHOR</span>
+    </div>
+
+    <div class="eyebrow">The Attention Diet</div>
+
+    <h1 class="ink" data-title="true">You don't need to answer everything.</h1>
+
+    <div class="tn tn-msg">
+      <p class="msg" data-message="true">Your calm is already compounding. Every hour you protect pays interest later.</p>
+    </div>
+
+    <div class="note">
+      <div class="tape"></div>
+      <div class="note-text">later.</div>
+    </div>
+
+    <div class="folio">06</div>
+  </section>
+
+  <!-- Slide 7 — share / cta -->
+  <section class="slide s7" data-cg-slide-type="text">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="speck" aria-hidden="true"></div>
+
+    <div class="lockup">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">ANCHOR</span>
+    </div>
+
+    <div class="eyebrow">The Attention Diet</div>
+
+    <h1 data-title="true"><span class="l1">Know someone</span><span class="l2">drowning in notifications?</span></h1>
+
+    <div class="cta" data-cta="true">
+      <span class="ring"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--primary);--cg-stroke:var(--primary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+      <span>Share This With Them</span>
+    </div>
+
+    <div class="share-btn">
+      <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 12L20 12M20 12L13 5M20 12L13 19" stroke="var(--cg-stroke)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </div>
+
+    <div class="folio">07</div>
+  </section>
+
+</div>
+
+
+</body></html>

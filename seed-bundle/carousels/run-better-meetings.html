@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap');
+
+      :root{
+        /* Brand role tokens — fills (accent chip, numeral disc, CTA ring) carry the
+           brand; canvas + ink stay fixed literals for legibility (see below). */
+        --primary:var(--brand-primary,#1c1a17);
+        --secondary:var(--brand-secondary,#4a4741);
+        --accent:var(--brand-accent,#c96a3a);
+        --highlight:var(--brand-accent,#c96a3a);
+        --bg:var(--brand-bg,#eee8e0);
+        --surface:var(--brand-surface,#ffffff);
+        --text-high:var(--brand-text,#1a1815);
+        --text-low:var(--brand-text-muted,rgba(26,24,21,.66));
+        --border:var(--brand-border,rgba(26,24,21,.22));
+        --on-fill:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);
+        font-family:'Archivo',sans-serif;
+      }
+
+      /* ── soft dappled-light backdrop: layered blurred blobs, diagonal drift,
+         mirrors the reference's shadow-through-leaves atmosphere without a
+         literal photo. Fixed neutral tones — decoration, not brand. ── */
+      .haze{position:absolute;inset:-120px;z-index:0;pointer-events:none;
+        background:
+          radial-gradient(340px 420px at 78% 8%, rgba(20,18,15,.16), transparent 62%),
+          radial-gradient(280px 360px at 92% 26%, rgba(20,18,15,.13), transparent 60%),
+          radial-gradient(420px 300px at 60% 4%, rgba(20,18,15,.10), transparent 65%),
+          radial-gradient(260px 340px at 100% 46%, rgba(20,18,15,.09), transparent 60%);
+        filter:blur(28px);opacity:.85;
+      }
+
+      /* ── decorative arc (cover only) — thin structural line, fixed neutral ── */
+      .arc-wrap{position:absolute;left:0;top:0;width:1080px;height:1350px;z-index:1;pointer-events:none;}
+
+      /* ── top row: kicker + accent tag chip ── */
+      .kicker{position:absolute;left:80px;top:60px;right:600px;z-index:3;}
+      .kicker span{
+        display:block;font-family:'Archivo',sans-serif;font-weight:700;font-size:27px;
+        letter-spacing:.09em;text-transform:uppercase;color:var(--primary);
+        white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      }
+
+      .tagchip{position:absolute;right:80px;top:52px;z-index:3;
+        background:var(--accent);border-radius:40px;padding:14px 28px;line-height:1;
+      }
+      .tagchip span{
+        font-family:'Archivo',sans-serif;font-weight:700;font-size:23px;letter-spacing:.06em;
+        text-transform:uppercase;color:var(--on-fill);white-space:nowrap;
+      }
+
+      /* ── numeral disc (content slides) ── */
+      .num-disc{position:absolute;left:80px;width:132px;height:132px;border-radius:50%;
+        background:var(--accent);display:flex;align-items:center;justify-content:center;z-index:3;
+      }
+      .num-disc span{font-family:'Archivo',sans-serif;font-weight:800;font-size:52px;color:var(--on-fill);}
+
+      /* ── title / body — each a text node in its own absolutely-positioned wrapper ── */
+      .tn-title{position:absolute;left:80px;right:80px;z-index:3;}
+      .tn-title h1{
+        margin:0;font-family:'Archivo',sans-serif;font-weight:800;line-height:1.05;
+        letter-spacing:-.01em;text-transform:uppercase;color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.2em;
+      }
+      .slide.cover .tn-title h1{font-size:98px;-webkit-line-clamp:4;}
+      .slide.tip .tn-title h1{font-size:80px;-webkit-line-clamp:2;}
+      .slide.outro .tn-title h1{font-size:92px;-webkit-line-clamp:3;}
+
+      .tn-message{position:absolute;left:80px;right:150px;z-index:3;}
+      .tn-message p{
+        margin:0;font-family:'Archivo',sans-serif;font-weight:400;font-size:34px;line-height:1.36;
+        color:var(--text-low);
+        display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.15em;
+      }
+      .slide.cover .tn-message p{font-size:36px;-webkit-line-clamp:2;right:260px;}
+      .slide.tip .tn-message p{-webkit-line-clamp:4;}
+      .slide.outro .tn-message p{font-size:36px;-webkit-line-clamp:2;right:220px;}
+
+      /* ── footer row: brand lockup (left) + cta caption + arrow disc (right) ── */
+      .foot{position:absolute;left:80px;right:80px;bottom:56px;z-index:3;display:flex;align-items:flex-end;justify-content:space-between;}
+      .lockup{display:flex;align-items:center;gap:12px;}
+      .brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Archivo',sans-serif;font-weight:700;font-size:24px;letter-spacing:.02em;color:var(--primary);white-space:nowrap;}
+
+      .tn-cta{max-width:420px;}
+      .tn-cta p{
+        margin:0;font-family:'Archivo',sans-serif;font-weight:700;font-size:23px;letter-spacing:.08em;
+        text-transform:uppercase;color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.1em;
+      }
+
+      .arrow-disc{position:absolute;right:80px;bottom:40px;width:132px;height:132px;border-radius:50%;
+        background:var(--accent);display:flex;align-items:center;justify-content:center;z-index:3;
+        box-shadow:0 14px 30px rgba(20,16,10,.22);
+      }
+      .arrow-disc svg{width:52px;height:52px;color:var(--on-fill);}
+
+      /* ── on-scrim safety not needed here (no photo/scrim over ink) ── */
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Cover -->
+      <section class="slide cover" data-cg-slide-type="text">
+        <div class="haze" aria-hidden="true"></div>
+        <div class="arc-wrap" aria-hidden="true">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 1080 1350" width="1080" height="1350" style="position:absolute;left:0;top:0;--cg-fill:var(--border);--cg-stroke:var(--border);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)" aria-hidden="true" focusable="false">
+            <path d="M60 320 C60 120 260 60 460 60 C700 60 900 220 900 470 L900 1230" fill="none" stroke="var(--cg-stroke)" stroke-width="2"></path>
+          </svg>
+        </div>
+
+        <div class="kicker"><span data-pretitle="true">Workplace</span></div>
+        <div class="tagchip"><span>Team Tips</span></div>
+
+        <div class="tn-title"><h1 data-title="true">5 Ways to Run Meetings People Actually Want</h1></div>
+        <div class="tn-message"><p data-message="true">A short reset for your team's calendar.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+            <span class="brand-word">YOURBRAND</span>
+          </div>
+          <div class="tn-cta"><p data-cta="true">Swipe for the list</p></div>
+        </div>
+        <div class="arrow-disc"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+      </section>
+
+      <!-- Tip 1 -->
+      <section class="slide tip" data-cg-slide-type="text">
+        <div class="haze" aria-hidden="true"></div>
+        <div class="kicker"><span data-pretitle="true">Workplace</span></div>
+        <div class="tagchip"><span>Team Tips</span></div>
+
+        <div class="num-disc" style="top:474px;"><span>01</span></div>
+        <div class="tn-title" style="top:640px;"><h1 data-title="true">Send a real agenda</h1></div>
+        <div class="tn-message" style="top:790px;"><p data-message="true">Three bullets beat a blank invite. If no one knows why they're in the room, the meeting has already failed.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+            <span class="brand-word">YOURBRAND</span>
+          </div>
+          <div class="tn-cta"><p data-cta="true">Tip 1 of 5</p></div>
+        </div>
+        <div class="arrow-disc"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+      </section>
+
+      <!-- Tip 2 -->
+      <section class="slide tip" data-cg-slide-type="text">
+        <div class="haze" aria-hidden="true"></div>
+        <div class="kicker"><span data-pretitle="true">Workplace</span></div>
+        <div class="tagchip"><span>Team Tips</span></div>
+
+        <div class="num-disc" style="top:474px;"><span>02</span></div>
+        <div class="tn-title" style="top:640px;"><h1 data-title="true">Protect the clock</h1></div>
+        <div class="tn-message" style="top:790px;"><p data-message="true">Start on time and end on time. A meeting that runs long just teaches everyone to show up late next round.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+            <span class="brand-word">YOURBRAND</span>
+          </div>
+          <div class="tn-cta"><p data-cta="true">Tip 2 of 5</p></div>
+        </div>
+        <div class="arrow-disc"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+      </section>
+
+      <!-- Tip 3 -->
+      <section class="slide tip" data-cg-slide-type="text">
+        <div class="haze" aria-hidden="true"></div>
+        <div class="kicker"><span data-pretitle="true">Workplace</span></div>
+        <div class="tagchip"><span>Team Tips</span></div>
+
+        <div class="num-disc" style="top:474px;"><span>03</span></div>
+        <div class="tn-title" style="top:640px;"><h1 data-title="true">Name an owner</h1></div>
+        <div class="tn-message" style="top:790px;"><p data-message="true">Every meeting needs someone driving it. Without an owner the discussion drifts and nothing gets decided.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+            <span class="brand-word">YOURBRAND</span>
+          </div>
+          <div class="tn-cta"><p data-cta="true">Tip 3 of 5</p></div>
+        </div>
+        <div class="arrow-disc"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+      </section>
+
+      <!-- Tip 4 -->
+      <section class="slide tip" data-cg-slide-type="text">
+        <div class="haze" aria-hidden="true"></div>
+        <div class="kicker"><span data-pretitle="true">Workplace</span></div>
+        <div class="tagchip"><span>Team Tips</span></div>
+
+        <div class="num-disc" style="top:474px;"><span>04</span></div>
+        <div class="tn-title" style="top:640px;"><h1 data-title="true">Close with next steps</h1></div>
+        <div class="tn-message" style="top:790px;"><p data-message="true">End with who's doing what by when. A decision with no owner is just a nice conversation you both forget.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+            <span class="brand-word">YOURBRAND</span>
+          </div>
+          <div class="tn-cta"><p data-cta="true">Tip 4 of 5</p></div>
+        </div>
+        <div class="arrow-disc"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+      </section>
+
+      <!-- Tip 5 -->
+      <section class="slide tip" data-cg-slide-type="text">
+        <div class="haze" aria-hidden="true"></div>
+        <div class="kicker"><span data-pretitle="true">Workplace</span></div>
+        <div class="tagchip"><span>Team Tips</span></div>
+
+        <div class="num-disc" style="top:474px;"><span>05</span></div>
+        <div class="tn-title" style="top:640px;"><h1 data-title="true">Cancel it if you can</h1></div>
+        <div class="tn-message" style="top:790px;"><p data-message="true">If an email would do the job, send the email. The best meeting is often the one that never gets booked.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+            <span class="brand-word">YOURBRAND</span>
+          </div>
+          <div class="tn-cta"><p data-cta="true">Tip 5 of 5</p></div>
+        </div>
+        <div class="arrow-disc"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+      </section>
+
+      <!-- Outro -->
+      <section class="slide outro" data-cg-slide-type="text">
+        <div class="haze" aria-hidden="true"></div>
+        <div class="kicker"><span data-pretitle="true">Workplace</span></div>
+        <div class="tagchip"><span>Team Tips</span></div>
+
+        <div class="tn-title" style="top:560px;"><h1 data-title="true">Which one is your team missing?</h1></div>
+        <div class="tn-message" style="top:830px;"><p data-message="true">Save this for your next calendar clean-up.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+            <span class="brand-word">YOURBRAND</span>
+          </div>
+          <div class="tn-cta"><p data-cta="true">Share with your team</p></div>
+        </div>
+        <div class="arrow-disc"><svg viewBox="0 0 24 24" fill="none" data-cg-svg="" data-cg-preserve="" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+      </section>
+
+    </div>
+  
+
+</body></html>

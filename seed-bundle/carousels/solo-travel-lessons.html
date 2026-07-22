@@ -1,0 +1,238 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Caveat:wght@500;600;700&display=swap');
+
+  :root{
+    /* Brand role colors — the blue photo-bezel, the numeral badge and the
+       caption chip carry the accent; canvas/ink stay fixed for legibility. */
+    --primary:var(--brand-primary,#2B2117);
+    --secondary:var(--brand-secondary,#8C4A24);
+    --accent:var(--brand-accent,#1054AB);
+    --highlight:var(--brand-accent,#1054AB);
+    --bg:var(--brand-bg,#F2EECF);
+    --surface:var(--brand-surface,var(--brand-bg-alt,#EAE0BE));
+    --text-high:var(--brand-ink,#2B2117);
+    --text-low:var(--brand-text-muted,rgba(43,33,23,.64));
+    --border:var(--brand-border,rgba(43,33,23,.16));
+    --on-fill:var(--brand-on-accent,#F7F1DE);
+    --on-primary:var(--brand-on-primary,#F7F1DE);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);font-family:'Fraunces',serif;
+  }
+
+  /* ── full-bleed photo ── */
+  .photo{position:absolute;inset:0;z-index:0;}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block;background:#8a7f66;}
+
+  /* ── inset bezel photo (bookend slides) ── */
+  .bezel{position:absolute;inset:0;z-index:0;background:var(--accent);}
+  .bezel-photo{position:absolute;left:85px;top:85px;width:910px;height:948px;border-radius:26px;overflow:hidden;z-index:1;}
+  .bezel-photo img{width:100%;height:100%;object-fit:cover;display:block;background:#8a7f66;}
+  .bezel-top-scrim{position:absolute;left:85px;top:85px;width:910px;height:280px;z-index:2;border-radius:26px 26px 0 0;
+    background:linear-gradient(180deg,rgba(10,10,10,.52) 0%,rgba(10,10,10,0) 100%);}
+
+  /* ── guaranteed-dark scrim for direct-photo slides ── */
+  .scrim-top{position:absolute;left:0;right:0;top:0;height:760px;z-index:1;
+    background:linear-gradient(180deg,rgba(8,8,8,.62) 0%,rgba(8,8,8,.34) 55%,rgba(8,8,8,0) 100%);}
+  /* cover: darkens deep enough that even a much longer headline/caption pair
+     (grown under a wider brand font or worst-case copy) never sits on bare photo. */
+  .scrim-cover{position:absolute;left:0;right:0;top:0;height:1180px;z-index:1;
+    background:linear-gradient(180deg,rgba(8,8,8,.56) 0%,rgba(8,8,8,.32) 18%,rgba(8,8,8,.46) 50%,rgba(8,8,8,.52) 100%);}
+  .scrim-bottom{position:absolute;left:0;right:0;bottom:0;height:420px;z-index:1;
+    background:linear-gradient(0deg,rgba(8,8,8,.66) 0%,rgba(8,8,8,0) 100%);}
+
+  /* ── footer: consistent brand-tinted scrim strip on every slide — mostly
+     black so the fixed cream footer text stays AA-legible even when the
+     accent itself is pale (yellow/lime); the accent tint is a thin top note. ── */
+  .foot-scrim{position:absolute;left:0;right:0;bottom:0;height:190px;z-index:6;
+    background:linear-gradient(180deg,transparent 0%,
+      color-mix(in srgb, var(--accent) 14%, #060606 86%) 40%,
+      color-mix(in srgb, var(--accent) 18%, #060606 82%) 100%);}
+  .foot{position:absolute;left:76px;right:76px;bottom:42px;z-index:7;display:flex;align-items:center;justify-content:space-between;}
+  .lockup{display:inline-flex;align-items:center;gap:12px;}
+  .brand-mark-clip{flex:none;height:32px;display:flex;align-items:center;}
+  .brand-mark{height:32px;width:auto;max-width:110px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Caveat',cursive;font-weight:700;font-size:28px;color:#F7F1DE;white-space:nowrap;}
+  .cg-slide-counter{font-family:'Fraunces',serif;font-weight:500;font-size:20px;letter-spacing:.08em;color:#F7F1DE;}
+
+  /* ── decoration: sparkle flower mark ── */
+  .mark{position:absolute;z-index:3;color:var(--text-high);opacity:.9;}
+
+  /* ── text wrappers: one per text node, node stays in normal flow ── */
+  .tn{position:absolute;z-index:5;}
+  .tn h1,.tn h2,.tn p,.tn span.txt{margin:0;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;}
+
+  /* cover */
+  .kicker-pill{position:absolute;left:90px;top:78px;z-index:4;background:var(--accent);border-radius:999px;padding:14px 28px;}
+  .kicker-pill span{font-family:'Fraunces',serif;font-weight:600;font-size:22px;letter-spacing:.18em;color:var(--on-fill);white-space:nowrap;}
+
+  /* NOTE: -webkit-line-clamp boxes never carry their own padding-bottom —
+     Chromium leaks a sliver of the clipped next line through the padding
+     gap (confirmed: a "ghost" partial 3rd line bled through at the clip
+     boundary). Descender room comes from generous line-height instead. */
+  .cover-title h1{
+    font-family:'Fraunces',serif;font-weight:500;font-size:110px;line-height:1.16;letter-spacing:-.01em;
+    color:#F7F1DE;text-align:right;-webkit-line-clamp:2;
+  }
+  .cover-title h1 em{font-style:italic;font-weight:500;}
+  .cover-msg p{
+    font-family:'Caveat',cursive;font-weight:600;font-size:44px;line-height:1.3;color:#F7F1DE;
+    text-align:right;-webkit-line-clamp:2;
+  }
+
+  /* bezel headline band */
+  .band-title h1{
+    font-family:'Fraunces',serif;font-weight:500;font-size:88px;line-height:1.16;letter-spacing:-.01em;
+    color:var(--on-fill);text-align:right;-webkit-line-clamp:2;
+  }
+  .band-msg p{
+    font-family:'Caveat',cursive;font-weight:600;font-size:38px;line-height:1.34;color:#F7F1DE;
+    text-align:right;-webkit-line-clamp:2;
+  }
+  .badge{position:absolute;z-index:4;width:68px;height:68px;border-radius:50%;background:var(--primary);
+    display:flex;align-items:center;justify-content:center;box-shadow:0 10px 22px rgba(0,0,0,.28);}
+  .badge span{font-family:'Fraunces',serif;font-weight:600;font-size:26px;color:var(--on-primary);}
+
+  .chip{position:absolute;z-index:4;background:var(--accent);border-radius:24px;padding:36px 40px;}
+  .chip p{font-family:'Caveat',cursive;font-weight:600;font-size:38px;line-height:1.34;color:var(--on-fill);-webkit-line-clamp:3;}
+
+  /* split collage slide (4) */
+  .blob{position:absolute;z-index:1;background:var(--accent);}
+  .collage-photo{position:absolute;z-index:2;border-radius:20px;overflow:hidden;}
+  .collage-photo img{width:100%;height:100%;object-fit:cover;display:block;background:#8a7f66;}
+  .split-title h1{
+    font-family:'Fraunces',serif;font-weight:500;font-size:76px;line-height:1.16;letter-spacing:-.01em;
+    color:var(--primary);-webkit-line-clamp:2;
+  }
+  .split-msg p{
+    font-family:'Caveat',cursive;font-weight:600;font-size:36px;line-height:1.36;color:var(--text-low);
+    text-align:center;-webkit-line-clamp:2;
+  }
+
+  .cta-line{position:absolute;z-index:6;}
+  .cta-line span{font-family:'Fraunces',serif;font-weight:600;font-size:24px;letter-spacing:.12em;color:var(--on-fill);text-transform:uppercase;}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- Slide 1 — Cover -->
+  <section class="slide" data-cg-slide-type="cover">
+    <div class="photo"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Woman walking alone down a sun-drenched narrow cobblestone alley in a Mediterranean coastal town, warm terracotta walls, afternoon light, cinematic travel photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/solo-travel-lessons/slide-01.png"></div>
+    <div class="scrim-cover" aria-hidden="true"></div>
+
+    <div class="kicker-pill"><span>ONE YEAR · SOLO</span></div>
+
+    <svg class="mark" style="left:918px;top:66px;width:36px;height:36px;--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false"><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)"></path><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)" transform="rotate(45 32 32)"></path></svg>
+    <svg class="mark" style="left:70px;top:730px;width:30px;height:30px;--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false"><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)"></path><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)" transform="rotate(45 32 32)"></path></svg>
+    <svg class="mark" style="left:900px;top:398px;width:26px;height:26px;--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false"><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)"></path><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)" transform="rotate(45 32 32)"></path></svg>
+
+    <div class="tn cover-title" style="left:80px;top:150px;width:920px;"><h1 data-title="true">Things I <em>learned</em> traveling alone</h1></div>
+    <div class="tn cover-msg" style="left:180px;top:610px;width:820px;"><p data-message="true">No itinerary plans for who you'll become.</p></div>
+
+    <div class="foot-scrim" aria-hidden="true"></div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Farflung</span></div>
+      <div class="cg-slide-counter" data-counter="true">01 / 05</div>
+    </div>
+  </section>
+
+  <!-- Slide 2 -->
+  <section class="slide" data-cg-slide-type="lesson">
+    <div class="bezel" aria-hidden="true"></div>
+    <div class="bezel-photo" style="height:760px;"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Solo traveler standing at the edge of a mountain overlook at golden hour, back to camera, vast valley view, warm cinematic light" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/solo-travel-lessons/slide-02.png"></div>
+    <div class="bezel-top-scrim" aria-hidden="true"></div>
+
+    <div class="badge" style="left:125px;top:800px;"><span>01</span></div>
+
+    <div class="tn band-msg" style="left:220px;top:150px;width:720px;"><p data-message="true">You don't need every answer before you buy the ticket.</p></div>
+
+    <svg class="mark" style="left:640px;top:230px;width:28px;height:28px;color:#F7F1DE;--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false"><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)"></path><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)" transform="rotate(45 32 32)"></path></svg>
+
+    <div class="tn band-title" style="left:100px;top:900px;width:880px;"><h1 data-title="true" style="font-size:78px;">Get comfortable being unsure.</h1></div>
+
+    <div class="foot-scrim" aria-hidden="true"></div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Farflung</span></div>
+      <div class="cg-slide-counter" data-counter="true">02 / 05</div>
+    </div>
+  </section>
+
+  <!-- Slide 3 -->
+  <section class="slide" data-cg-slide-type="lesson">
+    <div class="photo"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Lantern-lit night market alley abroad, warm string lights, silhouette of a lone traveler wandering between stalls, moody cinematic photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/solo-travel-lessons/slide-03.png"></div>
+    <div class="scrim-top" aria-hidden="true"></div>
+
+    <div class="tn" style="left:108px;top:108px;width:640px;">
+      <h1 data-title="true" style="font-family:'Fraunces',serif;font-weight:500;font-size:92px;line-height:1.18;letter-spacing:-.01em;color:#F7F1DE;-webkit-line-clamp:4;margin:0;">Wander <em>off</em> the plan.</h1>
+    </div>
+
+    <svg class="mark" style="left:58px;top:44px;width:24px;height:24px;--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false"><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)"></path><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)" transform="rotate(45 32 32)"></path></svg>
+    <svg class="mark" style="left:938px;top:180px;width:30px;height:30px;--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false"><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)"></path><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)" transform="rotate(45 32 32)"></path></svg>
+
+    <div class="chip" style="left:108px;top:882px;width:544px;height:216px;"><div class="tn" style="left:40px;top:36px;width:464px;"><p data-message="true">The best stories start where the map runs out. Get lost on purpose.</p></div></div>
+
+    <div class="foot-scrim" aria-hidden="true"></div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Farflung</span></div>
+      <div class="cg-slide-counter" data-counter="true">03 / 05</div>
+    </div>
+  </section>
+
+  <!-- Slide 4 -->
+  <section class="slide" data-cg-slide-type="split">
+    <div class="blob" style="left:-200px;top:940px;width:480px;height:480px;border-radius:50%;"></div>
+    <div class="blob" style="right:-200px;top:940px;width:480px;height:480px;border-radius:50%;"></div>
+
+    <div class="collage-photo" style="left:190px;top:90px;width:700px;height:480px;">
+      <img data-image="true" data-image-size="1536x1024" data-image-prompt="Overhead flat lay of a passport, boarding pass, dried flowers, film camera and a travel journal scattered on a rustic wooden table, warm natural light" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/solo-travel-lessons/slide-04.png">
+    </div>
+
+    <svg class="mark" style="left:512px;top:600px;width:26px;height:26px;color:var(--primary);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false"><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)"></path><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)" transform="rotate(45 32 32)"></path></svg>
+
+    <div class="tn split-title" style="left:112px;top:640px;width:856px;text-align:center;"><h1 data-title="true" style="text-align:center;">You can leave a place and take it with you.</h1></div>
+    <div class="tn split-msg" style="left:160px;top:830px;width:760px;"><p data-message="true">Souvenirs fade, but the version of you who went finds a way to stay.</p></div>
+
+    <div class="foot-scrim" aria-hidden="true"></div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Farflung</span></div>
+      <div class="cg-slide-counter" data-counter="true">04 / 05</div>
+    </div>
+  </section>
+
+  <!-- Slide 5 -->
+  <section class="slide" data-cg-slide-type="lesson">
+    <div class="bezel" aria-hidden="true"></div>
+    <div class="bezel-photo" style="height:700px;"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Traveler relaxing by an open window overlooking a foreign city skyline at dusk, warm city lights, contemplative mood, cinematic travel photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/solo-travel-lessons/slide-05.png"></div>
+    <div class="bezel-top-scrim" aria-hidden="true"></div>
+
+    <div class="badge" style="left:888px;top:135px;"><span>05</span></div>
+
+    <div class="tn band-msg" style="left:150px;top:150px;width:680px;"><p data-message="true">Some cities feel like home before you've even unpacked.</p></div>
+
+    <svg class="mark" style="left:200px;top:600px;width:26px;height:26px;color:#F7F1DE;--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)" data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false"><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)"></path><path d="M32 4C32 4 34 24 44 28C34 32 32 52 32 52C32 52 30 32 20 28C30 24 32 4 32 4Z" fill="var(--cg-fill)" transform="rotate(45 32 32)"></path></svg>
+
+    <div class="tn band-title" style="left:100px;top:830px;width:880px;"><h1 data-title="true">Home isn't one place.</h1></div>
+
+    <div class="cta-line" style="left:100px;top:1078px;"><span data-cta="true">Save this for your next departure</span></div>
+
+    <div class="foot-scrim" aria-hidden="true"></div>
+    <div class="foot">
+      <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Farflung</span></div>
+      <div class="cg-slide-counter" data-counter="true">05 / 05</div>
+    </div>
+  </section>
+
+</div>
+
+
+</body></html>

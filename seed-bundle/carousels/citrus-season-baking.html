@@ -1,0 +1,504 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Inter:wght@400;600;700&display=swap');
+
+  :root{
+    /* Brand role colors — accent roles re-skin (numeral badges, rule bars, dot-grid,
+       chevrons, kicker/CTA chips, counter chip). Canvas gradient + ink stay FIXED
+       literals so the warm citrus backdrop and its legibility never move. */
+    --primary:var(--brand-primary,#7a2e0d);
+    --secondary:var(--brand-secondary,#c65a22);
+    --accent:var(--brand-accent,#ff9142);
+    --bg:var(--brand-bg,#ff9142);
+    --surface:var(--brand-surface,#c65a22);
+    --text-high:var(--brand-ink,#fff8ef);
+    --text-low:var(--brand-text-muted,#f2e3cc);
+    --border:var(--brand-border,rgba(255,248,239,.28));
+    --highlight:var(--brand-highlight,var(--brand-accent,#ff9142));
+    --on-fill:var(--brand-on-accent,#33150a);
+    --on-primary:var(--brand-on-primary,#fff8ef);
+  }
+
+  *{box-sizing:border-box;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:linear-gradient(150deg,#ffdf9e 0%,#ffb35c 36%,#fd8b3f 66%,#f26a22 100%);
+    font-family:'Inter',sans-serif;
+  }
+
+  /* ── decorative backdrop (fixed, not brand-tinted except where noted) ── */
+  .waves{position:absolute;inset:0;z-index:0;pointer-events:none;}
+  .dotgrid{
+    position:absolute;left:56px;top:56px;width:190px;height:190px;z-index:1;
+    background-image:radial-gradient(circle, var(--accent) 3.4px, transparent 3.8px);
+    background-size:20px 20px;opacity:.85;pointer-events:none;
+  }
+  .dotgrid-br{
+    position:absolute;right:56px;bottom:150px;width:140px;height:140px;z-index:1;
+    background-image:radial-gradient(circle, var(--accent) 3.4px, transparent 3.8px);
+    background-size:20px 20px;opacity:.55;pointer-events:none;
+  }
+  .chev{display:block;width:100%;height:100%;}
+  .chev-wrap{position:absolute;z-index:1;pointer-events:none;}
+
+  /* ── legibility plate: keeps the vivid gradient at full strength everywhere
+     except directly behind the copy, where a fixed dark scrim guarantees AA.
+     The top strip is an intentional brand-bound flourish, not just legibility. ── */
+  .plate{position:absolute;z-index:2;border-radius:40px;background:rgba(22,11,4,.64);overflow:hidden;}
+  .plate::before{content:'';position:absolute;left:0;top:0;right:0;height:14px;background:var(--accent);}
+
+  /* ── text wrappers: each node isolated in its own absolutely-positioned box,
+     the text itself in normal flow with line-clamp, per contract ── */
+  .kicker{position:absolute;z-index:4;}
+  .kicker-chip{
+    display:inline-block;font-family:'Inter',sans-serif;font-weight:700;font-size:26px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--on-fill);white-space:nowrap;
+    background:var(--accent);padding:16px 30px;border-radius:32px;
+  }
+  .eyebrow{position:absolute;z-index:4;}
+  .eyebrow-text{
+    margin:0;font-family:'Inter',sans-serif;font-weight:700;font-size:36px;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--text-high);opacity:.92;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.1em;
+  }
+  .tn-title{position:absolute;z-index:4;}
+  .tn-title h1{
+    margin:0;font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-.01em;
+    text-transform:uppercase;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.15em;
+  }
+  .tn-message{position:absolute;z-index:4;}
+  .tn-message p{
+    margin:0;font-family:'Inter',sans-serif;font-weight:400;color:var(--text-low);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.2em;
+  }
+  .rule{position:absolute;z-index:4;background:var(--accent);border-radius:6px;}
+
+  .tn-num-hero{position:absolute;z-index:4;}
+  .num-hero-text{
+    margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:380px;line-height:1;
+    color:transparent;-webkit-text-stroke:7px var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:.05em;
+  }
+
+  .num-badge{
+    position:absolute;z-index:4;width:210px;height:210px;border-radius:50%;
+    background:var(--accent);display:flex;align-items:center;justify-content:center;
+  }
+  .num-badge span{
+    font-family:'Poppins',sans-serif;font-weight:800;font-size:86px;color:var(--on-fill);line-height:1;
+  }
+
+  .cta{position:absolute;z-index:4;}
+  .cta-chip{
+    display:inline-block;font-family:'Inter',sans-serif;font-weight:700;font-size:25px;
+    letter-spacing:.05em;text-transform:uppercase;color:var(--on-fill);white-space:nowrap;
+    background:var(--accent);padding:20px 34px;border-radius:36px;
+  }
+
+  /* ── footer: brand lockup + folio counter, on a fixed dark scrim so the lockup
+     always reads AA against the vivid gradient regardless of where the slide's
+     colour stops fall ── */
+  .foot-scrim{
+    position:absolute;left:0;right:0;bottom:0;height:230px;z-index:3;pointer-events:none;
+    background:linear-gradient(180deg, rgba(20,10,4,0) 0%, rgba(20,10,4,.62) 60%, rgba(20,10,4,.72) 100%);
+  }
+  .foot{position:absolute;left:64px;right:64px;bottom:54px;z-index:5;display:flex;align-items:center;justify-content:space-between;}
+  .lockup{display:inline-flex;align-items:center;gap:14px;}
+  .brand-mark-clip{flex:none;height:34px;display:flex;align-items:center;}
+  .brand-mark{height:34px;width:auto;max-width:110px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Poppins',sans-serif;font-weight:800;font-size:26px;color:var(--text-high);white-space:nowrap;}
+  .counter{
+    font-family:'Inter',sans-serif;font-weight:700;font-size:22px;letter-spacing:.1em;
+    color:var(--on-primary);background:var(--primary);padding:10px 20px;border-radius:24px;
+  }
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+<!-- ============ SLIDE 1 — COVER ============ -->
+<section class="slide" data-cg-slide-type="cover">
+  <svg data-cg-svg="" data-cg-preserve="" class="waves" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <path d="M 1220 30 C 900 150, 760 260, 1060 480" stroke="var(--cg-stroke)" stroke-width="2.5" fill="none" opacity=".4"></path>
+    <path d="M 1260 120 C 940 240, 800 340, 1120 560" stroke="var(--cg-stroke)" stroke-width="2" fill="none" opacity=".3"></path>
+    <path d="M 1180 -30 C 860 90, 700 190, 1000 400" stroke="var(--cg-stroke)" stroke-width="1.5" fill="none" opacity=".25"></path>
+  </svg>
+  <div class="dotgrid"></div>
+  <div class="dotgrid-br"></div>
+  <div class="chev-wrap" style="left:200px;top:270px;width:96px;height:60px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+  <div class="chev-wrap" style="right:130px;top:130px;width:96px;height:60px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+  <div class="chev-wrap" style="left:150px;top:1080px;width:108px;height:69px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+
+  <div class="plate" style="left:56px;top:220px;width:968px;height:660px;"></div>
+
+  <div class="kicker" style="left:96px;top:148px;"><div class="kicker-chip" data-tagline="true">Seasonal Baking</div></div>
+
+  <div class="tn-num-hero" style="left:66px;top:420px;width:320px;"><div class="num-hero-text">8</div></div>
+
+  <div class="eyebrow" style="left:410px;top:392px;width:560px;"><div class="eyebrow-text">8 Fresh Ways To</div></div>
+  <div class="tn-title" style="left:410px;top:450px;width:580px;"><h1 data-title="true" style="font-size:80px;line-height:1.06;-webkit-line-clamp:2;">Bake With Citrus</h1></div>
+  <div class="tn-message" style="left:410px;top:700px;width:520px;"><p data-message="true" style="font-size:29px;line-height:1.42;-webkit-line-clamp:2;">Bright, juicy bakes for citrus season, one tip at a time.</p></div>
+
+  <div class="foot-scrim" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ZESTNOTE</span></div>
+    <div class="counter" data-counter="true">01 / 10</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 2 — TIP 01 ============ -->
+<section class="slide" data-cg-slide-type="tip">
+  <svg data-cg-svg="" data-cg-preserve="" class="waves" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <path d="M 1220 30 C 900 150, 760 260, 1060 480" stroke="var(--cg-stroke)" stroke-width="2.5" fill="none" opacity=".4"></path>
+    <path d="M 1260 120 C 940 240, 800 340, 1120 560" stroke="var(--cg-stroke)" stroke-width="2" fill="none" opacity=".3"></path>
+  </svg>
+  <div class="dotgrid"></div>
+  <div class="dotgrid-br"></div>
+  <div class="chev-wrap" style="right:130px;top:150px;width:96px;height:60px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+  <div class="chev-wrap" style="left:640px;top:940px;width:120px;height:75px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+
+  <div class="plate" style="left:56px;top:200px;width:968px;height:690px;"></div>
+
+  <div class="num-badge" style="left:96px;top:222px;"><span>01</span></div>
+  <div class="tn-title" style="left:96px;top:460px;width:880px;"><h1 data-title="true" style="font-size:78px;line-height:1.08;-webkit-line-clamp:2;">Zest Before You Juice</h1></div>
+  <div class="rule" style="left:96px;top:672px;width:180px;height:10px;"></div>
+  <div class="tn-message" style="left:96px;top:702px;width:770px;"><p data-message="true" style="font-size:37px;line-height:1.42;-webkit-line-clamp:3;">Grate the peel first — every bit of zest you save now is flavor you can’t get back once the fruit is already juiced.</p></div>
+
+  <div class="foot-scrim" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ZESTNOTE</span></div>
+    <div class="counter" data-counter="true">02 / 10</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 3 — TIP 02 ============ -->
+<section class="slide" data-cg-slide-type="tip">
+  <svg data-cg-svg="" data-cg-preserve="" class="waves" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <path d="M 1180 -30 C 860 90, 700 190, 1000 400" stroke="var(--cg-stroke)" stroke-width="2" fill="none" opacity=".35"></path>
+    <path d="M 1260 120 C 940 240, 800 340, 1120 560" stroke="var(--cg-stroke)" stroke-width="1.5" fill="none" opacity=".25"></path>
+  </svg>
+  <div class="dotgrid"></div>
+  <div class="dotgrid-br"></div>
+  <div class="chev-wrap" style="right:150px;top:170px;width:96px;height:60px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+  <div class="chev-wrap" style="left:200px;top:940px;width:120px;height:75px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+
+  <div class="plate" style="left:56px;top:200px;width:968px;height:690px;"></div>
+
+  <div class="num-badge" style="left:96px;top:222px;"><span>02</span></div>
+  <div class="tn-title" style="left:96px;top:460px;width:880px;"><h1 data-title="true" style="font-size:78px;line-height:1.08;-webkit-line-clamp:2;">Mix Your Citrus</h1></div>
+  <div class="rule" style="left:96px;top:672px;width:180px;height:10px;"></div>
+  <div class="tn-message" style="left:96px;top:702px;width:800px;"><p data-message="true" style="font-size:37px;line-height:1.42;-webkit-line-clamp:3;">A blend of orange, lemon, and lime keeps a bake from tasting one-note, letting the sharp fruit balance the sweet.</p></div>
+
+  <div class="foot-scrim" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ZESTNOTE</span></div>
+    <div class="counter" data-counter="true">03 / 10</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 4 — TIP 03 ============ -->
+<section class="slide" data-cg-slide-type="tip">
+  <svg data-cg-svg="" data-cg-preserve="" class="waves" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <path d="M 1220 30 C 900 150, 760 260, 1060 480" stroke="var(--cg-stroke)" stroke-width="2.5" fill="none" opacity=".4"></path>
+  </svg>
+  <div class="dotgrid"></div>
+  <div class="dotgrid-br"></div>
+  <div class="chev-wrap" style="right:120px;top:150px;width:96px;height:60px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+  <div class="chev-wrap" style="left:640px;top:940px;width:120px;height:75px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+
+  <div class="plate" style="left:56px;top:200px;width:968px;height:690px;"></div>
+
+  <div class="num-badge" style="left:96px;top:222px;"><span>03</span></div>
+  <div class="tn-title" style="left:96px;top:460px;width:880px;"><h1 data-title="true" style="font-size:78px;line-height:1.08;-webkit-line-clamp:2;">Salt Wakes The Sweet</h1></div>
+  <div class="rule" style="left:96px;top:672px;width:180px;height:10px;"></div>
+  <div class="tn-message" style="left:96px;top:702px;width:780px;"><p data-message="true" style="font-size:37px;line-height:1.42;-webkit-line-clamp:3;">A small pinch in the batter makes citrus taste brighter, not salty — it’s there to sharpen, not season.</p></div>
+
+  <div class="foot-scrim" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ZESTNOTE</span></div>
+    <div class="counter" data-counter="true">04 / 10</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 5 — TIP 04 ============ -->
+<section class="slide" data-cg-slide-type="tip">
+  <svg data-cg-svg="" data-cg-preserve="" class="waves" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <path d="M 1260 120 C 940 240, 800 340, 1120 560" stroke="var(--cg-stroke)" stroke-width="2" fill="none" opacity=".3"></path>
+  </svg>
+  <div class="dotgrid"></div>
+  <div class="dotgrid-br"></div>
+  <div class="chev-wrap" style="right:150px;top:170px;width:96px;height:60px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+  <div class="chev-wrap" style="left:200px;top:940px;width:120px;height:75px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+
+  <div class="plate" style="left:56px;top:200px;width:968px;height:690px;"></div>
+
+  <div class="num-badge" style="left:96px;top:222px;"><span>04</span></div>
+  <div class="tn-title" style="left:96px;top:460px;width:880px;"><h1 data-title="true" style="font-size:78px;line-height:1.08;-webkit-line-clamp:2;">Warm The Juice First</h1></div>
+  <div class="rule" style="left:96px;top:672px;width:180px;height:10px;"></div>
+  <div class="tn-message" style="left:96px;top:702px;width:780px;"><p data-message="true" style="font-size:37px;line-height:1.42;-webkit-line-clamp:3;">Cold juice straight from the fridge can seize melted butter, so let it sit out while you prep everything else.</p></div>
+
+  <div class="foot-scrim" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ZESTNOTE</span></div>
+    <div class="counter" data-counter="true">05 / 10</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 6 — TIP 05 ============ -->
+<section class="slide" data-cg-slide-type="tip">
+  <svg data-cg-svg="" data-cg-preserve="" class="waves" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <path d="M 1180 -30 C 860 90, 700 190, 1000 400" stroke="var(--cg-stroke)" stroke-width="2" fill="none" opacity=".35"></path>
+  </svg>
+  <div class="dotgrid"></div>
+  <div class="dotgrid-br"></div>
+  <div class="chev-wrap" style="right:120px;top:150px;width:96px;height:60px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+  <div class="chev-wrap" style="left:640px;top:940px;width:120px;height:75px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+
+  <div class="plate" style="left:56px;top:200px;width:968px;height:690px;"></div>
+
+  <div class="num-badge" style="left:96px;top:222px;"><span>05</span></div>
+  <div class="tn-title" style="left:96px;top:460px;width:880px;"><h1 data-title="true" style="font-size:78px;line-height:1.08;-webkit-line-clamp:2;">Candy The Peel</h1></div>
+  <div class="rule" style="left:96px;top:672px;width:180px;height:10px;"></div>
+  <div class="tn-message" style="left:96px;top:702px;width:800px;"><p data-message="true" style="font-size:37px;line-height:1.42;-webkit-line-clamp:3;">Don’t toss the rind — simmered in sugar syrup, it turns into a chewy, glossy topping worth saving for last.</p></div>
+
+  <div class="foot-scrim" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ZESTNOTE</span></div>
+    <div class="counter" data-counter="true">06 / 10</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 7 — TIP 06 ============ -->
+<section class="slide" data-cg-slide-type="tip">
+  <svg data-cg-svg="" data-cg-preserve="" class="waves" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <path d="M 1220 30 C 900 150, 760 260, 1060 480" stroke="var(--cg-stroke)" stroke-width="2.5" fill="none" opacity=".4"></path>
+  </svg>
+  <div class="dotgrid"></div>
+  <div class="dotgrid-br"></div>
+  <div class="chev-wrap" style="right:150px;top:170px;width:96px;height:60px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+  <div class="chev-wrap" style="left:200px;top:940px;width:120px;height:75px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+
+  <div class="plate" style="left:56px;top:200px;width:968px;height:690px;"></div>
+
+  <div class="num-badge" style="left:96px;top:222px;"><span>06</span></div>
+  <div class="tn-title" style="left:96px;top:460px;width:880px;"><h1 data-title="true" style="font-size:78px;line-height:1.08;-webkit-line-clamp:2;">Taste The Fruit First</h1></div>
+  <div class="rule" style="left:96px;top:672px;width:180px;height:10px;"></div>
+  <div class="tn-message" style="left:96px;top:702px;width:780px;"><p data-message="true" style="font-size:37px;line-height:1.42;-webkit-line-clamp:3;">Citrus sweetness swings by the week, so taste a slice before you commit to the sugar in the recipe.</p></div>
+
+  <div class="foot-scrim" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ZESTNOTE</span></div>
+    <div class="counter" data-counter="true">07 / 10</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 8 — TIP 07 ============ -->
+<section class="slide" data-cg-slide-type="tip">
+  <svg data-cg-svg="" data-cg-preserve="" class="waves" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <path d="M 1260 120 C 940 240, 800 340, 1120 560" stroke="var(--cg-stroke)" stroke-width="2" fill="none" opacity=".3"></path>
+  </svg>
+  <div class="dotgrid"></div>
+  <div class="dotgrid-br"></div>
+  <div class="chev-wrap" style="right:120px;top:150px;width:96px;height:60px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+  <div class="chev-wrap" style="left:640px;top:940px;width:120px;height:75px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+
+  <div class="plate" style="left:56px;top:200px;width:968px;height:690px;"></div>
+
+  <div class="num-badge" style="left:96px;top:222px;"><span>07</span></div>
+  <div class="tn-title" style="left:96px;top:460px;width:880px;"><h1 data-title="true" style="font-size:78px;line-height:1.08;-webkit-line-clamp:2;">Glaze While Warm</h1></div>
+  <div class="rule" style="left:96px;top:672px;width:180px;height:10px;"></div>
+  <div class="tn-message" style="left:96px;top:702px;width:800px;"><p data-message="true" style="font-size:37px;line-height:1.42;-webkit-line-clamp:3;">A citrus glaze soaks into warm cake far better than cold, so brush it on the moment the bake leaves the oven.</p></div>
+
+  <div class="foot-scrim" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ZESTNOTE</span></div>
+    <div class="counter" data-counter="true">08 / 10</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 9 — TIP 08 ============ -->
+<section class="slide" data-cg-slide-type="tip">
+  <svg data-cg-svg="" data-cg-preserve="" class="waves" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <path d="M 1180 -30 C 860 90, 700 190, 1000 400" stroke="var(--cg-stroke)" stroke-width="2" fill="none" opacity=".35"></path>
+  </svg>
+  <div class="dotgrid"></div>
+  <div class="dotgrid-br"></div>
+  <div class="chev-wrap" style="right:150px;top:170px;width:96px;height:60px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+  <div class="chev-wrap" style="left:200px;top:940px;width:120px;height:75px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+
+  <div class="plate" style="left:56px;top:200px;width:968px;height:690px;"></div>
+
+  <div class="num-badge" style="left:96px;top:222px;"><span>08</span></div>
+  <div class="tn-title" style="left:96px;top:460px;width:880px;"><h1 data-title="true" style="font-size:78px;line-height:1.08;-webkit-line-clamp:2;">Store Away From Light</h1></div>
+  <div class="rule" style="left:96px;top:672px;width:180px;height:10px;"></div>
+  <div class="tn-message" style="left:96px;top:702px;width:780px;"><p data-message="true" style="font-size:37px;line-height:1.42;-webkit-line-clamp:3;">Whole citrus keeps its oils longest in a cool, dark spot — sunlight fades the flavor before the fruit even softens.</p></div>
+
+  <div class="foot-scrim" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ZESTNOTE</span></div>
+    <div class="counter" data-counter="true">09 / 10</div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 10 — CLOSING ============ -->
+<section class="slide" data-cg-slide-type="closing">
+  <svg data-cg-svg="" data-cg-preserve="" class="waves" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <path d="M 1220 30 C 900 150, 760 260, 1060 480" stroke="var(--cg-stroke)" stroke-width="2.5" fill="none" opacity=".4"></path>
+    <path d="M 1260 120 C 940 240, 800 340, 1120 560" stroke="var(--cg-stroke)" stroke-width="2" fill="none" opacity=".3"></path>
+  </svg>
+  <div class="dotgrid"></div>
+  <div class="dotgrid-br"></div>
+  <div class="chev-wrap" style="right:120px;top:150px;width:96px;height:60px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+  <div class="chev-wrap" style="left:150px;top:1080px;width:108px;height:69px;">
+    <svg data-cg-svg="" data-cg-preserve="" class="chev" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+      <polygon points="4,4 24,20 4,36 12,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="24,4 44,20 24,36 32,20" fill="var(--cg-fill)"></polygon>
+      <polygon points="44,4 64,20 44,36 52,20" fill="var(--cg-fill)"></polygon>
+    </svg>
+  </div>
+
+  <div class="plate" style="left:56px;top:270px;width:968px;height:760px;"></div>
+
+  <div class="eyebrow" style="left:96px;top:310px;width:600px;"><div class="eyebrow-text" style="font-size:32px;">Final Thought</div></div>
+  <div class="tn-title" style="left:96px;top:380px;width:880px;">
+    <h1 data-title="true" style="font-size:58px;line-height:1.24;text-transform:none;-webkit-line-clamp:4;font-weight:700;">The best citrus bake starts with fruit you actually tasted first.</h1>
+  </div>
+  <div class="tn-message" style="left:96px;top:750px;width:720px;"><p data-message="true" style="font-size:29px;line-height:1.4;-webkit-line-clamp:2;">One more bake before citrus season slips away.</p></div>
+  <div class="cta" style="left:96px;top:880px;"><div class="cta-chip" data-cta="true">Save This For Your Next Bake Day</div></div>
+
+  <div class="foot-scrim" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ZESTNOTE</span></div>
+    <div class="counter" data-counter="true">10 / 10</div>
+  </div>
+</section>
+
+</div>
+
+
+</body></html>

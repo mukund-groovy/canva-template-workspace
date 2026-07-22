@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#7B5CFF);
+  --secondary:var(--brand-secondary,#2BC6D6);
+  --accent:var(--brand-accent,#38D0EA);
+  --bg:var(--brand-bg,#0A1830);
+  --surface:var(--brand-surface,#16243D);
+  --text-high:var(--brand-ink,#F3F6FC);
+  --text-low:var(--brand-text-muted,rgba(220,230,245,.62));
+  --border:var(--brand-border,rgba(150,175,215,.18));
+  --highlight:var(--brand-accent,#38D0EA);
+}
+*{box-sizing:border-box;}
+.si-single{width:fit-content;margin:0;}
+.si-page{
+  position:relative;width:1080px;height:1080px;overflow:hidden;container-type:inline-size;
+  background:
+    radial-gradient(120% 90% at 12% 6%, color-mix(in srgb,var(--secondary) 24%, transparent), transparent 55%),
+    radial-gradient(120% 90% at 90% 92%, color-mix(in srgb,var(--primary) 26%, transparent), transparent 55%),
+    linear-gradient(150deg, color-mix(in srgb,var(--bg) 82%, #000) 0%, var(--bg) 100%);
+  font-family:'Inter',sans-serif;
+}
+
+/* floating glass cubes */
+.cube{position:absolute;z-index:0;pointer-events:none;}
+.cube svg{display:block;filter:drop-shadow(0 20px 40px rgba(0,0,0,.4));}
+.cube.tl{top:34px;left:24px;transform:rotate(-8deg);}
+.cube.br{bottom:34px;right:20px;transform:rotate(6deg);}
+
+/* glass tweet card */
+.card{
+  position:relative;z-index:2;margin:196px 90px;width:900px;
+  background:color-mix(in srgb,var(--surface) 80%, transparent);
+  border:1px solid var(--border);border-radius:34px;
+  box-shadow:0 34px 70px rgba(4,10,24,.5);
+  backdrop-filter:blur(14px);
+  padding:56px 60px 44px;
+  display:flex;flex-direction:column;gap:30px;
+}
+
+.head{display:flex;align-items:center;gap:24px;}
+.avatar{
+  width:104px;height:104px;flex:none;border-radius:50%;
+  padding:4px;background:linear-gradient(135deg,var(--secondary),var(--primary));
+  display:flex;align-items:center;justify-content:center;
+}
+.avatar-inner{
+  width:100%;height:100%;border-radius:50%;overflow:hidden;
+  background:linear-gradient(160deg, color-mix(in srgb,var(--secondary) 40%, var(--surface)), color-mix(in srgb,var(--primary) 40%, var(--surface)));
+  display:flex;align-items:center;justify-content:center;
+}
+.avatar-inner span{
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:42px;color:#fff;letter-spacing:.02em;
+}
+.who{display:flex;flex-direction:column;gap:6px;min-width:0;}
+.who .name{font-family:'Poppins',sans-serif;font-weight:600;font-size:38px;line-height:1.14;color:var(--text-high);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.who .role{font-family:'Inter',sans-serif;font-weight:600;font-size:24px;line-height:1.14;color:#6FE0EE;letter-spacing:.02em;}
+
+.headline{
+  margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:76px;line-height:1.08;
+  letter-spacing:-.015em;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:8px;
+}
+.headline em{font-style:normal;background:linear-gradient(120deg,var(--primary),var(--secondary));-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+.body{
+  margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:32px;line-height:1.42;
+  color:var(--text-low);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:6px;
+}
+
+.foot{margin-top:6px;padding-top:26px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.lockup{display:inline-flex;align-items:center;gap:14px;}
+.brand-mark{height:32px;width:auto;max-width:110px;object-fit:contain;display:block;}
+.brand-word{font-family:'Poppins',sans-serif;font-weight:600;font-size:28px;color:var(--text-high);letter-spacing:.02em;}
+.tag{font-family:'Inter',sans-serif;font-weight:700;font-size:24px;letter-spacing:.14em;color:#6FE0EE;}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="si-single">
+  <div class="si-page">
+
+    <div class="cube tl" aria-hidden="true">
+      <svg data-cg-svg="" data-cg-preserve="" width="240" height="230" viewBox="0 0 240 230" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="ctop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--secondary)"></stop><stop offset="1" stop-color="var(--primary)"></stop></linearGradient>
+          <linearGradient id="cleft" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--primary)"></stop><stop offset="1" stop-color="var(--secondary)"></stop></linearGradient>
+        </defs>
+        <path d="M40 60 L120 20 L200 60 L120 100 Z" fill="url(#ctop)" opacity=".95"></path>
+        <path d="M40 60 L120 100 L120 200 L40 160 Z" fill="url(#cleft)" opacity=".8"></path>
+        <path d="M200 60 L120 100 L120 200 L200 160 Z" fill="url(#ctop)" opacity=".6"></path>
+      </svg>
+    </div>
+
+    <div class="cube br" aria-hidden="true">
+      <svg data-cg-svg="" data-cg-preserve="" width="280" height="270" viewBox="0 0 280 270" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="--cg-fill:var(--surface);--cg-stroke:var(--surface);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)">
+        <defs>
+          <linearGradient id="dtop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--secondary)"></stop><stop offset="1" stop-color="var(--primary)"></stop></linearGradient>
+          <linearGradient id="dleft" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--primary)"></stop><stop offset="1" stop-color="var(--secondary)"></stop></linearGradient>
+        </defs>
+        <path d="M50 70 L140 24 L230 70 L140 116 Z" fill="var(--cg-fill)" opacity=".95"></path>
+        <path d="M50 70 L140 116 L140 226 L50 180 Z" fill="var(--cg-fill)" opacity=".85"></path>
+        <path d="M230 70 L140 116 L140 226 L230 180 Z" fill="var(--cg-fill)" opacity=".6"></path>
+        <path d="M92 92 L140 68 L188 92 L140 116 Z" fill="var(--cg-fill)" opacity=".5"></path>
+      </svg>
+    </div>
+
+    <div class="card">
+      <div class="head">
+        <div class="avatar"><div class="avatar-inner"><span>MO</span></div></div>
+        <div class="who">
+          <span class="name">Maya Okonkwo</span>
+          <span class="role">Design Director</span>
+        </div>
+      </div>
+
+      <h1 class="headline">I stopped chasing trends and started chasing <em>clarity</em></h1>
+
+      <p class="body">A mentor once told me "your best work happens when you design for people, not for applause" — that reframed everything.</p>
+
+      <div class="foot">
+        <span class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">YOURBRAND</span></span>
+        <span class="tag">ON CRAFT</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body></html>

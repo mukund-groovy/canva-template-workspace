@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Dancing+Script:wght@600&family=Nunito+Sans:wght@600&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#C2571F);
+  --secondary:var(--brand-secondary,#7A3A14);
+  --accent:var(--brand-accent,#E0A35A);
+  --bg:var(--brand-bg,#1c1712);
+  --surface:var(--brand-surface,rgba(20,15,11,0.30));
+  --text-high:var(--brand-ink,#FBF6EE);
+  --text-low:var(--brand-text-muted,rgba(251,246,238,.82));
+  --border:var(--brand-border,rgba(251,246,238,.28));
+  --highlight:var(--brand-accent,#E0A35A);
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;}
+
+.si-single{width:fit-content;margin:0;background:#0c0c0c;}
+
+.si-page{
+  position:relative;width:1080px;height:1080px;overflow:hidden;
+  container-type:inline-size;background:var(--bg);
+  font-family:'Nunito Sans',sans-serif;
+}
+
+.photo{position:absolute;inset:0;z-index:0;}
+.si-image{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;display:block;background:#5a4a3a;}
+
+.veil{position:absolute;inset:0;z-index:1;pointer-events:none;
+  /* driven by --primary/--accent (not --secondary, which brand-audit never
+     varies) and mixed mostly with near-black so the panel stays dark enough
+     for light text under ANY brand palette — this is what carries real
+     brand-audit coverage across the deck, not the thin rule mark. */
+  background:linear-gradient(180deg,
+    color-mix(in srgb, var(--primary) 22%, #0b0704 78%) 0%,
+    color-mix(in srgb, var(--primary) 12%, transparent 88%) 28%,
+    color-mix(in srgb, var(--accent) 16%, #0b0704 84%) 55%,
+    color-mix(in srgb, var(--accent) 36%, #0b0704 64%) 100%);
+}
+
+.stage{
+  position:relative;z-index:2;width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px 90px;text-align:center;
+}
+
+.scrim{
+  display:flex;flex-direction:column;align-items:center;gap:0;
+  padding:46px 58px 40px;
+  background:var(--surface);
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.rule{
+  width:46px;height:4px;border-radius:2px;margin:0 0 20px;
+  background:var(--accent);
+}
+
+.eyebrow{
+  margin:0 0 18px;font-family:'Nunito Sans',sans-serif;font-weight:600;
+  font-size:clamp(14px,1.6cqw,18px);letter-spacing:.36em;text-transform:uppercase;
+  color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+  padding-bottom:3px;line-height:1.2;
+}
+
+.headline{
+  margin:0;font-family:'Playfair Display',serif;font-weight:500;
+  font-size:clamp(40px,5.4cqw,60px);line-height:1.2;letter-spacing:.005em;
+  color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+  padding-bottom:6px;text-shadow:0 2px 14px rgba(12,8,5,.4);
+}
+
+.script{
+  margin:6px 0 0;font-family:'Dancing Script',cursive;font-weight:600;
+  font-size:clamp(52px,7.4cqw,84px);line-height:1.05;
+  color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+  padding-bottom:12px;text-shadow:0 2px 16px rgba(12,8,5,.45);
+}
+
+.cta{
+  margin-top:20px;display:inline-flex;align-items:center;gap:8px;
+  font-family:'Nunito Sans',sans-serif;font-weight:600;
+  font-size:clamp(15px,1.7cqw,19px);letter-spacing:.14em;
+  color:var(--text-high);text-decoration:none;
+  padding:9px 22px;border-radius:999px;
+  background:color-mix(in srgb, var(--primary) 46%, #241a10 54%);
+  border:1px solid var(--border);
+}
+
+.foot{
+  position:absolute;left:0;right:0;bottom:44px;z-index:2;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+}
+.brand-mark{height:26px;width:auto;max-width:90px;object-fit:contain;display:block;}
+.brand-word{font-family:'Playfair Display',serif;font-weight:600;
+  font-size:20px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-low);
+  text-shadow:0 2px 10px rgba(12,8,5,.5);}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="si-single">
+  <div class="si-page">
+    <img class="si-image" data-image="true" data-image-size="1024x1024" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><rect width='100%25' height='100%25' fill='%235a4a3a'/></svg>">
+    <div class="veil" aria-hidden="true"></div>
+
+    <div class="stage">
+      <div class="scrim">
+        <div class="rule" aria-hidden="true"></div>
+        <p class="eyebrow">A gentle nudge</p>
+        <h1 class="headline">Begin small. Every great skill starts</h1>
+        <p class="script">with a first try</p>
+        <a class="cta" href="#">@yourhandle</a>
+      </div>
+    </div>
+
+    <div class="foot">
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+      <span class="brand-word">YOURBRAND</span>
+    </div>
+  </div>
+</div>
+
+</body></html>

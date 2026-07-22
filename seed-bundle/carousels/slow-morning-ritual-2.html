@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Dancing+Script:wght@500;600&family=Jost:wght@300;400&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#8A8577);
+  --secondary:var(--brand-secondary,#6E695D);
+  --accent:var(--brand-accent,#B8AE9C);
+  --highlight:var(--brand-accent,#EDE8DE);
+  --bg:var(--brand-bg,#4A473F);
+  --surface:var(--brand-surface,#5C584E);
+  --text-high:var(--brand-text-high,#FFFFFF);
+  --text-low:var(--brand-text-muted,rgba(255,255,255,.9));
+  --border:var(--brand-border,rgba(255,255,255,.55));
+}
+
+*{box-sizing:border-box;}
+.si-single{width:fit-content;margin:0;}
+
+.si-page{
+  position:relative;width:1080px;height:1350px;overflow:hidden;
+  container-type:inline-size;background:var(--bg);
+  font-family:'Cormorant Garamond',serif;
+}
+
+.photo{position:absolute;inset:0;z-index:0;}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;background:var(--bg);}
+
+/* brand colour grade — a soft duotone wash tying the photo to the brand palette;
+   this is the deck's brand-driven surface (verified by brand-audit.mjs). */
+.brandwash{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:var(--primary);mix-blend-mode:multiply;opacity:.15;}
+
+.scrim{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    linear-gradient(180deg, color-mix(in srgb,#000 16%, transparent) 0%, color-mix(in srgb,#000 0%, transparent) 34%, color-mix(in srgb,#000 0%, transparent) 62%, color-mix(in srgb,#000 26%, transparent) 100%);
+}
+
+/* rule-of-thirds grid */
+.grid{position:absolute;inset:0;z-index:3;pointer-events:none;}
+.grid span{position:absolute;background:var(--border);opacity:.4;}
+.grid .v1{left:33.33%;top:0;bottom:0;width:1px;}
+.grid .v2{left:66.66%;top:0;bottom:0;width:1px;}
+.grid .h1{top:33.33%;left:0;right:0;height:1px;}
+.grid .h2{top:66.66%;left:0;right:0;height:1px;}
+
+/* content flow layer */
+.content{position:relative;z-index:4;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:70px 80px 80px;}
+
+.top{display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:20px;}
+.eyebrow{font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(14px,1.6cqw,20px);letter-spacing:.42em;text-transform:uppercase;color:var(--text-high);white-space:nowrap;padding-bottom:2px;
+  text-shadow:0 1px 3px color-mix(in srgb,#000 85%, transparent), 0 2px 18px color-mix(in srgb,#000 70%, transparent);}
+
+.script{
+  font-family:'Dancing Script',cursive;font-weight:600;
+  font-size:clamp(48px,7.4cqw,86px);line-height:1.18;color:var(--text-high);
+  text-align:center;max-width:640px;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:10px;
+  text-shadow:0 1px 3px color-mix(in srgb,#000 85%, transparent), 0 2px 28px color-mix(in srgb,#000 65%, transparent);
+}
+
+/* focus frame + icon zone */
+.mid{display:flex;align-items:center;justify-content:center;gap:26px;}
+.tick{width:1px;height:150px;background:var(--border);}
+.icon{width:52px;height:52px;color:var(--text-high);flex:none;}
+.icon svg{width:100%;height:100%;display:block;}
+.frame{width:160px;height:160px;border:1.5px solid var(--border);border-radius:2px;}
+
+.bottom{display:flex;flex-direction:column;align-items:center;gap:18px;}
+.headline{
+  margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;
+  font-size:clamp(34px,4.6cqw,56px);line-height:1.2;letter-spacing:.005em;
+  text-align:center;color:var(--text-high);max-width:720px;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:8px;
+  text-shadow:0 1px 3px color-mix(in srgb,#000 85%, transparent), 0 2px 24px color-mix(in srgb,#000 70%, transparent);
+}
+.body{
+  margin:0;font-family:'Jost',sans-serif;font-weight:300;
+  font-size:clamp(16px,1.9cqw,23px);line-height:1.5;text-align:center;color:var(--text-high);max-width:560px;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:6px;
+  text-shadow:0 1px 3px color-mix(in srgb,#000 85%, transparent), 0 2px 22px color-mix(in srgb,#000 70%, transparent);
+}
+.lockup{display:inline-flex;align-items:center;gap:12px;margin-top:6px;}
+.brand-mark{height:26px;width:auto;object-fit:contain;display:block;opacity:.9;}
+.brand-word{font-family:'Jost',sans-serif;font-weight:400;font-size:clamp(15px,1.7cqw,21px);letter-spacing:.34em;text-transform:uppercase;color:var(--text-high);white-space:nowrap;text-shadow:0 1px 3px color-mix(in srgb,#000 85%, transparent), 0 2px 18px color-mix(in srgb,#000 65%, transparent);}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="si-single">
+  <div class="si-page">
+    <img class="si-image" data-image="true" data-image-size="1024x1536" data-image-prompt="A pair of cupped hands cradling a warm ceramic coffee cup with soft rising steam, held at chest height and centered in the upper-middle of the frame, standing before a plain sunlit wall. Shot on medium-format film, 80mm lens, single soft directional window light that models the subject with a clear bright side and a soft shadow side, restrained palette of bone, clay, ecru and warm grey, matte finish carrying a full tonal range from deep shadow through clean highlight, fine natural grain, generous negative space above and below, quiet considered composition, unposed and understated, premium editorial still-life. Not flat, not washed out, not evenly lit. No faces toward camera, no smiling stock poses, no clutter, no props arranged in a fan, no text, no letters, no numbers, no logos, no watermark, no visible screens with UI." alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/slow-morning-ritual-2/page-01.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+    <div class="brandwash" aria-hidden="true"></div>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="grid" aria-hidden="true"><span class="v1"></span><span class="v2"></span><span class="h1"></span><span class="h2"></span></div>
+
+    <div class="content">
+      <div class="top">
+        <span class="eyebrow">Slow Mornings</span>
+        <div class="script">a gentle ritual before the day begins</div>
+      </div>
+
+      <div class="mid">
+        <span class="tick" aria-hidden="true"></span>
+        <span class="icon" aria-hidden="true">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><circle cx="12" cy="12" r="4" stroke="var(--cg-stroke)" stroke-width="1.3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1" stroke="var(--cg-stroke)" stroke-width="1.3" stroke-linecap="round"></path></svg>
+        </span>
+        <span class="frame" aria-hidden="true"></span>
+      </div>
+
+      <div class="bottom">
+        <h1 class="headline">Savor the quiet before the world wakes.</h1>
+        <p class="body">Pour slowly, breathe deeply, and let the first cup be for no one but you.</p>
+        <span class="lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+          <span class="brand-word">YOURBRAND</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body></html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Caveat:wght@600;700&family=DM+Sans:wght@600;700&display=swap');
+
+  :root{
+    --primary:var(--brand-primary,#2A1F17);
+    --secondary:var(--brand-secondary,#6B4A31);
+    --accent:var(--brand-accent,#D9603F);
+    --highlight:var(--brand-accent,#D9603F);
+    --bg:var(--brand-bg,#F7F1E3);
+    --surface:var(--brand-surface,#FFFFFF);
+    --text-high:var(--brand-ink,#2A1F17);
+    --text-low:var(--brand-text-muted,rgba(42,31,23,.64));
+    --border:var(--brand-border,rgba(42,31,23,.16));
+    --on-fill:var(--brand-on-accent,#ffffff);
+    --on-primary:var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:#241A14;
+    font-family:'DM Sans',sans-serif;
+  }
+
+  /* ── scrapbook page: dark frame + cream sheet + spiral edge + peeled corner ── */
+  .paper{position:absolute;left:30px;top:30px;width:850px;height:1290px;background:var(--bg);
+    box-shadow:0 30px 60px rgba(0,0,0,.45);}
+
+  .fold{position:absolute;left:754px;top:30px;width:96px;height:96px;
+    background:linear-gradient(135deg,#3a2a1f 0%,#241A14 60%);
+    clip-path:polygon(0 0,100% 0,100% 100%);
+    box-shadow:-6px 6px 14px rgba(0,0,0,.35);z-index:4;}
+
+  .spiral{position:absolute;left:820px;top:20px;width:110px;height:1310px;z-index:3;}
+
+  .foot{position:absolute;left:80px;right:300px;bottom:44px;z-index:5;display:flex;align-items:center;justify-content:space-between;}
+  .lockup{display:inline-flex;align-items:center;gap:12px;}
+  .brand-mark-clip{flex:none;height:26px;display:flex;align-items:center;}
+  .brand-mark{height:26px;width:auto;max-width:90px;object-fit:contain;display:block;opacity:.75;}
+  .brand-word{font-family:'DM Sans',sans-serif;font-weight:700;font-size:19px;letter-spacing:.06em;color:var(--text-low);white-space:nowrap;}
+  .cg-slide-counter{font-family:'DM Sans',sans-serif;font-weight:700;font-size:18px;letter-spacing:.1em;color:var(--text-low);}
+
+  /* ── kicker chip (accent fill, cover/outro) ── */
+  .kicker-wrap{position:absolute;}
+  .kicker{display:inline-block;background:var(--accent);color:var(--on-fill);
+    font-family:'DM Sans',sans-serif;font-weight:700;font-size:24px;letter-spacing:.14em;
+    padding:12px 30px;border-radius:999px;box-shadow:0 8px 18px rgba(0,0,0,.18);white-space:nowrap;}
+
+  /* ── titles ── */
+  .tn-title{position:absolute;}
+  .cover-title h1{margin:0;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;
+    font-size:82px;line-height:1.1;color:var(--text-high);text-align:center;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.2em;}
+
+  .cat-title h1{margin:0;font-family:'Playfair Display',serif;font-weight:800;
+    font-size:92px;line-height:1.0;color:var(--primary);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.18em;}
+
+  .outro-title h1{margin:0;font-family:'Playfair Display',serif;font-weight:800;
+    font-size:60px;line-height:1.1;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.2em;}
+
+  /* ── body copy (the one <p> per slide) ── */
+  .tn-message{position:absolute;}
+  .tn-message p{margin:0;font-family:'Caveat',cursive;font-weight:600;font-size:36px;line-height:1.28;
+    color:var(--text-low);text-align:center;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.2em;}
+  .grid-msg p{text-align:left;}
+
+  /* ── captions (script) ── */
+  .caption{position:absolute;font-family:'Caveat',cursive;font-weight:700;font-size:36px;color:var(--text-high);
+    line-height:1.15;padding-bottom:.15em;z-index:6;}
+
+  /* ── price tag chip ── */
+  .price{position:absolute;background:var(--accent);color:var(--on-fill);
+    font-family:'DM Sans',sans-serif;font-weight:700;font-size:32px;padding:12px 24px;border-radius:14px;
+    box-shadow:0 10px 20px rgba(0,0,0,.2);z-index:6;}
+
+  /* ── photo card ── */
+  .photo-card{position:absolute;background:#fff;padding:14px 14px 34px;box-shadow:0 20px 34px rgba(0,0,0,.28);z-index:2;}
+  .photo-card img{display:block;width:100%;height:100%;object-fit:cover;}
+
+  /* ── CTA button ── */
+  .cta-wrap{position:absolute;}
+  .cta{display:inline-block;background:var(--accent);color:var(--on-fill);
+    font-family:'DM Sans',sans-serif;font-weight:700;font-size:32px;padding:22px 46px;border-radius:999px;
+    box-shadow:0 14px 26px rgba(0,0,0,.25);white-space:nowrap;}
+
+  .sticker{position:absolute;z-index:5;filter:drop-shadow(0 3px 4px rgba(0,0,0,.22));}
+
+  /* ── washi tape accent strip (brand fill, every slide) ── */
+  .tape{position:absolute;left:26px;top:1156px;width:250px;height:78px;transform:rotate(-5deg);z-index:5;
+    background:repeating-linear-gradient(115deg, var(--accent) 0 14px, color-mix(in srgb, var(--accent) 78%, #000 22%) 14px 28px);
+    box-shadow:0 8px 14px rgba(0,0,0,.22);opacity:.94;}
+  .tape2{position:absolute;width:150px;height:56px;transform:rotate(7deg);z-index:5;
+    background:repeating-linear-gradient(115deg, var(--accent) 0 12px, color-mix(in srgb, var(--accent) 78%, #000 22%) 12px 24px);
+    box-shadow:0 6px 10px rgba(0,0,0,.2);opacity:.94;}
+
+  /* ── pin (brand fill) holding the photo card ── */
+  .pin{position:absolute;width:34px;height:34px;border-radius:50%;background:var(--accent);z-index:7;
+    box-shadow:0 6px 10px rgba(0,0,0,.3),inset 0 -3px 4px rgba(0,0,0,.25),inset 0 3px 4px rgba(255,255,255,.4);}
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+<!-- Slide 1 — Cover -->
+<section class="slide" data-cg-slide-type="cover">
+  <div class="paper"></div>
+  <div class="fold"></div>
+
+  <svg class="spiral" data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 1310" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <g fill="none" stroke="var(--cg-stroke)" stroke-width="5">
+      <g id="ring0"><circle cx="30" cy="40" r="16"></circle><line x1="30" y1="24" x2="30" y2="56"></line></g>
+    </g>
+    <g fill="none" stroke="var(--cg-stroke)" stroke-width="5">
+      <circle cx="30" cy="105" r="16"></circle><circle cx="30" cy="170" r="16"></circle><circle cx="30" cy="235" r="16"></circle>
+      <circle cx="30" cy="300" r="16"></circle><circle cx="30" cy="365" r="16"></circle><circle cx="30" cy="430" r="16"></circle>
+      <circle cx="30" cy="495" r="16"></circle><circle cx="30" cy="560" r="16"></circle><circle cx="30" cy="625" r="16"></circle>
+      <circle cx="30" cy="690" r="16"></circle><circle cx="30" cy="755" r="16"></circle><circle cx="30" cy="820" r="16"></circle>
+      <circle cx="30" cy="885" r="16"></circle><circle cx="30" cy="950" r="16"></circle><circle cx="30" cy="1015" r="16"></circle>
+      <circle cx="30" cy="1080" r="16"></circle><circle cx="30" cy="1145" r="16"></circle><circle cx="30" cy="1210" r="16"></circle>
+      <circle cx="30" cy="1270" r="16"></circle>
+    </g>
+  </svg>
+
+  <div class="kicker-wrap" style="left:80px;top:96px;width:690px;text-align:center;">
+    <span class="kicker">MARKET DIARY</span>
+  </div>
+
+  <!-- decorations -->
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:88px;top:220px;width:120px;height:120px;transform:rotate(-8deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 130 130" aria-hidden="true" focusable="false">
+    <g>
+      <ellipse cx="65" cy="30" rx="16" ry="26" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></ellipse>
+      <ellipse cx="65" cy="100" rx="16" ry="26" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></ellipse>
+      <ellipse cx="30" cy="65" rx="26" ry="16" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></ellipse>
+      <ellipse cx="100" cy="65" rx="26" ry="16" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></ellipse>
+      <ellipse cx="40" cy="40" rx="18" ry="24" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(-45 40 40)"></ellipse>
+      <ellipse cx="90" cy="40" rx="18" ry="24" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(45 90 40)"></ellipse>
+      <ellipse cx="40" cy="90" rx="18" ry="24" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(45 40 90)"></ellipse>
+      <ellipse cx="90" cy="90" rx="18" ry="24" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3" transform="rotate(-45 90 90)"></ellipse>
+      <circle cx="65" cy="65" r="22" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></circle>
+    </g>
+  </svg>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:660px;top:210px;width:84px;height:84px;transform:rotate(10deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 90 90" aria-hidden="true" focusable="false">
+    <path d="M45 12c8 14 22 18 22 30 0 13-10 24-22 24s-22-11-22-24c0-12 14-16 22-30z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></path>
+    <rect x="30" y="8" width="30" height="10" rx="4" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="2"></rect>
+  </svg>
+
+  <div class="tn-title cover-title" style="left:120px;top:430px;width:610px;text-align:center;">
+    <h1 data-title="true">My Saturday market run</h1>
+  </div>
+
+  <div class="tn-message" style="left:170px;top:660px;width:510px;">
+    <p data-message="true">Flowers, honey, and more sourdough than one person needs.</p>
+  </div>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:120px;top:940px;width:110px;height:110px;transform:rotate(-6deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+    <path d="M60 100c-18-14-40-24-40-46 0-14 12-24 24-22 8 1 14 8 16 14 2-6 8-13 16-14 12-2 24 8 24 22 0 22-22 32-40 46z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></path>
+    <path d="M40 40c0-4 6-8 12-4M80 40c0-4-6-8-12-4" stroke="var(--cg-stroke)" stroke-width="3" fill="none" stroke-linecap="round"></path>
+  </svg>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:640px;top:940px;width:100px;height:100px;transform:rotate(8deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 110 110" aria-hidden="true" focusable="false">
+    <path d="M55 20c30 6 42 26 30 46-9 15-30 22-30 22s-21-7-30-22c-12-20 0-40 30-46z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></path>
+    <path d="M40 26c6-10 24-10 30 0" stroke="var(--cg-stroke)" stroke-width="6" fill="none" stroke-linecap="round"></path>
+  </svg>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:370px;top:930px;width:50px;height:50px;transform:rotate(-14deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 56 56" aria-hidden="true" focusable="false">
+    <path d="M2 30 L20 26 L14 8 L28 20 L42 8 L36 26 L54 30 L36 34 L42 52 L28 40 L14 52 L20 34 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="2.5"></path>
+  </svg>
+
+  <div class="tape2" style="left:650px;top:800px;"></div>
+  <div class="tape"></div>
+
+  <div class="foot">
+    <div class="lockup">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">MARKET NOTES</span>
+    </div>
+    <div class="cg-slide-counter" data-counter="true">01 / 05</div>
+  </div>
+</section>
+
+<!-- Slide 2 — Blooms -->
+<section class="slide" data-cg-slide-type="product">
+  <div class="paper"></div>
+  <div class="fold"></div>
+  <svg class="spiral" data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 1310" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <g fill="none" stroke="var(--cg-stroke)" stroke-width="5">
+      <circle cx="30" cy="40" r="16"></circle><circle cx="30" cy="105" r="16"></circle><circle cx="30" cy="170" r="16"></circle><circle cx="30" cy="235" r="16"></circle>
+      <circle cx="30" cy="300" r="16"></circle><circle cx="30" cy="365" r="16"></circle><circle cx="30" cy="430" r="16"></circle>
+      <circle cx="30" cy="495" r="16"></circle><circle cx="30" cy="560" r="16"></circle><circle cx="30" cy="625" r="16"></circle>
+      <circle cx="30" cy="690" r="16"></circle><circle cx="30" cy="755" r="16"></circle><circle cx="30" cy="820" r="16"></circle>
+      <circle cx="30" cy="885" r="16"></circle><circle cx="30" cy="950" r="16"></circle><circle cx="30" cy="1015" r="16"></circle>
+      <circle cx="30" cy="1080" r="16"></circle><circle cx="30" cy="1145" r="16"></circle><circle cx="30" cy="1210" r="16"></circle>
+      <circle cx="30" cy="1270" r="16"></circle>
+    </g>
+  </svg>
+
+  <div class="tn-title cat-title" style="left:80px;top:64px;width:600px;">
+    <h1 data-title="true">Blooms 🌻</h1>
+  </div>
+
+  <div class="photo-card" style="left:150px;top:250px;width:520px;height:560px;transform:rotate(-3deg);">
+    <img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="a hand holding a lush bouquet of pink and cream peonies wrapped in brown kraft paper, farmers market stall in soft background, natural daylight, photography" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/saturday-market-haul/slide-02.png">
+  </div>
+  <div class="tape2" style="left:110px;top:225px;transform:rotate(-8deg);"></div>
+  <div class="pin" style="left:393px;top:233px;"></div>
+  <div class="price" style="left:590px;top:730px;transform:rotate(4deg);">$18</div>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:670px;top:120px;width:70px;height:70px;transform:rotate(12deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 70 70" aria-hidden="true" focusable="false">
+    <path d="M2 38 L25 33 L18 10 L35 25 L52 10 L45 33 L68 38 L45 43 L52 66 L35 51 L18 66 L25 43 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="2.5"></path>
+  </svg>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:700px;top:280px;width:100px;height:100px;transform:rotate(-6deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+    <ellipse cx="50" cy="20" rx="10" ry="18" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="2.5"></ellipse>
+    <ellipse cx="38" cy="34" rx="10" ry="18" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="2.5" transform="rotate(-30 38 34)"></ellipse>
+    <ellipse cx="62" cy="34" rx="10" ry="18" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="2.5" transform="rotate(30 62 34)"></ellipse>
+    <ellipse cx="50" cy="50" rx="10" ry="18" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="2.5" transform="rotate(90 50 50)"></ellipse>
+    <path d="M50 60 L50 92" stroke="var(--cg-stroke)" stroke-width="5" stroke-linecap="round"></path>
+  </svg>
+  <div class="caption" style="left:686px;top:400px;width:220px;">dried<br>lavender<br>$6</div>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:130px;top:880px;width:80px;height:80px;transform:rotate(-10deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+    <ellipse cx="40" cy="42" rx="26" ry="20" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></ellipse>
+    <path d="M22 26c0-8 6-14 18-14s18 6 18 14" fill="none" stroke="var(--cg-stroke)" stroke-width="3"></path>
+    <circle cx="30" cy="42" r="3" fill="var(--cg-fill)"></circle><circle cx="42" cy="38" r="3" fill="var(--cg-fill)"></circle><circle cx="50" cy="46" r="3" fill="var(--cg-fill)"></circle>
+    <circle cx="34" cy="52" r="3" fill="var(--cg-fill)"></circle>
+  </svg>
+
+  <div class="tn-message grid-msg" style="left:150px;top:970px;width:580px;">
+    <p data-message="true">Stall twelve had the prettiest bucket of peonies — I may have bought them all.</p>
+  </div>
+
+  <div class="tape"></div>
+
+  <div class="foot">
+    <div class="lockup">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">MARKET NOTES</span>
+    </div>
+    <div class="cg-slide-counter" data-counter="true">02 / 05</div>
+  </div>
+</section>
+
+<!-- Slide 3 — Pantry -->
+<section class="slide" data-cg-slide-type="product">
+  <div class="paper"></div>
+  <div class="fold"></div>
+  <svg class="spiral" data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 1310" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <g fill="none" stroke="var(--cg-stroke)" stroke-width="5">
+      <circle cx="30" cy="40" r="16"></circle><circle cx="30" cy="105" r="16"></circle><circle cx="30" cy="170" r="16"></circle><circle cx="30" cy="235" r="16"></circle>
+      <circle cx="30" cy="300" r="16"></circle><circle cx="30" cy="365" r="16"></circle><circle cx="30" cy="430" r="16"></circle>
+      <circle cx="30" cy="495" r="16"></circle><circle cx="30" cy="560" r="16"></circle><circle cx="30" cy="625" r="16"></circle>
+      <circle cx="30" cy="690" r="16"></circle><circle cx="30" cy="755" r="16"></circle><circle cx="30" cy="820" r="16"></circle>
+      <circle cx="30" cy="885" r="16"></circle><circle cx="30" cy="950" r="16"></circle><circle cx="30" cy="1015" r="16"></circle>
+      <circle cx="30" cy="1080" r="16"></circle><circle cx="30" cy="1145" r="16"></circle><circle cx="30" cy="1210" r="16"></circle>
+      <circle cx="30" cy="1270" r="16"></circle>
+    </g>
+  </svg>
+
+  <div class="tn-title cat-title" style="left:80px;top:64px;width:600px;">
+    <h1 data-title="true">Pantry 🍯</h1>
+  </div>
+
+  <div class="photo-card" style="left:190px;top:250px;width:500px;height:520px;transform:rotate(3deg);">
+    <img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="close-up of a glass jar of golden honey with a wooden dipper resting on it, beside a loaf of crusty sourdough bread on a wooden market table, warm natural light" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/saturday-market-haul/slide-03.png">
+  </div>
+  <div class="tape2" style="left:150px;top:225px;transform:rotate(-8deg);"></div>
+  <div class="pin" style="left:423px;top:233px;"></div>
+  <div class="price" style="left:610px;top:700px;transform:rotate(-3deg);">$9</div>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:700px;top:130px;width:90px;height:100px;transform:rotate(10deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 90 100" aria-hidden="true" focusable="false">
+    <path d="M45 6 L52 40 L45 96 L38 40 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="2.5"></path>
+    <circle cx="45" cy="18" r="10" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="2.5"></circle>
+  </svg>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:690px;top:300px;width:100px;height:110px;transform:rotate(-8deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 100 110" aria-hidden="true" focusable="false">
+    <rect x="20" y="30" width="60" height="70" rx="8" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></rect>
+    <rect x="30" y="10" width="40" height="24" rx="6" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></rect>
+    <rect x="30" y="44" width="40" height="10" fill="var(--cg-fill)" opacity=".7"></rect>
+  </svg>
+  <div class="caption" style="left:672px;top:430px;width:220px;">sourdough<br>loaf, $7</div>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:150px;top:860px;width:64px;height:64px;transform:rotate(-16deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+    <path d="M2 34 L23 30 L16 8 L32 22 L48 8 L41 30 L62 34 L41 38 L48 60 L32 46 L16 60 L23 38 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="2.5"></path>
+  </svg>
+
+  <div class="tn-message grid-msg" style="left:150px;top:960px;width:580px;">
+    <p data-message="true">Came for coffee, left with a jar of honey and a loaf still warm from the oven.</p>
+  </div>
+
+  <div class="tape"></div>
+
+  <div class="foot">
+    <div class="lockup">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">MARKET NOTES</span>
+    </div>
+    <div class="cg-slide-counter" data-counter="true">03 / 05</div>
+  </div>
+</section>
+
+<!-- Slide 4 — Snacks -->
+<section class="slide" data-cg-slide-type="product">
+  <div class="paper"></div>
+  <div class="fold"></div>
+  <svg class="spiral" data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 1310" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <g fill="none" stroke="var(--cg-stroke)" stroke-width="5">
+      <circle cx="30" cy="40" r="16"></circle><circle cx="30" cy="105" r="16"></circle><circle cx="30" cy="170" r="16"></circle><circle cx="30" cy="235" r="16"></circle>
+      <circle cx="30" cy="300" r="16"></circle><circle cx="30" cy="365" r="16"></circle><circle cx="30" cy="430" r="16"></circle>
+      <circle cx="30" cy="495" r="16"></circle><circle cx="30" cy="560" r="16"></circle><circle cx="30" cy="625" r="16"></circle>
+      <circle cx="30" cy="690" r="16"></circle><circle cx="30" cy="755" r="16"></circle><circle cx="30" cy="820" r="16"></circle>
+      <circle cx="30" cy="885" r="16"></circle><circle cx="30" cy="950" r="16"></circle><circle cx="30" cy="1015" r="16"></circle>
+      <circle cx="30" cy="1080" r="16"></circle><circle cx="30" cy="1145" r="16"></circle><circle cx="30" cy="1210" r="16"></circle>
+      <circle cx="30" cy="1270" r="16"></circle>
+    </g>
+  </svg>
+
+  <div class="tn-title cat-title" style="left:80px;top:64px;width:600px;">
+    <h1 data-title="true">Snacks 🍓</h1>
+  </div>
+
+  <div class="photo-card" style="left:160px;top:250px;width:520px;height:540px;transform:rotate(-2deg);">
+    <img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="a small woven basket filled with fresh ripe strawberries on a wooden market stall table, bright natural daylight, top-down photo" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/saturday-market-haul/slide-04.png">
+  </div>
+  <div class="tape2" style="left:120px;top:225px;transform:rotate(-8deg);"></div>
+  <div class="pin" style="left:403px;top:233px;"></div>
+  <div class="price" style="left:600px;top:720px;transform:rotate(4deg);">$4</div>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:690px;top:130px;width:90px;height:90px;transform:rotate(14deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 90 90" aria-hidden="true" focusable="false">
+    <ellipse cx="45" cy="48" rx="30" ry="24" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></ellipse>
+    <path d="M24 28c0-9 8-16 21-16s21 7 21 16" fill="none" stroke="var(--cg-stroke)" stroke-width="3"></path>
+    <circle cx="34" cy="46" r="3" fill="var(--cg-fill)"></circle><circle cx="48" cy="42" r="3" fill="var(--cg-fill)"></circle><circle cx="56" cy="52" r="3" fill="var(--cg-fill)"></circle>
+    <circle cx="38" cy="58" r="3" fill="var(--cg-fill)"></circle>
+  </svg>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:700px;top:300px;width:100px;height:100px;transform:rotate(-10deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+    <circle cx="50" cy="50" r="38" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></circle>
+    <g stroke="var(--cg-stroke)" stroke-width="2.5"><line x1="50" y1="18" x2="50" y2="82"></line><line x1="22" y1="35" x2="78" y2="65"></line><line x1="22" y1="65" x2="78" y2="35"></line></g>
+  </svg>
+  <div class="caption" style="left:684px;top:420px;width:220px;">fresh<br>lemonade<br>$3</div>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:140px;top:870px;width:80px;height:80px;transform:rotate(-8deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+    <path d="M40 68c-16-12-32-22-32-38 0-11 9-19 19-17 6 1 11 6 13 11 2-5 7-10 13-11 10-2 19 6 19 17 0 16-16 26-32 38z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></path>
+  </svg>
+
+  <div class="tn-message grid-msg" style="left:150px;top:970px;width:580px;">
+    <p data-message="true">Fresh strawberries and a paper cup of lemonade — breakfast of market champions.</p>
+  </div>
+
+  <div class="tape"></div>
+
+  <div class="foot">
+    <div class="lockup">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">MARKET NOTES</span>
+    </div>
+    <div class="cg-slide-counter" data-counter="true">04 / 05</div>
+  </div>
+</section>
+
+<!-- Slide 5 — Outro / CTA -->
+<section class="slide" data-cg-slide-type="cta">
+  <div class="paper"></div>
+  <div class="fold"></div>
+  <svg class="spiral" data-cg-svg="" data-cg-preserve="" viewBox="0 0 110 1310" aria-hidden="true" focusable="false" style="--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+    <g fill="none" stroke="var(--cg-stroke)" stroke-width="5">
+      <circle cx="30" cy="40" r="16"></circle><circle cx="30" cy="105" r="16"></circle><circle cx="30" cy="170" r="16"></circle><circle cx="30" cy="235" r="16"></circle>
+      <circle cx="30" cy="300" r="16"></circle><circle cx="30" cy="365" r="16"></circle><circle cx="30" cy="430" r="16"></circle>
+      <circle cx="30" cy="495" r="16"></circle><circle cx="30" cy="560" r="16"></circle><circle cx="30" cy="625" r="16"></circle>
+      <circle cx="30" cy="690" r="16"></circle><circle cx="30" cy="755" r="16"></circle><circle cx="30" cy="820" r="16"></circle>
+      <circle cx="30" cy="885" r="16"></circle><circle cx="30" cy="950" r="16"></circle><circle cx="30" cy="1015" r="16"></circle>
+      <circle cx="30" cy="1080" r="16"></circle><circle cx="30" cy="1145" r="16"></circle><circle cx="30" cy="1210" r="16"></circle>
+      <circle cx="30" cy="1270" r="16"></circle>
+    </g>
+  </svg>
+
+  <div class="kicker-wrap" style="left:80px;top:110px;width:690px;text-align:center;">
+    <span class="kicker">SEE YOU NEXT WEEK</span>
+  </div>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:325px;top:230px;width:170px;height:170px;transform:rotate(-2deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 220 220" aria-hidden="true" focusable="false">
+    <path d="M96 60 Q40 60 30 118 Q120 148 190 118 Q180 60 124 60 Z" fill="none" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></path>
+    <path d="M28 118 L44 190 Q110 208 176 190 L192 118 Q110 148 28 118 Z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="4"></path>
+    <path d="M50 130 L58 195 M80 140 L84 202 M110 143 L110 206 M140 140 L136 202 M170 130 L162 195" stroke="var(--cg-stroke)" stroke-width="3" opacity=".5"></path>
+    <path d="M84 58 Q96 14 110 52 Q124 14 136 58" fill="none" stroke="var(--cg-stroke)" stroke-width="6" stroke-linecap="round"></path>
+  </svg>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:180px;top:210px;width:66px;height:66px;transform:rotate(-16deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+    <ellipse cx="40" cy="42" rx="26" ry="20" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></ellipse>
+    <path d="M22 26c0-8 6-14 18-14s18 6 18 14" fill="none" stroke="var(--cg-stroke)" stroke-width="3"></path>
+  </svg>
+
+  <svg class="sticker" data-cg-svg="" data-cg-preserve="" style="left:660px;top:200px;width:76px;height:76px;transform:rotate(10deg);--cg-fill:var(--text-high);--cg-stroke:var(--text-high);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-stroke)" viewBox="0 0 90 90" aria-hidden="true" focusable="false">
+    <path d="M45 12c8 14 22 18 22 30 0 13-10 24-22 24s-22-11-22-24c0-12 14-16 22-30z" fill="var(--cg-fill)" stroke="var(--cg-stroke)" stroke-width="3"></path>
+  </svg>
+
+  <div class="tape2" style="left:660px;top:440px;transform:rotate(-8deg);"></div>
+
+  <div class="tn-title outro-title" style="left:100px;top:520px;width:650px;text-align:center;">
+    <h1 data-title="true">Same stalls, same time, next Saturday?</h1>
+  </div>
+
+  <div class="tn-message" style="left:160px;top:780px;width:530px;">
+    <p data-message="true">Follow along for more market mornings, tiny treasures, and one very full tote bag.</p>
+  </div>
+
+  <div class="cta-wrap" style="left:80px;top:955px;width:690px;text-align:center;">
+    <span class="cta" data-cta="true">Save this for Saturday</span>
+  </div>
+
+  <div class="foot">
+    <div class="lockup">
+      <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+      <span class="brand-word">MARKET NOTES</span>
+    </div>
+    <div class="cg-slide-counter" data-counter="true">05 / 05</div>
+  </div>
+</section>
+
+</div>
+
+
+</body></html>

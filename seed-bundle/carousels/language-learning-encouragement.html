@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#8B4FE0);
+  --secondary:var(--brand-secondary,#B57BF5);
+  --accent:var(--brand-accent,#C77DFF);
+  --highlight:var(--brand-accent,#E0AAFF);
+  --bg:var(--brand-bg,#151217);
+  --surface:var(--brand-surface,rgba(255,255,255,.07));
+  --text-high:var(--brand-text-high,#FFFFFF);
+  --text-low:var(--brand-text-muted,rgba(255,255,255,.72));
+  --border:var(--brand-border,rgba(255,255,255,.14));
+}
+
+*{box-sizing:border-box;}
+
+.si-single{width:fit-content;margin:0;}
+
+.si-page{
+  position:relative;width:1080px;height:1080px;overflow:hidden;
+  container-type:inline-size;
+  background:var(--bg);
+  font-family:'Inter',sans-serif;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* soft purple blur gradient background */
+.blur-a{position:absolute;z-index:0;width:720px;height:720px;border-radius:50%;
+  right:-120px;bottom:-140px;
+  background:radial-gradient(circle at 50% 50%,
+    color-mix(in srgb, var(--accent) 90%, transparent) 0%,
+    color-mix(in srgb, var(--primary) 60%, transparent) 42%,
+    transparent 72%);
+  filter:blur(30px);}
+.blur-b{position:absolute;z-index:0;width:560px;height:560px;border-radius:50%;
+  left:280px;top:40px;
+  background:radial-gradient(circle at 50% 50%,
+    color-mix(in srgb, var(--secondary) 80%, transparent) 0%,
+    color-mix(in srgb, var(--primary) 40%, transparent) 46%,
+    transparent 72%);
+  filter:blur(40px);}
+
+/* content image lives as a direct child of .si-page, styled into the avatar box */
+.si-image{
+  position:relative;z-index:2;
+  flex:none;width:110px;height:110px;border-radius:50%;overflow:hidden;
+  object-fit:cover;display:block;
+  border:2px solid var(--border);background:color-mix(in srgb,var(--primary) 30%, #000);
+  /* pulled visually into the card head via negative margin below */
+}
+
+/* frosted glass tweet card */
+.card{
+  position:relative;z-index:2;width:850px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:36px;
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  box-shadow:0 40px 80px rgba(0,0,0,.4);
+  padding:56px 62px 62px;
+  display:flex;flex-direction:column;gap:34px;
+}
+
+.card-head{display:flex;align-items:center;gap:26px;}
+.avatar{flex:none;width:110px;height:110px;border-radius:50%;overflow:hidden;
+  border:2px solid var(--border);background:color-mix(in srgb,var(--primary) 30%, #000);}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block;}
+.who{display:flex;flex-direction:column;gap:6px;min-width:0;}
+.who .name{font-family:'Poppins',sans-serif;font-weight:700;font-size:34px;line-height:1.2;
+  color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:2px;}
+.eyebrow{font-family:'Inter',sans-serif;font-weight:500;font-size:24px;line-height:1.2;
+  color:var(--text-low);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:2px;}
+
+.headline{margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:56px;line-height:1.18;
+  letter-spacing:-.01em;color:var(--text-high);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:6px;}
+
+.body{margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:32px;line-height:1.42;
+  color:var(--text-low);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;padding-bottom:4px;}
+
+.card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:2px;}
+.lockup{display:inline-flex;align-items:center;gap:14px;}
+.brand-mark{height:30px;width:auto;max-width:120px;object-fit:contain;display:block;}
+.brand-word{font-family:'Poppins',sans-serif;font-weight:600;font-size:26px;color:var(--text-high);white-space:nowrap;}
+.dot-row{display:flex;gap:10px;}
+.dot-row span{width:12px;height:12px;border-radius:50%;background:var(--accent);opacity:.5;}
+.dot-row span:first-child{opacity:1;}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="si-single">
+  <div class="si-page">
+    <div class="blur-a" aria-hidden="true"></div>
+    <div class="blur-b" aria-hidden="true"></div>
+
+    <img class="si-image" data-image="true" data-image-size="1024x1024" data-image-prompt="Warm, friendly portrait headshot of a smiling woman language coach, soft studio lighting, simple neutral background, shoulders-up crop, natural and approachable, photographed head-on" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'><rect width='100%25' height='100%25' fill='%23b58bd8'/></svg>" style="position:absolute;z-index:5;left:177px;top:283px;">
+
+    <div class="card">
+      <div class="card-head">
+        <span class="avatar" aria-hidden="true"></span>
+        <span class="who">
+          <span class="name">Maya Okonkwo</span>
+          <span class="eyebrow">Language Coach</span>
+        </span>
+      </div>
+
+      <h1 class="headline">Every word you learn opens a new door</h1>
+      <p class="body">don't rush the messy middle of learning a language because each stumble is proof you're showing up and slowly becoming fluent.</p>
+
+      <div class="card-foot">
+        <span class="lockup">
+          <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+          <span class="brand-word">YOURBRAND</span>
+        </span>
+        <span class="dot-row" aria-hidden="true"><span></span><span></span><span></span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body></html>

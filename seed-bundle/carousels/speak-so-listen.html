@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap');
+
+      :root{
+        /* Brand roles — the canvas paper, corner frame ink and all reading copy are
+           FIXED literals (beige aesthetic depends on that quiet neutrality). Only the
+           tint panel behind each numeral, the hand-drawn circle on the cover and the
+           folio pill are brand-bound: those are this template's re-skinnable devices. */
+        --primary:var(--brand-primary,#3b2f27);
+        --secondary:var(--brand-secondary,#8a6f52);
+        --accent:var(--brand-accent,#a97d55);
+        --highlight:var(--brand-accent,#a97d55);
+        --bg:var(--brand-bg,#ede9e3);
+        --surface:var(--brand-surface,#e4ddd2);
+        --text-high:var(--brand-ink,#241b14);
+        --text-low:var(--brand-text-muted,rgba(36,27,20,.64));
+        --border:var(--brand-border,rgba(36,27,20,.32));
+        --on-fill:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);
+        font-family:'Jost',sans-serif;
+      }
+
+      /* ── corner frame — thin rectangle + one mid divider, the reference's quiet
+         editorial rule that ties every slide together ── */
+      .frame-h{position:absolute;left:56px;right:56px;height:1px;background:var(--border);}
+      .frame-top{top:56px;}
+      .frame-bottom{bottom:56px;}
+      .frame-v{position:absolute;top:56px;bottom:56px;width:1px;background:var(--border);}
+      .frame-left{left:56px;}
+      .frame-right{right:56px;}
+      .mid-divider{position:absolute;left:56px;right:56px;top:660px;height:1px;background:var(--border);}
+
+      /* ── top band: photo half + numeral/tint half, order flips per slide ── */
+      .band-top{position:absolute;left:56px;right:56px;top:56px;height:604px;display:flex;}
+      .band-top.flip{flex-direction:row-reverse;}
+      .photo-half{flex:1;position:relative;overflow:hidden;background:#c9c1b3;}
+      .photo-half img{width:100%;height:100%;object-fit:cover;display:block;}
+      .num-half{
+        flex:1;position:relative;display:flex;align-items:center;justify-content:center;
+        background:color-mix(in srgb, var(--accent) 16%, var(--bg) 84%);
+      }
+      .pretitle{
+        margin:0;font-family:'Playfair Display',serif;font-weight:500;font-size:118px;
+        line-height:1.1;color:var(--primary);padding-bottom:.14em;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+      }
+
+      /* ── cover: mirrored photo pair across the same band ── */
+      .cover-photos{position:absolute;left:56px;right:56px;top:56px;height:604px;display:flex;gap:6px;}
+      .cover-photos .ph{flex:1;position:relative;overflow:hidden;background:#c9c1b3;}
+      .cover-photos .ph img{width:100%;height:100%;object-fit:cover;display:block;}
+      .cover-photos .ph.mirror{background:color-mix(in srgb, var(--accent) 16%, var(--bg) 84%);}
+      .ph-echo{position:absolute;inset:0;}
+
+      /* ── bottom band text ── */
+      .tn-kicker{position:absolute;left:56px;top:696px;}
+      .tn-kicker span{
+        display:inline-block;background:var(--accent);color:var(--on-fill);
+        padding:12px 26px;border-radius:999px;
+        font-family:'Jost',sans-serif;font-weight:700;font-size:21px;letter-spacing:.14em;text-transform:uppercase;
+        white-space:nowrap;
+      }
+
+      .tn-title{position:absolute;left:56px;right:56px;top:704px;}
+      .tn-title h1{
+        margin:0;font-family:'Playfair Display',serif;font-weight:500;font-size:86px;line-height:1.1;
+        color:var(--text-high);letter-spacing:-.005em;padding-bottom:.16em;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+      }
+      .slide.cover .tn-title{top:766px;}
+      .slide.cover .tn-title h1{font-size:80px;-webkit-line-clamp:3;}
+
+      .circle-word{position:relative;display:inline-block;}
+      .circle-word::before{
+        content:'';position:absolute;left:-16px;right:-16px;top:-4px;bottom:-14px;
+        border:4px solid var(--accent);border-radius:52%/62%;transform:rotate(-2deg);
+        pointer-events:none;
+      }
+
+      .tn-message{position:absolute;left:56px;right:56px;top:930px;}
+      .slide.cover .tn-message{top:1068px;}
+      .slide.cover .tn-message p{-webkit-line-clamp:2;}
+      .tn-message p{
+        margin:0;font-family:'Jost',sans-serif;font-weight:300;font-size:34px;line-height:1.42;
+        color:var(--text-low);padding-bottom:.1em;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;
+      }
+
+      /* ── brand lockup, bottom-left ── */
+      .lockup{position:absolute;left:90px;bottom:90px;display:flex;align-items:center;gap:12px;z-index:3;}
+      .brand-mark-clip{flex:none;height:28px;display:flex;align-items:center;}
+      .brand-mark{height:28px;width:auto;max-width:100px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Jost',sans-serif;font-weight:600;font-size:22px;letter-spacing:.06em;color:var(--text-high);white-space:nowrap;}
+
+      /* ── folio pill, bottom-right — the accent-filled device every slide carries ── */
+      .folio{
+        position:absolute;right:90px;bottom:88px;z-index:3;
+        background:var(--accent);border-radius:999px;padding:11px 24px;
+        font-family:'Jost',sans-serif;font-weight:700;font-size:22px;letter-spacing:.1em;color:var(--on-fill);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Cover -->
+      <section class="slide cover" data-cg-slide-type="text">
+        <div class="cover-photos">
+          <div class="ph"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Warm, neutral-toned editorial photo of a confident young professional mid-sentence in a minimalist beige studio, soft natural window light, calm expression, shallow depth of field" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/speak-so-listen/slide-01.png"/></div>
+          <div class="ph mirror" aria-hidden="true"><div class="ph-echo"></div></div>
+        </div>
+        <div class="frame-h frame-top"></div>
+        <div class="frame-h frame-bottom"></div>
+        <div class="frame-v frame-left"></div>
+        <div class="frame-v frame-right"></div>
+        <div class="mid-divider"></div>
+
+        <div class="tn-kicker"><span data-tagline="true">A five-part series</span></div>
+        <div class="tn-title"><h1 data-title="true">How to speak so people <span class="circle-word">actually listen</span></h1></div>
+        <div class="tn-message"><p data-message="true">Five small habits that make your voice the one people remember in the room.</p></div>
+
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="folio" data-counter="true">01 / 06</div>
+      </section>
+
+      <!-- One -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="band-top">
+          <div class="num-half"><p class="pretitle" data-tagline="true">One.</p></div>
+          <div class="photo-half"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Close-up warm-toned photo of a person taking a calm breath before speaking, hand resting on chest, soft beige studio backdrop" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/speak-so-listen/slide-02.png"/></div>
+        </div>
+        <div class="frame-h frame-top"></div>
+        <div class="frame-h frame-bottom"></div>
+        <div class="frame-v frame-left"></div>
+        <div class="frame-v frame-right"></div>
+        <div class="mid-divider"></div>
+
+        <div class="tn-title"><h1 data-title="true">Breathe before you speak.</h1></div>
+        <div class="tn-message"><p data-message="true">Slow down first — your pace is the first thing people trust.</p></div>
+
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="folio" data-counter="true">02 / 06</div>
+      </section>
+
+      <!-- Two -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="band-top flip">
+          <div class="num-half"><p class="pretitle" data-tagline="true">Two.</p></div>
+          <div class="photo-half"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Warm-toned photo of a person speaking with a short, deliberate gesture, minimal beige office, one clear expression, negative space around them" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/speak-so-listen/slide-03.png"/></div>
+        </div>
+        <div class="frame-h frame-top"></div>
+        <div class="frame-h frame-bottom"></div>
+        <div class="frame-v frame-left"></div>
+        <div class="frame-v frame-right"></div>
+        <div class="mid-divider"></div>
+
+        <div class="tn-title"><h1 data-title="true">Say less, mean more.</h1></div>
+        <div class="tn-message"><p data-message="true">Cut the filler. One clear line lands harder than three vague ones.</p></div>
+
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="folio" data-counter="true">03 / 06</div>
+      </section>
+
+      <!-- Three -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="band-top">
+          <div class="num-half"><p class="pretitle" data-tagline="true">Three.</p></div>
+          <div class="photo-half"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Warm-toned photo of two people making direct, focused eye contact across a small table, calm minimal beige interior" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/speak-so-listen/slide-04.png"/></div>
+        </div>
+        <div class="frame-h frame-top"></div>
+        <div class="frame-h frame-bottom"></div>
+        <div class="frame-v frame-left"></div>
+        <div class="frame-v frame-right"></div>
+        <div class="mid-divider"></div>
+
+        <div class="tn-title"><h1 data-title="true">Make eye contact, not a scan.</h1></div>
+        <div class="tn-message"><p data-message="true">Pick one person, finish the thought, then move to the next.</p></div>
+
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="folio" data-counter="true">04 / 06</div>
+      </section>
+
+      <!-- Four -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="band-top flip">
+          <div class="num-half"><p class="pretitle" data-tagline="true">Four.</p></div>
+          <div class="photo-half"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Warm-toned photo of a person pausing mid-sentence with a composed, thoughtful expression, quiet beige studio, soft shadow" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/speak-so-listen/slide-05.png"/></div>
+        </div>
+        <div class="frame-h frame-top"></div>
+        <div class="frame-h frame-bottom"></div>
+        <div class="frame-v frame-left"></div>
+        <div class="frame-v frame-right"></div>
+        <div class="mid-divider"></div>
+
+        <div class="tn-title"><h1 data-title="true">Let silence do some of the work.</h1></div>
+        <div class="tn-message"><p data-message="true">A pause after your point is more persuasive than filling it.</p></div>
+
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="folio" data-counter="true">05 / 06</div>
+      </section>
+
+      <!-- Five -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="band-top">
+          <div class="num-half"><p class="pretitle" data-tagline="true">Five.</p></div>
+          <div class="photo-half"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Warm-toned photo of a person asking a genuine question, open hand gesture, curious expression, minimal beige studio backdrop" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/speak-so-listen/slide-06.png"/></div>
+        </div>
+        <div class="frame-h frame-top"></div>
+        <div class="frame-h frame-bottom"></div>
+        <div class="frame-v frame-left"></div>
+        <div class="frame-v frame-right"></div>
+        <div class="mid-divider"></div>
+
+        <div class="tn-title"><h1 data-title="true">Ask questions you actually want answered.</h1></div>
+        <div class="tn-message"><p data-message="true">Curiosity reads as confidence — dead air rarely does.</p></div>
+
+        <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">YOURBRAND</span></div>
+        <div class="folio" data-counter="true">06 / 06</div>
+      </section>
+
+    </div>
+  </body>
+</html>

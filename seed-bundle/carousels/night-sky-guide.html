@@ -1,0 +1,297 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700;800;900&family=Work+Sans:wght@400;500;600;700&display=swap');
+
+    :root{
+      /* Brand role colors — only primary/secondary/accent move under a brand
+         skin. The navy canvas and its ink stay fixed literals so the "grey
+         geometric bold" reading surface holds AA legibility under any brand
+         palette; the cover's full-bleed wash IS the accent device, and its
+         ink flips to --on-fill so it never goes unreadable. */
+      --primary:var(--brand-primary,#101b26);
+      --secondary:var(--brand-secondary,#0c1420);
+      --accent:var(--brand-accent,#d9e43e);
+      --highlight:var(--brand-accent,#d9e43e);
+      --bg:var(--brand-bg,#101b26);
+      --surface:var(--brand-surface,#182437);
+      --text-high:var(--brand-text,#f5f4ec);
+      --text-low:var(--brand-text-muted,rgba(245,244,236,.72));
+      --border:var(--brand-border,rgba(245,244,236,.16));
+      --on-fill:var(--brand-on-accent,#101b26);
+      --on-primary:var(--brand-on-primary,#ffffff);
+    }
+
+    *{box-sizing:border-box;}
+
+    .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#050505;}
+
+    .slide{
+      width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+      background:var(--bg);font-family:'Work Sans',sans-serif;
+    }
+
+    /* ── cover wash: accent fills the whole canvas, dark corner discs bite
+       two rounded notches out of it — the reference's signature geometric
+       move, rebuilt in CSS so it recolors cleanly. ── */
+    .slide.cover{background:var(--primary);}
+    .cover-field{position:absolute;inset:0;background:var(--accent);z-index:0;}
+    .corner-cut{position:absolute;border-radius:50%;background:var(--primary);z-index:1;}
+    .corner-cut.tr{top:-190px;right:-190px;width:420px;height:420px;}
+    .corner-cut.bl{bottom:-140px;left:-140px;width:220px;height:220px;}
+
+    /* ── interior slides carry the same two-tone geometric move: a lighter
+       band across the bottom, notched with a rounded cutout — echoes the
+       cover's blob language and gives the frame real bottom-half weight. ── */
+    .base-band{position:absolute;left:0;right:0;bottom:0;height:340px;background:var(--surface);z-index:0;}
+    .band-notch{position:absolute;right:-140px;bottom:200px;width:380px;height:380px;border-radius:50%;background:var(--accent);opacity:.92;z-index:0;}
+
+    /* ── vertical sparkle column, present on every slide ── */
+    .star-col{position:absolute;right:96px;top:392px;display:flex;flex-direction:column;gap:60px;z-index:2;}
+    .star-col svg{width:38px;height:38px;display:block;}
+    .cover .star-col svg{color:var(--on-fill);}
+    .tip .star-col svg{color:var(--accent);}
+
+    /* ── crescent badge, cover only ── */
+    .moon-badge{position:absolute;top:98px;right:96px;width:64px;height:64px;border:2.5px solid var(--on-fill);z-index:2;display:flex;align-items:center;justify-content:center;}
+    .crescent{width:26px;height:26px;border-radius:50%;background:var(--on-fill);position:relative;}
+    .crescent::after{content:'';position:absolute;top:-3px;left:9px;width:26px;height:26px;border-radius:50%;background:var(--accent);}
+
+    /* ── kicker: plain eyebrow on the cover, a filled chip on tip slides ── */
+    .tn-kicker{position:absolute;left:108px;top:104px;right:280px;z-index:2;}
+    .tn-kicker span{display:block;font-family:'Work Sans',sans-serif;font-weight:700;font-size:26px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-fill);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+    .kicker-chip{position:absolute;left:108px;top:100px;z-index:2;}
+    .kicker-chip span{display:inline-block;background:var(--accent);color:var(--on-fill);font-family:'Work Sans',sans-serif;font-weight:700;font-size:23px;letter-spacing:.1em;text-transform:uppercase;padding:13px 28px;border-radius:999px;white-space:nowrap;}
+
+    /* ── title ── */
+    .tn-title{position:absolute;left:108px;z-index:2;}
+    .tn-title h1{
+      margin:0;font-family:'League Spartan',sans-serif;font-weight:800;text-transform:uppercase;
+      letter-spacing:-.01em;line-height:.95;color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.22em;
+    }
+    .cover .tn-title{top:266px;width:780px;height:660px;}
+    .cover .tn-title h1{font-size:110px;-webkit-line-clamp:4;color:var(--on-fill);}
+    .tip .tn-title{top:298px;width:760px;height:220px;}
+    .tip .tn-title h1{font-size:80px;-webkit-line-clamp:2;}
+
+    /* ── accent rule under tip titles — a second, unmissable brand device ── */
+    .title-rule{position:absolute;left:108px;top:524px;width:120px;height:8px;background:var(--accent);border-radius:4px;z-index:2;}
+
+    /* ── body copy ── */
+    .tn-message{position:absolute;left:108px;z-index:2;}
+    .tn-message p{
+      margin:0;font-family:'Work Sans',sans-serif;font-weight:400;line-height:1.45;
+      display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.25em;
+    }
+    .cover .tn-message{top:942px;width:700px;height:160px;}
+    .cover .tn-message p{font-size:32px;color:var(--on-fill);-webkit-line-clamp:3;}
+    .tip .tn-message{top:574px;width:700px;height:420px;}
+    .tip .tn-message p{font-size:35px;color:var(--text-low);-webkit-line-clamp:6;}
+
+    /* ── CTA pill ── */
+    .cta-pill{position:absolute;left:108px;top:1120px;display:inline-flex;align-items:center;gap:22px;border-radius:999px;padding:19px 32px;z-index:2;}
+    .cta-pill span{font-family:'Work Sans',sans-serif;font-weight:700;font-size:26px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;}
+    .cta-pill svg{width:52px;height:18px;display:block;}
+    .cover .cta-pill{border:2.5px solid var(--on-fill);}
+    .cover .cta-pill span, .cover .cta-pill svg{color:var(--on-fill);}
+    .tip .cta-pill{background:var(--accent);}
+    .tip .cta-pill span, .tip .cta-pill svg{color:var(--on-fill);}
+
+    /* ── footer: brand lockup + folio, mirrors exemplar's shared flex row ── */
+    .foot{position:absolute;left:108px;right:108px;bottom:64px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+    .brand-mark-clip{flex:none;height:30px;display:flex;align-items:center;}
+    .brand-mark{height:30px;width:auto;max-width:110px;object-fit:contain;display:block;}
+    .brand-word{font-family:'League Spartan',sans-serif;font-weight:800;font-size:27px;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;}
+    .lockup{display:inline-flex;align-items:center;gap:14px;}
+    .cover .brand-word{color:var(--on-fill);}
+    .tip .brand-word{color:var(--text-high);}
+
+    .folio{width:54px;height:54px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;}
+    .folio span{font-family:'Work Sans',sans-serif;font-weight:700;font-size:21px;color:var(--on-fill);}
+  </style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <!-- Cover -->
+    <section class="slide cover" data-cg-slide-type="text">
+      <div class="cover-field" aria-hidden="true"></div>
+      <div class="corner-cut tr" aria-hidden="true"></div>
+      <div class="corner-cut bl" aria-hidden="true"></div>
+
+      <div class="moon-badge" aria-hidden="true"><div class="crescent"></div></div>
+
+      <div class="star-col" aria-hidden="true">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+
+      <div class="tn-kicker"><span data-tagline="true">Starlog Field Guide</span></div>
+
+      <div class="tn-title"><h1 data-title="true">5 Steps To Your First Night Under The Stars</h1></div>
+
+      <div class="tn-message"><p data-message="true">A short field guide to finding true darkness, reading the sky, and staying out past the streetlights.</p></div>
+
+      <div class="cta-pill" data-cta="true">
+        <span>See All 5 Steps</span>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 20" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M2 10H58M58 10L48 2M58 10L48 18" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </div>
+
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='6'%20fill='%23808080'%20fill-opacity='0.35'/%3E%3C/svg%3E"></span>
+          <span class="brand-word">Starlog</span>
+        </div>
+        <div class="folio"><span>01</span></div>
+      </div>
+    </section>
+
+    <!-- Step 1 -->
+    <section class="slide tip" data-cg-slide-type="text">
+      <div class="star-col" aria-hidden="true">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+
+      <div class="base-band" aria-hidden="true"></div>
+      <div class="band-notch" aria-hidden="true"></div>
+
+      <div class="kicker-chip"><span>Step 01</span></div>
+
+      <div class="tn-title"><h1 data-title="true">Find Real Darkness</h1></div>
+      <div class="title-rule" aria-hidden="true"></div>
+
+      <div class="tn-message"><p data-message="true">Drive twenty minutes past the last streetlight. A dark-sky map shows the nearest low light-pollution zone — even one class darker reveals hundreds more stars.</p></div>
+
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='6'%20fill='%23808080'%20fill-opacity='0.35'/%3E%3C/svg%3E"></span>
+          <span class="brand-word">Starlog</span>
+        </div>
+        <div class="folio"><span>02</span></div>
+      </div>
+    </section>
+
+    <!-- Step 2 -->
+    <section class="slide tip" data-cg-slide-type="text">
+      <div class="star-col" aria-hidden="true">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+
+      <div class="base-band" aria-hidden="true"></div>
+      <div class="band-notch" aria-hidden="true"></div>
+
+      <div class="kicker-chip"><span>Step 02</span></div>
+
+      <div class="tn-title"><h1 data-title="true">Let Your Eyes Adjust</h1></div>
+      <div class="title-rule" aria-hidden="true"></div>
+
+      <div class="tn-message"><p data-message="true">Give your eyes twenty minutes without white light. Switch your phone to red mode and resist checking it — night vision resets the moment you glance at a screen.</p></div>
+
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='6'%20fill='%23808080'%20fill-opacity='0.35'/%3E%3C/svg%3E"></span>
+          <span class="brand-word">Starlog</span>
+        </div>
+        <div class="folio"><span>03</span></div>
+      </div>
+    </section>
+
+    <!-- Step 3 -->
+    <section class="slide tip" data-cg-slide-type="text">
+      <div class="star-col" aria-hidden="true">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+
+      <div class="base-band" aria-hidden="true"></div>
+      <div class="band-notch" aria-hidden="true"></div>
+
+      <div class="kicker-chip"><span>Step 03</span></div>
+
+      <div class="tn-title"><h1 data-title="true">Learn Three Anchor Stars</h1></div>
+      <div class="title-rule" aria-hidden="true"></div>
+
+      <div class="tn-message"><p data-message="true">Start with Polaris, Orion's Belt, and the Big Dipper. Once you can find these three, every other constellation is just a hop away.</p></div>
+
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='6'%20fill='%23808080'%20fill-opacity='0.35'/%3E%3C/svg%3E"></span>
+          <span class="brand-word">Starlog</span>
+        </div>
+        <div class="folio"><span>04</span></div>
+      </div>
+    </section>
+
+    <!-- Step 4 -->
+    <section class="slide tip" data-cg-slide-type="text">
+      <div class="star-col" aria-hidden="true">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+
+      <div class="base-band" aria-hidden="true"></div>
+      <div class="band-notch" aria-hidden="true"></div>
+
+      <div class="kicker-chip"><span>Step 04</span></div>
+
+      <div class="tn-title"><h1 data-title="true">Chase The New Moon</h1></div>
+      <div class="title-rule" aria-hidden="true"></div>
+
+      <div class="tn-message"><p data-message="true">Check the lunar calendar before you go. A new moon means the darkest sky of the month — a full moon can wash out everything but the brightest planets.</p></div>
+
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='6'%20fill='%23808080'%20fill-opacity='0.35'/%3E%3C/svg%3E"></span>
+          <span class="brand-word">Starlog</span>
+        </div>
+        <div class="folio"><span>05</span></div>
+      </div>
+    </section>
+
+    <!-- Step 5 / closer -->
+    <section class="slide tip" data-cg-slide-type="text">
+      <div class="star-col" aria-hidden="true">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 1C12.6 7.2 14.8 10.4 21 11.5C14.8 12.6 12.6 15.8 12 22C11.4 15.8 9.2 12.6 3 11.5C9.2 10.4 11.4 7.2 12 1Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+
+      <div class="base-band" aria-hidden="true"></div>
+      <div class="band-notch" aria-hidden="true"></div>
+
+      <div class="kicker-chip"><span>Step 05</span></div>
+
+      <div class="tn-title"><h1 data-title="true">Pack Light, Stay Late</h1></div>
+      <div class="title-rule" aria-hidden="true"></div>
+
+      <div class="tn-message"><p data-message="true">Bring a red flashlight, a blanket, and a star chart app. Then put the phone away — the best views come after the first hour of patience.</p></div>
+
+      <div class="cta-pill" data-cta="true">
+        <span>Start Your Starlog</span>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 20" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M2 10H58M58 10L48 2M58 10L48 18" stroke="var(--cg-stroke)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </div>
+
+      <div class="foot">
+        <div class="lockup">
+          <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='6'%20fill='%23808080'%20fill-opacity='0.35'/%3E%3C/svg%3E"></span>
+          <span class="brand-word">Starlog</span>
+        </div>
+        <div class="folio"><span>06</span></div>
+      </div>
+    </section>
+
+  </div>
+
+
+</body></html>

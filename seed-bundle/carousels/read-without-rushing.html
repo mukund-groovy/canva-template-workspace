@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Public+Sans:wght@400;600;700&display=swap');
+
+  :root{
+    /* Brand role colors. --bg (cream canvas) and --text-high/-low (near-black
+       ink) are fixed literals for legibility; only --primary/--secondary/--accent
+       move under a brand skin. Every "filled surface" device in this deck (the
+       lockup pill, the counter bar, the page-number panel, the CTA pill) mixes
+       --accent into a near-black base rather than using it raw, so the surface
+       stays reliably dark — and the fixed light ink sitting on it (#f7f2e6)
+       stays AA-safe — no matter how light a brand's own accent is. */
+    --primary:var(--brand-primary,#17305c);
+    --secondary:var(--brand-secondary,#2a58b6);
+    --accent:var(--brand-accent,#2a58b6);
+    --highlight:var(--brand-accent,#2a58b6);
+    --bg:var(--brand-bg,#f3ede1);
+    --surface:var(--brand-surface,#ffffff);
+    --text-high:var(--brand-ink,#201c14);
+    --text-low:var(--brand-text-muted,rgba(32,28,20,.62));
+    --border:var(--brand-border,rgba(32,28,20,.14));
+    --on-fill:var(--brand-on-accent,#ffffff);
+    --on-primary:var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);font-family:'Public Sans',sans-serif;
+  }
+  .serif{font-family:'Lora',serif;}
+
+  /* ── panel slides: accent mixed deep into near-black so any brand accent,
+     however light, still yields a dark reading surface for the fixed light
+     ink (#f7f2e6) sitting on it. ── */
+  .slide--panel{background:color-mix(in srgb, var(--accent) 32%, #0b1220 68%);}
+
+  /* ── brand lockup: a pill whose fill uses the same safe accent-mix, so the
+     fixed light wordmark on it is always legible. Present on every slide —
+     the guaranteed per-slide brand device. ── */
+  .lockup{position:absolute;top:72px;display:inline-flex;align-items:center;gap:14px;z-index:4;
+    padding:19px 30px;border-radius:999px;
+    background:color-mix(in srgb, var(--accent) 30%, #0b1220 70%);}
+  .lockup--center{left:50%;transform:translateX(-50%);}
+  .lockup--left{left:108px;}
+  .lockup--onpanel{left:108px;background:rgba(247,242,230,.14);border:1px solid rgba(247,242,230,.22);}
+  .brand-mark{height:24px;width:auto;max-width:80px;object-fit:contain;display:block;}
+  .brand-word{font-family:'Public Sans',sans-serif;font-weight:700;font-size:21px;
+    letter-spacing:.16em;text-transform:uppercase;color:#f7f2e6;white-space:nowrap;}
+
+  .counter{position:absolute;top:80px;right:108px;z-index:4;
+    font-family:'Public Sans',sans-serif;font-weight:700;font-size:22px;
+    letter-spacing:.14em;color:var(--primary);}
+  .counter--light{color:#f7f2e6;right:150px;}
+
+  /* ── text wrappers: node stays in normal flow inside its own absolute box ── */
+  .tn-title{position:absolute;}
+  .tn-title h1{margin:0;font-weight:700;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.18em;}
+  .tn-body{position:absolute;}
+  .tn-body p{margin:0;font-weight:400;color:var(--text-low);
+    display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.2em;}
+
+  .hl{background:color-mix(in srgb, var(--accent) 34%, transparent);color:var(--text-high);
+    padding:.04em .1em;border-radius:.16em;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+    font-weight:600;}
+
+  /* ── cover / closer: centered composition ── */
+  .tn-title--cover{left:50%;top:250px;width:820px;transform:translateX(-50%);text-align:center;}
+  .tn-title--cover h1{font-size:86px;line-height:1.08;letter-spacing:-.01em;-webkit-line-clamp:4;}
+  .tn-body--cover{left:50%;top:648px;width:640px;transform:translateX(-50%);text-align:center;}
+  .tn-body--cover p{font-size:33px;line-height:1.42;-webkit-line-clamp:2;}
+
+  .tn-title--close{left:50%;top:440px;width:820px;transform:translateX(-50%);text-align:center;}
+  .tn-title--close h1{font-size:78px;line-height:1.1;letter-spacing:-.01em;-webkit-line-clamp:3;}
+
+  .cta-pill{position:absolute;left:50%;top:820px;transform:translateX(-50%);z-index:3;
+    padding:26px 48px;border-radius:999px;max-width:640px;
+    background:color-mix(in srgb, var(--accent) 30%, #0b1220 70%);}
+  .cta-pill p{margin:0;font-family:'Public Sans',sans-serif;font-weight:600;font-size:28px;
+    line-height:1.3;color:#f7f2e6;text-align:center;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.15em;}
+
+  /* ── hand-drawn arrow, cover only ── */
+  .arrow-deco{position:absolute;left:50%;top:920px;width:300px;height:118px;
+    transform:translateX(-50%) rotate(-4deg);}
+
+  /* ── recurring "full stop" dot: a small solid disc, a quiet nod to the deck's
+     pause/slow-down theme, and the device that keeps every slide's lower third
+     from reading as a dead band. Raw accent on cream (no text sits on it);
+     a soft fixed tint on the already-dark panel slides. ── */
+  .dot-deco{position:absolute;left:50%;top:1030px;width:220px;height:220px;
+    border-radius:50%;transform:translateX(-50%);background:none;
+    border:15px solid var(--accent);}
+  .dot-deco--left{left:108px;top:980px;width:320px;height:320px;transform:none;border:none;background:rgba(247,242,230,.16);}
+  .dot-deco--panel{background:rgba(247,242,230,.16);}
+
+  /* ── statement slide (02): centered big claim + a highlighted line ── */
+  .tn-title--stmt{left:108px;top:246px;width:864px;text-align:center;}
+  .tn-title--stmt h1{font-size:56px;line-height:1.26;-webkit-line-clamp:5;}
+  .tn-body--stmt{left:190px;top:660px;width:700px;text-align:center;}
+  .tn-body--stmt p{font-size:32px;line-height:1.42;-webkit-line-clamp:4;}
+
+  /* ── left-column chapter slides (03 cream+bar, 04/05 panel) ── */
+  .tn-title--left{left:108px;top:404px;width:560px;}
+  .tn-title--left h1{font-size:74px;line-height:1.08;-webkit-line-clamp:2;}
+  .tn-body--left{left:108px;top:600px;width:560px;}
+  .tn-body--left p{font-size:33px;line-height:1.42;-webkit-line-clamp:5;}
+
+  .tn-title--wide{width:860px;}
+  .tn-title--wide h1{font-size:72px;-webkit-line-clamp:3;}
+  .tn-body--wide{width:760px;top:660px;}
+  .tn-body--wide p{-webkit-line-clamp:5;}
+
+  .tn-title--onpanel h1{color:#f7f2e6;}
+  .tn-body--onpanel p{color:rgba(247,242,230,.78);}
+
+  /* ── slide 03: right vertical accent bar with a watermark numeral ── */
+  .accent-bar{position:absolute;right:0;top:0;bottom:0;width:340px;z-index:1;
+    background:color-mix(in srgb, var(--accent) 34%, #0b1220 66%);
+    display:flex;align-items:flex-end;justify-content:center;padding-bottom:118px;}
+  .bar-num{font-family:'Lora',serif;font-weight:700;font-size:236px;line-height:1;color:#f7f2e6;opacity:.92;}
+
+  /* ── slide 05: quiet rule under the title, panel-safe fixed tint ── */
+  .rule-deco{position:absolute;left:108px;top:342px;width:120px;height:6px;border-radius:3px;
+    background:rgba(247,242,230,.5);}
+</style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <!-- 01 · Cover -->
+    <section class="slide" data-cg-slide-type="cover">
+      <div class="lockup lockup--center">
+        <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+        <span class="brand-word">YOURBRAND</span>
+      </div>
+      <div class="tn-title tn-title--cover"><h1 class="serif" data-title="true">How to Read Like You Have Time</h1></div>
+      <div class="tn-body tn-body--cover"><p data-tagline="true">A slower way to spend your evenings with a book you actually chose.</p></div>
+      <svg class="arrow-deco" data-cg-svg="" data-cg-preserve="" viewBox="0 0 300 118" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+        <path d="M10 64C64 86 142 92 218 54" stroke="var(--cg-stroke)" stroke-width="13" stroke-linecap="round"></path>
+        <path d="M178 28C198 36 214 44 230 56C216 64 196 76 188 92" stroke="var(--cg-stroke)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <div class="dot-deco" aria-hidden="true"></div>
+    </section>
+
+    <!-- 02 · Statement -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="lockup lockup--left">
+        <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+        <span class="brand-word">YOURBRAND</span>
+      </div>
+      <div class="counter">02</div>
+      <div class="tn-title tn-title--stmt"><h1 class="serif" data-title="true">Somewhere between skimming for content and chasing a yearly goal, books quietly stopped feeling like rest.</h1></div>
+      <div class="tn-body tn-body--stmt"><p data-message="true">You don't owe anyone a book count. <span class="hl">The only reading that counts is the reading you enjoy.</span></p></div>
+      <div class="dot-deco" aria-hidden="true"></div>
+    </section>
+
+    <!-- 03 · Chapter, cream + accent bar -->
+    <section class="slide" data-cg-slide-type="text">
+      <div class="accent-bar" aria-hidden="true"><span class="bar-num serif">3</span></div>
+      <div class="lockup lockup--left">
+        <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+        <span class="brand-word">YOURBRAND</span>
+      </div>
+      <div class="counter counter--light">03</div>
+      <div class="tn-title tn-title--left"><h1 class="serif" data-title="true">Read One Book at a Time</h1></div>
+      <div class="tn-body tn-body--left"><p data-message="true">Five half-finished books on your nightstand isn't ambition, it's noise. Pick one, and let it have your full attention.</p></div>
+    </section>
+
+    <!-- 04 · Panel -->
+    <section class="slide slide--panel" data-cg-slide-type="text">
+      <div class="rule-deco" aria-hidden="true"></div>
+      <div class="lockup lockup--onpanel">
+        <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+        <span class="brand-word">YOURBRAND</span>
+      </div>
+      <div class="counter counter--light">04</div>
+      <div class="tn-title tn-title--left tn-title--wide tn-title--onpanel"><h1 class="serif" data-title="true">Boring Chapters Are Allowed</h1></div>
+      <div class="tn-body tn-body--left tn-body--wide tn-body--onpanel"><p data-message="true">Not every page has to grip you or race toward a twist. Some books earn their ending slowly, so give them the room to.</p></div>
+      <div class="dot-deco dot-deco--left dot-deco--panel" aria-hidden="true"></div>
+    </section>
+
+    <!-- 05 · Panel -->
+    <section class="slide slide--panel" data-cg-slide-type="text">
+      <div class="rule-deco" aria-hidden="true"></div>
+      <div class="lockup lockup--onpanel">
+        <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+        <span class="brand-word">YOURBRAND</span>
+      </div>
+      <div class="counter counter--light">05</div>
+      <div class="tn-title tn-title--left tn-title--wide tn-title--onpanel"><h1 class="serif" data-title="true">Rereading Isn't Wasting Time</h1></div>
+      <div class="tn-body tn-body--left tn-body--wide tn-body--onpanel"><p data-message="true">A book you already love will meet you differently the second time. That's not repetition, that's growth.</p></div>
+      <div class="dot-deco dot-deco--left dot-deco--panel" aria-hidden="true"></div>
+    </section>
+
+    <!-- 06 · Closer / CTA -->
+    <section class="slide" data-cg-slide-type="cta">
+      <div class="lockup lockup--center">
+        <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E">
+        <span class="brand-word">YOURBRAND</span>
+      </div>
+      <div class="tn-title tn-title--close"><h1 class="serif" data-title="true">Pick Up the Book. There's No Rush.</h1></div>
+      <div class="cta-pill"><p data-cta="true">Save this for your next slow evening.</p></div>
+      <div class="dot-deco" aria-hidden="true"></div>
+    </section>
+
+  </div>
+
+
+</body></html>

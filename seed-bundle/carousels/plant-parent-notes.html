@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&family=Arimo:wght@400;700&display=swap');
+
+      :root{
+        /* Brand role colors — applied ONLY to the notes-app chrome, the
+           numeral badge, the card's left rule, the swipe hint and the folio
+           counter. The card itself, its title and body copy are FIXED
+           literals so the "notes app" surface stays AA-legible under any
+           brand palette. */
+        --primary:var(--brand-primary,#B5590F);
+        --secondary:var(--brand-secondary,#8C4308);
+        --accent:var(--brand-accent,#F0981E);
+        --highlight:var(--brand-accent,#F0981E);
+        --bg:var(--brand-bg,#FAF6EC);
+        --surface:var(--brand-surface,var(--brand-bg-alt,#F1E7D2));
+        --text-high:var(--brand-ink,var(--brand-text,#3A2E1E));
+        --text-low:var(--brand-text-muted,rgba(58,46,30,.62));
+        --border:var(--brand-border,rgba(58,46,30,.14));
+        --on-fill:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:#cbb896;
+        font-family:'Arimo',sans-serif;
+      }
+
+      /* ── full-bleed content photo ── */
+      .photo{position:absolute;inset:0;z-index:0;}
+      .photo img{width:100%;height:100%;object-fit:cover;display:block;background:#cbb896;}
+
+      /* ── bottom scrim: guarantees the footer row reads against ANY photo,
+         and carries real brand-accent/-primary coverage across a large area. ── */
+      .foot-scrim{
+        position:absolute;left:0;right:0;bottom:0;height:410px;z-index:1;pointer-events:none;
+        background:linear-gradient(180deg,
+          transparent 0%,
+          color-mix(in srgb, var(--primary) 22%, #0a0603 78%) 48%,
+          color-mix(in srgb, var(--accent) 34%, #0a0603 66%) 100%);
+      }
+
+      /* ── the floating "notes app" card — fixed cream literal, never re-skinned ── */
+      .note-card{
+        position:absolute;left:90px;width:900px;height:640px;z-index:2;
+        background:#FFFDF7;border-radius:26px;overflow:hidden;
+        box-shadow:0 26px 50px rgba(20,14,8,.32);
+      }
+      .note-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--accent);}
+
+      .slide.card-hi .note-card{top:104px;}
+      .slide.card-lo .note-card{top:590px;}
+
+      /* ── notes-app "last edited" meta line: authentic Notes-app chrome that
+         also gives the taller card real content in its lower half instead of
+         dead whitespace — decorative only, no data-* slot. ── */
+      .note-meta{
+        position:absolute;left:76px;right:56px;bottom:36px;
+        display:flex;align-items:center;gap:10px;
+        font-family:'Arimo',sans-serif;font-weight:400;font-size:20px;line-height:1.6;
+        color:rgba(58,46,30,.4);
+      }
+      .note-meta .dot{width:5px;height:5px;border-radius:50%;background:rgba(58,46,30,.3);flex:none;}
+
+      .note-head{position:absolute;top:38px;left:76px;right:56px;display:flex;align-items:center;justify-content:space-between;}
+      .nh-left{display:flex;align-items:center;gap:8px;}
+      .nh-left svg{width:15px;height:15px;color:var(--secondary);}
+      .nh-left span{font-family:'Arimo',sans-serif;font-weight:700;font-size:22px;color:var(--primary);}
+      .nh-right{display:flex;align-items:center;gap:22px;}
+      .nh-right svg{width:24px;height:24px;color:var(--accent);}
+      .nh-right span{font-family:'Arimo',sans-serif;font-weight:700;font-size:22px;color:var(--primary);}
+
+      .note-rule{position:absolute;top:80px;left:76px;right:56px;height:2px;background:rgba(58,46,30,.14);}
+
+      .note-num{
+        position:absolute;top:98px;left:76px;width:44px;height:44px;border-radius:50%;
+        background:var(--primary);display:flex;align-items:center;justify-content:center;
+      }
+      .note-num span{font-family:'DM Sans',sans-serif;font-weight:700;font-size:20px;color:var(--on-primary);}
+
+      /* ── isolated positioned wrapper per text node ── */
+      .tn-title{position:absolute;left:76px;right:56px;}
+      .tn-title h1{
+        margin:0;font-family:'DM Sans',sans-serif;font-weight:700;font-size:39px;line-height:1.16;
+        letter-spacing:-.01em;text-transform:uppercase;color:#3A2E1E;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:8px;
+      }
+      .note-card .tn-title{top:154px;}
+      .note-card.note-card--cover .tn-title{top:100px;}
+
+      .tn-message{position:absolute;left:76px;right:56px;}
+      .tn-message p{
+        margin:0;font-family:'Arimo',sans-serif;font-weight:400;font-size:25px;line-height:1.32;
+        color:rgba(58,46,30,.66);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:6px;
+      }
+      .note-card .tn-message{top:270px;}
+      .note-card.note-card--cover .tn-message{top:218px;}
+
+      /* ── footer: brand lockup + folio counter, always on the scrim ── */
+      .foot{position:absolute;left:76px;right:76px;bottom:40px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+      .brand-mark-clip{flex:none;height:34px;display:flex;align-items:center;}
+      .brand-mark{height:34px;width:auto;max-width:120px;object-fit:contain;display:block;}
+      .brand-word{font-family:'DM Sans',sans-serif;font-weight:700;font-size:26px;color:#FBF3E4;white-space:nowrap;}
+      .lockup{display:inline-flex;align-items:center;gap:14px;}
+      /* fixed light literal: this sits on the fixed-dark foot-scrim, never on a
+         brand fill, so it must stay legible regardless of accent lightness —
+         same reasoning as .brand-word / .swipe just above. */
+      .cg-slide-counter{font-family:'Arimo',sans-serif;font-weight:700;font-size:22px;letter-spacing:.12em;color:#FBF3E4;}
+
+      .swipe{position:absolute;bottom:88px;right:76px;z-index:3;font-family:'Arimo',sans-serif;font-weight:700;font-style:italic;font-size:26px;color:#FBF3E4;}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Cover -->
+      <section class="slide card-lo" data-cg-slide-type="text">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Warm natural-light close-up photo of a hand gently tying up a trailing pothos vine on a wooden shelf crowded with houseplants, soft morning window light" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/plant-parent-notes/slide-01.png"></div>
+        <div class="foot-scrim" aria-hidden="true"></div>
+
+        <div class="note-card note-card--cover">
+          <div class="note-head">
+            <span class="nh-left"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M15 4L7 12L15 20" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Notes</span></span>
+            <span class="nh-right"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M12 15V4M12 4L7 9M12 4L17 9M5 15V18C5 19.1046 5.89543 20 7 20H17C18.1046 20 19 19.1046 19 18V15" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 7H20M4 12H20M4 17H14" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg><span>Done</span></span>
+          </div>
+          <div class="note-rule"></div>
+          <div class="tn-title"><h1 data-title="true">Notes to myself as a plant parent</h1></div>
+          <div class="tn-message"><p data-message="true">Everything my houseplants taught me after I stopped trying to keep them perfect.</p></div>
+          <div class="note-meta" aria-hidden="true"><span>Notes</span><span class="dot"></span><span>6 entries</span></div>
+        </div>
+
+        <div class="swipe" data-swipe="true">Swipe →</div>
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ROOTNOTE</span></div>
+          <div class="cg-slide-counter" data-counter="true">01 / 06</div>
+        </div>
+      </section>
+
+      <!-- Note 1 -->
+      <section class="slide card-hi" data-cg-slide-type="text">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Close-up photo of a hand watering a fiddle leaf fig in a terracotta pot, sunlit kitchen counter, warm minimal home" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/plant-parent-notes/slide-02.png"></div>
+        <div class="foot-scrim" aria-hidden="true"></div>
+
+        <div class="note-card">
+          <div class="note-head">
+            <span class="nh-left"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M15 4L7 12L15 20" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Notes</span></span>
+            <span class="nh-right"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M12 15V4M12 4L7 9M12 4L17 9M5 15V18C5 19.1046 5.89543 20 7 20H17C18.1046 20 19 19.1046 19 18V15" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 7H20M4 12H20M4 17H14" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg><span>Done</span></span>
+          </div>
+          <div class="note-rule"></div>
+          <div class="note-num"><span>1</span></div>
+          <div class="tn-title"><h1 data-title="true">Brown tips mean thirsty, not dying.</h1></div>
+          <div class="tn-message"><p data-message="true">Most of my plants wanted water, not sympathy.</p></div>
+          <div class="note-meta" aria-hidden="true"><span>Last edited Tuesday</span><span class="dot"></span><span>Notes</span></div>
+        </div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ROOTNOTE</span></div>
+          <div class="cg-slide-counter" data-counter="true">02 / 06</div>
+        </div>
+      </section>
+
+      <!-- Note 2 -->
+      <section class="slide card-lo" data-cg-slide-type="text">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Photo of a woman inspecting a pothos leaf with a few yellowing leaves, gentle care, bright plant-filled apartment corner" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/plant-parent-notes/slide-03.png"></div>
+        <div class="foot-scrim" aria-hidden="true"></div>
+
+        <div class="note-card">
+          <div class="note-head">
+            <span class="nh-left"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M15 4L7 12L15 20" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Notes</span></span>
+            <span class="nh-right"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M12 15V4M12 4L7 9M12 4L17 9M5 15V18C5 19.1046 5.89543 20 7 20H17C18.1046 20 19 19.1046 19 18V15" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 7H20M4 12H20M4 17H14" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg><span>Done</span></span>
+          </div>
+          <div class="note-rule"></div>
+          <div class="note-num"><span>2</span></div>
+          <div class="tn-title"><h1 data-title="true">A yellow leaf is not a failed plant.</h1></div>
+          <div class="tn-message"><p data-message="true">Every plant sheds what it no longer needs.</p></div>
+          <div class="note-meta" aria-hidden="true"><span>Last edited Thursday</span><span class="dot"></span><span>Notes</span></div>
+        </div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ROOTNOTE</span></div>
+          <div class="cg-slide-counter" data-counter="true">03 / 06</div>
+        </div>
+      </section>
+
+      <!-- Note 3 -->
+      <section class="slide card-hi" data-cg-slide-type="text">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Photo of a sunny windowsill lined with small potted succulents and trailing plants, moving a pot into direct light, cozy home" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/plant-parent-notes/slide-04.png"></div>
+        <div class="foot-scrim" aria-hidden="true"></div>
+
+        <div class="note-card">
+          <div class="note-head">
+            <span class="nh-left"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M15 4L7 12L15 20" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Notes</span></span>
+            <span class="nh-right"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M12 15V4M12 4L7 9M12 4L17 9M5 15V18C5 19.1046 5.89543 20 7 20H17C18.1046 20 19 19.1046 19 18V15" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 7H20M4 12H20M4 17H14" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg><span>Done</span></span>
+          </div>
+          <div class="note-rule"></div>
+          <div class="note-num"><span>3</span></div>
+          <div class="tn-title"><h1 data-title="true">Light fixes more than water ever will.</h1></div>
+          <div class="tn-message"><p data-message="true">I kept drowning plants that just wanted a sunnier spot.</p></div>
+          <div class="note-meta" aria-hidden="true"><span>Last edited Saturday</span><span class="dot"></span><span>Notes</span></div>
+        </div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ROOTNOTE</span></div>
+          <div class="cg-slide-counter" data-counter="true">04 / 06</div>
+        </div>
+      </section>
+
+      <!-- Note 4 -->
+      <section class="slide card-lo" data-cg-slide-type="text">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Photo of a lopsided, slightly leggy monstera plant on a stool in a cheerful sunlit living room, imperfect but thriving" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/plant-parent-notes/slide-05.png"></div>
+        <div class="foot-scrim" aria-hidden="true"></div>
+
+        <div class="note-card">
+          <div class="note-head">
+            <span class="nh-left"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M15 4L7 12L15 20" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Notes</span></span>
+            <span class="nh-right"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M12 15V4M12 4L7 9M12 4L17 9M5 15V18C5 19.1046 5.89543 20 7 20H17C18.1046 20 19 19.1046 19 18V15" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 7H20M4 12H20M4 17H14" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg><span>Done</span></span>
+          </div>
+          <div class="note-rule"></div>
+          <div class="note-num"><span>4</span></div>
+          <div class="tn-title"><h1 data-title="true">Lopsided and alive beats perfect and gone.</h1></div>
+          <div class="tn-message"><p data-message="true">I stopped chasing pretty and started chasing growing.</p></div>
+          <div class="note-meta" aria-hidden="true"><span>Last edited Sunday</span><span class="dot"></span><span>Notes</span></div>
+        </div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ROOTNOTE</span></div>
+          <div class="cg-slide-counter" data-counter="true">05 / 06</div>
+        </div>
+      </section>
+
+      <!-- Note 5 -->
+      <section class="slide card-hi" data-cg-slide-type="text">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" data-image-prompt="Photo of a cozy plant shelf with several thriving houseplants in mismatched pots, soft afternoon window light, lived-in apartment corner" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/plant-parent-notes/slide-06.png"></div>
+        <div class="foot-scrim" aria-hidden="true"></div>
+
+        <div class="note-card">
+          <div class="note-head">
+            <span class="nh-left"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--secondary);--cg-stroke:var(--secondary);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M15 4L7 12L15 20" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Notes</span></span>
+            <span class="nh-right"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M12 15V4M12 4L7 9M12 4L17 9M5 15V18C5 19.1046 5.89543 20 7 20H17C18.1046 20 19 19.1046 19 18V15" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 7H20M4 12H20M4 17H14" stroke="var(--cg-stroke)" stroke-width="2" stroke-linecap="round"></path></svg><span>Done</span></span>
+          </div>
+          <div class="note-rule"></div>
+          <div class="note-num"><span>5</span></div>
+          <div class="tn-title"><h1 data-title="true">The best plant parents killed a few first.</h1></div>
+          <div class="tn-message"><p data-message="true">Every one I lost taught me something the thriving ones couldn't.</p></div>
+          <div class="note-meta" aria-hidden="true"><span>Last edited today</span><span class="dot"></span><span>Notes</span></div>
+        </div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">ROOTNOTE</span></div>
+          <div class="cg-slide-counter" data-counter="true">06 / 06</div>
+        </div>
+      </section>
+
+    </div>
+  
+
+</body></html>

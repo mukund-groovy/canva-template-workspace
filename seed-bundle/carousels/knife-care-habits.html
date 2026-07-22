@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap');
+
+      :root{
+        /* Brand role colors — the brand preview re-skins ONLY --primary/--secondary/--accent.
+           Canvas literals and ink stay fixed so every slide keeps reading. */
+        --primary:var(--brand-primary,#241A12);
+        --secondary:var(--brand-secondary,#6B4530);
+        --accent:var(--brand-accent,#C97C3D);
+        --highlight:var(--brand-accent-2,#D9A441);
+        --bg:var(--brand-bg,#DAD5CB);
+        --surface:var(--brand-surface,#F4EFE4);
+        --text-high:var(--brand-ink,#241A12);
+        --text-low:var(--brand-text-muted,rgba(36,26,18,.64));
+        --border:var(--brand-border,rgba(36,26,18,.16));
+        --on-fill:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        font-family:'Work Sans',sans-serif;
+      }
+
+      /* ── per-slide backdrop: a fixed steel-to-walnut gradient identity,
+         mirrors the reference's own per-page literal — not brand-tunable. ── */
+      .slide.s1{background:#DAD5CB;}
+      .slide.s2{background:#D0C7B9;}
+      .slide.s3{background:#C4B7A2;}
+      .slide.s4{background:#B7A78D;}
+      .slide.s5{background:#AA9878;}
+      .slide.s6{background:#3A2A1D;}
+
+      /* ── decorative circle, mostly off-canvas — a soft brand-tinted wash,
+         echoes the reference's quarter-circle blob bottom-left ── */
+      .blob{position:absolute;left:-320px;bottom:-320px;width:760px;height:760px;border-radius:50%;
+        background:var(--accent);opacity:.12;z-index:0;pointer-events:none;}
+      .halo{position:absolute;right:-260px;top:-260px;width:560px;height:560px;border-radius:50%;
+        background:rgba(255,255,255,.16);z-index:0;pointer-events:none;}
+      .slide.s6 .halo{background:rgba(255,255,255,.05);}
+
+      /* ── circular photo badge, centered top ── */
+      .photo-circ{position:absolute;left:50%;top:64px;transform:translateX(-50%);
+        width:300px;height:300px;border-radius:50%;overflow:hidden;z-index:2;
+        border:7px solid var(--surface);box-shadow:0 22px 40px rgba(20,10,5,.32);}
+      .photo-circ img{width:100%;height:100%;object-fit:cover;display:block;background:#c9bda9;}
+
+      /* ── flat tracked kicker label (replaces the reference's curved arc-text —
+         SVG <text> can't reliably repaint on late webfont load, so this reads
+         the same "course label" idea as a plain, always-safe HTML run) ── */
+      .kicker{position:absolute;left:0;right:0;top:392px;z-index:2;text-align:center;
+        font-family:'Work Sans',sans-serif;font-weight:700;font-size:27px;letter-spacing:.32em;
+        text-transform:uppercase;color:var(--text-high);}
+      .slide.s6 .kicker{color:var(--on-dark);}
+
+      /* ── the brand device every slide carries: a solid accent chip ── */
+      .chip-num{position:absolute;left:50%;top:452px;transform:translateX(-50%);
+        width:92px;height:92px;border-radius:50%;background:var(--accent);z-index:2;
+        display:flex;align-items:center;justify-content:center;box-shadow:0 12px 24px rgba(20,10,5,.24);}
+      .chip-num span{font-family:'Oswald',sans-serif;font-weight:700;font-size:36px;color:var(--on-fill);}
+
+      .chip-pill{position:absolute;left:50%;top:456px;transform:translateX(-50%);
+        height:64px;padding:0 36px;border-radius:999px;background:var(--accent);z-index:2;
+        display:flex;align-items:center;justify-content:center;box-shadow:0 12px 24px rgba(20,10,5,.24);}
+      .chip-pill span{font-family:'Work Sans',sans-serif;font-weight:700;font-size:25px;
+        letter-spacing:.08em;text-transform:uppercase;color:var(--on-fill);white-space:nowrap;}
+
+      /* ── headline: isolated wrapper, text stays in normal flow ── */
+      .tn-title{position:absolute;left:96px;right:96px;z-index:2;text-align:center;}
+      .tn-title h1{margin:0;font-family:'Oswald',sans-serif;font-weight:700;font-size:98px;line-height:1.1;
+        color:var(--text-high);letter-spacing:-.005em;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.16em;}
+      .slide.tip .tn-title{top:580px;}
+      .slide.s1 .tn-title{top:566px;}
+      .slide.s1 .tn-title h1{font-size:100px;-webkit-line-clamp:3;}
+      .slide.s6 .tn-title{top:614px;}
+      .slide.s6 .tn-title h1{font-size:88px;-webkit-line-clamp:2;color:var(--on-dark);}
+
+      /* ── body copy: exactly one per slide ── */
+      .tn-message{position:absolute;left:132px;right:132px;z-index:2;text-align:center;}
+      .tn-message p{margin:0;font-family:'Work Sans',sans-serif;font-weight:500;font-size:39px;line-height:1.36;
+        color:var(--text-low);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.22em;}
+      .slide.tip .tn-message{top:854px;}
+      .slide.s1 .tn-message{top:954px;}
+      .slide.s6 .tn-message{top:854px;}
+      .slide.s6 .tn-message p{color:var(--on-dark-low);}
+
+      /* ── closing CTA pill — the finale's own brand-bound surface ── */
+      .cta-pill{position:absolute;left:50%;top:1024px;transform:translateX(-50%);z-index:2;
+        height:86px;padding:0 44px;border-radius:999px;background:var(--accent);
+        display:inline-flex;align-items:center;gap:16px;box-shadow:0 16px 32px rgba(0,0,0,.32);white-space:nowrap;}
+      .cta-pill span{font-family:'Work Sans',sans-serif;font-weight:700;font-size:28px;letter-spacing:.03em;
+        color:var(--on-fill);}
+      .cta-pill svg{width:28px;height:28px;flex:none;color:var(--on-fill);}
+
+      /* ── decorative finale mark: vector only, never text ── */
+      .finale-mark{position:absolute;left:50%;top:200px;transform:translateX(-50%);z-index:2;
+        width:150px;height:150px;display:flex;align-items:center;justify-content:center;
+        border-radius:50%;background:rgba(255,255,255,.08);}
+      .finale-mark svg{width:78px;height:78px;color:var(--accent);}
+
+      /* ── footer: brand lockup + folio counter ── */
+      .foot{position:absolute;left:96px;right:96px;bottom:58px;z-index:3;
+        display:flex;align-items:center;justify-content:space-between;}
+      .brand-mark-clip{flex:none;height:32px;display:flex;align-items:center;}
+      .brand-mark{height:32px;width:auto;max-width:112px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Oswald',sans-serif;font-weight:600;font-size:27px;letter-spacing:.06em;
+        text-transform:uppercase;color:var(--text-high);white-space:nowrap;}
+      .lockup{display:inline-flex;align-items:center;gap:16px;}
+      .counter{font-family:'Work Sans',sans-serif;font-weight:700;font-size:23px;letter-spacing:.16em;
+        color:var(--text-high);}
+      .slide.s6 .brand-word,.slide.s6 .counter{color:var(--on-dark);}
+
+      /* ── finale-only literal light ink (a true dark surface, scoped here only —
+         canvas slides keep --text-high fixed dark; this does not touch the token) ── */
+      .slide.s6{--on-dark:#F3ECDD;--on-dark-low:rgba(243,236,221,.74);}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Cover -->
+      <section class="slide s1 cover" data-cg-slide-type="cover">
+        <div class="blob" aria-hidden="true"></div>
+        <div class="halo" aria-hidden="true"></div>
+        <div class="photo-circ"><img data-image="true" data-image-size="1024x1024" data-image-prompt="Close-up of a chef's knife resting on a wooden cutting board, soft natural window light, shallow depth of field, editorial food photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/knife-care-habits/slide-01.png"></div>
+        <div class="kicker">Knife Care 101</div>
+        <div class="chip-pill"><span>5 Habits</span></div>
+
+        <div class="tn-title"><h1 data-title="true">The Five Habits Every Sharp Kitchen Knife Actually Needs</h1></div>
+        <div class="tn-message"><p data-message="true">Small habits that keep the edge sharp, the steel rust-free, and prep effortless.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+            <span class="brand-word">Whetstone</span>
+          </div>
+          <div class="counter" data-counter="true">1 / 6</div>
+        </div>
+      </section>
+
+      <!-- Rule 1 -->
+      <section class="slide s2 tip" data-cg-slide-type="tip">
+        <div class="blob" aria-hidden="true"></div>
+        <div class="halo" aria-hidden="true"></div>
+        <div class="photo-circ"><img data-image="true" data-image-size="1024x1024" data-image-prompt="Close-up of a hand honing a chef's knife on a honing steel rod in motion, kitchen counter, natural light" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/knife-care-habits/slide-02.png"></div>
+        <div class="kicker">Knife Care 101</div>
+        <div class="chip-num"><span>01</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Hone Before Every Cut</h1></div>
+        <div class="tn-message"><p data-message="true">A few strokes on a honing rod straighten the edge before you even start cooking.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+            <span class="brand-word">Whetstone</span>
+          </div>
+          <div class="counter" data-counter="true">2 / 6</div>
+        </div>
+      </section>
+
+      <!-- Rule 2 -->
+      <section class="slide s3 tip" data-cg-slide-type="tip">
+        <div class="blob" aria-hidden="true"></div>
+        <div class="halo" aria-hidden="true"></div>
+        <div class="photo-circ"><img data-image="true" data-image-size="1024x1024" data-image-prompt="Close-up of a chef's knife being hand-washed under running water in a stainless kitchen sink" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/knife-care-habits/slide-03.png"></div>
+        <div class="kicker">Knife Care 101</div>
+        <div class="chip-num"><span>02</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Wash by Hand, Dry at Once</h1></div>
+        <div class="tn-message"><p data-message="true">Skip the dishwasher — a quick hand wash and instant dry keep the blade safe.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+            <span class="brand-word">Whetstone</span>
+          </div>
+          <div class="counter" data-counter="true">3 / 6</div>
+        </div>
+      </section>
+
+      <!-- Rule 3 -->
+      <section class="slide s4 tip" data-cg-slide-type="tip">
+        <div class="blob" aria-hidden="true"></div>
+        <div class="halo" aria-hidden="true"></div>
+        <div class="photo-circ"><img data-image="true" data-image-size="1024x1024" data-image-prompt="Close-up of a hand rubbing a drop of oil into a carbon steel knife blade with a cloth, moody warm kitchen light" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/knife-care-habits/slide-04.png"></div>
+        <div class="kicker">Knife Care 101</div>
+        <div class="chip-num"><span>03</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Oil the Blade After Drying</h1></div>
+        <div class="tn-message"><p data-message="true">A thin coat of mineral oil on carbon steel blocks rust between uses, once a week.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+            <span class="brand-word">Whetstone</span>
+          </div>
+          <div class="counter" data-counter="true">4 / 6</div>
+        </div>
+      </section>
+
+      <!-- Rule 4 -->
+      <section class="slide s5 tip" data-cg-slide-type="tip">
+        <div class="blob" aria-hidden="true"></div>
+        <div class="halo" aria-hidden="true"></div>
+        <div class="photo-circ"><img data-image="true" data-image-size="1024x1024" data-image-prompt="Close-up of chef's knives stored neatly on a wooden magnetic strip mounted on a kitchen wall" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/knife-care-habits/slide-05.png"></div>
+        <div class="kicker">Knife Care 101</div>
+        <div class="chip-num"><span>04</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Store It on a Magnetic Strip</h1></div>
+        <div class="tn-message"><p data-message="true">A strip or blade guard protects the edge — clutter is what dulls a good knife.</p></div>
+
+        <div class="foot">
+          <div class="lockup">
+            <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+            <span class="brand-word">Whetstone</span>
+          </div>
+          <div class="counter" data-counter="true">5 / 6</div>
+        </div>
+      </section>
+
+      <!-- Closing -->
+      <section class="slide s6 finale" data-cg-slide-type="outro">
+        <div class="blob" aria-hidden="true"></div>
+        <div class="halo" aria-hidden="true"></div>
+        <div class="kicker">Knife Care 101</div>
+
+        <div class="finale-mark" aria-hidden="true">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)">
+            <rect x="2.2" y="10" width="6.2" height="4.4" rx="1.4" stroke="var(--cg-stroke)" stroke-width="1.6"></rect>
+            <path d="M8.4 10.3L21 11.7C21.7 11.78 21.7 12.62 21 12.7L8.4 14.1V10.3Z" stroke="var(--cg-stroke)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"></path>
+          </svg>
+        </div>
+
+        <div class="tn-title"><h1 data-title="true">Four Habits. One Knife That Lasts a Lifetime.</h1></div>
+        <div class="tn-message"><p data-message="true">Hone often, wash by hand, oil the steel, and give the blade a clean place to rest.</p></div>
+
+        <div class="cta-pill" data-cta="true">
+          <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <span>Start With Rule One Tonight</span>
+        </div>
+
+        <div class="foot">
+          <div class="lockup">
+            <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span>
+            <span class="brand-word">Whetstone</span>
+          </div>
+          <div class="counter" data-counter="true">6 / 6</div>
+        </div>
+      </section>
+
+    </div>
+  
+
+</body></html>

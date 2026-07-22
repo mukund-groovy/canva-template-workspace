@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=League+Gothic:wght@400..700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+      :root{
+        /* Brand role colors — only the step pill / rule / glow re-skin. Canvas stays a
+           fixed near-black violet and all copy stays fixed white so the deck reads under
+           any brand palette; that is the "purple modern microblog" reading surface. */
+        --primary:var(--brand-primary,#7C1FE0);
+        --secondary:var(--brand-secondary,#4B0F8C);
+        --accent:var(--brand-accent,#A422FF);
+        --highlight:var(--brand-accent,#A422FF);
+        --bg:var(--brand-bg,#0F0328);
+        --surface:var(--brand-surface,var(--brand-bg-alt,#190740));
+        --text-high:var(--brand-ink,var(--brand-text,#FFFFFF));
+        --text-low:var(--brand-text-muted,rgba(255,255,255,.68));
+        --border:var(--brand-border,rgba(255,255,255,.16));
+        --on-fill:var(--brand-on-accent,#ffffff);
+        --on-primary:var(--brand-on-primary,#ffffff);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);
+        font-family:'Poppins',sans-serif;
+      }
+
+      /* ── backdrop: concentric topographic contour rings + soft accent glow ── */
+      .contours{
+        position:absolute;inset:-200px;z-index:0;pointer-events:none;
+        background:
+          repeating-radial-gradient(circle at 18% 12%, transparent 0 46px, rgba(255,255,255,.05) 46px 48px),
+          repeating-radial-gradient(circle at 88% 92%, transparent 0 58px, rgba(255,255,255,.045) 58px 60px);
+      }
+      .glow{position:absolute;z-index:0;pointer-events:none;border-radius:50%;filter:blur(2px);}
+      .glow-a{width:900px;height:900px;left:-380px;top:-420px;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 34%,transparent) 0%,transparent 68%);}
+      .glow-b{width:760px;height:760px;right:-360px;bottom:-360px;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 24%,transparent) 0%,transparent 70%);}
+
+      /* ── header row: kicker + accent rule ── */
+      .kicker-wrap{position:absolute;left:76px;top:72px;right:220px;z-index:3;}
+      .kicker{
+        font-family:'Poppins',sans-serif;font-weight:600;font-size:24px;letter-spacing:.14em;
+        text-transform:uppercase;color:var(--text-high);margin:0 0 14px 0;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
+      }
+      .kicker-rule{width:64px;height:6px;border-radius:3px;background:var(--accent);}
+
+      /* ── step pill: the recolorable device, present on every slide ── */
+      .step-num{
+        position:absolute;right:-46px;top:50%;transform:translateY(-50%);z-index:3;
+        width:196px;height:300px;border-radius:64px;background:var(--accent);
+        display:flex;align-items:center;justify-content:flex-start;padding-left:30px;
+        box-shadow:0 24px 60px rgba(0,0,0,.45);
+      }
+      .step-num span{
+        font-family:'League Gothic',sans-serif;font-weight:700;font-size:92px;line-height:1;
+        color:var(--on-fill);letter-spacing:-.01em;
+      }
+
+      /* ── contour rings: two oversized concentric rings that fill the lower canvas
+         with brand-tinted mass, echoing the topo backdrop. Plain shapes (no text
+         content), so they add fullness without adding another copy run to collide
+         with — the step pill alone carries the numeral. ── */
+      .contour-ring{position:absolute;border-radius:50%;pointer-events:none;z-index:1;
+        border:3px solid color-mix(in srgb, var(--accent) 42%, transparent);}
+      .cr-1{width:620px;height:620px;right:-220px;bottom:-260px;}
+      .cr-2{width:420px;height:420px;right:20px;bottom:-40px;border-color:color-mix(in srgb, var(--accent) 28%, transparent);}
+      .slide.closer .cr-1{right:auto;left:-220px;bottom:-260px;}
+      .slide.closer .cr-2{right:auto;left:20px;bottom:-40px;}
+
+      /* ── title ── */
+      .tn-title{position:absolute;left:76px;z-index:3;}
+      .tn-title h1{
+        margin:0;font-family:'League Gothic',sans-serif;font-weight:700;font-size:118px;line-height:.94;
+        letter-spacing:-.01em;text-transform:uppercase;color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.18em;
+      }
+      .slide.cover .tn-title h1{font-size:140px;-webkit-line-clamp:2;}
+      .slide.closer .tn-title h1{font-size:104px;text-align:center;-webkit-line-clamp:2;}
+      .slide.closer .tn-title{left:130px;right:130px;}
+
+      /* ── body / subtitle ── */
+      .tn-message{position:absolute;left:76px;z-index:3;}
+      .tn-message p{
+        margin:0;font-family:'Poppins',sans-serif;font-weight:300;font-size:38px;line-height:1.36;
+        color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.2em;
+      }
+      .slide.cover .tn-message p{font-size:34px;font-weight:400;-webkit-line-clamp:3;}
+      .slide.closer .tn-message p{text-align:center;font-size:34px;-webkit-line-clamp:2;}
+      .slide.closer .tn-message{left:150px;right:150px;}
+
+      /* ── footer: brand lockup + folio counter ── */
+      .foot{position:absolute;left:76px;right:96px;bottom:56px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+      .brand-mark-clip{flex:none;height:34px;display:flex;align-items:center;}
+      .brand-mark{height:34px;width:auto;max-width:120px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;letter-spacing:.02em;color:var(--text-high);white-space:nowrap;}
+      .lockup{display:inline-flex;align-items:center;gap:14px;}
+      .cg-slide-counter{font-family:'Poppins',sans-serif;font-weight:600;font-size:22px;letter-spacing:.12em;color:var(--text-low);}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Cover -->
+      <section class="slide cover" data-cg-slide-type="text">
+        <div class="contours" aria-hidden="true"></div>
+        <div class="glow glow-a" aria-hidden="true"></div>
+        <div class="glow glow-b" aria-hidden="true"></div>
+
+        <div class="kicker-wrap">
+          <p class="kicker">Trail Running Guide</p>
+          <div class="kicker-rule"></div>
+        </div>
+        <div class="step-num"><span data-tagline="true">01</span></div>
+        <div class="contour-ring cr-1" aria-hidden="true"></div>
+        <div class="contour-ring cr-2" aria-hidden="true"></div>
+
+        <div class="tn-title" style="top:470px;width:840px;"><h1 data-title="true">Find your trail legs</h1></div>
+        <div class="tn-message" style="top:800px;width:680px;"><p data-message="true">No road map, no traffic — just dirt, a trailhead, and five steps to get you there in one piece.</p></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">WILDTRAIL</span></div>
+          <div class="cg-slide-counter" data-counter="true">01 / 05</div>
+        </div>
+      </section>
+
+      <!-- Step 1 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="contours" aria-hidden="true"></div>
+        <div class="glow glow-a" aria-hidden="true"></div>
+
+        <div class="kicker-wrap">
+          <p class="kicker">Trail Running Guide</p>
+          <div class="kicker-rule"></div>
+        </div>
+        <div class="step-num"><span class="step-num-value">01</span></div>
+        <div class="contour-ring cr-1" aria-hidden="true"></div>
+        <div class="contour-ring cr-2" aria-hidden="true"></div>
+
+        <div class="tn-title" style="top:340px;width:620px;"><h1 data-title="true">Pick the trail</h1></div>
+        <div class="tn-message" style="top:640px;width:760px;"><p data-message="true">Start with a well-marked loop under five kilometres and gentle elevation gain — save the ridge lines for once your ankles trust the ground.</p></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">WILDTRAIL</span></div>
+          <div class="cg-slide-counter" data-counter="true">02 / 05</div>
+        </div>
+      </section>
+
+      <!-- Step 2 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="contours" aria-hidden="true"></div>
+        <div class="glow glow-a" aria-hidden="true"></div>
+        <div class="glow glow-b" aria-hidden="true"></div>
+
+        <div class="kicker-wrap">
+          <p class="kicker">Trail Running Guide</p>
+          <div class="kicker-rule"></div>
+        </div>
+        <div class="step-num"><span class="step-num-value">02</span></div>
+        <div class="contour-ring cr-1" aria-hidden="true"></div>
+        <div class="contour-ring cr-2" aria-hidden="true"></div>
+
+        <div class="tn-title" style="top:340px;width:640px;"><h1 data-title="true">Gear up smart</h1></div>
+        <div class="tn-message" style="top:640px;width:760px;"><p data-message="true">Real tread beats road foam, a soft flask beats a bottle you'll drop, and one thin layer beats the jacket you'll end up carrying.</p></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">WILDTRAIL</span></div>
+          <div class="cg-slide-counter" data-counter="true">03 / 05</div>
+        </div>
+      </section>
+
+      <!-- Step 3 -->
+      <section class="slide" data-cg-slide-type="text">
+        <div class="contours" aria-hidden="true"></div>
+        <div class="glow glow-a" aria-hidden="true"></div>
+
+        <div class="kicker-wrap">
+          <p class="kicker">Trail Running Guide</p>
+          <div class="kicker-rule"></div>
+        </div>
+        <div class="step-num"><span class="step-num-value">03</span></div>
+        <div class="contour-ring cr-1" aria-hidden="true"></div>
+        <div class="contour-ring cr-2" aria-hidden="true"></div>
+
+        <div class="tn-title" style="top:340px;width:700px;"><h1 data-title="true">Hike the climbs</h1></div>
+        <div class="tn-message" style="top:640px;width:760px;"><p data-message="true">Power-hiking the steep sections saves your legs for the downhill — out here, effort is the metric that matters, not pace.</p></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">WILDTRAIL</span></div>
+          <div class="cg-slide-counter" data-counter="true">04 / 05</div>
+        </div>
+      </section>
+
+      <!-- Closer -->
+      <section class="slide closer" data-cg-slide-type="text">
+        <div class="contours" aria-hidden="true"></div>
+        <div class="glow glow-a" aria-hidden="true"></div>
+        <div class="glow glow-b" aria-hidden="true"></div>
+
+        <div class="kicker-wrap" style="right:76px;text-align:center;left:0;">
+          <p class="kicker" style="text-align:center;">Trail Running Guide</p>
+          <div class="kicker-rule" style="margin:0 auto;"></div>
+        </div>
+        <div class="step-num"><span class="step-num-value">05</span></div>
+        <div class="contour-ring cr-1" aria-hidden="true"></div>
+        <div class="contour-ring cr-2" aria-hidden="true"></div>
+
+        <div class="tn-title" style="top:480px;"><h1 data-title="true">Lace up and go</h1></div>
+        <div class="tn-message" style="top:700px;"><p data-message="true">Every trail starts the same way — one step off the pavement and onto the dirt.</p></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span><span class="brand-word">WILDTRAIL</span></div>
+          <div class="cg-slide-counter" data-counter="true">05 / 05</div>
+        </div>
+      </section>
+
+    </div>
+  </body>
+</html>

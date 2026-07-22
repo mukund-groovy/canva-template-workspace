@@ -1,0 +1,231 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Baloo+2:wght@600;700&display=swap');
+
+    :root{
+      /* Brand roles. Canvas + ink are fixed literals for legibility; --primary carries
+         branded DARK text (the headline's lead word, the corner tag), --accent carries the
+         two painted surfaces (progress-rail active segment, the tilted word-pill) — never
+         the reverse, so a pale brand accent never lands as body-reading text. */
+      --primary:var(--brand-primary,#3a0ca3);
+      --secondary:var(--brand-secondary,#6a1fb0);
+      --accent:var(--brand-accent,#7c3aed);
+      --highlight:var(--brand-accent,#7c3aed);
+      --bg:var(--brand-bg,#f2f1f7);
+      --surface:var(--brand-surface,#ded4fb);
+      --text-high:var(--brand-ink,#17151f);
+      --text-low:var(--brand-text-muted,rgba(23,21,31,.6));
+      --border:var(--brand-border,rgba(23,21,31,.14));
+      --on-fill:var(--brand-on-accent,#ffffff);
+      --on-primary:var(--brand-on-primary,#ffffff);
+    }
+
+    *{box-sizing:border-box;}
+
+    .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+    .slide{
+      width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+      background:var(--bg);font-family:'Poppins',sans-serif;
+    }
+
+    /* ── left progress rail: seven segments, one lit per page. It's the device
+       that reads on EVERY slide (typographic decks especially need one fill
+       that always shows), and it never sits under text so it never risks a
+       stress-test collision. ── */
+    .rail{position:absolute;left:40px;top:64px;bottom:64px;width:16px;z-index:2;
+      display:flex;flex-direction:column;gap:8px;}
+    .seg{flex:1;border-radius:8px;background:var(--surface);}
+    .seg.on{background:var(--accent);}
+
+    /* ── corner wash: two soft accent-tinted discs bleeding off opposite edges —
+       gives the frame real visual body top-to-bottom instead of a dead band of
+       bare paper, brand-reactive, and neither ever sits above text. ── */
+    .corner-wash{position:absolute;right:-320px;bottom:-360px;width:1040px;height:1040px;border-radius:50%;
+      background:color-mix(in srgb, var(--accent) 15%, var(--bg) 85%);z-index:0;pointer-events:none;}
+    .corner-wash2{position:absolute;left:-260px;top:-300px;width:640px;height:640px;border-radius:50%;
+      background:color-mix(in srgb, var(--accent) 9%, var(--bg) 91%);z-index:0;pointer-events:none;}
+
+    /* ── brand lockup, top-left ── */
+    .lockup{position:absolute;left:80px;top:76px;display:flex;align-items:center;gap:12px;z-index:3;}
+    .brand-mark{height:34px;width:34px;border-radius:9px;display:block;object-fit:contain;}
+    .brand-word{font-family:'Poppins',sans-serif;font-weight:700;font-size:27px;
+      letter-spacing:.01em;color:var(--text-high);white-space:nowrap;}
+
+    /* ── corner tag, top-right: branded TEXT so it routes through --primary, never --accent ── */
+    .tag{position:absolute;right:80px;top:83px;z-index:3;font-family:'Poppins',sans-serif;
+      font-weight:700;font-size:24px;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);}
+
+    /* ── title: sized so even a ten-word generated headline still holds inside
+       four clamped lines — the box is generous on purpose, not because two
+       words need it. ── */
+    .tn-title{position:absolute;left:64px;right:64px;z-index:2;}
+    .tn-title h1{
+      margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:88px;line-height:1.08;
+      letter-spacing:-.01em;color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.18em;
+    }
+    .tn-title h1 .lead{color:var(--primary);}
+    .slide--cover .tn-title, .slide--closer .tn-title{top:372px;}
+    .slide--tip .tn-title{top:416px;}
+
+    /* ── message: the one body <p> every slide carries ── */
+    .tn-message{position:absolute;left:64px;right:64px;z-index:2;}
+    .tn-message p{
+      margin:0;font-family:'Poppins',sans-serif;font-weight:500;font-size:34px;line-height:1.45;
+      color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;padding-bottom:.2em;
+    }
+    .slide--cover .tn-message, .slide--closer .tn-message{top:928px;}
+    .slide--tip .tn-message{top:862px;}
+
+    /* ── word-pill: the recurring flourish (cover + closer only, exactly like
+       the reference), positioned below the title's own WORST-CASE extent so a
+       stress-generated long headline can never run under it. ── */
+    .pill{position:absolute;right:96px;top:806px;width:246px;height:90px;border-radius:45px;
+      background:var(--accent);z-index:3;display:flex;align-items:center;justify-content:center;gap:8px;
+      transform:rotate(-4deg);box-shadow:0 14px 26px rgba(23,7,64,.22);}
+    .pill::before{content:'';position:absolute;inset:-7px;border-radius:52px;border:3px solid var(--accent);
+      opacity:.32;transform:translate(9px,10px);z-index:-1;}
+    .pill svg{width:22px;height:22px;flex:none;}
+    .pill span{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:33px;color:var(--on-fill);
+      white-space:nowrap;}
+
+    /* ── footer ── */
+    .footer{position:absolute;left:64px;right:64px;bottom:58px;z-index:3;
+      display:flex;align-items:center;justify-content:space-between;}
+    .foot-word{font-family:'Poppins',sans-serif;font-weight:600;font-style:italic;font-size:24px;color:var(--text-low);}
+    .foot-count{font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;letter-spacing:.08em;color:var(--text-low);}
+  </style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <!-- 1. Cover -->
+    <section class="slide slide--cover" data-cg-slide-type="text">
+      <div class="corner-wash" aria-hidden="true"></div>
+      <div class="corner-wash2" aria-hidden="true"></div>
+      <div class="rail"><div class="seg on"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div></div>
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">LOOSEN</span></div>
+      <div class="tag">Guide</div>
+
+      <div class="tn-title"><h1 data-title="true"><span class="lead">Move</span> More <span class="lead">Sit</span> Less</h1></div>
+      <div class="pill"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M12 3v6l4 2" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8.4" stroke="var(--cg-stroke)" stroke-width="2.4"></circle></svg><span>Today</span></div>
+      <div class="tn-message"><p data-message="true">Six easy resets to break up a day at your desk.</p></div>
+
+      <div class="footer">
+        <span class="foot-word">loosen.co</span>
+        <span class="foot-count">01 / 07</span>
+      </div>
+    </section>
+
+    <!-- 2. Tip 1 -->
+    <section class="slide slide--tip" data-cg-slide-type="text">
+      <div class="corner-wash" aria-hidden="true"></div>
+      <div class="corner-wash2" aria-hidden="true"></div>
+      <div class="rail"><div class="seg"></div><div class="seg on"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div></div>
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">LOOSEN</span></div>
+      <div class="tag">Tip 01</div>
+
+      <div class="tn-title"><h1 data-title="true"><span class="lead">Stand</span> Every Hour</h1></div>
+      <div class="tn-message"><p data-message="true">Set a timer and get up for two minutes every hour, even if it's just to refill your water.</p></div>
+
+      <div class="footer">
+        <span class="foot-word">loosen.co</span>
+        <span class="foot-count">02 / 07</span>
+      </div>
+    </section>
+
+    <!-- 3. Tip 2 -->
+    <section class="slide slide--tip" data-cg-slide-type="text">
+      <div class="corner-wash" aria-hidden="true"></div>
+      <div class="corner-wash2" aria-hidden="true"></div>
+      <div class="rail"><div class="seg"></div><div class="seg"></div><div class="seg on"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div></div>
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">LOOSEN</span></div>
+      <div class="tag">Tip 02</div>
+
+      <div class="tn-title"><h1 data-title="true"><span class="lead">Stretch</span> Your Neck</h1></div>
+      <div class="tn-message"><p data-message="true">Slow neck rolls release the tension that builds from hours of staring at a screen.</p></div>
+
+      <div class="footer">
+        <span class="foot-word">loosen.co</span>
+        <span class="foot-count">03 / 07</span>
+      </div>
+    </section>
+
+    <!-- 4. Tip 3 -->
+    <section class="slide slide--tip" data-cg-slide-type="text">
+      <div class="corner-wash" aria-hidden="true"></div>
+      <div class="corner-wash2" aria-hidden="true"></div>
+      <div class="rail"><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg on"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div></div>
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">LOOSEN</span></div>
+      <div class="tag">Tip 03</div>
+
+      <div class="tn-title"><h1 data-title="true"><span class="lead">Walk</span> While You Talk</h1></div>
+      <div class="tn-message"><p data-message="true">Take phone calls on your feet — a short walk keeps blood moving and clears your head.</p></div>
+
+      <div class="footer">
+        <span class="foot-word">loosen.co</span>
+        <span class="foot-count">04 / 07</span>
+      </div>
+    </section>
+
+    <!-- 5. Tip 4 -->
+    <section class="slide slide--tip" data-cg-slide-type="text">
+      <div class="corner-wash" aria-hidden="true"></div>
+      <div class="corner-wash2" aria-hidden="true"></div>
+      <div class="rail"><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">LOOSEN</span></div>
+      <div class="tag">Tip 04</div>
+
+      <div class="tn-title"><h1 data-title="true"><span class="lead">Breathe</span> Deep And Slow</h1></div>
+      <div class="tn-message"><p data-message="true">Three slow breaths lower your heart rate and reset your focus before the next task.</p></div>
+
+      <div class="footer">
+        <span class="foot-word">loosen.co</span>
+        <span class="foot-count">05 / 07</span>
+      </div>
+    </section>
+
+    <!-- 6. Tip 5 -->
+    <section class="slide slide--tip" data-cg-slide-type="text">
+      <div class="corner-wash" aria-hidden="true"></div>
+      <div class="corner-wash2" aria-hidden="true"></div>
+      <div class="rail"><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg on"></div><div class="seg"></div></div>
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">LOOSEN</span></div>
+      <div class="tag">Tip 05</div>
+
+      <div class="tn-title"><h1 data-title="true"><span class="lead">Reset</span> Your Posture</h1></div>
+      <div class="tn-message"><p data-message="true">Roll your shoulders back and drop them down — small posture checks add up across the day.</p></div>
+
+      <div class="footer">
+        <span class="foot-word">loosen.co</span>
+        <span class="foot-count">06 / 07</span>
+      </div>
+    </section>
+
+    <!-- 7. Closer -->
+    <section class="slide slide--closer" data-cg-slide-type="text">
+      <div class="corner-wash" aria-hidden="true"></div>
+      <div class="corner-wash2" aria-hidden="true"></div>
+      <div class="rail"><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div><div class="seg on"></div></div>
+      <div class="lockup"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"><span class="brand-word">LOOSEN</span></div>
+      <div class="tag">Recap</div>
+
+      <div class="tn-title"><h1 data-title="true"><span class="lead">Small</span> Moves Big <span class="lead">Difference</span></h1></div>
+      <div class="pill"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M12 3v6l4 2" stroke="var(--cg-stroke)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8.4" stroke="var(--cg-stroke)" stroke-width="2.4"></circle></svg><span>Today</span></div>
+      <div class="tn-message"><p data-message="true">Pick one and build the habit, one break at a time.</p></div>
+
+      <div class="footer">
+        <span class="foot-word">loosen.co</span>
+        <span class="foot-count">07 / 07</span>
+      </div>
+    </section>
+
+  </div>
+
+
+</body></html>

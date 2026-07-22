@@ -44,6 +44,55 @@
     "kind": "carousel",
     "order": 0
   },
+  "balcony-garden-diary": {
+    "name": "Balcony Garden Diary",
+    "slug": "balcony-garden-diary",
+    "description": "A carousel template for sharing a personal, journal-style gardening progress story.",
+    "category": "lifestyle",
+    "enabled": true,
+    "isSystem": false,
+    "contentMode": "text-only",
+    "recommendationProfile": {
+      "version": 1,
+      "title": "Balcony Garden Diary",
+      "summary": "A warm, narrative carousel for chronicling a personal hobby or seasonal journey through diary-style entries. Use it to share progress updates, reflections, and small wins over time.",
+      "tags": [
+        "diary",
+        "journal",
+        "storytelling",
+        "seasonal",
+        "gardening",
+        "handwritten-feel",
+        "personal",
+        "cozy",
+        "progress",
+        "reflective"
+      ],
+      "useCases": [
+        "diary",
+        "progress update",
+        "personal story",
+        "reflection",
+        "announcement"
+      ],
+      "tone": "warm",
+      "visualStyle": [
+        "narrative",
+        "cozy",
+        "organic",
+        "journal-style"
+      ],
+      "slideCountSweet": {
+        "min": 3,
+        "ideal": 4,
+        "max": 7
+      },
+      "industries": [],
+      "audience": []
+    },
+    "kind": "carousel",
+    "order": 1
+  },
   "beach-cleanup-day": {
     "name": "Community Beach Cleanup",
     "slug": "beach-cleanup-day",
@@ -88,7 +137,7 @@
       "audience": []
     },
     "kind": "single-image",
-    "order": 1
+    "order": 2
   },
   "bike-commute-confidence": {
     "name": "Bike Commute Confidence",
@@ -134,7 +183,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 2
+    "order": 3
   },
   "birdwatching-field-notes": {
     "name": "Birdwatching Field Notes",
@@ -181,7 +230,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 3
+    "order": 4
   },
   "bookbinding-by-hand": {
     "name": "Bookbinding By Hand",
@@ -228,7 +277,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 4
+    "order": 5
   },
   "breach-alert-briefing": {
     "name": "Breach Alert Briefing",
@@ -273,7 +322,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 5
+    "order": 6
   },
   "capsule-wardrobe-rules": {
     "name": "Capsule Wardrobe Rules",
@@ -319,7 +368,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 6
+    "order": 7
   },
   "citrus-season-baking": {
     "name": "Citrus Season Baking Tips",
@@ -365,7 +414,56 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 7
+    "order": 8
+  },
+  "clay-studio-diary": {
+    "name": "Clay Studio Diary",
+    "slug": "clay-studio-diary",
+    "description": "A carousel template for sharing a personal studio journal or creative process over multiple slides.",
+    "category": "lifestyle",
+    "enabled": true,
+    "isSystem": false,
+    "contentMode": "text-only",
+    "recommendationProfile": {
+      "version": 1,
+      "title": "Clay Studio Diary",
+      "summary": "A reflective, journal-style carousel for documenting a hands-on creative process across sequential entries. Use it to share progress, craft milestones, or personal diary moments.",
+      "tags": [
+        "diary",
+        "handcraft",
+        "journal",
+        "calm",
+        "reflective",
+        "artisan",
+        "process",
+        "earthy",
+        "narrative",
+        "studio"
+      ],
+      "useCases": [
+        "diary",
+        "process",
+        "behind-the-scenes",
+        "storytelling",
+        "educational"
+      ],
+      "tone": "calm",
+      "visualStyle": [
+        "editorial",
+        "serene",
+        "minimal",
+        "organic"
+      ],
+      "slideCountSweet": {
+        "min": 4,
+        "ideal": 5,
+        "max": 8
+      },
+      "industries": [],
+      "audience": []
+    },
+    "kind": "carousel",
+    "order": 9
   },
   "clay-studio-mentorship": {
     "name": "Clay Studio Mentorship",
@@ -410,7 +508,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 8
+    "order": 10
   },
   "coffee-terms-glossary": {
     "name": "Coffee Terms Glossary",
@@ -458,7 +556,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 9
+    "order": 11
   },
   "cold-start-ritual": {
     "name": "Cold Start Ritual",
@@ -506,7 +604,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 10
+    "order": 12
   },
   "cold-water-swimming": {
     "name": "Wild Swimming Journey",
@@ -551,7 +649,52 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 11
+    "order": 13
+  },
+  "community-garden-volunteer": {
+    "name": "Community Garden Volunteer",
+    "slug": "community-garden-volunteer",
+    "description": "A single-image social post inviting people to a volunteer or community event.",
+    "category": "lifestyle",
+    "enabled": true,
+    "isSystem": false,
+    "contentMode": "text-only",
+    "recommendationProfile": {
+      "version": 1,
+      "title": "Community Garden Volunteer",
+      "summary": "Announces a hands-on community volunteer weekend and rallies neighbors to participate. Use it for local event invites and grassroots calls to action.",
+      "tags": [
+        "community",
+        "volunteer",
+        "garden",
+        "green",
+        "event",
+        "outdoors",
+        "neighborhood",
+        "invitation"
+      ],
+      "useCases": [
+        "announcement",
+        "event promo",
+        "call to action",
+        "community outreach"
+      ],
+      "tone": "warm",
+      "visualStyle": [
+        "friendly",
+        "natural",
+        "approachable"
+      ],
+      "slideCountSweet": {
+        "min": 1,
+        "ideal": 1,
+        "max": 1
+      },
+      "industries": [],
+      "audience": []
+    },
+    "kind": "single-image",
+    "order": 14
   },
   "community-garden-workshop": {
     "name": "Community Garden Workshop",
@@ -596,7 +739,7 @@
       "audience": []
     },
     "kind": "single-image",
-    "order": 12
+    "order": 15
   },
   "composting-starter-guide": {
     "name": "Composting Starter Guide",
@@ -643,7 +786,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 13
+    "order": 16
   },
   "confidence-mindset-shifts": {
     "name": "Confidence Mindset Shifts",
@@ -688,7 +831,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 14
+    "order": 17
   },
   "daily-hydration-habits": {
     "name": "Daily Hydration Habits",
@@ -734,7 +877,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 15
+    "order": 18
   },
   "dear-new-parent": {
     "name": "Dear New Parent",
@@ -779,7 +922,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 16
+    "order": 19
   },
   "deeper-sleep-habits": {
     "name": "Deeper Sleep Habits",
@@ -825,7 +968,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 17
+    "order": 20
   },
   "desk-break-reset": {
     "name": "Desk Break Reset",
@@ -872,7 +1015,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 18
+    "order": 21
   },
   "draw-every-day": {
     "name": "Draw Every Day",
@@ -920,7 +1063,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 19
+    "order": 22
   },
   "dress-with-less": {
     "name": "Dress With Less",
@@ -966,7 +1109,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 20
+    "order": 23
   },
   "drink-more-water": {
     "name": "Workday Water Reminder",
@@ -1012,7 +1155,52 @@
       "audience": []
     },
     "kind": "single-image",
-    "order": 21
+    "order": 24
+  },
+  "er-mindset-shift": {
+    "name": "Mindset Shift Quote",
+    "slug": "er-mindset-shift",
+    "description": "A single-image template for sharing a personal reframe or mindset lesson.",
+    "category": "general",
+    "enabled": true,
+    "isSystem": false,
+    "contentMode": "text-only",
+    "recommendationProfile": {
+      "version": 1,
+      "title": "Mindset Shift Quote",
+      "summary": "Communicates a personal insight or perspective shift in a clean, quote-driven layout. Use it to share reflective lessons, mentor advice, or turning-point moments.",
+      "tags": [
+        "quote",
+        "reflection",
+        "mindset",
+        "typography",
+        "minimal",
+        "insight",
+        "personal",
+        "clarity"
+      ],
+      "useCases": [
+        "quote",
+        "testimonial",
+        "educational",
+        "tips"
+      ],
+      "tone": "calm",
+      "visualStyle": [
+        "text-forward",
+        "clean",
+        "minimal"
+      ],
+      "slideCountSweet": {
+        "min": 1,
+        "ideal": 1,
+        "max": 1
+      },
+      "industries": [],
+      "audience": []
+    },
+    "kind": "single-image",
+    "order": 25
   },
   "first-frost-morning": {
     "name": "First Frost Morning",
@@ -1056,7 +1244,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 22
+    "order": 26
   },
   "garden-year-recap": {
     "name": "My Year In The Garden",
@@ -1103,7 +1291,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 23
+    "order": 27
   },
   "guard-your-attention": {
     "name": "Guard Your Attention",
@@ -1148,7 +1336,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 24
+    "order": 28
   },
   "handwritten-letter-ritual": {
     "name": "Handwritten Letter Ritual",
@@ -1195,7 +1383,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 25
+    "order": 29
   },
   "home-barista-rituals": {
     "name": "Home Barista Rituals",
@@ -1242,7 +1430,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 26
+    "order": 30
   },
   "home-brew-ritual": {
     "name": "Home Brew Ritual",
@@ -1287,7 +1475,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 27
+    "order": 31
   },
   "host-with-warmth": {
     "name": "Host With Warmth",
@@ -1334,7 +1522,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 28
+    "order": 32
   },
   "journaling-for-beginners": {
     "name": "Journaling For Beginners",
@@ -1379,7 +1567,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 29
+    "order": 33
   },
   "kitchen-herb-garden": {
     "name": "Kitchen Herb Garden Guide",
@@ -1425,7 +1613,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 30
+    "order": 34
   },
   "knife-care-habits": {
     "name": "Knife Care Habits",
@@ -1470,7 +1658,52 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 31
+    "order": 35
+  },
+  "language-exchange-app": {
+    "name": "Language Exchange App",
+    "slug": "language-exchange-app",
+    "description": "A single-image promo for a language exchange or learning app.",
+    "category": "tech",
+    "enabled": true,
+    "isSystem": false,
+    "contentMode": "text-only",
+    "recommendationProfile": {
+      "version": 1,
+      "title": "Language Exchange App",
+      "summary": "Promotes a language-learning or exchange app that pairs users with native speakers for daily practice. Use it to announce features or drive app downloads.",
+      "tags": [
+        "language",
+        "learning",
+        "app",
+        "chat",
+        "education",
+        "conversation",
+        "social",
+        "mobile"
+      ],
+      "useCases": [
+        "announcement",
+        "promotion",
+        "educational",
+        "feature highlight"
+      ],
+      "tone": "energetic",
+      "visualStyle": [
+        "clean",
+        "modern",
+        "app-style"
+      ],
+      "slideCountSweet": {
+        "min": 1,
+        "ideal": 1,
+        "max": 1
+      },
+      "industries": [],
+      "audience": []
+    },
+    "kind": "single-image",
+    "order": 36
   },
   "language-learning-encouragement": {
     "name": "Language Learning Encouragement",
@@ -1515,7 +1748,7 @@
       "audience": []
     },
     "kind": "single-image",
-    "order": 32
+    "order": 37
   },
   "learn-smarter-habits": {
     "name": "Learn Smarter Habits",
@@ -1562,7 +1795,51 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 33
+    "order": 38
+  },
+  "library-reopening-celebration": {
+    "name": "The Doors Are Open",
+    "slug": "library-reopening-celebration",
+    "description": "A single-image announcement template for celebrating a grand reopening.",
+    "category": "business",
+    "enabled": true,
+    "isSystem": false,
+    "contentMode": "text-only",
+    "recommendationProfile": {
+      "version": 1,
+      "title": "The Doors Are Open",
+      "summary": "A warm reopening announcement graphic for sharing that a space or business is welcoming visitors again. Use it to celebrate a return and invite the community back.",
+      "tags": [
+        "reopening",
+        "announcement",
+        "welcome",
+        "community",
+        "celebration",
+        "milestone",
+        "warm",
+        "open"
+      ],
+      "useCases": [
+        "announcement",
+        "reopening",
+        "community update"
+      ],
+      "tone": "warm",
+      "visualStyle": [
+        "clean",
+        "inviting",
+        "announcement-style"
+      ],
+      "slideCountSweet": {
+        "min": 1,
+        "ideal": 1,
+        "max": 1
+      },
+      "industries": [],
+      "audience": []
+    },
+    "kind": "single-image",
+    "order": 39
   },
   "make-your-zine": {
     "name": "Make Your Zine How-To",
@@ -1610,7 +1887,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 34
+    "order": 40
   },
   "meal-prep-simple": {
     "name": "Meal Prep Made Simple",
@@ -1658,7 +1935,52 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 35
+    "order": 41
+  },
+  "meal-prep-testimonial": {
+    "name": "Meal Prep Testimonial",
+    "slug": "meal-prep-testimonial",
+    "description": "A single-image testimonial layout for sharing customer quotes about a meal service.",
+    "category": "lifestyle",
+    "enabled": true,
+    "isSystem": false,
+    "contentMode": "text-only",
+    "recommendationProfile": {
+      "version": 1,
+      "title": "Meal Prep Testimonial",
+      "summary": "Showcase a customer testimonial or review in a clean, quote-focused layout. Use it to build trust and highlight real feedback about a service or product.",
+      "tags": [
+        "testimonial",
+        "quote",
+        "review",
+        "customer",
+        "food",
+        "lifestyle",
+        "clean",
+        "trust"
+      ],
+      "useCases": [
+        "testimonial",
+        "social proof",
+        "review highlight",
+        "announcement"
+      ],
+      "tone": "warm",
+      "visualStyle": [
+        "quote-focused",
+        "clean",
+        "minimal"
+      ],
+      "slideCountSweet": {
+        "min": 1,
+        "ideal": 1,
+        "max": 1
+      },
+      "industries": [],
+      "audience": []
+    },
+    "kind": "single-image",
+    "order": 42
   },
   "money-habits-twenties": {
     "name": "Money Habits Carousel",
@@ -1705,7 +2027,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 36
+    "order": 43
   },
   "morning-coffee-ritual": {
     "name": "Morning Coffee Ritual",
@@ -1752,7 +2074,7 @@
       "audience": []
     },
     "kind": "single-image",
-    "order": 37
+    "order": 44
   },
   "morning-journaling-habit": {
     "name": "Morning Ritual Journaling",
@@ -1797,7 +2119,7 @@
       "audience": []
     },
     "kind": "single-image",
-    "order": 38
+    "order": 45
   },
   "morning-workout-routine": {
     "name": "Morning Workout Q&A",
@@ -1841,7 +2163,7 @@
       "audience": []
     },
     "kind": "single-image",
-    "order": 39
+    "order": 46
   },
   "negotiate-your-raise": {
     "name": "Negotiate Your Raise",
@@ -1886,7 +2208,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 40
+    "order": 47
   },
   "new-plant-parent": {
     "name": "New Plant Parent Pep Talk",
@@ -1933,7 +2255,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 41
+    "order": 48
   },
   "night-sky-guide": {
     "name": "Night Sky Field Guide",
@@ -1980,7 +2302,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 42
+    "order": 49
   },
   "own-the-room": {
     "name": "Own The Room",
@@ -2025,7 +2347,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 43
+    "order": 50
   },
   "pack-light-checklist": {
     "name": "Pack Light Checklist",
@@ -2070,7 +2392,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 44
+    "order": 51
   },
   "permission-to-rest": {
     "name": "Permission To Rest",
@@ -2115,7 +2437,52 @@
       "audience": []
     },
     "kind": "single-image",
-    "order": 45
+    "order": 52
+  },
+  "personal-fitness-coaching": {
+    "name": "Coaching Chat Message",
+    "slug": "personal-fitness-coaching",
+    "description": "A single-image template styled as a chat message for fitness coaching interactions.",
+    "category": "lifestyle",
+    "enabled": true,
+    "isSystem": false,
+    "contentMode": "text-only",
+    "recommendationProfile": {
+      "version": 1,
+      "title": "Coaching Chat Message",
+      "summary": "Presents a coaching conversation snippet in a chat-bubble layout. Use it to showcase client-coach messaging, booking requests, or personal coaching interactions.",
+      "tags": [
+        "chat",
+        "messaging",
+        "coaching",
+        "fitness",
+        "conversation",
+        "bubble",
+        "modern",
+        "social"
+      ],
+      "useCases": [
+        "testimonial",
+        "announcement",
+        "engagement",
+        "promotion"
+      ],
+      "tone": "energetic",
+      "visualStyle": [
+        "chat-bubble",
+        "clean",
+        "messaging-style"
+      ],
+      "slideCountSweet": {
+        "min": 1,
+        "ideal": 1,
+        "max": 1
+      },
+      "industries": [],
+      "audience": []
+    },
+    "kind": "single-image",
+    "order": 53
   },
   "pitch-craft-rules": {
     "name": "Pitch Craft Rules",
@@ -2163,7 +2530,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 46
+    "order": 54
   },
   "plant-parent-notes": {
     "name": "Plant Parent Notes",
@@ -2209,7 +2576,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 47
+    "order": 55
   },
   "pre-ride-checklist": {
     "name": "Pre-Ride Checklist",
@@ -2256,7 +2623,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 48
+    "order": 56
   },
   "price-your-worth": {
     "name": "Price Your Worth",
@@ -2303,7 +2670,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 49
+    "order": 57
   },
   "protect-your-focus": {
     "name": "Protect Your Focus",
@@ -2349,7 +2716,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 50
+    "order": 58
   },
   "purrfect-cat-care": {
     "name": "Purrfect Cat Care Tips",
@@ -2397,7 +2764,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 51
+    "order": 59
   },
   "read-without-rushing": {
     "name": "Read Without Rushing",
@@ -2444,7 +2811,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 52
+    "order": 60
   },
   "real-rest-rituals": {
     "name": "Real Rest Rituals",
@@ -2492,7 +2859,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 53
+    "order": 61
   },
   "run-better-meetings": {
     "name": "Run Better Meetings",
@@ -2537,7 +2904,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 54
+    "order": 62
   },
   "run-motivation-quotes": {
     "name": "Run Motivation Quotes",
@@ -2582,7 +2949,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 55
+    "order": 63
   },
   "salt-it-early": {
     "name": "Salt It Early Cooking Tips",
@@ -2630,7 +2997,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 56
+    "order": 64
   },
   "saturday-market-haul": {
     "name": "Saturday Market Haul",
@@ -2679,7 +3046,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 57
+    "order": 65
   },
   "say-no-kindly": {
     "name": "Say No Kindly",
@@ -2727,7 +3094,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 58
+    "order": 66
   },
   "season-your-skillet": {
     "name": "Season Your Skillet",
@@ -2772,7 +3139,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 59
+    "order": 67
   },
   "sharpen-your-memory": {
     "name": "Sharpen Your Memory",
@@ -2817,7 +3184,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 60
+    "order": 68
   },
   "skin-barrier-basics": {
     "name": "Skin Barrier Basics",
@@ -2863,7 +3230,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 61
+    "order": 69
   },
   "sky-watching-journal": {
     "name": "Sky Watching Journal",
@@ -2910,7 +3277,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 62
+    "order": 70
   },
   "sleep-habits-break": {
     "name": "Sleep Habits Worth Breaking",
@@ -2958,7 +3325,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 63
+    "order": 71
   },
   "slow-morning-ritual": {
     "name": "Slow Morning Ritual",
@@ -3003,7 +3370,53 @@
       "audience": []
     },
     "kind": "single-image",
-    "order": 64
+    "order": 72
+  },
+  "slow-morning-ritual-2": {
+    "name": "Slow Morning Ritual",
+    "slug": "slow-morning-ritual-2",
+    "description": "A single-image template for sharing calm, reflective morning moments and self-care musings.",
+    "category": "lifestyle",
+    "enabled": true,
+    "isSystem": false,
+    "contentMode": "text-only",
+    "recommendationProfile": {
+      "version": 1,
+      "title": "Slow Morning Ritual",
+      "summary": "A serene, minimal template for capturing quiet morning moments and mindful reflections. Use it for self-care, wellness, or lifestyle posts that invite the audience to slow down.",
+      "tags": [
+        "calm",
+        "minimal",
+        "morning",
+        "serene",
+        "mindful",
+        "cozy",
+        "wellness",
+        "quiet",
+        "reflective"
+      ],
+      "useCases": [
+        "quote",
+        "inspiration",
+        "lifestyle",
+        "self-care"
+      ],
+      "tone": "calm",
+      "visualStyle": [
+        "minimal",
+        "soft",
+        "serene"
+      ],
+      "slideCountSweet": {
+        "min": 1,
+        "ideal": 1,
+        "max": 1
+      },
+      "industries": [],
+      "audience": []
+    },
+    "kind": "single-image",
+    "order": 73
   },
   "smart-study-habits": {
     "name": "Smart Study Habits",
@@ -3048,7 +3461,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 65
+    "order": 74
   },
   "solo-travel-lessons": {
     "name": "Solo Travel Lessons",
@@ -3093,7 +3506,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 66
+    "order": 75
   },
   "sourdough-starter-guide": {
     "name": "Sourdough Starter Guide",
@@ -3139,7 +3552,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 67
+    "order": 76
   },
   "sourdough-starter-week": {
     "name": "7-Day Sourdough Ritual",
@@ -3188,7 +3601,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 68
+    "order": 77
   },
   "speak-so-listen": {
     "name": "Speak So People Listen",
@@ -3233,7 +3646,52 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 69
+    "order": 78
+  },
+  "start-creative-hobby": {
+    "name": "Start A Creative Hobby",
+    "slug": "start-creative-hobby",
+    "description": "A single-image motivational post encouraging viewers to begin a new skill or hobby.",
+    "category": "lifestyle",
+    "enabled": true,
+    "isSystem": false,
+    "contentMode": "text-only",
+    "recommendationProfile": {
+      "version": 1,
+      "title": "Start A Creative Hobby",
+      "summary": "An encouraging, minimal quote-style post that nudges people to begin small and build a new skill. Use it for gentle motivational or lifestyle messaging.",
+      "tags": [
+        "motivational",
+        "gentle",
+        "encouraging",
+        "minimal",
+        "hobby",
+        "inspirational",
+        "calm",
+        "typography"
+      ],
+      "useCases": [
+        "motivational quote",
+        "announcement",
+        "tips",
+        "educational"
+      ],
+      "tone": "warm",
+      "visualStyle": [
+        "minimal",
+        "clean typography",
+        "soft"
+      ],
+      "slideCountSweet": {
+        "min": 1,
+        "ideal": 1,
+        "max": 1
+      },
+      "industries": [],
+      "audience": []
+    },
+    "kind": "single-image",
+    "order": 79
   },
   "start-freelancing-now": {
     "name": "Start Freelancing Now",
@@ -3278,7 +3736,52 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 70
+    "order": 80
+  },
+  "start-over-today": {
+    "name": "Start Over Today",
+    "slug": "start-over-today",
+    "description": "A single-image motivational quote post encouraging fresh starts.",
+    "category": "lifestyle",
+    "enabled": true,
+    "isSystem": false,
+    "contentMode": "text-only",
+    "recommendationProfile": {
+      "version": 1,
+      "title": "Start Over Today",
+      "summary": "A bold, text-driven quote card for sharing motivational messages about new beginnings and small decisions. Use it when you want a quick, uplifting social post.",
+      "tags": [
+        "motivational",
+        "quote",
+        "inspiration",
+        "fresh-start",
+        "mindset",
+        "empowerment",
+        "typography",
+        "encouragement"
+      ],
+      "useCases": [
+        "motivational quote",
+        "affirmation",
+        "social share",
+        "encouragement"
+      ],
+      "tone": "warm",
+      "visualStyle": [
+        "text-forward",
+        "clean",
+        "minimal quote card"
+      ],
+      "slideCountSweet": {
+        "min": 1,
+        "ideal": 1,
+        "max": 1
+      },
+      "industries": [],
+      "audience": []
+    },
+    "kind": "single-image",
+    "order": 81
   },
   "start-your-craft": {
     "name": "Gentle Nudge Quote",
@@ -3323,7 +3826,7 @@
       "audience": []
     },
     "kind": "single-image",
-    "order": 71
+    "order": 82
   },
   "street-photography-diary": {
     "name": "Street Photography Diary",
@@ -3370,7 +3873,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 72
+    "order": 83
   },
   "strength-training-rules": {
     "name": "Strength Training Rules",
@@ -3416,7 +3919,52 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 73
+    "order": 84
+  },
+  "study-group-planning": {
+    "name": "Study Group Invite",
+    "slug": "study-group-planning",
+    "description": "A single-image post to invite followers to join a study group.",
+    "category": "lifestyle",
+    "enabled": true,
+    "isSystem": false,
+    "contentMode": "text-only",
+    "recommendationProfile": {
+      "version": 1,
+      "title": "Study Group Invite",
+      "summary": "A clean, single-image invitation for rallying people to join a study group or session. Use it to announce meetups and boost participation.",
+      "tags": [
+        "invitation",
+        "study",
+        "education",
+        "announcement",
+        "community",
+        "minimal",
+        "students",
+        "learning"
+      ],
+      "useCases": [
+        "announcement",
+        "invitation",
+        "event promo",
+        "community outreach"
+      ],
+      "tone": "warm",
+      "visualStyle": [
+        "clean",
+        "minimal",
+        "approachable"
+      ],
+      "slideCountSweet": {
+        "min": 1,
+        "ideal": 1,
+        "max": 1
+      },
+      "industries": [],
+      "audience": []
+    },
+    "kind": "single-image",
+    "order": 85
   },
   "sunday-reset-ritual": {
     "name": "Sunday Reset Ritual",
@@ -3461,7 +4009,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 74
+    "order": 86
   },
   "the-attention-diet": {
     "name": "The Attention Diet",
@@ -3506,7 +4054,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 75
+    "order": 87
   },
   "the-daily-crumb": {
     "name": "The Daily Crumb",
@@ -3553,7 +4101,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 76
+    "order": 88
   },
   "the-feedback-loop": {
     "name": "The Feedback Loop",
@@ -3598,7 +4146,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 77
+    "order": 89
   },
   "the-slow-morning": {
     "name": "The Slow Morning",
@@ -3645,7 +4193,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 78
+    "order": 90
   },
   "the-vinyl-side": {
     "name": "The Vinyl Side",
@@ -3691,7 +4239,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 79
+    "order": 91
   },
   "time-blocking-habits": {
     "name": "Time Blocking Habits",
@@ -3736,7 +4284,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 80
+    "order": 92
   },
   "trail-running-guide": {
     "name": "Trail Running Guide Carousel",
@@ -3781,7 +4329,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 81
+    "order": 93
   },
   "trust-the-darkroom": {
     "name": "Trust The Darkroom",
@@ -3828,7 +4376,7 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 82
+    "order": 94
   },
   "vinyl-listening-club": {
     "name": "Vinyl Listening Club",
@@ -3875,6 +4423,6 @@
       "audience": []
     },
     "kind": "carousel",
-    "order": 83
+    "order": 95
   }
 }

@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,600;1,700&family=Jost:wght@400;500;600;700&display=swap');
+
+    :root{
+      /* Warm dark editorial canvas — the reference's signature move (near-black
+         paper, gold display serif). Canvas + ink (including the display
+         headline's gold word, a fixed literal — see .accent-word below) stay
+         fixed for legibility; brand identity lives entirely in the FILLED
+         devices instead (category chip, number badge, photo frame, sparkles),
+         which flip their ink to --on-fill so they never go unreadable. */
+      --primary:var(--brand-primary,#8a5a24);
+      --secondary:var(--brand-secondary,#5c3a17);
+      --accent:var(--brand-accent,#d9a451);
+      --highlight:var(--brand-accent,#d9a451);
+      --bg:var(--brand-bg,#17140f);
+      --surface:var(--brand-surface,#211c14);
+      --text-high:var(--brand-text,#f8f3e9);
+      --text-low:var(--brand-text-muted,rgba(248,243,233,.68));
+      --border:var(--brand-border,rgba(248,243,233,.2));
+      --on-fill:var(--brand-on-accent,#241705);
+      --on-primary:var(--brand-on-primary,#ffffff);
+    }
+
+    *{box-sizing:border-box;}
+
+    .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#050403;}
+
+    .slide{
+      width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+      background:var(--bg);font-family:'Jost',sans-serif;
+    }
+
+    /* ── corner ring: quiet decorative brand device present on every slide ── */
+    .corner-ring{position:absolute;left:-64px;top:-64px;width:220px;height:220px;border-radius:50%;border:44px solid var(--accent);opacity:.9;z-index:1;}
+
+    /* ── header row: folio counter / brand lockup / category chip ── */
+    .head{position:absolute;left:88px;right:88px;top:64px;display:flex;align-items:center;justify-content:space-between;z-index:3;}
+    .folio-txt{font-family:'Jost',sans-serif;font-weight:600;font-size:23px;letter-spacing:.14em;color:var(--text-low);white-space:nowrap;}
+    .lockup{display:inline-flex;align-items:center;gap:12px;border:1.5px solid var(--border);border-radius:999px;padding:10px 24px 10px 14px;}
+    .brand-mark-clip{flex:none;height:24px;display:flex;align-items:center;}
+    .brand-mark{height:24px;width:auto;max-width:90px;object-fit:contain;display:block;}
+    .brand-word{font-family:'Playfair Display',serif;font-weight:700;font-size:25px;color:var(--text-high);white-space:nowrap;}
+    .cat-chip{background:var(--accent);color:var(--on-fill);font-family:'Jost',sans-serif;font-weight:600;font-size:21px;letter-spacing:.1em;text-transform:uppercase;padding:11px 22px;border-radius:999px;white-space:nowrap;}
+
+    /* ── title: two-line display stack, accent word carries the brand ── */
+    .tn-title{position:absolute;left:88px;right:88px;z-index:3;}
+    .tn-title h1{
+      margin:0;font-family:'Playfair Display',serif;font-weight:600;line-height:.98;
+      letter-spacing:-.01em;color:var(--text-high);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.2em;
+    }
+    /* fixed literal, not brand-bound: a dark-accent palette (e.g. deep navy)
+       against this near-black canvas would drop under 3:1 if this word
+       carried --accent as text, so the display ink stays a constant warm
+       gold — same "fixed reading surface" logic as --text-high/--text-low.
+       Brand identity instead lives in the FILLED devices (chip, badge,
+       photo frame, sparkles) below, per contract. */
+    .tn-title .accent-word{font-style:italic;font-weight:700;color:#d9a451;}
+
+    .cover .tn-title{top:222px;}
+    .cover .tn-title h1{font-size:104px;-webkit-line-clamp:3;}
+    .tip .tn-title{top:196px;height:270px;}
+    .tip .tn-title h1{font-size:112px;-webkit-line-clamp:2;}
+
+    /* ── photo card with thin accent frame ── */
+    .photo-card{position:absolute;left:88px;top:498px;width:696px;height:432px;z-index:2;border:6px solid var(--accent);}
+    .photo-card img{width:100%;height:100%;object-fit:cover;display:block;background:#3a3226;filter:contrast(1.22) saturate(1.1);}
+
+    /* ── habit number badge + script caption, echoes reference's "Tips 0X" ── */
+    .num-badge{position:absolute;right:88px;top:498px;width:112px;height:112px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;z-index:3;}
+    .num-badge span{font-family:'Playfair Display',serif;font-weight:700;font-size:42px;color:var(--on-fill);}
+    .habit-tag{position:absolute;right:74px;top:618px;width:220px;text-align:right;z-index:3;}
+    .habit-tag span{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:30px;color:var(--text-high);white-space:nowrap;}
+    .habit-arrow{position:absolute;right:150px;top:326px;width:64px;height:52px;z-index:3;color:var(--accent);transform:rotate(8deg);}
+
+    /* ── body copy ── */
+    .tn-message{position:absolute;left:88px;right:88px;z-index:3;}
+    .tn-message p{
+      margin:0;font-family:'Jost',sans-serif;font-weight:400;font-size:33px;line-height:1.42;color:var(--text-low);
+      display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;padding-bottom:.2em;
+    }
+    .cover .tn-message{top:566px;width:860px;}
+    .cover .tn-message p{font-size:34px;-webkit-line-clamp:2;}
+    .tip .tn-message{top:988px;}
+
+    /* ── footer: rule + sparkles (brand-tinted) ── */
+    .foot-rule{position:absolute;left:88px;bottom:110px;width:560px;height:2px;background:var(--border);z-index:3;}
+    .sparkles{position:absolute;right:88px;bottom:92px;display:flex;gap:14px;z-index:3;}
+    .sparkles svg{width:34px;height:34px;color:var(--accent);}
+
+    .cover .foot-rule,.cover .sparkles{bottom:150px;}
+    .cover .foot-cta{position:absolute;left:88px;bottom:92px;font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:32px;color:#d9a451;z-index:3;}
+
+    /* ── cover-only medium inset (keeps cover in the same photo/typography
+       system as the tip slides rather than a full-bleed 1080x1350 background,
+       so an accent fill never hides behind full-page art) ── */
+    .cover .photo-card{left:88px;top:756px;width:904px;height:392px;}
+    .cover .num-badge,.cover .habit-tag,.cover .habit-arrow{display:none;}
+  </style>
+</head>
+
+<body>
+  <div class="ig-carousel">
+
+    <!-- Cover -->
+    <section class="slide cover" data-cg-slide-type="text">
+      <div class="corner-ring" aria-hidden="true"></div>
+      <div class="head">
+        <span class="folio-txt" data-counter="true">01 / 05</span>
+        <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%2212%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Hearth &amp; Co.</span></span>
+        <span class="cat-chip">Hosting</span>
+      </div>
+
+      <div class="tn-title"><h1 data-title="true"><span class="accent-word">4 Ways</span><br>to host<br>with warmth</h1></div>
+      <div class="tn-message"><p data-message="true">Small rituals that make a house feel like the place everyone wants to end their evening.</p></div>
+
+      <div class="photo-card"><img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="a warm candlelit dinner table set with linen napkins, wine glasses and a small vase of dried flowers, soft golden evening light, editorial photography" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/host-with-warmth/slide-01.png"></div>
+
+      <div class="foot-cta" data-tagline="true">Begin →</div>
+      <div class="foot-rule" aria-hidden="true"></div>
+      <div class="sparkles" aria-hidden="true">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12.7 8.6 15.4 11.3 22 12C15.4 12.7 12.7 15.4 12 22C11.3 15.4 8.6 12.7 2 12C8.6 11.3 11.3 8.6 12 2Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12.7 8.6 15.4 11.3 22 12C15.4 12.7 12.7 15.4 12 22C11.3 15.4 8.6 12.7 2 12C8.6 11.3 11.3 8.6 12 2Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+    </section>
+
+    <!-- Habit 1 -->
+    <section class="slide tip" data-cg-slide-type="text">
+      <div class="corner-ring" aria-hidden="true"></div>
+      <div class="head">
+        <span class="folio-txt" data-counter="true">02 / 05</span>
+        <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%2212%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Hearth &amp; Co.</span></span>
+        <span class="cat-chip">Hosting</span>
+      </div>
+
+      <div class="tn-title"><h1 data-title="true">Set the<br><span class="accent-word">Mood</span></h1></div>
+
+      <div class="photo-card"><img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="close-up of lit taper candles on a wooden dining table at dusk, warm ambient glow, shallow depth of field, editorial photography" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/host-with-warmth/slide-02.png"></div>
+      <div class="num-badge"><span>01</span></div>
+      <div class="habit-tag"><span>Habit 01</span></div>
+      <svg class="habit-arrow" data-cg-svg="" data-cg-preserve="" viewBox="0 0 70 56" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 4C34 4 40 20 30 30C22 38 10 34 14 24C18 15 34 15 40 24C46 33 52 44 66 50" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path></svg>
+
+      <div class="tn-message"><p data-message="true">Light candles early, dim the overheads, and let the music arrive before your guests do. A room should feel warm before anyone walks in.</p></div>
+
+      <div class="foot-rule" aria-hidden="true"></div>
+      <div class="sparkles" aria-hidden="true">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12.7 8.6 15.4 11.3 22 12C15.4 12.7 12.7 15.4 12 22C11.3 15.4 8.6 12.7 2 12C8.6 11.3 11.3 8.6 12 2Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12.7 8.6 15.4 11.3 22 12C15.4 12.7 12.7 15.4 12 22C11.3 15.4 8.6 12.7 2 12C8.6 11.3 11.3 8.6 12 2Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+    </section>
+
+    <!-- Habit 2 -->
+    <section class="slide tip" data-cg-slide-type="text">
+      <div class="corner-ring" aria-hidden="true"></div>
+      <div class="head">
+        <span class="folio-txt" data-counter="true">03 / 05</span>
+        <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%2212%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Hearth &amp; Co.</span></span>
+        <span class="cat-chip">Hosting</span>
+      </div>
+
+      <div class="tn-title"><h1 data-title="true">Feed Them<br><span class="accent-word">First</span></h1></div>
+
+      <div class="photo-card"><img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="hands passing a small wooden board of appetizers over a rustic dinner table at a gathering, warm indoor lighting, candid photography" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/host-with-warmth/slide-03.png"></div>
+      <div class="num-badge"><span>02</span></div>
+      <div class="habit-tag"><span>Habit 02</span></div>
+      <svg class="habit-arrow" data-cg-svg="" data-cg-preserve="" viewBox="0 0 70 56" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 4C34 4 40 20 30 30C22 38 10 34 14 24C18 15 34 15 40 24C46 33 52 44 66 50" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path></svg>
+
+      <div class="tn-message"><p data-message="true">Have something in hand within five minutes of arrival — a snack, a drink, anything at all. Nobody relaxes on an empty stomach.</p></div>
+
+      <div class="foot-rule" aria-hidden="true"></div>
+      <div class="sparkles" aria-hidden="true">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12.7 8.6 15.4 11.3 22 12C15.4 12.7 12.7 15.4 12 22C11.3 15.4 8.6 12.7 2 12C8.6 11.3 11.3 8.6 12 2Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12.7 8.6 15.4 11.3 22 12C15.4 12.7 12.7 15.4 12 22C11.3 15.4 8.6 12.7 2 12C8.6 11.3 11.3 8.6 12 2Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+    </section>
+
+    <!-- Habit 3 -->
+    <section class="slide tip" data-cg-slide-type="text">
+      <div class="corner-ring" aria-hidden="true"></div>
+      <div class="head">
+        <span class="folio-txt" data-counter="true">04 / 05</span>
+        <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%2212%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Hearth &amp; Co.</span></span>
+        <span class="cat-chip">Hosting</span>
+      </div>
+
+      <div class="tn-title"><h1 data-title="true">Leave Space<br><span class="accent-word">to Talk</span></h1></div>
+
+      <div class="photo-card"><img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="group of friends laughing around a dinner table at night, warm low light, out of focus wine glasses in foreground, candid lifestyle photography" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/host-with-warmth/slide-04.png"></div>
+      <div class="num-badge"><span>03</span></div>
+      <div class="habit-tag"><span>Habit 03</span></div>
+      <svg class="habit-arrow" data-cg-svg="" data-cg-preserve="" viewBox="0 0 70 56" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 4C34 4 40 20 30 30C22 38 10 34 14 24C18 15 34 15 40 24C46 33 52 44 66 50" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path></svg>
+
+      <div class="tn-message"><p data-message="true">Skip the tight schedule and the timed courses. The best part of any gathering is the long stretch nobody is rushing through.</p></div>
+
+      <div class="foot-rule" aria-hidden="true"></div>
+      <div class="sparkles" aria-hidden="true">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12.7 8.6 15.4 11.3 22 12C15.4 12.7 12.7 15.4 12 22C11.3 15.4 8.6 12.7 2 12C8.6 11.3 11.3 8.6 12 2Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12.7 8.6 15.4 11.3 22 12C15.4 12.7 12.7 15.4 12 22C11.3 15.4 8.6 12.7 2 12C8.6 11.3 11.3 8.6 12 2Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+    </section>
+
+    <!-- Habit 4 -->
+    <section class="slide tip" data-cg-slide-type="text">
+      <div class="corner-ring" aria-hidden="true"></div>
+      <div class="head">
+        <span class="folio-txt" data-counter="true">05 / 05</span>
+        <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%2212%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">Hearth &amp; Co.</span></span>
+        <span class="cat-chip">Hosting</span>
+      </div>
+
+      <div class="tn-title"><h1 data-title="true">Walk Them<br><span class="accent-word">to the Door</span></h1></div>
+
+      <div class="photo-card"><img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="a warmly lit doorway at night, a host's silhouette waving goodbye in the porch light, cozy editorial photography" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/host-with-warmth/slide-05.png"></div>
+      <div class="num-badge"><span>04</span></div>
+      <div class="habit-tag"><span>Habit 04</span></div>
+      <svg class="habit-arrow" data-cg-svg="" data-cg-preserve="" viewBox="0 0 70 56" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M4 4C34 4 40 20 30 30C22 38 10 34 14 24C18 15 34 15 40 24C46 33 52 44 66 50" stroke="var(--cg-stroke)" stroke-width="3" stroke-linecap="round"></path></svg>
+
+      <div class="tn-message"><p data-message="true">How a night ends stays with people longer than how it started. Walk them out, say their name, and mean the goodbye.</p></div>
+
+      <div class="foot-rule" aria-hidden="true"></div>
+      <div class="sparkles" aria-hidden="true">
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12.7 8.6 15.4 11.3 22 12C15.4 12.7 12.7 15.4 12 22C11.3 15.4 8.6 12.7 2 12C8.6 11.3 11.3 8.6 12 2Z" fill="var(--cg-fill)"></path></svg>
+        <svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--accent);--cg-stroke:var(--accent);--cg-fill:var(--cg-fill);--cg-stroke:var(--cg-fill)"><path d="M12 2C12.7 8.6 15.4 11.3 22 12C15.4 12.7 12.7 15.4 12 22C11.3 15.4 8.6 12.7 2 12C8.6 11.3 11.3 8.6 12 2Z" fill="var(--cg-fill)"></path></svg>
+      </div>
+    </section>
+
+  </div>
+
+
+</body></html>

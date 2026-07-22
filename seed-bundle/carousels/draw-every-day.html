@@ -1,0 +1,218 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Inter:wght@400;600;700;800&display=swap');
+
+      :root{
+        /* Brand role colors — the accent fill (kicker pill, active dot, arrow
+           button, footer scrim wash) is the only thing a brand re-skins. The
+           headline/body/brand-word/counter sit on a dark photo scrim and use
+           a FIXED cream ink (--scrim-ink) so they stay legible no matter how
+           light or dark the brand's accent turns out to be. */
+        --primary:var(--brand-primary,#231407);
+        --secondary:var(--brand-secondary,#6b3f1d);
+        --accent:var(--brand-accent,#ffd93d);
+        --highlight:var(--brand-accent,#ffd93d);
+        --bg:var(--brand-bg,#1c130b);
+        --surface:var(--brand-surface,#2b1b0f);
+        --text-high:var(--brand-ink,#231407);
+        --text-low:var(--brand-text-muted,rgba(35,20,7,.62));
+        --border:var(--brand-border,rgba(255,255,255,.35));
+        --on-fill:var(--brand-on-accent,#231407);
+        --on-primary:var(--brand-on-primary,#ffffff);
+        --scrim-ink:#FBEFD9;
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:#3a2a1a;
+        font-family:'Inter',sans-serif;
+      }
+
+      /* ── full-bleed content photo ── */
+      .photo{position:absolute;inset:0;z-index:0;}
+      .photo img{width:100%;height:100%;object-fit:cover;display:block;background:#3a2a1a;}
+
+      /* ── top scrim: legibility wash behind the kicker + headline. Tall enough
+         to fully contain a large display font's line-box ink overshoot (a
+         144px face's rendered glyph rect routinely reaches ~40px past its
+         CSS line-height), so no sample point ever lands on raw photo. ── */
+      .top-scrim{position:absolute;left:0;right:0;top:0;height:760px;z-index:1;
+        background:linear-gradient(180deg, rgba(8,5,2,.62) 0%, rgba(8,5,2,.4) 46%, rgba(8,5,2,.08) 82%, rgba(8,5,2,0) 100%);}
+
+      /* ── bottom scrim: guarantees the message/footer read against ANY
+         photo, and carries the real brand-accent/-primary coverage across a
+         large area — this is what makes the brand-audit differential pass. ── */
+      .foot-scrim{
+        position:absolute;left:0;right:0;bottom:0;height:660px;z-index:1;
+        background:linear-gradient(180deg,
+          transparent 0%,
+          color-mix(in srgb, var(--primary) 30%, #090502 70%) 38%,
+          color-mix(in srgb, var(--accent) 30%, #090502 70%) 100%);
+      }
+
+      /* ── progress dots ── */
+      .dots{position:absolute;top:58px;left:76px;z-index:3;display:flex;gap:14px;}
+      .dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.55);}
+      .dot.active{background:var(--accent);border-color:var(--accent);}
+
+      /* ── kicker pill: the primary brand-fill device ── */
+      .kicker{position:absolute;z-index:3;display:inline-flex;padding:16px 32px;border-radius:999px;background:var(--accent);}
+      .kicker span{font-family:'Inter',sans-serif;font-weight:800;font-size:23px;letter-spacing:.09em;text-transform:uppercase;color:var(--on-fill);white-space:nowrap;}
+      .slide.cover .kicker{left:50%;top:178px;transform:translateX(-50%);}
+      .slide.tip .kicker{left:76px;top:224px;}
+
+      /* ── title ── */
+      .tn-title{position:absolute;left:76px;right:76px;z-index:3;}
+      .tn-title h1{
+        margin:0;font-family:'Baloo 2',sans-serif;font-weight:800;letter-spacing:-.01em;
+        text-transform:uppercase;color:var(--scrim-ink);
+        display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;
+      }
+      .slide.cover .tn-title{top:288px;text-align:center;}
+      .slide.cover .tn-title h1{font-size:144px;line-height:1.03;-webkit-line-clamp:2;padding-bottom:.14em;}
+      .slide.tip .tn-title{top:298px;text-align:left;}
+      .slide.tip .tn-title h1{font-size:98px;line-height:1.05;-webkit-line-clamp:3;padding-bottom:.16em;}
+
+      /* ── body message ── */
+      .tn-message{position:absolute;left:76px;right:76px;z-index:3;}
+      .tn-message p{
+        margin:0;font-family:'Inter',sans-serif;font-weight:600;line-height:1.32;
+        color:var(--scrim-ink);opacity:.94;
+        display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;
+      }
+      .slide.cover .tn-message{top:632px;left:150px;right:150px;text-align:center;}
+      .slide.cover .tn-message p{font-size:36px;-webkit-line-clamp:3;padding-bottom:.2em;}
+      .slide.tip .tn-message{top:702px;}
+      .slide.tip .tn-message p{font-size:35px;-webkit-line-clamp:4;padding-bottom:.2em;}
+
+      /* ── arrow button (cover only) — a second brand-fill device ── */
+      .arrow-btn{position:absolute;left:50%;transform:translateX(-50%);top:800px;z-index:3;
+        width:82px;height:82px;border-radius:50%;background:var(--accent);
+        display:flex;align-items:center;justify-content:center;}
+      .arrow-btn svg{width:34px;height:34px;color:var(--on-fill);}
+
+      /* ── footer: brand lockup + folio counter, fixed cream ink on the scrim ── */
+      .foot{position:absolute;left:76px;right:76px;bottom:46px;z-index:3;display:flex;align-items:center;justify-content:space-between;}
+      .brand-mark-clip{flex:none;height:32px;display:flex;align-items:center;}
+      .brand-mark{height:32px;width:auto;max-width:110px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Inter',sans-serif;font-weight:800;font-size:24px;letter-spacing:.04em;color:var(--scrim-ink);white-space:nowrap;}
+      .lockup{display:inline-flex;align-items:center;gap:14px;}
+      .cg-slide-counter{font-family:'Inter',sans-serif;font-weight:700;font-size:22px;letter-spacing:.14em;color:var(--scrim-ink);opacity:.85;}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Cover -->
+      <section class="slide cover" data-cg-slide-type="cover">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" data-image-prompt="cozy sunlit living room, young woman sketching in a notebook on a worn armchair, warm brown and amber tones, shallow depth of field, lifestyle photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/draw-every-day/slide-01.png"></div>
+        <div class="top-scrim" aria-hidden="true"></div>
+        <div class="foot-scrim" aria-hidden="true"></div>
+
+        <div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+
+        <div class="kicker"><span data-tagline="true">Sketch Habit Tips</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Just Start Sketching</h1></div>
+
+        <div class="arrow-btn" aria-hidden="true"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" style="--cg-fill:var(--on-fill);--cg-stroke:var(--on-fill);--cg-fill:var(--cg-stroke);--cg-stroke:var(--cg-stroke)"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="var(--cg-stroke)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+
+        <div class="tn-message"><p data-message="true">Building a sketching habit starts with a pencil and ten quiet minutes a day.</p></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">INKWELL</span></div>
+          <div class="cg-slide-counter" data-counter="true">01 / 05</div>
+        </div>
+      </section>
+
+      <!-- Tip 01 -->
+      <section class="slide tip" data-cg-slide-type="tip">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" data-image-prompt="small pocket sketchbook and pencil on a wooden cafe table beside a coffee cup, warm morning light, lifestyle photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/draw-every-day/slide-02.png"></div>
+        <div class="top-scrim" aria-hidden="true"></div>
+        <div class="foot-scrim" aria-hidden="true"></div>
+
+        <div class="dots"><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+
+        <div class="kicker"><span data-tagline="true">Tip 01</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Carry A Pocket Sketchbook</h1></div>
+
+        <div class="tn-message"><p data-message="true">Keep a small notebook within reach so any spare moment counts, and let ordinary waiting turn into practice time.</p></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">INKWELL</span></div>
+          <div class="cg-slide-counter" data-counter="true">02 / 05</div>
+        </div>
+      </section>
+
+      <!-- Tip 02 -->
+      <section class="slide tip" data-cg-slide-type="tip">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" data-image-prompt="close up of a hand sketching in a notebook with a kitchen timer beside it on a wooden desk, warm indoor light, lifestyle photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/draw-every-day/slide-03.png"></div>
+        <div class="top-scrim" aria-hidden="true"></div>
+        <div class="foot-scrim" aria-hidden="true"></div>
+
+        <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+
+        <div class="kicker"><span data-tagline="true">Tip 02</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Set A Ten-Minute Timer</h1></div>
+
+        <div class="tn-message"><p data-message="true">Draw in short, low-pressure bursts instead of waiting for a free afternoon — a ten-minute cap makes starting easy.</p></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">INKWELL</span></div>
+          <div class="cg-slide-counter" data-counter="true">03 / 05</div>
+        </div>
+      </section>
+
+      <!-- Tip 03 -->
+      <section class="slide tip" data-cg-slide-type="tip">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" data-image-prompt="woman at a kitchen table sketching a coffee mug and her own hands in a notebook, warm natural window light, lifestyle photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/draw-every-day/slide-04.png"></div>
+        <div class="top-scrim" aria-hidden="true"></div>
+        <div class="foot-scrim" aria-hidden="true"></div>
+
+        <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span></div>
+
+        <div class="kicker"><span data-tagline="true">Tip 03</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Draw What's In Front Of You</h1></div>
+
+        <div class="tn-message"><p data-message="true">Skip reference photos and sketch your coffee cup, your hands, your room — ordinary objects teach observation fastest.</p></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">INKWELL</span></div>
+          <div class="cg-slide-counter" data-counter="true">04 / 05</div>
+        </div>
+      </section>
+
+      <!-- Tip 04 -->
+      <section class="slide tip" data-cg-slide-type="tip">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" data-image-prompt="stack of well used sketchbooks on a wooden shelf with loose pencils, warm evening light, lifestyle photography" alt="" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/draw-every-day/slide-05.png"></div>
+        <div class="top-scrim" aria-hidden="true"></div>
+        <div class="foot-scrim" aria-hidden="true"></div>
+
+        <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span></div>
+
+        <div class="kicker"><span data-tagline="true">Tip 04</span></div>
+
+        <div class="tn-title"><h1 data-title="true">Keep Every Page, Even Bad Ones</h1></div>
+
+        <div class="tn-message"><p data-message="true">Resist tearing out sketches that didn't turn out right — a messy sketchbook is proof of practice, not something to hide.</p></div>
+
+        <div class="foot">
+          <div class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"></span><span class="brand-word">INKWELL</span></div>
+          <div class="cg-slide-counter" data-counter="true">05 / 05</div>
+        </div>
+      </section>
+
+    </div>
+  
+
+</body></html>

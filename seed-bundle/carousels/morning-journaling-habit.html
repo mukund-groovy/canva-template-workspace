@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root{
+  --primary:var(--brand-primary,#EDE7DA);
+  --secondary:var(--brand-secondary,#C9C1B0);
+  --accent:var(--brand-accent,#B7A98C);
+  --highlight:var(--brand-accent,#B7A98C);
+  --bg:var(--brand-bg,#141210);
+  --surface:var(--brand-surface,#FCFBF8);
+  --text-high:var(--brand-text-high,#1B1815);
+  --text-low:var(--brand-text-muted,rgba(27,24,21,.6));
+  --border:var(--brand-border,rgba(27,24,21,.12));
+}
+
+*{box-sizing:border-box;}
+
+.si-single{width:fit-content;margin:0;}
+
+.si-page{
+  position:relative;width:1080px;height:1350px;overflow:hidden;
+  container-type:inline-size;background:var(--bg);
+  font-family:'EB Garamond',serif;
+}
+
+.bg-photo{position:absolute;inset:0;z-index:0;background:var(--bg);}
+.bg-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(160deg,
+    color-mix(in srgb, var(--bg) 30%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 55%, transparent) 60%,
+    color-mix(in srgb, var(--bg) 78%, transparent) 100%);}
+
+.si-image{
+  position:absolute;left:100px;top:400px;z-index:3;
+  width:190px;height:190px;border-radius:50%;object-fit:cover;
+  border:12px solid var(--bg);background:var(--secondary);
+  box-shadow:0 12px 30px rgba(0,0,0,.4);
+}
+
+/* content column */
+.stage{
+  position:relative;z-index:2;width:100%;height:100%;
+  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  padding:90px 90px 150px;
+}
+
+.card-wrap{position:relative;width:100%;margin-top:60px;}
+
+.card{
+  position:relative;z-index:2;
+  background:var(--surface);border-radius:6px;
+  padding:56px 70px 66px 250px;
+  box-shadow:0 26px 60px rgba(0,0,0,.35);
+}
+
+.eyebrow-row{display:flex;flex-direction:column;gap:6px;margin-bottom:34px;}
+.eyebrow{
+  margin:0;font-family:'Playfair Display',serif;font-weight:700;font-size:34px;
+  letter-spacing:.01em;text-transform:uppercase;color:var(--text-high);line-height:1.15;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:4px;
+}
+.subchip{
+  font-family:'EB Garamond',serif;font-style:italic;font-weight:400;font-size:24px;
+  color:var(--text-low);line-height:1.2;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;padding-bottom:3px;
+}
+.subchip::before{content:'> ';font-style:normal;}
+
+.headline{
+  margin:0 0 26px;font-family:'Playfair Display',serif;font-weight:600;font-size:40px;
+  color:var(--text-high);line-height:1.25;letter-spacing:.005em;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:6px;
+}
+
+.body{
+  margin:0;font-family:'EB Garamond',serif;font-weight:400;font-size:29px;
+  color:var(--text-high);line-height:1.4;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:6px;
+}
+
+.handle{
+  position:absolute;left:0;right:0;bottom:56px;z-index:3;
+  display:flex;justify-content:center;align-items:center;gap:14px;
+}
+.brand-mark{width:30px;height:30px;display:block;}
+.brand-word{
+  font-family:'Playfair Display',serif;font-weight:700;font-size:28px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--primary);white-space:nowrap;
+}
+
+/* occlusion-guard: semantic text slots always render above filled surfaces */
+[data-title],[data-message],[data-cta],[data-tagline],[data-step],[data-kicker]{position:relative;z-index:30;}
+</style>
+</head>
+<body>
+<div class="si-single">
+  <div class="si-page">
+
+    <div class="bg-photo" aria-hidden="true"></div>
+    <div class="bg-scrim" aria-hidden="true"></div>
+
+    <img class="si-image" data-image="true" data-image-size="1024x1536" alt="Open journal with a pen resting on a morning writing page" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='190' height='190' viewBox='0 0 190 190'><rect width='190' height='190' fill='%23C9C1B0'/><g fill='none' stroke='%231B1815' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><rect x='52' y='46' width='86' height='104' rx='4' fill='%23FCFBF8'/><line x1='95' y1='46' x2='95' y2='150'/><line x1='64' y1='68' x2='86' y2='68'/><line x1='64' y1='84' x2='86' y2='84'/><line x1='64' y1='100' x2='82' y2='100'/><line x1='104' y1='68' x2='126' y2='68'/><line x1='104' y1='84' x2='126' y2='84'/><path d='M118 132 l16 -34 8 4 -16 34 -10 3 z' fill='%23B7A98C'/></g></svg>">
+
+    <div class="stage">
+      <div class="card-wrap">
+        <div class="card">
+          <div class="eyebrow-row">
+            <p class="eyebrow">Morning Ritual</p>
+            <span class="subchip">Journaling Basics</span>
+          </div>
+          <h1 class="headline">Five. Minutes. Can. Change. Your. Day.</h1>
+          <p class="body">Write down one thought each morning before the noise begins. Small pages, steady habit, clearer mind.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="handle">
+      <img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30'><rect width='100%25' height='100%25' fill='%23888888'/></svg>">
+      <span class="brand-word">YOURBRAND</span>
+    </div>
+
+  </div>
+</div>
+
+</body></html>

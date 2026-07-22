@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --primary:      var(--brand-primary,   #b1531f);
+    --secondary:    var(--brand-secondary, #8a3f18);
+    --accent:       var(--brand-accent,    #c56c30);
+    --bg:           var(--brand-bg,        #fdfaf6);
+    --surface:      var(--brand-surface,   #f5efe4);
+    --text-high:    var(--brand-ink,       #17130f);
+    --text-low:     var(--brand-text-muted,rgba(23,19,15,.62));
+    --border:       var(--brand-border,    rgba(23,19,15,.12));
+    --highlight:    var(--brand-accent,    #c56c30);
+    --on-fill:    var(--brand-on-accent, #ffffff);
+    --on-primary:   var(--brand-on-primary,#ffffff);
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0;}
+  .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+  .slide{
+    width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+    background:var(--bg);
+    font-family:'Lora',serif;
+  }
+
+  /* ── shared furniture ── */
+  .rule{position:absolute;height:8px;background:var(--accent);border-radius:2px;}
+
+  /* ── right-edge spine: the deck's one consistent brand device — a bold
+     full-bleed colour bar that closes the right margin on every slide, like
+     a bound notebook's edge. Also carries real accent-fill coverage down the
+     whole frame, so a type-only composition still reads as designed. ── */
+  .spine{position:absolute;top:0;right:0;bottom:0;width:40px;background:var(--accent);z-index:1;}
+
+  /* ── quote panel: a quiet paper-on-paper card that gives a pull-quote real
+     weight lower on the canvas instead of leaving it floating in blank space ── */
+  .quote-panel{position:absolute;background:var(--surface);border-radius:28px;z-index:0;}
+
+  .foot{position:absolute;left:80px;right:80px;bottom:64px;display:flex;align-items:center;justify-content:space-between;z-index:5;}
+  .lockup{display:inline-flex;align-items:center;gap:12px;}
+  .brand-mark-clip{flex:none;height:26px;display:flex;align-items:center;}
+  .brand-mark{height:26px;width:auto;max-width:100px;object-fit:contain;display:block;}
+  .brand-word{
+    font-family:'Inter',sans-serif;font-weight:700;font-size:22px;letter-spacing:.01em;
+    color:var(--primary);white-space:nowrap;
+  }
+  .caption{
+    position:absolute;font-family:'Inter',sans-serif;font-weight:600;font-size:16.5px;
+    line-height:1.5;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);
+    text-align:right;max-width:270px;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.2em;
+  }
+  .counter{
+    font-family:'Inter',sans-serif;font-weight:600;font-size:16.5px;letter-spacing:.1em;
+    color:var(--primary);white-space:nowrap;
+  }
+
+  .kicker{
+    position:absolute;font-family:'Inter',sans-serif;font-weight:600;font-size:19px;
+    line-height:1.4;letter-spacing:.05em;color:var(--primary);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.2em;
+  }
+
+  /* ── numeral badge (the accent FILL device on tip slides) ── */
+  .badge{
+    position:absolute;width:86px;height:86px;border-radius:16px;background:var(--accent);
+    display:flex;align-items:center;justify-content:center;z-index:2;
+  }
+  .badge span{
+    font-family:'Inter',sans-serif;font-weight:700;font-size:38px;color:var(--on-fill);
+  }
+
+  /* ── pull-quote: a large accent-ink callout that gives each tip slide a
+     second beat lower on the canvas, echoing the reference's own habit of
+     pairing a black headline with a big orange emphasis line ── */
+  .pull{position:absolute;}
+  .pull div.pull-text{
+    margin:0;font-family:'Lora',serif;font-weight:500;font-style:italic;font-size:52px;line-height:1.16;
+    color:var(--primary);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.16em;
+  }
+
+  /* ── title / heading / body wrappers, one per text node ── */
+  .tn-cover-title{position:absolute;left:78px;right:150px;}
+  .tn-cover-title h1{
+    margin:0;font-family:'Lora',serif;font-weight:500;font-size:96px;line-height:1.06;
+    letter-spacing:-.01em;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;padding-bottom:.12em;
+  }
+
+  .tn-heading{position:absolute;}
+  .tn-heading h2{
+    margin:0;font-family:'Lora',serif;font-weight:500;font-size:78px;line-height:1.08;
+    letter-spacing:-.01em;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;padding-bottom:.14em;
+  }
+  .tn-heading h2.accent-ink{color:var(--primary);}
+
+  .tn-heading-sm{position:absolute;}
+  .tn-heading-sm h2{
+    margin:0;font-family:'Lora',serif;font-weight:500;font-size:52px;line-height:1.12;
+    letter-spacing:-.01em;color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.14em;
+  }
+
+  .tn-body{position:absolute;}
+  .tn-body p, .tn-body div.body-text{
+    margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:27px;line-height:1.5;
+    color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;overflow:hidden;padding-bottom:.2em;
+  }
+
+  .tn-body-sm{position:absolute;}
+  .tn-body-sm p, .tn-body-sm div.body-text{
+    margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:25px;line-height:1.48;
+    color:var(--text-high);
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;padding-bottom:.2em;
+  }
+</style>
+</head>
+<body>
+<div class="ig-carousel">
+
+  <!-- 1: Cover -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="spine" aria-hidden="true"></div>
+    <div class="rule" style="left:80px;top:96px;width:104px;"></div>
+    <div class="caption" style="right:80px;top:96px;text-align:right;">Because every reluctant<br>yes quietly costs you twice.</div>
+
+    <div class="tn-cover-title" style="top:212px;">
+      <h1 data-title="true">How to Say No Without the Guilt Spiral</h1>
+    </div>
+
+    <div class="pull" style="left:80px;right:150px;top:760px;">
+      <div class="pull-text" data-tagline="true">A field guide for anyone who over-explains their no.</div>
+    </div>
+
+    <div class="rule" style="left:80px;top:920px;width:64px;height:6px;"></div>
+    <div class="caption" style="left:80px;top:948px;text-align:left;max-width:420px;">Seven small shifts, one calmer inbox.</div>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span>
+        <span class="brand-word">QUIET HOURS</span>
+      </div>
+      <span class="counter">01 / 07</span>
+    </div>
+  </section>
+
+  <!-- 2: Framing -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="spine" aria-hidden="true"></div>
+    <div class="kicker" style="left:80px;top:96px;width:230px;" data-tagline="true">You keep<br>saying yes.</div>
+    <div class="rule" style="left:80px;top:190px;width:64px;"></div>
+
+    <div class="tn-heading" style="left:340px;right:120px;top:78px;">
+      <h2 data-title="true" style="-webkit-line-clamp:5;">But every reflexive yes is a stolen no to something that mattered more.</h2>
+    </div>
+    <div class="tn-heading" style="left:340px;right:80px;top:790px;">
+      <h2 class="accent-ink" data-message="true">Here's how to say no on purpose.</h2>
+    </div>
+
+    <div class="caption" style="right:80px;top:1040px;text-align:right;">Five small shifts,<br>zero over-explaining.</div>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span>
+        <span class="brand-word">QUIET HOURS</span>
+      </div>
+      <span class="counter">02 / 07</span>
+    </div>
+  </section>
+
+  <!-- 3: Tip #1 — bullets -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="spine" aria-hidden="true"></div>
+    <div class="badge" style="left:80px;top:90px;"><span>1</span></div>
+
+    <div class="tn-heading-sm" style="left:80px;right:80px;top:212px;">
+      <h2 data-title="true">Buy Yourself a Beat</h2>
+    </div>
+
+    <div class="tn-body" style="left:80px;right:120px;top:392px;">
+      <p data-message="true">Pause before you answer — silence isn't rude, it's information.<br>"Let me check and get back to you" is a full sentence.<br>Notice the urge to over-explain; you don't owe an essay.<br>A held breath costs nothing. A hasty yes costs a weekend.<br>The delay is the boundary — practice it first.</p>
+    </div>
+
+    <div class="quote-panel" style="left:80px;right:120px;top:660px;height:360px;"></div>
+    <div class="rule" style="left:120px;top:700px;width:64px;height:6px;"></div>
+    <div class="pull" style="left:120px;right:160px;top:736px;">
+      <div class="pull-text">Practice the pause before the promise you're about to make.</div>
+    </div>
+    <div class="caption" style="left:120px;top:900px;text-align:left;max-width:460px;color:var(--secondary);">The whole boundary lives in that pause.</div>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span>
+        <span class="brand-word">QUIET HOURS</span>
+      </div>
+      <span class="counter">03 / 07</span>
+    </div>
+  </section>
+
+  <!-- 4: Tip #2 — paragraph -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="spine" aria-hidden="true"></div>
+    <div class="badge" style="left:80px;top:90px;"><span>2</span></div>
+
+    <div class="tn-heading" style="left:340px;right:80px;top:78px;">
+      <h2 data-title="true">Decline the Ask, Not the Person</h2>
+    </div>
+
+    <div class="tn-body" style="left:340px;right:100px;top:520px;">
+      <p data-message="true">Most people aren't testing your loyalty — they're testing your availability. You can care about someone and still tell them no. Separate the relationship from the request, and the guilt loses its grip.</p>
+    </div>
+
+    <div class="rule" style="left:80px;top:892px;width:64px;height:6px;"></div>
+    <div class="pull" style="left:80px;right:150px;top:926px;">
+      <div class="pull-text">Warmth and refusal can share a sentence.</div>
+    </div>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span>
+        <span class="brand-word">QUIET HOURS</span>
+      </div>
+      <span class="counter">04 / 07</span>
+    </div>
+  </section>
+
+  <!-- 5: Tip #3 + #4 — stacked -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="spine" aria-hidden="true"></div>
+    <div class="badge" style="left:80px;top:90px;"><span>3</span></div>
+    <div class="tn-heading-sm" style="left:80px;right:80px;top:210px;">
+      <h2 data-title="true">Match the Weight of the Ask</h2>
+    </div>
+    <div class="tn-body-sm" style="left:80px;right:120px;top:370px;">
+      <p data-message="true">A big favor deserves a real answer, not a rushed one. A small favor doesn't need a paragraph of apology. Say only as much as the moment requires.</p>
+    </div>
+
+    <div class="badge" style="left:80px;top:702px;"><span>4</span></div>
+    <div class="tn-heading-sm" style="left:80px;right:80px;top:822px;">
+      <h2 data-title="true">Let the Silence Sit</h2>
+    </div>
+    <div class="tn-body-sm" style="left:80px;right:120px;top:980px;">
+      <div class="body-text">You don't have to fill the pause after you decline. Explaining more doesn't make the no kinder — it just gives them room to negotiate.</div>
+    </div>
+
+    <div class="rule" style="left:80px;top:1153px;width:64px;height:6px;"></div>
+    <div class="caption" style="left:80px;top:1178px;text-align:left;max-width:460px;">Two small ways to hold a line without a fight.</div>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span>
+        <span class="brand-word">QUIET HOURS</span>
+      </div>
+      <span class="counter">05 / 07</span>
+    </div>
+  </section>
+
+  <!-- 6: Tip #5 — paragraph -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="spine" aria-hidden="true"></div>
+    <div class="badge" style="left:80px;top:90px;"><span>5</span></div>
+
+    <div class="tn-heading" style="left:80px;right:80px;top:360px;">
+      <h2 data-title="true">Watch Who Stays</h2>
+    </div>
+
+    <div class="tn-body" style="left:80px;right:120px;top:660px;">
+      <p data-message="true">The people worth keeping don't disappear the first time you have a limit. If a no ends things, it was already conditional — let it show you something true.</p>
+    </div>
+
+    <div class="rule" style="left:80px;top:928px;width:64px;height:6px;"></div>
+    <div class="pull" style="left:80px;right:150px;top:962px;">
+      <div class="pull-text">This is how you find out who was ever real.</div>
+    </div>
+
+    <div class="foot">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span>
+        <span class="brand-word">QUIET HOURS</span>
+      </div>
+      <span class="counter">06 / 07</span>
+    </div>
+  </section>
+
+  <!-- 7: Closing -->
+  <section class="slide" data-cg-slide-type="text">
+    <div class="spine" aria-hidden="true"></div>
+    <div class="rule" style="left:80px;top:96px;width:104px;"></div>
+
+    <div class="tn-heading" style="left:78px;right:96px;top:200px;">
+      <h2 class="accent-ink" data-title="true">You don't owe an essay for every no.</h2>
+    </div>
+    <div class="tn-heading" style="left:78px;right:96px;top:520px;">
+      <h2 class="accent-ink" data-message="true">A clear no, kindly said, is still a complete sentence.</h2>
+    </div>
+
+    <div class="caption" style="right:80px;bottom:64px;text-align:right;" data-cta="true">Save this for the next time<br>guilt shows up first.</div>
+
+    <div class="foot" style="right:auto;justify-content:flex-start;">
+      <div class="lockup">
+        <span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.35%22/%3E%3C/svg%3E"/></span>
+        <span class="brand-word">QUIET HOURS</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

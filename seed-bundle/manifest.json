@@ -1,0 +1,774 @@
+{
+  "generatedAt": "2026-07-22T06:02:15.845Z",
+  "count": 96,
+  "templates": [
+    {
+      "slug": "ace-your-interview",
+      "kind": "carousel",
+      "category": "business",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Ace Your Interview"
+    },
+    {
+      "slug": "balcony-garden-diary",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Balcony Garden Diary"
+    },
+    {
+      "slug": "beach-cleanup-day",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "background-images",
+      "images": 1,
+      "name": "Community Beach Cleanup"
+    },
+    {
+      "slug": "bike-commute-confidence",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 4,
+      "name": "Bike Commute Confidence"
+    },
+    {
+      "slug": "birdwatching-field-notes",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Birdwatching Field Notes"
+    },
+    {
+      "slug": "bookbinding-by-hand",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 6,
+      "name": "Bookbinding By Hand"
+    },
+    {
+      "slug": "breach-alert-briefing",
+      "kind": "carousel",
+      "category": "tech",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Breach Alert Briefing"
+    },
+    {
+      "slug": "capsule-wardrobe-rules",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Capsule Wardrobe Rules"
+    },
+    {
+      "slug": "citrus-season-baking",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Citrus Season Baking Tips"
+    },
+    {
+      "slug": "clay-studio-diary",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 5,
+      "name": "Clay Studio Diary"
+    },
+    {
+      "slug": "clay-studio-mentorship",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 5,
+      "name": "Clay Studio Mentorship"
+    },
+    {
+      "slug": "coffee-terms-glossary",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Coffee Terms Glossary"
+    },
+    {
+      "slug": "cold-start-ritual",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 1,
+      "name": "Cold Start Ritual"
+    },
+    {
+      "slug": "cold-water-swimming",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 2,
+      "name": "Wild Swimming Journey"
+    },
+    {
+      "slug": "community-garden-volunteer",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Community Garden Volunteer"
+    },
+    {
+      "slug": "community-garden-workshop",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Community Garden Workshop"
+    },
+    {
+      "slug": "composting-starter-guide",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 1,
+      "name": "Composting Starter Guide"
+    },
+    {
+      "slug": "confidence-mindset-shifts",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Confidence Mindset Shifts"
+    },
+    {
+      "slug": "daily-hydration-habits",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 6,
+      "name": "Daily Hydration Habits"
+    },
+    {
+      "slug": "dear-new-parent",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Dear New Parent"
+    },
+    {
+      "slug": "deeper-sleep-habits",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Deeper Sleep Habits"
+    },
+    {
+      "slug": "desk-break-reset",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Desk Break Reset"
+    },
+    {
+      "slug": "draw-every-day",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 5,
+      "name": "Draw Every Day"
+    },
+    {
+      "slug": "dress-with-less",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 5,
+      "name": "Dress With Less"
+    },
+    {
+      "slug": "drink-more-water",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Workday Water Reminder"
+    },
+    {
+      "slug": "er-mindset-shift",
+      "kind": "single-image",
+      "category": "general",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Mindset Shift Quote"
+    },
+    {
+      "slug": "first-frost-morning",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "First Frost Morning"
+    },
+    {
+      "slug": "garden-year-recap",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-images",
+      "images": 5,
+      "name": "My Year In The Garden"
+    },
+    {
+      "slug": "guard-your-attention",
+      "kind": "carousel",
+      "category": "business",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Guard Your Attention"
+    },
+    {
+      "slug": "handwritten-letter-ritual",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 3,
+      "name": "Handwritten Letter Ritual"
+    },
+    {
+      "slug": "home-barista-rituals",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 5,
+      "name": "Home Barista Rituals"
+    },
+    {
+      "slug": "home-brew-ritual",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Home Brew Ritual"
+    },
+    {
+      "slug": "host-with-warmth",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 5,
+      "name": "Host With Warmth"
+    },
+    {
+      "slug": "journaling-for-beginners",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Journaling For Beginners"
+    },
+    {
+      "slug": "kitchen-herb-garden",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Kitchen Herb Garden Guide"
+    },
+    {
+      "slug": "knife-care-habits",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 5,
+      "name": "Knife Care Habits"
+    },
+    {
+      "slug": "language-exchange-app",
+      "kind": "single-image",
+      "category": "tech",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Language Exchange App"
+    },
+    {
+      "slug": "language-learning-encouragement",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Language Learning Encouragement"
+    },
+    {
+      "slug": "learn-smarter-habits",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Learn Smarter Habits"
+    },
+    {
+      "slug": "library-reopening-celebration",
+      "kind": "single-image",
+      "category": "business",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "The Doors Are Open"
+    },
+    {
+      "slug": "make-your-zine",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Make Your Zine How-To"
+    },
+    {
+      "slug": "meal-prep-simple",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Meal Prep Made Simple"
+    },
+    {
+      "slug": "meal-prep-testimonial",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Meal Prep Testimonial"
+    },
+    {
+      "slug": "money-habits-twenties",
+      "kind": "carousel",
+      "category": "business",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Money Habits Carousel"
+    },
+    {
+      "slug": "morning-coffee-ritual",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "background-images",
+      "images": 0,
+      "name": "Morning Coffee Ritual"
+    },
+    {
+      "slug": "morning-journaling-habit",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Morning Ritual Journaling"
+    },
+    {
+      "slug": "morning-workout-routine",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Morning Workout Q&A"
+    },
+    {
+      "slug": "negotiate-your-raise",
+      "kind": "carousel",
+      "category": "business",
+      "contentMode": "text-only",
+      "images": 6,
+      "name": "Negotiate Your Raise"
+    },
+    {
+      "slug": "new-plant-parent",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 2,
+      "name": "New Plant Parent Pep Talk"
+    },
+    {
+      "slug": "night-sky-guide",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Night Sky Field Guide"
+    },
+    {
+      "slug": "own-the-room",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Own The Room"
+    },
+    {
+      "slug": "pack-light-checklist",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Pack Light Checklist"
+    },
+    {
+      "slug": "permission-to-rest",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Permission To Rest"
+    },
+    {
+      "slug": "personal-fitness-coaching",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Coaching Chat Message"
+    },
+    {
+      "slug": "pitch-craft-rules",
+      "kind": "carousel",
+      "category": "business",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Pitch Craft Rules"
+    },
+    {
+      "slug": "plant-parent-notes",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 6,
+      "name": "Plant Parent Notes"
+    },
+    {
+      "slug": "pre-ride-checklist",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Pre-Ride Checklist"
+    },
+    {
+      "slug": "price-your-worth",
+      "kind": "carousel",
+      "category": "business",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Price Your Worth"
+    },
+    {
+      "slug": "protect-your-focus",
+      "kind": "carousel",
+      "category": "business",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Protect Your Focus"
+    },
+    {
+      "slug": "purrfect-cat-care",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Purrfect Cat Care Tips"
+    },
+    {
+      "slug": "read-without-rushing",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Read Without Rushing"
+    },
+    {
+      "slug": "real-rest-rituals",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Real Rest Rituals"
+    },
+    {
+      "slug": "run-better-meetings",
+      "kind": "carousel",
+      "category": "business",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Run Better Meetings"
+    },
+    {
+      "slug": "run-motivation-quotes",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 5,
+      "name": "Run Motivation Quotes"
+    },
+    {
+      "slug": "salt-it-early",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Salt It Early Cooking Tips"
+    },
+    {
+      "slug": "saturday-market-haul",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-images",
+      "images": 3,
+      "name": "Saturday Market Haul"
+    },
+    {
+      "slug": "say-no-kindly",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Say No Kindly"
+    },
+    {
+      "slug": "season-your-skillet",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Season Your Skillet"
+    },
+    {
+      "slug": "sharpen-your-memory",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Sharpen Your Memory"
+    },
+    {
+      "slug": "skin-barrier-basics",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Skin Barrier Basics"
+    },
+    {
+      "slug": "sky-watching-journal",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Sky Watching Journal"
+    },
+    {
+      "slug": "sleep-habits-break",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Sleep Habits Worth Breaking"
+    },
+    {
+      "slug": "slow-morning-ritual-2",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 1,
+      "name": "Slow Morning Ritual"
+    },
+    {
+      "slug": "slow-morning-ritual",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 1,
+      "name": "Slow Morning Ritual"
+    },
+    {
+      "slug": "smart-study-habits",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Smart Study Habits"
+    },
+    {
+      "slug": "solo-travel-lessons",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 5,
+      "name": "Solo Travel Lessons"
+    },
+    {
+      "slug": "sourdough-starter-guide",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Sourdough Starter Guide"
+    },
+    {
+      "slug": "sourdough-starter-week",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "7-Day Sourdough Ritual"
+    },
+    {
+      "slug": "speak-so-listen",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 6,
+      "name": "Speak So People Listen"
+    },
+    {
+      "slug": "start-creative-hobby",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Start A Creative Hobby"
+    },
+    {
+      "slug": "start-freelancing-now",
+      "kind": "carousel",
+      "category": "business",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Start Freelancing Now"
+    },
+    {
+      "slug": "start-over-today",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Start Over Today"
+    },
+    {
+      "slug": "start-your-craft",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Gentle Nudge Quote"
+    },
+    {
+      "slug": "street-photography-diary",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 2,
+      "name": "Street Photography Diary"
+    },
+    {
+      "slug": "strength-training-rules",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 5,
+      "name": "Strength Training Rules"
+    },
+    {
+      "slug": "study-group-planning",
+      "kind": "single-image",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Study Group Invite"
+    },
+    {
+      "slug": "sunday-reset-ritual",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 4,
+      "name": "Sunday Reset Ritual"
+    },
+    {
+      "slug": "the-attention-diet",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "The Attention Diet"
+    },
+    {
+      "slug": "the-daily-crumb",
+      "kind": "carousel",
+      "category": "business",
+      "contentMode": "text-images",
+      "images": 4,
+      "name": "The Daily Crumb"
+    },
+    {
+      "slug": "the-feedback-loop",
+      "kind": "carousel",
+      "category": "business",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "The Feedback Loop"
+    },
+    {
+      "slug": "the-slow-morning",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 5,
+      "name": "The Slow Morning"
+    },
+    {
+      "slug": "the-vinyl-side",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 3,
+      "name": "The Vinyl Side"
+    },
+    {
+      "slug": "time-blocking-habits",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Time Blocking Habits"
+    },
+    {
+      "slug": "trail-running-guide",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 0,
+      "name": "Trail Running Guide Carousel"
+    },
+    {
+      "slug": "trust-the-darkroom",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-only",
+      "images": 5,
+      "name": "Trust The Darkroom"
+    },
+    {
+      "slug": "vinyl-listening-club",
+      "kind": "carousel",
+      "category": "lifestyle",
+      "contentMode": "text-images",
+      "images": 4,
+      "name": "Vinyl Listening Club"
+    }
+  ]
+}

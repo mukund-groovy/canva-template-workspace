@@ -1,0 +1,352 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap');
+
+      :root{
+        /* Brand role tokens. Accent (neon scribble/fill) stays a FILL-ONLY
+           device — numeral chips, underline bars, pin dots, scribble strokes.
+           Branded copy (brand-word, pretitle chip label) routes through
+           --primary, which stays dark on every palette. Canvas + ink are
+           fixed literals so the journal/paper surface stays AA-legible. */
+        --primary:var(--brand-primary,#221d16);
+        --secondary:var(--brand-secondary,#746b59);
+        --accent:var(--brand-accent,#aef23c);
+        --highlight:var(--brand-accent,#aef23c);
+        --bg:var(--brand-bg,#e3ddd0);
+        --surface:var(--brand-surface,#f7f4ec);
+        --text-high:var(--brand-ink,#221d16);
+        --text-low:var(--brand-text-muted,rgba(34,29,22,.64));
+        --border:var(--brand-border,rgba(34,29,22,.16));
+        --on-fill:var(--brand-on-accent,#182008);
+        --on-primary:var(--brand-on-primary,#f7f4ec);
+      }
+
+      *{box-sizing:border-box;}
+
+      .ig-carousel{display:flex;width:max-content;min-height:1350px;background:#0c0c0c;}
+
+      .slide{
+        width:1080px;height:1350px;flex:none;position:relative;overflow:hidden;
+        background:var(--bg);
+        font-family:'Inter',sans-serif;
+      }
+
+      /* ── paper grain, on every non-photo slide ── */
+      .grain{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;mix-blend-mode:multiply;
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");}
+
+      /* ── full-bleed content photo (cover / closer) ── */
+      .photo{position:absolute;inset:0;z-index:0;}
+      .photo img{width:100%;height:100%;object-fit:cover;display:block;background:#8f9b74;}
+      .photo-scrim{position:absolute;inset:0;z-index:1;
+        background:linear-gradient(180deg, rgba(15,14,10,.52) 0%, rgba(15,14,10,.18) 22%, rgba(15,14,10,.16) 60%, rgba(15,14,10,.62) 100%);}
+
+      /* ── top corner meta row ── */
+      .meta-row{position:absolute;top:54px;left:54px;right:54px;z-index:4;display:flex;align-items:center;justify-content:space-between;}
+      .lockup{display:inline-flex;align-items:center;gap:10px;}
+      .brand-mark-clip{flex:none;height:20px;display:flex;align-items:center;}
+      .brand-mark{height:20px;width:auto;max-width:80px;object-fit:contain;display:block;}
+      .brand-word{font-family:'Inter',sans-serif;font-weight:700;font-size:20px;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);}
+      .meta-right{font-family:'Inter',sans-serif;font-weight:700;font-size:16px;letter-spacing:.14em;text-transform:uppercase;}
+      .on-photo .brand-word,.on-photo .meta-right{color:var(--on-primary,#f7f4ec);}
+
+      /* ── footer row (all slides) ── */
+      .foot{position:absolute;left:54px;right:54px;bottom:46px;z-index:4;display:flex;align-items:center;justify-content:space-between;}
+      .foot .tagline{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;letter-spacing:.13em;text-transform:uppercase;color:var(--text-low);}
+      .on-photo .foot .tagline{color:rgba(247,244,236,.78);}
+      .cg-slide-counter{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;letter-spacing:.13em;color:var(--text-low);}
+      .on-photo .cg-slide-counter{background:var(--accent);color:var(--on-fill);padding:8px 16px;border-radius:999px;}
+
+      /* ── scribble svg decorations (accent, stroke only — never text) ── */
+      svg.doodle{position:absolute;z-index:3;overflow:visible;}
+      svg.doodle path,svg.doodle circle,svg.doodle ellipse,svg.doodle rect{stroke:var(--accent);fill:none;}
+
+      /* ── pretitle chip (filled accent surface) ── */
+      .chip{position:absolute;z-index:4;display:inline-flex;padding:16px 30px;border-radius:999px;background:var(--accent);}
+      .chip span{font-family:'Inter',sans-serif;font-weight:700;font-size:21px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-fill);white-space:nowrap;}
+
+      /* ── title / subtitle text wrappers (cover + closer) ── */
+      .tn-cover-title{position:absolute;left:80px;right:80px;top:592px;z-index:4;text-align:center;}
+      .tn-cover-title h1{
+        margin:0;font-family:'Anton',sans-serif;font-weight:400;font-size:104px;line-height:.94;letter-spacing:-.01em;
+        text-transform:uppercase;color:#f7f4ec;text-align:center;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.1em;
+      }
+      .tn-cover-sub{position:absolute;left:120px;right:120px;top:832px;z-index:4;text-align:center;}
+      .tn-cover-sub p,.tn-cover-sub div{
+        margin:0;font-family:'Caveat',cursive;font-weight:600;font-size:52px;line-height:1.06;color:#f7f4ec;text-align:center;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.18em;
+      }
+      .tn-cover-tagline{position:absolute;left:120px;right:120px;z-index:4;text-align:center;}
+      .tn-cover-tagline div{
+        margin:0;font-family:'Inter',sans-serif;font-weight:700;font-size:22px;letter-spacing:.13em;text-transform:uppercase;color:#f7f4ec;text-align:center;
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.14em;
+      }
+
+      /* ── interior slide title / body ── */
+      .tn-title{position:absolute;left:80px;right:110px;top:150px;z-index:4;}
+      .tn-title h1{
+        margin:0;font-family:'Anton',sans-serif;font-weight:400;font-size:92px;line-height:.98;letter-spacing:-.005em;
+        text-transform:uppercase;color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.12em;
+      }
+
+      .tn-list{position:absolute;left:80px;top:392px;width:430px;z-index:4;}
+      .tn-list div{font-family:'Inter',sans-serif;font-weight:600;font-size:27px;line-height:1.42;color:var(--text-high);}
+
+      .tn-message{position:absolute;left:80px;top:660px;width:430px;z-index:4;}
+      .tn-message p{
+        margin:0;font-family:'Inter',sans-serif;font-weight:400;font-size:27px;line-height:1.42;color:var(--text-low);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;overflow:hidden;padding-bottom:.1em;
+      }
+
+      .callout{position:absolute;left:80px;width:600px;z-index:4;}
+      .callout div{
+        margin:0;font-family:'Anton',sans-serif;font-weight:400;font-size:44px;line-height:1.1;letter-spacing:-.005em;
+        text-transform:uppercase;color:var(--text-high);
+        display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;padding-bottom:.14em;
+      }
+
+      /* ── polaroid photo card ── */
+      .polaroid{position:absolute;z-index:2;background:var(--surface);border-radius:6px;padding:18px 18px 74px 18px;
+        box-shadow:0 24px 48px rgba(20,16,8,.28);}
+      .polaroid img{display:block;width:100%;height:100%;object-fit:cover;background:#8f9b74;border-radius:1px;}
+      /* second card in a two-card stack is a decorative pressed-texture swatch,
+         never a second photo slot (only the first content photo is ever replaced) */
+      .polaroid .swatch{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:1px;
+        background:linear-gradient(135deg,#9aa678 0%,#7f8c62 55%,#8f9b74 100%);}
+      .polaroid .swatch svg{width:38%;height:38%;stroke:rgba(255,255,255,.55);fill:none;}
+      .polaroid .cap{position:absolute;left:0;right:0;bottom:12px;text-align:center;line-height:1.6;padding-bottom:.3em;
+        font-family:'Caveat',cursive;font-weight:700;font-size:30px;color:#332c1f;}
+
+      /* ── numeral / pin dot filled accent devices ── */
+      .pin{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--accent);z-index:5;
+        box-shadow:0 3px 6px rgba(20,16,8,.35);}
+
+      /* ── field-log strip: fills the lower band on content slides, and is a
+         real brand-fill device (divider + dots), not just decoration ── */
+      .field-log{position:absolute;left:80px;right:80px;top:1040px;z-index:4;}
+      .field-log .rule{height:28px;width:100%;margin-bottom:24px;border-radius:2px;opacity:.85;
+        background:repeating-linear-gradient(135deg, var(--accent) 0 10px, color-mix(in srgb, var(--accent) 55%, transparent) 10px 20px);}
+      .field-log .tags{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+      .field-log .tag{display:flex;align-items:center;gap:10px;}
+      .field-log .tag i{width:9px;height:9px;border-radius:50%;background:var(--accent);display:block;flex:none;}
+      .field-log .tag span{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-high);white-space:nowrap;}
+
+      /* ── field stamp: recurring seal motif, bottom-left, above the footer ── */
+      .stamp{position:absolute;left:80px;top:1128px;width:118px;height:118px;border-radius:50%;
+        background:var(--accent);display:flex;align-items:center;justify-content:center;z-index:4;
+        box-shadow:0 10px 22px rgba(20,16,8,.22);}
+      .stamp span{font-family:'Caveat',cursive;font-weight:700;font-size:22px;line-height:1.15;color:var(--on-fill);text-align:center;padding:0 16px;}
+    </style>
+  </head>
+
+  <body>
+    <div class="ig-carousel">
+
+      <!-- Slide 1 — Cover -->
+      <section class="slide on-photo" data-cg-slide-type="cover">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="A woman in a linen apron kneeling in a sunlit backyard vegetable garden, tending tomato plants, warm golden-hour light, editorial lifestyle photo" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/garden-year-recap/slide-01.png"></div>
+        <div class="photo-scrim" aria-hidden="true"></div>
+        <div class="grain" aria-hidden="true"></div>
+
+        <div class="meta-row">
+          <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.45%22/%3E%3C/svg%3E"></span><span class="brand-word">Greenthumb Journal</span></span>
+          <span class="meta-right">field notes</span>
+        </div>
+
+        <!-- all cover decoration lives ABOVE the title's top edge (592px) — the
+             title/subtitle text is a growth lane (stress-test copy can run to many
+             lines), so no art sits inside or below it; only the fixed chip does. -->
+        <svg class="doodle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 100 100" style="left:112px;top:130px;width:88px;height:88px" aria-hidden="true" focusable="false"><path d="M50 6 L58 42 L94 50 L58 58 L50 94 L42 58 L6 50 L42 42 Z" stroke-width="7" stroke-linejoin="round"></path></svg>
+        <svg class="doodle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 140 140" style="left:846px;top:150px;width:120px;height:120px" aria-hidden="true" focusable="false"><ellipse cx="70" cy="70" rx="58" ry="52" stroke-width="8" transform="rotate(-6 70 70)"></ellipse></svg>
+        <svg class="doodle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 260 60" style="left:660px;top:360px;width:220px;height:52px" aria-hidden="true" focusable="false"><path d="M4 30C60 4 150 2 216 20" stroke-width="8" stroke-linecap="round"></path><path d="M192 2L222 18L196 40" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+
+        <div class="chip" style="left:50%;top:522px;transform:translateX(-50%);"><span data-tagline="true">(2024) growing season recap</span></div>
+        <div class="tn-cover-title"><h1 data-title="true">My Year in<br>the Garden</h1></div>
+        <div class="tn-cover-sub"><p data-message="true">one backyard,<br>one full season</p></div>
+
+        <div class="foot">
+          <span class="tagline">greenthumb journal</span>
+          <span class="cg-slide-counter" data-counter="true">01/05</span>
+        </div>
+      </section>
+
+      <!-- Slide 2 — This season in numbers -->
+      <section class="slide" data-cg-slide-type="content">
+        <div class="grain" aria-hidden="true"></div>
+
+        <div class="meta-row">
+          <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.45%22/%3E%3C/svg%3E"></span><span class="brand-word">Greenthumb Journal</span></span>
+          <span class="meta-right">field notes</span>
+        </div>
+
+        <svg class="doodle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 100 100" style="left:820px;top:110px;width:76px;height:76px" aria-hidden="true" focusable="false"><path d="M50 4 L54 40 L92 44 L54 52 L50 92 L46 52 L8 44 L46 40 Z" stroke-width="7" stroke-linejoin="round"></path></svg>
+
+        <div class="tn-title"><h1 data-title="true">This Season<br>in Numbers</h1></div>
+
+        <div class="tn-list" aria-hidden="false">
+          <div>38 tomatoes harvested</div>
+          <div>14 new plants grown from seed</div>
+          <div>3 raised beds built by hand</div>
+          <div>1 very proud compost bin</div>
+        </div>
+
+        <div class="tn-message"><p data-message="true">These aren't just numbers. They're proof I showed up every weekend, got my hands in the dirt, and let something slow and real take root.</p></div>
+
+        <div class="polaroid" style="right:70px;top:196px;width:390px;height:474px;transform:rotate(4deg);">
+          <img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="Close-up of hands harvesting ripe red tomatoes from a garden vine into a wicker basket, natural daylight" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/garden-year-recap/slide-02.png">
+          <span class="cap">we grew it</span>
+        </div>
+        <span class="pin" style="right:250px;top:180px;"></span>
+
+        <div class="polaroid" style="right:150px;top:730px;width:236px;height:262px;transform:rotate(-7deg);">
+          <span class="swatch"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M32 56V26M32 26C32 14 22 8 12 8C12 20 20 28 32 26ZM32 26C32 14 42 8 52 8C52 20 44 28 32 26Z" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"></path></svg></span>
+        </div>
+
+        <div class="callout" style="top:918px;"><div>still growing,<br>one week at a time</div></div>
+        <div class="stamp"><span>grown<br>with care</span></div>
+
+        <div class="field-log">
+          <div class="rule"></div>
+          <div class="tags">
+            <div class="tag"><i></i><span>sown april</span></div>
+            <div class="tag"><i></i><span>tended weekly</span></div>
+            <div class="tag"><i></i><span>harvested october</span></div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span class="tagline">greenthumb journal</span>
+          <span class="cg-slide-counter" data-counter="true">02/05</span>
+        </div>
+      </section>
+
+      <!-- Slide 3 — Biggest milestone -->
+      <section class="slide" data-cg-slide-type="content">
+        <div class="grain" aria-hidden="true"></div>
+
+        <div class="meta-row">
+          <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.45%22/%3E%3C/svg%3E"></span><span class="brand-word">Greenthumb Journal</span></span>
+          <span class="meta-right">field notes</span>
+        </div>
+
+        <svg class="doodle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 300 60" style="left:820px;top:110px;width:280px;height:60px" aria-hidden="true" focusable="false"><path d="M4 40C70 6 180 4 276 26" stroke-width="8" stroke-linecap="round"></path><path d="M248 6L280 24L252 46" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <svg class="doodle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 140 130" style="left:872px;top:826px;width:140px;height:130px" aria-hidden="true" focusable="false"><path d="M70 118C30 92 8 60 22 34C34 12 62 12 70 34C78 12 106 12 118 34C132 60 110 92 70 118Z" stroke-width="8" stroke-linejoin="round"></path></svg>
+
+        <div class="tn-title"><h1 data-title="true">My Biggest<br>Harvest</h1></div>
+
+        <div class="tn-list">
+          <div style="margin-bottom:10px;font-weight:700;">This season I:</div>
+          <div>•&nbsp; Grew tomatoes from seed, start to finish</div>
+          <div>•&nbsp; Built my first raised garden bed</div>
+        </div>
+
+        <div class="tn-message" style="top:600px;"><p data-message="true">I used to think I only killed plants. Now a whole bed is thriving because I kept showing up, even on the weeks nothing seemed to change.</p></div>
+
+        <div class="callout" style="top:840px;width:460px;"><div>small, consistent<br>steps did this</div></div>
+        <div class="stamp"><span>seed to<br>harvest</span></div>
+
+        <div class="polaroid" style="right:96px;top:190px;width:340px;height:352px;transform:rotate(-3deg);">
+          <img data-image="true" data-image-size="1024x1024" alt="" data-image-prompt="Overhead shot of a backyard raised garden bed bursting with vegetables and herbs, top-down flat lay, natural light" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/garden-year-recap/slide-03.png">
+          <span class="cap">so proud</span>
+        </div>
+        <div class="polaroid" style="right:150px;top:640px;width:270px;height:310px;transform:rotate(6deg);">
+          <span class="swatch"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="20" stroke-width="4"></circle><path d="M32 12V4M32 60V52M12 32H4M60 32H52" stroke-width="4" stroke-linecap="round"></path></svg></span>
+        </div>
+
+        <div class="field-log">
+          <div class="rule"></div>
+          <div class="tags">
+            <div class="tag"><i></i><span>seed to sprout</span></div>
+            <div class="tag"><i></i><span>bed built by hand</span></div>
+            <div class="tag"><i></i><span>still learning</span></div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span class="tagline">greenthumb journal</span>
+          <span class="cg-slide-counter" data-counter="true">03/05</span>
+        </div>
+      </section>
+
+      <!-- Slide 4 — Project that stole my heart -->
+      <section class="slide" data-cg-slide-type="content">
+        <div class="grain" aria-hidden="true"></div>
+
+        <div class="meta-row">
+          <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.45%22/%3E%3C/svg%3E"></span><span class="brand-word">Greenthumb Journal</span></span>
+          <span class="meta-right">field notes</span>
+        </div>
+
+        <svg class="doodle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 320 90" style="left:786px;top:126px;width:280px;height:80px" aria-hidden="true" focusable="false"><path d="M8 66C90 84 210 40 270 12" stroke-width="8" stroke-linecap="round"></path></svg>
+        <svg class="doodle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 160 160" style="left:790px;top:308px;width:120px;height:120px" aria-hidden="true" focusable="false"><ellipse cx="80" cy="80" rx="66" ry="60" stroke-width="8" transform="rotate(-8 80 80)"></ellipse></svg>
+
+        <div class="tn-title"><h1 data-title="true">The Bed That<br>Stole My Heart</h1></div>
+
+        <div class="tn-list">
+          <div>Project: pollinator corner</div>
+          <div>Season: high summer</div>
+        </div>
+
+        <div class="tn-message" style="top:530px;"><p data-message="true">This bed reminded me why I started. Watching bees find the zinnias for the first time was the whole season, worth every sore knee.</p></div>
+
+        <div class="callout" style="top:800px;width:460px;"><div>petals over<br>perfection</div></div>
+        <span class="pin" style="left:340px;top:958px;"></span>
+        <div class="stamp"><span>full<br>bloom</span></div>
+
+        <div class="polaroid" style="right:80px;top:210px;width:400px;height:498px;transform:rotate(3deg);">
+          <img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="Bright bouquet-style flower bed with zinnias and cosmos in full bloom, shallow depth of field, soft afternoon light" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/garden-year-recap/slide-04.png">
+          <span class="cap">love it here</span>
+        </div>
+
+        <div class="polaroid" style="right:150px;top:706px;width:280px;height:314px;transform:rotate(6deg);">
+          <span class="swatch"><svg data-cg-svg="" data-cg-preserve="" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M32 8C40 20 48 28 48 38C48 47 41 54 32 54C23 54 16 47 16 38C16 28 24 20 32 8Z" stroke-width="4" stroke-linejoin="round"></path></svg></span>
+        </div>
+
+        <div class="field-log">
+          <div class="rule"></div>
+          <div class="tags">
+            <div class="tag"><i></i><span>pollinator corner</span></div>
+            <div class="tag"><i></i><span>zinnia + cosmos</span></div>
+            <div class="tag"><i></i><span>high summer bloom</span></div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span class="tagline">greenthumb journal</span>
+          <span class="cg-slide-counter" data-counter="true">04/05</span>
+        </div>
+      </section>
+
+      <!-- Slide 5 — Closer -->
+      <section class="slide on-photo" data-cg-slide-type="cover">
+        <div class="photo"><img data-image="true" data-image-size="1024x1536" alt="" data-image-prompt="Close-up portrait of a gardener smiling and holding a bundle of freshly cut sunflowers and herbs, soft natural backlight" src="https://aicontentcreationnonprod.blob.core.windows.net/dev/social-templates/garden-year-recap/slide-05.png"></div>
+        <div class="photo-scrim" aria-hidden="true"></div>
+        <div class="grain" aria-hidden="true"></div>
+
+        <div class="meta-row">
+          <span class="lockup"><span class="brand-mark-clip"><img class="brand-mark" data-brand-logo="" alt="" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%226%22%20fill=%22%23808080%22%20fill-opacity=%220.45%22/%3E%3C/svg%3E"></span><span class="brand-word">Greenthumb Journal</span></span>
+          <span class="meta-right">field notes</span>
+        </div>
+
+        <!-- decoration stays above the tagline/title lane (top edge 452px) so
+             stress-length title/message copy never grows underneath it -->
+        <svg class="doodle" data-cg-svg="" data-cg-preserve="" viewBox="0 0 90 90" style="left:800px;top:190px;width:74px;height:74px" aria-hidden="true" focusable="false"><path d="M45 4 L50 36 L82 40 L50 46 L45 82 L40 46 L8 40 L40 36 Z" stroke-width="7" stroke-linejoin="round"></path></svg>
+
+        <div class="tn-cover-tagline" style="top:452px;"><div data-tagline="true">follow for more field notes (&amp;)</div></div>
+        <div class="tn-cover-title" style="top:520px;"><h1 data-title="true">See You<br>Next Season</h1></div>
+        <div class="tn-cover-sub" style="top:760px;"><p data-message="true" style="font-size:44px;">grow with me</p></div>
+
+        <div class="foot">
+          <span class="chip" style="position:static;"><span data-cta="true">plant something this week</span></span>
+          <span class="cg-slide-counter" data-counter="true">05/05</span>
+        </div>
+      </section>
+
+    </div>
+  
+
+</body></html>
